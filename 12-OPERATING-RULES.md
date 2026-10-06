@@ -27,11 +27,89 @@ Small, coherent commits are preferred.
 
 Every commit must be explainable in one sentence.
 
-## Rule 4 — Update the ledger
+## Rule 4 — Application commit synchronization is mandatory
 
-Every application commit gets a MongoDB ledger record.
+Whenever a commit is made to the application repository `yashbhoomkar/tech-katta`, the work is **not complete** after the application commit alone.
 
-This is mandatory.
+The mandatory sequence is:
+
+```
+1. Modify frontend/backend/application
+2. Commit to GitHub
+3. Obtain full application commit SHA
+4. Update MongoDB commit ledger
+5. Update this context repository's documentation
+6. Commit the context-repository documentation update
+7. Deploy/verify when required
+```
+
+This applies when the change affects:
+- frontend
+- backend
+- both frontend and backend
+- deployment configuration
+- scripts
+- CI/CD
+- security
+- architecture
+- content schema
+- important operational behavior
+
+### MongoDB ledger requirement
+
+The application commit must be recorded in the appropriate MongoDB collection:
+
+- frontend → `frontend_git_commits`
+- backend → `backend_git_commits`
+- both → both collections when appropriate
+
+Record:
+
+```json
+{
+  "key": "<full application Git SHA>",
+  "value": "<concise description of the change>"
+}
+```
+
+### Context repository requirement
+
+After updating MongoDB, update `tech-katta-context` so the documentation reflects the new application state.
+
+At minimum, update the appropriate documentation file(s). Depending on the change, this may include:
+- `13-CURRENT-STATE.md`
+- `10-GIT-HISTORY.md`
+- `03-FRONTEND.md`
+- `04-BACKEND.md`
+- `05-CONTENT-MODEL.md`
+- `06-INFRA-DEPLOYMENT.md`
+- `07-SECURITY-RELIABILITY.md`
+- `08-TESTING-VALIDATION.md`
+- `09-MOBILE-SWIPE.md`
+- `14-OVERFLOW-ARCHITECTURE.md`
+
+The context update should normally include:
+- application commit SHA
+- what changed
+- resulting behavior
+- deployment/verification status when relevant
+- any new unresolved issue or architectural decision
+
+Then commit the context update to `tech-katta-context`.
+
+### Final invariant
+
+For every meaningful application change, there should be three synchronized records:
+
+```
+Tech Katta Git commit
+        |
+        +--> MongoDB commit ledger
+        |
+        +--> tech-katta-context documentation
+```
+
+A future AI session must be able to understand the change from either the Git history or the context repository.
 
 ## Rule 5 — Do not touch MongoDB content casually
 
@@ -176,3 +254,5 @@ When a change materially affects:
 update the appropriate context file.
 
 The context repository should evolve with the application.
+
+This is not optional when the change is part of the application commit synchronization workflow in Rule 4.

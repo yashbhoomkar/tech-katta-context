@@ -78,7 +78,7 @@ Collection:
 It currently contains historical records, including entries such as:
 - `feb1e02b8f05c872498f56900b819d3bfe11c8e8`
 - `fe05fcc1fee6980fb2b096d526f40b7ad20ea834`
-- `fce4de930fe7923dce243543964c06cbff974535`
+- `fce4de930fe7923dce243964c06cbff974535`
 - `f101d1c9f66d4de7f7ddf3d60fe3928e1e9e090c`
 - `c09c34c07e69acbfdbc05e19c16b0586813b55b9`
 - `bdef2d1cc4a2a74e7736811d0dcc0c49cbee8d75`
@@ -86,31 +86,66 @@ It currently contains historical records, including entries such as:
 
 Do not use it as the primary future write target unless the user explicitly asks. The canonical split is frontend/backend collections.
 
+## Mandatory synchronization workflow
+
+The MongoDB ledger update is only the **middle step**, not the end of the documentation workflow.
+
+For every application commit:
+
+```
+Tech Katta application commit
+        |
+        +--> MongoDB ledger update
+        |
+        +--> tech-katta-context documentation update
+```
+
+The required order is:
+
+1. Commit the application change to `yashbhoomkar/tech-katta`.
+2. Capture the full Git SHA.
+3. Update the appropriate MongoDB ledger collection(s).
+4. Update the relevant Markdown documentation in `yashbhoomkar/tech-katta-context`.
+5. Commit those documentation changes to `tech-katta-context`.
+6. Verify the context repository commit.
+7. If the application was deployed, record deployment/verification status in the context documentation when relevant.
+
+### What the context update should capture
+
+At minimum:
+- application commit SHA
+- concise change description
+- affected subsystem
+- new behavior
+- deployment status if applicable
+- testing/verification status
+- new architecture/security/operational decision if applicable
+
+This makes the context repository a continuously maintained second source of project memory.
+
 ## Classification caveat
 
 Some historical commits touch shared files such as deployment configuration, workflows, or project-wide files. Earlier backfill classification used commit-message heuristics and therefore can have overlap.
 
 If exact classification matters, inspect the commit's changed files rather than relying on the collection classification.
 
-## Required future workflow
+## Required future ledger record
 
 Whenever a new application commit is created:
 
-1. obtain the full Git SHA
-2. determine what changed
-3. choose:
-   - frontend collection
-   - backend collection
-   - both when appropriate
-4. insert:
-   ```json
-   {
-     "key": "<full SHA>",
-     "value": "<concise change description>"
-   }
-   ```
-5. rely on `key_unique` to prevent duplicates
-6. verify insertion when practical
+```json
+{
+  "key": "<full SHA>",
+  "value": "<concise change description>"
+}
+```
+
+Choose:
+- frontend collection
+- backend collection
+- both when appropriate
+
+Rely on `key_unique` to prevent duplicates.
 
 ## Never store secrets
 
