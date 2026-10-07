@@ -92,6 +92,29 @@ Invalid slugs return 404.
 
 Article content is normalized before being returned.
 
+## Vercel control layer
+
+The backend now contains a small internal Vercel API client at:
+
+- `backend/src/vercel/client.js`
+
+It uses Node 22's native `fetch` and Vercel's REST API directly rather than the ChatGPT Vercel MCP connection.
+
+Required runtime secret:
+- `VERCEL_ACCESS_TOKEN`
+
+Optional team scope:
+- `VERCEL_TEAM_ID`
+
+The access token is read only from the environment and must never be committed.
+
+The client currently provides the authenticated request primitive used by the Vercel operations layer. This is an internal control capability; it is not exposed as a public Express endpoint.
+
+Application commit introducing this layer:
+`c3ef3c23e5c7450ef4e409765f2b767eb60071c5`
+
+Deployment/remote execution of the client itself has not been verified yet.
+
 ## HTTP hardening
 
 Production requires:
