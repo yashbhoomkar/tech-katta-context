@@ -12,9 +12,18 @@ Branch:
 `main`
 
 Current HEAD:
-`c3ef3c23e5c7450ef4e409765f2b767eb60071c5`
+`5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
 
-Latest backend commit adds an environment-backed Vercel REST client. The token is not stored in Git.
+Latest backend commit adds a stdio Vercel MCP server on top of the environment-backed Vercel REST client. The token is not stored in Git.
+
+Vercel control tooling:
+- REST client: `backend/src/vercelClient.js`
+- CLI: `backend/scripts/vercel-control.mjs`
+- MCP: `backend/scripts/vercel-mcp.mjs`
+- runtime secret: `VERCEL_ACCESS_TOKEN`
+- optional team scope: `VERCEL_TEAM_ID`
+
+Local protocol testing passed for MCP initialization and tool discovery. Real Vercel API execution remains pending from the current runtime because `api.vercel.com` is unreachable here.
 
 Commit:
 **Open sidebar on home swipe right**

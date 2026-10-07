@@ -2,14 +2,24 @@
 
 ## Current main
 
-At context creation time:
+Current main:
 
-`main = 6af1c16793d4f4dd3b9e76ce04898a9f84ba07e1`
+`main = 5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
 
-Commit:
-**Open sidebar on home swipe right**
+Latest application commit:
+**feat(backend): add Vercel MCP server**
 
-This commit is the latest documented production implementation point.
+Previous Vercel control commits:
+- `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — add environment-backed Vercel REST client
+- `d896750ba7cd321302c66e8f84da7aae7cf31e21` — add Vercel control CLI
+- `6710e4f81615a7087a92b6292bf38144ee625858` — add Vercel control package script
+- `2ff980493796e063c09ce7f5dd84969d5c32e905` — fix Vercel control CLI ESM syntax
+- `7145519d78d786a80cdfb5b30bb3dd7079f8e16a` — add CI syntax checks for Vercel tooling
+
+Latest application implementation point:
+`5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
+
+The Vercel MCP is implemented but its token-authenticated remote execution is not yet verified from the current environment.
 
 ## Project origin
 

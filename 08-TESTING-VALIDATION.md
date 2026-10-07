@@ -25,6 +25,22 @@ CI runs:
 - node --check src/db.js
 - node --check src/seed.js
 
+### Vercel control-layer validation
+
+The Vercel MCP server was locally protocol-tested with:
+- `initialize`
+- `tools/list`
+
+The server returned a valid JSON-RPC handshake and all six declared Vercel tools.
+
+This does **not** prove:
+- the supplied Vercel token is valid
+- the token has access to the team scope
+- the Vercel REST API is reachable from the runtime
+- a real Vercel deployment was successfully inspected through the new MCP
+
+The current environment could not resolve/reach `api.vercel.com`, so token-authenticated remote execution remains pending.
+
 ### 3. Deployment validation
 
 Backend deployment verifies:

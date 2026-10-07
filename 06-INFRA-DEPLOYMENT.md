@@ -41,6 +41,28 @@ A separate newly opened ChatGPT conversation using the same account was able to 
 
 Do not interpret that 403 as a Tech Katta deployment failure.
 
+## Internal Vercel control
+
+The backend now includes an environment-authenticated Vercel control layer independent of the ChatGPT Vercel MCP integration:
+
+- REST client: `backend/src/vercelClient.js`
+- one-shot CLI: `backend/scripts/vercel-control.mjs`
+- stdio MCP server: `backend/scripts/vercel-mcp.mjs`
+
+Runtime configuration:
+- `VERCEL_ACCESS_TOKEN` — required, secret
+- `VERCEL_TEAM_ID` — optional, currently intended for `yashbhoomkars-projects`
+
+The token is never stored in Git or documentation. The MCP server is an internal process, not a public Tech Katta API endpoint.
+
+The server can be started with:
+
+`cd backend && npm run vercel:mcp`
+
+The currently implemented MCP surface is read-oriented: projects, deployments, deployment events, and project domains. Write operations should be added only when an explicit operational need exists.
+
+The MCP handshake and tool discovery were tested locally. Actual token-authenticated Vercel API execution from this environment is still pending because this runtime cannot reach `api.vercel.com`.
+
 ## GitHub Actions
 
 ### Frontend CI

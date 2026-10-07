@@ -94,11 +94,17 @@ Article content is normalized before being returned.
 
 ## Vercel control layer
 
-The backend now contains a small internal Vercel API client at:
+The backend contains an internal Vercel REST client at:
 
-- `backend/src/vercel/client.js`
+- `backend/src/vercelClient.js`
 
 It uses Node 22's native `fetch` and Vercel's REST API directly rather than the ChatGPT Vercel MCP connection.
+
+The backend also contains a stdio MCP server at:
+
+- `backend/scripts/vercel-mcp.mjs`
+
+It exposes allowlisted read/control tools for projects, deployments, deployment events, and project domains. It is intentionally not exposed through the public Express API.
 
 Required runtime secret:
 - `VERCEL_ACCESS_TOKEN`
@@ -108,12 +114,19 @@ Optional team scope:
 
 The access token is read only from the environment and must never be committed.
 
-The client currently provides the authenticated request primitive used by the Vercel operations layer. This is an internal control capability; it is not exposed as a public Express endpoint.
+The MCP process communicates over stdin/stdout using JSON-RPC and can be launched with:
 
-Application commit introducing this layer:
-`c3ef3c23e5c7450ef4e409765f2b767eb60071c5`
+`npm run vercel:mcp`
 
-Deployment/remote execution of the client itself has not been verified yet.
+The existing one-shot CLI remains available through:
+
+`npm run vercel:control -- projects`
+
+Application commits:
+- `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — environment-backed Vercel REST client
+- `5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3` — stdio Vercel MCP server
+
+The MCP protocol handshake and tool listing were locally syntax/protocol tested. Token-authenticated remote execution from this ChatGPT environment remains unverified because its outbound network path cannot reach the Vercel API directly.
 
 ## HTTP hardening
 
