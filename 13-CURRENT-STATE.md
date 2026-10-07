@@ -12,7 +12,7 @@ Branch:
 `main`
 
 Current HEAD:
-`5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
+`be43ac62082617f0f89163a417347a1720b528d7`
 
 Latest backend commit adds a stdio Vercel MCP server on top of the environment-backed Vercel REST client. The token is not stored in Git.
 
@@ -23,7 +23,7 @@ Vercel control tooling:
 - runtime secret: `VERCEL_ACCESS_TOKEN`
 - optional team scope: `VERCEL_TEAM_ID`
 
-Local protocol testing passed for MCP initialization and tool discovery. Real Vercel API execution remains pending from the current runtime because `api.vercel.com` is unreachable here.
+Local protocol testing passed for MCP initialization and tool discovery. The effective implementation remains the existing `backend/src/vercelClient.js` + `backend/scripts/vercel-control.mjs` + `backend/scripts/vercel-mcp.mjs` design. During a follow-up implementation attempt, duplicate files under `backend/src/vercel/` were briefly created and then removed; those corrective commits are recorded in the backend MongoDB ledger. No Vercel credential was committed. Real token-authenticated Vercel API execution remains unverified from this ChatGPT runtime because its direct outbound network path cannot reach `api.vercel.com`.
 
 Commit:
 **Open sidebar on home swipe right**
