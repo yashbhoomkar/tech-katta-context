@@ -1,6 +1,6 @@
 # Current State Snapshot
 
-**Snapshot date:** 2026-10-06
+**Snapshot date:** 2026-10-07
 
 This file records what was actually observed during context creation.
 
@@ -12,7 +12,9 @@ Branch:
 `main`
 
 Current HEAD:
-`6af1c16793d4f4dd3b9e76ce04898a9f84ba07e1`
+`c3ef3c23e5c7450ef4e409765f2b767eb60071c5`
+
+Latest backend commit adds an environment-backed Vercel REST client. The token is not stored in Git.
 
 Commit:
 **Open sidebar on home swipe right**
