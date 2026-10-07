@@ -122,6 +122,12 @@ The existing one-shot CLI remains available through:
 
 `npm run vercel:control -- projects`
 
+The control layer now also exposes `cancelDeployment(idOrUrl)`, with the CLI command:
+
+`npm run vercel:control -- cancel <deployment-id>`
+
+The stdio MCP exposes this as `vercel_cancel_deployment`. This is an explicit control operation; arbitrary Vercel endpoints are intentionally not exposed.
+
 Application commits:
 - `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — environment-backed Vercel REST client
 - `5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3` — stdio Vercel MCP server

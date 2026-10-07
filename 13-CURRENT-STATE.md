@@ -12,9 +12,9 @@ Branch:
 `main`
 
 Current HEAD:
-`be43ac62082617f0f89163a417347a1720b528d7`
+`f66350c1ae71a6008bd738eaeb5f617d5a292f17`
 
-Latest backend commit adds a stdio Vercel MCP server on top of the environment-backed Vercel REST client. The token is not stored in Git.
+Latest backend commit extends the custom Vercel REST/MCP control layer with deployment cancellation. The token is not stored in Git.
 
 Vercel control tooling:
 - REST client: `backend/src/vercelClient.js`
@@ -23,10 +23,10 @@ Vercel control tooling:
 - runtime secret: `VERCEL_ACCESS_TOKEN`
 - optional team scope: `VERCEL_TEAM_ID`
 
-Local protocol testing passed for MCP initialization and tool discovery. The effective implementation remains the existing `backend/src/vercelClient.js` + `backend/scripts/vercel-control.mjs` + `backend/scripts/vercel-mcp.mjs` design. During a follow-up implementation attempt, duplicate files under `backend/src/vercel/` were briefly created and then removed; those corrective commits are recorded in the backend MongoDB ledger. No Vercel credential was committed. Real token-authenticated Vercel API execution remains unverified from this ChatGPT runtime because its direct outbound network path cannot reach `api.vercel.com`.
+Local protocol testing previously passed for MCP initialization and tool discovery. The effective implementation is `backend/src/vercelClient.js` + `backend/scripts/vercel-control.mjs` + `backend/scripts/vercel-mcp.mjs`; the MCP is allowlisted rather than a generic endpoint proxy. Deployment cancellation is now available through the CLI and MCP. No Vercel credential was committed. Real token-authenticated Vercel API execution remains unverified from this ChatGPT runtime because its direct outbound network path cannot reach `api.vercel.com`.
 
-Commit:
-**Open sidebar on home swipe right**
+Latest application commit:
+`f66350c1ae71a6008bd738eaeb5f617d5a292f17` — extend custom Vercel control layer with deployment cancellation.
 
 ## Frontend
 

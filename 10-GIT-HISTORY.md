@@ -4,10 +4,10 @@
 
 Current main:
 
-`main = 5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
+`main = f66350c1ae71a6008bd738eaeb5f617d5a292f17`
 
 Latest application commit:
-**feat(backend): add Vercel MCP server**
+**feat(backend): extend custom Vercel control layer**
 
 Previous Vercel control commits:
 - `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — add environment-backed Vercel REST client
@@ -19,7 +19,7 @@ Previous Vercel control commits:
 Latest application implementation point:
 `5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
 
-The Vercel MCP is implemented but its token-authenticated remote execution is not yet verified from the current environment.
+The Vercel MCP is implemented with an allowlisted tool surface. Deployment cancellation is available through both the CLI and MCP. Token-authenticated remote execution is not yet verified from this ChatGPT runtime.
 
 ## Project origin
 
