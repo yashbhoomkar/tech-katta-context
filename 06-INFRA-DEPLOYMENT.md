@@ -43,25 +43,24 @@ Do not interpret that 403 as a Tech Katta deployment failure.
 
 ## Internal Vercel control
 
-The backend now includes an environment-authenticated Vercel control layer independent of the ChatGPT Vercel MCP integration:
+The backend now contains an environment-authenticated Vercel REST client independent of the ChatGPT Vercel MCP integration:
 
-- REST client: `backend/src/vercelClient.js`
-- one-shot CLI: `backend/scripts/vercel-control.mjs`
-- stdio MCP server: `backend/scripts/vercel-mcp.mjs`
+- `backend/src/vercel-control.js`
 
-Runtime configuration:
-- `VERCEL_ACCESS_TOKEN` — required, secret
-- `VERCEL_TEAM_ID` — optional, currently intended for `yashbhoomkars-projects`
+Application commit:
+- `58dd2890658299f72ac11d8ebccf17d1fdc37341` — add internal Vercel REST control client
 
-The token is never stored in Git or documentation. The MCP server is an internal process, not a public Tech Katta API endpoint.
+The module uses Node 22 native `fetch` and requires:
+- `VERCEL_ACCESS_TOKEN` — secret
+- `VERCEL_TEAM_ID` — optional; defaults to `team_ESVBoCGScxPRCW4TxwcTeJCg`
 
-The server can be started with:
+Supported operations cover projects, deployments, deployment inspection, deployment cancellation, and an access check. It can be run directly:
 
-`cd backend && npm run vercel:mcp`
+`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel-control.js check`
 
-The currently implemented MCP surface is read-oriented: projects, deployments, deployment events, and project domains. Write operations should be added only when an explicit operational need exists.
+The token is never stored in Git or documentation. The control layer is not exposed through the public Express API.
 
-The MCP handshake and tool discovery were tested locally. Actual token-authenticated Vercel API execution from this environment is still pending because this runtime cannot reach `api.vercel.com`.
+Token-authenticated Vercel API execution remains pending until this file is run from the VPS or another network-enabled environment because this ChatGPT runtime cannot reach `api.vercel.com`.
 
 ## GitHub Actions
 
