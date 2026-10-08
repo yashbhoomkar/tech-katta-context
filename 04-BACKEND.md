@@ -144,7 +144,7 @@ CORS is restricted to that origin.
 
 Express:
 - `app.disable('x-powered-by')`
-- `app.set('trust proxy', 1)
+- `app.set('trust proxy', 1)`
 
 Security headers:
 - X-Content-Type-Options: nosniff
