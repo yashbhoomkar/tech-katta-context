@@ -94,46 +94,46 @@ Article content is normalized before being returned.
 
 ## Internal Vercel control layer
 
-Application commit:
-- `58dd2890658299f72ac11d8ebccf17d1fdc37341` — add internal Vercel REST control client
+Application commits:
+- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add environment-authenticated Vercel REST client
+- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add internal Vercel control layer and CLI
 
 Implementation:
-- `backend/src/vercel-control.js`
+- `backend/src/vercel/client.js`
+- `backend/src/vercel/projects.js`
+- `backend/src/vercel/deployments.js`
+- `backend/src/vercel/index.js`
 
-This is a server-side JavaScript module plus one-shot CLI. It uses Node 22's native `fetch` and talks directly to the Vercel REST API, independently of the ChatGPT Vercel MCP integration.
+This is a private server-side control layer using Node 22's native `fetch`. It talks directly to the Vercel REST API and is independent of the ChatGPT Vercel MCP integration.
 
 Supported operations:
-- `listProjects()`
-- `getProject(idOrName)`
-- `listDeployments({ projectId })`
-- `getDeployment(idOrUrl)`
-- `cancelDeployment(id)`
-- `checkAccess()`
+- list projects
+- inspect a project
+- list deployments
+- inspect a deployment with Git repository metadata
+- list project domains
 
-CLI usage:
+CLI:
 
-`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel-control.js check`
+`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel/index.js projects`
 
 Other commands:
-- `projects`
 - `project <project-id-or-name>`
-- `deployments [project-id-or-name]`
-- `deployment <deployment-id-or-url>`
-- `cancel <deployment-id>`
+- `deployments [project-id] [limit]`
+- `inspect <deployment-id-or-url>`
+- `domains <project-id-or-name>`
 
 Runtime configuration:
 - `VERCEL_ACCESS_TOKEN` — required secret
-- `VERCEL_TEAM_ID` — optional; defaults to the Tech Katta Vercel team
+- `VERCEL_TEAM_ID` — optional team scope
 
-The token is read only from the process environment and is not stored in Git, MongoDB, or the context repository.
+The token is read only from the process environment. It is not stored in Git, MongoDB, or this context repository.
 
-The control layer is intentionally not exposed as a public Express endpoint. This keeps Vercel administrative capability out of the public Tech Katta API surface.
+The control layer is intentionally not exposed as a public Express route. It is an internal administrative capability that can later be wrapped by an authenticated MCP/admin process.
 
 ### Verification status
 
-The application commit was successfully created and recorded in the MongoDB backend commit ledger.
-
-The control file itself has been syntax-designed for Node 22 native `fetch`, but token-authenticated Vercel API execution has **not** been performed from this ChatGPT runtime because this runtime has no outbound DNS/network path to `api.vercel.com`. Do not describe the Vercel API as verified until the file is run on the VPS or another network-enabled environment with `VERCEL_ACCESS_TOKEN` configured.
+The code has been committed and recorded in the MongoDB backend ledger. The token-authenticated Vercel API has **not yet been executed from this ChatGPT runtime**. Execution requires a network-enabled trusted environment with `VERCEL_ACCESS_TOKEN` configured. Do not claim token-authenticated API verification until that execution succeeds.
 
 ## HTTP hardening
 

@@ -4,22 +4,15 @@
 
 Current main:
 
-`main = f66350c1ae71a6008bd738eaeb5f617d5a292f17`
+`main = 102d23221272e861c5ac6ca76aecb08cd5aca5ab`
 
-Latest application commit:
-**feat(backend): extend custom Vercel control layer**
+Latest backend commits:
+- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add environment-authenticated Vercel REST client
+- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add internal Vercel control layer and CLI
 
-Previous Vercel control commits:
-- `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — add environment-backed Vercel REST client
-- `d896750ba7cd321302c66e8f84da7aae7cf31e21` — add Vercel control CLI
-- `6710e4f81615a7087a92b6292bf38144ee625858` — add Vercel control package script
-- `2ff980493796e063c09ce7f5dd84969d5c32e905` — fix Vercel control CLI ESM syntax
-- `7145519d78d786a80cdfb5b30bb3dd7079f8e16a` — add CI syntax checks for Vercel tooling
+The Vercel control layer is independent of the ChatGPT Vercel MCP. It uses a server-side `VERCEL_ACCESS_TOKEN` and is intentionally not exposed through the public API.
 
-Latest application implementation point:
-`5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3`
-
-The Vercel MCP is implemented with an allowlisted tool surface. Deployment cancellation is available through both the CLI and MCP. Token-authenticated remote execution is not yet verified from this ChatGPT runtime.
+Token-authenticated remote execution remains pending until the CLI is run in a network-enabled trusted environment with the token configured.
 
 ## Project origin
 

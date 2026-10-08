@@ -43,24 +43,24 @@ Do not interpret that 403 as a Tech Katta deployment failure.
 
 ## Internal Vercel control
 
-The backend now contains an environment-authenticated Vercel REST client independent of the ChatGPT Vercel MCP integration:
+The backend now contains a private environment-authenticated Vercel REST control layer independent of the ChatGPT Vercel MCP:
 
-- `backend/src/vercel-control.js`
+- `backend/src/vercel/client.js`
+- `backend/src/vercel/projects.js`
+- `backend/src/vercel/deployments.js`
+- `backend/src/vercel/index.js`
 
-Application commit:
-- `58dd2890658299f72ac11d8ebccf17d1fdc37341` — add internal Vercel REST control client
+Application commits:
+- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add Vercel API client
+- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add control operations and CLI
 
-The module uses Node 22 native `fetch` and requires:
+It uses Node 22 native `fetch` and requires:
 - `VERCEL_ACCESS_TOKEN` — secret
-- `VERCEL_TEAM_ID` — optional; defaults to `team_ESVBoCGScxPRCW4TxwcTeJCg`
+- `VERCEL_TEAM_ID` — optional team scope
 
-Supported operations cover projects, deployments, deployment inspection, deployment cancellation, and an access check. It can be run directly:
+The token is never stored in Git or documentation and the control layer is not exposed through the public Express API.
 
-`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel-control.js check`
-
-The token is never stored in Git or documentation. The control layer is not exposed through the public Express API.
-
-Token-authenticated Vercel API execution remains pending until this file is run from the VPS or another network-enabled environment because this ChatGPT runtime cannot reach `api.vercel.com`.
+Token-authenticated Vercel execution is still pending until the CLI is run from a network-enabled trusted environment with the token configured.
 
 ## GitHub Actions
 

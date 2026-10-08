@@ -1,8 +1,8 @@
 # Current State Snapshot
 
-**Snapshot date:** 2026-10-07
+**Snapshot date:** 2026-10-08
 
-This file records what was actually observed during context creation.
+This file records the latest application/context state known to this session.
 
 ## Application repository
 
@@ -12,18 +12,17 @@ Branch:
 `main`
 
 Current HEAD:
-`58dd2890658299f72ac11d8ebccf17d1fdc37341`
+`102d23221272e861c5ac6ca76aecb08cd5aca5ab`
 
-Latest backend commit adds `backend/src/vercel-control.js`, an internal environment-authenticated Vercel REST client/CLI. It is independent of the ChatGPT Vercel MCP integration and does not expose Vercel control through the public API.
+Latest backend work adds a private Vercel REST control layer:
+- `193a11293b10d43534c34fa8b902d24dd12e6cac` — environment-authenticated Vercel client
+- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — projects/deployments operations, CLI, and documentation
 
-Vercel control:
-- token: `VERCEL_ACCESS_TOKEN` (environment only)
-- team: `VERCEL_TEAM_ID`, defaulting to the Tech Katta team
-- supported: projects, deployments, deployment inspection, deployment cancellation, access check
+The client reads `VERCEL_ACCESS_TOKEN` and optional `VERCEL_TEAM_ID` from the environment. No Vercel credential is committed.
 
-The application commit is recorded in the MongoDB backend ledger.
+The application commits were recorded in the MongoDB backend commit ledger.
 
-The application commit was deployed to the VPS successfully by GitHub Actions run `37721404338`: syntax checks, SSH deployment, service verification, and production smoke tests all passed. The control file itself has not yet been token-authenticated against the live Vercel API because this ChatGPT runtime cannot reach `api.vercel.com`. Treat Vercel API execution as pending until the file is run on the VPS with `VERCEL_ACCESS_TOKEN` configured.
+The Vercel API has not yet been token-authenticated from this ChatGPT runtime. The code is ready to run from a network-enabled trusted environment; do not describe live Vercel API execution as verified until it succeeds.
 
 ## Frontend
 
