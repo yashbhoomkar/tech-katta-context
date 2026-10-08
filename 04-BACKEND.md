@@ -92,47 +92,48 @@ Invalid slugs return 404.
 
 Article content is normalized before being returned.
 
-## Vercel control layer
+## Internal Vercel control layer
 
-The backend contains an internal Vercel REST client at:
+Application commit:
+- `58dd2890658299f72ac11d8ebccf17d1fdc37341` — add internal Vercel REST control client
 
-- `backend/src/vercelClient.js`
+Implementation:
+- `backend/src/vercel-control.js`
 
-It uses Node 22's native `fetch` and Vercel's REST API directly rather than the ChatGPT Vercel MCP connection.
+This is a server-side JavaScript module plus one-shot CLI. It uses Node 22's native `fetch` and talks directly to the Vercel REST API, independently of the ChatGPT Vercel MCP integration.
 
-The backend also contains a stdio MCP server at:
+Supported operations:
+- `listProjects()`
+- `getProject(idOrName)`
+- `listDeployments({ projectId })`
+- `getDeployment(idOrUrl)`
+- `cancelDeployment(id)`
+- `checkAccess()`
 
-- `backend/scripts/vercel-mcp.mjs`
+CLI usage:
 
-It exposes allowlisted read/control tools for projects, deployments, deployment events, and project domains. It is intentionally not exposed through the public Express API.
+`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel-control.js check`
 
-Required runtime secret:
-- `VERCEL_ACCESS_TOKEN`
+Other commands:
+- `projects`
+- `project <project-id-or-name>`
+- `deployments [project-id-or-name]`
+- `deployment <deployment-id-or-url>`
+- `cancel <deployment-id>`
 
-Optional team scope:
-- `VERCEL_TEAM_ID`
+Runtime configuration:
+- `VERCEL_ACCESS_TOKEN` — required secret
+- `VERCEL_TEAM_ID` — optional; defaults to the Tech Katta Vercel team
 
-The access token is read only from the environment and must never be committed.
+The token is read only from the process environment and is not stored in Git, MongoDB, or the context repository.
 
-The MCP process communicates over stdin/stdout using JSON-RPC and can be launched with:
+The control layer is intentionally not exposed as a public Express endpoint. This keeps Vercel administrative capability out of the public Tech Katta API surface.
 
-`npm run vercel:mcp`
+### Verification status
 
-The existing one-shot CLI remains available through:
+The application commit was successfully created and recorded in the MongoDB backend commit ledger.
 
-`npm run vercel:control -- projects`
-
-The control layer now also exposes `cancelDeployment(idOrUrl)`, with the CLI command:
-
-`npm run vercel:control -- cancel <deployment-id>`
-
-The stdio MCP exposes this as `vercel_cancel_deployment`. This is an explicit control operation; arbitrary Vercel endpoints are intentionally not exposed.
-
-Application commits:
-- `c3ef3c23e5c7450ef4e409765f2b767eb60071c5` — environment-backed Vercel REST client
-- `5c2e975d9c1a43a29dff9f781df1bfcc3d4cf4e3` — stdio Vercel MCP server
-
-The MCP protocol handshake and tool listing were locally syntax/protocol tested. Token-authenticated remote execution from this ChatGPT environment remains unverified because its outbound network path cannot reach the Vercel API directly.
+The control file itself has been syntax-designed for Node 22 native `fetch`, but token-authenticated Vercel API execution has **not** been performed from this ChatGPT runtime because this runtime has no outbound DNS/network path to `api.vercel.com`. Do not describe the Vercel API as verified until the file is run on the VPS or another network-enabled environment with `VERCEL_ACCESS_TOKEN` configured.
 
 ## HTTP hardening
 
@@ -143,7 +144,7 @@ CORS is restricted to that origin.
 
 Express:
 - `app.disable('x-powered-by')`
-- `app.set('trust proxy', 1)`
+- `app.set('trust proxy', 1)
 
 Security headers:
 - X-Content-Type-Options: nosniff
@@ -181,7 +182,7 @@ For the distributed systems article, a legacy ASCII architecture code block is p
 
 `{ type: 'diagram', name: 'distributed-architecture' }`
 
-This mapping is **presentation-only**. It does not mutate the MongoDB document.
+This mapping is presentation-only. It does not mutate the MongoDB document.
 
 ## Seed process
 
@@ -236,3 +237,4 @@ Do not:
 - remove security headers
 - turn off graceful shutdown
 - store secrets in Git
+- expose Vercel administrative functions through the public API
