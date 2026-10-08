@@ -23,7 +23,7 @@ Vercel control:
 
 The application commit is recorded in the MongoDB backend ledger.
 
-The file has not been token-authenticated against the live Vercel API from this ChatGPT runtime because this environment cannot reach `api.vercel.com`. Treat remote execution as pending until run on the VPS or another network-enabled environment.
+The application commit was deployed to the VPS successfully by GitHub Actions run `37721404338`: syntax checks, SSH deployment, service verification, and production smoke tests all passed. The control file itself has not yet been token-authenticated against the live Vercel API because this ChatGPT runtime cannot reach `api.vercel.com`. Treat Vercel API execution as pending until the file is run on the VPS with `VERCEL_ACCESS_TOKEN` configured.
 
 ## Frontend
 
