@@ -300,3 +300,16 @@ Branch `feat/backend-readiness-observability`, application commit `6e77efb47d928
 - Added HTTP-level tests and expanded `scripts/production-smoke.mjs` to check both endpoints.
 
 Legacy `/health` and `/api/health` responses are preserved for compatibility. CI and production verification are pending.
+
+## Readiness and request observability — deployed (2026-10-11)
+
+Merge/deployment commit: `b8a705eec61af7deb7ca47ebd36d06025df2ad22`.
+
+- `/health/live` returns 200 while the process can answer.
+- `/health/ready` returns 200 only while MongoDB is connected, otherwise 503 with `Cache-Control: no-store`.
+- Existing `/health` and `/api/health` routes remain for compatibility.
+- Each request gets a generated `X-Request-Id`; structured JSON access logs include method, path without query string, status, and duration. Query parameters and client IP are not logged.
+- Health probes are registered before the general rate limiter.
+
+Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934
+VPS deployment and expanded public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902
