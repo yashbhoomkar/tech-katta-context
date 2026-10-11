@@ -555,3 +555,15 @@ PR #20 was squash-merged as application commit 56b229a2c0fa1d586f200a41c79826ed9
 ### PR #20 deployment verified — 2026-10-11
 
 Application merge 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed to the VPS. Deployment workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 passed. The MongoDB content sync succeeded (5 categories, 11 articles); the API restarted, MongoDB reported connected, and local health returned version 0.1.0. Production smoke tests passed 11 endpoint checks plus CORS and security headers with normal TLS validation. Backend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003, frontend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910, and CodeQL https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951 all passed.
+
+
+## Issue #18 follow-up — merged backend hardening (2026-10-11)
+
+PR #20 was squash-merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Changes include:
+
+- /health and /api/health are registered before general rate limiting; health version comes from backend/package.json.
+- Bind host is configurable, default 127.0.0.1; Docker sets HOST=0.0.0.0 internally and keeps host port publishing on loopback.
+- Deployment smoke test no longer disables TLS certificate verification.
+- Seed/index setup adds an article category index.
+- Legacy Vercel control CLI no longer hardcodes a team ID; scope is explicit via VERCEL_TEAM_ID.
+- Backend CI and CodeQL passed on corrected test commit d40929e580571d5600066d521de08f9f75eb7deb. This is source/CI verification; do not claim a successful production deploy until the post-merge deploy and live health checks are observed.
