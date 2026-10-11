@@ -534,3 +534,7 @@ Vercel deployment for main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is RE
 Application PR #21 was merged as `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The backend deployment workflow now stops/disables `tech-katta-overflow.timer` instead of installing and enabling a 30-second no-op timer. The deployment also verifies the timer is inactive. The VPS API remains the primary service; no Render overflow/failover is active. The script does not configure Nginx, and no secondary upstream is provisioned. The merge-triggered VPS deployment and its public smoke tests must be checked before calling this operational change deployed. MongoDB backend commit ledger entry was inserted for the merge SHA.
 
 This supersedes older statements in this file that backend deployment for commit `56b229a2c0fa1d586f200a41c79826ed92a0446b` was unconfirmed: that deployment was verified successfully in Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953.
+
+### Overflow timer deployment verified (2026-10-11)
+
+Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 completed successfully for application merge commit `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The VPS logs confirm the placeholder timer was stopped/disabled, the API remained active and loopback-bound, and the production smoke suite passed 11 endpoint checks plus CORS/security headers. The no-op timer finding is resolved. Actual overflow/failover remains unimplemented by design.
