@@ -295,3 +295,8 @@ Diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/381289872
 ### Static-analysis CI additions (2026-10-11)
 
 PR #22 merged as `a39d441c8364efc65bfa4f14f944d34cd9e07cff`, adding `.github/workflows/semgrep.yml`. The workflow runs Semgrep Community Edition for JavaScript/Node/React and uploads SARIF to GitHub code scanning. Initial main-branch run passed with 0 findings across 40 files and 68 rules: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189. CodeQL also passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154.
+
+
+### k6 baseline workflow added (2026-10-11)
+
+PR #23 merged as `4d3e285b28b4356922ea016afc3838b4f1d17732`. The workflow `.github/workflows/k6-production-baseline.yml` validates the script on pull requests without sending traffic and runs a bounded baseline on main pushes that change the test/workflow files, or on explicit manual opt-in. Initial run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 succeeded with 156 requests, no HTTP failures, frontend p95 142.67 ms, and API p95 244.61 ms. It is not a stress/capacity test.

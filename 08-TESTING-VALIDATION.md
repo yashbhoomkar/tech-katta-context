@@ -276,3 +276,16 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 ### Semgrep Community Edition baseline (2026-10-11)
 
 Application PR #22 merge commit `a39d441c8364efc65bfa4f14f944d34cd9e07cff` added `.github/workflows/semgrep.yml`. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 passed, scanning 40 JavaScript/Node/React files with 68 rules and reporting 0 findings. SARIF upload to GitHub code scanning succeeded. CodeQL run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154 also passed. This is a static-analysis baseline only; it does not replace code review, tests, browser checks, or load tests.
+
+
+### k6 production baseline results (2026-10-11)
+
+Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 — success.
+
+- Duration: 50 seconds; max 5 VUs for frontend browsing and 1 VU for API reads.
+- Total: 156 HTTP requests (127 frontend, 29 API), 0 HTTP failures, 312/312 checks passed.
+- Frontend p95: 142.67 ms; API p95: 244.61 ms.
+- No 429, 5xx, network failures, or threshold failures were reported.
+- The API scenario sleeps 1.5 seconds between requests; this deliberately stays below the current per-client rate limit.
+
+Interpretation: this validates a low-load production baseline only. It does not estimate maximum concurrent users or establish stress/capacity limits. A true saturation test requires a staging/test origin or a separately approved, isolated test environment.

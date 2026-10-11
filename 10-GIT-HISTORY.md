@@ -477,3 +477,11 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 - MongoDB ledger: `techkatta_history.backend_git_commits`.
 - Semgrep run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 passed: 40 files, 68 rules, 0 findings; SARIF uploaded.
 - CodeQL run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154 passed.
+
+
+### PR #23 — add bounded k6 production baseline (2026-10-11)
+
+- Application merge commit: `4d3e285b28b4356922ea016afc3838b4f1d17732`.
+- MongoDB ledger: `techkatta_history.backend_git_commits`.
+- Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 passed: 156 HTTP requests, 0 failures, all 312 checks passed; frontend p95 142.67 ms and API p95 244.61 ms.
+- The test is intentionally low-load (frontend ramp up to 5 VUs, API 1 VU) and is not a capacity benchmark.
