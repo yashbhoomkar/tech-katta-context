@@ -238,3 +238,7 @@ Branch `chore/verify-cloudflare-dns`, commit `1d6b5e5b885226dfc37e1fb2ada68fcfad
 ### DNS verification workflow correction (2026-10-11)
 
 The first attempt to download plain-text Cloudflare IP lists returned HTTP 403 from the runner and failed before printing DNS answers (run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128721365). Branch `fix/diagnose-cloudflare-dns-api`, commit `095eb973a467610b0e4b51bba3aaae5462ac7442` (ledgered in MongoDB), switches the check to Cloudflare's documented `/client/v4/ips` API and prints DNS answers before checking ranges. It remains read-only; the rerun result is pending.
+
+## Loopback binding hardening candidate (2026-10-11)
+
+Branch `fix/backend-loopback-bind` contains a change to bind Node only to `127.0.0.1:5000`, matching Nginx's current upstream, and to assert the expected listener during the SSH deployment. It also changes the DNS diagnostic from a hard failure to a warning when the record is not Cloudflare-proxied, allowing the SSH inspection to continue. Commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541` are ledgered in MongoDB. No firewall rules are changed. Not yet merged/deployed.
