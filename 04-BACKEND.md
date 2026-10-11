@@ -434,3 +434,8 @@ CI is pending at https://github.com/yashbhoomkar/tech-katta/actions/runs/3813393
 Commit `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2` changes the VPS deploy workflow so MongoDB seeding is skipped for code-only releases. Seeding is selected when tracked content source/schema/seed files change, or by explicitly choosing `sync_content=true` for manual workflow dispatch. This avoids rewriting article/category data and `updatedAt` timestamps on unrelated backend releases.
 
 CI/deployment workflow verification for this change is pending. PR #10 is still draft and has not been deployed.
+
+
+### Latest candidate validation
+
+Backend CI passed on candidate head `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134049543 — 29 tests passed, 0 failed. The PR is ready for review. CodeRabbit review was requested for this exact head; no review findings have been received yet. Production deployment and smoke verification are still pending.
