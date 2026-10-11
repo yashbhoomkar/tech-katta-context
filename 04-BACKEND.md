@@ -399,3 +399,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133257583 �
 Commit `723a234193644d382c42a34494bb43c014924fac` extends `loadConfig()` to include the MongoDB URI and database name. The process entry point injects these into `connectDB({ uri, dbName })`; reconnect attempts reuse the active options. Missing `MONGODB_URI` continues to mean local fallback mode, preserving existing behavior.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413 — 28/28 tests passed. Draft PR #10 is unmerged and undeployed. Production smoke/browser/load validation remains pending.
+
+
+### Centralized HTTP error handling — candidate (2026-10-11)
+
+Candidate commit `b4fd021f18a98ee77700455da8e7d6a4b98861ae` introduces `src/errors.js` and `src/middleware/errorHandler.js`. Controllers forward typed errors to the shared Express boundary. Responses are JSON and consistent for 404, malformed JSON 400, content query 503 (Retry-After: 5 and Cache-Control: no-store), and unexpected 500. Internal DB details are not returned to clients.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417 — 28/28 tests passed. This candidate remains in draft PR #10 and is not deployed. Production smoke/browser/load tests are pending.

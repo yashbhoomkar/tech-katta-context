@@ -244,3 +244,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI passed w
 - `723a234193644d382c42a34494bb43c014924fac` — pass validated MongoDB URI/database name into database startup and reuse connection options on reconnect.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413. PR #10 remains draft/open and not deployed.
+
+
+### Centralized HTTP error boundary candidate
+
+- `b4fd021f18a98ee77700455da8e7d6a4b98861ae` — centralize JSON error responses and add typed not-found/content-unavailable errors.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417. Draft PR #10 remains open and undeployed.

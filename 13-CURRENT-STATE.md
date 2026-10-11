@@ -314,3 +314,12 @@ Application commit: `723a234193644d382c42a34494bb43c014924fac` on branch `refact
 Runtime config now includes `MONGODB_URI` and `MONGODB_DB` (database name defaults to `techkatta`). `server.js` passes these explicitly to `connectDB()`; the database module retains those connection options for reconnect attempts rather than independently re-reading environment variables on each retry. An absent URI still preserves the established local-fallback mode.
 
 Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413. All 28 tests passed. Candidate is not merged or deployed; production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`. No production smoke/browser/load test has been run for the candidate.
+
+
+### Central HTTP error boundary — CI passed (2026-10-11)
+
+Application commit: `b4fd021f18a98ee77700455da8e7d6a4b98861ae` on branch `refactor/backend-clean-architecture-phase-1`, draft PR #10.
+
+Added `src/errors.js` typed errors and `src/middleware/errorHandler.js` as the final Express error boundary. Content controllers forward failures instead of building error responses. The boundary returns JSON for unmatched routes (404), malformed JSON (400), content query failures (503 with Retry-After and no-store), and unexpected server errors (generic 500). Internal database error details are logged server-side and not returned to clients. Tests cover the shared error boundary and public response shapes.
+
+Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417. All 28 tests passed. Candidate is not merged or deployed; production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`. Production smoke/browser/load verification has not been run for the candidate.
