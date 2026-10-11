@@ -449,3 +449,11 @@ The merge SHA is recorded in both techkatta_history.backend_git_commits and tech
 ### PR #20 deployed — 2026-10-11
 
 Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed. Workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 passed: MongoDB content sync (5 categories, 11 articles), API restart/local health, and production smoke (11 endpoint checks plus CORS/security headers with standard TLS verification). Backend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003, frontend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910, and CodeQL https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951 passed. Merge SHA is recorded in both frontend and backend MongoDB ledgers.
+
+
+## Issue #18 scoped fixes merged — 2026-10-11
+
+- 62c4b3ee59a99a57ec98ad221a34d38f37953eb2 — PR #19, frontend swipe route-state and metadata lifecycle fixes.
+- 56b229a2c0fa1d586f200a41c79826ed92a0446b — PR #20, health route/rate-limit behavior, configurable bind host, TLS verification, category index, explicit Vercel team scope, and Kafka fallback content parity.
+
+Both merge SHAs were recorded in the corresponding MongoDB application commit-ledger collections. Backend CI/CodeQL passed on corrected backend commit d40929e580571d5600066d521de08f9f75eb7deb; Vercel status passed on latest PR head/merge. Production deployment and live health verification remain pending confirmation.
