@@ -173,3 +173,7 @@ This remains a single-process limiter, not distributed rate limiting. A bounded 
 ### Deployment validation — 2026-10-11
 
 The rate-limiter change is deployed as part of `a9e340cc539519a91617d390a44e98bd0547046d`. Backend deployment and production smoke tests passed. This verifies the service stayed healthy and public endpoint/CORS/security-header checks passed; it does **not** independently prove that `request.ip` maps to the actual visitor IP through every Cloudflare/reverse-proxy path. Keep that topology verification as an explicit follow-up.
+
+## Explicit database failure semantics — 2026-10-11
+
+Deployed in commit `3155342dc66bdf1e001bbfc54749f63daf1e4062`. Connected database query errors now return a generic 503 with `Retry-After: 5` and `Cache-Control: no-store`; details remain in server logs. Successful empty results and missing records are no longer masked by fallback content. Fallback is retained for known MongoDB-disconnected operation. Production smoke tests passed after deployment, but this is not a database chaos test or full failure-injection test.
