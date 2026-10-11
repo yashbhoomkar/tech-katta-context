@@ -317,3 +317,10 @@ Evidence boundary: touch events were simulated in Chromium, not tested on a phys
 Application PR #26 added `.coderabbit.yaml` and merged as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. The config enables automatic reviews of non-draft PRs targeting `main` and supplies targeted instructions for backend/security, React/mobile behavior, tests, scripts, and GitHub Actions. The configuration and merge are recorded in `techkatta_history.backend_git_commits`.
 
 **AI-review status remains unverified.** On PR #26, the GitHub review API and inline review-comment API were empty. A manual `@coderabbitai review` request produced no CodeRabbit response or check; the only check observed was Vercel Preview Comments. Therefore, do not claim that CodeRabbit reviewed PR #26 or that the repository has an operational AI review gate. The GitHub app must be installed/authorized for this repository and then tested on a new PR. Continue to distinguish AI review from Semgrep, CodeQL, frontend/backend CI, browser smoke tests, and load tests.
+
+
+## Structured diagram normalization regression — PR #27 (2026-10-11)
+
+PR #27 (`90ac43818fc34c61dfd7fdcae3baf62f83310350`) passed backend CI (31 tests, 31 passed, 0 failed), CodeQL, and Semgrep. Backend deployment succeeded: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733. Production smoke tests passed 11 endpoint checks plus CORS and security headers. The deploy workflow synchronized the changed content source to Atlas; a read-only follow-up query confirmed the live article block is the explicit `distributed-architecture` diagram.
+
+This validates the content-source update and deployment path; it is not a stress/capacity test.
