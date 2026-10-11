@@ -282,3 +282,7 @@ Vercel reports the deployment built from main commit 56b229a2c0fa1d586f200a41c79
 ### Placeholder overflow timer disabled — 2026-10-11
 
 PR #21 merged as `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Backend deployments now stop/disable `tech-katta-overflow.timer` and verify it remains inactive. The previous timer ran every 30 seconds while the script exited immediately with no `OVERFLOW_UPSTREAM`; Nginx does not consume the script's state file. This is intentionally not failover. The workflow's next main-branch deployment should apply this change to the VPS; verify that deployment run before claiming the live timer has been disabled.
+
+### Placeholder overflow timer disablement deployed (2026-10-11)
+
+Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 succeeded for `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Logs verify the placeholder timer was stopped/disabled, `tech-katta-api` remained active and loopback-bound, local health reported MongoDB connected, and production smoke tests passed (11 endpoint checks plus CORS/security headers).

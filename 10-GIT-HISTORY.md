@@ -465,3 +465,8 @@ Both merge SHAs were recorded in the corresponding MongoDB application commit-le
 - Reason: the monitor has no configured secondary upstream and does not change Nginx routing; the old 30-second timer implied functionality that did not exist.
 - MongoDB ledger: recorded in `techkatta_history.backend_git_commits`.
 - Deployment: merge triggers the existing VPS deployment workflow; production application/service smoke checks must pass before considering the timer change applied on the VPS.
+
+
+### PR #21 deployment result (2026-10-11)
+
+Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 succeeded for merge commit `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The VPS log confirms timer disablement, active API and loopback-only listener checks, and successful public smoke tests (11 endpoints plus CORS/security headers).
