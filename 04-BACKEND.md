@@ -545,3 +545,8 @@ PR: https://github.com/yashbhoomkar/tech-katta/pull/20 — open, not merged/depl
 - 67355276f3f8eb88c002c7255849f0164c1985a7 removes the hardcoded Vercel team scope from the legacy control CLI.
 
 All backend commits above are recorded in techkatta_history.backend_git_commits. Backend CI passed on the latest PR head at the time of this update; CodeQL is still running. No deployment is claimed.
+
+
+### PR #20 merged — 2026-10-11
+
+PR #20 was squash-merged as application commit 56b229a2c0fa1d586f200a41c79826ed92a0446b. It includes the configurable safe bind host, Docker interface binding, health endpoint rate-limit exemption and package version, category index, and removal of the hardcoded Vercel team ID. Backend source commits and the merge SHA are recorded in techkatta_history.backend_git_commits. Backend CI, frontend build, and CodeQL passed on the PR head. Production deployment and post-deploy smoke checks are not yet verified.
