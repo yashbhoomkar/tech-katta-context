@@ -254,3 +254,7 @@ Branch: `refactor/backend-hardening-phase-1` (not merged; not deployed to produc
 - Corrected the deployment workflow's stale `src/vercelClient.js` syntax-check path to check the existing `src/vercel/*.js` modules instead.
 
 Validation status: the backend CI run on the prior branch head passed; CI for the latest commit must be checked separately. Production deployment is pending PR merge and successful deployment/smoke tests.
+
+### Production deployment outcome — 2026-10-11
+
+The merge commit `a9e340cc539519a91617d390a44e98bd0547046d` was deployed by GitHub Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128036897. The SSH deployment, backend syntax checks, service restart, local `/api/health` check, and public production smoke suite all passed. The local health response reported `db: connected`; the public smoke suite passed 9 endpoint checks plus CORS and security-header checks. The exact proxy/client-IP attribution is still not separately verified.
