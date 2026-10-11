@@ -170,3 +170,9 @@ Findings: Nginx/API service active; Nginx forwards to loopback port 5000; XFF is
 - `1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7` — verify public API DNS belongs to official Cloudflare proxy ranges
 
 Commit is recorded in `techkatta_history.backend_git_commits`. Branch: `chore/verify-cloudflare-dns`; not merged at the time of this entry.
+
+## Cloudflare range API correction — 2026-10-11
+
+- `095eb973a467610b0e4b51bba3aaae5462ac7442` — use Cloudflare's official IP API after plain-text endpoint returned 403
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `fix/diagnose-cloudflare-dns-api`; not merged at the time of this entry.
