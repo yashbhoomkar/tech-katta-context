@@ -146,3 +146,14 @@ VPS deployment and production smoke tests passed: https://github.com/yashbhoomka
 The deployment restarted `tech-katta-api`, reseeded 5 categories and 11 articles, confirmed `/api/health` returned `status: ok` and `db: connected`, verified the overflow timer, and passed 9 public endpoint checks plus CORS/security-header checks. Direct browser and load testing were not performed. Rate-limit client IP attribution through Cloudflare/reverse proxies remains a follow-up validation item.
 
 The next planned backend phase is to correct database fallback semantics so a connected-but-empty or failing database is not silently represented as authoritative fallback content.
+
+### Phase 2 production outcome — 2026-10-11
+
+Current deployed application commit: `3155342dc66bdf1e001bbfc54749f63daf1e4062`.
+
+Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191731
+VPS deployment and public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751
+
+Database fallback behavior is now explicit: local fallback is used only when MongoDB is known to be disconnected; successful empty results remain empty; missing articles return 404; and content-query failures return a generic 503 with `Retry-After: 5` and `Cache-Control: no-store`. MongoDB seeding completed and the public smoke suite passed.
+
+Next planned phase: modularize the backend app/route structure while preserving the existing API contract and deployment behavior.
