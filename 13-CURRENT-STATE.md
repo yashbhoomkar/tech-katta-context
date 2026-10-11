@@ -548,3 +548,8 @@ Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs
 ### Semgrep static analysis added and verified (2026-10-11)
 
 Application PR #22 merged as `a39d441c8364efc65bfa4f14f944d34cd9e07cff`. New workflow `.github/workflows/semgrep.yml` runs Semgrep Community Edition for JavaScript, Node.js, and React on relevant pull requests, main pushes, and manual dispatch, and uploads SARIF findings to GitHub code scanning. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 succeeded: 40 JS/Node/React files scanned with 68 rules and 0 findings. CodeQL also passed on this merge commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154. The application commit is recorded in `techkatta_history.backend_git_commits`.
+
+
+### k6 production baseline completed (2026-10-11)
+
+Application PR #23 merged as `4d3e285b28b4356922ea016afc3838b4f1d17732`. The main-branch workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 passed the 50-second low-load baseline: 156 HTTP requests total (127 frontend route requests, 29 API requests), 0 failed requests, 0 failed checks out of 312, frontend p95 142.67 ms, API p95 244.61 ms. Peak frontend concurrency was 5 VUs; API used 1 VU with a 1.5-second think time to stay under the current per-client rate limit. This is a baseline/smoke load test, not a saturation or capacity test. The merge commit is recorded in `techkatta_history.backend_git_commits`.
