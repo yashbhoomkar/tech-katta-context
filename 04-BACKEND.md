@@ -532,3 +532,16 @@ PR #14 changed verification workflows/scripts, not backend runtime source; no ba
 ### Post-merge deployment workflow result (2026-10-11)
 
 PR #14 merge `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` triggered deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631, which completed successfully. Backend validation, VPS preparation, API restart/health checks, and production smoke tests passed; optional MongoDB content sync was skipped. The merge adds test/CI workflows and scripts only, so the deployed backend application source remains `9d545de3c6e2048dd851bb43a8782bf388544486`. The API TLS certificate is now publicly trusted and the browser-origin API contract passes.
+
+
+## Issue #18 hardening candidate — PR #20 (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/20 — open, not merged/deployed.
+
+- 7d4350521ee534b1d466fb5cafbd3cd659ade382 adds HOST configuration with safe 127.0.0.1 default; 55e6cadbe72958e80616a94b846a67a376d0de4d makes server startup use that setting.
+- aa13f8fa9f2e18397bbe8e6270df3c3242089f2b tests host configuration.
+- 5914880f7f90bebedd56376a779de624aaf17d2c moves /health and /api/health before rate limiting and reads the version from backend/package.json; b612091b28d6a90da8f422e991bb2d8a5bfe8c9f adds rate-limit regression coverage; d40929e580571d5600066d521de08f9f75eb7deb corrects the test sequence to exhaust the public bucket first.
+- 38941cdc69a9a99c351afbeb78c084b5f0064199 adds an article category index during the existing seed workflow.
+- 67355276f3f8eb88c002c7255849f0164c1985a7 removes the hardcoded Vercel team scope from the legacy control CLI.
+
+All backend commits above are recorded in techkatta_history.backend_git_commits. Backend CI passed on the latest PR head at the time of this update; CodeQL is still running. No deployment is claimed.
