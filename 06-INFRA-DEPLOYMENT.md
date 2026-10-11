@@ -273,3 +273,8 @@ Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b removes the TL
 ### PR #20 production rollout — 2026-10-11
 
 Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 succeeded for merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b. MongoDB content sync ran successfully (5 categories, 11 articles), the systemd API restarted, local health returned 200 with DB connected and version 0.1.0, and production smoke tests passed 11 endpoint checks plus CORS/security headers using normal TLS verification. The VPS systemd listener remains loopback by default; Docker-only HOST configuration is not part of the VPS runtime. This verifies backend deployment, not a live Vercel deployment.
+
+
+## Issue #18 merge deployment check (2026-10-11)
+
+Vercel reports the deployment built from main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b as READY, target=production, with alias tech.katta.cc. This verifies frontend production deployment. It does not verify the separate VPS backend deployment or live API health; check the deploy workflow and https://tech-api.katta.cc/api/health before asserting backend rollout success.
