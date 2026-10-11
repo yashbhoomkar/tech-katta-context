@@ -195,3 +195,11 @@ Next: review the production proxy trust/client-IP chain and origin exposure befo
 ### Proxy/origin diagnostic candidate
 
 Production remains on `b8a705eec61af7deb7ca47ebd36d06025df2ad22`. Branch `chore/inspect-vps-proxy-security` has two ledgered commits (`5de8af322b09619b2c6f11d27770af6e26ab38fd`, `a014eb19d0241b49ce2b4b3ce6530375b4fced7a`) adding a read-only SSH diagnostic workflow. It is not merged yet and has not changed VPS configuration. The intent is to verify the real proxy chain and firewall posture before any hardening changes.
+
+### VPS security diagnostics — observed state (2026-10-11)
+
+Read-only diagnostics succeeded: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567. The current production app remains `b8a705eec61af7deb7ca47ebd36d06025df2ad22`; the diagnostic workflow merge `a703011c9d84c34ee7cf640d1a8d84f2b2166b59` did not deploy application code.
+
+Observed: Nginx and API service active; `tech-api.katta.cc` proxies to `127.0.0.1:5000`; XFF is `$proxy_add_x_forwarded_for`; Express trusts one hop; UFW default incoming policy is deny but 22/80/443 are allowed globally (IPv4 and IPv6); Node listens on `0.0.0.0:5000`.
+
+Open security work: verify DNS is Cloudflare-proxied, then restrict 80/443 to official Cloudflare IPv4/IPv6 ranges and bind Node to loopback. Adjust Express trust hops only after the proxy chain and origin restriction are verified. Preserve SSH access until an alternate admin path is established.
