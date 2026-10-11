@@ -246,3 +246,9 @@ Branch `fix/backend-loopback-bind` contains a change to bind Node only to `127.0
 ### Loopback deployment workflow syntax correction
 
 Commit `d41a420c7f973af3626d9de51cd16f34edf94166` fixes YAML/script indentation after GitHub marked the branch's deployment workflow invalid. This was detected before merge and recorded in the MongoDB ledger. Recheck PR status and syntax before merge.
+
+## Loopback binding deployment result — 2026-10-11
+
+Commit `5e09088ba40b8060a81813e766202fcf4bb07884` deployed successfully: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352. Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182. Deployment verified the service health endpoint, checked that `127.0.0.1:5000` is listening and `0.0.0.0:5000` is not, and passed 11 public endpoint checks plus CORS/security headers.
+
+Cloudflare DNS diagnostic: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241. It confirmed `tech-api.katta.cc` resolves directly to `129.121.133.47`, outside Cloudflare's proxy ranges. UFW was not modified; ports 80/443 must remain reachable until Cloudflare proxying is enabled and verified.
