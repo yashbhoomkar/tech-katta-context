@@ -234,3 +234,7 @@ These findings confirm that the current Express `trust proxy: 1` likely uses the
 ### Cloudflare DNS verification candidate (2026-10-11)
 
 Branch `chore/verify-cloudflare-dns`, commit `1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7` (recorded in the MongoDB backend ledger) extends the read-only VPS diagnostic workflow to resolve `tech-api.katta.cc` and compare every resolved address with the official Cloudflare IPv4/IPv6 ranges fetched at runtime. This is a diagnostic check only; it makes no DNS, firewall, or proxy changes. PR and execution result are pending.
+
+### DNS verification workflow correction (2026-10-11)
+
+The first attempt to download plain-text Cloudflare IP lists returned HTTP 403 from the runner and failed before printing DNS answers (run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128721365). Branch `fix/diagnose-cloudflare-dns-api`, commit `095eb973a467610b0e4b51bba3aaae5462ac7442` (ledgered in MongoDB), switches the check to Cloudflare's documented `/client/v4/ips` API and prints DNS answers before checking ranges. It remains read-only; the rerun result is pending.
