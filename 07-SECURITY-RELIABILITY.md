@@ -230,3 +230,8 @@ The diagnostic still shows Cloudflare proxying is not enabled for `tech-api.katt
 - The legacy Vercel control CLI no longer embeds a fixed team ID (67355276f3f8eb88c002c7255849f0164c1985a7). It uses an explicit VERCEL_TEAM_ID when configured and otherwise relies on the token's default scope.
 
 Both are pending PR #20 review/merge; no production rollout is claimed.
+
+
+### TLS and Vercel scope hardening merged — 2026-10-11
+
+PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Production smoke checks now use standard certificate validation, and the legacy Vercel CLI no longer embeds a team ID. Backend CI and CodeQL passed on the PR head. Production deployment and a fresh public TLS smoke test have not yet been verified.
