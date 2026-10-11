@@ -241,3 +241,10 @@ The current candidate adds HTTP-level tests for stable page ordering, page metad
 ### PR #20 validation result — 2026-10-11
 
 PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b after Backend CI, Frontend CI build, and CodeQL all passed on PR head a66c7a88eb7a516c25c7bebfb973c24689179a24. Tests include safe bind-host configuration and health endpoint availability after the public rate-limit bucket is exhausted. Docker runtime, offline browser fallback, production deployment, and post-deploy smoke testing remain unverified.
+
+
+### PR #20 final validation — 2026-10-11
+
+Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b passed Backend CI (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003), Frontend CI build (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910), and CodeQL (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951). VPS deployment and production smoke passed (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953): content sync succeeded, local health was DB-connected, and 11 endpoint checks plus CORS/security headers passed under standard TLS validation.
+
+Still not verified: actual mobile gesture interaction, offline/API-failure Kafka fallback in a browser, Docker runtime networking, Vercel live deployment state, full-capacity load, Cloudflare/Nginx IP attribution, and overflow routing.
