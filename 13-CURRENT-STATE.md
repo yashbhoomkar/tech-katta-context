@@ -505,3 +505,20 @@ Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed on the VPS. Ru
 PR #19 frontend fixes are merged as 62c4b3ee59a99a57ec98ad221a34d38f37953eb2. PR #20 fixes are merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Both merge SHAs are recorded in MongoDB and this context repository. A live Vercel deployment and actual mobile/offline-browser interaction have not been independently verified.
 
 Remaining issue #18 work: decide/benchmark search semantics before changing regex search; verify Cloudflare/Nginx client-IP attribution and origin exposure on VPS; inspect actual overflow timer and Nginx routing before changing it; map all Vercel client callers before consolidation; and plan a DB content migration before removing the diagram normalization compatibility layer. Multi-origin CORS remains intentionally restricted to explicit needs.
+
+
+## Issue #18 — scoped fixes merged (2026-10-11)
+
+- PR #19 merged as 62c4b3ee59a99a57ec98ad221a34d38f37953eb2: fixed stale mobile swipe route closure and article metadata cleanup. Frontend CI and CodeQL passed on PR head; mobile device gesture verification remains pending.
+- PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b: exempted health endpoints from rate limiting, sourced health version from package metadata, added explicit bind-host config (loopback default; Docker container interface), removed TLS verification bypass from production smoke tests, added category index, removed hardcoded Vercel team ID, and aligned frontend Kafka fallback content.
+- Both merge commits recorded in the corresponding techkatta_history commit-ledger collections.
+- Backend CI and CodeQL passed on corrected backend test commit d40929e580571d5600066d521de08f9f75eb7deb; Vercel preview status passed on the latest PR head and merge commit. Full post-merge production deployment/health verification is not yet confirmed.
+
+### Still requires separate verification/follow-up
+
+- Live VPS/Nginx/Cloudflare forwarded-IP and trust proxy behavior.
+- VPS-primary/Render-overflow routing against actual systemd configuration and recovery behavior.
+- Regex search query performance and semantics before changing indexes/search implementation.
+- Duplicate Vercel client call sites and removal of legacy clients only after reference audit.
+- Any remaining CORS requirements for preview domains; do not widen without a defined origin policy.
+- Browser/mobile gesture test on a real touch device.
