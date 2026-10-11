@@ -158,3 +158,9 @@ Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Ba
 - `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` — correct listener filter
 
 Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `chore/inspect-vps-proxy-security`. Not merged at the time of this entry.
+
+## VPS proxy diagnostic result — 2026-10-11
+
+Read-only workflow commit `a703011c9d84c34ee7cf640d1a8d84f2b2166b59` is recorded in MongoDB `techkatta_history.backend_git_commits`. Diagnostic run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567.
+
+Findings: Nginx/API service active; Nginx forwards to loopback port 5000; XFF is appended with `$proxy_add_x_forwarded_for`; Express trusts one proxy; UFW denies incoming by default but allows 22/80/443 globally; Node binds `0.0.0.0:5000`. These findings are inputs to the next security change, not proof that origin traffic has already been restricted.
