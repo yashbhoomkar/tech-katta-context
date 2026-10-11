@@ -350,3 +350,9 @@ Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95` (test co
 - VPS deployment and production smoke: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747 — deployment passed, 11 endpoint checks plus CORS/security headers passed.
 
 **Evidence boundary:** this test simulates the header chain inside an isolated Express test server. It does not execute through live Nginx, does not validate a Cloudflare-proxied request, and does not complete issue #28. No DNS, Nginx, or firewall change was made.
+
+## Live forwarded-header smoke test — current direct-origin path (2026-10-11)
+
+A temporary Vercel sandbox in the Mumbai region resolved `tech-api.katta.cc` to `129.121.133.47`. Three low-volume GET requests to `/api/categories` sent three different spoofed `X-Forwarded-For` values. All returned HTTP 200; `X-RateLimit-Remaining` decreased 119 → 118 → 117, and CORS remained restricted to `https://tech.katta.cc`. Standard Node TLS verification succeeded.
+
+This is live evidence that the current direct-client → Nginx → Express route kept the requests in the same rate-limit bucket despite changing the attacker-supplied header, consistent with Nginx appending the actual peer address and Express trusting one proxy hop. Only three requests were sent; no raw client IP was logged or inspected. This does **not** verify Cloudflare-proxied traffic, `CF-Connecting-IP` normalization, or origin firewall restriction.
