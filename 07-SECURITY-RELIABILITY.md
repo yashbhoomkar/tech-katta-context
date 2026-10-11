@@ -166,13 +166,13 @@ Never describe a recommendation as already deployed.
 
 PR: https://github.com/yashbhoomkar/tech-katta/pull/1 (not merged/deployed at the time of this note).
 
-The proposed middleware bounds in-memory client buckets, removes expired windows periodically, and derives the client key from Express's `request.ip` instead of manually trusting the first `X-Forwarded-For` value. The configured `trust proxy` hop count must match the real Cloudflare/reverse-proxy path; until verified, client-IP attribution is an open production-validation item.
+The proposed middleware bounds in-memory client buckets, removes expired windows periodically, and derives the client key from Express's `request.ip` instead of manually trusting the first `X-Forwarded-For` value. The configured `trust proxy` hop count must match the real Cloudflare/reverse-proxy path; at the time of that change; final verification below confirms the current Cloudflare/Nginx path.
 
-This remains a single-process limiter, not distributed rate limiting. A bounded map can evict older buckets during unusually high client-IP cardinality, which is a memory-safety trade-off and must not be presented as a hard abuse-proof guarantee. Cloudflare/origin firewalling, centralized alerting, and origin bypass prevention remain separate backlog items.
+This remains a single-process limiter, not distributed rate limiting. A bounded map can evict older buckets during unusually high client-IP cardinality, which is a memory-safety trade-off and must not be presented as a hard abuse-proof guarantee. Cloudflare/origin firewalling and origin bypass prevention were completed on 2026-10-11; centralized alerting remains a separate backlog item.
 
 ### Deployment validation — 2026-10-11
 
-The rate-limiter change is deployed as part of `a9e340cc539519a91617d390a44e98bd0547046d`. Backend deployment and production smoke tests passed. This verifies the service stayed healthy and public endpoint/CORS/security-header checks passed; it does **not** independently prove that `request.ip` maps to the actual visitor IP through every Cloudflare/reverse-proxy path. Keep that topology verification as an explicit follow-up.
+The rate-limiter change is deployed as part of `a9e340cc539519a91617d390a44e98bd0547046d`. Backend deployment and production smoke tests passed. This verifies the service stayed healthy and public endpoint/CORS/security-header checks passed. At the time it did not prove visitor IP attribution; the final Cloudflare proxy/rate-limit verification below completes that follow-up.
 
 ## Explicit database failure semantics — 2026-10-11
 
@@ -184,13 +184,13 @@ Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47
 
 ## Request logging and health checks — deployed (2026-10-11)
 
-Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` adds a generated request correlation ID and structured access logs that deliberately exclude query strings and client IP addresses. Liveness is independent of MongoDB; readiness returns 503 when MongoDB is disconnected. Health probes bypass the general request limiter. CI and production smoke tests passed. This does not resolve the separate origin-IP exposure or proxy-trust verification backlog.
+Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` adds a generated request correlation ID and structured access logs that deliberately exclude query strings and client IP addresses. Liveness is independent of MongoDB; readiness returns 503 when MongoDB is disconnected. Health probes bypass the general request limiter. CI and production smoke tests passed. This earlier deployment smoke did not resolve origin exposure at the time; final origin-hardening verification is recorded below.
 
 ## Proxy/origin verification step (2026-10-11)
 
 A read-only workflow is proposed in branch `chore/inspect-vps-proxy-security` to inspect Nginx forwarding headers, exposed listening ports, UFW state, and service status over the existing GitHub Actions SSH path. Commits `5de8af322b09619b2c6f11d27770af6e26ab38fd` and `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` are recorded in the MongoDB backend ledger. No firewall or proxy changes are included; hardening should be based on the observed configuration to avoid accidental lockout.
 
-## VPS origin/proxy findings — 2026-10-11
+## VPS origin/proxy findings — 2026-10-11 (pre-cutover baseline; superseded below)
 
 Read-only SSH diagnostics succeeded (https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567).
 
@@ -222,7 +222,7 @@ The initial branch revision accidentally placed socket assertions outside the YA
 
 Commit `5e09088ba40b8060a81813e766202fcf4bb07884` now binds Node to `127.0.0.1:5000`. The deployment pipeline checks the listener and public smoke tests passed. This removes the direct network listener on port 5000 while preserving Nginx access.
 
-The diagnostic still shows Cloudflare proxying is not enabled for `tech-api.katta.cc` (public DNS returns the origin IP). Do not restrict ports 80/443 to Cloudflare until DNS proxying is enabled and verified. UFW remains default-deny incoming but allows 22/80/443 from all sources. SSH access has intentionally not been restricted. Official Cloudflare origin-protection guidance: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/.
+This was the pre-cutover state observed on 2026-10-11. It is superseded by the completed proxy/firewall cutover and verification below. Official Cloudflare origin-protection guidance: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/.
 
 ## TLS verification and Vercel scope — PR #20 candidate
 
@@ -242,18 +242,30 @@ PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Production smoke chec
 PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. Production smoke tests passed 11 endpoint checks plus CORS/security headers without NODE_TLS_REJECT_UNAUTHORIZED override: https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953. This confirms the public API TLS chain validated during the smoke run. It does not resolve origin exposure or prove Cloudflare/Nginx client-IP handling.
 
 
-### Cloudflare proxy/IP attribution rechecked (2026-10-11)
+### Cloudflare proxy/IP attribution rechecked before cutover (2026-10-11)
 
 Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 resolved `tech-api.katta.cc` to the VPS origin `129.121.133.47`, outside Cloudflare's published proxy ranges. Cloudflare proxying is not active for this hostname in the observed state. Nginx sets `X-Real-IP $remote_addr` and `X-Forwarded-For $proxy_add_x_forwarded_for`; Express trusting one Nginx hop is consistent with the current direct-client → Nginx → Express topology. Do not configure Cloudflare-only trusted ranges or change hop count until DNS/proxy state actually changes.
 
-Separate risk remains: the VPS origin is directly exposed and UFW permits ports 80/443 from anywhere. Do not restrict ingress to Cloudflare ranges until the hostname is actually proxied and tested, or public traffic may break. A controlled DNS/Cloudflare migration and origin-hardening change remains future work.
+This paragraph records the pre-cutover risk. The controlled DNS/Cloudflare migration and origin-hardening change were completed and independently verified below.
 
 
 ## Audit follow-up issue map (2026-10-11)
 
-- **Issue #28 — Cloudflare proxy cutover and origin ingress restriction:** direct-origin DNS remains in place; do not restrict firewall ingress until proxying and Nginx real-IP handling are verified.
+- **Issue #28 — Cloudflare proxy cutover and origin ingress restriction:** closed as completed after verified Cloudflare proxying, strict TLS, Nginx real-IP normalization, spoofed-XFF rate-limit attribution, Cloudflare-only UFW ingress, SSH preservation, and direct-origin blocking.
 - **Issue #29 — Real overflow failover:** the placeholder timer remains disabled. No secondary upstream or working failover path exists.
 - **Issue #30 — Free AI code review:** `.coderabbit.yaml` is configured, but the GitHub app has not produced substantive review evidence. Do not count CI/static analysis as AI review.
 - **Issue #31 — Search scalability:** preserve case-insensitive substring semantics; reconsider indexing only when scale or measured latency justifies it.
 
 Issue #18 remains open as the umbrella audit. Its resolved items are tracked in the issue comments; do not close it until the remaining work is genuinely complete.
+
+
+## Final Cloudflare origin protection state (2026-10-11)
+
+Production hardening completed in workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38165442874.
+
+- DNS for tech-api.katta.cc is proxied through Cloudflare. SSL/TLS is Full (strict), Always Use HTTPS is enabled, and minimum TLS is 1.2.
+- Nginx uses the official Cloudflare IPv4/IPv6 CIDRs for set_real_ip_from, sets real_ip_header to CF-Connecting-IP, and enables real_ip_recursive. Nginx config test, reload, and local API health passed.
+- Three requests with different spoofed X-Forwarded-For values stayed in one rate-limit bucket (118 → 117 → 116).
+- UFW default incoming policy is deny. Ports 80/443 allow only 15 official Cloudflare IPv4 and 7 IPv6 CIDRs. Broad Anywhere web rules are absent; IPv4 and IPv6 SSH/22 rules are preserved.
+- Public API health/database/CORS checks passed after firewall application. Independent Vercel Mumbai checks returned HTTP 200 through Cloudflare and confirmed direct-origin ports 80 and 443 time out.
+- Cloudflare CIDRs are refreshed weekly. Issue #28 is closed. The umbrella issue #18 remains open for other findings, including capacity, search scalability, and actual overflow failover.
