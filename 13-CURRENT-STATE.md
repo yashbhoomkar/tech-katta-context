@@ -228,3 +228,9 @@ VPS deployment and production smoke tests: https://github.com/yashbhoomkar/tech-
 Node binds only to `127.0.0.1:5000`; deployment asserts the loopback listener and rejects `0.0.0.0:5000`. The public smoke suite passed 11 endpoint checks plus CORS/security headers.
 
 Security limitation: `tech-api.katta.cc` resolves directly to origin `129.121.133.47`; Cloudflare proxying is not active for this hostname. UFW allows 80/443 from all sources, and no firewall changes have been made. Enabling Cloudflare proxying requires a working Cloudflare DNS management path; only then should origin ingress be restricted to official Cloudflare ranges. SSH remains globally allowed to avoid accidental lockout.
+
+### Phase 6 candidate — pagination and query indexes
+
+Production remains on `5e09088ba40b8060a81813e766202fcf4bb07884` until the pagination PR passes CI and is merged. Branch `feat/backend-pagination-indexes` currently points to `41359ab7c5b5acaa65fa2e47565fa10236a56cba`.
+
+The change adds opt-in pagination to `GET /api/articles`, stable slug ordering for paginated requests, a 100-item maximum limit, CORS-exposed pagination headers, and a compound `{ category: 1, slug: 1 }` index created by seeding. The default unpaginated response remains unchanged for the current frontend. CI/PR/deployment status pending.
