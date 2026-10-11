@@ -512,3 +512,18 @@ Verification:
 - Bounded load: 60 GET requests at concurrency 3; 60 HTTP 200, min 233 ms, median 239 ms, p95 750 ms, max 807 ms, zero 429s and zero 5xx/network errors. A second run also passed 60/60 with p95 757 ms. These are smoke-load measurements, not a capacity benchmark.
 - Existing production smoke suite passed 11 endpoint checks plus CORS and security headers with standard TLS verification.
 - CodeQL security-extended/security-and-quality passed on the final PR head: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821. Manual Semgrep default-rules scan reported zero findings.
+
+
+## Final verification and TLS remediation — 2026-10-11
+
+PR #14 was merged as `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` after its browser, bounded load, and CodeQL checks passed. The merge commit is recorded in MongoDB `techkatta_history.backend_git_commits`.
+
+The public API TLS problem was fixed on the VPS using Certbot/Nginx after the HTTP-01 dry run succeeded. The certificate issuer is Let's Encrypt YE2; OpenSSL returned `Verify return code: 0 (ok)`, and `/api/health` returned HTTP 200.
+
+Final run links:
+- Browser and bounded GET load: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821
+
+Browser coverage passed the home, distributed-systems unit, canonical article route, browser-origin API/CORS request and canonical article response contract, with no uncaught page exceptions. The load probe completed 60 GETs at concurrency 3: all 60 were HTTP 200, min 231 ms, median 235 ms, p95 757 ms, max 839 ms, zero 429s and zero 5xx/network errors. This is a low-volume smoke-load check, not a capacity benchmark or penetration test.
+
+PR #14 changed verification workflows/scripts, not backend runtime source; no backend deployment was triggered by that merge. The deployed backend code remains `9d545de3c6e2048dd851bb43a8782bf388544486`; the VPS TLS configuration was changed separately and verified by the successful checks.
