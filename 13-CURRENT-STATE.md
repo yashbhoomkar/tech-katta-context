@@ -374,3 +374,8 @@ Merged `refactor/backend-clean-architecture-phase-1` into `main` via merge commi
 Merge `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d` is on GitHub `main`, and the VPS deploy workflow fetched it and installed production dependencies. The SSH script then exited with status 1 immediately after logging `Enforcing production runtime configuration...`, before content-sync decision, service restart, or production smoke tests. Rerunning the job reproduced the same failure. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493. Do not claim the refactored service is live.
 
 Created hotfix PR #11 https://github.com/yashbhoomkar/tech-katta/pull/11 at commit `6d9fe2653a578fc51e73080ac606c0354c4ff084` to make sudo/systemd configuration failures explicit and diagnostic. This application commit is recorded in MongoDB `techkatta_history.backend_git_commits`. Next: inspect PR #11, merge the diagnostics, rerun deployment, and only report success if local health + public production smoke checks pass.
+
+
+### Deployment diagnostics hotfix merged; retry running (2026-10-11)
+
+PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`, recorded in MongoDB `techkatta_history.backend_git_commits`. The deployment workflow is retrying with explicit non-interactive sudo checks and step-specific systemd diagnostics: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813. Wait for the SSH step output before deciding whether the issue is sudo authorization, directory/write permissions, or systemd reload. Production smoke verification remains pending.

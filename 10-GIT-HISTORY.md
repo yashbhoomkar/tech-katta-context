@@ -298,3 +298,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment workflow
 - `6d9fe2653a578fc51e73080ac606c0354c4ff084` — add explicit sudo/systemd failure diagnostics after the merged deployment failed before service restart.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. PR #11: https://github.com/yashbhoomkar/tech-katta/pull/11. Do not mark production verified until a subsequent deploy completes local health checks and production smoke tests.
+
+
+### Deployment diagnostics merge
+
+- `7a43a798407861b0a8f4b3fc9826da0a2b7f9581` — merge diagnostic hotfix PR #11.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment retry https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813 is in progress; production verification is pending.

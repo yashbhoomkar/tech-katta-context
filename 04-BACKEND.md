@@ -451,3 +451,8 @@ PR #10 has been merged to `main` as `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`. 
 The deploy workflow fetched merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d` and installed production dependencies, then failed immediately after `Enforcing production runtime configuration...`. Service restart and production smoke tests were skipped; a retry reproduced the same failure. Do not assume the new backend is running.
 
 Hotfix PR #11: https://github.com/yashbhoomkar/tech-katta/pull/11 — commit `6d9fe2653a578fc51e73080ac606c0354c4ff084` adds non-interactive sudo preflight and explicit failure diagnostics for systemd configuration. Recorded in the MongoDB commit ledger. Deployment and public smoke verification are pending.
+
+
+### Deployment diagnostic retry
+
+PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`; the merge commit is recorded in the MongoDB commit ledger. Deployment retry with explicit sudo/systemd diagnostics: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813. The cause of the previous failure and production status remain unconfirmed until this run completes.
