@@ -230,3 +230,7 @@ Observed on the VPS:
 - Node listens on `0.0.0.0:5000`; UFW has no allow rule for 5000, but binding to loopback would add defense in depth.
 
 These findings confirm that the current Express `trust proxy: 1` likely uses the Cloudflare edge address as `request.ip` for proxied requests when Nginx appends its peer address to X-Forwarded-For. Verify public DNS resolves to Cloudflare proxy addresses before changing trust hops or firewall rules. Do not remove SSH access as part of origin hardening.
+
+### Cloudflare DNS verification candidate (2026-10-11)
+
+Branch `chore/verify-cloudflare-dns`, commit `1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7` (recorded in the MongoDB backend ledger) extends the read-only VPS diagnostic workflow to resolve `tech-api.katta.cc` and compare every resolved address with the official Cloudflare IPv4/IPv6 ranges fetched at runtime. This is a diagnostic check only; it makes no DNS, firewall, or proxy changes. PR and execution result are pending.
