@@ -179,3 +179,12 @@ A CI run on commit `c2c37bff7305a8e2aaf8cd793e2e0a7efe3668ed` completed successf
 - VPS deployment and public smoke run passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128036897
 - Deployment steps confirmed SSH update to `a9e340cc539519a91617d390a44e98bd0547046d`, dependency installation, syntax checks, MongoDB seeding, systemd service active, local `/api/health` returning `status: ok` and `db: connected`, overflow timer active, and public smoke tests passing (9 endpoints + CORS + security headers).
 - This is CI plus production smoke-test verification; it is not a full browser test, load test, or security assessment.
+
+## Phase 2 — database fallback semantics (2026-10-11)
+
+New tests cover: fallback only when disconnected, empty database results remain authoritative, query errors propagate instead of using fallback, and missing-record results remain `null` for route-level 404 handling.
+
+- Backend CI: passed — https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191731
+- VPS deployment and production smoke tests: passed — https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751
+
+The production smoke suite checks normal API behavior; it does not inject MongoDB query failures or simulate Atlas outages.
