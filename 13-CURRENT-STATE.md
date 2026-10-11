@@ -574,3 +574,10 @@ This does not constitute a physical-device test. Verify the production Vercel de
 The repository now contains `.coderabbit.yaml`, merged in PR #26 as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. It defines automatic review intent and Tech Katta-specific instructions. The source commit and merge SHA are recorded in `techkatta_history.backend_git_commits`.
 
 The actual AI reviewer is **not yet verified operational**: PR #26 had no CodeRabbit review or inline comments, and the manual `@coderabbitai review` request produced no CodeRabbit response/check. Do not treat the config file as proof of an active review service. The repository's CodeRabbit GitHub App integration needs to be installed/authorized and verified on a new PR. This remains an open item for issue #18.
+
+
+## Structured diagram normalization finding resolved — PR #27 (2026-10-11)
+
+The slug-specific ASCII-to-diagram heuristic has been removed. Backend fallback content and the live MongoDB article now both use the explicit `distributed-architecture` diagram block. The deploy workflow seeded content because the source file changed; the follow-up Atlas query confirmed the live block type/name. Backend CI (31/31), CodeQL, Semgrep, VPS deployment, and production smoke checks passed. Deployment evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733.
+
+Issue #18 remains open for other audit findings, including direct-origin exposure and the unverified CodeRabbit integration.
