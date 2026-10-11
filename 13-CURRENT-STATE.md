@@ -487,3 +487,12 @@ Changes in the branch:
 - Frontend local Kafka fallback includes the advanced sections already used by the backend.
 
 Application commits are recorded in their respective techkatta_history.backend_git_commits and frontend_git_commits collections. Backend CI and frontend build passed on the latest PR head; CodeQL was pending. No production deployment is claimed. Regex-to-text search migration, proxy IP semantics, overflow routing, Vercel client consolidation, and diagram normalization remain deferred pending additional verification/design.
+
+
+## Issue #18 fixes merged — 2026-10-11
+
+PR #19 merged as 62c4b3ee59a99a57ec98ad221a34d38f37953eb2: mobile swipe route state and article metadata cleanup. Frontend CI and CodeQL passed; actual mobile touch testing remains pending.
+
+PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b: configurable safe bind host/Docker binding, health checks outside rate limiting with dynamic package version, TLS smoke validation without certificate bypass, article category index, removal of hardcoded Vercel team ID, and complete local Kafka fallback sections. Backend CI, frontend build, and CodeQL passed on PR head. Both merge commits are recorded in the respective MongoDB ledgers and context docs.
+
+Production deployment and post-deploy verification for PR #20 are pending. Remaining issue #18 findings requiring more evidence/design: search query strategy, Cloudflare/Nginx client-IP trust, overflow routing, Vercel client consolidation, and content-schema diagram migration. The diagnostic workflow permission/stdout allegation is stale: the current workflow already uses capture_stdout and issues:write, which is sufficient for the issue-comment endpoint.
