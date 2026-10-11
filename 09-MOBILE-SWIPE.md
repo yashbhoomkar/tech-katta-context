@@ -121,3 +121,8 @@ If this feature evolves, consider:
 - avoiding conflicts with horizontally scrollable content
 
 Do not add animation or gesture complexity unless it materially improves the behavior.
+
+
+## Audit follow-up — route-state closure fix (2026-10-11)
+
+Application branch `fix/audit-frontend-state-metadata` contains commit `f1e657c21673bf64ff71f6d067f1231e72d1956f` to include `location.pathname` in the swipe effect dependencies. This prevents the touch listener from retaining the route captured before SPA navigation. PR #19 is open; CI and actual mobile touch verification are pending. The commit is recorded in MongoDB `techkatta_history.frontend_git_commits`.
