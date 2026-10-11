@@ -346,7 +346,7 @@ Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95` (test co
 
 - Backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817699 — passed.
 - Semgrep: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817744 — passed.
-- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817712 — verify final status before marking complete.
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817712 — passed.
 - VPS deployment and production smoke: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747 — deployment passed, 11 endpoint checks plus CORS/security headers passed.
 
 **Evidence boundary:** this test simulates the header chain inside an isolated Express test server. It does not execute through live Nginx, does not validate a Cloudflare-proxied request, and does not complete issue #28. No DNS, Nginx, or firewall change was made.
