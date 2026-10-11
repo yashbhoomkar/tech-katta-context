@@ -264,3 +264,8 @@ PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10 — open as draft; no
 This first structural step moves Express middleware and route assembly into `backend/src/app.js`, exported as an injectable `createApp()` factory. `backend/src/server.js` is reduced to environment loading, database connection startup, loopback listener startup, and graceful process shutdown. A new HTTP-level test covers app assembly, liveness/readiness, CORS, and security headers.
 
 The existing API routes, response shapes, database behavior, and production deployment are intended to remain unchanged. Backend CI is pending at the time of this entry. This is an incremental refactor, not yet the full controller/service/repository architecture. Do not deploy until CI passes and the PR has been reviewed.
+
+
+### Backend clean-architecture phase 1 — CI result
+
+For application commit `7f669b872561c809ae8ae501d94d86e26f4473ff`, GitHub Actions backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227. The job ran `npm ci` and `npm test`; all 17 tests passed, including the new app-construction HTTP test. PR #10 remains draft/open, and no VPS deployment or production smoke test was performed for this candidate. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884` until the refactor is reviewed, merged, and deployed through the normal workflow.

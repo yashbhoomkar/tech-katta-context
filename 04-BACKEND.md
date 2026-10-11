@@ -357,3 +357,8 @@ Candidate structure:
 - `backend/test/app.test.js`: HTTP-level verification of app assembly, health endpoints, CORS, and security headers.
 
 This isolates HTTP construction from process lifecycle so application behavior can be tested without starting the production process or opening a production database connection. Existing endpoint paths and response shapes are preserved by intent. The next architectural phase should separate content request handling, business logic, and MongoDB access into controller/service/repository layers only after this structural step passes CI. No deployment is authorized by this candidate branch.
+
+
+### App factory separation — CI result (2026-10-11)
+
+Application commit `7f669b872561c809ae8ae501d94d86e26f4473ff` passed backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227. All 17 native Node tests passed. This is CI verification only; no production deployment, public smoke test, browser test, or load test was performed for this candidate. PR #10 remains draft/open. The next phase should introduce controller/service/repository separation incrementally and preserve the existing public API contract.

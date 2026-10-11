@@ -206,3 +206,8 @@ Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Br
 - `7f669b872561c809ae8ae501d94d86e26f4473ff` — separate Express app construction from server lifecycle and add an HTTP-level app test.
 
 The commit is recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `refactor/backend-clean-architecture-phase-1`; draft PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10. At the time of this entry, backend CI is pending, and the change is not merged or deployed. Preserve the current production commit `5e09088ba40b8060a81813e766202fcf4bb07884` until CI and review are complete.
+
+
+### Backend clean-architecture phase 1 — validation update
+
+Application commit `7f669b872561c809ae8ae501d94d86e26f4473ff` passed backend CI in https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227; all 17 tests passed. Draft PR #10 remains open and is not merged or deployed. No production smoke/load/browser validation was performed for this branch.
