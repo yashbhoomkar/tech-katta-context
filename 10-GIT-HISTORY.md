@@ -516,3 +516,16 @@ Merged as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`.
 - No secrets, paid API key, or production runtime dependency was added.
 - The PR review and inline-comment APIs showed no AI review. A manual `@coderabbitai review` request received no CodeRabbit response; only the Vercel preview check was present. The config is prepared, but actual AI-review integration is not verified and remains an audit blocker.
 - Merge SHA and source commit are recorded in `techkatta_history.backend_git_commits`.
+
+
+## PR #27 — remove slug-specific diagram normalization (2026-10-11)
+
+Merged as `90ac43818fc34c61dfd7fdcae3baf62f83310350`.
+
+- Backend fallback content now declares `diagram: 'distributed-architecture'`, matching frontend content.
+- Removed `isDistributedArchitectureAsciiDiagram` and the article-slug conditional from `contentSchema.js`; normalization preserves block semantics.
+- Added regression coverage that explicit diagram blocks survive normalization and ordinary code blocks are not silently converted based on slug.
+- Backend CI passed 31/31 tests; CodeQL and Semgrep passed.
+- VPS deployment succeeded and production smoke checks passed 11 endpoints plus CORS/security headers: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733.
+- Deployment workflow automatically synced the changed source to MongoDB. A live Atlas read confirmed the first section's third block is `{ type: 'diagram', name: 'distributed-architecture' }`.
+- All four branch commits and the merge SHA are recorded in `techkatta_history.backend_git_commits`.
