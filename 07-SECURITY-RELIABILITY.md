@@ -213,3 +213,7 @@ The first range-check run failed because `www.cloudflare.com/ips-v4` returned HT
 The DNS check found `tech-api.katta.cc` resolves to the VPS origin address rather than a Cloudflare edge IP. Therefore Cloudflare proxying is currently not active for this API hostname, and origin firewall restrictions to Cloudflare ranges would break traffic. Do not apply those rules yet.
 
 Branch `fix/backend-loopback-bind` proposes binding Express to `127.0.0.1:5000` and verifying that binding in deployment. This is defense-in-depth independent of Cloudflare and matches Nginx's configured upstream. The existing `trust proxy: 1` is appropriate for the currently observed direct-client → Nginx → Express path, where Nginx appends the direct peer address to XFF. Revisit trust hops if Cloudflare proxying is enabled later. Commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541` are recorded in MongoDB; PR/deployment pending.
+
+### Loopback deployment check review
+
+The initial branch revision accidentally placed socket assertions outside the YAML SSH script and caused GitHub to mark the workflow invalid. Commit `d41a420c7f973af3626d9de51cd16f34edf94166` corrects the indentation. No production deployment was triggered from the branch because the deployment workflow is configured for `main` pushes only.
