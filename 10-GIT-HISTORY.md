@@ -237,3 +237,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed on this e
 - `c9411681a0f940256c8999e22cfc85f01ed295a9` — validate port/frontend origin in a dedicated configuration module and inject immutable config into Express app construction.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133257583. Draft PR #10 remains open and undeployed.
+
+
+### MongoDB configuration injection candidate
+
+- `723a234193644d382c42a34494bb43c014924fac` — pass validated MongoDB URI/database name into database startup and reuse connection options on reconnect.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413. PR #10 remains draft/open and not deployed.

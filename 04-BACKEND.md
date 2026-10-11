@@ -392,3 +392,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151 �
 Added `backend/src/config.js` on candidate commit `c9411681a0f940256c8999e22cfc85f01ed295a9`. It parses and validates the port and frontend origin at startup, requires `FRONTEND_ORIGIN` in production, rejects invalid ports and non-origin frontend URLs, and returns an immutable config object. `server.js` passes the validated config into `createApp()`, which no longer reads `process.env` directly.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133257583 — 28/28 tests passed. PR #10 remains draft/open; no production deployment or smoke test has been performed for this candidate.
+
+
+### Runtime configuration and MongoDB injection — candidate
+
+Commit `723a234193644d382c42a34494bb43c014924fac` extends `loadConfig()` to include the MongoDB URI and database name. The process entry point injects these into `connectDB({ uri, dbName })`; reconnect attempts reuse the active options. Missing `MONGODB_URI` continues to mean local fallback mode, preserving existing behavior.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413 — 28/28 tests passed. Draft PR #10 is unmerged and undeployed. Production smoke/browser/load validation remains pending.
