@@ -203,3 +203,7 @@ Read-only diagnostics succeeded: https://github.com/yashbhoomkar/tech-katta/acti
 Observed: Nginx and API service active; `tech-api.katta.cc` proxies to `127.0.0.1:5000`; XFF is `$proxy_add_x_forwarded_for`; Express trusts one hop; UFW default incoming policy is deny but 22/80/443 are allowed globally (IPv4 and IPv6); Node listens on `0.0.0.0:5000`.
 
 Open security work: verify DNS is Cloudflare-proxied, then restrict 80/443 to official Cloudflare IPv4/IPv6 ranges and bind Node to loopback. Adjust Express trust hops only after the proxy chain and origin restriction are verified. Preserve SSH access until an alternate admin path is established.
+
+### Cloudflare DNS verification candidate
+
+Branch `chore/verify-cloudflare-dns` has commit `1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7`, recorded in MongoDB. It extends the read-only diagnostic workflow to compare public API DNS answers against Cloudflare's live official IPv4/IPv6 ranges. No production configuration is changed. PR/run result is pending.
