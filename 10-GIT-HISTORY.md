@@ -119,3 +119,15 @@ Application commits recorded in MongoDB `techkatta_history.backend_git_commits`:
 - `333d7e42a11f2a50ae103cd19ce2e9e16f0c883f` — correct deployment workflow syntax-check module paths
 
 The initial backend CI run passed on `c2c37bff7305a8e2aaf8cd793e2e0a7efe3668ed`. The final branch head and deployment status must be rechecked before merge.
+
+## Database fallback semantics — 2026-10-11
+
+Merged and deployed via `3155342dc66bdf1e001bbfc54749f63daf1e4062`.
+
+MongoDB ledger entries in `techkatta_history.backend_git_commits`:
+- `a9745b526474a16e39161a246035658e04cc7017` — define explicit database fallback semantics
+- `2d3452537f0925876837ba25bef9c15113fbe7bc` — test database fallback semantics
+- `9044c9807534675a850079c3f05f2bf152bc75b3` — stop masking empty or failing database reads
+- `3155342dc66bdf1e001bbfc54749f63daf1e4062` — merge database fallback semantics
+
+Validation: backend CI and VPS deployment/public smoke tests passed. The API now falls back only while MongoDB is known disconnected, preserves empty/missing database results, and returns explicit 503 responses for query failures.
