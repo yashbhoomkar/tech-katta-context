@@ -201,3 +201,7 @@ The extracted content router is exercised over HTTP using Node's native `fetch` 
 - VPS deployment/public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288
 
 No browser UI behavior changed. This is not a load test or a full failure-injection suite.
+
+## Readiness/observability test candidate (2026-10-11)
+
+Commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` adds tests for liveness while disconnected, readiness status for connected/disconnected database states, and request-ID/structured-log behavior including a check that query parameters are not logged. Production smoke tests now include `/health/live` and `/health/ready`. Branch `feat/backend-readiness-observability`; CI is pending.
