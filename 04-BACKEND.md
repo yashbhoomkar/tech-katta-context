@@ -406,3 +406,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133337413 �
 Candidate commit `b4fd021f18a98ee77700455da8e7d6a4b98861ae` introduces `src/errors.js` and `src/middleware/errorHandler.js`. Controllers forward typed errors to the shared Express boundary. Responses are JSON and consistent for 404, malformed JSON 400, content query 503 (Retry-After: 5 and Cache-Control: no-store), and unexpected 500. Internal DB details are not returned to clients.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417 — 28/28 tests passed. This candidate remains in draft PR #10 and is not deployed. Production smoke/browser/load tests are pending.
+
+
+### Request parsing and error-boundary coverage — candidate
+
+Commit `e08dae0345100ba3ccc8b7efbd8690db1644cfbf` moves request ID/logging middleware ahead of JSON parsing and adds consistent JSON handling for malformed JSON (400) and oversized bodies (413), preserving the existing 50 KB body limit.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724 — 28/28 tests passed. The changes are still in draft PR #10 and have not been deployed.

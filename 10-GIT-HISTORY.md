@@ -251,3 +251,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 t
 - `b4fd021f18a98ee77700455da8e7d6a4b98861ae` — centralize JSON error responses and add typed not-found/content-unavailable errors.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417. Draft PR #10 remains open and undeployed.
+
+
+### Request parsing hardening candidate
+
+- `e08dae0345100ba3ccc8b7efbd8690db1644cfbf` — ensure malformed/oversized body requests receive request IDs and consistent JSON 400/413 responses.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724. Draft PR #10 remains open and undeployed.

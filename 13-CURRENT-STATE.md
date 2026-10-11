@@ -323,3 +323,14 @@ Application commit: `b4fd021f18a98ee77700455da8e7d6a4b98861ae` on branch `refact
 Added `src/errors.js` typed errors and `src/middleware/errorHandler.js` as the final Express error boundary. Content controllers forward failures instead of building error responses. The boundary returns JSON for unmatched routes (404), malformed JSON (400), content query failures (503 with Retry-After and no-store), and unexpected server errors (generic 500). Internal database error details are logged server-side and not returned to clients. Tests cover the shared error boundary and public response shapes.
 
 Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417. All 28 tests passed. Candidate is not merged or deployed; production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`. Production smoke/browser/load verification has not been run for the candidate.
+
+
+### Request parsing and shared error boundary hardening — CI passed
+
+Application commit: `e08dae0345100ba3ccc8b7efbd8690db1644cfbf`, draft PR #10.
+
+- Request IDs and structured request logging now run before JSON body parsing, so malformed and oversized bodies are observable.
+- The shared error handler returns JSON 400 for malformed JSON and JSON 413 for bodies exceeding the existing 50 KB limit.
+- Added integration assertions for request IDs on parser failures and for the oversized-body response.
+
+CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724 — 28/28 tests passed. PR #10 remains draft/open, unmerged and undeployed. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`; no production smoke/browser/load test was run for this candidate.
