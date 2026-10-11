@@ -266,3 +266,8 @@ Still not verified: actual mobile gesture interaction, offline/API-failure Kafka
 ### PR #21 validation record (2026-10-11)
 
 PR #21 (`9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`) changes the backend deploy workflow to disable the placeholder overflow timer and assert that it is inactive. The PR's CodeRabbit and Vercel status checks reported success, but no submitted CodeRabbit review or inline review thread was present when checked. These checks do not independently validate the live VPS timer state. Verify the merge-triggered deployment job, its service health check, timer-inactive assertion, and public production smoke tests before marking this operational finding complete. No load/stress test was run as part of this change.
+
+
+### Overflow timer disablement — production validation (2026-10-11)
+
+Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 passed for `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Verified from workflow logs: timer disable/stop command ran; `tech-katta-api` was active; local health returned `status=ok`, `db=connected`; listener checks passed; public production smoke suite passed 11 endpoint checks plus CORS/security headers. No stress test was part of this deployment.
