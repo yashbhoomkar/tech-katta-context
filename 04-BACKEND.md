@@ -551,3 +551,10 @@ PR #20 was squash-merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Changes in
 - Seed/index setup adds an article category index.
 - Legacy Vercel control CLI no longer hardcodes a team ID; scope is explicit via VERCEL_TEAM_ID.
 - Backend CI and CodeQL passed on corrected test commit d40929e580571d5600066d521de08f9f75eb7deb. This is source/CI verification; do not claim a successful production deploy until the post-merge deploy and live health checks are observed.
+
+
+## Structured distributed-architecture diagram fix — PR #27 (2026-10-11)
+
+PR #27 merged as `90ac43818fc34c61dfd7fdcae3baf62f83310350`. The backend fallback content now uses the same explicit `diagram: 'distributed-architecture'` field as the frontend. The slug-specific `isDistributedArchitectureAsciiDiagram` heuristic was removed from `contentSchema.js`, and the content service no longer passes the slug to normalization. Normalization preserves declared block types rather than guessing based on ASCII strings.
+
+The deploy workflow detected the changed content source and automatically ran `npm run seed`. The live Atlas document `techkatta.articles` with slug `distributed-systems-concepts` was re-read afterward; its first section's third block is now `{ type: 'diagram', name: 'distributed-architecture' }`. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733.
