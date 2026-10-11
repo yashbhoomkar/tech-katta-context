@@ -193,3 +193,10 @@ Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `f
 - `5e09088ba40b8060a81813e766202fcf4bb07884` — merge loopback binding hardening
 
 All commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and production deployment/smoke tests passed after merge.
+
+## Optional pagination candidate — 2026-10-11
+
+- `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` — add opt-in pagination and query index
+- `41359ab7c5b5acaa65fa2e47565fa10236a56cba` — fix numeric pagination parsing
+
+Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Branch: `feat/backend-pagination-indexes`; not merged at the time of this entry.
