@@ -205,3 +205,7 @@ No browser UI behavior changed. This is not a load test or a full failure-inject
 ## Readiness/observability test candidate (2026-10-11)
 
 Commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` adds tests for liveness while disconnected, readiness status for connected/disconnected database states, and request-ID/structured-log behavior including a check that query parameters are not logged. Production smoke tests now include `/health/live` and `/health/ready`. Branch `feat/backend-readiness-observability`; CI is pending.
+
+## Phase 4 verification — 2026-10-11
+
+The test suite passed with 16 tests on the PR head. The merged push CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934. VPS deployment and expanded public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902. New tests verify liveness, readiness for connected/disconnected DB states, request ID generation, structured logging, and query-string exclusion. The production smoke suite now covers 11 endpoint checks plus CORS and security headers.
