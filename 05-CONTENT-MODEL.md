@@ -209,3 +209,8 @@ PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. The frontend fallback
 ### PR #20 rollout — 2026-10-11
 
 Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. The backend content seed completed with 5 categories and 11 articles; frontend CI build passed. The advanced Kafka sections are now present in the frontend source fallback. Actual offline/browser fallback behavior remains unverified.
+
+
+## Explicit diagram block contract (2026-10-11)
+
+The distributed-systems overview uses a structured `{ type: 'diagram', name: 'distributed-architecture' }` block in both backend fallback data and the live MongoDB article. Do not infer diagram rendering from slug-specific ASCII code content. `contentSchema.js` normalizes explicit block types and preserves ordinary code blocks as code. PR #27 removed the legacy substring heuristic and added a regression test ensuring code blocks are not rewritten based on article slug.
