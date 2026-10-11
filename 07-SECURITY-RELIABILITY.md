@@ -217,3 +217,9 @@ Branch `fix/backend-loopback-bind` proposes binding Express to `127.0.0.1:5000` 
 ### Loopback deployment check review
 
 The initial branch revision accidentally placed socket assertions outside the YAML SSH script and caused GitHub to mark the workflow invalid. Commit `d41a420c7f973af3626d9de51cd16f34edf94166` corrects the indentation. No production deployment was triggered from the branch because the deployment workflow is configured for `main` pushes only.
+
+## Loopback listener hardening — deployed (2026-10-11)
+
+Commit `5e09088ba40b8060a81813e766202fcf4bb07884` now binds Node to `127.0.0.1:5000`. The deployment pipeline checks the listener and public smoke tests passed. This removes the direct network listener on port 5000 while preserving Nginx access.
+
+The diagnostic still shows Cloudflare proxying is not enabled for `tech-api.katta.cc` (public DNS returns the origin IP). Do not restrict ports 80/443 to Cloudflare until DNS proxying is enabled and verified. UFW remains default-deny incoming but allows 22/80/443 from all sources. SSH access has intentionally not been restricted. Official Cloudflare origin-protection guidance: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/.
