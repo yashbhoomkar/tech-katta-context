@@ -617,3 +617,9 @@ This improves regression coverage for the currently observed client → Nginx �
 After application PR #34, a temporary Vercel sandbox made three GET requests to the production API using three different spoofed `X-Forwarded-For` values. DNS still resolved `tech-api.katta.cc` directly to `129.121.133.47`. All three responses were HTTP 200, the rate-limit remaining counter decreased consecutively (119 → 118 → 117), CORS remained restricted to `https://tech.katta.cc`, and standard TLS validation succeeded.
 
 This verifies same-bucket behavior on the currently observed direct-client → Nginx → Express path without recording client IPs. It does not validate Cloudflare proxying or justify restricting origin ingress. No DNS, Nginx, or firewall change was made; issues #28 and #18 remain open.
+
+## Commit-ledger duplicate backup status — 2026-10-11
+
+The six known duplicate ledger rows are backed up and verified in `techkatta_history.commit_ledger_duplicate_backup_20261011`, preserving source collection, original `_id`, key, and original description. Canonical GitHub commit messages have been identified for the two affected SHAs. No original row was deleted or modified.
+
+The available MongoDB Atlas connector cannot create a true unique index: its `create_index` operation ignored a supplied `unique: true` option in a controlled backup-collection probe. The probe index was removed. Do not delete duplicate rows until a supported path can enforce and verify the unique constraint. Issue #32 remains open; umbrella issue #18 remains open.
