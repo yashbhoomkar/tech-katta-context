@@ -284,3 +284,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. CI for this workflo
 ### Candidate CI result
 
 For `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2`, backend CI passed with 29/29 tests and 0 failures: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134049543. PR #10 is ready for review. CodeRabbit review requested; no findings received yet. Not deployed.
+
+
+### PR #10 merge commit
+
+- `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d` — merge layered backend refactor and deployment content-sync guard.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493 and main CI run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426 were running; do not record production as verified until both and smoke checks finish.

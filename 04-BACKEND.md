@@ -439,3 +439,8 @@ CI/deployment workflow verification for this change is pending. PR #10 is still 
 ### Latest candidate validation
 
 Backend CI passed on candidate head `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134049543 — 29 tests passed, 0 failed. The PR is ready for review. CodeRabbit review was requested for this exact head; no review findings have been received yet. Production deployment and smoke verification are still pending.
+
+
+### Merge and deployment status
+
+PR #10 has been merged to `main` as `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`. The merge commit was recorded in MongoDB `techkatta_history.backend_git_commits`. VPS deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493. Main-branch CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. Both runs were in progress when this note was added; production verification is pending.
