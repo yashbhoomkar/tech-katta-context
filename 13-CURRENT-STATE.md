@@ -452,3 +452,8 @@ Successful verification:
 The TLS issue was fixed by issuing/configuring a Let's Encrypt certificate on the VPS. The browser suite now passes all three SPA routes and the browser-origin API/CORS/article contract. The bounded probe returned 60/60 HTTP 200 with concurrency 3; min 231 ms, median 235 ms, p95 757 ms, max 839 ms, no 429s, no 5xx/network errors. This remains a bounded smoke-load check, not a capacity benchmark. CodeQL passed for the final candidate head.
 
 The app repository main now includes merge commit `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`. No backend application source was changed by PR #14 and no backend code deployment was triggered by it; deployed application code remains at `9d545de3c6e2048dd851bb43a8782bf388544486`. The separate TLS certificate configuration was changed on the VPS and verified by the browser/load run.
+
+
+### Post-merge deployment verification (2026-10-11)
+
+Merging PR #14 as `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` triggered the backend deployment workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631. The run passed backend JavaScript validation, dependency install, syntax checks, VPS preparation/runtime configuration, API restart/health verification, and production smoke tests. MongoDB content sync was skipped because this was a workflow/test-only change. The VPS deployment workflow is now green on the latest main SHA, while backend application source remains unchanged from `9d545de3c6e2048dd851bb43a8782bf388544486`. The merge commit is recorded in MongoDB `techkatta_history.backend_git_commits`.
