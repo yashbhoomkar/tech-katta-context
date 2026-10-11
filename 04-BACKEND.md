@@ -321,3 +321,7 @@ Branch `fix/backend-loopback-bind` currently includes:
 - `2fc4cf9f07c576c903e165a802edc2597d66d541` — fix the DNS diagnostic warning branch
 
 Both commits are recorded in MongoDB. The Node service will listen only on loopback, matching Nginx's existing `proxy_pass http://127.0.0.1:5000`. The deploy workflow will verify the loopback listener and fail if the API is bound to `0.0.0.0:5000`. No firewall rules are changed. CI/PR/deployment status is pending.
+
+### Deployment assertion correction (2026-10-11)
+
+Commit `d41a420c7f973af3626d9de51cd16f34edf94166` (MongoDB-ledgered) fixes the indentation of the loopback socket assertions inside the SSH script block. The initial PR branch version placed them outside the YAML script block and GitHub marked the deployment workflow invalid; this was caught before merging. PR validation should be checked on the updated head.
