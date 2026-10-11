@@ -203,3 +203,8 @@ PR #19 (`fix/audit-frontend-state-metadata`) includes application commit `a1f3b3
 ### PR #19 merged — metadata cleanup (2026-10-11)
 
 Application merge commit `62c4b3ee59a99a57ec98ad221a34d38f37953eb2` contains the swipe dependency and metadata restoration fixes. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. The merge commit is recorded in `techkatta_history.frontend_git_commits`. This is CI/build validation, not a claim of mobile device testing.
+
+
+## Issue #18 — Kafka fallback content sync candidate (2026-10-11)
+
+PR #20 includes 9b5493801402fa2406542549f2dc87a57478a869 (copy the advanced Kafka sections into the frontend bundle) and a66c7a88eb7a516c25c7bebfb973c24689179a24 (append those sections to the local kafka-basics fallback). Both are recorded in techkatta_history.frontend_git_commits. Frontend CI build passed on the PR head; PR remains open and undeployed.
