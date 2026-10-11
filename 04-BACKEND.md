@@ -94,34 +94,18 @@ Article content is normalized before being returned.
 
 ## Internal Vercel control layer
 
-Application commits:
-- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add environment-authenticated Vercel REST client
-- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add internal Vercel control layer and CLI
+The canonical REST client is `backend/src/vercelClient.js`. The active adapters are:
+- `backend/scripts/vercel-control.mjs`, exposed as `npm run vercel:control`
+- `backend/scripts/vercel-mcp.mjs`, exposed as `npm run vercel:mcp`
 
-Implementation:
-- `backend/src/vercel/client.js`
-- `backend/src/vercel/projects.js`
-- `backend/src/vercel/deployments.js`
-- `backend/src/vercel/index.js`
-
-This is a private server-side control layer using Node 22's native `fetch`. It talks directly to the Vercel REST API and is independent of the ChatGPT Vercel MCP integration.
+Both adapters import the same client. PR #24 (`efbc810f08f210e83cff41415280c1a0aaffc8c6`) removed the unused duplicate `backend/src/vercel-control.js` and the unreferenced `backend/src/vercel/` client/CLI tree. The deployment workflow now syntax-checks the canonical client and both active adapters.
 
 Supported operations:
-- list projects
-- inspect a project
-- list deployments
-- inspect a deployment with Git repository metadata
+- list projects and inspect a project
+- list deployments and inspect a deployment
+- read deployment events
+- cancel a deployment
 - list project domains
-
-CLI:
-
-`cd backend && VERCEL_ACCESS_TOKEN=... node src/vercel/index.js projects`
-
-Other commands:
-- `project <project-id-or-name>`
-- `deployments [project-id] [limit]`
-- `inspect <deployment-id-or-url>`
-- `domains <project-id-or-name>`
 
 Runtime configuration:
 - `VERCEL_ACCESS_TOKEN` — required secret
@@ -251,7 +235,7 @@ Branch: `refactor/backend-hardening-phase-1` (not merged; not deployed to produc
 - Middleware uses Express's resolved `request.ip`; it no longer parses `X-Forwarded-For` itself. `app.set('trust proxy', 1)` remains in `server.js`; confirm the actual Cloudflare/Nginx forwarding chain before treating client-IP attribution as production-verified.
 - Added `node --test` coverage and `.github/workflows/ci-backend.yml`.
 - The limiter is still process-local. Do not claim distributed enforcement or multi-instance protection.
-- Corrected the deployment workflow's stale `src/vercelClient.js` syntax-check path to check the existing `src/vercel/*.js` modules instead.
+- PR #24 consolidated Vercel REST control to `backend/src/vercelClient.js` and updated deployment syntax checks to the canonical client plus the two active CLI/MCP adapters.
 
 Validation status: the backend CI run on the prior branch head passed; CI for the latest commit must be checked separately. Production deployment is pending PR merge and successful deployment/smoke tests.
 
