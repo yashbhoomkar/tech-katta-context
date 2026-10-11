@@ -65,7 +65,7 @@ This means the monitor can be deployed before a secondary exists without acciden
 
 The timer was disabled because the monitor exits when `OVERFLOW_UPSTREAM` is unset, and even when configured it only writes a state file that Nginx does not consume. It is not a working traffic router. Keep the primary VPS API running normally; do not enable this timer until a compatible secondary and real proxy integration are implemented and tested.
 
-Application merge commit: `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The post-merge VPS deployment result is pending verification.
+Application merge commit: `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The merge-triggered VPS deployment is verified: https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 completed successfully. Logs confirm the placeholder timer was disabled/stopped and the primary API remained healthy. The no-op timer finding is resolved; real overflow routing remains unimplemented and must not be enabled until the secondary and proxy integration are ready.
 
 ## Important current limitation
 
