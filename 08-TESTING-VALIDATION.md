@@ -188,3 +188,7 @@ New tests cover: fallback only when disconnected, empty database results remain 
 - VPS deployment and production smoke tests: passed — https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751
 
 The production smoke suite checks normal API behavior; it does not inject MongoDB query failures or simulate Atlas outages.
+
+## Content-route modularization tests in progress (2026-10-11)
+
+Branch `refactor/backend-route-modules`, commit `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` adds HTTP-level tests for disconnected fallback, connected-but-empty database results, generic 503 behavior on query errors, and 404 for a missing database article. These tests use an ephemeral local Express server and injected fake database dependencies; they do not require production Atlas credentials. CI/PR validation is pending at this point.
