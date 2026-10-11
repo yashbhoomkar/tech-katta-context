@@ -550,3 +550,8 @@ All backend commits above are recorded in techkatta_history.backend_git_commits.
 ### PR #20 merged — 2026-10-11
 
 PR #20 was squash-merged as application commit 56b229a2c0fa1d586f200a41c79826ed92a0446b. It includes the configurable safe bind host, Docker interface binding, health endpoint rate-limit exemption and package version, category index, and removal of the hardcoded Vercel team ID. Backend source commits and the merge SHA are recorded in techkatta_history.backend_git_commits. Backend CI, frontend build, and CodeQL passed on the PR head. Production deployment and post-deploy smoke checks are not yet verified.
+
+
+### PR #20 deployment verified — 2026-10-11
+
+Application merge 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed to the VPS. Deployment workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 passed. The MongoDB content sync succeeded (5 categories, 11 articles); the API restarted, MongoDB reported connected, and local health returned version 0.1.0. Production smoke tests passed 11 endpoint checks plus CORS and security headers with normal TLS validation. Backend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003, frontend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910, and CodeQL https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951 all passed.
