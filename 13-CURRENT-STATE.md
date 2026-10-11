@@ -496,3 +496,12 @@ PR #19 merged as 62c4b3ee59a99a57ec98ad221a34d38f37953eb2: mobile swipe route st
 PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b: configurable safe bind host/Docker binding, health checks outside rate limiting with dynamic package version, TLS smoke validation without certificate bypass, article category index, removal of hardcoded Vercel team ID, and complete local Kafka fallback sections. Backend CI, frontend build, and CodeQL passed on PR head. Both merge commits are recorded in the respective MongoDB ledgers and context docs.
 
 Production deployment and post-deploy verification for PR #20 are pending. Remaining issue #18 findings requiring more evidence/design: search query strategy, Cloudflare/Nginx client-IP trust, overflow routing, Vercel client consolidation, and content-schema diagram migration. The diagnostic workflow permission/stdout allegation is stale: the current workflow already uses capture_stdout and issues:write, which is sufficient for the issue-comment endpoint.
+
+
+### PR #20 deployed successfully — 2026-10-11
+
+Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed on the VPS. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 succeeded: MongoDB content sync completed (5 categories, 11 articles), systemd API restarted, local health reported DB connected and version 0.1.0, and production smoke passed 11 endpoint checks plus CORS/security headers using standard TLS verification. Backend CI, frontend build, and CodeQL all passed on the merge commit.
+
+PR #19 frontend fixes are merged as 62c4b3ee59a99a57ec98ad221a34d38f37953eb2. PR #20 fixes are merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Both merge SHAs are recorded in MongoDB and this context repository. A live Vercel deployment and actual mobile/offline-browser interaction have not been independently verified.
+
+Remaining issue #18 work: decide/benchmark search semantics before changing regex search; verify Cloudflare/Nginx client-IP attribution and origin exposure on VPS; inspect actual overflow timer and Nginx routing before changing it; map all Vercel client callers before consolidation; and plan a DB content migration before removing the diagram normalization compatibility layer. Multi-origin CORS remains intentionally restricted to explicit needs.
