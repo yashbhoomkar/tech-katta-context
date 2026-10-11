@@ -605,3 +605,9 @@ Remaining audit follow-ups now include #28 (origin exposure), #29 (future failov
 ## Load-test status (2026-10-11)
 
 The k6 production run remains a low-load baseline, not a stress test or capacity estimate. Follow-up [#33 — bounded k6 capacity test](https://github.com/yashbhoomkar/tech-katta/issues/33) tracks staged ramp-up and explicit safety limits. Do not report a maximum supported user count from the baseline alone.
+
+## Rate-limit forwarded-IP regression coverage — PR #34 (2026-10-11)
+
+Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`. The isolated Express integration test verifies that an attacker-controlled leftmost `X-Forwarded-For` value does not create a new rate-limit bucket when a trusted one-hop proxy appends the same rightmost peer address. Backend CI, Semgrep, CodeQL, VPS deployment, and production smoke checks passed.
+
+This improves regression coverage for the currently observed client → Nginx → Express topology; it is not proof of the live Nginx path or a future Cloudflare path. No DNS or firewall changes were made. Issue #28 and umbrella issue #18 remain open.
