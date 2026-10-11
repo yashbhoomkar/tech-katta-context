@@ -213,3 +213,8 @@ PR #20 includes 9b5493801402fa2406542549f2dc87a57478a869 (copy the advanced Kafk
 ### PR #20 merged — Kafka fallback content (2026-10-11)
 
 Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b includes the frontend mirror of the advanced Kafka sections and adds them to the local kafka-basics fallback. The merge SHA is recorded in techkatta_history.frontend_git_commits. Frontend build passed on the PR head. Actual API-unavailable/offline browser behavior remains untested; production deployment status is pending.
+
+
+### PR #20 production deployment context — 2026-10-11
+
+The frontend build passed on merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b: https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910. The backend deployment and content sync also passed, but a live Vercel deployment or browser test of API-unavailable Kafka fallback was not independently verified. Do not label that fallback browser-tested.
