@@ -287,3 +287,12 @@ This is an incremental layered-monolith design, not microservices. Existing rout
 ### Backend clean-architecture phase 2 — CI passed
 
 Latest application candidate: `1219adb49f9b1235b7623de6fcbf23a4a45b688e`. Backend CI passed at https://github.com/yashbhoomkar/tech-katta/actions/runs/38132969830. All 17 tests passed. Draft PR #10 has been updated to describe the app factory and controller/service/repository layers: https://github.com/yashbhoomkar/tech-katta/pull/10. The PR remains open and unmerged. No VPS deployment, production smoke test, load test, or browser test was performed for this candidate. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+
+### Backend content-layer tests — CI passed (2026-10-11)
+
+Application commit: `1c1ff5ce50a0556e955b34825b113cc1634ff4a5` on branch `refactor/backend-clean-architecture-phase-1`, draft PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10.
+
+Added `backend/test/contentLayers.test.js` to verify repository fallback behavior, search regex escaping and content projection, service-level content normalization without mutating source objects, controller filter forwarding, generic retryable 503 responses without leaking database details, and malformed-slug rejection before service invocation.
+
+Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151. All 23 tests passed. This remains CI-only validation; no production deployment, production smoke test, browser test, or load test was run. PR #10 remains draft/open and unmerged. Production stays at `5e09088ba40b8060a81813e766202fcf4bb07884`.

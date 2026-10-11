@@ -223,3 +223,10 @@ The commit is recorded in MongoDB `techkatta_history.backend_git_commits`. It is
 ### Backend clean-architecture phase 2 — validation update
 
 Application commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` passed backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132969830; all 17 tests passed. PR #10 is still draft/open, unmerged and undeployed. The PR title is now `Refactor backend into testable app and content layers`.
+
+
+### Backend clean-architecture test increment
+
+- `1c1ff5ce50a0556e955b34825b113cc1634ff4a5` — add direct tests for content repository, service, and controller boundaries.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed on this exact head with 23 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151. Draft PR #10 remains open and undeployed.

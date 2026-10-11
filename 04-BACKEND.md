@@ -378,3 +378,10 @@ No new runtime dependency or database migration is introduced. The public API co
 ### Layered content architecture — CI result (2026-10-11)
 
 The latest candidate commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` passed backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132969830. All 17 tests passed. PR #10 remains draft/open and not deployed. Verification is CI-only; production HTTP smoke, browser, and load tests are pending for this refactor.
+
+
+### Content-layer test coverage (2026-10-11)
+
+Added `backend/test/contentLayers.test.js` on candidate commit `1c1ff5ce50a0556e955b34825b113cc1634ff4a5`. It verifies repository fallback and query behavior, escaped search patterns, projection of article content out of list results, service normalization without source mutation, controller filter forwarding, safe 503 responses, and invalid slug rejection.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151 — 23/23 tests passed. Candidate is in draft PR #10 and has not been deployed. Production smoke/load/browser validation remains pending.
