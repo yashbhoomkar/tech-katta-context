@@ -31,6 +31,7 @@ This repository is **context**, not the application itself.
 13. `12-OPERATING-RULES.md` — rules an AI agent must follow when modifying Tech Katta.
 14. `13-CURRENT-STATE.md` — current production snapshot and unresolved issues.
 15. `14-OVERFLOW-ARCHITECTURE.md` — VPS-primary / Render-overflow design and its current status.
+16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
 
 ## Critical rule
 
