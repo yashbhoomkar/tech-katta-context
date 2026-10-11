@@ -529,3 +529,12 @@ Merged as `90ac43818fc34c61dfd7fdcae3baf62f83310350`.
 - VPS deployment succeeded and production smoke checks passed 11 endpoints plus CORS/security headers: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733.
 - Deployment workflow automatically synced the changed source to MongoDB. A live Atlas read confirmed the first section's third block is `{ type: 'diagram', name: 'distributed-architecture' }`.
 - All four branch commits and the merge SHA are recorded in `techkatta_history.backend_git_commits`.
+
+## PR #34 — forwarded-IP rate-limit regression test (2026-10-11)
+
+Merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`.
+
+- Source commit: `fba34153e673e4b72db7e546f7169a1296174189` — test: verify rate limit ignores spoofed forwarded IP.
+- Adds an isolated integration regression test for the currently observed one-hop client → Nginx → Express topology. A spoofed leftmost `X-Forwarded-For` value cannot evade the limiter when the trusted proxy appends the same rightmost peer address.
+- Backend CI, Semgrep, CodeQL, VPS deployment, and production smoke tests passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
+- This is not a live Nginx/Cloudflare integration test. Issue #28 remains open; Cloudflare proxy cutover and origin ingress restriction are not complete.
