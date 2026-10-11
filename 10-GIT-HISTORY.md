@@ -305,3 +305,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. PR #11: https://git
 - `7a43a798407861b0a8f4b3fc9826da0a2b7f9581` — merge diagnostic hotfix PR #11.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment retry https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813 is in progress; production verification is pending.
+
+
+### Content-sync SSH handoff fix
+
+- `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2` — merge PR #12 to pass the content-sync decision directly into the remote script.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671 is in progress; production verification pending.

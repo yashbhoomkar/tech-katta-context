@@ -379,3 +379,10 @@ Created hotfix PR #11 https://github.com/yashbhoomkar/tech-katta/pull/11 at comm
 ### Deployment diagnostics hotfix merged; retry running (2026-10-11)
 
 PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`, recorded in MongoDB `techkatta_history.backend_git_commits`. The deployment workflow is retrying with explicit non-interactive sudo checks and step-specific systemd diagnostics: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813. Wait for the SSH step output before deciding whether the issue is sudo authorization, directory/write permissions, or systemd reload. Production smoke verification remains pending.
+
+
+### Deployment content-sync handoff fix merged (2026-10-11)
+
+PR #12 merged as `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2`, recorded in MongoDB `techkatta_history.backend_git_commits`. The SSH action no longer relies on remote environment forwarding for `CONTENT_SYNC_REQUIRED`; it interpolates the validated `true/false` output directly into the remote script and logs the selected path. This addresses the likely point of failure after the systemd configuration step, where the prior workflow exited before the content-sync branch log.
+
+New deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671 (in progress at time of entry). Wait for explicit `Content sync required: false`, service restart, local health checks, and public production smoke tests before marking the deployment complete.

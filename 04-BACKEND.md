@@ -456,3 +456,10 @@ Hotfix PR #11: https://github.com/yashbhoomkar/tech-katta/pull/11 — commit `6d
 ### Deployment diagnostic retry
 
 PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`; the merge commit is recorded in the MongoDB commit ledger. Deployment retry with explicit sudo/systemd diagnostics: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134334813. The cause of the previous failure and production status remain unconfirmed until this run completes.
+
+
+### Deployment content-sync handoff fix
+
+PR #12 merged as `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2`, recorded in the MongoDB commit ledger. The deployment script now uses direct GitHub Actions expression interpolation for the content-sync decision rather than passing it through the SSH action's remote environment forwarding.
+
+Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671. Awaiting the run's output, service health checks, and public smoke tests.
