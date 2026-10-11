@@ -527,3 +527,8 @@ Final run links:
 Browser coverage passed the home, distributed-systems unit, canonical article route, browser-origin API/CORS request and canonical article response contract, with no uncaught page exceptions. The load probe completed 60 GETs at concurrency 3: all 60 were HTTP 200, min 231 ms, median 235 ms, p95 757 ms, max 839 ms, zero 429s and zero 5xx/network errors. This is a low-volume smoke-load check, not a capacity benchmark or penetration test.
 
 PR #14 changed verification workflows/scripts, not backend runtime source; no backend deployment was triggered by that merge. The deployed backend code remains `9d545de3c6e2048dd851bb43a8782bf388544486`; the VPS TLS configuration was changed separately and verified by the successful checks.
+
+
+### Post-merge deployment workflow result (2026-10-11)
+
+PR #14 merge `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` triggered deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631, which completed successfully. Backend validation, VPS preparation, API restart/health checks, and production smoke tests passed; optional MongoDB content sync was skipped. The merge adds test/CI workflows and scripts only, so the deployed backend application source remains `9d545de3c6e2048dd851bb43a8782bf388544486`. The API TLS certificate is now publicly trusted and the browser-origin API contract passes.
