@@ -185,3 +185,7 @@ Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47
 ## Request logging and health checks — deployed (2026-10-11)
 
 Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` adds a generated request correlation ID and structured access logs that deliberately exclude query strings and client IP addresses. Liveness is independent of MongoDB; readiness returns 503 when MongoDB is disconnected. Health probes bypass the general request limiter. CI and production smoke tests passed. This does not resolve the separate origin-IP exposure or proxy-trust verification backlog.
+
+## Proxy/origin verification step (2026-10-11)
+
+A read-only workflow is proposed in branch `chore/inspect-vps-proxy-security` to inspect Nginx forwarding headers, exposed listening ports, UFW state, and service status over the existing GitHub Actions SSH path. Commits `5de8af322b09619b2c6f11d27770af6e26ab38fd` and `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` are recorded in the MongoDB backend ledger. No firewall or proxy changes are included; hardening should be based on the observed configuration to avoid accidental lockout.
