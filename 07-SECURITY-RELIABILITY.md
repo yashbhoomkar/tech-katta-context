@@ -177,3 +177,7 @@ The rate-limiter change is deployed as part of `a9e340cc539519a91617d390a44e98bd
 ## Explicit database failure semantics — 2026-10-11
 
 Deployed in commit `3155342dc66bdf1e001bbfc54749f63daf1e4062`. Connected database query errors now return a generic 503 with `Retry-After: 5` and `Cache-Control: no-store`; details remain in server logs. Successful empty results and missing records are no longer masked by fallback content. Fallback is retained for known MongoDB-disconnected operation. Production smoke tests passed after deployment, but this is not a database chaos test or full failure-injection test.
+
+## Readiness and request logging candidate (2026-10-11)
+
+Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` (not yet deployed). The proposed access log emits a generated request ID, method, path only, response status, and duration; it excludes query strings and IP addresses. `/health/live` is independent of MongoDB, while `/health/ready` reports 503 when MongoDB is disconnected. The readiness endpoint is deliberately outside the general rate limiter so monitoring is not blocked by rate-limit saturation.
