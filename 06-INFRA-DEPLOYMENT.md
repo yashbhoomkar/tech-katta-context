@@ -263,3 +263,8 @@ Branch `feat/backend-pagination-indexes`, commits `56d6a79b3f9d1c65ea0e152faaa98
 - c7210d28cfe3c7d4c6757435a767667a47d4e34e sets HOST=0.0.0.0 inside Docker, while its published host port remains bound to 127.0.0.1. The application default remains loopback for the current systemd/VPS deployment.
 
 These changes are in open PR #20 and have not been deployed. Backend and frontend CI passed on the latest PR head; CodeQL was still running at the time of this note.
+
+
+### PR #20 merged — deployment safeguards (2026-10-11)
+
+Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b removes the TLS verification bypass from production smoke checks and configures HOST=0.0.0.0 only inside Docker; host port publishing remains loopback-only, and the VPS systemd default remains 127.0.0.1. Backend CI, frontend build, and CodeQL passed on the PR head. The merge is recorded in MongoDB ledgers. Deployment and post-deploy smoke checks are still pending verification.
