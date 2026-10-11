@@ -310,3 +310,10 @@ The workflow built the PR frontend, served the build locally, and used Chromium 
 The same run passed the three public SPA route checks and the browser-origin API/CORS contract. Frontend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409162. Semgrep passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409170. CodeQL passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409178.
 
 Evidence boundary: touch events were simulated in Chromium, not tested on a physical mobile device. This is browser-level regression coverage, not device certification.
+
+
+## CodeRabbit review configuration — PR #26 (2026-10-11)
+
+Application PR #26 added `.coderabbit.yaml` and merged as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. The config enables automatic reviews of non-draft PRs targeting `main` and supplies targeted instructions for backend/security, React/mobile behavior, tests, scripts, and GitHub Actions. The configuration and merge are recorded in `techkatta_history.backend_git_commits`.
+
+**AI-review status remains unverified.** On PR #26, the GitHub review API and inline review-comment API were empty. A manual `@coderabbitai review` request produced no CodeRabbit response or check; the only check observed was Vercel Preview Comments. Therefore, do not claim that CodeRabbit reviewed PR #26 or that the repository has an operational AI review gate. The GitHub app must be installed/authorized for this repository and then tested on a new PR. Continue to distinguish AI review from Semgrep, CodeQL, frontend/backend CI, browser smoke tests, and load tests.
