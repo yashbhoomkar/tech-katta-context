@@ -340,6 +340,6 @@ CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actio
 
 Application commit: `3e57fc39d0f23ca6a71e604be3d0e7290a74f995`, draft PR #10.
 
-Added `backend/README.md) documenting the layered monolith, request flow, module responsibilities, error/fallback behavior, health endpoints, local development, and operational constraints. Updated `backend/.env.example` to distinguish Node's `PORT` from Docker Compose's host-side `BACKEND_PORT`, and document `MONGODB_URI`/`MONGODB_DB` without credentials. Updated the root README to describe the current production topology rather than the stale planned architecture.
+Added `backend/README.md` documenting the layered monolith, request flow, module responsibilities, error/fallback behavior, health endpoints, local development, and operational constraints. Updated `backend/.env.example` to distinguish Node's `PORT` from Docker Compose's host-side `BACKEND_PORT`, and document `MONGODB_URI`/`MONGODB_DB` without credentials. Updated the root README to describe the current production topology rather than the stale planned architecture.
 
 Latest backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299. All 28 tests passed. PR #10 remains draft/open and has not been merged or deployed. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
