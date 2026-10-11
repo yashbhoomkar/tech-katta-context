@@ -223,3 +223,10 @@ The initial branch revision accidentally placed socket assertions outside the YA
 Commit `5e09088ba40b8060a81813e766202fcf4bb07884` now binds Node to `127.0.0.1:5000`. The deployment pipeline checks the listener and public smoke tests passed. This removes the direct network listener on port 5000 while preserving Nginx access.
 
 The diagnostic still shows Cloudflare proxying is not enabled for `tech-api.katta.cc` (public DNS returns the origin IP). Do not restrict ports 80/443 to Cloudflare until DNS proxying is enabled and verified. UFW remains default-deny incoming but allows 22/80/443 from all sources. SSH access has intentionally not been restricted. Official Cloudflare origin-protection guidance: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/.
+
+## TLS verification and Vercel scope — PR #20 candidate
+
+- Production smoke tests no longer disable Node TLS verification (7eb09e8ce1b418590f0444d8f0db888cca4cde95). This relies on the already repaired public certificate and deliberately fails if trust validation regresses.
+- The legacy Vercel control CLI no longer embeds a fixed team ID (67355276f3f8eb88c002c7255849f0164c1985a7). It uses an explicit VERCEL_TEAM_ID when configured and otherwise relies on the token's default scope.
+
+Both are pending PR #20 review/merge; no production rollout is claimed.
