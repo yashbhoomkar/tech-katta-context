@@ -362,3 +362,14 @@ This isolates HTTP construction from process lifecycle so application behavior c
 ### App factory separation — CI result (2026-10-11)
 
 Application commit `7f669b872561c809ae8ae501d94d86e26f4473ff` passed backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227. All 17 native Node tests passed. This is CI verification only; no production deployment, public smoke test, browser test, or load test was performed for this candidate. PR #10 remains draft/open. The next phase should introduce controller/service/repository separation incrementally and preserve the existing public API contract.
+
+
+### Content module layering — candidate (2026-10-11)
+
+Application commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` (draft PR #10, not merged/deployed) introduces a small layered architecture:
+- Controller: HTTP parameters, status codes, and response serialization.
+- Service: application-level operations and content normalization.
+- Repository: MongoDB reads, query construction, and disconnected fallback reads.
+- Route module: wires controller, service, and repository dependencies.
+
+No new runtime dependency or database migration is introduced. The public API contract is intended to remain unchanged. CI is queued/pending; do not deploy until the current PR head passes tests and is reviewed.

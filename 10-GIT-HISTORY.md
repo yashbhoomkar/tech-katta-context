@@ -211,3 +211,10 @@ The commit is recorded in MongoDB `techkatta_history.backend_git_commits`. Branc
 ### Backend clean-architecture phase 1 — validation update
 
 Application commit `7f669b872561c809ae8ae501d94d86e26f4473ff` passed backend CI in https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227; all 17 tests passed. Draft PR #10 remains open and is not merged or deployed. No production smoke/load/browser validation was performed for this branch.
+
+
+### Backend clean-architecture phase 2 — candidate
+
+- `1219adb49f9b1235b7623de6fcbf23a4a45b688e` — separate content controller, service, and repository while retaining route wiring and API contracts.
+
+The commit is recorded in MongoDB `techkatta_history.backend_git_commits`. It is part of draft PR #10, https://github.com/yashbhoomkar/tech-katta/pull/10. CI for this head was queued/pending at the time of this entry; the candidate is not merged or deployed.

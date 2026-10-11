@@ -269,3 +269,16 @@ The existing API routes, response shapes, database behavior, and production depl
 ### Backend clean-architecture phase 1 — CI result
 
 For application commit `7f669b872561c809ae8ae501d94d86e26f4473ff`, GitHub Actions backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132846227. The job ran `npm ci` and `npm test`; all 17 tests passed, including the new app-construction HTTP test. PR #10 remains draft/open, and no VPS deployment or production smoke test was performed for this candidate. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884` until the refactor is reviewed, merged, and deployed through the normal workflow.
+
+
+### Backend clean-architecture phase 2 — candidate (2026-10-11)
+
+Application commit: `1219adb49f9b1235b7623de6fcbf23a4a45b688e`, on the same branch and draft PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10.
+
+The content API is now split into:
+- `src/modules/content/contentController.js` — HTTP request/response mapping and safe 503 handling.
+- `src/modules/content/contentService.js` — application-level article normalization and service operations.
+- `src/modules/content/contentRepository.js` — MongoDB collection access and local fallback data access.
+- `src/routes/content.js` — route registration and dependency wiring.
+
+This is an incremental layered-monolith design, not microservices. Existing route paths, slug validation, regex escaping, fallback semantics, and response contracts are intended to remain intact. The new commit's CI run is queued/pending as of this update. No production deployment or public smoke test has been performed for this candidate. Production remains on `5e09088ba40b8060a81813e766202fcf4bb07884`.
