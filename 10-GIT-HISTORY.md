@@ -408,3 +408,10 @@ PR #19: https://github.com/yashbhoomkar/tech-katta/pull/19 (open, not merged/dep
 - `a1f3b3a803779f5082e3f8a37d65137dd10fc38e` — restore previous article metadata and remove effect-created tags during cleanup.
 
 Both commits are recorded in `techkatta_history.frontend_git_commits`. Build/CI and mobile interaction verification are pending.
+
+
+### Issue #18 frontend fixes merged — 2026-10-11
+
+- `62c4b3ee59a99a57ec98ad221a34d38f37953eb2` — squash-merge PR #19, fixing the mobile swipe route closure and restoring article metadata during cleanup.
+
+The merge commit is recorded in `techkatta_history.frontend_git_commits`. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. Mobile touch interaction remains unverified.
