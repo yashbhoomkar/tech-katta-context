@@ -290,3 +290,8 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 ### Direct-to-origin DNS confirmed (2026-10-11)
 
 Diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 resolved `tech-api.katta.cc` to `129.121.133.47`, outside Cloudflare proxy ranges. Nginx proxies to `127.0.0.1:5000` and forwards `$remote_addr`/ `$proxy_add_x_forwarded_for`; the direct-client → Nginx → Express topology matches the current one-hop Express trust setting. No proxy hop or real-IP configuration was changed. UFW currently allows ports 80/443 globally, so origin restriction remains unresolved and must not be applied until Cloudflare proxying is enabled and validated.
+
+
+### Static-analysis CI additions (2026-10-11)
+
+PR #22 merged as `a39d441c8364efc65bfa4f14f944d34cd9e07cff`, adding `.github/workflows/semgrep.yml`. The workflow runs Semgrep Community Edition for JavaScript/Node/React and uploads SARIF to GitHub code scanning. Initial main-branch run passed with 0 findings across 40 files and 68 rules: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189. CodeQL also passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154.
