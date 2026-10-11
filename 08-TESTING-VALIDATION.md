@@ -229,3 +229,10 @@ GitHub identified an invalid deployment workflow on the unmerged branch after th
 ## Pagination candidate tests (2026-10-11)
 
 The current candidate adds HTTP-level tests for stable page ordering, page metadata headers, and invalid page/limit rejection. The production smoke suite also checks `page=1&limit=5` and that pagination headers are exposed through CORS. Commits `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` and `41359ab7c5b5acaa65fa2e47565fa10236a56cba` are recorded in MongoDB; PR CI pending.
+
+## Issue #18 regression coverage — PR #20
+
+- Added bind-host configuration assertions (aa13f8fa9f2e18397bbe8e6270df3c3242089f2b).
+- Added a regression test proving /api/health remains 200 after the public rate-limit bucket is exhausted (b612091b28d6a90da8f422e991bb2d8a5bfe8c9f, corrected by d40929e580571d5600066d521de08f9f75eb7deb).
+- Backend CI and frontend build both passed on PR #20's latest head; CodeQL was still running at the time of this update.
+- No Docker container runtime test, live TLS deployment test, offline browser fallback test, or production deployment has been performed for PR #20.
