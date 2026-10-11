@@ -180,3 +180,14 @@ Next: improve readiness/liveness semantics and operational observability without
 Production remains on `a806fab3f94a00172d55fafdb73ea9ca7dc71810` until the next PR passes CI and is merged. Branch `feat/backend-readiness-observability` points to `6e77efb47d92897a92777bd47e9f9a2bc0384bc0`, recorded in MongoDB.
 
 The candidate adds `/health/live`, `/health/ready`, generated `X-Request-Id` headers, structured request logs that exclude query strings, and two additional production smoke checks. CI/merge/deployment status is pending.
+
+### Phase 4 production outcome — 2026-10-11
+
+Current deployed application commit: `b8a705eec61af7deb7ca47ebd36d06025df2ad22`.
+
+Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934
+VPS deployment and expanded production smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902
+
+The API now has distinct `/health/live` and `/health/ready` endpoints, generated request IDs, and structured request logs that omit query strings and client IPs. Legacy health endpoints remain compatible. Production smoke coverage is 11 endpoint checks plus CORS/security headers.
+
+Next: review the production proxy trust/client-IP chain and origin exposure before claiming rate-limit attribution or origin isolation is fully hardened.
