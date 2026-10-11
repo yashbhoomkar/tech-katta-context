@@ -444,3 +444,8 @@ All listed application commits are recorded in the corresponding MongoDB fronten
 - 56b229a2c0fa1d586f200a41c79826ed92a0446b — squash-merge selected backend and frontend audit fixes: configurable bind host, Docker binding, health route exemption/dynamic version, TLS verification, article category index, Vercel team-scope correction, and advanced Kafka fallback content.
 
 The merge SHA is recorded in both techkatta_history.backend_git_commits and techkatta_history.frontend_git_commits. Backend CI, frontend build, and CodeQL passed on PR head a66c7a88eb7a516c25c7bebfb973c24689179a24. Deployment and post-deploy smoke checks remain pending.
+
+
+### PR #20 deployed — 2026-10-11
+
+Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed. Workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 passed: MongoDB content sync (5 categories, 11 articles), API restart/local health, and production smoke (11 endpoint checks plus CORS/security headers with standard TLS verification). Backend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003, frontend CI https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910, and CodeQL https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951 passed. Merge SHA is recorded in both frontend and backend MongoDB ledgers.
