@@ -225,3 +225,7 @@ GitHub identified an invalid deployment workflow on the unmerged branch after th
 - Deployment asserted that the API listens on `127.0.0.1:5000` and does not listen on `0.0.0.0:5000`.
 - Production smoke suite passed: 11 endpoint checks + CORS + security headers.
 - Read-only diagnostics confirmed public API DNS is direct-to-origin, so no Cloudflare-only firewall restriction was applied.
+
+## Pagination candidate tests (2026-10-11)
+
+The current candidate adds HTTP-level tests for stable page ordering, page metadata headers, and invalid page/limit rejection. The production smoke suite also checks `page=1&limit=5` and that pagination headers are exposed through CORS. Commits `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` and `41359ab7c5b5acaa65fa2e47565fa10236a56cba` are recorded in MongoDB; PR CI pending.
