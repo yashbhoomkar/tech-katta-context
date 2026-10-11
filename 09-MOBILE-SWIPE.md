@@ -131,3 +131,12 @@ Application branch `fix/audit-frontend-state-metadata` contains commit `f1e657c2
 ### PR #19 merged — CI validation (2026-10-11)
 
 PR #19 was squash-merged as application commit `62c4b3ee59a99a57ec98ad221a34d38f37953eb2`. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. The merge commit is recorded in MongoDB `techkatta_history.frontend_git_commits`. Source fix and build are verified; actual mobile touch interaction remains untested.
+
+
+## Home left-swipe forward-history regression fixed — PR #25 (2026-10-11)
+
+PR #25 merged as application commit `e1f35b765015f182d32aaf645c4c4eb8387f5936`. The previous implementation handled home right-swipe specially but let home left-swipe fall through to `navigate(1)`. If browser history contained a forward entry, this could navigate away from the home page, contrary to the intended behavior. The fix returns early for a left swipe on `/` after preserving horizontal-scroll protection.
+
+The Playwright browser workflow now exercises the built frontend in a mobile viewport with touch-event simulation. It passed the home sidebar open gesture, home left swipe with a forward-history entry, article back/forward gestures, short and mostly vertical gesture rejection, and closing the open sidebar with a left swipe. Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155.
+
+This is mobile-emulated Chromium coverage, not a physical Android/iOS device test. Actual-device testing remains pending if a device lab becomes available. All nine branch commits and the merge SHA are recorded in MongoDB `techkatta_history.frontend_git_commits`.

@@ -494,3 +494,15 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 - Remove unused `backend/src/vercel-control.js` and the unreferenced `backend/src/vercel/` client/CLI tree; update deployment syntax checks.
 - MongoDB ledger: `techkatta_history.backend_git_commits`.
 - Backend CI, Semgrep, CodeQL, and VPS deployment passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672.
+
+
+## PR #25 — home left-swipe forward-history regression (2026-10-11)
+
+Merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`.
+
+- Fixes `frontend/src/App.jsx` so a left swipe on the home route does not invoke `navigate(1)` and accidentally activate an existing forward-history entry. Horizontal scroll protection remains ahead of the home-left no-op.
+- Extends `scripts/production-browser-smoke.mjs` with mobile-emulated Chromium touch checks against an isolated local Vite build, while retaining public production route and API/CORS checks.
+- Updates `.github/workflows/production-verification.yml` to build and serve the frontend for isolated mobile gesture testing.
+- Successful browser run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155. Frontend CI, Semgrep, and CodeQL all passed at the final PR head.
+- All nine source/test/workflow branch commits and the squash merge SHA are recorded in `techkatta_history.frontend_git_commits`.
+- The Vercel preview for the final branch SHA was READY. Verify the post-merge production Vercel deployment and live site behavior before claiming the fix is deployed to production.

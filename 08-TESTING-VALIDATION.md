@@ -294,3 +294,19 @@ Interpretation: this validates a low-load production baseline only. It does not 
 ### Vercel client consolidation validation (2026-10-11)
 
 PR #24 merge commit `efbc810f08f210e83cff41415280c1a0aaffc8c6` passed Backend CI (https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089657), Semgrep, CodeQL, and VPS deployment (https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672). The deployment workflow syntax-checked the canonical Vercel client and active adapters, restarted the API, verified local health, and passed the 11-endpoint public smoke suite plus CORS/security headers. This validates the cleanup/deployment, not token-authenticated Vercel API calls.
+
+
+## Mobile swipe regression browser test — PR #25 (2026-10-11)
+
+PR #25 (`e1f35b765015f182d32aaf645c4c4eb8387f5936`) adds mobile viewport/touch-event checks to the existing Playwright workflow and fixes home left-swipe forward-history navigation. Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155.
+
+The workflow built the PR frontend, served the build locally, and used Chromium with `isMobile: true` and `hasTouch: true` to simulate:
+- home right swipe opens the sidebar;
+- home left swipe does not navigate, including when a forward-history entry exists;
+- article right swipe navigates back and left swipe navigates forward;
+- short and mostly vertical swipes are ignored;
+- left swipe closes the open sidebar without changing route.
+
+The same run passed the three public SPA route checks and the browser-origin API/CORS contract. Frontend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409162. Semgrep passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409170. CodeQL passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409178.
+
+Evidence boundary: touch events were simulated in Chromium, not tested on a physical mobile device. This is browser-level regression coverage, not device certification.

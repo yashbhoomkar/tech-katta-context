@@ -171,3 +171,21 @@ If Git contains a commit missing from the ledger:
 If the ledger contains a commit no longer reachable from main:
 - do not delete automatically
 - it may still be useful for rollback/history.
+
+
+## PR #25 ledger reconciliation (2026-10-11)
+
+PR #25 was merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`. Before inserting, both canonical collections were queried for every commit SHA from the PR and the merge SHA. None were present in either collection, so the following 10 records were inserted into `techkatta_history.frontend_git_commits` (no duplicates were inserted):
+
+- `513ed9c4823652c84bfe35af33adcb1fb17911e3` — test: cover mobile swipe navigation in Playwright
+- `a96bed4436b3d861ba70709d735b51245d62d400` — ci: label mobile swipe browser verification
+- `b1e93d8687187f7b409a112d8198324197a24403` — test: bound mobile swipe wait conditions
+- `672026aaed2d48c49badc7562a71eb13b7872ad4` — fix: ignore home-page left swipe navigation
+- `c521ecd20038f578966cb491349ccd70a00b358a` — test: cover home forward-history swipe regression
+- `f33c9f2054728e30db65c81483beaaeed8a89253` — test: run mobile swipe checks against isolated build
+- `8a5b06ef8899bd132addedacf5abcf229354587a` — ci: run mobile swipe checks against built frontend
+- `f16c3c4052ddec842f4361b9f1ab60cc796f8ae4` — test: clarify isolated mobile preview coverage
+- `2c3f21118d37e55f10fbbf17ac90887869597743` — test: handle expected navigation during swipe simulation
+- `e1f35b765015f182d32aaf645c4c4eb8387f5936` — Merge PR #25: fix home swipe-forward bug and test mobile gestures
+
+The inserted count was 10. This records the PR's intermediate commits as well as the merge commit, consistent with the project's commit-history ledger convention.

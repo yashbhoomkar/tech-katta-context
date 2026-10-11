@@ -558,3 +558,12 @@ Application PR #23 merged as `4d3e285b28b4356922ea016afc3838b4f1d17732`. The mai
 ### Vercel client consolidation deployed (2026-10-11)
 
 Application PR #24 merged as `efbc810f08f210e83cff41415280c1a0aaffc8c6`. `backend/src/vercelClient.js` is now the canonical Vercel REST client shared by `backend/scripts/vercel-control.mjs` and `backend/scripts/vercel-mcp.mjs`. The unused `backend/src/vercel-control.js` and unreferenced `backend/src/vercel/` implementation tree were removed; deployment syntax checks now validate the canonical client and active adapters. Backend CI, Semgrep, CodeQL, and VPS deployment all passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672. Merge SHA recorded in `techkatta_history.backend_git_commits`.
+
+
+## Mobile swipe audit update — PR #25 (2026-10-11)
+
+PR #25 merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`. A real browser regression test exposed that home-page left swipes could navigate forward if the browser history contained a forward entry. The frontend now explicitly ignores home left swipes after preserving horizontal-scroll handling.
+
+The branch-local built frontend passed mobile-emulated Chromium touch checks for sidebar open/close, back/forward gestures, home forward-history protection, short swipes, and mostly vertical gestures. The browser workflow also passed three public SPA route checks and the browser-origin API/CORS contract. Frontend CI, Semgrep, and CodeQL passed. Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155.
+
+This does not constitute a physical-device test. Verify the production Vercel deployment after the merge; the successful run used a locally built branch frontend for gesture tests and production only for public routes/API contract checks. Issue #18 remains open because origin exposure and other audit findings remain unresolved.
