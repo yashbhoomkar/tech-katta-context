@@ -137,3 +137,10 @@ Validation: backend CI and VPS deployment/public smoke tests passed. The API now
 - `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` — extract content API routes into a testable module and add HTTP-level route tests.
 
 MongoDB ledger record added to `techkatta_history.backend_git_commits`. Branch: `refactor/backend-route-modules`. Not merged/deployed at the time of this entry; record the eventual merge/deployment result after CI.
+
+## Content-route modularization — 2026-10-11
+
+- `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` — extract content API routes into a testable module and add HTTP-level tests
+- `a806fab3f94a00172d55fafdb73ea9ca7dc71810` — merge route modularization
+
+Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and VPS deployment/public smoke tests passed after merge.
