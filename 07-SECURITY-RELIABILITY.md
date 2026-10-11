@@ -207,3 +207,9 @@ A workflow update (`1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7`, ledgered in Mongo
 ### Cloudflare range check adjustment (2026-10-11)
 
 The first range-check run failed because `www.cloudflare.com/ips-v4` returned HTTP 403 to the GitHub runner, before the DNS answers were printed. No firewall or proxy changes occurred. Commit `095eb973a467610b0e4b51bba3aaae5462ac7442` updates the workflow to use Cloudflare's documented `/client/v4/ips` API and prints DNS answers first. Wait for its result before making origin restrictions.
+
+## Loopback bind candidate and Cloudflare status (2026-10-11)
+
+The DNS check found `tech-api.katta.cc` resolves to the VPS origin address rather than a Cloudflare edge IP. Therefore Cloudflare proxying is currently not active for this API hostname, and origin firewall restrictions to Cloudflare ranges would break traffic. Do not apply those rules yet.
+
+Branch `fix/backend-loopback-bind` proposes binding Express to `127.0.0.1:5000` and verifying that binding in deployment. This is defense-in-depth independent of Cloudflare and matches Nginx's configured upstream. The existing `trust proxy: 1` is appropriate for the currently observed direct-client → Nginx → Express path, where Nginx appends the direct peer address to XFF. Revisit trust hops if Cloudflare proxying is enabled later. Commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541` are recorded in MongoDB; PR/deployment pending.
