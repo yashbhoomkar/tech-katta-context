@@ -212,3 +212,16 @@ Before insertion, both canonical collections were queried for the four PR branch
 - `90ac43818fc34c61dfd7fdcae3baf62f83310350` — Merge PR #27: replace legacy architecture diagram heuristic with structured content
 
 Inserted count: 5. No duplicates were inserted.
+
+
+## Full history reconciliation and legacy duplicate rows (2026-10-11)
+
+A SHA reconciliation extracted 111 unique full commit SHAs from the current `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`, then queried both canonical collections. All 111 SHAs were present in at least one of `frontend_git_commits` or `backend_git_commits`; no missing entries were found. New PR #25–#27 entries were inserted only after checking both collections for existing keys.
+
+A separate aggregation audit found pre-existing duplicate rows with conflicting descriptions:
+
+- `frontend_git_commits`: `56b229a2c0fa1d586f200a41c79826ed92a0446b` occurs twice.
+- `backend_git_commits`: `56b229a2c0fa1d586f200a41c79826ed92a0446b` occurs twice.
+- `backend_git_commits`: `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` occurs twice.
+
+No historical records were deleted or modified. The connector reports indexes named `key_unique`, but duplicate rows demonstrate that a true unique constraint is not currently enforced for these values. Follow-up issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) tracks exporting backups, selecting canonical descriptions, deleting only verified duplicate `_id` rows, enforcing a true unique index, and re-running reconciliation. Do not attempt ad hoc deletion during routine ledger insertion.
