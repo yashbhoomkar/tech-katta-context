@@ -1,6 +1,6 @@
 # Current State Snapshot
 
-**Snapshot date:** 2026-10-08
+**Snapshot date:** 2026-10-11
 
 This file records the latest application/context state known to this session.
 
@@ -627,3 +627,17 @@ The available MongoDB Atlas connector cannot create a true unique index: its `cr
 ## Capacity-test environment status — 2026-10-11
 
 A fresh Render workspace inspection found no Tech Katta staging service; the available services are for Life Katta. The existing 156-request, ~3.05 req/s production run remains a low-load baseline only. No larger production load was run without a representative staging target or a bounded monitored production plan. Issue #33 remains open; no maximum supported user count is claimed.
+
+
+## Cloudflare API proxy cutover (2026-10-11)
+
+Cloudflare access is now connected. The `katta.cc` zone is active. The existing `tech-api.katta.cc` A record still targets origin `129.121.133.47`, but its proxy status is now enabled. Cloudflare zone settings are confirmed by API read-back: SSL/TLS `strict`, Always Use HTTPS `on`, minimum TLS `1.2`.
+
+Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TLS validation:
+- DNS resolved to Cloudflare edge IPs `104.21.13.85` and `172.67.132.164`.
+- `GET https://tech-api.katta.cc/api/health` returned HTTP 200 and `db: connected`.
+- `GET https://tech-api.katta.cc/api/categories` returned HTTP 200.
+- HTTP health request returned 301 to HTTPS.
+- Direct-origin certificate hostname and chain verification succeeded for `tech-api.katta.cc`.
+
+**Security follow-up still open:** the origin IP remains publicly reachable and UFW 80/443 remain open to all sources. Nginx real-client-IP normalization through Cloudflare has not been implemented/verified. A three-request spoofed-XFF probe had rate-limit remaining `119 → 118 → 119`, so client-IP attribution is inconclusive. Do not restrict origin ingress until Nginx trusts `CF-Connecting-IP` only from official Cloudflare CIDRs, the exact chain/rate limiter is verified, and rollback-safe IPv4/IPv6 firewall rules are applied. See `15-ORIGIN-EXPOSURE-HARDENING.md`; issue #28 remains open.
