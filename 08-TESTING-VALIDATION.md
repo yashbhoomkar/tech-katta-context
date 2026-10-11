@@ -271,3 +271,8 @@ PR #21 (`9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`) changes the backend deploy w
 ### Overflow timer disablement — production validation (2026-10-11)
 
 Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 passed for `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Verified from workflow logs: timer disable/stop command ran; `tech-katta-api` was active; local health returned `status=ok`, `db=connected`; listener checks passed; public production smoke suite passed 11 endpoint checks plus CORS/security headers. No stress test was part of this deployment.
+
+
+### Semgrep Community Edition baseline (2026-10-11)
+
+Application PR #22 merge commit `a39d441c8364efc65bfa4f14f944d34cd9e07cff` added `.github/workflows/semgrep.yml`. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 passed, scanning 40 JavaScript/Node/React files with 68 rules and reporting 0 findings. SARIF upload to GitHub code scanning succeeded. CodeQL run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154 also passed. This is a static-analysis baseline only; it does not replace code review, tests, browser checks, or load tests.
