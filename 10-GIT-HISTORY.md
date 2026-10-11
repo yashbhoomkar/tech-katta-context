@@ -4,7 +4,7 @@
 
 Current main:
 
-`main = 102d23221272e861c5ac6ca76aecb08cd5aca5ab`
+`main = f6ffb10ceca94a3fc2791056eb25480b430a7d92`
 
 Latest backend commits:
 - `193a11293b10d43534c34fa8b902d24dd12e6cac` — add environment-authenticated Vercel REST client
@@ -163,7 +163,7 @@ Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `c
 
 Read-only workflow commit `a703011c9d84c34ee7cf640d1a8d84f2b2166b59` is recorded in MongoDB `techkatta_history.backend_git_commits`. Diagnostic run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567.
 
-Findings: Nginx/API service active; Nginx forwards to loopback port 5000; XFF is appended with `$proxy_add_x_forwarded_for`; Express trusts one proxy; UFW denies incoming by default but allows 22/80/443 globally; Node binds `0.0.0.0:5000`. These findings are inputs to the next security change, not proof that origin traffic has already been restricted.
+Historical pre-cutover findings: Nginx/API service active; Nginx forwards to loopback port 5000; XFF is appended with `$proxy_add_x_forwarded_for`; Express trusts one proxy; UFW then allowed 22/80/443 globally. The 0.0.0.0 listener note belonged to an earlier diagnostic and was later corrected; the current deployment asserts 127.0.0.1:5000. Final Cloudflare-only origin ingress is verified in the section below.
 
 ## Cloudflare DNS verification candidate — 2026-10-11
 
@@ -537,4 +537,33 @@ Merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`.
 - Source commit: `fba34153e673e4b72db7e546f7169a1296174189` — test: verify rate limit ignores spoofed forwarded IP.
 - Adds an isolated integration regression test for the currently observed one-hop client → Nginx → Express topology. A spoofed leftmost `X-Forwarded-For` value cannot evade the limiter when the trusted proxy appends the same rightmost peer address.
 - Backend CI, Semgrep, CodeQL, VPS deployment, and production smoke tests passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
-- This is not a live Nginx/Cloudflare integration test. Issue #28 remains open; Cloudflare proxy cutover and origin ingress restriction are not complete.
+- This isolated regression test was not a live Nginx/Cloudflare integration test at the time. Later production workflow run 38165442874 completed the live proxy, real-IP, rate-limit, and origin firewall verification; issue #28 is now closed.
+
+
+## Cloudflare origin hardening — final main history (2026-10-11)
+
+Current main HEAD is f6ffb10ceca94a3fc2791056eb25480b430a7d92 (Merge PR #52). PRs #35–#52 added the guarded hardening workflow and corrected its verification/rollback path. Merge points:
+
+- fbec7528de43c84799596574e31f820b9fc7bb61 — PR #35: guarded Cloudflare origin hardening workflow.
+- 02d7dd927e6263417b5f753b013f2b5e7c12a63e — PR #36: sort IPv4/IPv6 DNS answers.
+- 0db481a285f76b8527b93262ed51f462ec6c0adb — PR #37: report Nginx real-IP preflight failures.
+- 3505b81bd8dff72147d0b5eeac489f2284524d4c — PR #38: match UFW status output formats.
+- a287e1a017b2f3ead0d3bd563df4f5531c02e645 — PR #39: add Cloudflare range-fetch diagnostics.
+- 136692db4320c637fb9b49c9cd771d033b39fbf2 — PR #40: move Nginx rollback artifacts.
+- a69a8eb597ebf7cfd60877593680a11367ec9e6f — PR #41: correct rollback file checks.
+- 2af6ed507bb5ad70356dbecdb9c55615f8c70546 — PR #42: explicit Nginx rollback state.
+- c2c65743c743e09ac07144ea3429093e3335aa05 — PR #44: stat-based rollback state detection.
+- ae6f34e43cf8f24b8fbb79fd1dd3244e32afc958 — PR #45: add state-check diagnostics.
+- c143cb285b1ef95bc5cf1e3ce5f217126a0157db — PR #46: rollback branch selection.
+- 9e2c81ceb740feec4426d04ef85ee2efd4ab86d0 — PR #47: avoid remote shell syntax issues.
+- 939c93eefd138186964d7d4fd548a8d1b35132b6 — PR #48: remove SSH-action heredocs.
+- f9f4345009094dc480337d6cb8895b1196c4fe4b — PR #49: use browser-like User-Agent for Cloudflare smoke checks.
+- 8a537da1867823b1aa3d84bde88cbfb81dec5fb1 — PR #50: harden UFW sync branch logic.
+- 54ccb96db467a49207c645bde49d89124df0dbf1 — PR #51: let SSH scripts manage errexit/rollback.
+- f6ffb10ceca94a3fc2791056eb25480b430a7d92 — PR #52: fix post-firewall smoke User-Agent.
+
+All source and merge SHAs for these PRs were reconciled into the canonical backend commit ledger (34 records, no duplicates added).
+
+## Verified final security state (2026-10-11)
+
+Workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38165442874 passed end-to-end. Cloudflare proxying and strict TLS are active; Nginx trusts CF-Connecting-IP only from official Cloudflare CIDRs; spoofed-XFF requests stayed in one rate-limit bucket (118 → 117 → 116); UFW allows TCP 80/443 only from official Cloudflare IPv4/IPv6 ranges and preserves SSH/22. Public API health/database/CORS checks passed, and direct-origin ports 80/443 timed out from the GitHub runner and independent Vercel Mumbai sandbox. The workflow refreshes CIDRs weekly. Security issue #28 is closed; umbrella issue #18 remains open for the other audit findings.
