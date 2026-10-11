@@ -204,3 +204,8 @@ The backend already appends kafkaAdvancedSections to kafka-basics. The PR mirror
 ### Kafka fallback parity fix merged — 2026-10-11
 
 PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. The frontend fallback now includes the advanced sections already used by backend content. This avoids a deliberately truncated local version of kafka-basics when API fetching fails. Build passed; no offline browser test has been performed. The merge SHA is recorded in the frontend and backend commit ledgers.
+
+
+### PR #20 rollout — 2026-10-11
+
+Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. The backend content seed completed with 5 categories and 11 articles; frontend CI build passed. The advanced Kafka sections are now present in the frontend source fallback. Actual offline/browser fallback behavior remains unverified.
