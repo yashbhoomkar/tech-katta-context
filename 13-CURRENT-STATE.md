@@ -400,3 +400,16 @@ Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546
 The deploy workflow completed successfully for main commit `9d545de3c6e2048dd851bb43a8782bf388544486`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. VPS preparation and runtime configuration succeeded; the optional MongoDB content-sync step was skipped because this was a code-only release, so the deploy did not reseed article/category documents. The API restarted successfully and local health returned `{"status":"ok","service":"tech-katta-api","version":"2026.10.05-production","db":"connected"}`. Production smoke tests passed: 11 endpoint checks plus CORS and security-header assertions.
 
 Main-branch backend CI also passed on merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. This establishes CI + VPS deployment + HTTP smoke validation. A real browser/E2E test and load/stress test have not been run.
+
+
+## Browser and TLS verification — 2026-10-11 (in progress)
+
+Application repository main now includes workflow-only diagnostic merges through `e52f8da2efbad98dcac6b4c9f4bcd45a0901ccfe`; the deployed backend application code remains `9d545de3c6e2048dd851bb43a8782bf388544486`. These workflow-only merges did not trigger a backend deployment.
+
+PR #14 is open: https://github.com/yashbhoomkar/tech-katta/pull/14. Its current branch head is `dcba89f7499ba9cecc5cc4117896b33651096990`. It adds Chromium browser checks, a maximum-60-request/concurrency-3 GET-only production load probe, and CodeQL analysis. The branch also contains a one-time certificate repair step that first runs Certbot's HTTP-01 dry run and only then requests a trusted certificate for `tech-api.katta.cc`; the repair step's execution has not yet been verified. Do not merge this PR or claim the TLS issue is fixed until the workflow and tests are verified.
+
+Browser run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135114290 failed on the browser-origin API request. The three SPA routes returned HTTP 200 and rendered content, but the API hostname presents a self-signed certificate (OpenSSL verify code 18; curl error 60; Chromium `ERR_CERT_AUTHORITY_INVALID`). The bounded load job was skipped because browser verification failed. No load/stress result is available yet.
+
+CodeQL passed on the earlier PR head in run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135114213; the latest PR head still requires a fresh successful check. CodeRabbit review was manually triggered and was still marked in progress at the last check. The shared read-only VPS TLS diagnostic workflow was added through PRs #15 and #16; these workflow-only changes do not change application runtime.
+
+Next action: verify the Certbot repair step runs, confirm `https://tech-api.katta.cc/api/health` validates with a trusted chain, rerun Chromium tests, then run the bounded load probe only after browser/API checks pass. Update the context again with measured results; do not call this a full capacity benchmark or penetration test.
