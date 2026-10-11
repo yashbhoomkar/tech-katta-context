@@ -242,3 +242,7 @@ The first attempt to download plain-text Cloudflare IP lists returned HTTP 403 f
 ## Loopback binding hardening candidate (2026-10-11)
 
 Branch `fix/backend-loopback-bind` contains a change to bind Node only to `127.0.0.1:5000`, matching Nginx's current upstream, and to assert the expected listener during the SSH deployment. It also changes the DNS diagnostic from a hard failure to a warning when the record is not Cloudflare-proxied, allowing the SSH inspection to continue. Commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541` are ledgered in MongoDB. No firewall rules are changed. Not yet merged/deployed.
+
+### Loopback deployment workflow syntax correction
+
+Commit `d41a420c7f973af3626d9de51cd16f34edf94166` fixes YAML/script indentation after GitHub marked the branch's deployment workflow invalid. This was detected before merge and recorded in the MongoDB ledger. Recheck PR status and syntax before merge.
