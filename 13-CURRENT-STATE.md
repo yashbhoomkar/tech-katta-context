@@ -467,3 +467,8 @@ PR #19: https://github.com/yashbhoomkar/tech-katta/pull/19
 - `a1f3b3a803779f5082e3f8a37d65137dd10fc38e` — restore article metadata on effect cleanup.
 
 Both commits are recorded in MongoDB `techkatta_history.frontend_git_commits`. PR is open and not deployed. Frontend CI/build and actual mobile gesture behavior remain pending verification.
+
+
+### Frontend audit fixes merged — 2026-10-11
+
+PR #19 https://github.com/yashbhoomkar/tech-katta/pull/19 was squash-merged as `62c4b3ee59a99a57ec98ad221a34d38f37953eb2`. It fixes stale mobile swipe route state and restores article metadata on cleanup. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. Merge SHA recorded in MongoDB `techkatta_history.frontend_git_commits`. Mobile gesture testing remains pending.
