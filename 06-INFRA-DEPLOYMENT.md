@@ -217,3 +217,16 @@ Branch `chore/inspect-vps-proxy-security` contains:
 - `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` — correct its listener-port filter
 
 Both application/workflow commits are recorded in the MongoDB backend ledger. The workflow is designed to run on merge (and support manual dispatch) and report only selected Nginx proxy directives, listening ports, UFW status, and service state. It does not change firewall or Nginx configuration. PR/diagnostic output is pending.
+
+## VPS proxy/firewall inspection — 2026-10-11
+
+Read-only diagnostics ran successfully through GitHub Actions: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567.
+
+Observed on the VPS:
+- Nginx and `tech-katta-api` are active.
+- `tech-api.katta.cc` Nginx vhost listens on 443 (IPv4 and IPv6) and proxies to `http://127.0.0.1:5000`.
+- Nginx sets `X-Real-IP $remote_addr` and `X-Forwarded-For $proxy_add_x_forwarded_for`.
+- UFW is active with default incoming deny, but allows ports 22, 80, and 443 from anywhere (IPv4 and IPv6).
+- Node listens on `0.0.0.0:5000`; UFW has no allow rule for 5000, but binding to loopback would add defense in depth.
+
+These findings confirm that the current Express `trust proxy: 1` likely uses the Cloudflare edge address as `request.ip` for proxied requests when Nginx appends its peer address to X-Forwarded-For. Verify public DNS resolves to Cloudflare proxy addresses before changing trust hops or firewall rules. Do not remove SSH access as part of origin hardening.
