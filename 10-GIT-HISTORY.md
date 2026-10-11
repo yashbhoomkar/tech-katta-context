@@ -144,3 +144,10 @@ MongoDB ledger record added to `techkatta_history.backend_git_commits`. Branch: 
 - `a806fab3f94a00172d55fafdb73ea9ca7dc71810` — merge route modularization
 
 Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and VPS deployment/public smoke tests passed after merge.
+
+## Readiness and request observability — 2026-10-11
+
+- `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` — add readiness/liveness, structured request logging, and smoke coverage
+- `b8a705eec61af7deb7ca47ebd36d06025df2ad22` — merge readiness/observability
+
+Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and VPS deployment/public smoke tests passed after merge.
