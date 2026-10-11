@@ -74,7 +74,7 @@ If proxying or origin restrictions break API access:
 
 - No Cloudflare DNS/zone management connector is available in this ChatGPT tool session, so the DNS proxy state cannot be changed safely from here.
 - The existing diagnostic proves direct-origin DNS, not that the Cloudflare cutover has happened.
-- Client-IP bucket behavior has not been empirically tested through a proxied production request. The current source/configuration matches the one-hop topology, but the future Cloudflare topology needs explicit verification.
+- Live spoofed-header requests confirm same-bucket behavior on the current direct-client → Nginx → Express path. Client-IP behavior through Cloudflare has not been tested; the future proxied topology and `CF-Connecting-IP` normalization need explicit verification.
 - Origin ingress restriction is therefore **not yet safe to apply**.
 
 ## Isolated forwarded-IP regression test added (2026-10-11)
@@ -82,3 +82,11 @@ If proxying or origin restrictions break API access:
 Application PR #34 (`16bf385f1f62dbea5d11d38fed64028e99ca7a95`) adds an integration test that simulates the existing one-hop Nginx forwarding chain. It verifies that changing a spoofed leftmost `X-Forwarded-For` value does not evade the rate limiter if the trusted proxy appends the same rightmost peer address. Backend CI, Semgrep, CodeQL, VPS deployment, and public production smoke tests passed; deployment evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
 
 This test does **not** traverse the actual VPS Nginx process and does **not** verify Cloudflare proxying or `CF-Connecting-IP` normalization. Keep the current direct-DNS baseline and do not restrict ports 80/443 until Cloudflare access, proxy status, real-IP handling, and public-route verification are available. Issue #28 remains open.
+
+## Live direct-origin forwarded-header smoke test (2026-10-11)
+
+A temporary Vercel sandbox in region `bom1` resolved `tech-api.katta.cc` to `129.121.133.47` (IPv4 only). Three GET requests to `/api/categories` supplied different spoofed `X-Forwarded-For` values. All returned HTTP 200; `X-RateLimit-Remaining` decreased 119 → 118 → 117, and the CORS allow-origin remained `https://tech.katta.cc`. Node's normal TLS validation succeeded.
+
+**Interpretation:** the requests shared the same limiter bucket despite changing the attacker-controlled header. This is live evidence consistent with Nginx appending the actual peer address and Express `trust proxy = 1` selecting the rightmost forwarded address. The test sent only three requests and did not inspect or log the actual IP value.
+
+This does not verify Cloudflare proxying, `CF-Connecting-IP` normalization, or Cloudflare-only origin ingress. DNS still points directly at the origin, and UFW ports 80/443 remain publicly allowed. Do not restrict ingress until the Cloudflare cutover and full verification sequence can be completed.
