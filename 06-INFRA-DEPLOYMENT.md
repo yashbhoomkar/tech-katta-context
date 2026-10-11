@@ -43,24 +43,19 @@ Do not interpret that 403 as a Tech Katta deployment failure.
 
 ## Internal Vercel control
 
-The backend now contains a private environment-authenticated Vercel REST control layer independent of the ChatGPT Vercel MCP:
+The canonical private REST client is `backend/src/vercelClient.js`, shared by:
+- `backend/scripts/vercel-control.mjs` (`npm run vercel:control`)
+- `backend/scripts/vercel-mcp.mjs` (`npm run vercel:mcp`)
 
-- `backend/src/vercel/client.js`
-- `backend/src/vercel/projects.js`
-- `backend/src/vercel/deployments.js`
-- `backend/src/vercel/index.js`
-
-Application commits:
-- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add Vercel API client
-- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add control operations and CLI
+PR #24 merged as `efbc810f08f210e83cff41415280c1a0aaffc8c6` and removed the unreferenced duplicate client/CLI implementations under `backend/src/vercel/` plus the unused `backend/src/vercel-control.js`. The deployment workflow now checks syntax for the canonical client and active adapters.
 
 It uses Node 22 native `fetch` and requires:
 - `VERCEL_ACCESS_TOKEN` — secret
 - `VERCEL_TEAM_ID` — optional team scope
 
-The token is never stored in Git or documentation and the control layer is not exposed through the public Express API.
+The token is never stored in Git or documentation, and the control layer is not exposed through the public Express API.
 
-Token-authenticated Vercel execution is still pending until the CLI is run from a network-enabled trusted environment with the token configured.
+Vercel API operations through this internal CLI/MCP still require the environment token to be configured on a trusted runtime.
 
 ## GitHub Actions
 
@@ -183,7 +178,7 @@ Do not use force-push as a casual rollback mechanism.
 
 PR: https://github.com/yashbhoomkar/tech-katta/pull/1, branch `refactor/backend-hardening-phase-1`.
 
-The PR is not merged and its backend changes have not been deployed to the VPS. A stale syntax-check command in `.github/workflows/deploy-backend.yml` referenced `backend/src/vercelClient.js`, while the current module layout is `backend/src/vercel/{client,projects,deployments,index}.js`. The branch corrects the workflow to validate the actual module paths before deployment.
+The PR is not merged and its backend changes have not been deployed to the VPS. A stale syntax-check command in `.github/workflows/deploy-backend.yml` referenced `backend/src/vercelClient.js`, while the current module layout is `backend/src/vercel/{client,projects,deployments,index}.js`. PR #24 later consolidated Vercel client code: the workflow now checks `backend/src/vercelClient.js` and the active CLI/MCP adapters. The duplicate `backend/src/vercel/` tree was removed.
 
 After merge, the expected production path is the existing GitHub Actions SSH deployment workflow. Deployment is only considered successful after the workflow completes its service health checks and public smoke tests. Direct SSH access from the ChatGPT runtime is not established.
 
