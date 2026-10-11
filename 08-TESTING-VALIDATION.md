@@ -248,3 +248,10 @@ PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b after Backend CI, Fron
 Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b passed Backend CI (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003), Frontend CI build (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910), and CodeQL (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951). VPS deployment and production smoke passed (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953): content sync succeeded, local health was DB-connected, and 11 endpoint checks plus CORS/security headers passed under standard TLS validation.
 
 Still not verified: actual mobile gesture interaction, offline/API-failure Kafka fallback in a browser, Docker runtime networking, Vercel live deployment state, full-capacity load, Cloudflare/Nginx IP attribution, and overflow routing.
+
+
+## Issue #18 fixes — CI validation record (2026-10-11)
+
+- PR #19: frontend CI build and CodeQL passed on head a1f3b3a803779f5082e3f8a37d65137dd10fc38e; merge 62c4b3ee59a99a57ec98ad221a34d38f37953eb2. Actual touch-device swipe test not performed.
+- PR #20: backend CI and CodeQL passed on corrected backend test commit d40929e580571d5600066d521de08f9f75eb7deb. Vercel status passed on the later PR head and merge 56b229a2c0fa1d586f200a41c79826ed92a0446b. The first backend run failed due to an incorrect test sequence; the test was corrected to send enough public requests to exhaust the configured rate limit before checking health, and the rerun passed.
+- Post-merge production deploy status and live API smoke tests are not yet verified in this record.
