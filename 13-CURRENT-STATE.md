@@ -296,3 +296,12 @@ Application commit: `1c1ff5ce50a0556e955b34825b113cc1634ff4a5` on branch `refact
 Added `backend/test/contentLayers.test.js` to verify repository fallback behavior, search regex escaping and content projection, service-level content normalization without mutating source objects, controller filter forwarding, generic retryable 503 responses without leaking database details, and malformed-slug rejection before service invocation.
 
 Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151. All 23 tests passed. This remains CI-only validation; no production deployment, production smoke test, browser test, or load test was run. PR #10 remains draft/open and unmerged. Production stays at `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+
+### Runtime configuration validation — CI passed (2026-10-11)
+
+Application commit: `c9411681a0f940256c8999e22cfc85f01ed295a9`, branch `refactor/backend-clean-architecture-phase-1`, draft PR #10.
+
+Added `backend/src/config.js` with immutable configuration parsing for `PORT` and `FRONTEND_ORIGIN`. Invalid ports fail startup; production requires an explicit frontend origin; frontend origins must be HTTP(S) origins without credentials or paths. `server.js` loads/validates config once and passes it into `createApp()`; app construction no longer reads environment variables directly. Added configuration unit tests.
+
+Backend CI passed on this exact commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133257583. All 28 tests passed. This candidate remains in draft PR #10 and has not been deployed. No production smoke, browser, or load test was run for this candidate. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.

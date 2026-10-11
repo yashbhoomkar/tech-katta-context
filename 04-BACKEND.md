@@ -385,3 +385,10 @@ The latest candidate commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` passed ba
 Added `backend/test/contentLayers.test.js` on candidate commit `1c1ff5ce50a0556e955b34825b113cc1634ff4a5`. It verifies repository fallback and query behavior, escaped search patterns, projection of article content out of list results, service normalization without source mutation, controller filter forwarding, safe 503 responses, and invalid slug rejection.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133163151 — 23/23 tests passed. Candidate is in draft PR #10 and has not been deployed. Production smoke/load/browser validation remains pending.
+
+
+### Runtime configuration module — candidate (2026-10-11)
+
+Added `backend/src/config.js` on candidate commit `c9411681a0f940256c8999e22cfc85f01ed295a9`. It parses and validates the port and frontend origin at startup, requires `FRONTEND_ORIGIN` in production, rejects invalid ports and non-origin frontend URLs, and returns an immutable config object. `server.js` passes the validated config into `createApp()`, which no longer reads `process.env` directly.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133257583 — 28/28 tests passed. PR #10 remains draft/open; no production deployment or smoke test has been performed for this candidate.
