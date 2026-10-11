@@ -76,3 +76,9 @@ If proxying or origin restrictions break API access:
 - The existing diagnostic proves direct-origin DNS, not that the Cloudflare cutover has happened.
 - Client-IP bucket behavior has not been empirically tested through a proxied production request. The current source/configuration matches the one-hop topology, but the future Cloudflare topology needs explicit verification.
 - Origin ingress restriction is therefore **not yet safe to apply**.
+
+## Isolated forwarded-IP regression test added (2026-10-11)
+
+Application PR #34 (`16bf385f1f62dbea5d11d38fed64028e99ca7a95`) adds an integration test that simulates the existing one-hop Nginx forwarding chain. It verifies that changing a spoofed leftmost `X-Forwarded-For` value does not evade the rate limiter if the trusted proxy appends the same rightmost peer address. Backend CI, Semgrep, CodeQL, VPS deployment, and public production smoke tests passed; deployment evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
+
+This test does **not** traverse the actual VPS Nginx process and does **not** verify Cloudflare proxying or `CF-Connecting-IP` normalization. Keep the current direct-DNS baseline and do not restrict ports 80/443 until Cloudflare access, proxy status, real-IP handling, and public-route verification are available. Issue #28 remains open.
