@@ -361,3 +361,22 @@ Latest complete verification:
 - CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821 — passed.
 
 Browser results: home, distributed-systems unit, canonical article route, browser-origin API/CORS and canonical article contract all passed; no uncaught page exceptions. Load results: 60/60 HTTP 200, concurrency 3, min 231 ms, median 235 ms, p95 757 ms, max 839 ms, zero throttling and zero server/network errors. This is a bounded smoke-load check only, not a capacity benchmark. PR #14 remains open pending final CodeRabbit review and merge decision.
+
+
+## Final browser/load/TLS verification commits (2026-10-11)
+
+All listed application-repository commits were recorded in MongoDB `techkatta_history.backend_git_commits`.
+
+- `98be9fe3712554da2d3287c56a4f406bbe10012d` — temporary read-only TLS diagnostic workflow; confirmed the active Nginx certificate was self-signed and Certbot was installed.
+- `87301814981ca7f0f069c433001c9ff15b173814` — one-time TLS repair workflow. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135484266 passed the Certbot HTTP-01 dry run, backed up Nginx configuration, deployed the valid Let's Encrypt certificate, validated/reloaded Nginx, and verified the public health endpoint using normal TLS validation. This workflow branch was operational-only and was not merged into main.
+- `8b0f195525937d522fe6e8d2f3a727a3d4a7cb5f` — removed automatic production certificate changes from PR verification so ordinary PR tests remain read-only.
+- `80f26149dd17643dfd275b893efd7326e4c84d42` — kept the certificate repair as a separate one-time operation and adjusted verification workflow triggers.
+- `afa5abd8f1c71c104b6eaa8ce0a7b98a2dd83a18` — enabled the bounded GET load probe after successful browser verification.
+- `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` — merge PR #14, adding production Chromium checks, a bounded GET-only load probe, and free CodeQL analysis. Workflow/test-only merge; no backend application deployment was triggered.
+
+Final successful verification:
+- Browser and bounded load: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135690786 and https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798.
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821.
+- Chromium verified home, Distributed Systems unit, canonical article, and browser-origin API/CORS/article response contract. Bounded load: 60/60 HTTP 200 at concurrency 3, min 233 ms, median 239 ms, p95 750 ms, max 807 ms; zero 429, 5xx, or network errors. A second run also passed 60/60.
+- Existing production smoke tests passed 11 endpoint checks plus CORS/security headers with standard TLS validation. Manual Semgrep default-rules scan reported zero findings.
+- PR #14 is merged. Deployed backend runtime remains at application commit `9d545de3c6e2048dd851bb43a8782bf388544486`; only TLS/Nginx configuration changed on the VPS.
