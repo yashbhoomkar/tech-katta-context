@@ -413,3 +413,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133451417 �
 Commit `e08dae0345100ba3ccc8b7efbd8690db1644cfbf` moves request ID/logging middleware ahead of JSON parsing and adds consistent JSON handling for malformed JSON (400) and oversized bodies (413), preserving the existing 50 KB body limit.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724 — 28/28 tests passed. The changes are still in draft PR #10 and have not been deployed.
+
+
+### Backend architecture documentation
+
+Added `backend/README.md` on candidate commit `3e57fc39d0f23ca6a71e604be3d0e7290a74f995`, documenting module responsibilities, the request lifecycle, fallback/error contracts, environment variables, local commands, health endpoints, and operational limits. Updated `.env.example` to distinguish container `PORT` from host-side `BACKEND_PORT`, and updated root README to reflect the actual topology.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299 — 28/28 tests passed. Candidate remains in draft PR #10 and is not deployed.

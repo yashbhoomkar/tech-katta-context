@@ -258,3 +258,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI passed w
 - `e08dae0345100ba3ccc8b7efbd8690db1644cfbf` — ensure malformed/oversized body requests receive request IDs and consistent JSON 400/413 responses.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724. Draft PR #10 remains open and undeployed.
+
+
+### Backend documentation increment
+
+- `3e57fc39d0f23ca6a71e604be3d0e7290a74f995` — document backend architecture and environment setup; correct stale root architecture description.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299. Draft PR #10 remains open and undeployed.
