@@ -356,3 +356,9 @@ Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95` (test co
 A temporary Vercel sandbox in the Mumbai region resolved `tech-api.katta.cc` to `129.121.133.47`. Three low-volume GET requests to `/api/categories` sent three different spoofed `X-Forwarded-For` values. All returned HTTP 200; `X-RateLimit-Remaining` decreased 119 → 118 → 117, and CORS remained restricted to `https://tech.katta.cc`. Standard Node TLS verification succeeded.
 
 This is live evidence that the current direct-client → Nginx → Express route kept the requests in the same rate-limit bucket despite changing the attacker-supplied header, consistent with Nginx appending the actual peer address and Express trusting one proxy hop. Only three requests were sent; no raw client IP was logged or inspected. This does **not** verify Cloudflare-proxied traffic, `CF-Connecting-IP` normalization, or origin firewall restriction.
+
+## Capacity-test environment check (2026-10-11)
+
+The connected Render workspace was inspected, including preview services. It contains Life Katta-related services but no Tech Katta staging service. The only Tech Katta load evidence remains the existing 156-request, ~3.05 req/s low-load production baseline.
+
+No larger production load was run: a representative capacity test needs a staging-like VPS/Nginx/Express/MongoDB target or a defined production window with hard request-rate/concurrency limits, stop thresholds, and resource monitoring. Issue [#33](https://github.com/yashbhoomkar/tech-katta/issues/33) remains open. Do not present the baseline as a stress test or capacity estimate.

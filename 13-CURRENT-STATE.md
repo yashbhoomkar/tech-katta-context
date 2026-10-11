@@ -623,3 +623,7 @@ This verifies same-bucket behavior on the currently observed direct-client → N
 The six known duplicate ledger rows are backed up and verified in `techkatta_history.commit_ledger_duplicate_backup_20261011`, preserving source collection, original `_id`, key, and original description. Canonical GitHub commit messages have been identified for the two affected SHAs. No original row was deleted or modified.
 
 The available MongoDB Atlas connector cannot create a true unique index: its `create_index` operation ignored a supplied `unique: true` option in a controlled backup-collection probe. The probe index was removed. Do not delete duplicate rows until a supported path can enforce and verify the unique constraint. Issue #32 remains open; umbrella issue #18 remains open.
+
+## Capacity-test environment status — 2026-10-11
+
+A fresh Render workspace inspection found no Tech Katta staging service; the available services are for Life Katta. The existing 156-request, ~3.05 req/s production run remains a low-load baseline only. No larger production load was run without a representative staging target or a bounded monitored production plan. Issue #33 remains open; no maximum supported user count is claimed.
