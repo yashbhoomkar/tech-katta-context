@@ -181,3 +181,7 @@ Deployed in commit `3155342dc66bdf1e001bbfc54749f63daf1e4062`. Connected databas
 ## Readiness and request logging candidate (2026-10-11)
 
 Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` (not yet deployed). The proposed access log emits a generated request ID, method, path only, response status, and duration; it excludes query strings and IP addresses. `/health/live` is independent of MongoDB, while `/health/ready` reports 503 when MongoDB is disconnected. The readiness endpoint is deliberately outside the general rate limiter so monitoring is not blocked by rate-limit saturation.
+
+## Request logging and health checks — deployed (2026-10-11)
+
+Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` adds a generated request correlation ID and structured access logs that deliberately exclude query strings and client IP addresses. Liveness is independent of MongoDB; readiness returns 503 when MongoDB is disconnected. Health probes bypass the general request limiter. CI and production smoke tests passed. This does not resolve the separate origin-IP exposure or proxy-trust verification backlog.
