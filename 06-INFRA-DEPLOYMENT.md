@@ -201,3 +201,7 @@ The API now uses fallback content only when MongoDB is disconnected. Connected-b
 ## Content-route modularization deployment — 2026-10-11
 
 Commit `a806fab3f94a00172d55fafdb73ea9ca7dc71810` deployed successfully through https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288. Backend CI passed at https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338279. The existing VPS deployment pipeline, seeding step, health checks, and public smoke tests all completed successfully.
+
+## Readiness checks candidate (2026-10-11)
+
+Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0`, adds `/health/live` and `/health/ready` and expands the public smoke test to check both. The deployment workflow continues to use the legacy local `/api/health` check; the new readiness endpoint is checked by the public smoke suite after deployment. Not yet merged/deployed.
