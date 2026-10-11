@@ -457,3 +457,13 @@ The app repository main now includes merge commit `e4d4f92eee0b033ccbfb5d5392868
 ### Post-merge deployment verification (2026-10-11)
 
 Merging PR #14 as `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` triggered the backend deployment workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631. The run passed backend JavaScript validation, dependency install, syntax checks, VPS preparation/runtime configuration, API restart/health verification, and production smoke tests. MongoDB content sync was skipped because this was a workflow/test-only change. The VPS deployment workflow is now green on the latest main SHA, while backend application source remains unchanged from `9d545de3c6e2048dd851bb43a8782bf388544486`. The merge commit is recorded in MongoDB `techkatta_history.backend_git_commits`.
+
+
+## Issue #18 follow-up — frontend fixes in review (2026-10-11)
+
+PR #19: https://github.com/yashbhoomkar/tech-katta/pull/19
+
+- `f1e657c21673bf64ff71f6d067f1231e72d1956f` — refresh the mobile swipe handler when `location.pathname` changes.
+- `a1f3b3a803779f5082e3f8a37d65137dd10fc38e` — restore article metadata on effect cleanup.
+
+Both commits are recorded in MongoDB `techkatta_history.frontend_git_commits`. PR is open and not deployed. Frontend CI/build and actual mobile gesture behavior remain pending verification.
