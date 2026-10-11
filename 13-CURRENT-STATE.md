@@ -522,3 +522,8 @@ Remaining issue #18 work: decide/benchmark search semantics before changing rege
 - Duplicate Vercel client call sites and removal of legacy clients only after reference audit.
 - Any remaining CORS requirements for preview domains; do not widen without a defined origin policy.
 - Browser/mobile gesture test on a real touch device.
+
+
+### Production frontend deployment confirmed (2026-10-11)
+
+Vercel deployment for main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is READY with target=production and alias tech.katta.cc. This confirms the frontend deployment only. Backend VPS deployment status and live API health after the merge have not been independently confirmed in this session.
