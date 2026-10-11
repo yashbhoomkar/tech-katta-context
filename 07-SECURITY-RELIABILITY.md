@@ -199,3 +199,7 @@ Observed configuration: Nginx forwards to `127.0.0.1:5000`, sets `X-Real-IP $rem
 UFW is active with default deny incoming, but 80/443 are open from any IPv4/IPv6 source, so direct-origin requests can bypass Cloudflare. Port 5000 listens on all interfaces but has no UFW allow rule; loopback binding is preferable defense-in-depth. SSH 22 is open globally and must not be restricted without a known, reliable admin source IP or alternate access path.
 
 Cloudflare's official documentation recommends allowlisting its current origin IP ranges and blocking other direct HTTP/HTTPS sources for proxied hostnames: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/. Before applying rules, verify DNS is proxied and ensure both IPv4 and IPv6 Cloudflare ranges are covered.
+
+### Verify Cloudflare proxy before origin firewall changes
+
+A workflow update (`1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7`, ledgered in MongoDB) will verify that every public `tech-api.katta.cc` DNS address belongs to the official Cloudflare proxy ranges before origin restrictions are applied. It downloads the current ranges from Cloudflare's official `ips-v4` and `ips-v6` endpoints rather than embedding a stale list. It is read-only.
