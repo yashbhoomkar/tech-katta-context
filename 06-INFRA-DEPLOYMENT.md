@@ -191,3 +191,9 @@ After merge, the expected production path is the existing GitHub Actions SSH dep
 ### 2026-10-11 deployment result
 
 Backend deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128036897 — **success** for application commit `a9e340cc539519a91617d390a44e98bd0547046d`. GitHub Actions connected to the VPS over SSH, reset `/opt/tech-katta` to `origin/main`, installed production dependencies, seeded MongoDB (5 categories and 11 articles), restarted `tech-katta-api`, confirmed the local health endpoint reported MongoDB connected, and passed public smoke tests (9 endpoint checks plus CORS and security headers). The backend CI push run also passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128036905.
+
+## Database fallback change deployed — 2026-10-11
+
+Commit `3155342dc66bdf1e001bbfc54749f63daf1e4062` was deployed through GitHub Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751. The deployment, service health check, and public production smoke suite succeeded. Backend CI also passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191731.
+
+The API now uses fallback content only when MongoDB is disconnected. Connected-but-empty query results remain empty; connected database query errors return HTTP 503 rather than stale fallback data. The existing seed step completed during deployment, and the smoke suite passed.
