@@ -264,3 +264,9 @@ This is not optional when the change is part of the application commit synchroni
 - Verify the GitHub PR review API, inline review comments, and relevant bot/check identity before reporting an AI review.
 - If the review bot is configured in `.coderabbit.yaml` but produces no review evidence, report the integration as unverified/inactive and do not count it as a completed review gate.
 - Never claim an AI review solely from Semgrep, CodeQL, build, deployment, or other CI results.
+
+
+## Ledger duplicate handling (2026-10-11)
+
+- Before inserting a commit record, query both canonical collections for the full SHA and insert only if it is absent.
+- If historical duplicate rows are discovered, do not blindly delete or overwrite them during normal ledger updates. Preserve their `_id`, key, and value as audit evidence; handle cleanup through a dedicated, backed-up operation with a recorded canonical description and a verified unique index.
