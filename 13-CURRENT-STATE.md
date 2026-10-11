@@ -581,3 +581,15 @@ The actual AI reviewer is **not yet verified operational**: PR #26 had no CodeRa
 The slug-specific ASCII-to-diagram heuristic has been removed. Backend fallback content and the live MongoDB article now both use the explicit `distributed-architecture` diagram block. The deploy workflow seeded content because the source file changed; the follow-up Atlas query confirmed the live block type/name. Backend CI (31/31), CodeQL, Semgrep, VPS deployment, and production smoke checks passed. Deployment evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733.
 
 Issue #18 remains open for other audit findings, including direct-origin exposure and the unverified CodeRabbit integration.
+
+
+## Umbrella audit status and follow-up issues (2026-10-11)
+
+Issue #18 remains open. Current resolved items and evidence are recorded in its latest issue comment. Remaining work is tracked explicitly:
+
+- [#28 — Cloudflare proxy cutover and origin ingress restriction](https://github.com/yashbhoomkar/tech-katta/issues/28): unresolved direct-origin exposure; firewall changes must wait until Cloudflare proxying and real-IP handling are verified.
+- [#29 — Design real overflow failover after a secondary upstream exists](https://github.com/yashbhoomkar/tech-katta/issues/29): actual overflow/failover is not implemented; the no-op timer stays disabled.
+- [#30 — Enable and verify a free AI pull-request review integration](https://github.com/yashbhoomkar/tech-katta/issues/30): `.coderabbit.yaml` exists, but a real AI review has not been observed.
+- [#31 — Revisit article search indexing without changing substring semantics](https://github.com/yashbhoomkar/tech-katta/issues/31): current 11-article collection uses a regex collection scan; current observed latency is not a reason to change matching semantics.
+
+The production deployment for application SHA `90ac43818fc34c61dfd7fdcae3baf62f83310350` succeeded; the latest main production Vercel deployment is READY at `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. The home left-swipe regression is fixed and browser-emulated checks passed, but physical-device verification remains unavailable in this session. Do not close issue #18 while the listed follow-ups remain unresolved.

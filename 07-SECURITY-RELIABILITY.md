@@ -247,3 +247,13 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. Pro
 Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 resolved `tech-api.katta.cc` to the VPS origin `129.121.133.47`, outside Cloudflare's published proxy ranges. Cloudflare proxying is not active for this hostname in the observed state. Nginx sets `X-Real-IP $remote_addr` and `X-Forwarded-For $proxy_add_x_forwarded_for`; Express trusting one Nginx hop is consistent with the current direct-client → Nginx → Express topology. Do not configure Cloudflare-only trusted ranges or change hop count until DNS/proxy state actually changes.
 
 Separate risk remains: the VPS origin is directly exposed and UFW permits ports 80/443 from anywhere. Do not restrict ingress to Cloudflare ranges until the hostname is actually proxied and tested, or public traffic may break. A controlled DNS/Cloudflare migration and origin-hardening change remains future work.
+
+
+## Audit follow-up issue map (2026-10-11)
+
+- **Issue #28 — Cloudflare proxy cutover and origin ingress restriction:** direct-origin DNS remains in place; do not restrict firewall ingress until proxying and Nginx real-IP handling are verified.
+- **Issue #29 — Real overflow failover:** the placeholder timer remains disabled. No secondary upstream or working failover path exists.
+- **Issue #30 — Free AI code review:** `.coderabbit.yaml` is configured, but the GitHub app has not produced substantive review evidence. Do not count CI/static analysis as AI review.
+- **Issue #31 — Search scalability:** preserve case-insensitive substring semantics; reconsider indexing only when scale or measured latency justifies it.
+
+Issue #18 remains open as the umbrella audit. Its resolved items are tracked in the issue comments; do not close it until the remaining work is genuinely complete.
