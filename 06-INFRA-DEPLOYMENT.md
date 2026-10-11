@@ -209,3 +209,11 @@ Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47
 ## Readiness/observability deployment — 2026-10-11
 
 Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` deployed successfully. CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934. VPS deployment and production smoke tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902. The expanded smoke suite includes `/health/live` and `/health/ready`; deployment succeeded with MongoDB connected.
+
+## Read-only VPS proxy diagnostics workflow candidate (2026-10-11)
+
+Branch `chore/inspect-vps-proxy-security` contains:
+- `5de8af322b09619b2c6f11d27770af6e26ab38fd` — add a read-only SSH diagnostics workflow
+- `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` — correct its listener-port filter
+
+Both application/workflow commits are recorded in the MongoDB backend ledger. The workflow is designed to run on merge (and support manual dispatch) and report only selected Nginx proxy directives, listening ports, UFW status, and service state. It does not change firewall or Nginx configuration. PR/diagnostic output is pending.
