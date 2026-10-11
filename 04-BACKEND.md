@@ -477,3 +477,14 @@ Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546
 The backend refactor is deployed. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 passed for main commit `9d545de3c6e2048dd851bb43a8782bf388544486`. The content-sync step was skipped for this code-only release, avoiding a MongoDB seed/write. The service restarted and local health returned `status=ok`, `service=tech-katta-api`, `db=connected`. Public production smoke tests passed: 11 endpoint checks plus CORS and security headers.
 
 Main backend CI passed on merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. No browser automation or load/stress test has been run yet.
+
+
+## Browser/E2E verification and public TLS finding — 2026-10-11
+
+PR #14 adds real Chromium checks for the homepage, distributed-systems unit, canonical article route, and a browser-origin API request. The first browser run passed the three SPA routes (HTTP 200; rendered root content lengths 1,470 / 1,740 / 24,675 characters) but failed the API request because `tech-api.katta.cc:443` presents a self-signed certificate. OpenSSL reports `verify error:num=18:self-signed certificate`; curl reports error 60; Chromium reports `ERR_CERT_AUTHORITY_INVALID`. This is an externally observable production TLS problem, not a test assertion to suppress.
+
+The load probe has a strict ceiling of 60 read-only GET requests, concurrency 3, and a 10-second per-request timeout. It has not run because the browser/API prerequisite failed. Do not report capacity or stress-test results until the probe actually completes.
+
+PR #14 now includes a branch-scoped Certbot step that first runs an HTTP-01 dry run, then requests/configures a trusted certificate and validates/reloads Nginx. This is a production infrastructure mutation and must be confirmed in the actual Actions logs before claiming remediation. If issuance fails, use the read-only diagnostic workflow and inspect DNS/port-80 challenge reachability before changing DNS or firewall policy.
+
+CodeQL security-extended/security-and-quality analysis passed on the earlier test branch head. A successful scan of the final PR head remains required. No backend application deployment was performed by the browser/load/CodeQL PR.
