@@ -506,3 +506,13 @@ Merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`.
 - Successful browser run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155. Frontend CI, Semgrep, and CodeQL all passed at the final PR head.
 - All nine source/test/workflow branch commits and the squash merge SHA are recorded in `techkatta_history.frontend_git_commits`.
 - The Vercel preview for the final branch SHA was READY. Verify the post-merge production Vercel deployment and live site behavior before claiming the fix is deployed to production.
+
+
+## PR #26 — CodeRabbit review configuration (2026-10-11)
+
+Merged as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`.
+
+- Added `.coderabbit.yaml` with automatic-review settings for non-draft PRs targeting `main` and path-specific review instructions for Express/MongoDB, React/mobile navigation, tests, scripts, and CI workflows.
+- No secrets, paid API key, or production runtime dependency was added.
+- The PR review and inline-comment APIs showed no AI review. A manual `@coderabbitai review` request received no CodeRabbit response; only the Vercel preview check was present. The config is prepared, but actual AI-review integration is not verified and remains an audit blocker.
+- Merge SHA and source commit are recorded in `techkatta_history.backend_git_commits`.
