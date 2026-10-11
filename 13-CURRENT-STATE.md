@@ -538,3 +538,8 @@ This supersedes older statements in this file that backend deployment for commit
 ### Overflow timer deployment verified (2026-10-11)
 
 Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 completed successfully for application merge commit `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The VPS logs confirm the placeholder timer was stopped/disabled, the API remained active and loopback-bound, and the production smoke suite passed 11 endpoint checks plus CORS/security headers. The no-op timer finding is resolved. Actual overflow/failover remains unimplemented by design.
+
+
+### Proxy trust topology evidence (2026-10-11)
+
+Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 found public DNS for `tech-api.katta.cc` points directly to `129.121.133.47`, not Cloudflare proxy ranges. The current topology is direct client → Nginx → Express, so do not change Express trust hops or configure Cloudflare-only real-IP trust based on an assumed Cloudflare edge hop. The distinct origin-exposure issue remains: UFW permits 80/443 from any source. Restricting origin ingress must wait until Cloudflare proxying is deliberately enabled and verified.
