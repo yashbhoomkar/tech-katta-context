@@ -209,3 +209,7 @@ Commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` adds tests for liveness while 
 ## Phase 4 verification — 2026-10-11
 
 The test suite passed with 16 tests on the PR head. The merged push CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934. VPS deployment and expanded public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902. New tests verify liveness, readiness for connected/disconnected DB states, request ID generation, structured logging, and query-string exclusion. The production smoke suite now covers 11 endpoint checks plus CORS and security headers.
+
+## Loopback binding candidate validation (2026-10-11)
+
+Branch `fix/backend-loopback-bind` updates the production deployment script to require `127.0.0.1:5000` and fail if `0.0.0.0:5000` is present. Public smoke tests will continue to verify the API through Nginx. The DNS diagnostic workflow will warn rather than stop before SSH diagnostics if public DNS is not Cloudflare-proxied. Commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541` are ledgered; PR validation pending.
