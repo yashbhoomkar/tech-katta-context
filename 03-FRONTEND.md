@@ -208,3 +208,8 @@ Application merge commit `62c4b3ee59a99a57ec98ad221a34d38f37953eb2` contains the
 ## Issue #18 — Kafka fallback content sync candidate (2026-10-11)
 
 PR #20 includes 9b5493801402fa2406542549f2dc87a57478a869 (copy the advanced Kafka sections into the frontend bundle) and a66c7a88eb7a516c25c7bebfb973c24689179a24 (append those sections to the local kafka-basics fallback). Both are recorded in techkatta_history.frontend_git_commits. Frontend CI build passed on the PR head; PR remains open and undeployed.
+
+
+### PR #20 merged — Kafka fallback content (2026-10-11)
+
+Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b includes the frontend mirror of the advanced Kafka sections and adds them to the local kafka-basics fallback. The merge SHA is recorded in techkatta_history.frontend_git_commits. Frontend build passed on the PR head. Actual API-unavailable/offline browser behavior remains untested; production deployment status is pending.
