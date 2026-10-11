@@ -286,3 +286,7 @@ PR #21 merged as `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Backend deployments
 ### Placeholder overflow timer disablement deployed (2026-10-11)
 
 Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 succeeded for `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Logs verify the placeholder timer was stopped/disabled, `tech-katta-api` remained active and loopback-bound, local health reported MongoDB connected, and production smoke tests passed (11 endpoint checks plus CORS/security headers).
+
+### Direct-to-origin DNS confirmed (2026-10-11)
+
+Diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 resolved `tech-api.katta.cc` to `129.121.133.47`, outside Cloudflare proxy ranges. Nginx proxies to `127.0.0.1:5000` and forwards `$remote_addr`/ `$proxy_add_x_forwarded_for`; the direct-client → Nginx → Express topology matches the current one-hop Express trust setting. No proxy hop or real-IP configuration was changed. UFW currently allows ports 80/443 globally, so origin restriction remains unresolved and must not be applied until Cloudflare proxying is enabled and validated.
