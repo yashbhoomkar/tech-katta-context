@@ -183,3 +183,5 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `fix/diagnos
 - `2fc4cf9f07c576c903e165a802edc2597d66d541` — correct diagnostic warning indentation
 
 Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `fix/backend-loopback-bind`; not merged at the time of this entry.
+
+- `d41a420c7f973af3626d9de51cd16f34edf94166` — correct YAML indentation for deployment socket assertions (recorded in MongoDB ledger; branch-only correction after workflow validation failure).
