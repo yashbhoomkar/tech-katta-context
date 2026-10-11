@@ -289,3 +289,14 @@ Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128
 VPS deployment and production smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288
 
 This is an incremental route extraction, not a full controller/service/repository rewrite.
+
+## Readiness and request observability candidate (2026-10-11)
+
+Branch `feat/backend-readiness-observability`, application commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0` (recorded in MongoDB backend ledger; not yet merged/deployed).
+
+- Added `/health/live` for process liveness (HTTP 200 while the process can answer).
+- Added `/health/ready` for content-service readiness (HTTP 200 when MongoDB is connected; HTTP 503 with `Cache-Control: no-store` otherwise).
+- Added `X-Request-Id` and one-line JSON access logs containing method, path without query string, status, and duration. Query strings and client IPs are intentionally not logged.
+- Added HTTP-level tests and expanded `scripts/production-smoke.mjs` to check both endpoints.
+
+Legacy `/health` and `/api/health` responses are preserved for compatibility. CI and production verification are pending.
