@@ -567,3 +567,10 @@ PR #25 merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`. A real browser regr
 The branch-local built frontend passed mobile-emulated Chromium touch checks for sidebar open/close, back/forward gestures, home forward-history protection, short swipes, and mostly vertical gestures. The browser workflow also passed three public SPA route checks and the browser-origin API/CORS contract. Frontend CI, Semgrep, and CodeQL passed. Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142409155.
 
 This does not constitute a physical-device test. Verify the production Vercel deployment after the merge; the successful run used a locally built branch frontend for gesture tests and production only for public routes/API contract checks. Issue #18 remains open because origin exposure and other audit findings remain unresolved.
+
+
+## AI code review status — PR #26 (2026-10-11)
+
+The repository now contains `.coderabbit.yaml`, merged in PR #26 as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. It defines automatic review intent and Tech Katta-specific instructions. The source commit and merge SHA are recorded in `techkatta_history.backend_git_commits`.
+
+The actual AI reviewer is **not yet verified operational**: PR #26 had no CodeRabbit review or inline comments, and the manual `@coderabbitai review` request produced no CodeRabbit response/check. Do not treat the config file as proof of an active review service. The repository's CodeRabbit GitHub App integration needs to be installed/authorized and verified on a new PR. This remains an open item for issue #18.

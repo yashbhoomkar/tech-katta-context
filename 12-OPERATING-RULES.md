@@ -256,3 +256,11 @@ update the appropriate context file.
 The context repository should evolve with the application.
 
 This is not optional when the change is part of the application commit synchronization workflow in Rule 4.
+
+
+## AI code-review evidence rule (2026-10-11)
+
+- A successful check status is not proof that an AI code review occurred.
+- Verify the GitHub PR review API, inline review comments, and relevant bot/check identity before reporting an AI review.
+- If the review bot is configured in `.coderabbit.yaml` but produces no review evidence, report the integration as unverified/inactive and do not count it as a completed review gate.
+- Never claim an AI review solely from Semgrep, CodeQL, build, deployment, or other CI results.

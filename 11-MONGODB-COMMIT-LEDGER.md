@@ -189,3 +189,13 @@ PR #25 was merged as `e1f35b765015f182d32aaf645c4c4eb8387f5936`. Before insertin
 - `e1f35b765015f182d32aaf645c4c4eb8387f5936` — Merge PR #25: fix home swipe-forward bug and test mobile gestures
 
 The inserted count was 10. This records the PR's intermediate commits as well as the merge commit, consistent with the project's commit-history ledger convention.
+
+
+## PR #26 ledger reconciliation (2026-10-11)
+
+The CodeRabbit configuration PR was merged as `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. Both canonical collections were queried for the source and merge SHAs before insertion; neither SHA was present. Two records were inserted into `techkatta_history.backend_git_commits`:
+
+- `d71c54198ae6e023fc66c9bdd64ac9fccfae8855` — ci: configure focused CodeRabbit pull request reviews
+- `acbc81423a7da3f6e163462ee0667c4ed0aa35ae` — Merge PR #26: configure focused free CodeRabbit reviews
+
+Inserted count: 2. No duplicate entries were inserted.
