@@ -472,3 +472,18 @@ Both commits are recorded in MongoDB `techkatta_history.frontend_git_commits`. P
 ### Frontend audit fixes merged — 2026-10-11
 
 PR #19 https://github.com/yashbhoomkar/tech-katta/pull/19 was squash-merged as `62c4b3ee59a99a57ec98ad221a34d38f37953eb2`. It fixes stale mobile swipe route state and restores article metadata on cleanup. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. Merge SHA recorded in MongoDB `techkatta_history.frontend_git_commits`. Mobile gesture testing remains pending.
+
+
+## Issue #18 hardening candidate — PR #20 (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/20 — open, not merged/deployed.
+
+Changes in the branch:
+- Configurable backend bind host with loopback default; Docker explicitly binds inside the container and still publishes only on host loopback.
+- Health endpoints bypass the general rate limiter and report the package version.
+- Production smoke checks now verify TLS normally, without disabling certificate verification.
+- Article category index added to the seed routine.
+- Legacy Vercel CLI no longer embeds a team ID.
+- Frontend local Kafka fallback includes the advanced sections already used by the backend.
+
+Application commits are recorded in their respective techkatta_history.backend_git_commits and frontend_git_commits collections. Backend CI and frontend build passed on the latest PR head; CodeQL was pending. No production deployment is claimed. Regex-to-text search migration, proxy IP semantics, overflow routing, Vercel client consolidation, and diagram normalization remain deferred pending additional verification/design.
