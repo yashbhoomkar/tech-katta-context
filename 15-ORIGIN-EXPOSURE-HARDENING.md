@@ -1,6 +1,6 @@
 # API Origin-Exposure Hardening Plan
 
-**Status (updated 2026-10-11):** Cloudflare DNS access is now connected. The `tech-api.katta.cc` A record is proxied and Cloudflare edge/TLS/API smoke checks pass. Origin ingress restriction remains pending because Nginx real-client-IP normalization and direct-origin blocking have not been implemented or verified.
+**Status (completed 2026-10-11):** Cloudflare proxying, strict TLS, Nginx real-client IP normalization, spoofed-XFF rate-limit verification, and Cloudflare-only UFW ingress restrictions are implemented and independently verified. Security issue [#28](https://github.com/yashbhoomkar/tech-katta/issues/28) is closed. See the final production verification section below.
 
 ## Observed baseline (2026-10-11)
 
@@ -12,7 +12,7 @@
 - Nginx proxies to `127.0.0.1:5000` and forwards `X-Real-IP: $remote_addr` and `X-Forwarded-For: $proxy_add_x_forwarded_for`.
 - Express has `trust proxy = 1`; the in-memory rate limiter keys by Express `request.ip`.
 - The latest successful VPS deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672 verifies the API listens on `127.0.0.1:5000`, not `0.0.0.0:5000`.
-- UFW allows inbound 80/443 from anywhere (IPv4 and IPv6). This is required for current direct-origin traffic.
+- Pre-cutover baseline: UFW allowed inbound 80/443 from anywhere (IPv4 and IPv6). The final state below replaces those broad web rules with Cloudflare-only CIDR allow rules.
 
 ## Safety constraints
 
@@ -70,7 +70,7 @@ If proxying or origin restrictions break API access:
 3. Re-test `https://tech-api.katta.cc/api/health`, frontend API access, CORS, and TLS verification.
 4. Record the exact failure and rollback outcome before retrying.
 
-## Current blockers
+## Historical blockers before final cutover (superseded by the final verification below)
 
 - Cloudflare DNS/zone access is now available. The `tech-api.katta.cc` record was safely switched to proxied after verifying the exact record ID, A-record target, and prior `proxied: false` state.
 - Cloudflare zone settings were changed and read back successfully: SSL/TLS mode `strict`, Always Use HTTPS `on`, minimum TLS version `1.2`.
@@ -83,7 +83,7 @@ If proxying or origin restrictions break API access:
 
 Application PR #34 (`16bf385f1f62dbea5d11d38fed64028e99ca7a95`) adds an integration test that simulates the existing one-hop Nginx forwarding chain. It verifies that changing a spoofed leftmost `X-Forwarded-For` value does not evade the rate limiter if the trusted proxy appends the same rightmost peer address. Backend CI, Semgrep, CodeQL, VPS deployment, and public production smoke tests passed; deployment evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
 
-This test does **not** traverse the actual VPS Nginx process and does **not** verify Cloudflare proxying or `CF-Connecting-IP` normalization. Keep the current direct-DNS baseline and do not restrict ports 80/443 until Cloudflare access, proxy status, real-IP handling, and public-route verification are available. Issue #28 remains open.
+This paragraph records the state immediately after the isolated PR #34 regression test, before the later live Cloudflare cutover. It was superseded by the production workflow and direct-origin checks recorded below.
 
 ## Live direct-origin forwarded-header smoke test (2026-10-11)
 
@@ -91,7 +91,7 @@ A temporary Vercel sandbox in region `bom1` resolved `tech-api.katta.cc` to `129
 
 **Interpretation:** the requests shared the same limiter bucket despite changing the attacker-controlled header. This is live evidence consistent with Nginx appending the actual peer address and Express `trust proxy = 1` selecting the rightmost forwarded address. The test sent only three requests and did not inspect or log the actual IP value.
 
-This does not verify Cloudflare proxying, `CF-Connecting-IP` normalization, or Cloudflare-only origin ingress. DNS still points directly at the origin, and UFW ports 80/443 remain publicly allowed. Do not restrict ingress until the Cloudflare cutover and full verification sequence can be completed.
+This paragraph records the earlier direct-origin smoke test before the final Cloudflare proxy and firewall cutover. The completed live verification below supersedes that interim state.
 
 
 ## Cloudflare proxy cutover completed (2026-10-11)
@@ -111,3 +111,33 @@ Independent live checks from a Vercel sandbox in Mumbai:
 - Direct origin certificate test to `129.121.133.47:443`, with SNI and hostname verification for `tech-api.katta.cc`, completed with `Verify return code: 0 (ok)`.
 
 The forwarded-IP/rate-limiter test is inconclusive after proxying: three requests with different spoofed `X-Forwarded-For` values had remaining counts `119 → 118 → 119`. This does not prove correct client-IP normalization. Do not close issue #28 or restrict origin ingress yet. Nginx must be configured to trust `CF-Connecting-IP` only from official Cloudflare IPv4/IPv6 ranges, then the actual forwarded chain and rate limiter must be verified before applying Cloudflare-only UFW rules. The public origin and its existing port 80/443 exposure are intentionally unchanged for now.
+
+
+## Final production verification — Cloudflare origin hardening (2026-10-11)
+
+**Status: completed.** Application workflow run [38165442874](https://github.com/yashbhoomkar/tech-katta/actions/runs/38165442874) completed successfully end-to-end.
+
+### Nginx client-IP normalization
+
+- The Nginx real-IP module was verified present and the /etc/nginx/conf.d include was verified before configuration.
+- The Nginx file /etc/nginx/conf.d/cloudflare-realip.conf is generated from official Cloudflare IPv4/IPv6 CIDRs retrieved from Cloudflare's published API.
+- The configuration trusts only official Cloudflare ranges, uses CF-Connecting-IP as the real-IP header, and enables recursive normalization.
+- Nginx syntax check, reload, and local API health passed.
+- Three requests with different spoofed X-Forwarded-For values remained in one rate-limit bucket: 118 → 117 → 116. Public health and categories endpoints returned HTTP 200.
+
+### Origin firewall
+
+- UFW is active with default incoming policy deny.
+- TCP ports 80 and 443 are allowed only from the official Cloudflare ranges: 15 IPv4 CIDRs and 7 IPv6 CIDRs.
+- Broad public Anywhere allow rules for 80/443 were removed.
+- IPv4 and IPv6 SSH port 22 rules were preserved unchanged.
+- The workflow refreshes the published CIDR list weekly (Monday at 05:17 UTC) and verifies the expected allow rules before reporting success.
+
+### Independent post-change verification
+
+- Through public DNS/Cloudflare, the API health endpoint returned HTTP 200 with db connected; the categories endpoint returned HTTP 200.
+- Production frontend CORS remained https://tech.katta.cc.
+- Direct-origin probes forced to 129.121.133.47 timed out on both port 80 and port 443 from the GitHub runner and an independent Vercel sandbox in Mumbai. This confirms the origin is no longer directly reachable from those external test sources.
+- Cloudflare SSL/TLS remains Full (strict), Always Use HTTPS is enabled, and minimum TLS is 1.2.
+
+The cutover is complete. If the weekly CIDR refresh or post-change verification fails in the future, investigate promptly; do not disable TLS validation or remove the SSH rule as a workaround.
