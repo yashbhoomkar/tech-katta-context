@@ -593,3 +593,10 @@ Issue #18 remains open. Current resolved items and evidence are recorded in its 
 - [#31 — Revisit article search indexing without changing substring semantics](https://github.com/yashbhoomkar/tech-katta/issues/31): current 11-article collection uses a regex collection scan; current observed latency is not a reason to change matching semantics.
 
 The production deployment for application SHA `90ac43818fc34c61dfd7fdcae3baf62f83310350` succeeded; the latest main production Vercel deployment is READY at `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. The home left-swipe regression is fixed and browser-emulated checks passed, but physical-device verification remains unavailable in this session. Do not close issue #18 while the listed follow-ups remain unresolved.
+
+
+## Commit-ledger reconciliation — 2026-10-11
+
+All 111 unique full SHAs referenced by the current git-history and current-state documents were found in at least one canonical MongoDB ledger collection; no missing entries remain. Existing duplicate rows were discovered and left untouched to preserve historical audit data. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) tracks controlled deduplication and true unique-index enforcement.
+
+Remaining audit follow-ups now include #28 (origin exposure), #29 (future failover), #30 (AI review integration), #31 (future search scalability), and #32 (legacy ledger duplicate cleanup). Issue #18 remains open.
