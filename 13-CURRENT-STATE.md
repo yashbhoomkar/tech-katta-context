@@ -217,3 +217,14 @@ The first diagnostic attempt failed with HTTP 403 while fetching `www.cloudflare
 Production remains on `b8a705eec61af7deb7ca47ebd36d06025df2ad22`. Branch `fix/backend-loopback-bind` contains ledgered commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541`. It binds the Node service to loopback and verifies that deployment does not expose port 5000 on all interfaces. No firewall changes are included. Cloudflare DNS is currently direct-to-origin, so do not restrict 80/443 to Cloudflare until proxying is enabled and verified.
 
 The loopback-binding PR's first revision had an invalid deployment workflow because the socket assertions were outside the SSH script block. This was caught before merge and fixed in ledgered commit `d41a420c7f973af3626d9de51cd16f34edf94166`. Validate the updated PR head before merging.
+
+### Phase 5 production outcome — 2026-10-11
+
+Current deployed application commit: `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+Backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182
+VPS deployment and production smoke tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352
+
+Node binds only to `127.0.0.1:5000`; deployment asserts the loopback listener and rejects `0.0.0.0:5000`. The public smoke suite passed 11 endpoint checks plus CORS/security headers.
+
+Security limitation: `tech-api.katta.cc` resolves directly to origin `129.121.133.47`; Cloudflare proxying is not active for this hostname. UFW allows 80/443 from all sources, and no firewall changes have been made. Enabling Cloudflare proxying requires a working Cloudflare DNS management path; only then should origin ingress be restricted to official Cloudflare ranges. SSH remains globally allowed to avoid accidental lockout.
