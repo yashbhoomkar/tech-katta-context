@@ -457,3 +457,11 @@ Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is deployed. Workflow http
 - 56b229a2c0fa1d586f200a41c79826ed92a0446b — PR #20, health route/rate-limit behavior, configurable bind host, TLS verification, category index, explicit Vercel team scope, and Kafka fallback content parity.
 
 Both merge SHAs were recorded in the corresponding MongoDB application commit-ledger collections. Backend CI/CodeQL passed on corrected backend commit d40929e580571d5600066d521de08f9f75eb7deb; Vercel status passed on latest PR head/merge. Production deployment and live health verification remain pending confirmation.
+
+
+### PR #21 — disable placeholder overflow timer (2026-10-11)
+
+- Application merge commit: `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e` — disables/stops the no-op `tech-katta-overflow.timer` during backend deployments and asserts it remains inactive.
+- Reason: the monitor has no configured secondary upstream and does not change Nginx routing; the old 30-second timer implied functionality that did not exist.
+- MongoDB ledger: recorded in `techkatta_history.backend_git_commits`.
+- Deployment: merge triggers the existing VPS deployment workflow; production application/service smoke checks must pass before considering the timer change applied on the VPS.
