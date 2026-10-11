@@ -205,3 +205,7 @@ Commit `a806fab3f94a00172d55fafdb73ea9ca7dc71810` deployed successfully through 
 ## Readiness checks candidate (2026-10-11)
 
 Branch `feat/backend-readiness-observability`, commit `6e77efb47d92897a92777bd47e9f9a2bc0384bc0`, adds `/health/live` and `/health/ready` and expands the public smoke test to check both. The deployment workflow continues to use the legacy local `/api/health` check; the new readiness endpoint is checked by the public smoke suite after deployment. Not yet merged/deployed.
+
+## Readiness/observability deployment — 2026-10-11
+
+Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` deployed successfully. CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934. VPS deployment and production smoke tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902. The expanded smoke suite includes `/health/live` and `/health/ready`; deployment succeeded with MongoDB connected.
