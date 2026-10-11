@@ -291,3 +291,10 @@ For `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2`, backend CI passed with 29/29 tes
 - `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d` — merge layered backend refactor and deployment content-sync guard.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493 and main CI run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426 were running; do not record production as verified until both and smoke checks finish.
+
+
+### Deployment diagnostics hotfix
+
+- `6d9fe2653a578fc51e73080ac606c0354c4ff084` — add explicit sudo/systemd failure diagnostics after the merged deployment failed before service restart.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. PR #11: https://github.com/yashbhoomkar/tech-katta/pull/11. Do not mark production verified until a subsequent deploy completes local health checks and production smoke tests.

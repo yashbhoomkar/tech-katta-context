@@ -367,3 +367,10 @@ Latest application head: `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2`. Backend CI 
 ### PR #10 merged; production deployment running (2026-10-11)
 
 Merged `refactor/backend-clean-architecture-phase-1` into `main` via merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`. Merge commit recorded in MongoDB `techkatta_history.backend_git_commits`. The merge triggered GitHub Actions workflow `Deploy Backend to VPS` run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493 and main-branch Backend CI run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. Both were in progress at the time of this entry. Do not mark production verified until the VPS deploy, content-sync decision, local health checks, and production smoke tests complete successfully.
+
+
+### Deployment blocked: systemd configuration step failed (2026-10-11)
+
+Merge `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d` is on GitHub `main`, and the VPS deploy workflow fetched it and installed production dependencies. The SSH script then exited with status 1 immediately after logging `Enforcing production runtime configuration...`, before content-sync decision, service restart, or production smoke tests. Rerunning the job reproduced the same failure. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143493. Do not claim the refactored service is live.
+
+Created hotfix PR #11 https://github.com/yashbhoomkar/tech-katta/pull/11 at commit `6d9fe2653a578fc51e73080ac606c0354c4ff084` to make sudo/systemd configuration failures explicit and diagnostic. This application commit is recorded in MongoDB `techkatta_history.backend_git_commits`. Next: inspect PR #11, merge the diagnostics, rerun deployment, and only report success if local health + public production smoke checks pass.
