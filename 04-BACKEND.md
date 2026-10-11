@@ -258,3 +258,17 @@ Validation status: the backend CI run on the prior branch head passed; CI for th
 ### Production deployment outcome — 2026-10-11
 
 The merge commit `a9e340cc539519a91617d390a44e98bd0547046d` was deployed by GitHub Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128036897. The SSH deployment, backend syntax checks, service restart, local `/api/health` check, and public production smoke suite all passed. The local health response reported `db: connected`; the public smoke suite passed 9 endpoint checks plus CORS and security-header checks. The exact proxy/client-IP attribution is still not separately verified.
+
+## Database fallback semantics — production (2026-10-11)
+
+Application merge/deployment commit: `3155342dc66bdf1e001bbfc54749f63daf1e4062`.
+
+- Local fallback content is used only when `isDBConnected()` is false.
+- A successful MongoDB query is authoritative even when it returns an empty array or `null`; empty category/article lists remain empty and an absent article returns 404 rather than being silently supplied from local data.
+- If MongoDB is marked connected but a content query fails, the route logs the server-side error and returns generic HTTP 503 with `Retry-After: 5` and `Cache-Control: no-store`.
+- Added `backend/src/contentSource.js` and native tests for disconnected fallback, empty results, missing records, and query-error propagation.
+
+CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191731
+VPS deployment and production smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751
+
+This makes database failures visible instead of disguising them as successful stale content. Local fallback remains available when MongoDB is known to be disconnected.
