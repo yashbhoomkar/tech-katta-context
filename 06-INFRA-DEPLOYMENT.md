@@ -178,3 +178,12 @@ For backend:
 - verify health and smoke tests
 
 Do not use force-push as a casual rollback mechanism.
+
+
+## Backend hardening PR and deployment workflow correction (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/1, branch `refactor/backend-hardening-phase-1`.
+
+The PR is not merged and its backend changes have not been deployed to the VPS. A stale syntax-check command in `.github/workflows/deploy-backend.yml` referenced `backend/src/vercelClient.js`, while the current module layout is `backend/src/vercel/{client,projects,deployments,index}.js`. The branch corrects the workflow to validate the actual module paths before deployment.
+
+After merge, the expected production path is the existing GitHub Actions SSH deployment workflow. Deployment is only considered successful after the workflow completes its service health checks and public smoke tests. Direct SSH access from the ChatGPT runtime is not established.
