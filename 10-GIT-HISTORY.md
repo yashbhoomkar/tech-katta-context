@@ -415,3 +415,25 @@ Both commits are recorded in `techkatta_history.frontend_git_commits`. Build/CI 
 - `62c4b3ee59a99a57ec98ad221a34d38f37953eb2` — squash-merge PR #19, fixing the mobile swipe route closure and restoring article metadata during cleanup.
 
 The merge commit is recorded in `techkatta_history.frontend_git_commits`. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. Mobile touch interaction remains unverified.
+
+
+## Issue #18 hardening candidate — PR #20 (2026-10-11)
+
+PR #20: https://github.com/yashbhoomkar/tech-katta/pull/20 — open, not merged/deployed.
+
+Backend ledger commits:
+- 7d4350521ee534b1d466fb5cafbd3cd659ade382 — configurable safe bind host.
+- aa13f8fa9f2e18397bbe8e6270df3c3242089f2b — host config test.
+- 55e6cadbe72958e80616a94b846a67a376d0de4d — use configured host in server startup.
+- c7210d28cfe3c7d4c6757435a767667a47d4e34e — Docker container bind configuration.
+- 5914880f7f90bebedd56376a779de624aaf17d2c — health endpoints before rate limit; package version source.
+- b612091b28d6a90da8f422e991bb2d8a5bfe8c9f and d40929e580571d5600066d521de08f9f75eb7deb — health rate-limit regression test and correction.
+- 7eb09e8ce1b418590f0444d8f0db888cca4cde95 — remove TLS verification bypass in smoke tests.
+- 38941cdc69a9a99c351afbeb78c084b5f0064199 — article category index.
+- 67355276f3f8eb88c002c7255849f0164c1985a7 — remove hardcoded Vercel team scope.
+
+Frontend ledger commits:
+- 9b5493801402fa2406542549f2dc87a57478a869 — mirror advanced Kafka content into frontend fallback module.
+- a66c7a88eb7a516c25c7bebfb973c24689179a24 — append advanced sections to local Kafka fallback.
+
+All listed application commits are recorded in the corresponding MongoDB frontend/backend ledger collection. Backend CI and frontend build passed on the latest PR head; CodeQL was pending. Do not treat the candidate as deployed until merge/deployment verification.
