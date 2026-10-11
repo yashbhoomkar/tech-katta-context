@@ -200,3 +200,9 @@ All commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Bac
 - `41359ab7c5b5acaa65fa2e47565fa10236a56cba` — fix numeric pagination parsing
 
 Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Branch: `feat/backend-pagination-indexes`; not merged at the time of this entry.
+
+## Backend clean-architecture phase 1 — 2026-10-11
+
+- `7f669b872561c809ae8ae501d94d86e26f4473ff` — separate Express app construction from server lifecycle and add an HTTP-level app test.
+
+The commit is recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `refactor/backend-clean-architecture-phase-1`; draft PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10. At the time of this entry, backend CI is pending, and the change is not merged or deployed. Preserve the current production commit `5e09088ba40b8060a81813e766202fcf4bb07884` until CI and review are complete.

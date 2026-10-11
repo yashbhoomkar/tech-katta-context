@@ -345,3 +345,15 @@ Branch `feat/backend-pagination-indexes` currently contains:
 - `41359ab7c5b5acaa65fa2e47565fa10236a56cba` — correct numeric pagination parsing
 
 Both commits are recorded in MongoDB. Existing `GET /api/articles` behavior remains unchanged when neither `page` nor `limit` is supplied. Opt-in pagination sorts by slug, caps `limit` at 100, returns an array, and exposes `X-Total-Count`, `X-Page`, `X-Page-Size`, and `X-Total-Pages`. Seed now creates a compound `{ category: 1, slug: 1 }` index in addition to the unique slug index. PR/CI/deployment status pending.
+
+## App construction and process lifecycle separation — candidate (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/10
+Application commit: `7f669b872561c809ae8ae501d94d86e26f4473ff` (branch `refactor/backend-clean-architecture-phase-1`; not merged/deployed).
+
+Candidate structure:
+- `backend/src/app.js`: Express app factory; middleware and route registration; dependency injection for DB access, rate limiter, and logger.
+- `backend/src/server.js`: process entry point; dotenv setup, MongoDB startup, loopback HTTP listener, and graceful shutdown.
+- `backend/test/app.test.js`: HTTP-level verification of app assembly, health endpoints, CORS, and security headers.
+
+This isolates HTTP construction from process lifecycle so application behavior can be tested without starting the production process or opening a production database connection. Existing endpoint paths and response shapes are preserved by intent. The next architectural phase should separate content request handling, business logic, and MongoDB access into controller/service/repository layers only after this structural step passes CI. No deployment is authorized by this candidate branch.

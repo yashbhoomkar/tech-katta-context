@@ -254,3 +254,13 @@ PR #9 (`feat(backend): add opt-in article pagination and query indexes`) is clos
 ### Process correction
 
 Earlier in this session, several PRs were merged quickly and context changes were appended across many files without first completing the full project-state reconciliation. This fell short of the intent of `12-OPERATING-RULES.md`, especially the source-first and one-change-at-a-time discipline. Future work should follow the mandatory sequence precisely: inspect current source and rollback point; make one coherent change; run the appropriate tests; commit application code; update the MongoDB ledger; update and commit context docs; deploy if required; verify; then record the actual outcome. Avoid another phase until the current proposal and documentation state are coherent.
+
+
+## Backend clean-architecture phase 1 — candidate (2026-10-11)
+
+Application commit: `7f669b872561c809ae8ae501d94d86e26f4473ff` on branch `refactor/backend-clean-architecture-phase-1`.
+PR #10: https://github.com/yashbhoomkar/tech-katta/pull/10 — open as draft; not merged and not deployed.
+
+This first structural step moves Express middleware and route assembly into `backend/src/app.js`, exported as an injectable `createApp()` factory. `backend/src/server.js` is reduced to environment loading, database connection startup, loopback listener startup, and graceful process shutdown. A new HTTP-level test covers app assembly, liveness/readiness, CORS, and security headers.
+
+The existing API routes, response shapes, database behavior, and production deployment are intended to remain unchanged. Backend CI is pending at the time of this entry. This is an incremental refactor, not yet the full controller/service/repository architecture. Do not deploy until CI passes and the PR has been reviewed.
