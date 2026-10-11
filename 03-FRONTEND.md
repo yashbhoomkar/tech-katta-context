@@ -218,3 +218,8 @@ Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b includes the f
 ### PR #20 production deployment context — 2026-10-11
 
 The frontend build passed on merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b: https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910. The backend deployment and content sync also passed, but a live Vercel deployment or browser test of API-unavailable Kafka fallback was not independently verified. Do not label that fallback browser-tested.
+
+
+## Issue #18 follow-up — Kafka fallback parity (2026-10-11)
+
+PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdvancedContent.js and appends kafkaAdvancedSections to the local kafka-basics fallback. This keeps advanced Kafka sections available when the API is unreachable and brings frontend fallback content closer to the backend source. Vercel preview status passed; production frontend rollout should be confirmed independently.
