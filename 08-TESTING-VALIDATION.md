@@ -324,3 +324,13 @@ Application PR #26 added `.coderabbit.yaml` and merged as `acbc81423a7da3f6e1634
 PR #27 (`90ac43818fc34c61dfd7fdcae3baf62f83310350`) passed backend CI (31 tests, 31 passed, 0 failed), CodeQL, and Semgrep. Backend deployment succeeded: https://github.com/yashbhoomkar/tech-katta/actions/runs/38142984733. Production smoke tests passed 11 endpoint checks plus CORS and security headers. The deploy workflow synchronized the changed content source to Atlas; a read-only follow-up query confirmed the live article block is the explicit `distributed-architecture` diagram.
 
 This validates the content-source update and deployment path; it is not a stress/capacity test.
+
+
+## Audit evidence and open follow-ups (2026-10-11)
+
+- PR #25 mobile gestures: simulated touch tests passed in Chromium; no physical device test was available.
+- PR #27 structured diagram normalization: backend CI passed 31/31 tests, CodeQL and Semgrep passed, VPS deployment succeeded, and 11 endpoint smoke checks plus CORS/security headers passed.
+- PR #26 CodeRabbit config: configuration is merged, but no substantive AI review was observed; follow-up issue #30 tracks activation and verification.
+- Issue #28 tracks the pending Cloudflare/origin cutover; issue #29 tracks future failover once a secondary upstream exists; issue #31 tracks search scalability while preserving substring semantics.
+
+These are distinct evidence types: static analysis, unit/CI checks, browser-emulated interaction tests, production smoke checks, low-load baseline, and future capacity/failover validation must not be conflated.
