@@ -151,3 +151,10 @@ Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Ba
 - `b8a705eec61af7deb7ca47ebd36d06025df2ad22` — merge readiness/observability
 
 Both commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and VPS deployment/public smoke tests passed after merge.
+
+## VPS proxy diagnostics workflow candidate — 2026-10-11
+
+- `5de8af322b09619b2c6f11d27770af6e26ab38fd` — add read-only VPS proxy diagnostics workflow
+- `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` — correct listener filter
+
+Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `chore/inspect-vps-proxy-security`. Not merged at the time of this entry.
