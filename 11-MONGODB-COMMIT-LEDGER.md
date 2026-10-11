@@ -234,3 +234,14 @@ Before insertion, both canonical collections (`frontend_git_commits` and `backen
 - `16bf385f1f62dbea5d11d38fed64028e99ca7a95` — Merge PR #34: test forwarded IP rate-limit attribution
 
 Inserted count: 2. No duplicate entries were inserted.
+
+## Duplicate-row backup created; unique-index enforcement blocked (2026-10-11)
+
+Before any deletion, all six known duplicate rows were copied to `techkatta_history.commit_ledger_duplicate_backup_20261011`. The backup was read back and verified to contain six records. Each record preserves the source collection name, original MongoDB `_id` as `originalId`, `key`, and original `value`. Original ledger rows were not deleted or modified.
+
+Canonical descriptions were checked against GitHub commit metadata:
+
+- `56b229a2c0fa1d586f200a41c79826ed92a0446b` — `Harden backend health, TLS, and fallback content`.
+- `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` — `Merge pull request #14: add production verification and CodeQL`.
+
+The connected Atlas `create_index` operation does not expose or honor a `unique: true` option. A controlled probe on the backup collection created an ordinary non-unique index despite duplicate `key` values; the temporary probe index was then dropped. Therefore no canonical rows were deleted and no unique-index claim is made. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) remains open until a supported maintenance path can create and verify the actual unique index and safely complete deduplication.
