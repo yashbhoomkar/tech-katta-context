@@ -126,3 +126,8 @@ Do not add animation or gesture complexity unless it materially improves the beh
 ## Audit follow-up — route-state closure fix (2026-10-11)
 
 Application branch `fix/audit-frontend-state-metadata` contains commit `f1e657c21673bf64ff71f6d067f1231e72d1956f` to include `location.pathname` in the swipe effect dependencies. This prevents the touch listener from retaining the route captured before SPA navigation. PR #19 is open; CI and actual mobile touch verification are pending. The commit is recorded in MongoDB `techkatta_history.frontend_git_commits`.
+
+
+### PR #19 merged — CI validation (2026-10-11)
+
+PR #19 was squash-merged as application commit `62c4b3ee59a99a57ec98ad221a34d38f37953eb2`. Frontend CI build and CodeQL passed on PR head `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`. The merge commit is recorded in MongoDB `techkatta_history.frontend_git_commits`. Source fix and build are verified; actual mobile touch interaction remains untested.
