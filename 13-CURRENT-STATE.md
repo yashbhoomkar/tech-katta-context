@@ -611,3 +611,9 @@ The k6 production run remains a low-load baseline, not a stress test or capacity
 Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`. The isolated Express integration test verifies that an attacker-controlled leftmost `X-Forwarded-For` value does not create a new rate-limit bucket when a trusted one-hop proxy appends the same rightmost peer address. Backend CI, Semgrep, CodeQL, VPS deployment, and production smoke checks passed.
 
 This improves regression coverage for the currently observed client → Nginx → Express topology; it is not proof of the live Nginx path or a future Cloudflare path. No DNS or firewall changes were made. Issue #28 and umbrella issue #18 remain open.
+
+## Live forwarded-IP verification — 2026-10-11
+
+After application PR #34, a temporary Vercel sandbox made three GET requests to the production API using three different spoofed `X-Forwarded-For` values. DNS still resolved `tech-api.katta.cc` directly to `129.121.133.47`. All three responses were HTTP 200, the rate-limit remaining counter decreased consecutively (119 → 118 → 117), CORS remained restricted to `https://tech.katta.cc`, and standard TLS validation succeeded.
+
+This verifies same-bucket behavior on the currently observed direct-client → Nginx → Express path without recording client IPs. It does not validate Cloudflare proxying or justify restricting origin ingress. No DNS, Nginx, or firewall change was made; issues #28 and #18 remain open.
