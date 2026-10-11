@@ -189,3 +189,13 @@ Commit `b8a705eec61af7deb7ca47ebd36d06025df2ad22` adds a generated request corre
 ## Proxy/origin verification step (2026-10-11)
 
 A read-only workflow is proposed in branch `chore/inspect-vps-proxy-security` to inspect Nginx forwarding headers, exposed listening ports, UFW state, and service status over the existing GitHub Actions SSH path. Commits `5de8af322b09619b2c6f11d27770af6e26ab38fd` and `a014eb19d0241b49ce2b4b3ce6530375b4fced7a` are recorded in the MongoDB backend ledger. No firewall or proxy changes are included; hardening should be based on the observed configuration to avoid accidental lockout.
+
+## VPS origin/proxy findings — 2026-10-11
+
+Read-only SSH diagnostics succeeded (https://github.com/yashbhoomkar/tech-katta/actions/runs/38128608567).
+
+Observed configuration: Nginx forwards to `127.0.0.1:5000`, sets `X-Real-IP $remote_addr` and appends the incoming chain with `X-Forwarded-For $proxy_add_x_forwarded_for`. Express currently trusts one proxy hop. If the request path is Cloudflare → Nginx → Express, one trusted hop likely attributes `request.ip` to a Cloudflare edge IP instead of the visitor. Verify public DNS/proxy status before changing to two trusted hops.
+
+UFW is active with default deny incoming, but 80/443 are open from any IPv4/IPv6 source, so direct-origin requests can bypass Cloudflare. Port 5000 listens on all interfaces but has no UFW allow rule; loopback binding is preferable defense-in-depth. SSH 22 is open globally and must not be restricted without a known, reliable admin source IP or alternate access path.
+
+Cloudflare's official documentation recommends allowlisting its current origin IP ranges and blocking other direct HTTP/HTTPS sources for proxied hostnames: https://developers.cloudflare.com/fundamentals/concepts/cloudflare-ip-addresses/. Before applying rules, verify DNS is proxied and ensure both IPv4 and IPv6 Cloudflare ranges are covered.
