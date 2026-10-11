@@ -393,3 +393,8 @@ Successful runs:
 Browser checks passed three SPA routes, browser-origin API/CORS, and the canonical article response contract with no uncaught page exceptions. The controlled load probe completed 60/60 HTTP 200 at concurrency 3 (min 231 ms, median 235 ms, p95 757 ms, max 839 ms; zero 429, 5xx, or network errors). Treat this as a bounded smoke-load check, not a capacity benchmark.
 
 The public API previously served a self-signed TLS certificate. Certbot/Nginx successfully installed a Let's Encrypt YE2 certificate; OpenSSL chain verification returned OK and the public health endpoint returned HTTP 200. This was an infrastructure TLS change, not a backend code deployment. The deployed application code remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
+
+
+### Post-merge deployment workflow result
+
+After merge commit `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`, deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631 completed successfully. It validated the backend, prepared the VPS, restarted/verified the API, and passed production smoke tests. The MongoDB content-sync step was skipped because the change only added verification/security workflows and scripts. This is a workflow-triggered redeploy/restart, not a backend source-code change; the application runtime source remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
