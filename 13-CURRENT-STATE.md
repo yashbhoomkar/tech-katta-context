@@ -215,3 +215,5 @@ The first diagnostic attempt failed with HTTP 403 while fetching `www.cloudflare
 ### Phase 5 candidate — loopback binding
 
 Production remains on `b8a705eec61af7deb7ca47ebd36d06025df2ad22`. Branch `fix/backend-loopback-bind` contains ledgered commits `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` and `2fc4cf9f07c576c903e165a802edc2597d66d541`. It binds the Node service to loopback and verifies that deployment does not expose port 5000 on all interfaces. No firewall changes are included. Cloudflare DNS is currently direct-to-origin, so do not restrict 80/443 to Cloudflare until proxying is enabled and verified.
+
+The loopback-binding PR's first revision had an invalid deployment workflow because the socket assertions were outside the SSH script block. This was caught before merge and fixed in ledgered commit `d41a420c7f973af3626d9de51cd16f34edf94166`. Validate the updated PR head before merging.
