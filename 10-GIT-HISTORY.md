@@ -131,3 +131,9 @@ MongoDB ledger entries in `techkatta_history.backend_git_commits`:
 - `3155342dc66bdf1e001bbfc54749f63daf1e4062` — merge database fallback semantics
 
 Validation: backend CI and VPS deployment/public smoke tests passed. The API now falls back only while MongoDB is known disconnected, preserves empty/missing database results, and returns explicit 503 responses for query failures.
+
+## Content-route modularization — 2026-10-11 (in progress)
+
+- `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` — extract content API routes into a testable module and add HTTP-level route tests.
+
+MongoDB ledger record added to `techkatta_history.backend_git_commits`. Branch: `refactor/backend-route-modules`. Not merged/deployed at the time of this entry; record the eventual merge/deployment result after CI.
