@@ -313,3 +313,11 @@ Merge/deployment commit: `b8a705eec61af7deb7ca47ebd36d06025df2ad22`.
 
 Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466934
 VPS deployment and expanded public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128466902
+
+## Loopback binding security candidate (2026-10-11)
+
+Branch `fix/backend-loopback-bind` currently includes:
+- `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` — bind the API to `127.0.0.1` and assert the socket binding during deployment
+- `2fc4cf9f07c576c903e165a802edc2597d66d541` — fix the DNS diagnostic warning branch
+
+Both commits are recorded in MongoDB. The Node service will listen only on loopback, matching Nginx's existing `proxy_pass http://127.0.0.1:5000`. The deploy workflow will verify the loopback listener and fail if the API is bound to `0.0.0.0:5000`. No firewall rules are changed. CI/PR/deployment status is pending.
