@@ -268,3 +268,8 @@ These changes are in open PR #20 and have not been deployed. Backend and fronten
 ### PR #20 merged — deployment safeguards (2026-10-11)
 
 Application merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b removes the TLS verification bypass from production smoke checks and configures HOST=0.0.0.0 only inside Docker; host port publishing remains loopback-only, and the VPS systemd default remains 127.0.0.1. Backend CI, frontend build, and CodeQL passed on the PR head. The merge is recorded in MongoDB ledgers. Deployment and post-deploy smoke checks are still pending verification.
+
+
+### PR #20 production rollout — 2026-10-11
+
+Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953 succeeded for merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b. MongoDB content sync ran successfully (5 categories, 11 articles), the systemd API restarted, local health returned 200 with DB connected and version 0.1.0, and production smoke tests passed 11 endpoint checks plus CORS/security headers using normal TLS verification. The VPS systemd listener remains loopback by default; Docker-only HOST configuration is not part of the VPS runtime. This verifies backend deployment, not a live Vercel deployment.
