@@ -199,3 +199,8 @@ The commit ledger is separate from article content.
 ## Kafka local fallback consistency — candidate in PR #20
 
 The backend already appends kafkaAdvancedSections to kafka-basics. The PR mirrors that module to frontend/src/kafkaAdvancedContent.js and appends the same sections from getArticleContent('kafka-basics'), so offline/API-failure fallback content retains the advanced sections. This is a source-level parity fix; frontend build passed, but runtime offline fallback has not been browser-tested. PR #20 is not merged/deployed.
+
+
+### Kafka fallback parity fix merged — 2026-10-11
+
+PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. The frontend fallback now includes the advanced sections already used by backend content. This avoids a deliberately truncated local version of kafka-basics when API fetching fails. Build passed; no offline browser test has been performed. The merge SHA is recorded in the frontend and backend commit ledgers.
