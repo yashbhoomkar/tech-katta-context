@@ -439,3 +439,16 @@ This final status supersedes the earlier in-progress notes above.
 - After the TLS fix, the existing production smoke script passed all 11 endpoint checks plus CORS and security-header assertions using standard TLS validation.
 - Free review/security tools: CodeQL `security-extended,security-and-quality` passed on the final PR head (run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821). A manual Semgrep default-rules scan reported zero findings. CodeRabbit remains an additional review integration; no extra paid reviewer was enabled.
 - All application-repository commits for this work, including the PR #14 merge commit, are recorded in MongoDB `techkatta_history.backend_git_commits`. See `10-GIT-HISTORY.md` for the commit list and workflow links.
+
+
+## Final outcome — PR #14 merged and verification passed (2026-10-11)
+
+Correction to the prior "PR #14 remains open" note: PR #14 was merged automatically after the verification jobs passed. Merge commit: `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`. This merge commit is recorded in MongoDB `techkatta_history.backend_git_commits`.
+
+Successful verification:
+- Browser + bounded load run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798
+- CodeQL security/quality run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821
+
+The TLS issue was fixed by issuing/configuring a Let's Encrypt certificate on the VPS. The browser suite now passes all three SPA routes and the browser-origin API/CORS/article contract. The bounded probe returned 60/60 HTTP 200 with concurrency 3; min 231 ms, median 235 ms, p95 757 ms, max 839 ms, no 429s, no 5xx/network errors. This remains a bounded smoke-load check, not a capacity benchmark. CodeQL passed for the final candidate head.
+
+The app repository main now includes merge commit `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`. No backend application source was changed by PR #14 and no backend code deployment was triggered by it; deployed application code remains at `9d545de3c6e2048dd851bb43a8782bf388544486`. The separate TLS certificate configuration was changed on the VPS and verified by the browser/load run.
