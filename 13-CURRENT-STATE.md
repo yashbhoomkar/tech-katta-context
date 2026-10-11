@@ -413,3 +413,16 @@ Browser run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135114290 
 CodeQL passed on the earlier PR head in run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135114213; the latest PR head still requires a fresh successful check. CodeRabbit review was manually triggered and was still marked in progress at the last check. The shared read-only VPS TLS diagnostic workflow was added through PRs #15 and #16; these workflow-only changes do not change application runtime.
 
 Next action: verify the Certbot repair step runs, confirm `https://tech-api.katta.cc/api/health` validates with a trusted chain, rerun Chromium tests, then run the bounded load probe only after browser/API checks pass. Update the context again with measured results; do not call this a full capacity benchmark or penetration test.
+
+
+## Browser and load verification — successful follow-up (2026-10-11)
+
+Update to the earlier TLS-blocker note: the branch-scoped Certbot repair completed successfully in workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135493017. The API certificate is now issued by Let's Encrypt (issuer YE2); OpenSSL verification returned `Verify return code: 0 (ok)`, and `https://tech-api.katta.cc/api/health` returned HTTP 200. This was a real VPS Nginx certificate change; the backend application code was not redeployed.
+
+The latest full verification run passed:
+- Browser + bounded load: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821
+
+Chromium passed the homepage, distributed-systems unit, and canonical article route (all HTTP 200), then passed the browser-origin API request and canonical article contract with no uncaught page exceptions. The bounded read-only load probe completed 60 GET requests at concurrency 3: 60 HTTP 200 responses, minimum 231 ms, median 235 ms, p95 757 ms, maximum 839 ms, zero 429 responses, and zero 5xx/network errors. This is a bounded smoke-load result, not a capacity benchmark or penetration test.
+
+Latest PR #14 branch head at this note: `afa5abd8f1c71c104b6eaa8ce0a7b98a2dd83a18`. PR #14 remains open pending final CodeRabbit review and merge decision. Qodo/CodiumAI's public `@CodiumAI-Agent /review` command was attempted but no bot response was observed; it is not yet an enabled review integration. CodeQL is enabled and passed for the latest head.
