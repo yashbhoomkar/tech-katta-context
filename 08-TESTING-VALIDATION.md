@@ -236,3 +236,8 @@ The current candidate adds HTTP-level tests for stable page ordering, page metad
 - Added a regression test proving /api/health remains 200 after the public rate-limit bucket is exhausted (b612091b28d6a90da8f422e991bb2d8a5bfe8c9f, corrected by d40929e580571d5600066d521de08f9f75eb7deb).
 - Backend CI and frontend build both passed on PR #20's latest head; CodeQL was still running at the time of this update.
 - No Docker container runtime test, live TLS deployment test, offline browser fallback test, or production deployment has been performed for PR #20.
+
+
+### PR #20 validation result — 2026-10-11
+
+PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b after Backend CI, Frontend CI build, and CodeQL all passed on PR head a66c7a88eb7a516c25c7bebfb973c24689179a24. Tests include safe bind-host configuration and health endpoint availability after the public rate-limit bucket is exhausted. Docker runtime, offline browser fallback, production deployment, and post-deploy smoke testing remain unverified.
