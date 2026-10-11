@@ -398,3 +398,13 @@ The public API previously served a self-signed TLS certificate. Certbot/Nginx su
 ### Post-merge deployment workflow result
 
 After merge commit `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`, deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135786631 completed successfully. It validated the backend, prepared the VPS, restarted/verified the API, and passed production smoke tests. The MongoDB content-sync step was skipped because the change only added verification/security workflows and scripts. This is a workflow-triggered redeploy/restart, not a backend source-code change; the application runtime source remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
+
+
+## Issue #18 frontend state and metadata fixes — 2026-10-11
+
+PR #19: https://github.com/yashbhoomkar/tech-katta/pull/19 (open, not merged/deployed)
+
+- `f1e657c21673bf64ff71f6d067f1231e72d1956f` — refresh swipe listener dependencies on SPA route changes.
+- `a1f3b3a803779f5082e3f8a37d65137dd10fc38e` — restore previous article metadata and remove effect-created tags during cleanup.
+
+Both commits are recorded in `techkatta_history.frontend_git_commits`. Build/CI and mobile interaction verification are pending.
