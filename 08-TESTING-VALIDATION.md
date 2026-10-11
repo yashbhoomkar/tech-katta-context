@@ -192,3 +192,12 @@ The production smoke suite checks normal API behavior; it does not inject MongoD
 ## Content-route modularization tests in progress (2026-10-11)
 
 Branch `refactor/backend-route-modules`, commit `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` adds HTTP-level tests for disconnected fallback, connected-but-empty database results, generic 503 behavior on query errors, and 404 for a missing database article. These tests use an ephemeral local Express server and injected fake database dependencies; they do not require production Atlas credentials. CI/PR validation is pending at this point.
+
+## Phase 3 — route modularization (2026-10-11)
+
+The extracted content router is exercised over HTTP using Node's native `fetch` and an ephemeral Express listener. Tests cover disconnected fallback, authoritative empty results, generic 503 on database query failure, and 404 for a missing article.
+
+- Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338279
+- VPS deployment/public smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288
+
+No browser UI behavior changed. This is not a load test or a full failure-injection suite.
