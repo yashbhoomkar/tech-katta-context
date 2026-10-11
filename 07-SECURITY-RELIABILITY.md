@@ -235,3 +235,8 @@ Both are pending PR #20 review/merge; no production rollout is claimed.
 ### TLS and Vercel scope hardening merged — 2026-10-11
 
 PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Production smoke checks now use standard certificate validation, and the legacy Vercel CLI no longer embeds a team ID. Backend CI and CodeQL passed on the PR head. Production deployment and a fresh public TLS smoke test have not yet been verified.
+
+
+### TLS verification hardening deployed — 2026-10-11
+
+PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. Production smoke tests passed 11 endpoint checks plus CORS/security headers without NODE_TLS_REJECT_UNAUTHORIZED override: https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953. This confirms the public API TLS chain validated during the smoke run. It does not resolve origin exposure or prove Cloudflare/Nginx client-IP handling.
