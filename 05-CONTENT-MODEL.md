@@ -194,3 +194,8 @@ MongoDB is runtime content storage.
 Git is the source-controlled implementation and authoring history.
 
 The commit ledger is separate from article content.
+
+
+## Kafka local fallback consistency — candidate in PR #20
+
+The backend already appends kafkaAdvancedSections to kafka-basics. The PR mirrors that module to frontend/src/kafkaAdvancedContent.js and appends the same sections from getArticleContent('kafka-basics'), so offline/API-failure fallback content retains the advanced sections. This is a source-level parity fix; frontend build passed, but runtime offline fallback has not been browser-tested. PR #20 is not merged/deployed.
