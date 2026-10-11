@@ -437,3 +437,10 @@ Frontend ledger commits:
 - a66c7a88eb7a516c25c7bebfb973c24689179a24 — append advanced sections to local Kafka fallback.
 
 All listed application commits are recorded in the corresponding MongoDB frontend/backend ledger collection. Backend CI and frontend build passed on the latest PR head; CodeQL was pending. Do not treat the candidate as deployed until merge/deployment verification.
+
+
+### Issue #18 PR #20 merged — 2026-10-11
+
+- 56b229a2c0fa1d586f200a41c79826ed92a0446b — squash-merge selected backend and frontend audit fixes: configurable bind host, Docker binding, health route exemption/dynamic version, TLS verification, article category index, Vercel team-scope correction, and advanced Kafka fallback content.
+
+The merge SHA is recorded in both techkatta_history.backend_git_commits and techkatta_history.frontend_git_commits. Backend CI, frontend build, and CodeQL passed on PR head a66c7a88eb7a516c25c7bebfb973c24689179a24. Deployment and post-deploy smoke checks remain pending.
