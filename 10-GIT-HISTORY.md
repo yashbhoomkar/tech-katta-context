@@ -380,3 +380,16 @@ Final successful verification:
 - Chromium verified home, Distributed Systems unit, canonical article, and browser-origin API/CORS/article response contract. Bounded load: 60/60 HTTP 200 at concurrency 3, min 233 ms, median 239 ms, p95 750 ms, max 807 ms; zero 429, 5xx, or network errors. A second run also passed 60/60.
 - Existing production smoke tests passed 11 endpoint checks plus CORS/security headers with standard TLS validation. Manual Semgrep default-rules scan reported zero findings.
 - PR #14 is merged. Deployed backend runtime remains at application commit `9d545de3c6e2048dd851bb43a8782bf388544486`; only TLS/Nginx configuration changed on the VPS.
+
+
+## PR #14 merged — browser, load and CodeQL verification complete (2026-10-11)
+
+- `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` — merge production browser/bounded load verification and CodeQL checks (#14). Recorded in MongoDB `techkatta_history.backend_git_commits`.
+
+Successful runs:
+- Browser + bounded GET load: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821
+
+Browser checks passed three SPA routes, browser-origin API/CORS, and the canonical article response contract with no uncaught page exceptions. The controlled load probe completed 60/60 HTTP 200 at concurrency 3 (min 231 ms, median 235 ms, p95 757 ms, max 839 ms; zero 429, 5xx, or network errors). Treat this as a bounded smoke-load check, not a capacity benchmark.
+
+The public API previously served a self-signed TLS certificate. Certbot/Nginx successfully installed a Let's Encrypt YE2 certificate; OpenSSL chain verification returned OK and the public health endpoint returned HTTP 200. This was an infrastructure TLS change, not a backend code deployment. The deployed application code remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
