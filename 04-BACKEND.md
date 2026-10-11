@@ -499,3 +499,16 @@ Full verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/3
 The bounded production GET probe completed 60 requests at concurrency 3 with a 10-second per-request timeout. Results: 60 × HTTP 200; min 231 ms; median 235 ms; p95 757 ms; max 839 ms; zero 429s; zero 5xx/network errors. This is only a low-volume smoke-load check and must not be presented as a capacity/stress benchmark.
 
 CodeQL security-extended/security-and-quality scan passed for the latest PR head: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821. PR #14 remains open pending final review/merge; production application code remains at the previously deployed revision until the PR is merged and any code changes are deployed.
+
+
+## Final production browser and load verification (2026-10-11)
+
+The public `tech-api.katta.cc` endpoint previously served a self-signed certificate, which caused Chromium to reject browser-origin API requests even though direct smoke tests had been run with TLS verification bypassed. This is fixed: Certbot's HTTP-01 dry run succeeded, Nginx was backed up and updated to use the valid Let's Encrypt certificate, `nginx -t` passed, Nginx reloaded, OpenSSL verification returned code 0, and standard `curl` to `/api/health` returned HTTP 200 with MongoDB connected. Repair workflow: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135484266.
+
+PR #14 merged as `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`. It adds production Chromium smoke checks, a bounded GET-only load probe, and CodeQL; it does not change backend runtime code or trigger a backend redeployment. Deployed application code remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
+
+Verification:
+- Chromium: homepage, `/unit/distributed-systems`, canonical article route, and browser-origin API/CORS/article contract all passed. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135690786.
+- Bounded load: 60 GET requests at concurrency 3; 60 HTTP 200, min 233 ms, median 239 ms, p95 750 ms, max 807 ms, zero 429s and zero 5xx/network errors. A second run also passed 60/60 with p95 757 ms. These are smoke-load measurements, not a capacity benchmark.
+- Existing production smoke suite passed 11 endpoint checks plus CORS and security headers with standard TLS verification.
+- CodeQL security-extended/security-and-quality passed on the final PR head: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821. Manual Semgrep default-rules scan reported zero findings.
