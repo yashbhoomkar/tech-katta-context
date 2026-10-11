@@ -319,3 +319,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run http
 - `9d545de3c6e2048dd851bb43a8782bf388544486` — merge PR #13 to split preparation, optional content sync, and restart/verification into separate steps.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 is in progress; production validation pending.
+
+
+### Production deployment success
+
+- `9d545de3c6e2048dd851bb43a8782bf388544486` — current main deployment workflow revision, including the backend refactor and split content-sync deployment steps.
+
+Deployment workflow passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. The API restarted; local health reported MongoDB connected; production smoke passed 11 endpoint checks plus CORS and security headers. MongoDB seed step was skipped for this code-only deployment. Main backend CI passed on application merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. Browser and load testing remain unperformed.

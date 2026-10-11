@@ -470,3 +470,10 @@ Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427
 PR #13 merged as `9d545de3c6e2048dd851bb43a8782bf388544486`, recorded in the MongoDB commit ledger. Deployment is now split into prepare, optional content sync (GitHub Actions step condition), and restart/verify steps, avoiding conditional control flow in the remote shell.
 
 Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. Production verification remains pending until all steps and smoke tests pass.
+
+
+### Production deployment and verification
+
+The backend refactor is deployed. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 passed for main commit `9d545de3c6e2048dd851bb43a8782bf388544486`. The content-sync step was skipped for this code-only release, avoiding a MongoDB seed/write. The service restarted and local health returned `status=ok`, `service=tech-katta-api`, `db=connected`. Public production smoke tests passed: 11 endpoint checks plus CORS and security headers.
+
+Main backend CI passed on merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. No browser automation or load/stress test has been run yet.

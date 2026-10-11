@@ -393,3 +393,10 @@ New deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/3813
 PR #13 merged as `9d545de3c6e2048dd851bb43a8782bf388544486`, recorded in MongoDB `techkatta_history.backend_git_commits`. The deploy workflow now uses three explicit SSH steps: prepare checkout/dependencies/runtime config, optionally seed content only when GitHub Actions says sync is required, and restart/verify the API. The remote SSH script no longer evaluates the content-sync conditional itself.
 
 Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 (in progress at time of entry). Confirm the prepare step completes, the content-sync step is skipped for this code-only change, the restart/local health/socket checks pass, and the public smoke tests pass before declaring production healthy.
+
+
+### Production deployment verified — backend refactor live (2026-10-11)
+
+The deploy workflow completed successfully for main commit `9d545de3c6e2048dd851bb43a8782bf388544486`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. VPS preparation and runtime configuration succeeded; the optional MongoDB content-sync step was skipped because this was a code-only release, so the deploy did not reseed article/category documents. The API restarted successfully and local health returned `{"status":"ok","service":"tech-katta-api","version":"2026.10.05-production","db":"connected"}`. Production smoke tests passed: 11 endpoint checks plus CORS and security-header assertions.
+
+Main-branch backend CI also passed on merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. This establishes CI + VPS deployment + HTTP smoke validation. A real browser/E2E test and load/stress test have not been run.
