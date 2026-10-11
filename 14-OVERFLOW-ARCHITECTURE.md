@@ -61,13 +61,11 @@ This means the monitor can be deployed before a secondary exists without acciden
 
 ## Systemd
 
-The deployment workflow installs:
-- `tech-katta-overflow.service`
-- `tech-katta-overflow.timer`
+**Current state (2026-10-11):** PR #21 changes backend deployments to stop and disable `tech-katta-overflow.timer` rather than installing/enabling the no-op timer. Deployment verification fails if that placeholder timer remains active. The existing unit files may remain on disk but are not intended to be enabled.
 
-Timer:
-- starts after boot
-- runs every 30 seconds
+The timer was disabled because the monitor exits when `OVERFLOW_UPSTREAM` is unset, and even when configured it only writes a state file that Nginx does not consume. It is not a working traffic router. Keep the primary VPS API running normally; do not enable this timer until a compatible secondary and real proxy integration are implemented and tested.
+
+Application merge commit: `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The post-merge VPS deployment result is pending verification.
 
 ## Important current limitation
 

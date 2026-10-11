@@ -527,3 +527,10 @@ Remaining issue #18 work: decide/benchmark search semantics before changing rege
 ### Production frontend deployment confirmed (2026-10-11)
 
 Vercel deployment for main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b is READY with target=production and alias tech.katta.cc. This confirms the frontend deployment only. Backend VPS deployment status and live API health after the merge have not been independently confirmed in this session.
+
+
+## Overflow timer disabled pending real routing (2026-10-11)
+
+Application PR #21 was merged as `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The backend deployment workflow now stops/disables `tech-katta-overflow.timer` instead of installing and enabling a 30-second no-op timer. The deployment also verifies the timer is inactive. The VPS API remains the primary service; no Render overflow/failover is active. The script does not configure Nginx, and no secondary upstream is provisioned. The merge-triggered VPS deployment and its public smoke tests must be checked before calling this operational change deployed. MongoDB backend commit ledger entry was inserted for the merge SHA.
+
+This supersedes older statements in this file that backend deployment for commit `56b229a2c0fa1d586f200a41c79826ed92a0446b` was unconfirmed: that deployment was verified successfully in Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953.

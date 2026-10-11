@@ -261,3 +261,8 @@ Still not verified: actual mobile gesture interaction, offline/API-failure Kafka
 
 - Vercel production deployment for main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b reports READY and includes alias tech.katta.cc.
 - This is production frontend deployment evidence. The VPS backend deploy workflow result and post-merge live API health have not yet been independently verified, so do not describe the backend as deployed/healthy based solely on Vercel status.
+
+
+### PR #21 validation record (2026-10-11)
+
+PR #21 (`9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`) changes the backend deploy workflow to disable the placeholder overflow timer and assert that it is inactive. The PR's CodeRabbit and Vercel status checks reported success, but no submitted CodeRabbit review or inline review thread was present when checked. These checks do not independently validate the live VPS timer state. Verify the merge-triggered deployment job, its service health check, timer-inactive assertion, and public production smoke tests before marking this operational finding complete. No load/stress test was run as part of this change.

@@ -96,11 +96,10 @@ Pipeline:
 8. npm ci --omit=dev
 9. write production systemd environment override
 10. seed MongoDB
-11. install overflow monitor
+11. stop/disable placeholder overflow timer until routing exists
 12. restart backend
-13. local health check
-14. timer health check
-15. public smoke tests
+13. local health check and verify placeholder timer is inactive
+14. public smoke tests
 
 Production environment override:
 
@@ -278,3 +277,8 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381370219
 ## Issue #18 merge deployment check (2026-10-11)
 
 Vercel reports the deployment built from main commit 56b229a2c0fa1d586f200a41c79826ed92a0446b as READY, target=production, with alias tech.katta.cc. This verifies frontend production deployment. It does not verify the separate VPS backend deployment or live API health; check the deploy workflow and https://tech-api.katta.cc/api/health before asserting backend rollout success.
+
+
+### Placeholder overflow timer disabled — 2026-10-11
+
+PR #21 merged as `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. Backend deployments now stop/disable `tech-katta-overflow.timer` and verify it remains inactive. The previous timer ran every 30 seconds while the script exited immediately with no `OVERFLOW_UPSTREAM`; Nginx does not consume the script's state file. This is intentionally not failover. The workflow's next main-branch deployment should apply this change to the VPS; verify that deployment run before claiming the live timer has been disabled.
