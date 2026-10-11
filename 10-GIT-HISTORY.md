@@ -326,3 +326,22 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run http
 - `9d545de3c6e2048dd851bb43a8782bf388544486` — current main deployment workflow revision, including the backend refactor and split content-sync deployment steps.
 
 Deployment workflow passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. The API restarted; local health reported MongoDB connected; production smoke passed 11 endpoint checks plus CORS and security headers. MongoDB seed step was skipped for this code-only deployment. Main backend CI passed on application merge commit `a1dcc18ec649bc8c1d36ff491043d45b26de1b5d`: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134143426. Browser and load testing remain unperformed.
+
+
+## Browser/load verification and TLS repair work — 2026-10-11
+
+PR #14: https://github.com/yashbhoomkar/tech-katta/pull/14 — open and not merged. Its verification branch head is `dcba89f7499ba9cecc5cc4117896b33651096990`. All application-repository commits below were recorded in MongoDB `techkatta_history.backend_git_commits`:
+
+- `d1d1e9709d6dd2dd5b3a65dfad735293f458e251` — add browser-based production smoke checks
+- `14e8d6d0c0324f3f9b42e1031ecf1d52ccaf4afc` — add bounded production GET load probe
+- `5d01cacb2b5817338084933e75af52f557dc5de6` — add browser/load verification workflow
+- `71daaf3687172c36954fc30abb11dc8ba945a6e8` — add CodeQL security/quality workflow
+- `2288f52489ec949f2612c22ab25dfb067c167c09` — add public API TLS diagnostics to browser verification
+- `f30dcea129d25c87345c62ac36282c016c0ae416` — add read-only TLS diagnostics workflow candidate
+- `fb75d600d1d49818bcc7f6b9b3a0a6b7135defb8` — publish diagnostic output to the verification PR
+- `93e9d936fc5fbc9a95ea55aa8050f2b13f80b38d` — add branch-scoped Certbot repair attempt after a dry run
+- `dcba89f7499ba9cecc5cc4117896b33651096990` — remove duplicate TLS workflow from PR #14 after the shared workflow was merged
+
+Read-only diagnostic workflow PR #15 was merged as `d393b77a02f33dcfd8a235c63172770b50e5f468`; PR #16 was merged as `e52f8da2efbad98dcac6b4c9f4bcd45a0901ccfe` to add an Nginx configuration validation check. Both merge commits are ledgered. These are workflow-only changes; the deployed backend application commit remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
+
+Browser run `38135114290` confirmed the three SPA routes render but failed the browser-origin API request because `tech-api.katta.cc` serves a self-signed certificate. The bounded load job was skipped; no load results exist. CodeQL passed at the earlier PR head in run `38135114213`; the latest head still needs validation. Keep PR #14 open until the TLS repair and subsequent browser run are verified, then run the bounded load probe. Do not describe the test as a full capacity benchmark.
