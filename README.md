@@ -32,6 +32,7 @@ This repository is **context**, not the application itself.
 14. `13-CURRENT-STATE.md` — current production snapshot and unresolved issues.
 15. `14-OVERFLOW-ARCHITECTURE.md` — VPS-primary / Render-overflow design and its current status.
 16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
+17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
 
 ## Critical rule
 
