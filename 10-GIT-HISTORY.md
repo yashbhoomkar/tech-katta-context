@@ -470,3 +470,10 @@ Both merge SHAs were recorded in the corresponding MongoDB application commit-le
 ### PR #21 deployment result (2026-10-11)
 
 Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38139715132 succeeded for merge commit `9bc56bf28f5005aff71e5e1dac8ff710fd386e5e`. The VPS log confirms timer disablement, active API and loopback-only listener checks, and successful public smoke tests (11 endpoints plus CORS/security headers).
+
+### PR #22 — add Semgrep Community Edition (2026-10-11)
+
+- Application merge commit: `a39d441c8364efc65bfa4f14f944d34cd9e07cff` — add free Semgrep static analysis for JavaScript, Node.js, and React.
+- MongoDB ledger: `techkatta_history.backend_git_commits`.
+- Semgrep run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 passed: 40 files, 68 rules, 0 findings; SARIF uploaded.
+- CodeQL run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154 passed.
