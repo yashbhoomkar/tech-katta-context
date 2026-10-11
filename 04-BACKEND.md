@@ -427,3 +427,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299 â
 Candidate commit `ca69308663ec007bc5c0c7275510872dc8cff7a9` moves the general rate limiter before JSON body parsing while preserving health probes outside the limiter. This prevents malformed or oversized JSON from short-circuiting the middleware chain before rate limiting. A regression test checks that malformed JSON consumes the rate-limit slot.
 
 CI is pending at https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. The candidate is in draft PR #10 and has not been deployed.
+
+
+### Deployment content-sync guard â€” candidate
+
+Commit `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2` changes the VPS deploy workflow so MongoDB seeding is skipped for code-only releases. Seeding is selected when tracked content source/schema/seed files change, or by explicitly choosing `sync_content=true` for manual workflow dispatch. This avoids rewriting article/category data and `updatedAt` timestamps on unrelated backend releases.
+
+CI/deployment workflow verification for this change is pending. PR #10 is still draft and has not been deployed.

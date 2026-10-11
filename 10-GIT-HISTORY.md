@@ -272,3 +272,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 t
 - `ca69308663ec007bc5c0c7275510872dc8cff7a9` — apply the rate limiter before JSON parsing and add a bypass regression test.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. CI was running at the time of this entry: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. PR #10 remains draft/open and undeployed.
+
+
+### Deployment content-sync guard
+
+- `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2` — skip MongoDB seeding for code-only releases; require content-file changes or explicit manual sync.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI for this workflow-only change is pending; PR #10 remains open and undeployed.

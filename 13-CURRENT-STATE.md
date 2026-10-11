@@ -350,3 +350,10 @@ Latest backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/run
 Application commit: `ca69308663ec007bc5c0c7275510872dc8cff7a9` on the existing draft PR #10 branch. The request pipeline now assigns a request ID, serves liveness/readiness probes outside the public limiter, applies the rate limiter, and only then parses JSON. This closes a bypass where malformed/oversized JSON could cause the parser to short-circuit routing before rate-limit middleware. Added a regression test: a malformed JSON request consumes the request's rate-limit slot, and the next public request receives 429.
 
 MongoDB ledger entry recorded in `techkatta_history.backend_git_commits`. CI status at documentation time: running at https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. Do not merge/deploy until CI completes and CodeRabbit review findings are checked. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+
+### Deployment safety: skip seed for code-only releases — candidate (2026-10-11)
+
+Application commit: `ca0df6f1b50a1cddcb56fc9711f2f4f6c530e7f2` on draft PR #10. The existing deploy workflow seeded MongoDB on every backend deployment, even when no content changed; the seed script upserts article/category documents and can delete the legacy slug. The workflow now compares the pushed commit range and runs the seed only when content source/schema/seed files change. A manual `workflow_dispatch` input `sync_content=true` permits an explicit sync. Checkout now fetches full history so the change-range comparison is available.
+
+Application commit recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI for this workflow-only change is pending. The refactor remains unmerged and undeployed; do not treat workflow logic as production-verified until it has run in GitHub Actions.
