@@ -337,3 +337,11 @@ Merge/deployment commit: `5e09088ba40b8060a81813e766202fcf4bb07884`.
 
 Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182
 VPS deployment and 11 endpoint smoke checks + CORS/security headers passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352
+
+## Opt-in article pagination candidate (2026-10-11)
+
+Branch `feat/backend-pagination-indexes` currently contains:
+- `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` — add opt-in pagination, metadata headers, and `{ category: 1, slug: 1 }` index
+- `41359ab7c5b5acaa65fa2e47565fa10236a56cba` — correct numeric pagination parsing
+
+Both commits are recorded in MongoDB. Existing `GET /api/articles` behavior remains unchanged when neither `page` nor `limit` is supplied. Opt-in pagination sorts by slug, caps `limit` at 100, returns an array, and exposes `X-Total-Count`, `X-Page`, `X-Page-Size`, and `X-Total-Pages`. Seed now creates a compound `{ category: 1, slug: 1 }` index in addition to the unique slug index. PR/CI/deployment status pending.
