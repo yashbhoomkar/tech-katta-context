@@ -325,3 +325,15 @@ Both commits are recorded in MongoDB. The Node service will listen only on loopb
 ### Deployment assertion correction (2026-10-11)
 
 Commit `d41a420c7f973af3626d9de51cd16f34edf94166` (MongoDB-ledgered) fixes the indentation of the loopback socket assertions inside the SSH script block. The initial PR branch version placed them outside the YAML script block and GitHub marked the deployment workflow invalid; this was caught before merging. PR validation should be checked on the updated head.
+
+## Loopback binding security hardening — deployed (2026-10-11)
+
+Merge/deployment commit: `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+- Node now listens on `127.0.0.1:5000`, matching the Nginx upstream, instead of binding `0.0.0.0`.
+- The VPS deployment workflow asserts that `127.0.0.1:5000` is listening and fails if `0.0.0.0:5000` is present.
+- Existing public API endpoints remain reachable through Nginx.
+- The Cloudflare diagnostic warns that `tech-api.katta.cc` currently resolves directly to origin `129.121.133.47`; the API hostname is not Cloudflare-proxied. No firewall rules were changed.
+
+Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182
+VPS deployment and 11 endpoint smoke checks + CORS/security headers passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352
