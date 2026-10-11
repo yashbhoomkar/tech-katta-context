@@ -345,3 +345,19 @@ PR #14: https://github.com/yashbhoomkar/tech-katta/pull/14 — open and not merg
 Read-only diagnostic workflow PR #15 was merged as `d393b77a02f33dcfd8a235c63172770b50e5f468`; PR #16 was merged as `e52f8da2efbad98dcac6b4c9f4bcd45a0901ccfe` to add an Nginx configuration validation check. Both merge commits are ledgered. These are workflow-only changes; the deployed backend application commit remains `9d545de3c6e2048dd851bb43a8782bf388544486`.
 
 Browser run `38135114290` confirmed the three SPA routes render but failed the browser-origin API request because `tech-api.katta.cc` serves a self-signed certificate. The bounded load job was skipped; no load results exist. CodeQL passed at the earlier PR head in run `38135114213`; the latest head still needs validation. Keep PR #14 open until the TLS repair and subsequent browser run are verified, then run the bounded load probe. Do not describe the test as a full capacity benchmark.
+
+
+## Verification completion update — 2026-10-11
+
+PR #14's latest application-repository commits (all recorded in MongoDB `techkatta_history.backend_git_commits`):
+- `1dd48a8d1c34fda7f38ea2aed44365a9816633e3` — make the one-time TLS repair execute on the dedicated verification branch
+- `80f26149dd17643dfd275b893efd7326e4c84d42` — make TLS repair conditional and enable bounded load testing after browser success
+- `afa5abd8f1c71c104b6eaa8ce0a7b98a2dd83a18` — run the bounded load probe after browser checks pass and skip certificate mutation when TLS already validates
+
+The Certbot repair succeeded in https://github.com/yashbhoomkar/tech-katta/actions/runs/38135493017. The public API now presents a Let's Encrypt YE2 certificate; OpenSSL chain verification is OK and the API health endpoint returns HTTP 200.
+
+Latest complete verification:
+- Browser + bounded load: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798 — passed.
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821 — passed.
+
+Browser results: home, distributed-systems unit, canonical article route, browser-origin API/CORS and canonical article contract all passed; no uncaught page exceptions. Load results: 60/60 HTTP 200, concurrency 3, min 231 ms, median 235 ms, p95 757 ms, max 839 ms, zero throttling and zero server/network errors. This is a bounded smoke-load check only, not a capacity benchmark. PR #14 remains open pending final CodeRabbit review and merge decision.
