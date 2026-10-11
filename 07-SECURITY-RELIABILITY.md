@@ -160,3 +160,12 @@ When discussing security with the user, distinguish:
 - protection not yet verified
 
 Never describe a recommendation as already deployed.
+
+
+## Rate-limiter hardening status (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/1 (not merged/deployed at the time of this note).
+
+The proposed middleware bounds in-memory client buckets, removes expired windows periodically, and derives the client key from Express's `request.ip` instead of manually trusting the first `X-Forwarded-For` value. The configured `trust proxy` hop count must match the real Cloudflare/reverse-proxy path; until verified, client-IP attribution is an open production-validation item.
+
+This remains a single-process limiter, not distributed rate limiting. A bounded map can evict older buckets during unusually high client-IP cardinality, which is a memory-safety trade-off and must not be presented as a hard abuse-proof guarantee. Cloudflare/origin firewalling, centralized alerting, and origin bypass prevention remain separate backlog items.
