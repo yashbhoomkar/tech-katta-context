@@ -6,9 +6,12 @@ Current main:
 
 `main = 102d23221272e861c5ac6ca76aecb08cd5aca5ab`
 
-Latest backend commits:
-- `193a11293b10d43534c34fa8b902d24dd12e6cac` — add environment-authenticated Vercel REST client
-- `102d23221272e861c5ac6ca76aecb08cd5aca5ab` — add internal Vercel control layer and CLI
+Latest main commits (Cloudflare origin hardening):
+- `f6ffb10ceca94a3fc2791056eb25480b430a7d92` — Merge PR #52: fix post-firewall smoke User-Agent
+- `54ccb96db467a49207c645bde49d89124df0dbf1` — Merge PR #51: let SSH scripts manage errexit/rollback
+- `8a537da1867823b1aa3d84bde88cbfb81dec5fb1` — Merge PR #50: harden UFW sync branch logic
+
+Earlier backend architecture work added the environment-authenticated Vercel REST client (`193a11293b10d43534c34fa8b902d24dd12e6cac`) and internal Vercel control layer/CLI (`102d23221272e861c5ac6ca76aecb08cd5aca5ab`).
 
 The Vercel control layer is independent of the ChatGPT Vercel MCP. It uses a server-side `VERCEL_ACCESS_TOKEN` and is intentionally not exposed through the public API.
 
