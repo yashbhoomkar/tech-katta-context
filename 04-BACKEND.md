@@ -420,3 +420,10 @@ CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133527724 â
 Added `backend/README.md` on candidate commit `3e57fc39d0f23ca6a71e604be3d0e7290a74f995`, documenting module responsibilities, the request lifecycle, fallback/error contracts, environment variables, local commands, health endpoints, and operational limits. Updated `.env.example` to distinguish container `PORT` from host-side `BACKEND_PORT`, and updated root README to reflect the actual topology.
 
 CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299 â€” 28/28 tests passed. Candidate remains in draft PR #10 and is not deployed.
+
+
+### Rate-limit middleware ordering
+
+Candidate commit `ca69308663ec007bc5c0c7275510872dc8cff7a9` moves the general rate limiter before JSON body parsing while preserving health probes outside the limiter. This prevents malformed or oversized JSON from short-circuiting the middleware chain before rate limiting. A regression test checks that malformed JSON consumes the rate-limit slot.
+
+CI is pending at https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. The candidate is in draft PR #10 and has not been deployed.

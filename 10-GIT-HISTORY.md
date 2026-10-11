@@ -265,3 +265,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 t
 - `3e57fc39d0f23ca6a71e604be3d0e7290a74f995` — document backend architecture and environment setup; correct stale root architecture description.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. CI passed with 28 tests: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299. Draft PR #10 remains open and undeployed.
+
+
+### Rate-limit/parser ordering fix
+
+- `ca69308663ec007bc5c0c7275510872dc8cff7a9` — apply the rate limiter before JSON parsing and add a bypass regression test.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. CI was running at the time of this entry: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. PR #10 remains draft/open and undeployed.

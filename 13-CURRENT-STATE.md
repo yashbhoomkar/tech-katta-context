@@ -343,3 +343,10 @@ Application commit: `3e57fc39d0f23ca6a71e604be3d0e7290a74f995`, draft PR #10.
 Added `backend/README.md` documenting the layered monolith, request flow, module responsibilities, error/fallback behavior, health endpoints, local development, and operational constraints. Updated `backend/.env.example` to distinguish Node's `PORT` from Docker Compose's host-side `BACKEND_PORT`, and document `MONGODB_URI`/`MONGODB_DB` without credentials. Updated the root README to describe the current production topology rather than the stale planned architecture.
 
 Latest backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38133683299. All 28 tests passed. PR #10 remains draft/open and has not been merged or deployed. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+
+### Rate limiting before JSON parsing — candidate (2026-10-11)
+
+Application commit: `ca69308663ec007bc5c0c7275510872dc8cff7a9` on the existing draft PR #10 branch. The request pipeline now assigns a request ID, serves liveness/readiness probes outside the public limiter, applies the rate limiter, and only then parses JSON. This closes a bypass where malformed/oversized JSON could cause the parser to short-circuit routing before rate-limit middleware. Added a regression test: a malformed JSON request consumes the request's rate-limit slot, and the next public request receives 429.
+
+MongoDB ledger entry recorded in `techkatta_history.backend_git_commits`. CI status at documentation time: running at https://github.com/yashbhoomkar/tech-katta/actions/runs/38133934601. Do not merge/deploy until CI completes and CodeRabbit review findings are checked. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
