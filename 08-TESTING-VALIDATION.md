@@ -247,7 +247,7 @@ PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b after Backend CI, Fron
 
 Merge commit 56b229a2c0fa1d586f200a41c79826ed92a0446b passed Backend CI (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137022003), Frontend CI build (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021910), and CodeQL (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021951). VPS deployment and production smoke passed (https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953): content sync succeeded, local health was DB-connected, and 11 endpoint checks plus CORS/security headers passed under standard TLS validation.
 
-Still not verified: actual mobile gesture interaction, offline/API-failure Kafka fallback in a browser, Docker runtime networking, Vercel live deployment state, full-capacity load, Cloudflare/Nginx IP attribution, and overflow routing.
+Still not verified: actual mobile gesture interaction on a physical device, offline/API-failure Kafka fallback in a browser, Docker runtime networking, full-capacity load, and real overflow routing. Cloudflare/Nginx client-IP attribution and origin firewall restriction were verified by the final workflow described below.
 
 
 ## Issue #18 fixes — CI validation record (2026-10-11)
@@ -331,7 +331,7 @@ This validates the content-source update and deployment path; it is not a stress
 - PR #25 mobile gestures: simulated touch tests passed in Chromium; no physical device test was available.
 - PR #27 structured diagram normalization: backend CI passed 31/31 tests, CodeQL and Semgrep passed, VPS deployment succeeded, and 11 endpoint smoke checks plus CORS/security headers passed.
 - PR #26 CodeRabbit config: configuration is merged, but no substantive AI review was observed; follow-up issue #30 tracks activation and verification.
-- Issue #28 tracks the pending Cloudflare/origin cutover; issue #29 tracks future failover once a secondary upstream exists; issue #31 tracks search scalability while preserving substring semantics.
+- Issue #28 (Cloudflare/origin cutover) is closed as completed. Issue #29 tracks future failover once a secondary upstream exists; issue #31 tracks search scalability while preserving substring semantics; issue #33 tracks bounded capacity testing.
 
 These are distinct evidence types: static analysis, unit/CI checks, browser-emulated interaction tests, production smoke checks, low-load baseline, and future capacity/failover validation must not be conflated.
 
@@ -349,16 +349,30 @@ Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95` (test co
 - CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817712 — passed.
 - VPS deployment and production smoke: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747 — deployment passed, 11 endpoint checks plus CORS/security headers passed.
 
-**Evidence boundary:** this test simulates the header chain inside an isolated Express test server. It does not execute through live Nginx, does not validate a Cloudflare-proxied request, and does not complete issue #28. No DNS, Nginx, or firewall change was made.
+**Evidence boundary at the time:** this test simulated the header chain inside an isolated Express test server and did not itself execute through live Nginx/Cloudflare. The later production workflow completed issue #28; see final evidence below.
 
 ## Live forwarded-header smoke test — current direct-origin path (2026-10-11)
 
 A temporary Vercel sandbox in the Mumbai region resolved `tech-api.katta.cc` to `129.121.133.47`. Three low-volume GET requests to `/api/categories` sent three different spoofed `X-Forwarded-For` values. All returned HTTP 200; `X-RateLimit-Remaining` decreased 119 → 118 → 117, and CORS remained restricted to `https://tech.katta.cc`. Standard Node TLS verification succeeded.
 
-This is live evidence that the current direct-client → Nginx → Express route kept the requests in the same rate-limit bucket despite changing the attacker-supplied header, consistent with Nginx appending the actual peer address and Express trusting one proxy hop. Only three requests were sent; no raw client IP was logged or inspected. This does **not** verify Cloudflare-proxied traffic, `CF-Connecting-IP` normalization, or origin firewall restriction.
+This was live evidence from the direct-origin path before the Cloudflare cutover. The final workflow below separately verifies Cloudflare-proxied requests, CF-Connecting-IP normalization, and origin firewall restriction.
 
 ## Capacity-test environment check (2026-10-11)
 
 The connected Render workspace was inspected, including preview services. It contains Life Katta-related services but no Tech Katta staging service. The only Tech Katta load evidence remains the existing 156-request, ~3.05 req/s low-load production baseline.
 
 No larger production load was run: a representative capacity test needs a staging-like VPS/Nginx/Express/MongoDB target or a defined production window with hard request-rate/concurrency limits, stop thresholds, and resource monitoring. Issue [#33](https://github.com/yashbhoomkar/tech-katta/issues/33) remains open. Do not present the baseline as a stress test or capacity estimate.
+
+
+## Final Cloudflare/Nginx/UFW integration verification (2026-10-11)
+
+Workflow run [38165442874](https://github.com/yashbhoomkar/tech-katta/actions/runs/38165442874) completed successfully end-to-end.
+
+- Cloudflare proxy is enabled for tech-api.katta.cc. SSL/TLS is Full (strict), Always Use HTTPS is on, and minimum TLS is 1.2.
+- Nginx trusts CF-Connecting-IP only from official Cloudflare IPv4/IPv6 CIDRs. Nginx syntax check, reload, and local API health passed.
+- Three requests with different spoofed X-Forwarded-For values stayed in one rate-limit bucket (118 → 117 → 116).
+- UFW default incoming policy is deny. TCP 80/443 allow only 15 official Cloudflare IPv4 and 7 IPv6 CIDRs; broad Anywhere web rules are absent. Existing IPv4 and IPv6 SSH/22 rules were preserved.
+- Post-firewall public API health returned HTTP 200 with MongoDB connected; categories returned HTTP 200; frontend CORS remained https://tech.katta.cc.
+- The workflow's direct-origin probes and a separate Vercel sandbox in Mumbai both confirmed that ports 80 and 443 on origin 129.121.133.47 time out when bypassing Cloudflare.
+- Weekly Cloudflare CIDR refresh is configured for Mondays at 05:17 UTC.
+- Issue #28 is closed. These checks do not establish maximum capacity or replace a bounded stress test; issue #33 remains open.
