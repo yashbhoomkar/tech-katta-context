@@ -185,3 +185,11 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `fix/diagnos
 Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `fix/backend-loopback-bind`; not merged at the time of this entry.
 
 - `d41a420c7f973af3626d9de51cd16f34edf94166` — correct YAML indentation for deployment socket assertions (recorded in MongoDB ledger; branch-only correction after workflow validation failure).
+
+## Loopback binding security hardening — 2026-10-11
+
+- `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` — bind API to loopback and verify deployment socket
+- `d41a420c7f973af3626d9de51cd16f34edf94166` — fix deployment script indentation
+- `5e09088ba40b8060a81813e766202fcf4bb07884` — merge loopback binding hardening
+
+All commits are recorded in MongoDB `techkatta_history.backend_git_commits`. Backend CI and production deployment/smoke tests passed after merge.
