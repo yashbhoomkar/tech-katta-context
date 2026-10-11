@@ -238,3 +238,19 @@ Do not:
 - turn off graceful shutdown
 - store secrets in Git
 - expose Vercel administrative functions through the public API
+
+
+## Backend hardening phase 1 — PR in progress (2026-10-11)
+
+Pull request: https://github.com/yashbhoomkar/tech-katta/pull/1
+Branch: `refactor/backend-hardening-phase-1` (not merged; not deployed to production).
+
+- Extracted the process-local rate limiter into `backend/src/middleware/rateLimit.js`.
+- Keeps the existing default of 120 requests per client IP per 60-second window and returns 429 with `Retry-After` when exceeded.
+- Adds a bounded bucket map, periodic expired-bucket cleanup, injectable clock for tests, and test-only lifecycle/introspection helpers.
+- Middleware uses Express's resolved `request.ip`; it no longer parses `X-Forwarded-For` itself. `app.set('trust proxy', 1)` remains in `server.js`; confirm the actual Cloudflare/Nginx forwarding chain before treating client-IP attribution as production-verified.
+- Added `node --test` coverage and `.github/workflows/ci-backend.yml`.
+- The limiter is still process-local. Do not claim distributed enforcement or multi-instance protection.
+- Corrected the deployment workflow's stale `src/vercelClient.js` syntax-check path to check the existing `src/vercel/*.js` modules instead.
+
+Validation status: the backend CI run on the prior branch head passed; CI for the latest commit must be checked separately. Production deployment is pending PR merge and successful deployment/smoke tests.
