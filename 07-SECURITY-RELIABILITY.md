@@ -169,3 +169,7 @@ PR: https://github.com/yashbhoomkar/tech-katta/pull/1 (not merged/deployed at th
 The proposed middleware bounds in-memory client buckets, removes expired windows periodically, and derives the client key from Express's `request.ip` instead of manually trusting the first `X-Forwarded-For` value. The configured `trust proxy` hop count must match the real Cloudflare/reverse-proxy path; until verified, client-IP attribution is an open production-validation item.
 
 This remains a single-process limiter, not distributed rate limiting. A bounded map can evict older buckets during unusually high client-IP cardinality, which is a memory-safety trade-off and must not be presented as a hard abuse-proof guarantee. Cloudflare/origin firewalling, centralized alerting, and origin bypass prevention remain separate backlog items.
+
+### Deployment validation — 2026-10-11
+
+The rate-limiter change is deployed as part of `a9e340cc539519a91617d390a44e98bd0547046d`. Backend deployment and production smoke tests passed. This verifies the service stayed healthy and public endpoint/CORS/security-header checks passed; it does **not** independently prove that `request.ip` maps to the actual visitor IP through every Cloudflare/reverse-proxy path. Keep that topology verification as an explicit follow-up.
