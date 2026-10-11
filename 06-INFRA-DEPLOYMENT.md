@@ -252,3 +252,7 @@ Commit `d41a420c7f973af3626d9de51cd16f34edf94166` fixes YAML/script indentation 
 Commit `5e09088ba40b8060a81813e766202fcf4bb07884` deployed successfully: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352. Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182. Deployment verified the service health endpoint, checked that `127.0.0.1:5000` is listening and `0.0.0.0:5000` is not, and passed 11 public endpoint checks plus CORS/security headers.
 
 Cloudflare DNS diagnostic: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241. It confirmed `tech-api.katta.cc` resolves directly to `129.121.133.47`, outside Cloudflare's proxy ranges. UFW was not modified; ports 80/443 must remain reachable until Cloudflare proxying is enabled and verified.
+
+## Optional pagination and index candidate (2026-10-11)
+
+Branch `feat/backend-pagination-indexes`, commits `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` and `41359ab7c5b5acaa65fa2e47565fa10236a56cba` (both ledgered) add opt-in article pagination and a compound index. Production smoke coverage will verify pagination headers and CORS exposure. Default article API responses remain unchanged to avoid breaking the current frontend. CI/PR/deployment pending.
