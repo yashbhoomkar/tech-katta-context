@@ -278,3 +278,14 @@ This makes database failures visible instead of disguising them as successful st
 Application branch `refactor/backend-route-modules`, commit `c0d19ec9403a6dc1deaa37ff0b56985dda6c61eb` (recorded in the MongoDB backend ledger; not yet merged or deployed).
 
 The `/api/categories`, `/api/articles`, and `/api/articles/:slug` handlers have been extracted from `server.js` into `backend/src/routes/content.js` via `createContentRouter({ getDB, isDBConnected })`. `server.js` retains process startup, middleware, health endpoints, and shutdown. Added HTTP-level native Node tests using an ephemeral Express server and fake database dependencies. The route contract is intended to remain unchanged except for the database fallback semantics already deployed.
+
+## Content-route modularization — deployed (2026-10-11)
+
+Merge/deployment commit: `a806fab3f94a00172d55fafdb73ea9ca7dc71810`.
+
+Content endpoints now live in `backend/src/routes/content.js`, registered by `server.js` with injected `getDB` and `isDBConnected` dependencies. `server.js` is slimmer and retains app-wide middleware, health endpoints, process startup, and graceful shutdown. Added HTTP-level tests with an ephemeral Express server and fake DB dependencies.
+
+Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338279
+VPS deployment and production smoke tests passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288
+
+This is an incremental route extraction, not a full controller/service/repository rewrite.
