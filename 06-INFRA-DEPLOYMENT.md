@@ -197,3 +197,7 @@ Backend deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/
 Commit `3155342dc66bdf1e001bbfc54749f63daf1e4062` was deployed through GitHub Actions run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191751. The deployment, service health check, and public production smoke suite succeeded. Backend CI also passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128191731.
 
 The API now uses fallback content only when MongoDB is disconnected. Connected-but-empty query results remain empty; connected database query errors return HTTP 503 rather than stale fallback data. The existing seed step completed during deployment, and the smoke suite passed.
+
+## Content-route modularization deployment — 2026-10-11
+
+Commit `a806fab3f94a00172d55fafdb73ea9ca7dc71810` deployed successfully through https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338288. Backend CI passed at https://github.com/yashbhoomkar/tech-katta/actions/runs/38128338279. The existing VPS deployment pipeline, seeding step, health checks, and public smoke tests all completed successfully.
