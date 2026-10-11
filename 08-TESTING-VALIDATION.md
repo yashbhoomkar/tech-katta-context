@@ -163,3 +163,12 @@ Use language such as:
 - "browser interaction verified"
 
 rather than claiming all four mean the same thing.
+
+
+## Backend hardening phase 1 validation (2026-10-11)
+
+PR: https://github.com/yashbhoomkar/tech-katta/pull/1.
+
+New native Node test cases cover allowed requests and headers, 429/`Retry-After`, window expiry, and bounded bucket count. `.github/workflows/ci-backend.yml` runs `npm ci` and `npm test` on backend-related PRs and pushes to `main`.
+
+A CI run on commit `c2c37bff7305a8e2aaf8cd793e2e0a7efe3668ed` completed successfully. The branch subsequently changed the backend deployment workflow at `333d7e42a11f2a50ae103cd19ce2e9e16f0c883f`; its CI result must be verified independently. No production deployment or production smoke test has yet been confirmed for this PR.
