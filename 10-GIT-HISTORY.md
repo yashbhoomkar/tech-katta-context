@@ -103,3 +103,19 @@ When reverting:
 7. update the ledger for the new rollback commit
 
 Do not rewrite public history casually.
+
+
+## Backend hardening phase 1 — 2026-10-11
+
+Open PR: https://github.com/yashbhoomkar/tech-katta/pull/1 (`refactor/backend-hardening-phase-1`). Not merged at the time of this entry.
+
+Application commits recorded in MongoDB `techkatta_history.backend_git_commits`:
+- `182296930e75d5b10a6fc94fe19bbd164d4441fd` — extract bounded rate limiter middleware
+- `d9d6827e625637e05618967cb20167df06f8c977` — add rate-limiter tests
+- `058a4e2d4832d5e5cf104d4ec09826283779bc59` — use extracted middleware in server
+- `32368ff98778666c312f7c19053be7cd1827cc38` — add `npm test` script
+- `4573387eef21e8aeb81a5276f177aa7fd730c368` — avoid scanning all buckets on every request
+- `c2c37bff7305a8e2aaf8cd793e2e0a7efe3668ed` — add backend CI workflow
+- `333d7e42a11f2a50ae103cd19ce2e9e16f0c883f` — correct deployment workflow syntax-check module paths
+
+The initial backend CI run passed on `c2c37bff7305a8e2aaf8cd793e2e0a7efe3668ed`. The final branch head and deployment status must be rechecked before merge.
