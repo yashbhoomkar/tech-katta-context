@@ -199,3 +199,16 @@ The CodeRabbit configuration PR was merged as `acbc81423a7da3f6e163462ee0667c4ed
 - `acbc81423a7da3f6e163462ee0667c4ed0aa35ae` — Merge PR #26: configure focused free CodeRabbit reviews
 
 Inserted count: 2. No duplicate entries were inserted.
+
+
+## PR #27 ledger reconciliation (2026-10-11)
+
+Before insertion, both canonical collections were queried for the four PR branch commits and merge SHA. None were present. Five records were inserted into `techkatta_history.backend_git_commits`:
+
+- `09a20233c8c32cb7c227609914a77c29af5703c3` — refactor: remove slug-specific diagram normalization
+- `c7853df622dfb47fad6a7d4f88b3ea7d3b76622a` — fix: use structured distributed architecture diagram
+- `af95f043c5312e103f33d09c7f231f28b288f382` — refactor: normalize article content without slug
+- `71be18ccac981eb2208d6ba669dbed65fb14ca78` — test: preserve explicit diagram block semantics
+- `90ac43818fc34c61dfd7fdcae3baf62f83310350` — Merge PR #27: replace legacy architecture diagram heuristic with structured content
+
+Inserted count: 5. No duplicates were inserted.
