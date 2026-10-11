@@ -334,3 +334,8 @@ This validates the content-source update and deployment path; it is not a stress
 - Issue #28 tracks the pending Cloudflare/origin cutover; issue #29 tracks future failover once a secondary upstream exists; issue #31 tracks search scalability while preserving substring semantics.
 
 These are distinct evidence types: static analysis, unit/CI checks, browser-emulated interaction tests, production smoke checks, low-load baseline, and future capacity/failover validation must not be conflated.
+
+
+## k6 capacity-test boundary (2026-10-11)
+
+The existing production k6 run is a low-load baseline only: 156 requests in about 50 seconds (~3.05 req/s), zero HTTP/network errors, thresholds passed. It does not establish stress limits or maximum user capacity. Follow-up issue [#33](https://github.com/yashbhoomkar/tech-katta/issues/33) tracks a bounded, monitored capacity test, preferably on staging, with explicit stop conditions. No unbounded production bot swarm was run.
