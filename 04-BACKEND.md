@@ -488,3 +488,14 @@ The load probe has a strict ceiling of 60 read-only GET requests, concurrency 3,
 PR #14 now includes a branch-scoped Certbot step that first runs an HTTP-01 dry run, then requests/configures a trusted certificate and validates/reloads Nginx. This is a production infrastructure mutation and must be confirmed in the actual Actions logs before claiming remediation. If issuance fails, use the read-only diagnostic workflow and inspect DNS/port-80 challenge reachability before changing DNS or firewall policy.
 
 CodeQL security-extended/security-and-quality analysis passed on the earlier test branch head. A successful scan of the final PR head remains required. No backend application deployment was performed by the browser/load/CodeQL PR.
+
+
+## Production browser and bounded load verification — passed (2026-10-11)
+
+The self-signed API certificate was repaired on the VPS with Certbot/Nginx after an HTTP-01 dry run. Workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38135493017 confirmed the new certificate issuer is Let's Encrypt YE2, OpenSSL verification is OK, and the public health endpoint returns HTTP 200. This was a TLS configuration change only; no backend application code deployment occurred.
+
+Full verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694798. Chromium passed the three SPA routes (home, distributed-systems unit, canonical article), the browser-origin API/CORS request and canonical article response contract, with no uncaught page exceptions.
+
+The bounded production GET probe completed 60 requests at concurrency 3 with a 10-second per-request timeout. Results: 60 × HTTP 200; min 231 ms; median 235 ms; p95 757 ms; max 839 ms; zero 429s; zero 5xx/network errors. This is only a low-volume smoke-load check and must not be presented as a capacity/stress benchmark.
+
+CodeQL security-extended/security-and-quality scan passed for the latest PR head: https://github.com/yashbhoomkar/tech-katta/actions/runs/38135694821. PR #14 remains open pending final review/merge; production application code remains at the previously deployed revision until the PR is merged and any code changes are deployed.
