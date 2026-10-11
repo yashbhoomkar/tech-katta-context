@@ -193,3 +193,8 @@ Before changing a UI component:
 ## Important Vite/React lesson
 
 There was a previous runtime failure caused by calling `navigate()` without initializing `useNavigate()`. Always inspect hook imports and initialization when modifying router behavior.
+
+
+## Audit follow-up — article metadata lifecycle (2026-10-11)
+
+PR #19 (`fix/audit-frontend-state-metadata`) includes application commit `a1f3b3a803779f5082e3f8a37d65137dd10fc38e`: article metadata effects now restore the previous document title and meta content on cleanup, and remove only meta elements created by the article effect. This prevents Open Graph/Twitter/description metadata from leaking across SPA route changes. Recorded in MongoDB `techkatta_history.frontend_git_commits`. PR #19 is open; build/CI validation is pending.
