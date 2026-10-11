@@ -256,3 +256,10 @@ Cloudflare DNS diagnostic: https://github.com/yashbhoomkar/tech-katta/actions/ru
 ## Optional pagination and index candidate (2026-10-11)
 
 Branch `feat/backend-pagination-indexes`, commits `56d6a79b3f9d1c65ea0e152faaa98d673043cf3a` and `41359ab7c5b5acaa65fa2e47565fa10236a56cba` (both ledgered) add opt-in article pagination and a compound index. Production smoke coverage will verify pagination headers and CORS exposure. Default article API responses remain unchanged to avoid breaking the current frontend. CI/PR/deployment pending.
+
+## Issue #18 deployment safeguards — PR #20 candidate
+
+- 7eb09e8ce1b418590f0444d8f0db888cca4cde95 removes NODE_TLS_REJECT_UNAUTHORIZED=0 from the production smoke command. The public API has a valid Let's Encrypt certificate from the separate prior VPS repair; this workflow change ensures future certificate regressions fail validation instead of being ignored.
+- c7210d28cfe3c7d4c6757435a767667a47d4e34e sets HOST=0.0.0.0 inside Docker, while its published host port remains bound to 127.0.0.1. The application default remains loopback for the current systemd/VPS deployment.
+
+These changes are in open PR #20 and have not been deployed. Backend and frontend CI passed on the latest PR head; CodeQL was still running at the time of this note.
