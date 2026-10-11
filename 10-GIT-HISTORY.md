@@ -176,3 +176,10 @@ Commit is recorded in `techkatta_history.backend_git_commits`. Branch: `chore/ve
 - `095eb973a467610b0e4b51bba3aaae5462ac7442` — use Cloudflare's official IP API after plain-text endpoint returned 403
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Branch `fix/diagnose-cloudflare-dns-api`; not merged at the time of this entry.
+
+## Loopback binding hardening candidate — 2026-10-11
+
+- `4d5bd7de22def2ef42b93aa2b400a38ce022a4a0` — bind API to loopback and verify listener during deployment
+- `2fc4cf9f07c576c903e165a802edc2597d66d541` — correct diagnostic warning indentation
+
+Both commits are recorded in `techkatta_history.backend_git_commits`. Branch: `fix/backend-loopback-bind`; not merged at the time of this entry.
