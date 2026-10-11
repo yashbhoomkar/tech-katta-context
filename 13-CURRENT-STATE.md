@@ -174,3 +174,9 @@ VPS deployment and production smoke tests passed: https://github.com/yashbhoomka
 The content API handlers are extracted into `backend/src/routes/content.js`; `server.js` mounts the router and retains process lifecycle and health endpoints. HTTP-level tests cover the fallback/empty/error/missing-record semantics. No public API paths were intentionally changed.
 
 Next: improve readiness/liveness semantics and operational observability without exposing sensitive diagnostics.
+
+### Phase 4 candidate — readiness and request observability
+
+Production remains on `a806fab3f94a00172d55fafdb73ea9ca7dc71810` until the next PR passes CI and is merged. Branch `feat/backend-readiness-observability` points to `6e77efb47d92897a92777bd47e9f9a2bc0384bc0`, recorded in MongoDB.
+
+The candidate adds `/health/live`, `/health/ready`, generated `X-Request-Id` headers, structured request logs that exclude query strings, and two additional production smoke checks. CI/merge/deployment status is pending.
