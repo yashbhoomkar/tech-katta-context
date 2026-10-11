@@ -31,13 +31,11 @@ History database:
 
 At the time this document was generated, MongoDB reported:
 
-- `frontend_git_commits` — 152 documents
-- `backend_git_commits` — 41 documents
-- `git_commits` — legacy/older collection, still present
+- `frontend_git_commits` — 169 documents (live count checked 2026-10-11)
+- `backend_git_commits` — 189 documents (live count checked 2026-10-11, including 34 Cloudflare hardening records inserted below)
+- `git_commits` — 16 documents, legacy/older collection, still present
 
-All three observed collections currently have:
-- `_id_`
-- `key_unique` unique index on `key`
+The connector reports `_id_` and indexes named `key_unique`. Do not assume the latter enforce uniqueness: duplicate rows were observed despite those names, and a controlled connector index probe did not honor `unique: true`. A true unique constraint is still unverified.
 
 Important: older conversation notes suggested that `git_commits` had been dropped. The live Atlas inspection shows that it currently exists. **The live database state wins. Do not delete it merely because older context says it was removed.**
 
@@ -245,3 +243,29 @@ Canonical descriptions were checked against GitHub commit metadata:
 - `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` — `Merge pull request #14: add production verification and CodeQL`.
 
 The connected Atlas `create_index` operation does not expose or honor a `unique: true` option. A controlled probe on the backup collection created an ordinary non-unique index despite duplicate `key` values; the temporary probe index was then dropped. Therefore no canonical rows were deleted and no unique-index claim is made. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) remains open until a supported maintenance path can create and verify the actual unique index and safely complete deduplication.
+
+
+## PR #35–#52 Cloudflare origin-hardening ledger reconciliation (2026-10-11)
+
+After the final production workflow passed, both canonical collections were queried for every source and merge SHA from merged application PRs #35–#52 (excluding superseded, unmerged PR #43). None of the 34 SHAs existed in either canonical collection. All 34 records were inserted into techkatta_history.backend_git_commits and read back successfully; no duplicate rows were added.
+
+Source/merge SHA pairs:
+- PR #35: 24c91463f1bbaa8b6bf77fceed2cd1aa821cc6ab / fbec7528de43c84799596574e31f820b9fc7bb61 — guarded Cloudflare origin hardening workflow.
+- PR #36: f80d6526a77cd95aeaf3ddff9379e052b4d91b66 / 02d7dd927e6263417b5f753b013f2b5e7c12a63e — DNS address sorting.
+- PR #37: 46dc27fa8ccb7f09adaa34279626e8af9f264dff / 0db481a285f76b8527b93262ed51f462ec6c0adb — preflight diagnostics.
+- PR #38: 271949b4d129b85e5b0df880eb0e8a11152026c5 / 3505b81bd8dff72147d0b5eeac489f2284524d4c — UFW status matching.
+- PR #39: c06ed9b2fdb9fb6fcdf058676e15fb32db730689 / a287e1a017b2f3ead0d3bd563df4f5531c02e645 — range-fetch diagnostics.
+- PR #40: 5c03dc735631df36c67d956a18b257bb41c19c35 / 136692db4320c637fb9b49c9cd771d033b39fbf2 — rollback artifact path.
+- PR #41: 616f57a803caeafa91691b856dc03312a033dfc2 / a69a8eb597ebf7cfd60877593680a11367ec9e6f — rollback file checks.
+- PR #42: 61cfe4ab11e137fadfe855ee63fa455511cefd39 / 2af6ed507bb5ad70356dbecdb9c55615f8c70546 — rollback state handling.
+- PR #44: d92629c8b0b4cd51bd2957f194d059569ff420d1 / c2c65743c743e09ac07144ea3429093e3335aa05 — stat-based rollback state.
+- PR #45: cb39d3bc296bcb2684becf6f80e54f7bff92c21b / ae6f34e43cf8f24b8fbb79fd1dd3244e32afc958 — state diagnostics.
+- PR #46: d587a49415c76c42fe5c0e4a3442c67442b7b7a6 / c143cb285b1ef95bc5cf1e3ce5f217126a0157db — rollback branch selection.
+- PR #47: 26a8a936715fec774ab6a1d65cf7f0351cbd3f50 / 9e2c81ceb740feec4426d04ef85ee2efd4ab86d0 — remote shell handling.
+- PR #48: 03b927226667e129f57f28ac00b9c047ad6baeb4 / 939c93eefd138186964d7d4fd548a8d1b35132b6 — remove SSH-action heredocs.
+- PR #49: 090384b84eb43f0cf71e7e07dd1e928913ec8341 / f9f4345009094dc480337d6cb8895b1196c4fe4b — Cloudflare smoke User-Agent.
+- PR #50: 794a548d627a97579dd15b3b59faff5262eb7ed5 / 8a537da1867823b1aa3d84bde88cbfb81dec5fb1 — UFW sync logic.
+- PR #51: 4b4c818542f1d59b0221d73fdebad843f84b565b / 54ccb96db467a49207c645bde49d89124df0dbf1 — SSH script-stop handling.
+- PR #52: 4ca762e2a22434bf9a5261bd154eee3d30b1742b / f6ffb10ceca94a3fc2791056eb25480b430a7d92 — post-firewall smoke User-Agent.
+
+Final main HEAD: f6ffb10ceca94a3fc2791056eb25480b430a7d92. Workflow run 38165442874 passed the Cloudflare proxy, Nginx real-IP, rate-limit attribution, Cloudflare-only UFW, SSH preservation, public API/CORS, and direct-origin isolation checks. Issue #28 is closed; umbrella issue #18 remains open for other audit findings.
