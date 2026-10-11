@@ -543,3 +543,8 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 ### Proxy trust topology evidence (2026-10-11)
 
 Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 found public DNS for `tech-api.katta.cc` points directly to `129.121.133.47`, not Cloudflare proxy ranges. The current topology is direct client → Nginx → Express, so do not change Express trust hops or configure Cloudflare-only real-IP trust based on an assumed Cloudflare edge hop. The distinct origin-exposure issue remains: UFW permits 80/443 from any source. Restricting origin ingress must wait until Cloudflare proxying is deliberately enabled and verified.
+
+
+### Semgrep static analysis added and verified (2026-10-11)
+
+Application PR #22 merged as `a39d441c8364efc65bfa4f14f944d34cd9e07cff`. New workflow `.github/workflows/semgrep.yml` runs Semgrep Community Edition for JavaScript, Node.js, and React on relevant pull requests, main pushes, and manual dispatch, and uploads SARIF findings to GitHub code scanning. Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326189 succeeded: 40 JS/Node/React files scanned with 68 rules and 0 findings. CodeQL also passed on this merge commit: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140326154. The application commit is recorded in `techkatta_history.backend_git_commits`.
