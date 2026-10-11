@@ -339,3 +339,14 @@ These are distinct evidence types: static analysis, unit/CI checks, browser-emul
 ## k6 capacity-test boundary (2026-10-11)
 
 The existing production k6 run is a low-load baseline only: 156 requests in about 50 seconds (~3.05 req/s), zero HTTP/network errors, thresholds passed. It does not establish stress limits or maximum user capacity. Follow-up issue [#33](https://github.com/yashbhoomkar/tech-katta/issues/33) tracks a bounded, monitored capacity test, preferably on staging, with explicit stop conditions. No unbounded production bot swarm was run.
+
+## Forwarded-IP rate-limit regression test — PR #34 (2026-10-11)
+
+Application PR #34 merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95` (test commit `fba34153e673e4b72db7e546f7169a1296174189`). The new isolated HTTP integration test simulates the current one-hop proxy chain by supplying an attacker-controlled leftmost `X-Forwarded-For` value and an Nginx-appended rightmost peer address. Changing only the leftmost value remains in the same rate-limit bucket; changing the rightmost peer address creates a separate bucket.
+
+- Backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817699 — passed.
+- Semgrep: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817744 — passed.
+- CodeQL: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817712 — passed.
+- VPS deployment and production smoke: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747 — deployment passed, 11 endpoint checks plus CORS/security headers passed.
+
+**Evidence boundary:** this test simulates the header chain inside an isolated Express test server. It does not execute through live Nginx, does not validate a Cloudflare-proxied request, and does not complete issue #28. No DNS, Nginx, or firewall change was made.
