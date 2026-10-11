@@ -386,3 +386,10 @@ PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`, recorded in MongoDB
 PR #12 merged as `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2`, recorded in MongoDB `techkatta_history.backend_git_commits`. The SSH action no longer relies on remote environment forwarding for `CONTENT_SYNC_REQUIRED`; it interpolates the validated `true/false` output directly into the remote script and logs the selected path. This addresses the likely point of failure after the systemd configuration step, where the prior workflow exited before the content-sync branch log.
 
 New deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671 (in progress at time of entry). Wait for explicit `Content sync required: false`, service restart, local health checks, and public production smoke tests before marking the deployment complete.
+
+
+### Deployment workflow split merged; new deployment running (2026-10-11)
+
+PR #13 merged as `9d545de3c6e2048dd851bb43a8782bf388544486`, recorded in MongoDB `techkatta_history.backend_git_commits`. The deploy workflow now uses three explicit SSH steps: prepare checkout/dependencies/runtime config, optionally seed content only when GitHub Actions says sync is required, and restart/verify the API. The remote SSH script no longer evaluates the content-sync conditional itself.
+
+Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 (in progress at time of entry). Confirm the prepare step completes, the content-sync step is skipped for this code-only change, the restart/local health/socket checks pass, and the public smoke tests pass before declaring production healthy.

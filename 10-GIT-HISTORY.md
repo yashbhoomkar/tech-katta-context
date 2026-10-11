@@ -312,3 +312,10 @@ Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment retry ht
 - `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2` — merge PR #12 to pass the content-sync decision directly into the remote script.
 
 Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671 is in progress; production verification pending.
+
+
+### Deploy workflow split merge
+
+- `9d545de3c6e2048dd851bb43a8782bf388544486` — merge PR #13 to split preparation, optional content sync, and restart/verification into separate steps.
+
+Recorded in MongoDB `techkatta_history.backend_git_commits`. Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986 is in progress; production validation pending.

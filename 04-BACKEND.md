@@ -463,3 +463,10 @@ PR #11 merged as `7a43a798407861b0a8f4b3fc9826da0a2b7f9581`; the merge commit is
 PR #12 merged as `cf0c9851934eb3cb8603a1e63a35109f4f9d8fb2`, recorded in the MongoDB commit ledger. The deployment script now uses direct GitHub Actions expression interpolation for the content-sync decision rather than passing it through the SSH action's remote environment forwarding.
 
 Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134427671. Awaiting the run's output, service health checks, and public smoke tests.
+
+
+### Deployment workflow split
+
+PR #13 merged as `9d545de3c6e2048dd851bb43a8782bf388544486`, recorded in the MongoDB commit ledger. Deployment is now split into prepare, optional content sync (GitHub Actions step condition), and restart/verify steps, avoiding conditional control flow in the remote shell.
+
+Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38134546986. Production verification remains pending until all steps and smoke tests pass.
