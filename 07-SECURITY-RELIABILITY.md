@@ -203,3 +203,7 @@ Cloudflare's official documentation recommends allowlisting its current origin I
 ### Verify Cloudflare proxy before origin firewall changes
 
 A workflow update (`1d6b5e5b885226dfc37e1fb2ada68fcfad2a4dd7`, ledgered in MongoDB) will verify that every public `tech-api.katta.cc` DNS address belongs to the official Cloudflare proxy ranges before origin restrictions are applied. It downloads the current ranges from Cloudflare's official `ips-v4` and `ips-v6` endpoints rather than embedding a stale list. It is read-only.
+
+### Cloudflare range check adjustment (2026-10-11)
+
+The first range-check run failed because `www.cloudflare.com/ips-v4` returned HTTP 403 to the GitHub runner, before the DNS answers were printed. No firewall or proxy changes occurred. Commit `095eb973a467610b0e4b51bba3aaae5462ac7442` updates the workflow to use Cloudflare's documented `/client/v4/ips` API and prints DNS answers first. Wait for its result before making origin restrictions.
