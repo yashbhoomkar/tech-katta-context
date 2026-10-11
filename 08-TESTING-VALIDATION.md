@@ -217,3 +217,11 @@ Branch `fix/backend-loopback-bind` updates the production deployment script to r
 ### Loopback deployment workflow validation note
 
 GitHub identified an invalid deployment workflow on the unmerged branch after the first socket-check insertion. The issue was indentation only; commit `d41a420c7f973af3626d9de51cd16f34edf94166` corrects the YAML script block. Verify the updated PR and main-branch deployment before considering this change complete.
+
+## Phase 5 loopback security verification — 2026-10-11
+
+- Backend CI passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987182
+- VPS deployment passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987352
+- Deployment asserted that the API listens on `127.0.0.1:5000` and does not listen on `0.0.0.0:5000`.
+- Production smoke suite passed: 11 endpoint checks + CORS + security headers.
+- Read-only diagnostics confirmed public API DNS is direct-to-origin, so no Cloudflare-only firewall restriction was applied.
