@@ -373,3 +373,8 @@ Application commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` (draft PR #10, not
 - Route module: wires controller, service, and repository dependencies.
 
 No new runtime dependency or database migration is introduced. The public API contract is intended to remain unchanged. CI is queued/pending; do not deploy until the current PR head passes tests and is reviewed.
+
+
+### Layered content architecture — CI result (2026-10-11)
+
+The latest candidate commit `1219adb49f9b1235b7623de6fcbf23a4a45b688e` passed backend CI: https://github.com/yashbhoomkar/tech-katta/actions/runs/38132969830. All 17 tests passed. PR #10 remains draft/open and not deployed. Verification is CI-only; production HTTP smoke, browser, and load tests are pending for this refactor.

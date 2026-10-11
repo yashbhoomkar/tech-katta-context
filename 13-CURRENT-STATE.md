@@ -282,3 +282,8 @@ The content API is now split into:
 - `src/routes/content.js` — route registration and dependency wiring.
 
 This is an incremental layered-monolith design, not microservices. Existing route paths, slug validation, regex escaping, fallback semantics, and response contracts are intended to remain intact. The new commit's CI run is queued/pending as of this update. No production deployment or public smoke test has been performed for this candidate. Production remains on `5e09088ba40b8060a81813e766202fcf4bb07884`.
+
+
+### Backend clean-architecture phase 2 — CI passed
+
+Latest application candidate: `1219adb49f9b1235b7623de6fcbf23a4a45b688e`. Backend CI passed at https://github.com/yashbhoomkar/tech-katta/actions/runs/38132969830. All 17 tests passed. Draft PR #10 has been updated to describe the app factory and controller/service/repository layers: https://github.com/yashbhoomkar/tech-katta/pull/10. The PR remains open and unmerged. No VPS deployment, production smoke test, load test, or browser test was performed for this candidate. Production remains at `5e09088ba40b8060a81813e766202fcf4bb07884`.
