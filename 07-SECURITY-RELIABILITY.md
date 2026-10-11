@@ -240,3 +240,10 @@ PR #20 merged as 56b229a2c0fa1d586f200a41c79826ed92a0446b. Production smoke chec
 ### TLS verification hardening deployed — 2026-10-11
 
 PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b deployed successfully. Production smoke tests passed 11 endpoint checks plus CORS/security headers without NODE_TLS_REJECT_UNAUTHORIZED override: https://github.com/yashbhoomkar/tech-katta/actions/runs/38137021953. This confirms the public API TLS chain validated during the smoke run. It does not resolve origin exposure or prove Cloudflare/Nginx client-IP handling.
+
+
+### Cloudflare proxy/IP attribution rechecked (2026-10-11)
+
+Read-only diagnostic run https://github.com/yashbhoomkar/tech-katta/actions/runs/38128987241 resolved `tech-api.katta.cc` to the VPS origin `129.121.133.47`, outside Cloudflare's published proxy ranges. Cloudflare proxying is not active for this hostname in the observed state. Nginx sets `X-Real-IP $remote_addr` and `X-Forwarded-For $proxy_add_x_forwarded_for`; Express trusting one Nginx hop is consistent with the current direct-client → Nginx → Express topology. Do not configure Cloudflare-only trusted ranges or change hop count until DNS/proxy state actually changes.
+
+Separate risk remains: the VPS origin is directly exposed and UFW permits ports 80/443 from anywhere. Do not restrict ingress to Cloudflare ranges until the hostname is actually proxied and tested, or public traffic may break. A controlled DNS/Cloudflare migration and origin-hardening change remains future work.
