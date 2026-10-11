@@ -600,3 +600,8 @@ The production deployment for application SHA `90ac43818fc34c61dfd7fdcae3baf62f8
 All 111 unique full SHAs referenced by the current git-history and current-state documents were found in at least one canonical MongoDB ledger collection; no missing entries remain. Existing duplicate rows were discovered and left untouched to preserve historical audit data. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) tracks controlled deduplication and true unique-index enforcement.
 
 Remaining audit follow-ups now include #28 (origin exposure), #29 (future failover), #30 (AI review integration), #31 (future search scalability), and #32 (legacy ledger duplicate cleanup). Issue #18 remains open.
+
+
+## Load-test status (2026-10-11)
+
+The k6 production run remains a low-load baseline, not a stress test or capacity estimate. Follow-up [#33 — bounded k6 capacity test](https://github.com/yashbhoomkar/tech-katta/issues/33) tracks staged ramp-up and explicit safety limits. Do not report a maximum supported user count from the baseline alone.
