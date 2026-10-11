@@ -485,3 +485,12 @@ Deployment run https://github.com/yashbhoomkar/tech-katta/actions/runs/381397151
 - MongoDB ledger: `techkatta_history.backend_git_commits`.
 - Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 passed: 156 HTTP requests, 0 failures, all 312 checks passed; frontend p95 142.67 ms and API p95 244.61 ms.
 - The test is intentionally low-load (frontend ramp up to 5 VUs, API 1 VU) and is not a capacity benchmark.
+
+
+### PR #24 — consolidate Vercel REST client (2026-10-11)
+
+- Application merge commit: `efbc810f08f210e83cff41415280c1a0aaffc8c6`.
+- Keep `backend/src/vercelClient.js` as the canonical client used by `backend/scripts/vercel-control.mjs` and `backend/scripts/vercel-mcp.mjs`.
+- Remove unused `backend/src/vercel-control.js` and the unreferenced `backend/src/vercel/` client/CLI tree; update deployment syntax checks.
+- MongoDB ledger: `techkatta_history.backend_git_commits`.
+- Backend CI, Semgrep, CodeQL, and VPS deployment passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672.

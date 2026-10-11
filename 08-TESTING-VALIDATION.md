@@ -289,3 +289,8 @@ Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38140625020 — suc
 - The API scenario sleeps 1.5 seconds between requests; this deliberately stays below the current per-client rate limit.
 
 Interpretation: this validates a low-load production baseline only. It does not estimate maximum concurrent users or establish stress/capacity limits. A true saturation test requires a staging/test origin or a separately approved, isolated test environment.
+
+
+### Vercel client consolidation validation (2026-10-11)
+
+PR #24 merge commit `efbc810f08f210e83cff41415280c1a0aaffc8c6` passed Backend CI (https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089657), Semgrep, CodeQL, and VPS deployment (https://github.com/yashbhoomkar/tech-katta/actions/runs/38141089672). The deployment workflow syntax-checked the canonical Vercel client and active adapters, restarted the API, verified local health, and passed the 11-endpoint public smoke suite plus CORS/security headers. This validates the cleanup/deployment, not token-authenticated Vercel API calls.
