@@ -585,21 +585,23 @@ Issue #18 remains open for other audit findings, including direct-origin exposur
 
 ## Umbrella audit status and follow-up issues (2026-10-11)
 
-Issue #18 remains open. Current resolved items and evidence are recorded in its latest issue comment. Remaining work is tracked explicitly:
+Issue #18 remains open. Current resolved items and evidence are recorded in its latest issue comment. Current status as of 2026-10-12:
 
-- [#28 — Cloudflare proxy cutover and origin ingress restriction](https://github.com/yashbhoomkar/tech-katta/issues/28): **closed as completed** after strict TLS, Nginx real-IP normalization, spoofed-XFF rate-limit verification, Cloudflare-only UFW ingress, SSH preservation, and independent direct-origin blocking checks.
-- [#29 — Design real overflow failover after a secondary upstream exists](https://github.com/yashbhoomkar/tech-katta/issues/29): actual overflow/failover is not implemented; the no-op timer stays disabled.
-- [#30 — Enable and verify a free AI pull-request review integration](https://github.com/yashbhoomkar/tech-katta/issues/30): `.coderabbit.yaml` exists, but a real AI review has not been observed.
-- [#31 — Revisit article search indexing without changing substring semantics](https://github.com/yashbhoomkar/tech-katta/issues/31): current 11-article collection uses a regex collection scan; current observed latency is not a reason to change matching semantics.
+- [#28 — Cloudflare proxy cutover and origin ingress restriction](https://github.com/yashbhoomkar/tech-katta/issues/28): **closed** after strict TLS, Nginx real-IP normalization, spoofed-XFF rate-limit verification, Cloudflare-only UFW ingress, SSH preservation, public API/CORS checks, and independent direct-origin blocking.
+- [#29 — Design real overflow failover after a secondary upstream exists](https://github.com/yashbhoomkar/tech-katta/issues/29): **open / blocked**. No dedicated Tech Katta Render secondary exists; do not repurpose the Life With Yash backend or enable the placeholder timer. Confirm the previously exposed MongoDB credential has been rotated before provisioning a secondary.
+- [#30 — Enable and verify a free AI pull-request review integration](https://github.com/yashbhoomkar/tech-katta/issues/30): **closed**. PR #62 received a completed CodeRabbit walkthrough and a substantive inline review thread; the finding was fixed and the thread resolved.
+- [#31 — Revisit article search indexing without changing substring semantics](https://github.com/yashbhoomkar/tech-katta/issues/31): **open as a revisit trigger**. A fresh read-only Atlas explain on 2026-10-12 examined 11 documents, returned 4, used a COLLSCAN, and reported 0 ms. Preserve substring behavior; optimize only when corpus growth or measured query cost justifies it.
+- [#32 — Deduplicate legacy commit ledger rows and enforce unique SHA keys](https://github.com/yashbhoomkar/tech-katta/issues/32): **closed** after the six-row backup, exact duplicate removal, unique-index enforcement, zero-duplicate aggregation, and independent post-migration verification.
+- [#33 — Run a bounded k6 capacity test with explicit safety limits](https://github.com/yashbhoomkar/tech-katta/issues/33): **open / blocked**. The current run is only a low-load baseline, and no dedicated Tech Katta staging backend exists. PR #65 removed the automatic production-load trigger and requires two manual confirmations; this is a safety improvement, not a capacity test.
 
-The production deployment for application SHA `90ac43818fc34c61dfd7fdcae3baf62f83310350` succeeded; the latest main production Vercel deployment is READY at `acbc81423a7da3f6e163462ee0667c4ed0aa35ae`. The home left-swipe regression is fixed and browser-emulated checks passed, but physical-device verification remains unavailable in this session. Do not close issue #18 while the listed follow-ups remain unresolved.
+The earlier deployment details below are historical verification from 2026-10-11, not the current application HEAD. Current application main HEAD is `513c99a31a49f802a64c567be45d01c9d2628059` (PR #65), recorded in the latest audit section below. The home left-swipe regression remains fixed with browser-emulated checks; physical-device verification has not been performed in this session. Do not close issue #18 while #29 and #33 remain blocked and #31 remains a measurement-based revisit trigger.
 
 
 ## Commit-ledger reconciliation — 2026-10-11
 
-All 111 unique full SHAs referenced by the current git-history and current-state documents were found in at least one canonical MongoDB ledger collection; no missing entries remain. Existing duplicate rows were discovered and left untouched to preserve historical audit data. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) tracks controlled deduplication and true unique-index enforcement.
+At the time of the original 2026-10-11 check, 111 unique full SHAs referenced by the then-current history/state documents were present in at least one canonical ledger collection. Duplicate rows were subsequently handled under issue #32 with a verified six-row backup and unique-index enforcement; see the 2026-10-12 final acceptance section below.
 
-Remaining audit follow-ups now include #28 (origin exposure), #29 (future failover), #30 (AI review integration), #31 (future search scalability), and #32 (legacy ledger duplicate cleanup). Issue #18 remains open.
+Remaining audit follow-ups are #29 (real failover), #31 (search scalability revisit), and #33 (bounded capacity test). Issues #28, #30, and #32 are closed. Issue #18 remains open.
 
 
 ## Load-test status (2026-10-11)
