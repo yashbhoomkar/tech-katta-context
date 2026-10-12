@@ -376,3 +376,14 @@ Workflow run [38165442874](https://github.com/yashbhoomkar/tech-katta/actions/ru
 - The workflow's direct-origin probes and a separate Vercel sandbox in Mumbai both confirmed that ports 80 and 443 on origin 129.121.133.47 time out when bypassing Cloudflare.
 - Weekly Cloudflare CIDR refresh is configured for Mondays at 05:17 UTC.
 - Issue #28 is closed. These checks do not establish maximum capacity or replace a bounded stress test; issue #33 remains open.
+
+
+## Local rate-limit integration verification — PR #76 (2026-10-12)
+
+Run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38246483684
+
+The CI workflow uses an isolated MongoDB service, local Express API, and local frontend preview. After the existing local smoke finishes, it waits for the prior API-read window to expire, then sends a 50-second constant-arrival-rate profile at 3 requests/second to `/api/categories`. It does not contact production and does not bypass or disable the limiter.
+
+Observed: 151 requests (~3.02 req/s), 120 accepted responses, 31 HTTP 429 responses, p95 2.99 ms, zero failed HTTP requests, zero dropped iterations, and 100% checks. The 429 responses carried Retry-After and the configured X-RateLimit headers. CodeQL reported no new alerts.
+
+This is evidence that the configured 120-request/minute per-IP limiter behaves as intended in the local integration environment. It is **not** a production capacity estimate and does not satisfy issue #33's need for a staging-equivalent path, resource monitoring, and controlled capacity ramps.

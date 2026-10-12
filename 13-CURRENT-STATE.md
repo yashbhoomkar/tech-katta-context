@@ -813,3 +813,13 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 The runtime rotation helper in PR #75 intentionally accepts only an Atlas URI whose authenticated user has exactly `readWrite` on `techkatta`. However, the existing manual ledger migration, repair, inspection, and index-verification workflows still read `MONGODB_URI` from the VPS `.env` and access `techkatta_history`. After switching that file to the app-only user, those maintenance workflows will no longer have access to the history database.
 
 Before revoking the current broad Atlas user, create a separate maintenance user scoped to `readWrite` + `dbAdmin` on `techkatta_history` only, store its URI directly as repository secret `TECH_KATTA_LEDGER_MAINTENANCE_URI`, and migrate/verify the manual maintenance workflows to use that secret rather than the runtime `.env`. Do not run those maintenance workflows after runtime rotation until this separation is complete. This secret and user do not yet exist; issue #70 remains open.
+
+
+## Latest local k6 rate-limit verification — PR #76 (2026-10-12)
+
+- Current application main HEAD: `4f9e0c6739dd747edc27bf9ee79419c4092849ad`.
+- PR #76 extends the isolated local MongoDB/API/frontend k6 workflow with a separate bounded rate-limit profile. The workflow waits for the prior API-read window to expire, then runs at 3 requests/second for 50 seconds without bypassing the limiter.
+- Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38246483684. Results: 151 requests (~3.02 req/s), 120 accepted, 31 HTTP 429, p95 2.99 ms, zero failed HTTP requests, zero dropped iterations, 100% checks, and valid Retry-After/X-RateLimit headers.
+- CodeQL: no new alerts. No production traffic was sent; this is rate-limiter behavior verification only.
+- Latest canonical ledger counts after recording PR #76: frontend 168, backend 246, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections; the six-row duplicate backup remains intact.
+- Issue #33 remains open: there is no dedicated Tech Katta staging backend, and this local test does not satisfy capacity-test acceptance criteria. Issue #70 remains open pending manual least-privilege runtime and ledger-maintenance credential setup; issue #29 remains blocked and overflow remains disabled.
