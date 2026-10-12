@@ -710,3 +710,15 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Passed: home, unit, and canonical article routes; browser-origin API/CORS and canonical article response; mobile right swipe opens sidebar; home left swipe leaves route unchanged; article swipes navigate back/forward; short/vertical swipes ignored; sidebar-open left swipe closes without navigation; no uncaught browser exceptions.
 - This is a low-volume read-only browser smoke, not a load/capacity test. No production configuration changed.
 - Both PR #71 source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 229.
+
+
+## PR #73 and PR #74 — ledger-index probe workflow reliability (2026-10-12)
+
+- PR #73 source commit: `22bf7413cd230ad3ad88c2692f5dce0cfddd3baf`.
+- PR #73 squash merge commit: `23e6e3712329d17bfd324d62b7bc967b79708484`.
+- PR #74 source commit: `86ee7329820b6e086df253c53e92c39a457d7e2e`.
+- PR #74 squash merge commit: `a66df730143e7bf44d2206ce44dbdd6a890ffe63`.
+- The VPS-run probe verified that MongoDB creates an index with `unique: true` and rejects duplicate keys with error code 11000. A cleanup bug in the first probe left one specifically named temporary collection; PR #74 removed that exact collection and corrected cleanup for subsequent runs.
+- Successful verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38244494719. The run removed the stale probe collection and its own temporary collection. No canonical ledger rows were modified by these probe workflows.
+- The canonical ledger migration had already passed in run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807, and the independent read-only verification passed in https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593.
+- The two canonical ledger collections currently have zero duplicate-key groups. Issue #32 is closed; umbrella issue #18 remains open for #29, #33, and #31's measurement-based revisit trigger.
