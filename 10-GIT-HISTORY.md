@@ -4,12 +4,12 @@
 
 Current main:
 
-`main = 4ce8403a9fc610ab9840479d29aabed162d0aeb6`
+`main = d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`
 
 Latest main commits:
+- `d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b` — Merge PR #71: add read-only production browser smoke
 - `4ce8403a9fc610ab9840479d29aabed162d0aeb6` — Merge PR #69: add bounded local k6 integration smoke
 - `d5f8f8c16d98ed775fa0937a022ddc1230610c68` — Merge PR #68: enforce unique commit-ledger keys
-- `af411f0711c077185d90be3c8182b80df4c9f910` — Merge PR #67: fix ledger probe script generation
 
 Earlier backend architecture work added the environment-authenticated Vercel REST client (`193a11293b10d43534c34fa8b902d24dd12e6cac`) and internal Vercel control layer/CLI (`102d23221272e861c5ac6ca76aecb08cd5aca5ab`).
 
@@ -699,3 +699,14 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - PR #69 source and merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 227.
 - Issue #29 remains blocked: no dedicated Tech Katta secondary is available; the overflow timer stays disabled. The VPS runtime database connection has a broad Atlas role, rotation history cannot be verified through the connector, and a secure runtime-secret update path is still required before a secondary can be provisioned (tracked in [issue #70](https://github.com/yashbhoomkar/tech-katta/issues/70)). No secondary was provisioned and no production traffic was rerouted.
 - Issue #32 is closed; issue #18 remains open for #29, #33, and #31's measurement-based revisit trigger.
+
+
+## PR #71 — read-only production browser smoke (2026-10-12)
+
+- Source commit: `34b86a7737f827164dddd74f0f0fe619b9ec145a`.
+- Squash merge commit: `d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`.
+- Added `.github/workflows/production-browser-smoke.yml`, triggered by the workflow file's merge to main or manual dispatch. It runs Chromium against the live frontend/API and mobile-emulates touch gestures on a local Vite build; it does not run the production k6 load probe.
+- Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38206729819.
+- Passed: home, unit, and canonical article routes; browser-origin API/CORS and canonical article response; mobile right swipe opens sidebar; home left swipe leaves route unchanged; article swipes navigate back/forward; short/vertical swipes ignored; sidebar-open left swipe closes without navigation; no uncaught browser exceptions.
+- This is a low-volume read-only browser smoke, not a load/capacity test. No production configuration changed.
+- Both PR #71 source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 229.
