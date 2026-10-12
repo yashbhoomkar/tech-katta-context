@@ -410,4 +410,4 @@ The following 14 source/merge SHAs for PRs #53, #54, #55, #67, and #68 are prese
 
 The description for merge SHA `8822cab92ebcca8fd0e789e9199b85404144a7b7` was corrected to identify it as PR #55's merge. No duplicate records were inserted.
 
-Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) is ready to close after the corresponding issue and context updates. Umbrella issue #18 remains open.
+Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) is closed after the corresponding issue and context updates. Umbrella issue #18 remains open.
