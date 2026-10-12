@@ -4,12 +4,12 @@
 
 Current main:
 
-`main = 102d23221272e861c5ac6ca76aecb08cd5aca5ab`
+`main = d5f8f8c16d98ed775fa0937a022ddc1230610c68`
 
-Latest main commits (Cloudflare origin hardening):
-- `f6ffb10ceca94a3fc2791056eb25480b430a7d92` — Merge PR #52: fix post-firewall smoke User-Agent
-- `54ccb96db467a49207c645bde49d89124df0dbf1` — Merge PR #51: let SSH scripts manage errexit/rollback
-- `8a537da1867823b1aa3d84bde88cbfb81dec5fb1` — Merge PR #50: harden UFW sync branch logic
+Latest main commits:
+- `d5f8f8c16d98ed775fa0937a022ddc1230610c68` — Merge PR #68: enforce unique commit-ledger keys
+- `af411f0711c077185d90be3c8182b80df4c9f910` — Merge PR #67: fix ledger probe script generation
+- `513c99a31a49f802a64c567be45d01c9d2628059` — Merge PR #65: make production k6 baseline manual-only
 
 Earlier backend architecture work added the environment-authenticated Vercel REST client (`193a11293b10d43534c34fa8b902d24dd12e6cac`) and internal Vercel control layer/CLI (`102d23221272e861c5ac6ca76aecb08cd5aca5ab`).
 
@@ -652,3 +652,37 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Removed the automatic `push` trigger for the production baseline. PRs run `k6 inspect` only, with no traffic.
 - Production baseline requires a manual dispatch with both `run_production_baseline: true` and `confirm_production_target: true`. The validation run passed and the production job was skipped; no production traffic was sent.
 - This does not satisfy the capacity-test issue: the baseline remains low-load and no Tech Katta staging backend exists.
+
+
+## Latest audit continuation — PRs #53–#68 (2026-10-12)
+
+### PR #53 — preserve article-search semantics
+- Source: `db2395bb70fff2421583f79b2a431c22f8e21c8a`.
+- Merge: `34d0d4db2aae0234b2e45d6fc427a75fe4a21653`.
+- Added backend regression tests for case-insensitive substring search across title, eyebrow, description, and tags; category composition; trimming; blank input; and fallback behavior. Runtime search strategy was not changed because the live article corpus contains 11 articles and no measurable bottleneck was demonstrated. Issue #31 remains a measurement-based revisit trigger.
+
+### PR #54 — isolated unique-index capability probe
+- Source commits: `328a4d3c5d4e07d5992b9d74b6961e007b4cc9b0`, `f778066ea0fcd3108e6df1ad1bbc032dd987194b`, `cacbd6809d37b140e8eff0a207f9cc8abb896175`.
+- Merge: `0607590574b1e0c019228f4384458fe6a4dc8171`.
+- Added a VPS-runtime probe against an isolated temporary collection. Its first execution failed before connecting to MongoDB because the SSH action contaminated heredoc-fed Node input.
+
+### PR #55 — temporary script-file attempt
+- Source: `411c74d25fdd6199cb046893bece522b23cc5144`.
+- Merge: `8822cab92ebcca8fd0e789e9199b85404144a7b7`.
+- Attempted to avoid the stdin problem with a temporary script file. The SSH runner still contaminated the script source; the run failed before the database connection and no canonical ledger rows were changed.
+
+### PR #67 — working script generation
+- Source commits: `a5bc819cbcc4d987a4eef3455a967c39478b77be`, `0743b72a218ee36066b78d3f7d3bf88fec0f461f`, `5e931653b3915a6ee0b58946b2b27c598899e789`.
+- Merge: `af411f0711c077185d90be3c8182b80df4c9f910`.
+- Uses a single `printf` pipeline into `tee` as the `techkatta` service account, avoiding heredoc/stdin contamination. Successful isolated probe run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520. MongoDB 8.0.34 reported a true unique index and rejected a duplicate insert with code 11000; the temporary collection was removed.
+- PR #66 was closed as superseded by PR #67.
+
+### PR #68 — enforce unique commit-ledger keys
+- Source: `eef16ceebaa99e0c9f8ebcc32c7619f8fe0d4fb0`.
+- Merge: `d5f8f8c16d98ed775fa0937a022ddc1230610c68`.
+- Successful guarded migration run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184.
+- Before any index changes, verified all six expected backup rows, the three expected surviving duplicate-SHA rows, zero duplicate-key groups, and zero non-string keys in both canonical collections.
+- Verified `unique: true` on the `key` index in both canonical collections. The migration did not delete or modify ledger documents; it removed the redundant non-unique index only if one was present.
+- Live counts after recording the PR source/merge SHAs: frontend 168, backend 224; legacy `git_commits` remains present with 16 rows. The six-row duplicate backup remains intact.
+- Reconciled 147 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`: 147/147 are present in at least one canonical ledger collection, zero missing.
+- Issue #32 is ready for closure after the context/issue synchronization. Umbrella issue #18 remains open for #29, #31's revisit trigger, and #33.
