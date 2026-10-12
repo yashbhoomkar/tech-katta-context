@@ -728,6 +728,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 ### Issue #33 — bounded capacity test remains open
 
 - The existing k6 run remains a low-load baseline (156 requests, about 3.05 req/s), not a capacity estimate.
+- PR [#65](https://github.com/yashbhoomkar/tech-katta/pull/65) is merged as `513c99a31a49f802a64c567be45d01c9d2628059`: the k6 workflow no longer triggers a production baseline on pushes to `main`; production traffic requires both `run_production_baseline: true` and `confirm_production_target: true` via manual dispatch. PR validation passed with the production job skipped; no production requests were sent.
 - No Tech Katta staging service has been verified. Do not run a larger production test without a maintenance window, explicit rate/concurrency caps, hard stop thresholds, and CPU/memory/MongoDB monitoring.
 - Issue #18 remains open. Issue #31 is a revisit trigger rather than a measured current bottleneck.
 
@@ -739,3 +740,13 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Post-merge inspection confirmed the main-branch workflow has no `push` trigger and no repair workflow run was created by the PR #64 merge. Existing exact-backup, exact-ID, rollback, unique-index, count, and SHA-union guards remain.
 - Live canonical ledger counts after adding PR #62 and PR #64 source/merge SHAs: frontend 168, backend 216. Aggregation still returns zero duplicate-key groups in both collections. The six-row backup remains intact. The Atlas index connector does not expose the unique flag, but the independent runtime verification confirmed both `key_unique` indexes enforce uniqueness after migration.
 - Umbrella issue #18 remains open. Outstanding tracked work: issue #29 (real failover requires a dedicated secondary and staging), issue #33 (bounded capacity test requires staging or an approved monitored production window), and issue #31 (search optimization is a measurement-based revisit trigger).
+
+
+## Follow-up k6 workflow safety — PR #65 (2026-10-12)
+
+- Source commit: `d72ed677a9e52f2b01fe016a5c91257c94a3b3a0`.
+- Squash merge commit: `513c99a31a49f802a64c567be45d01c9d2628059`.
+- Removed the `push` trigger from `.github/workflows/k6-production-baseline.yml`. Pull requests still run `k6 inspect` only; no requests are sent during validation.
+- Production baseline now requires a manual `workflow_dispatch` with both `run_production_baseline: true` and `confirm_production_target: true`. The PR validation run passed and skipped the production job as expected; post-merge inspection found no production-baseline run for the merge.
+- This safety change does not turn the low-load baseline into a capacity test. Issue #33 remains open pending staging or an approved monitored production test plan.
+- Current canonical ledger counts after recording PR #65: frontend 168, backend 218. Issue #18 remains open.

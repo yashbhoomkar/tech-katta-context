@@ -376,3 +376,13 @@ Both canonical collections were queried for the workflow source, documentation s
 - `8dfb94b265a97954c9f996f32175aa6eb62235ca` — squash merge for PR #64.
 
 Inserted count: 3. Current canonical counts: frontend 168, backend 216. Both canonical collections still have zero duplicate-key groups. The six-row duplicate backup remains intact. The destructive repair workflow is manual-dispatch only and requires `confirm_repair: true`; the merge did not trigger it.
+
+
+### PR #65 ledger reconciliation (2026-10-12)
+
+Before insertion, both canonical collections were queried for the source and squash merge SHAs; neither was present. Two records were inserted into `techkatta_history.backend_git_commits` and read back successfully:
+
+- `d72ed677a9e52f2b01fe016a5c91257c94a3b3a0` — PR #65 source: remove automatic production k6 baseline trigger and require explicit manual confirmations.
+- `513c99a31a49f802a64c567be45d01c9d2628059` — PR #65 squash merge: manual-only production baseline.
+
+Inserted count: 2. Current canonical counts: frontend 168, backend 218. Both canonical collections still have zero duplicate-key groups; the six-row duplicate backup remains intact.
