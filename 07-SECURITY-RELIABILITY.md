@@ -280,3 +280,10 @@ PR #75 added a guarded, manual-only workflow using repository secret `TECH_KATTA
 **This is preparation, not a completed rotation.** No Atlas user was created, no credential changed, and no production file was modified by the PR. An authorized operator must create/rotate the least-privilege user in Atlas and save the new URI directly as the GitHub Actions repository secret. Do not paste the URI/password into chat or GitHub issues. Only after the guarded workflow passes should the old broad credential be revoked.
 
 Issue #70 remains open until the rotation is verified. The overflow timer remains disabled and issue #29 remains blocked.
+
+
+## Additional credential boundary: ledger maintenance (2026-10-12)
+
+The app runtime URI must be least-privilege: exactly `readWrite` on `techkatta`. The ledger migration/repair/inspection/index-verification workflows are a separate trust boundary because they access `techkatta_history` and some can create/drop indexes or modify backup/ledger documents.
+
+Before the old `atlasAdmin` credential is revoked, provision a separate maintenance identity scoped to `readWrite` + `dbAdmin` on `techkatta_history` only, store it as GitHub Actions secret `TECH_KATTA_LEDGER_MAINTENANCE_URI`, and update the manual maintenance workflows to use that secret rather than loading the VPS runtime `.env`. Do not run those workflows after the app runtime URI has been rotated until the separation is implemented and verified. The secret has not yet been created; issue #70 remains open.
