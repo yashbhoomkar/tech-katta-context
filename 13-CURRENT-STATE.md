@@ -806,3 +806,10 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - **No credential was rotated and no VPS configuration was changed by PR #75.** Read-only Atlas inspection found one user, `bhoomkar04`, with `atlasAdmin` on `admin`. The safe next step requires an authorized operator to rotate/create the least-privilege user and save its URI directly in GitHub repository Actions secrets; never paste URI/password into chat, issues, or source.
 - Latest canonical ledger counts after recording PR #75: frontend 168, backend 242, legacy `git_commits` 16. Both canonical collections have zero duplicate-key groups; the six-row duplicate backup remains intact.
 - Issue #70 remains open until the actual rotation and production verification pass. Issue #29 remains blocked by #70 and the absence of a dedicated Tech Katta secondary. Issue #33 remains open pending a staging target or approved monitored production test. Issue #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
+
+
+## Ledger maintenance credential separation requirement — 2026-10-12
+
+The runtime rotation helper in PR #75 intentionally accepts only an Atlas URI whose authenticated user has exactly `readWrite` on `techkatta`. However, the existing manual ledger migration, repair, inspection, and index-verification workflows still read `MONGODB_URI` from the VPS `.env` and access `techkatta_history`. After switching that file to the app-only user, those maintenance workflows will no longer have access to the history database.
+
+Before revoking the current broad Atlas user, create a separate maintenance user scoped to `readWrite` + `dbAdmin` on `techkatta_history` only, store its URI directly as repository secret `TECH_KATTA_LEDGER_MAINTENANCE_URI`, and migrate/verify the manual maintenance workflows to use that secret rather than the runtime `.env`. Do not run those maintenance workflows after runtime rotation until this separation is complete. This secret and user do not yet exist; issue #70 remains open.
