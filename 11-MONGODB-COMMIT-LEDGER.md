@@ -269,3 +269,13 @@ Source/merge SHA pairs:
 - PR #52: 4ca762e2a22434bf9a5261bd154eee3d30b1742b / f6ffb10ceca94a3fc2791056eb25480b430a7d92 — post-firewall smoke User-Agent.
 
 Final main HEAD: f6ffb10ceca94a3fc2791056eb25480b430a7d92. Workflow run 38165442874 passed the Cloudflare proxy, Nginx real-IP, rate-limit attribution, Cloudflare-only UFW, SSH preservation, public API/CORS, and direct-origin isolation checks. Issue #28 is closed; umbrella issue #18 remains open for other audit findings.
+
+
+## PR #53 ledger reconciliation (2026-10-12)
+
+Before insertion, both canonical collections (`frontend_git_commits` and `backend_git_commits`) were queried for the source and merge SHAs; neither SHA was present in either collection. Two records were inserted into `techkatta_history.backend_git_commits`:
+
+- `db2395bb70fff2421583f79b2a431c22f8e21c8a` — PR #53 source commit: added regression tests for article substring search semantics.
+- `34d0d4db2aae0234b2e45d6fc427a75fe4a21653` — PR #53 merge commit: added regression tests for article substring search semantics; runtime search behavior unchanged.
+
+Inserted count: 2. No duplicate entries were inserted.
