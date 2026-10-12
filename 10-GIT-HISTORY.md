@@ -685,4 +685,4 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Verified `unique: true` on the `key` index in both canonical collections. The migration did not delete or modify ledger documents; it removed the redundant non-unique index only if one was present.
 - Live counts after recording the PR source/merge SHAs: frontend 168, backend 224; legacy `git_commits` remains present with 16 rows. The six-row duplicate backup remains intact.
 - Reconciled 147 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`: 147/147 are present in at least one canonical ledger collection, zero missing.
-- Issue #32 is ready for closure after the context/issue synchronization. Umbrella issue #18 remains open for #29, #31's revisit trigger, and #33.
+- Issue #32 is closed after the context and issue synchronization. Umbrella issue #18 remains open for #29, #31's revisit trigger, and #33.
