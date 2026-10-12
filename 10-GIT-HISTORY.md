@@ -584,3 +584,13 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - The workflow validates the six-row backup, exact duplicate and canonical IDs, duplicate groups, and index metadata before deleting any rows. It has rollback logic and verifies unique indexes, document counts, and preservation of the union of SHA keys.
 - Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 failed at the backup preflight for `frontend_git_commits:6acb79744d4d384f7be306f8`; it explicitly aborted before mutation. The connected Atlas tool shows the expected backup row, so the VPS-runtime database view must be reconciled before rerunning. Do not bypass the preflight.
 - Issue #32 remains open. No canonical rows were deleted; the six-row backup remains intact. Umbrella issue #18 remains open.
+
+
+### PR #58 — read-only VPS ledger view reconciliation (2026-10-12)
+
+- Source commits: `49c53b0cfbae939cf500e90b4b04ba9961fdc370`, `4cc2c7b695fbf5352d1392a6fb91f3cf4cf0b1f5`.
+- Merge: `c4829f939a0162cbb3f5ac3619d7f70e7c7aa28e`.
+- Workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197871440 passed read-only inspection through the VPS runtime credentials.
+- It observed six backup rows, and all target backup fields (source collection, original ID, key, and value) matched the expected values. All three canonical duplicate rows also matched. The VPS view still reports frontend count 169 and backend count 203, with the same three duplicate rows and non-unique `key_unique` indexes.
+- This conflicts with the earlier migration run's backup-validation failure. No data changed in either run. Do not bypass the gate; add field-level diagnostics and retry only after the discrepancy is explained.
+- Source and merge SHAs are recorded in `techkatta_history.backend_git_commits`. Issue #32 and umbrella #18 remain open.
