@@ -438,3 +438,19 @@ Inserted count: 2. Current live counts: frontend 168, backend 229, legacy `git_c
 Production browser smoke run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38206729819. Chromium checked three production SPA routes, a browser-origin API/CORS contract, and mobile-emulated swipe behavior; all checks passed and there were no uncaught browser exceptions. The run sent only a handful of GET requests, not a load test. No production configuration changed.
 
 Issue #29 remains blocked pending issue #70 and a dedicated secondary; issue #33 remains open for a representative staging/approved capacity test. Issue #32 remains closed and umbrella issue #18 remains open.
+
+
+## PR #73 and PR #74 ledger reconciliation — 2026-10-12
+
+Before insertion, both canonical collections were queried for PR #73 and PR #74 source/merge SHAs; none was present. Four records were inserted into `techkatta_history.backend_git_commits` and read back:
+
+- `22bf7413cd230ad3ad88c2692f5dce0cfddd3baf` — PR #73 source: replace fragile remote probe script generation with base64 decoding.
+- `23e6e3712329d17bfd324d62b7bc967b79708484` — PR #73 merge: introduce the VPS-run MongoDB unique-index capability probe.
+- `86ee7329820b6e086df253c53e92c39a457d7e2e` — PR #74 source: remove the exact stale temporary probe collection and fix current-run cleanup.
+- `a66df730143e7bf44d2206ce44dbdd6a890ffe63` — PR #74 merge: isolated unique-index probe passed, duplicate insertion rejected, and both stale/current temporary collections removed.
+
+Inserted count: 4. Latest live counts: frontend 168, backend 233, legacy `git_commits` 16. Read-only aggregation found zero duplicate-key groups in both canonical collections. The six-row `commit_ledger_duplicate_backup_20261011` backup remains intact.
+
+Verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38244494719. This is a capability probe against a temporary collection, not the canonical migration. The canonical migration and independent read-only verification passed earlier in runs https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 and https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593. PRs #73 and #74 did not modify canonical ledger documents.
+
+Issue #32 is closed; umbrella issue #18 remains open for remaining tracked audit work.
