@@ -653,3 +653,12 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Workflow run 38165442874 passed post-firewall health/database/CORS checks and direct-origin isolation probes.
 - Independent Vercel Mumbai verification returned HTTP 200 through Cloudflare and confirmed direct-origin ports 80 and 443 time out.
 - Weekly CIDR refresh is configured for Mondays at 05:17 UTC.
+
+
+## Article search audit follow-up — PR #53 (2026-10-12)
+
+- Application main HEAD: `34d0d4db2aae0234b2e45d6fc427a75fe4a21653`.
+- PR #53 added regression tests for case-insensitive substring matching across title, eyebrow, description, and tags; category-plus-search composition; whitespace trimming; blank search; and fallback behavior.
+- Backend CI, Semgrep Community Edition, and CodeQL passed. This was a backend test-only change; no production runtime code, Atlas content/index, or production configuration changed.
+- Live Atlas still contains 11 articles with `_id_`, `slug_1`, and `category_1` indexes. Search regex still scans the collection; no measured production bottleneck currently justifies changing semantics.
+- Issue [#31](https://github.com/yashbhoomkar/tech-katta/issues/31) remains open until article growth, interactive backend search, or measured query cost triggers a benchmarked optimization. Umbrella issue #18 remains open.
