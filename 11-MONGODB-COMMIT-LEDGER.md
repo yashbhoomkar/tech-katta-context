@@ -32,7 +32,7 @@ History database:
 Current live counts checked 2026-10-12:
 
 - `frontend_git_commits` — 168 documents
-- `backend_git_commits` — 227 documents
+- `backend_git_commits` — 229 documents
 - `git_commits` — 16 documents, legacy/older collection, still present
 
 The Atlas connector's index listing omits the `unique` option, so index names alone are not proof of enforcement. The VPS-runtime migration workflow independently read `listIndexes()` and verified `unique: true` for the `key` index in both canonical collections (run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184). Duplicate-key aggregation returns zero groups in both collections.
@@ -425,3 +425,16 @@ Inserted count: 3. Current live counts: frontend 168, backend 227, legacy `git_c
 Local-only k6 run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205978125. It completed 442 HTTP requests in 60 seconds (~7.37 req/s overall), with zero HTTP failures, 884/884 checks passing, zero dropped iterations, API-read p95 3.69 ms, frontend p95 1.31 ms, and health p95 1.32 ms. This does not measure production capacity or the VPS/Nginx/Cloudflare/Atlas network path. Issue #33 remains open pending staging or an approved monitored production test plan.
 
 Issue #29 remains blocked pending verified MongoDB credential rotation/least-privilege runtime access and a dedicated Tech Katta secondary. No secondary was provisioned and no production routing was changed. Issue #32 is closed; umbrella issue #18 remains open.
+
+
+## PR #71 ledger reconciliation and production browser smoke — 2026-10-12
+
+Before insertion, both canonical collections were queried for PR #71's source and squash merge SHAs; neither was present. Two records were inserted into `techkatta_history.backend_git_commits` and read back:
+- `34b86a7737f827164dddd74f0f0fe619b9ec145a` — PR #71 source: add read-only Chromium production browser smoke workflow.
+- `d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b` — PR #71 merge: production browser smoke passed for SPA routes, browser-origin API/CORS, and mobile-emulated swipe checks.
+
+Inserted count: 2. Current live counts: frontend 168, backend 229, legacy `git_commits` 16. Both canonical ledgers retain enforced unique key indexes and zero duplicate-key groups; the six-row duplicate backup remains intact.
+
+Production browser smoke run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38206729819. Chromium checked three production SPA routes, a browser-origin API/CORS contract, and mobile-emulated swipe behavior; all checks passed and there were no uncaught browser exceptions. The run sent only a handful of GET requests, not a load test. No production configuration changed.
+
+Issue #29 remains blocked pending issue #70 and a dedicated secondary; issue #33 remains open for a representative staging/approved capacity test. Issue #32 remains closed and umbrella issue #18 remains open.
