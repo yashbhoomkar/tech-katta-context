@@ -1,6 +1,6 @@
 # Current State Snapshot
 
-**Snapshot date:** 2026-10-11
+**Snapshot date:** 2026-10-12
 
 This file records the latest application/context state known to this session.
 
@@ -624,7 +624,7 @@ Historical note: this describes the isolated direct-origin regression test befor
 
 The six known duplicate ledger rows are backed up and verified in `techkatta_history.commit_ledger_duplicate_backup_20261011`, preserving source collection, original `_id`, key, and original description. Canonical GitHub commit messages have been identified for the two affected SHAs. No original row was deleted or modified.
 
-The available MongoDB Atlas connector cannot create a true unique index: its `create_index` operation ignored a supplied `unique: true` option in a controlled backup-collection probe. The probe index was removed. Do not delete duplicate rows until a supported path can enforce and verify the unique constraint. Issue #32 remains open; umbrella issue #18 remains open.
+Historical status as of 2026-10-11: the Atlas connector's `create_index` operation did not honor `unique: true`. This limitation was resolved through the VPS runtime credentials in PR #68; see the latest ledger-integrity verification at the end of this file.
 
 ## Capacity-test environment status — 2026-10-11
 
@@ -674,7 +674,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - The Atlas connector sees the expected backup record and matching canonical duplicate, but the VPS-runtime preflight did not match it. Treat the connection/database view discrepancy as unresolved; do not bypass the check or rerun deletion until the discrepancy is explained.
 - Duplicate backup `techkatta_history.commit_ledger_duplicate_backup_20261011` remains intact (six records). Canonical duplicate rows remain intact. The ordinary `key_unique` indexes have not been replaced by the migration.
 - PR #54–#57 application source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; the context history and ledger docs have been updated with evidence and run links.
-- Issue #32 remains open. Umbrella issue #18 remains open. No production application deployment was triggered by these maintenance workflows.
+- Historical interim status before PRs #67–#68; superseded by the latest ledger-integrity verification at the end of this file. No production application deployment was triggered by these maintenance workflows.
 
 
 ## Issue #32 read-only reconciliation update (2026-10-12)
@@ -684,7 +684,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - The VPS runtime and Atlas connector agree on the six-row backup and the exact values/IDs for the three duplicate rows. The VPS view reports frontend 169 documents, backend 203 documents, the same duplicate groups, and non-unique `key_unique` indexes.
 - The prior guarded migration run failed backup validation for the first duplicate row, but the read-only inspector subsequently verified every expected field. No canonical data or indexes were changed by either run. The preflight discrepancy is unexplained and must not be bypassed; add field-level diagnostics and rerun the guarded check.
 - PR #54–#58 source and merge SHAs are recorded in `techkatta_history.backend_git_commits`; context history/ledger docs are updated.
-- Six-row duplicate backup remains intact. Issue #32 and umbrella issue #18 remain open.
+- Historical interim status before PRs #67–#68; superseded by the latest ledger-integrity verification at the end of this file.
 
 
 ## Issue #32 — deduplication and unique-index enforcement completed (2026-10-12)
@@ -696,7 +696,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - The six-row backup remains intact. The three intended canonical rows remain unchanged. Both `frontend_git_commits.key_unique` and `backend_git_commits.key_unique` report `unique: true`; duplicate-group aggregations return zero groups.
 - Migration checks confirmed expected document counts and preservation of the union of SHA keys. Current Atlas connector counts after adding PR #61 SHAs: frontend 168, backend 210.
 - Source and merge SHAs from PRs #54–#61 are recorded in `techkatta_history.backend_git_commits`. History and ledger docs record migration evidence.
-- Final remaining acceptance check: compare every 40-character SHA referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against the canonical ledger collections. Then close issue #32 if all are accounted for. Umbrella issue #18 remains open for issues #29, #30, #31's revisit trigger, and #33.
+- Historical checklist completed on 2026-10-12; see the latest ledger-integrity verification at the end of this file. Umbrella issue #18 remains open for the other tracked findings.
 
 
 ## Issue #32 closed — final acceptance (2026-10-12)
@@ -707,7 +707,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Both canonical `key_unique` indexes report `unique: true`; duplicate aggregations return zero groups.
 - Final documentation reconciliation checked 139 unique SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against both canonical collections: 139/139 accounted for, zero missing.
 - Current counts: frontend 168, backend 210; backup collection count six.
-- Current application main HEAD: `513c99a31a49f802a64c567be45d01c9d2628059` (PR #65). Source and merge SHAs through PR #65 are present in `techkatta_history.backend_git_commits`. The commit-ledger repair workflow is manual-dispatch only and requires `confirm_repair: true`; the production k6 baseline is also manual-dispatch only and requires two explicit confirmations.
+- Current application main HEAD at this historical entry: `513c99a31a49f802a64c567be45d01c9d2628059` (PR #65). This was superseded by PR #68; the current HEAD is recorded in the latest entry at the end of this file. Source and merge SHAs through PR #65 are present in `techkatta_history.backend_git_commits`. The commit-ledger repair workflow is manual-dispatch only and requires `confirm_repair: true`; the production k6 baseline is also manual-dispatch only and requires two explicit confirmations.
 - Umbrella issue #18 remains open. Issue #30 is closed after a completed CodeRabbit review on PR #62. Next evaluate #29 failover feasibility (blocked by lack of a dedicated Tech Katta secondary and credential-safety prerequisites) and #33 bounded capacity testing (blocked by lack of staging or an approved monitored production window). Issue #31 remains a measurement-based revisit trigger, not a current bottleneck.
 
 
@@ -752,3 +752,15 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Production baseline now requires a manual `workflow_dispatch` with both `run_production_baseline: true` and `confirm_production_target: true`. The PR validation run passed and skipped the production job as expected; post-merge inspection found no production-baseline run for the merge.
 - This safety change does not turn the low-load baseline into a capacity test. Issue #33 remains open pending staging or an approved monitored production test plan.
 - Current canonical ledger counts after recording PR #65: frontend 168, backend 218. Issue #18 remains open.
+
+
+## Latest ledger-integrity verification — 2026-10-12
+
+- Current application main HEAD: `d5f8f8c16d98ed775fa0937a022ddc1230610c68` (PR #68).
+- PR #53 merged article-search regression tests only; no runtime search change was justified by the current 11-article dataset. Issue #31 remains a measurement-based revisit trigger.
+- PRs #54, #55, and #67 corrected and verified the VPS-runtime capability probe. Successful probe run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520. MongoDB 8.0.34 confirmed a real unique index rejects duplicate insertion with code 11000; temporary collection was removed.
+- PR #68 merged the guarded index enforcement workflow. Successful migration run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184. It verified the six expected backup records, zero duplicate-key groups and zero non-string keys in both canonical collections, and the expected surviving rows for all three historical duplicate SHAs. It then verified `unique: true` on the `key` index in both canonical collections. No ledger documents were deleted or modified by PR #68.
+- The six-row backup `commit_ledger_duplicate_backup_20261011` remains intact. Canonical counts: frontend 168, backend 224; legacy `git_commits` remains present with 16 records. Duplicate-key aggregations return zero groups.
+- Final SHA reconciliation extracted 147 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`; all 147 are present in at least one canonical ledger collection, with zero missing.
+- PR #53–#68 source/merge SHAs are reconciled in `techkatta_history.backend_git_commits`; six missing records for PR #67/#68 were inserted and the PR #55 merge description was corrected.
+- Issue #32 is ready to close after this context update and issue/ledger synchronization. Umbrella issue #18 remains open. Remaining tracked work: #29 (real failover requires a dedicated secondary and credential-safety prerequisites), #31 (search revisit trigger), and #33 (capacity testing needs staging or an approved monitored production window).
