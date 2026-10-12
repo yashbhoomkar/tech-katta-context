@@ -397,7 +397,7 @@ Inserted count: 2. Current canonical counts: frontend 168, backend 218. Both can
 - The earlier PR #60 migration removed exactly three duplicate canonical documents, preserving them in the backup. PR #68 did not modify or delete any ledger documents.
 - Guarded index enforcement run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184. Preflight verified all six expected backup records, all three expected surviving duplicate-SHA records, zero duplicate-key groups, and zero non-string keys in both canonical collections. The workflow then read index metadata and verified `unique: true` for the `key` index in both collections. Any redundant non-unique `key_unique` index was dropped only after the unique index had been verified.
 - A separate isolated capability probe (https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520) verified that a true unique index rejects a duplicate insert with MongoDB error code `11000`; the temporary probe collection was removed.
-- Final SHA reconciliation extracted 147 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`. All 147 are present in at least one canonical ledger collection; zero missing.
+- Final SHA reconciliation extracted 154 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`. All 154 are present in at least one canonical ledger collection; zero missing.
 
 ### Recent source/merge SHA reconciliation
 The following 14 source/merge SHAs for PRs #53, #54, #55, #67, and #68 are present in `backend_git_commits`. Eight were already present; six missing PR #67/#68 records were inserted and read back successfully:
