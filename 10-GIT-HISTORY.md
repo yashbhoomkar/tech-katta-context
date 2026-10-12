@@ -623,3 +623,14 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) was closed as completed with the migration and independent verification run links.
 - Current canonical ledger counts after the latest source/merge entries: frontend 168, backend 210. Backup remains six records; both `key_unique` indexes enforce uniqueness; duplicate aggregations return no groups.
 - Umbrella issue #18 remains open for other audit findings.
+
+
+
+## PR #62 — production audit maintenance documentation and AI review verification (2026-10-12)
+
+- Initial source commit: `9a17a4602eb3cf056d45922b0414b60b7d77d9ca` — documented canonical commit-ledger collections, guarded maintenance workflows, and evidence standards for AI review versus CI/static analysis.
+- Follow-up source commit: `ba79429afdc095d9fb3725ab7ccc23f0813da98c` — addressed CodeRabbit's actionable finding by documenting the automatic `main` push trigger for the ledger repair workflow.
+- Squash merge commit: `f6998eb941ca49ca7ee5b0e72d61288e25b6d8c2`.
+- CodeRabbit submitted a completed review visible in GitHub's review API, including a walkthrough and a substantive inline comment. The inline thread was resolved after the README correction.
+- Vercel preview feedback check passed. No application runtime or production database behavior changed.
+- Issue [#30](https://github.com/yashbhoomkar/tech-katta/issues/30) is closed as completed. Umbrella issue #18 remains open for architecture and capacity findings.
