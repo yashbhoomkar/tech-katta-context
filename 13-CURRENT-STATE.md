@@ -711,12 +711,12 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 
 ## Remaining audit blockers after issue #32 (2026-10-12)
 
-### Issue #30 — AI review integration not verified
+### Issue #30 — AI review integration verified and closed
 
-- Non-draft PR #62 is open: https://github.com/yashbhoomkar/tech-katta/pull/62.
-- `.coderabbit.yaml` enables automatic review, and an explicit `@coderabbitai review` request caused CodeRabbit to post a generated comment with status “review in progress”.
-- GitHub review APIs still show zero review submissions and zero inline review threads on PR #62; PR #57 showed the same stuck progress state.
-- This does not meet the acceptance criteria. Vercel preview, Semgrep, and CodeQL statuses are not AI review evidence. Issue #30 remains open pending a completed review walkthrough or substantive inline comments, likely requiring CodeRabbit-side account/app troubleshooting or an authorized alternative.
+- PR [#62](https://github.com/yashbhoomkar/tech-katta/pull/62) received a completed CodeRabbit review submission visible through the GitHub review API (`COMMENTED`), with a full walkthrough and one substantive inline review thread on `.github/maintenance/README.md`.
+- The actionable finding about the automatic ledger-repair trigger was fixed in commit `ba79429afdc095d9fb3725ab7ccc23f0813da98c`; the inline thread was resolved.
+- PR #62 was merged as `f6998eb941ca49ca7ee5b0e72d61288e25b6d8c2`. Vercel preview feedback check passed. No paid API token or new secret was introduced.
+- Issue [#30](https://github.com/yashbhoomkar/tech-katta/issues/30) is closed. This proves AI review evidence separately from CI, Vercel, Semgrep, and CodeQL.
 
 ### Issue #29 — real overflow/failover remains unimplemented
 
