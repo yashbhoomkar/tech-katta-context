@@ -705,7 +705,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Both canonical `key_unique` indexes report `unique: true`; duplicate aggregations return zero groups.
 - Final documentation reconciliation checked 139 unique SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against both canonical collections: 139/139 accounted for, zero missing.
 - Current counts: frontend 168, backend 210; backup collection count six.
-- Application main HEAD at this point: `c597e7f416a9c4b9c1c7268c936845755d916720` (PR #61). Ledger entries for all application source and merge SHAs through PR #61 are present in `techkatta_history.backend_git_commits`.
+- Application main HEAD at this point: `8dfb94b265a97954c9f996f32175aa6eb62235ca` (PR #64). Ledger entries for application source and merge SHAs through PR #64 are present in `techkatta_history.backend_git_commits`. The commit-ledger repair workflow is now manual-dispatch only and requires `confirm_repair: true`.
 - Umbrella issue #18 remains open for the remaining tracked findings. Continue with issue #30 (AI review integration verification), then evaluate #29 failover feasibility and #33 bounded capacity testing. Issue #31 remains a revisit trigger, not a current bottleneck.
 
 
@@ -722,10 +722,20 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 
 - `scripts/vps-overflow-router.sh` computes CPU and local health state and writes a state file; it does not alter Nginx routing.
 - The deployment workflow keeps the placeholder timer disabled.
-- No Tech Katta-compatible secondary upstream and staging route have been verified. Do not enable the timer or claim failover works until a secondary exists and routing/recovery are tested.
+- Live Render inventory was checked on 2026-10-12: the workspace has only Life Katta-related services (`life`, `life.yash`, `yash`, `lifewithyash`); no Tech Katta secondary service exists. The `lifewithyash` service is not a safe substitute. A separate Tech Katta Render service was previously blocked during setup due to credential-safety checks. Do not provision or route production traffic to a substitute until the MongoDB credential exposure noted in `14-OVERFLOW-ARCHITECTURE.md` is confirmed rotated and a dedicated secondary is configured.
+- No Tech Katta-compatible secondary upstream or staging route has been verified. Do not enable the timer or claim failover works until a secondary exists and routing/recovery are tested.
 
 ### Issue #33 — bounded capacity test remains open
 
 - The existing k6 run remains a low-load baseline (156 requests, about 3.05 req/s), not a capacity estimate.
 - No Tech Katta staging service has been verified. Do not run a larger production test without a maintenance window, explicit rate/concurrency caps, hard stop thresholds, and CPU/memory/MongoDB monitoring.
 - Issue #18 remains open. Issue #31 is a revisit trigger rather than a measured current bottleneck.
+
+
+## Follow-up security hardening — PR #64 (2026-10-12)
+
+- The destructive `.github/workflows/repair-commit-ledger-duplicates.yml` workflow previously had a `push` trigger for changes to itself or its repair script. This was removed because routine maintenance commits should not launch a production database migration.
+- PR [#64](https://github.com/yashbhoomkar/tech-katta/pull/64) merged as `8dfb94b265a97954c9f996f32175aa6eb62235ca`. The workflow now runs only via `workflow_dispatch` and its repair job is gated on the boolean input `confirm_repair == true` (default false).
+- Post-merge inspection confirmed the main-branch workflow has no `push` trigger and no repair workflow run was created by the PR #64 merge. Existing exact-backup, exact-ID, rollback, unique-index, count, and SHA-union guards remain.
+- Live canonical ledger counts after adding PR #62 and PR #64 source/merge SHAs: frontend 168, backend 216. Aggregation still returns zero duplicate-key groups in both collections. The six-row backup remains intact. The Atlas index connector does not expose the unique flag, but the independent runtime verification confirmed both `key_unique` indexes enforce uniqueness after migration.
+- Umbrella issue #18 remains open. Outstanding tracked work: issue #29 (real failover requires a dedicated secondary and staging), issue #33 (bounded capacity test requires staging or an approved monitored production window), and issue #31 (search optimization is a measurement-based revisit trigger).
