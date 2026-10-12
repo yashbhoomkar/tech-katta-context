@@ -4,12 +4,12 @@
 
 Current main:
 
-`main = d5f8f8c16d98ed775fa0937a022ddc1230610c68`
+`main = 4ce8403a9fc610ab9840479d29aabed162d0aeb6`
 
 Latest main commits:
+- `4ce8403a9fc610ab9840479d29aabed162d0aeb6` — Merge PR #69: add bounded local k6 integration smoke
 - `d5f8f8c16d98ed775fa0937a022ddc1230610c68` — Merge PR #68: enforce unique commit-ledger keys
 - `af411f0711c077185d90be3c8182b80df4c9f910` — Merge PR #67: fix ledger probe script generation
-- `513c99a31a49f802a64c567be45d01c9d2628059` — Merge PR #65: make production k6 baseline manual-only
 
 Earlier backend architecture work added the environment-authenticated Vercel REST client (`193a11293b10d43534c34fa8b902d24dd12e6cac`) and internal Vercel control layer/CLI (`102d23221272e861c5ac6ca76aecb08cd5aca5ab`).
 
@@ -686,3 +686,16 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Live counts after recording the PR source/merge SHAs: frontend 168, backend 224; legacy `git_commits` remains present with 16 rows. The six-row duplicate backup remains intact.
 - Reconciled 147 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`: 147/147 are present in at least one canonical ledger collection, zero missing.
 - Issue #32 is closed after the context and issue synchronization. Umbrella issue #18 remains open for #29, #31's revisit trigger, and #33.
+
+
+## PR #69 — bounded local k6 integration smoke (2026-10-12)
+
+- Source commit: `fc11a1c074b3b86d1870a12ac633d044de6a0c47` — add a local k6 profile for API reads, health throughput, and frontend browsing.
+- Workflow source commit: `c0cf007db20b7d86085068bdeb0326f2c8a9f589` — run isolated MongoDB 8.0, seed the application DB, start the backend and Vite preview on localhost, and run k6 without production traffic.
+- Squash merge: `4ce8403a9fc610ab9840479d29aabed162d0aeb6`.
+- CodeQL, backend/frontend build, k6 inspection, and local integration job passed. The production k6 job was skipped as intended.
+- Run evidence: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205978125. Over 60 seconds, k6 recorded 442 requests (~7.37 req/s overall), zero HTTP failures, 884/884 checks passed, and zero dropped iterations. API-read p95 3.69 ms, frontend p95 1.31 ms, and health p95 1.32 ms.
+- This is a local integration smoke, not a production capacity result. It does not include the VPS/Nginx/Cloudflare/Atlas network path; issue #33 remains open until staging or an approved monitored production plan exists.
+- PR #69 source and merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 227.
+- Issue #29 remains blocked: no dedicated Tech Katta secondary is available; the overflow timer stays disabled. The VPS runtime database connection has a broad Atlas role, rotation history cannot be verified through the connector, and the connected tools do not provide a safe secret-write path to update the VPS URI. No secondary was provisioned and no production traffic was rerouted.
+- Issue #32 is closed; issue #18 remains open for #29, #33, and #31's measurement-based revisit trigger.

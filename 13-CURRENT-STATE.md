@@ -12,7 +12,7 @@ Branch:
 `main`
 
 Current HEAD:
-`f6ffb10ceca94a3fc2791056eb25480b430a7d92`
+`4ce8403a9fc610ab9840479d29aabed162d0aeb6`
 
 Latest backend work adds a private Vercel REST control layer:
 - `193a11293b10d43534c34fa8b902d24dd12e6cac` — environment-authenticated Vercel client
@@ -70,9 +70,9 @@ Application:
 
 Ledger:
 - DB `techkatta_history`
-- frontend ledger: 152 docs observed
-- backend ledger: 41 docs observed
-- legacy/general `git_commits`: still exists
+- frontend ledger: 168 docs observed (2026-10-12)
+- backend ledger: 227 docs observed (2026-10-12)
+- legacy/general `git_commits`: 16 docs, still exists
 
 ## Published content
 
@@ -116,8 +116,8 @@ Render overflow/failover is a planned architecture and has a disabled-by-default
 
 ## Current known security gaps
 
-- VPS origin exposure
-- need for firewall/origin restriction
+- Cloudflare-only origin ingress is in place and direct-origin ports 80/443 timed out in external probes (issue #28 closed).
+- credential rotation and least-privilege MongoDB runtime access are not verified; the VPS runtime connection currently has a broad Atlas role. Do not provision overflow until the exposed credential is rotated and the app connection is safely updated/tested.
 - need for stronger centralized monitoring
 - need for tested backups/recovery
 - in-memory rate limiter only
@@ -761,6 +761,17 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - PRs #54, #55, and #67 corrected and verified the VPS-runtime capability probe. Successful probe run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520. MongoDB 8.0.34 confirmed a real unique index rejects duplicate insertion with code 11000; temporary collection was removed.
 - PR #68 merged the guarded index enforcement workflow. Successful migration run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184. It verified the six expected backup records, zero duplicate-key groups and zero non-string keys in both canonical collections, and the expected surviving rows for all three historical duplicate SHAs. It then verified `unique: true` on the `key` index in both canonical collections. No ledger documents were deleted or modified by PR #68.
 - The six-row backup `commit_ledger_duplicate_backup_20261011` remains intact. Canonical counts: frontend 168, backend 224; legacy `git_commits` remains present with 16 records. Duplicate-key aggregations return zero groups.
-- Final SHA reconciliation extracted 147 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`; all 147 are present in at least one canonical ledger collection, with zero missing.
-- PR #53–#68 source/merge SHAs are reconciled in `techkatta_history.backend_git_commits`; six missing records for PR #67/#68 were inserted and the PR #55 merge description was corrected.
+- Final SHA reconciliation extracted 154 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`; all 154 are present in at least one canonical ledger collection, with zero missing.
+- PR #53, #54, #55, #67, and #68 source/merge SHAs are reconciled in `techkatta_history.backend_git_commits`; six missing records for PR #67/#68 were inserted and the PR #55 merge description was corrected.
 - Issue #32 is closed after the context update and final ledger/issue synchronization. Umbrella issue #18 remains open. Remaining tracked work: #29 (real failover requires a dedicated secondary and credential-safety prerequisites), #31 (search revisit trigger), and #33 (capacity testing needs staging or an approved monitored production window).
+
+
+## Latest audit continuation — 2026-10-12 (PR #69)
+
+- Current application main HEAD: `4ce8403a9fc610ab9840479d29aabed162d0aeb6` (PR #69).
+- PR #69 added `.github/workflows/k6-local-integration.yml` and `tests/load/tech-katta-local-smoke.js`. Successful local-only run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205978125.
+- The workflow started an isolated MongoDB 8.0 service, seeded the app database, started the Express API and Vite preview on localhost, and ran k6 for 60 seconds. Results: 442 requests (~7.37 req/s overall), 0 HTTP failures, 884/884 checks passed, zero dropped iterations; API-read p95 3.69 ms, frontend p95 1.31 ms, health p95 1.32 ms. The API-read scenario was capped at one request/second; health routes were tested separately because they are intentionally outside the rate limiter.
+- These are local GitHub-runner integration-smoke results, not production capacity measurements. They do not include the VPS, Nginx, Cloudflare, or Atlas network path. No production traffic was sent. Issue #33 remains open until staging or an approved monitored production plan exists.
+- Issue #29 remains blocked: router script only writes a state file; timer remains disabled; no Tech Katta secondary exists. Atlas inventory shows the VPS runtime connection has a broad role, and rotation history cannot be verified through the available connector. There is no safe connected secret-write path to replace the VPS URI without exposing it in source/logs. No secondary or production routing was changed.
+- Latest canonical ledger counts: frontend 168, backend 227, legacy `git_commits` 16. PR #69's two source SHAs and merge SHA are recorded in `backend_git_commits`.
+- Issues #28, #30, and #32 are closed. Issues #29 and #33 remain open blockers; #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
