@@ -304,3 +304,20 @@ The following application source and merge SHAs were checked in both canonical c
 - Migration run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 failed the backup validation gate for `frontend_git_commits:6acb79744d4d384f7be306f8`. The script exited before any canonical deletion or index change.
 - The Atlas connector independently confirms the expected backup row and the canonical duplicate row. Reconcile the VPS runtime's database view/connection before retrying. Do not relax the backup or exact-ID gates.
 - All six backup records remain intact. No canonical ledger rows have been deleted. Issue #32 remains open pending a successful migration and independent post-migration verification.
+
+
+## PR #58 ledger entries and read-only reconciliation (2026-10-12)
+
+The following application SHAs were checked in both canonical collections and inserted into `techkatta_history.backend_git_commits` because neither was already present:
+
+- `49c53b0cfbae939cf500e90b4b04ba9961fdc370` — PR #58 source: add read-only VPS ledger database-view diagnostics.
+- `4cc2c7b695fbf5352d1392a6fb91f3cf4cf0b1f5` — PR #58 source: add the read-only inspection workflow.
+- `c4829f939a0162cbb3f5ac3619d7f70e7c7aa28e` — PR #58 merge: add read-only VPS ledger database inspection.
+
+Inserted count: 3.
+
+Read-only workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197871440 succeeded. The VPS runtime view reports the same six backup rows, matching backup fields for all three reviewed duplicate records, and the expected canonical duplicate rows. It still reports non-unique `key_unique` indexes and duplicate groups:
+- Frontend: SHA `56b229a2c0fa1d586f200a41c79826ed92a0446b`, IDs `6acb780fc0d34c06a4bdbc9c` and `6acb79744d4d384f7be306f8`.
+- Backend: SHA `56b229a2c0fa1d586f200a41c79826ed92a0446b`, IDs `6acb7805c1d086df8c89e029` and `6acb7969c1d086df8c89e02a`; SHA `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`, IDs `6acb734cc0d34c06a4bdbc97` and `6acb7378c0d34c06a4bdbc98`.
+
+The prior migration preflight failure was not reproduced by this read-only inspection. No canonical records or indexes changed. Keep issue #32 open; add field-level diagnostics to the migration preflight and do not bypass its backup validation.
