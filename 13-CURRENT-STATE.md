@@ -785,3 +785,14 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - This was a handful of GET requests, not a load test. No production configuration was changed and no production capacity claim is made.
 - PR #71 source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 229.
 - Issues #28, #30, and #32 remain closed. #29 is blocked by issue #70 and lack of a dedicated secondary; #33 remains open pending staging or an approved monitored capacity plan; #31 remains a measurement-based revisit trigger. Umbrella #18 remains open.
+
+
+## Latest ledger verification follow-up — PR #73 and PR #74 (2026-10-12)
+
+- Current application main HEAD: `a66df730143e7bf44d2206ce44dbdd6a890ffe63` (PR #74).
+- PR #73 introduced a VPS-executed isolated unique-index capability probe; PR #74 corrected cleanup and removed the exact stale temporary collection from the earlier failed probe.
+- Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38244494719. It connected as the existing VPS runtime, verified a real `unique: true` index, confirmed duplicate insertion fails with MongoDB error 11000, removed the stale probe collection, and removed its own temporary collection.
+- Read-only Atlas aggregation after the run returned zero duplicate-key groups in both `frontend_git_commits` and `backend_git_commits`. The temporary probe collection is absent; the six-row duplicate backup remains intact.
+- The actual canonical duplicate migration and independent read-only verification had already passed in runs https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 and https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593. No canonical ledger rows were modified by PRs #73 or #74.
+- Latest canonical ledger counts after recording PR #73 and #74: frontend 168, backend 233, legacy `git_commits` 16.
+- Issue #32 is closed. Issue #29 remains blocked by issue #70 and the absence of a dedicated secondary; #33 remains open pending staging or an approved monitored capacity plan; #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
