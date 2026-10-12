@@ -705,7 +705,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Both canonical `key_unique` indexes report `unique: true`; duplicate aggregations return zero groups.
 - Final documentation reconciliation checked 139 unique SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against both canonical collections: 139/139 accounted for, zero missing.
 - Current counts: frontend 168, backend 210; backup collection count six.
-- Application main HEAD at this point: `8dfb94b265a97954c9f996f32175aa6eb62235ca` (PR #64). Ledger entries for application source and merge SHAs through PR #64 are present in `techkatta_history.backend_git_commits`. The commit-ledger repair workflow is now manual-dispatch only and requires `confirm_repair: true`.
+- Current application main HEAD: `513c99a31a49f802a64c567be45d01c9d2628059` (PR #65). Source and merge SHAs through PR #65 are present in `techkatta_history.backend_git_commits`. The commit-ledger repair workflow is manual-dispatch only and requires `confirm_repair: true`; the production k6 baseline is also manual-dispatch only and requires two explicit confirmations.
 - Umbrella issue #18 remains open. Issue #30 is closed after a completed CodeRabbit review on PR #62. Next evaluate #29 failover feasibility (blocked by lack of a dedicated Tech Katta secondary and credential-safety prerequisites) and #33 bounded capacity testing (blocked by lack of staging or an approved monitored production window). Issue #31 remains a measurement-based revisit trigger, not a current bottleneck.
 
 
