@@ -643,3 +643,12 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Squash merge commit: `8dfb94b265a97954c9f996f32175aa6eb62235ca`.
 - CodeQL and Vercel preview checks passed. Post-merge workflow inspection confirmed only `workflow_dispatch` remains; no repair run was triggered by the merge.
 - This is a safety hardening change only. It does not rerun the already-completed ledger migration or change canonical data.
+
+
+## PR #65 — manual-only production k6 baseline (2026-10-12)
+
+- Source commit: `d72ed677a9e52f2b01fe016a5c91257c94a3b3a0`.
+- Squash merge commit: `513c99a31a49f802a64c567be45d01c9d2628059`.
+- Removed the automatic `push` trigger for the production baseline. PRs run `k6 inspect` only, with no traffic.
+- Production baseline requires a manual dispatch with both `run_production_baseline: true` and `confirm_production_target: true`. The validation run passed and the production job was skipped; no production traffic was sent.
+- This does not satisfy the capacity-test issue: the baseline remains low-load and no Tech Katta staging backend exists.
