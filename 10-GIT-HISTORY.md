@@ -594,3 +594,24 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - It observed six backup rows, and all target backup fields (source collection, original ID, key, and value) matched the expected values. All three canonical duplicate rows also matched. The VPS view still reports frontend count 169 and backend count 203, with the same three duplicate rows and non-unique `key_unique` indexes.
 - This conflicts with the earlier migration run's backup-validation failure. No data changed in either run. Do not bypass the gate; add field-level diagnostics and retry only after the discrepancy is explained.
 - Source and merge SHAs are recorded in `techkatta_history.backend_git_commits`. Issue #32 and umbrella #18 remain open.
+
+
+### PR #59 — backup preflight diagnostics (2026-10-12)
+
+- Source: `aadf03acb327215e4e7c3005dc32bfd2511733f8`.
+- Merge: `36696b02bea329020b4f4cb01108818453131a6d`.
+- Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198042758 showed the constructed backup ID was wrong (`frontend_git_commits:<id>` rather than the backup's `frontend:<id>`). The workflow aborted before mutation.
+
+### PR #60 — correct backup ID prefix (2026-10-12)
+
+- Source: `fa976824d044953d3b567a10c91a20f2026161e9`.
+- Merge: `6d67cbbfcfec95d1572dd612c768ae2e6e91568e`.
+- Ledger repair run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 passed. It validated all six backup rows and exact canonical/duplicate IDs; deleted exactly three duplicate documents; created and verified unique `key_unique` indexes in both collections; confirmed no duplicate groups remained and the union of previously present SHAs was preserved.
+
+### PR #61 — independent post-migration verification (2026-10-12)
+
+- Source: `c24e4988021d8fa2319791068beb7c38f75ca8ab`.
+- Merge: `c597e7f416a9c4b9c1c7268c936845755d916720`.
+- Read-only workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 passed. All three removed rows remain in the six-row backup and are absent from canonical collections; all three retained canonical rows match; both indexes report `unique: true`; duplicate groups are empty.
+- Counts at verification time: frontend 168, backend 208. The two PR #61 SHAs were subsequently inserted into the backend ledger, so the current Atlas connector count is frontend 168, backend 210.
+- Issue #32 is ready for closure after a final documented-SHA reconciliation. Umbrella issue #18 remains open for the other outstanding audit issues.
