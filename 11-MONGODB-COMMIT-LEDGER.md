@@ -473,3 +473,15 @@ Before insertion, both canonical collections were queried for all PR #75 source 
 Inserted count: 9. Latest live counts: frontend 168, backend 242, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections; the six-row duplicate backup remains intact.
 
 Backend CI and CodeQL passed. The workflow is not automatic and did not modify production. Issue #70 remains open until a new least-privilege Atlas URI is securely stored as the repository secret and the guarded workflow passes production readiness/API checks.
+
+
+## PR #76 ledger reconciliation — 2026-10-12
+
+Before insertion, both canonical collections were queried for the PR #76 source and merge SHAs; none was present. Four records were inserted into `techkatta_history.backend_git_commits` and read back:
+
+- `763c6ded46a730fb1657e061a40085eca0078c09` — PR #76 source: add bounded local k6 rate-limit profile.
+- `aa1fe26f7c50db7e1144821b50357252cc419524` — PR #76 source: run after the prior rate-limit window expires and upload diagnostics.
+- `c012d1bfc4470dafe7988cb7178f3a487c1fe997` — PR #76 source: compare HTTP header names case-insensitively.
+- `4f9e0c6739dd747edc27bf9ee79419c4092849ad` — PR #76 merge: local k6 profile passed with 120 accepted and 31 throttled requests, p95 2.99 ms, zero failed requests, zero dropped iterations, and all checks passed.
+
+Inserted count: 4. Latest live counts: frontend 168, backend 246, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections.
