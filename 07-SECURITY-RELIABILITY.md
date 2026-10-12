@@ -269,3 +269,14 @@ Production hardening completed in workflow run https://github.com/yashbhoomkar/t
 - UFW default incoming policy is deny. Ports 80/443 allow only 15 official Cloudflare IPv4 and 7 IPv6 CIDRs. Broad Anywhere web rules are absent; IPv4 and IPv6 SSH/22 rules are preserved.
 - Public API health/database/CORS checks passed after firewall application. Independent Vercel Mumbai checks returned HTTP 200 through Cloudflare and confirmed direct-origin ports 80 and 443 time out.
 - Cloudflare CIDRs are refreshed weekly. Issue #28 is closed. The umbrella issue #18 remains open for other findings, including capacity, search scalability, and actual overflow failover.
+
+
+## Runtime MongoDB credential rotation preparation — PR #75 (2026-10-12)
+
+Read-only Atlas inspection found one database user in project `tech-katta`: `bhoomkar04`, with the broad `atlasAdmin` role on `admin`. The previous credential was exposed during earlier experimentation and must be treated as compromised until rotated.
+
+PR #75 added a guarded, manual-only workflow using repository secret `TECH_KATTA_MONGODB_URI_ROTATED`. Before touching the VPS env file, its helper connects with the candidate URI, requires exactly one `readWrite` role on `techkatta`, and verifies database access. It then atomically replaces only the `MONGODB_URI` line, retains a mode-0600 rollback file, restarts the API, verifies readiness/categories/articles, and rolls back on failure. Backend CI and CodeQL passed; no new alerts remain.
+
+**This is preparation, not a completed rotation.** No Atlas user was created, no credential changed, and no production file was modified by the PR. An authorized operator must create/rotate the least-privilege user in Atlas and save the new URI directly as the GitHub Actions repository secret. Do not paste the URI/password into chat or GitHub issues. Only after the guarded workflow passes should the old broad credential be revoked.
+
+Issue #70 remains open until the rotation is verified. The overflow timer remains disabled and issue #29 remains blocked.

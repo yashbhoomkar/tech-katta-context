@@ -454,3 +454,22 @@ Inserted count: 4. Latest live counts: frontend 168, backend 233, legacy `git_co
 Verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38244494719. This is a capability probe against a temporary collection, not the canonical migration. The canonical migration and independent read-only verification passed earlier in runs https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 and https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593. PRs #73 and #74 did not modify canonical ledger documents.
 
 Issue #32 is closed; umbrella issue #18 remains open for remaining tracked audit work.
+
+
+## PR #75 ledger reconciliation — 2026-10-12
+
+Before insertion, both canonical collections were queried for all PR #75 source and squash merge SHAs; none was present. Nine records were inserted into `techkatta_history.backend_git_commits` and read back:
+
+- `1149264f597a7268d6a918dadad193addfce7f9d` — initial guarded runtime credential rotation helper.
+- `b5627e98c31324de15ca0498123e5a3165a5ad16` — manual-only secret-backed rotation workflow.
+- `5ab5e43d1cefc4606535c6704b7fe0578ebf56f4` — env-file ownership handling refinement.
+- `a3d512465241eb0c530ccd68af1dc59ee24fcfd3` — remove unused import.
+- `7a0d7e20b8e879d2f0d183b90d7ac0dc7f56df49` — CI syntax validation for the helper.
+- `db798828f86099e26f7ebc6c9c729c4ae1e93033` — include helper/workflow paths in Backend CI triggers.
+- `49385457ce25cc63e6e659d88ca849b79a8f36f2` — exclusive mode-0600 writes for rotation files.
+- `395b01ad841077e6713fbbbb07b4cf4293451678` — remove check-then-use path checks; CodeQL reported no new alerts.
+- `ddb4ee014fa18df1d6c9fd6bd80aa233bd653312` — PR #75 merge: manual-only credential rotation preparation, not an actual credential rotation.
+
+Inserted count: 9. Latest live counts: frontend 168, backend 242, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections; the six-row duplicate backup remains intact.
+
+Backend CI and CodeQL passed. The workflow is not automatic and did not modify production. Issue #70 remains open until a new least-privilege Atlas URI is securely stored as the repository secret and the guarded workflow passes production readiness/API checks.

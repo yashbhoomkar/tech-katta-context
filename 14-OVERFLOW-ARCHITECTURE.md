@@ -171,3 +171,10 @@ The connected Render workspace was queried again. It contains only these Life Ka
 - `lifewithyash` — Life With Yash backend, free plan, Singapore region.
 
 There is no dedicated Tech Katta Render service. The existing `lifewithyash` backend must not be repurposed as an overflow target: its repository and ownership are for Life With Yash, and it is not a verified Tech Katta deployment. A new secondary remains blocked until the previously exposed MongoDB credential is confirmed rotated, the dedicated service has correct secrets and health checks, and the VPS-to-secondary failover path is validated in staging. Do not enable the overflow timer or route traffic to the Life With Yash service.
+
+
+## Credential safety gate refresh — 2026-10-12
+
+PR #75 added a guarded manual workflow for rotating the VPS runtime MongoDB URI, but it did not perform a rotation. The Atlas project currently has one user, `bhoomkar04`, with `atlasAdmin` on `admin`; issue #70 remains open. An authorized operator must create/rotate a least-privilege user scoped to `readWrite` on `techkatta`, store the URI directly in repository Actions secret `TECH_KATTA_MONGODB_URI_ROTATED`, and run the guarded workflow. It checks readiness and core read endpoints and rolls back on failure.
+
+Do not provision or route to a secondary, and do not enable `tech-katta-overflow.timer`, until issue #70 is completed and a dedicated Tech Katta secondary is verified. The existing `lifewithyash` Render service is not an acceptable secondary.
