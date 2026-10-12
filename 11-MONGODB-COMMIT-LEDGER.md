@@ -321,3 +321,28 @@ Read-only workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/3
 - Backend: SHA `56b229a2c0fa1d586f200a41c79826ed92a0446b`, IDs `6acb7805c1d086df8c89e029` and `6acb7969c1d086df8c89e02a`; SHA `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`, IDs `6acb734cc0d34c06a4bdbc97` and `6acb7378c0d34c06a4bdbc98`.
 
 The prior migration preflight failure was not reproduced by this read-only inspection. No canonical records or indexes changed. Keep issue #32 open; add field-level diagnostics to the migration preflight and do not bypass its backup validation.
+
+
+## PRs #59–#61 and successful deduplication (2026-10-12)
+
+The following source/merge SHAs were checked in both canonical collections and inserted into `techkatta_history.backend_git_commits` only when absent:
+
+- `aadf03acb327215e4e7c3005dc32bfd2511733f8` — PR #59 source: add field-level backup preflight diagnostics.
+- `36696b02bea329020b4f4cb01108818453131a6d` — PR #59 merge: add backup field diagnostics.
+- `fa976824d044953d3b567a10c91a20f2026161e9` — PR #60 source: correct backup ID prefix mapping.
+- `6d67cbbfcfec95d1572dd612c768ae2e6e91568e` — PR #60 merge: use verified `frontend:` / `backend:` backup prefixes.
+- `c24e4988021d8fa2319791068beb7c38f75ca8ab` — PR #61 source: assert migration postconditions.
+- `c597e7f416a9c4b9c1c7268c936845755d916720` — PR #61 merge: verify ledger deduplication and unique-index postconditions.
+
+Inserted count: 6.
+
+### Verified migration result
+
+Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 passed after correcting the backup ID prefix. Exactly these three duplicate rows were deleted, with their copies preserved in the backup:
+- `frontend_git_commits` `_id=6acb79744d4d384f7be306f8`, SHA `56b229a2c0fa1d586f200a41c79826ed92a0446b`.
+- `backend_git_commits` `_id=6acb7969c1d086df8c89e02a`, SHA `56b229a2c0fa1d586f200a41c79826ed92a0446b`.
+- `backend_git_commits` `_id=6acb7378c0d34c06a4bdbc98`, SHA `e4d4f92eee0b033ccbfb5d53928684c0d797bf93`.
+
+The workflow verified all six backup records, retained the intended canonical row for each duplicate SHA, enforced `unique: true` on `key_unique` in both collections, found no remaining duplicate groups, and confirmed the union of SHA keys was preserved. Independent read-only verification run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 passed: backup count six; deleted rows absent; retained rows intact; both indexes report `unique: true`; duplicate groups empty.
+
+The current connector counts are frontend 168 and backend 210 (two PR #61 SHAs were inserted after the read-only verification run recorded backend count 208). The duplicate backup remains intact. Finish by reconciling all SHAs referenced in current-state/history docs, then close issue #32. Umbrella issue #18 remains open.
