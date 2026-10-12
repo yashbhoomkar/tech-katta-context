@@ -279,3 +279,28 @@ Before insertion, both canonical collections (`frontend_git_commits` and `backen
 - `34d0d4db2aae0234b2e45d6fc427a75fe4a21653` — PR #53 merge commit: added regression tests for article substring search semantics; runtime search behavior unchanged.
 
 Inserted count: 2. No duplicate entries were inserted.
+
+
+## PRs #54–#57 ledger entries and migration preflight (2026-10-12)
+
+The following application source and merge SHAs were checked in both canonical collections first, then inserted into `techkatta_history.backend_git_commits` only when absent. Inserted count: 12.
+
+- `328a4d3c5d4e07d5992b9d74b6961e007b4cc9b0` — PR #54 source: add isolated MongoDB unique-index capability verification workflow.
+- `f778066ea0fcd3108e6df1ad1bbc032dd987194b` — PR #54 source: trigger capability verification after merge.
+- `cacbd6809d37b140e8eff0a207f9cc8abb896175` — PR #54 source: non-interactive sudo for the isolated probe.
+- `0607590574b1e0c019228f4384458fe6a4dc8171` — PR #54 merge: guarded capability verification workflow.
+- `411c74d25fdd6199cb046893bece522b23cc5144` — PR #55 source: execute probe from a temporary script file.
+- `bd00c3b32d4623c51e073a9b90b002871a10dff5` — PR #55 merge: temporary-file probe execution.
+- `9edeacae3d7c17986c4d5ebf6c17be03689f7efa` — PR #56 source: avoid SSH action stdin rewriting with a base64-decoded script.
+- `8822cab92ebcca8fd0e789e9199b85404144a7b7` — PR #56 merge: base64-decoded temporary script.
+- `7ccd1ff380412dfca2e74bc002b5425641102380` — PR #57 source: guarded deduplication script with exact-ID, backup, rollback, and SHA-union checks.
+- `aa6e56bbb71f8c296b1e8fe032340b0219f59bf0` — PR #57 source: guarded GitHub Actions migration workflow.
+- `7fcaa5e21789bf61708e06dd78e15b361575d739` — PR #57 source: pass the encoded migration script through the SSH workflow environment.
+- `56bb3bd33481cd836885d0ede744f8639770a381` — PR #57 merge: guarded ledger deduplication and unique-index migration.
+
+### Capability and migration results
+
+- Probe run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197243213 passed: the VPS runtime created a temporary unique index, confirmed MongoDB reported `unique: true`, verified duplicate-key rejection (code 11000), and removed the temporary collection.
+- Migration run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 failed the backup validation gate for `frontend_git_commits:6acb79744d4d384f7be306f8`. The script exited before any canonical deletion or index change.
+- The Atlas connector independently confirms the expected backup row and the canonical duplicate row. Reconcile the VPS runtime's database view/connection before retrying. Do not relax the backup or exact-ID gates.
+- All six backup records remain intact. No canonical ledger rows have been deleted. Issue #32 remains open pending a successful migration and independent post-migration verification.
