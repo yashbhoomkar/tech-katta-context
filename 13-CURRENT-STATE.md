@@ -796,3 +796,13 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - The actual canonical duplicate migration and independent read-only verification had already passed in runs https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 and https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593. No canonical ledger rows were modified by PRs #73 or #74.
 - Latest canonical ledger counts after recording PR #73 and #74: frontend 168, backend 233, legacy `git_commits` 16.
 - Issue #32 is closed. Issue #29 remains blocked by issue #70 and the absence of a dedicated secondary; #33 remains open pending staging or an approved monitored capacity plan; #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
+
+
+## Latest security preparation — PR #75 (2026-10-12)
+
+- Current application main HEAD: `ddb4ee014fa18df1d6c9fd6bd80aa233bd653312` (PR #75).
+- PR #75 added a manual-only runtime MongoDB credential rotation workflow and helper. Backend CI passed; CodeQL reported no new alerts after fixing the initial file-system race finding.
+- The workflow requires an explicit confirmation and repository secret `TECH_KATTA_MONGODB_URI_ROTATED`. It preflights the URI and requires exactly one `readWrite` role on `techkatta`, atomically updates only the runtime `MONGODB_URI`, restarts the service, checks `/api/health/ready`, `/api/categories`, and `/api/articles`, and rolls back if validation fails.
+- **No credential was rotated and no VPS configuration was changed by PR #75.** Read-only Atlas inspection found one user, `bhoomkar04`, with `atlasAdmin` on `admin`. The safe next step requires an authorized operator to rotate/create the least-privilege user and save its URI directly in GitHub repository Actions secrets; never paste URI/password into chat, issues, or source.
+- Latest canonical ledger counts after recording PR #75: frontend 168, backend 242, legacy `git_commits` 16. Both canonical collections have zero duplicate-key groups; the six-row duplicate backup remains intact.
+- Issue #70 remains open until the actual rotation and production verification pass. Issue #29 remains blocked by #70 and the absence of a dedicated Tech Katta secondary. Issue #33 remains open pending a staging target or approved monitored production test. Issue #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
