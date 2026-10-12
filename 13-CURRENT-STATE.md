@@ -12,7 +12,7 @@ Branch:
 `main`
 
 Current HEAD:
-`4ce8403a9fc610ab9840479d29aabed162d0aeb6`
+`d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`
 
 Latest backend work adds a private Vercel REST control layer:
 - `193a11293b10d43534c34fa8b902d24dd12e6cac` — environment-authenticated Vercel client
@@ -71,7 +71,7 @@ Application:
 Ledger:
 - DB `techkatta_history`
 - frontend ledger: 168 docs observed (2026-10-12)
-- backend ledger: 227 docs observed (2026-10-12)
+- backend ledger: 229 docs observed (2026-10-12)
 - legacy/general `git_commits`: 16 docs, still exists
 
 ## Published content
@@ -761,7 +761,7 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - PRs #54, #55, and #67 corrected and verified the VPS-runtime capability probe. Successful probe run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520. MongoDB 8.0.34 confirmed a real unique index rejects duplicate insertion with code 11000; temporary collection was removed.
 - PR #68 merged the guarded index enforcement workflow. Successful migration run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184. It verified the six expected backup records, zero duplicate-key groups and zero non-string keys in both canonical collections, and the expected surviving rows for all three historical duplicate SHAs. It then verified `unique: true` on the `key` index in both canonical collections. No ledger documents were deleted or modified by PR #68.
 - The six-row backup `commit_ledger_duplicate_backup_20261011` remains intact. Canonical counts: frontend 168, backend 224; legacy `git_commits` remains present with 16 records. Duplicate-key aggregations return zero groups.
-- Final SHA reconciliation extracted 154 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`; all 154 are present in at least one canonical ledger collection, with zero missing.
+- Final SHA reconciliation extracted 156 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`; all 156 are present in at least one canonical ledger collection, with zero missing.
 - PR #53, #54, #55, #67, and #68 source/merge SHAs are reconciled in `techkatta_history.backend_git_commits`; six missing records for PR #67/#68 were inserted and the PR #55 merge description was corrected.
 - Issue #32 is closed after the context update and final ledger/issue synchronization. Umbrella issue #18 remains open. Remaining tracked work: #29 (real failover requires a dedicated secondary and credential-safety prerequisites), #31 (search revisit trigger), and #33 (capacity testing needs staging or an approved monitored production window).
 
@@ -775,3 +775,13 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Issue #29 remains blocked: router script only writes a state file; timer remains disabled; no Tech Katta secondary exists. Atlas inventory shows the VPS runtime connection has a broad role, and rotation history cannot be verified through the available connector. A secure runtime-secret update path is still required before a secondary can be provisioned; see [issue #70](https://github.com/yashbhoomkar/tech-katta/issues/70). No secondary or production routing was changed.
 - Latest canonical ledger counts: frontend 168, backend 227, legacy `git_commits` 16. PR #69's two source SHAs and merge SHA are recorded in `backend_git_commits`.
 - Issues #28, #30, and #32 are closed. Issues #29 and #33 remain open blockers; #31 remains a measurement-based revisit trigger. Umbrella issue #18 remains open.
+
+
+## Latest production browser verification — PR #71 (2026-10-12)
+
+- Current application main HEAD: `d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b` (PR #71).
+- PR #71 added a dedicated read-only production browser smoke workflow. Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38206729819.
+- Chromium verified the three live SPA routes (home, distributed-systems unit, canonical article), browser-origin API/CORS and canonical article contract, and mobile-emulated touch behavior: right swipe opens the sidebar, home left swipe does not navigate, article right/left swipes navigate back/forward, short/vertical swipes are ignored, and left swipe closes an open sidebar. No uncaught page exceptions occurred.
+- This was a handful of GET requests, not a load test. No production configuration was changed and no production capacity claim is made.
+- PR #71 source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; backend ledger count is 229.
+- Issues #28, #30, and #32 remain closed. #29 is blocked by issue #70 and lack of a dedicated secondary; #33 remains open pending staging or an approved monitored capacity plan; #31 remains a measurement-based revisit trigger. Umbrella #18 remains open.
