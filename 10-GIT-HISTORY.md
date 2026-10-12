@@ -541,3 +541,13 @@ Merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`.
 - Adds an isolated integration regression test for the currently observed one-hop client → Nginx → Express topology. A spoofed leftmost `X-Forwarded-For` value cannot evade the limiter when the trusted proxy appends the same rightmost peer address.
 - Backend CI, Semgrep, CodeQL, VPS deployment, and production smoke tests passed. Deployment run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38143817747.
 - This is not a live Nginx/Cloudflare integration test. Issue #28 remains open; Cloudflare proxy cutover and origin ingress restriction are not complete.
+
+
+## PR #53 — preserve article substring-search semantics (2026-10-12)
+
+- Application source commit: `db2395bb70fff2421583f79b2a431c22f8e21c8a`.
+- Squash merge commit: `34d0d4db2aae0234b2e45d6fc427a75fe4a21653`.
+- Added backend regression tests for case-insensitive substring matching across title, eyebrow, description, and tags; category/search composition; trimming; blank queries; and fallback behavior.
+- Backend CI, Semgrep Community Edition, and CodeQL passed on the PR. Vercel preview status also passed; this test-only backend change was not a production runtime deployment.
+- Both application SHAs are recorded in `techkatta_history.backend_git_commits`.
+- No query strategy or MongoDB index was changed: the live corpus has 11 articles and the UI searches locally. Issue #31 remains open as a revisit trigger rather than a current production bottleneck.
