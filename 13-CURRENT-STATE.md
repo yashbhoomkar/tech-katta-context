@@ -707,3 +707,25 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Current counts: frontend 168, backend 210; backup collection count six.
 - Application main HEAD at this point: `c597e7f416a9c4b9c1c7268c936845755d916720` (PR #61). Ledger entries for all application source and merge SHAs through PR #61 are present in `techkatta_history.backend_git_commits`.
 - Umbrella issue #18 remains open for the remaining tracked findings. Continue with issue #30 (AI review integration verification), then evaluate #29 failover feasibility and #33 bounded capacity testing. Issue #31 remains a revisit trigger, not a current bottleneck.
+
+
+## Remaining audit blockers after issue #32 (2026-10-12)
+
+### Issue #30 — AI review integration not verified
+
+- Non-draft PR #62 is open: https://github.com/yashbhoomkar/tech-katta/pull/62.
+- `.coderabbit.yaml` enables automatic review, and an explicit `@coderabbitai review` request caused CodeRabbit to post a generated comment with status “review in progress”.
+- GitHub review APIs still show zero review submissions and zero inline review threads on PR #62; PR #57 showed the same stuck progress state.
+- This does not meet the acceptance criteria. Vercel preview, Semgrep, and CodeQL statuses are not AI review evidence. Issue #30 remains open pending a completed review walkthrough or substantive inline comments, likely requiring CodeRabbit-side account/app troubleshooting or an authorized alternative.
+
+### Issue #29 — real overflow/failover remains unimplemented
+
+- `scripts/vps-overflow-router.sh` computes CPU and local health state and writes a state file; it does not alter Nginx routing.
+- The deployment workflow keeps the placeholder timer disabled.
+- No Tech Katta-compatible secondary upstream and staging route have been verified. Do not enable the timer or claim failover works until a secondary exists and routing/recovery are tested.
+
+### Issue #33 — bounded capacity test remains open
+
+- The existing k6 run remains a low-load baseline (156 requests, about 3.05 req/s), not a capacity estimate.
+- No Tech Katta staging service has been verified. Do not run a larger production test without a maintenance window, explicit rate/concurrency caps, hard stop thresholds, and CPU/memory/MongoDB monitoring.
+- Issue #18 remains open. Issue #31 is a revisit trigger rather than a measured current bottleneck.
