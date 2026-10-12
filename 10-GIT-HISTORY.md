@@ -722,3 +722,13 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Successful verification run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38244494719. The run removed the stale probe collection and its own temporary collection. No canonical ledger rows were modified by these probe workflows.
 - The canonical ledger migration had already passed in run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807, and the independent read-only verification passed in https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593.
 - The two canonical ledger collections currently have zero duplicate-key groups. Issue #32 is closed; umbrella issue #18 remains open for #29, #33, and #31's measurement-based revisit trigger.
+
+
+## PR #75 — safe MongoDB runtime credential rotation preparation (2026-10-12)
+
+- Source commits: `1149264f597a7268d6a918dadad193addfce7f9d`, `b5627e98c31324de15ca0498123e5a3165a5ad16`, `5ab5e43d1cefc4606535c6704b7fe0578ebf56f4`, `a3d512465241eb0c530ccd68af1dc59ee24fcfd3`, `7a0d7e20b8e879d2f0d183b90d7ac0dc7f56df49`, `db798828f86099e26f7ebc6c9c729c4ae1e93033`, `49385457ce25cc63e6e659d88ca849b79a8f36f2`, and `395b01ad841077e6713fbbbb07b4cf4293451678`.
+- Squash merge commit: `ddb4ee014fa18df1d6c9fd6bd80aa233bd653312`.
+- Added `.github/scripts/rotate-mongodb-runtime-uri.mjs` and a manual-only `.github/workflows/rotate-mongodb-runtime-credential.yml`. The helper validates a candidate URI before changing the VPS env file, requires exactly one `readWrite` role scoped to `techkatta`, atomically updates only `MONGODB_URI`, keeps a mode-0600 rollback file until API checks pass, and rolls back if readiness/categories/articles checks fail.
+- Backend CI passed and CodeQL reported no new alerts after the file-system race finding in the initial draft was fixed with exclusive mode-0600 file creation. Vercel preview feedback also passed.
+- This PR did not rotate credentials, create an Atlas user, update the VPS, or enable overflow. The existing Atlas user `bhoomkar04` still has `atlasAdmin`; issue #70 remains open until an authorized operator creates/rotates the least-privilege URI, stores it directly in the GitHub Actions secret `TECH_KATTA_MONGODB_URI_ROTATED`, runs the workflow, and verifies production.
+- Issue #29 remains blocked; the overflow timer stays disabled and no secondary exists.
