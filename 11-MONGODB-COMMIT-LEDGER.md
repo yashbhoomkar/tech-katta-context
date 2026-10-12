@@ -29,13 +29,13 @@ History database:
 
 ## Current observed collections
 
-At the time this document was generated, MongoDB reported:
+Current live counts checked 2026-10-12:
 
-- `frontend_git_commits` — 169 documents (live count checked 2026-10-11)
-- `backend_git_commits` — 189 documents (live count checked 2026-10-11, including 34 Cloudflare hardening records inserted below)
+- `frontend_git_commits` — 168 documents
+- `backend_git_commits` — 224 documents
 - `git_commits` — 16 documents, legacy/older collection, still present
 
-The connector reports `_id_` and indexes named `key_unique`. Do not assume the latter enforce uniqueness: duplicate rows were observed despite those names, and a controlled connector index probe did not honor `unique: true`. A true unique constraint is still unverified.
+The Atlas connector's index listing omits the `unique` option, so index names alone are not proof of enforcement. The VPS-runtime migration workflow independently read `listIndexes()` and verified `unique: true` for the `key` index in both canonical collections (run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184). Duplicate-key aggregation returns zero groups in both collections.
 
 Important: older conversation notes suggested that `git_commits` had been dropped. The live Atlas inspection shows that it currently exists. **The live database state wins. Do not delete it merely because older context says it was removed.**
 
@@ -242,7 +242,7 @@ Canonical descriptions were checked against GitHub commit metadata:
 - `56b229a2c0fa1d586f200a41c79826ed92a0446b` — `Harden backend health, TLS, and fallback content`.
 - `e4d4f92eee0b033ccbfb5d53928684c0d797bf93` — `Merge pull request #14: add production verification and CodeQL`.
 
-The connected Atlas `create_index` operation does not expose or honor a `unique: true` option. A controlled probe on the backup collection created an ordinary non-unique index despite duplicate `key` values; the temporary probe index was then dropped. Therefore no canonical rows were deleted and no unique-index claim is made. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) remains open until a supported maintenance path can create and verify the actual unique index and safely complete deduplication.
+Historical status as of 2026-10-11: the Atlas connector's `create_index` operation did not expose or honor `unique: true`. This limitation was resolved using the VPS runtime credentials; see the final ledger-integrity entry at the end of this file.
 
 
 ## PR #35–#52 Cloudflare origin-hardening ledger reconciliation (2026-10-11)
@@ -303,7 +303,7 @@ The following application source and merge SHAs were checked in both canonical c
 - Probe run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197243213 passed: the VPS runtime created a temporary unique index, confirmed MongoDB reported `unique: true`, verified duplicate-key rejection (code 11000), and removed the temporary collection.
 - Migration run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 failed the backup validation gate for `frontend_git_commits:6acb79744d4d384f7be306f8`. The script exited before any canonical deletion or index change.
 - The Atlas connector independently confirms the expected backup row and the canonical duplicate row. Reconcile the VPS runtime's database view/connection before retrying. Do not relax the backup or exact-ID gates.
-- All six backup records remain intact. No canonical ledger rows have been deleted. Issue #32 remains open pending a successful migration and independent post-migration verification.
+- Historical status before PRs #60–#68; the later successful deduplication and unique-index verification are documented in the final ledger-integrity entry at the end of this file.
 
 
 ## PR #58 ledger entries and read-only reconciliation (2026-10-12)
@@ -345,7 +345,7 @@ Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 passed a
 
 The workflow verified all six backup records, retained the intended canonical row for each duplicate SHA, enforced `unique: true` on `key_unique` in both collections, found no remaining duplicate groups, and confirmed the union of SHA keys was preserved. Independent read-only verification run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 passed: backup count six; deleted rows absent; retained rows intact; both indexes report `unique: true`; duplicate groups empty.
 
-The current connector counts are frontend 168 and backend 210 (two PR #61 SHAs were inserted after the read-only verification run recorded backend count 208). The duplicate backup remains intact. Finish by reconciling all SHAs referenced in current-state/history docs, then close issue #32. Umbrella issue #18 remains open.
+Historical count and reconciliation note from the PR #61 stage. This was superseded by the final 2026-10-12 reconciliation at the end of this file.
 
 
 ### Final SHA reconciliation and closure — issue #32
@@ -386,3 +386,28 @@ Before insertion, both canonical collections were queried for the source and squ
 - `513c99a31a49f802a64c567be45d01c9d2628059` — PR #65 squash merge: manual-only production baseline.
 
 Inserted count: 2. Current canonical counts: frontend 168, backend 218. Both canonical collections still have zero duplicate-key groups; the six-row duplicate backup remains intact.
+
+
+## Final ledger integrity state — 2026-10-12
+
+### Verified canonical state
+- MongoDB Atlas cluster: `Cluster0`, MongoDB version `8.0.34`.
+- `frontend_git_commits`: 168 documents; `backend_git_commits`: 224 documents; legacy `git_commits`: 16 documents.
+- Backup collection `commit_ledger_duplicate_backup_20261011` still contains all six preserved duplicate copies.
+- The earlier PR #60 migration removed exactly three duplicate canonical documents, preserving them in the backup. PR #68 did not modify or delete any ledger documents.
+- Guarded index enforcement run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184. Preflight verified all six expected backup records, all three expected surviving duplicate-SHA records, zero duplicate-key groups, and zero non-string keys in both canonical collections. The workflow then read index metadata and verified `unique: true` for the `key` index in both collections. Any redundant non-unique `key_unique` index was dropped only after the unique index had been verified.
+- A separate isolated capability probe (https://github.com/yashbhoomkar/tech-katta/actions/runs/38205085520) verified that a true unique index rejects a duplicate insert with MongoDB error code `11000`; the temporary probe collection was removed.
+- Final SHA reconciliation extracted 147 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`. All 147 are present in at least one canonical ledger collection; zero missing.
+
+### Recent source/merge SHA reconciliation
+The following 14 source/merge SHAs for PRs #53, #54, #55, #67, and #68 are present in `backend_git_commits`. Eight were already present; six missing PR #67/#68 records were inserted and read back successfully:
+- `db2395bb70fff2421583f79b2a431c22f8e21c8a` — PR #53 source: article-search substring regression tests.
+- `34d0d4db2aae0234b2e45d6fc427a75fe4a21653` — PR #53 merge: preserve article-search semantics.
+- `328a4d3c5d4e07d5992b9d74b6961e007b4cc9b0`, `f778066ea0fcd3108e6df1ad1bbc032dd987194b`, `cacbd6809d37b140e8eff0a207f9cc8abb896175`, `0607590574b1e0c019228f4384458fe6a4dc8171` — PR #54 probe workflow source/merge commits.
+- `411c74d25fdd6199cb046893bece522b23cc5144`, `8822cab92ebcca8fd0e789e9199b85404144a7b7` — PR #55 source/merge commits.
+- `a5bc819cbcc4d987a4eef3455a967c39478b77be`, `0743b72a218ee36066b78d3f7d3bf88fec0f461f`, `5e931653b3915a6ee0b58946b2b27c598899e789`, `af411f0711c077185d90be3c8182b80df4c9f910` — PR #67 source/merge commits.
+- `eef16ceebaa99e0c9f8ebcc32c7619f8fe0d4fb0`, `d5f8f8c16d98ed775fa0937a022ddc1230610c68` — PR #68 source/merge commits.
+
+The description for merge SHA `8822cab92ebcca8fd0e789e9199b85404144a7b7` was corrected to identify it as PR #55's merge. No duplicate records were inserted.
+
+Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) is ready to close after the corresponding issue and context updates. Umbrella issue #18 remains open.
