@@ -673,3 +673,13 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Duplicate backup `techkatta_history.commit_ledger_duplicate_backup_20261011` remains intact (six records). Canonical duplicate rows remain intact. The ordinary `key_unique` indexes have not been replaced by the migration.
 - PR #54–#57 application source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; the context history and ledger docs have been updated with evidence and run links.
 - Issue #32 remains open. Umbrella issue #18 remains open. No production application deployment was triggered by these maintenance workflows.
+
+
+## Issue #32 read-only reconciliation update (2026-10-12)
+
+- Application main HEAD: `c4829f939a0162cbb3f5ac3619d7f70e7c7aa28e` (PR #58).
+- PR #58's read-only workflow passed: https://github.com/yashbhoomkar/tech-katta/actions/runs/38197871440.
+- The VPS runtime and Atlas connector agree on the six-row backup and the exact values/IDs for the three duplicate rows. The VPS view reports frontend 169 documents, backend 203 documents, the same duplicate groups, and non-unique `key_unique` indexes.
+- The prior guarded migration run failed backup validation for the first duplicate row, but the read-only inspector subsequently verified every expected field. No canonical data or indexes were changed by either run. The preflight discrepancy is unexplained and must not be bypassed; add field-level diagnostics and rerun the guarded check.
+- PR #54–#58 source and merge SHAs are recorded in `techkatta_history.backend_git_commits`; context history/ledger docs are updated.
+- Six-row duplicate backup remains intact. Issue #32 and umbrella issue #18 remain open.
