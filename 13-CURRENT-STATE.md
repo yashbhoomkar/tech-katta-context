@@ -662,3 +662,14 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Backend CI, Semgrep Community Edition, and CodeQL passed. This was a backend test-only change; no production runtime code, Atlas content/index, or production configuration changed.
 - Live Atlas still contains 11 articles with `_id_`, `slug_1`, and `category_1` indexes. Search regex still scans the collection; no measured production bottleneck currently justifies changing semantics.
 - Issue [#31](https://github.com/yashbhoomkar/tech-katta/issues/31) remains open until article growth, interactive backend search, or measured query cost triggers a benchmarked optimization. Umbrella issue #18 remains open.
+
+
+## Issue #32 ledger repair — current status (2026-10-12)
+
+- Application main HEAD: `56bb3bd33481cd836885d0ede744f8639770a381` (PR #57).
+- The VPS runtime capability probe passed in run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197243213: temporary unique index metadata reported `unique: true`, duplicate insertion was rejected with code 11000, and the temporary collection was removed.
+- Guarded migration run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 stopped at the backup preflight for `frontend_git_commits:6acb79744d4d384f7be306f8`. No canonical rows or indexes were changed by the migration run.
+- The Atlas connector sees the expected backup record and matching canonical duplicate, but the VPS-runtime preflight did not match it. Treat the connection/database view discrepancy as unresolved; do not bypass the check or rerun deletion until the discrepancy is explained.
+- Duplicate backup `techkatta_history.commit_ledger_duplicate_backup_20261011` remains intact (six records). Canonical duplicate rows remain intact. The ordinary `key_unique` indexes have not been replaced by the migration.
+- PR #54–#57 application source/merge SHAs are recorded in `techkatta_history.backend_git_commits`; the context history and ledger docs have been updated with evidence and run links.
+- Issue #32 remains open. Umbrella issue #18 remains open. No production application deployment was triggered by these maintenance workflows.
