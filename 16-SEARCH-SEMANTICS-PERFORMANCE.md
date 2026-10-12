@@ -60,4 +60,17 @@ At that point:
 
 - This was a read-only live database query-plan inspection plus source inspection.
 - It was not a stress test, capacity test, or full search correctness test across a large corpus.
-- No MongoDB documents, indexes, application code, or production configuration were changed.
+- No MongoDB documents, indexes, application runtime code, or production configuration were changed. A follow-up test-only PR adds regression coverage as recorded below.
+
+
+## Regression coverage follow-up — PR #53 (2026-10-12)
+
+Inspected current application main at `f6ffb10ceca94a3fc2791056eb25480b430a7d92` and merged test-only PR #53 as `34d0d4db2aae0234b2e45d6fc427a75fe4a21653` (source SHA `db2395bb70fff2421583f79b2a431c22f8e21c8a`). The added tests lock the intended behavior:
+
+- case-insensitive substring matching across title, eyebrow, description, and tags;
+- category and search filters composing together;
+- leading/trailing whitespace trimming;
+- blank/whitespace-only search behaving as no search filter; and
+- local fallback results retaining substring behavior.
+
+Backend CI, Semgrep Community Edition, and CodeQL passed. No runtime query strategy, Atlas index, database document, or production configuration was changed. The collection remains at 11 articles, and the interactive frontend search remains in-memory, so this is regression protection—not a performance benchmark and not a capacity result. Keep issue #31 open as a revisit trigger until collection growth, interactive backend search, or measured search CPU/latency justifies evaluating Atlas Search autocomplete or an n-gram strategy.
