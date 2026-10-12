@@ -346,3 +346,10 @@ Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 passed a
 The workflow verified all six backup records, retained the intended canonical row for each duplicate SHA, enforced `unique: true` on `key_unique` in both collections, found no remaining duplicate groups, and confirmed the union of SHA keys was preserved. Independent read-only verification run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 passed: backup count six; deleted rows absent; retained rows intact; both indexes report `unique: true`; duplicate groups empty.
 
 The current connector counts are frontend 168 and backend 210 (two PR #61 SHAs were inserted after the read-only verification run recorded backend count 208). The duplicate backup remains intact. Finish by reconciling all SHAs referenced in current-state/history docs, then close issue #32. Umbrella issue #18 remains open.
+
+
+### Final SHA reconciliation and closure — issue #32
+
+The final reconciliation extracted 139 unique 40-character SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md`, searched both `frontend_git_commits` and `backend_git_commits`, and found all 139 accounted for with zero missing. Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) was closed as completed.
+
+Final verified state: frontend 168 documents; backend 210 documents; six duplicate copies remain in `commit_ledger_duplicate_backup_20261011`; both canonical `key_unique` indexes have `unique: true`; both collections have zero duplicate-key groups. The migration and independent verification evidence is recorded above. Umbrella issue #18 remains open.
