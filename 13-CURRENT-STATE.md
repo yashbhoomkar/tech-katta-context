@@ -683,3 +683,15 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - The prior guarded migration run failed backup validation for the first duplicate row, but the read-only inspector subsequently verified every expected field. No canonical data or indexes were changed by either run. The preflight discrepancy is unexplained and must not be bypassed; add field-level diagnostics and rerun the guarded check.
 - PR #54–#58 source and merge SHAs are recorded in `techkatta_history.backend_git_commits`; context history/ledger docs are updated.
 - Six-row duplicate backup remains intact. Issue #32 and umbrella issue #18 remain open.
+
+
+## Issue #32 — deduplication and unique-index enforcement completed (2026-10-12)
+
+- Application main HEAD: `c597e7f416a9c4b9c1c7268c936845755d916720` (PR #61).
+- Successful guarded migration: https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807.
+- Successful independent read-only verification: https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593.
+- Removed exactly three backed-up duplicate rows: frontend `6acb79744d4d384f7be306f8`; backend `6acb7969c1d086df8c89e02a` and `6acb7378c0d34c06a4bdbc98`.
+- The six-row backup remains intact. The three intended canonical rows remain unchanged. Both `frontend_git_commits.key_unique` and `backend_git_commits.key_unique` report `unique: true`; duplicate-group aggregations return zero groups.
+- Migration checks confirmed expected document counts and preservation of the union of SHA keys. Current Atlas connector counts after adding PR #61 SHAs: frontend 168, backend 210.
+- Source and merge SHAs from PRs #54–#61 are recorded in `techkatta_history.backend_git_commits`. History and ledger docs record migration evidence.
+- Final remaining acceptance check: compare every 40-character SHA referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against the canonical ledger collections. Then close issue #32 if all are accounted for. Umbrella issue #18 remains open for issues #29, #30, #31's revisit trigger, and #33.
