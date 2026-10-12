@@ -695,3 +695,15 @@ Independent smoke checks from a Vercel sandbox in Mumbai passed with standard TL
 - Migration checks confirmed expected document counts and preservation of the union of SHA keys. Current Atlas connector counts after adding PR #61 SHAs: frontend 168, backend 210.
 - Source and merge SHAs from PRs #54–#61 are recorded in `techkatta_history.backend_git_commits`. History and ledger docs record migration evidence.
 - Final remaining acceptance check: compare every 40-character SHA referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against the canonical ledger collections. Then close issue #32 if all are accounted for. Umbrella issue #18 remains open for issues #29, #30, #31's revisit trigger, and #33.
+
+
+## Issue #32 closed — final acceptance (2026-10-12)
+
+- Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) is closed as completed.
+- Migration run https://github.com/yashbhoomkar/tech-katta/actions/runs/38198144807 succeeded; independent read-only post-migration verification https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 succeeded.
+- The three exact duplicate rows are absent from canonical collections and preserved in the six-row backup. Three intended canonical rows remain intact.
+- Both canonical `key_unique` indexes report `unique: true`; duplicate aggregations return zero groups.
+- Final documentation reconciliation checked 139 unique SHAs referenced by `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` against both canonical collections: 139/139 accounted for, zero missing.
+- Current counts: frontend 168, backend 210; backup collection count six.
+- Application main HEAD at this point: `c597e7f416a9c4b9c1c7268c936845755d916720` (PR #61). Ledger entries for all application source and merge SHAs through PR #61 are present in `techkatta_history.backend_git_commits`.
+- Umbrella issue #18 remains open for the remaining tracked findings. Continue with issue #30 (AI review integration verification), then evaluate #29 failover feasibility and #33 bounded capacity testing. Issue #31 remains a revisit trigger, not a current bottleneck.
