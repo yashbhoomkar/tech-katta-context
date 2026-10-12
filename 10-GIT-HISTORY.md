@@ -615,3 +615,11 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Read-only workflow https://github.com/yashbhoomkar/tech-katta/actions/runs/38198308593 passed. All three removed rows remain in the six-row backup and are absent from canonical collections; all three retained canonical rows match; both indexes report `unique: true`; duplicate groups are empty.
 - Counts at verification time: frontend 168, backend 208. The two PR #61 SHAs were subsequently inserted into the backend ledger, so the current Atlas connector count is frontend 168, backend 210.
 - Issue #32 is ready for closure after a final documented-SHA reconciliation. Umbrella issue #18 remains open for the other outstanding audit issues.
+
+
+### Issue #32 final acceptance — closed
+
+- After PR #61, all 139 unique 40-character SHAs referenced in `10-GIT-HISTORY.md` and `13-CURRENT-STATE.md` were checked against both canonical MongoDB ledger collections: 139 accounted for, zero missing.
+- Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) was closed as completed with the migration and independent verification run links.
+- Current canonical ledger counts after the latest source/merge entries: frontend 168, backend 210. Backup remains six records; both `key_unique` indexes enforce uniqueness; duplicate aggregations return no groups.
+- Umbrella issue #18 remains open for other audit findings.
