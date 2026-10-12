@@ -159,3 +159,15 @@ Exit:
 - recovery is tested
 - direct-origin access is considered
 - monitoring exists
+
+
+## Render inventory re-check (2026-10-12)
+
+The connected Render workspace was queried again. It contains only these Life Katta / Life With Yash services:
+
+- `life` — static frontend, suspended.
+- `life.yash` — static frontend.
+- `yash` — static frontend, suspended.
+- `lifewithyash` — Life With Yash backend, free plan, Singapore region.
+
+There is no dedicated Tech Katta Render service. The existing `lifewithyash` backend must not be repurposed as an overflow target: its repository and ownership are for Life With Yash, and it is not a verified Tech Katta deployment. A new secondary remains blocked until the previously exposed MongoDB credential is confirmed rotated, the dedicated service has correct secrets and health checks, and the VPS-to-secondary failover path is validated in staging. Do not enable the overflow timer or route traffic to the Life With Yash service.

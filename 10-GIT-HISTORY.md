@@ -634,3 +634,12 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - CodeRabbit submitted a completed review visible in GitHub's review API, including a walkthrough and a substantive inline comment. The inline thread was resolved after the README correction.
 - Vercel preview feedback check passed. No application runtime or production database behavior changed.
 - Issue [#30](https://github.com/yashbhoomkar/tech-katta/issues/30) is closed as completed. Umbrella issue #18 remains open for architecture and capacity findings.
+
+
+## PR #64 — manual-only destructive ledger repair (2026-10-12)
+
+- Workflow change source commit: `43088d8b13471c48850a1801c0bbc83be83900c2` — removed the automatic `push` trigger and added a required confirmation input, default false.
+- Documentation source commit: `18e5d4e917d13ca1924515f5b1f8e308e9621af3` — documented the manual-only behavior and explicit `confirm_repair` gate.
+- Squash merge commit: `8dfb94b265a97954c9f996f32175aa6eb62235ca`.
+- CodeQL and Vercel preview checks passed. Post-merge workflow inspection confirmed only `workflow_dispatch` remains; no repair run was triggered by the merge.
+- This is a safety hardening change only. It does not rerun the already-completed ledger migration or change canonical data.

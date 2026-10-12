@@ -365,3 +365,14 @@ Before insertion, both canonical collections were queried for the initial source
 - `f6998eb941ca49ca7ee5b0e72d61288e25b6d8c2` — PR #62 squash merge.
 
 Inserted count: 3. Post-insert lookup confirmed all three records. Current canonical counts: frontend 168, backend 213. Both canonical `key_unique` indexes remain unique; the six-row duplicate backup remains intact; no duplicate-key groups remain.
+
+
+### PR #64 ledger reconciliation (2026-10-12)
+
+Both canonical collections were queried for the workflow source, documentation source, and squash merge SHAs; none was present. Three records were inserted into `techkatta_history.backend_git_commits` and read back successfully:
+
+- `43088d8b13471c48850a1801c0bbc83be83900c2` — remove automatic trigger from the destructive ledger repair workflow.
+- `18e5d4e917d13ca1924515f5b1f8e308e9621af3` — document manual-only repair and the explicit confirmation gate.
+- `8dfb94b265a97954c9f996f32175aa6eb62235ca` — squash merge for PR #64.
+
+Inserted count: 3. Current canonical counts: frontend 168, backend 216. Both canonical collections still have zero duplicate-key groups. The six-row duplicate backup remains intact. The destructive repair workflow is manual-dispatch only and requires `confirm_repair: true`; the merge did not trigger it.
