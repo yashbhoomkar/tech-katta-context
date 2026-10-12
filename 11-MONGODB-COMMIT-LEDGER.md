@@ -32,7 +32,7 @@ History database:
 Current live counts checked 2026-10-12:
 
 - `frontend_git_commits` — 168 documents
-- `backend_git_commits` — 224 documents
+- `backend_git_commits` — 227 documents
 - `git_commits` — 16 documents, legacy/older collection, still present
 
 The Atlas connector's index listing omits the `unique` option, so index names alone are not proof of enforcement. The VPS-runtime migration workflow independently read `listIndexes()` and verified `unique: true` for the `key` index in both canonical collections (run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205375184). Duplicate-key aggregation returns zero groups in both collections.
@@ -411,3 +411,17 @@ The following 14 source/merge SHAs for PRs #53, #54, #55, #67, and #68 are prese
 The description for merge SHA `8822cab92ebcca8fd0e789e9199b85404144a7b7` was corrected to identify it as PR #55's merge. No duplicate records were inserted.
 
 Issue [#32](https://github.com/yashbhoomkar/tech-katta/issues/32) is closed after the corresponding issue and context updates. Umbrella issue #18 remains open.
+
+
+## PR #69 ledger reconciliation and local smoke evidence — 2026-10-12
+
+Before insertion, both canonical collections were queried for the two source SHAs and squash merge SHA from PR #69; none was present. Three records were inserted into `techkatta_history.backend_git_commits` and read back successfully:
+- `fc11a1c074b3b86d1870a12ac633d044de6a0c47` — PR #69 source: bounded local k6 integration smoke profile.
+- `c0cf007db20b7d86085068bdeb0326f2c8a9f589` — PR #69 source: local-only MongoDB, backend, frontend, and k6 CI workflow.
+- `4ce8403a9fc610ab9840479d29aabed162d0aeb6` — PR #69 merge: bounded local k6 integration smoke; production capacity remains unmeasured.
+
+Inserted count: 3. Current live counts: frontend 168, backend 227, legacy `git_commits` 16. Both canonical collections retain unique `key` indexes and zero duplicate-key groups; the six-row duplicate backup remains intact.
+
+Local-only k6 run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38205978125. It completed 442 HTTP requests in 60 seconds (~7.37 req/s overall), with zero HTTP failures, 884/884 checks passing, zero dropped iterations, API-read p95 3.69 ms, frontend p95 1.31 ms, and health p95 1.32 ms. This does not measure production capacity or the VPS/Nginx/Cloudflare/Atlas network path. Issue #33 remains open pending staging or an approved monitored production test plan.
+
+Issue #29 remains blocked pending verified MongoDB credential rotation/least-privilege runtime access and a dedicated Tech Katta secondary. No secondary was provisioned and no production routing was changed. Issue #32 is closed; umbrella issue #18 remains open.
