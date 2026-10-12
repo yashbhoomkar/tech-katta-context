@@ -551,3 +551,36 @@ Merged as `16bf385f1f62dbea5d11d38fed64028e99ca7a95`.
 - Backend CI, Semgrep Community Edition, and CodeQL passed on the PR. Vercel preview status also passed; this test-only backend change was not a production runtime deployment.
 - Both application SHAs are recorded in `techkatta_history.backend_git_commits`.
 - No query strategy or MongoDB index was changed: the live corpus has 11 articles and the UI searches locally. Issue #31 remains open as a revisit trigger rather than a current production bottleneck.
+
+
+## PRs #54–#57 — ledger integrity repair progress (2026-10-12)
+
+Application main HEAD: `56bb3bd33481cd836885d0ede744f8639770a381`.
+
+All application source and merge SHAs listed below were recorded in `techkatta_history.backend_git_commits`.
+
+### PR #54 — isolated unique-index capability probe
+
+- Source commits: `328a4d3c5d4e07d5992b9d74b6961e007b4cc9b0`, `f778066ea0fcd3108e6df1ad1bbc032dd987194b`, `cacbd6809d37b140e8eff0a207f9cc8abb896175`.
+- Merge: `0607590574b1e0c019228f4384458fe6a4dc8171`.
+- First run failed before connecting to MongoDB because the SSH action's shell bookkeeping was interpreted as JavaScript. No database operation occurred.
+
+### PR #55 — temporary-file execution fix
+
+- Source: `411c74d25fdd6199cb046893bece522b23cc5144`.
+- Merge: `bd00c3b32d4623c51e073a9b90b002871a10dff5`.
+- Second run also failed before database connection: the SSH action injected bookkeeping into a here-document. No database operation occurred.
+
+### PR #56 — base64 stream fix
+
+- Source: `9edeacae3d7c17986c4d5ebf6c17be03689f7efa`.
+- Merge: `8822cab92ebcca8fd0e789e9199b85404144a7b7`.
+- Workflow run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197243213 passed. Using the VPS runtime credentials, it created a run-specific temporary collection in `techkatta_history`, created and verified a true unique index, confirmed duplicate-key rejection (MongoDB error 11000), and removed the temporary collection. No canonical ledger rows were touched.
+
+### PR #57 — guarded duplicate-ledger migration candidate
+
+- Source commits: `7ccd1ff380412dfca2e74bc002b5425641102380`, `aa6e56bbb71f8c296b1e8fe032340b0219f59bf0`, `7fcaa5e21789bf61708e06dd78e15b361575d739`.
+- Merge: `56bb3bd33481cd836885d0ede744f8639770a381`.
+- The workflow validates the six-row backup, exact duplicate and canonical IDs, duplicate groups, and index metadata before deleting any rows. It has rollback logic and verifies unique indexes, document counts, and preservation of the union of SHA keys.
+- Run https://github.com/yashbhoomkar/tech-katta/actions/runs/38197586906 failed at the backup preflight for `frontend_git_commits:6acb79744d4d384f7be306f8`; it explicitly aborted before mutation. The connected Atlas tool shows the expected backup row, so the VPS-runtime database view must be reconciled before rerunning. Do not bypass the preflight.
+- Issue #32 remains open. No canonical rows were deleted; the six-row backup remains intact. Umbrella issue #18 remains open.
