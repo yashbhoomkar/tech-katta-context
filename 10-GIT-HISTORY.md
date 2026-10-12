@@ -732,3 +732,12 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Backend CI passed and CodeQL reported no new alerts after the file-system race finding in the initial draft was fixed with exclusive mode-0600 file creation. Vercel preview feedback also passed.
 - This PR did not rotate credentials, create an Atlas user, update the VPS, or enable overflow. The existing Atlas user `bhoomkar04` still has `atlasAdmin`; issue #70 remains open until an authorized operator creates/rotates the least-privilege URI, stores it directly in the GitHub Actions secret `TECH_KATTA_MONGODB_URI_ROTATED`, runs the workflow, and verifies production.
 - Issue #29 remains blocked; the overflow timer stays disabled and no secondary exists.
+
+
+## PR #76 — bounded local rate-limit verification (2026-10-12)
+
+- Source commits: `763c6ded46a730fb1657e061a40085eca0078c09`, `aa1fe26f7c50db7e1144821b50357252cc419524`, and `c012d1bfc4470dafe7988cb7178f3a487c1fe997`.
+- Squash merge commit: `4f9e0c6739dd747edc27bf9ee79419c4092849ad`.
+- Extended the local-only k6 integration workflow to wait for the previous API-read rate-limit window to expire, then send a bounded 3 requests/second profile for 50 seconds to the isolated CI API.
+- Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38246483684. The profile completed 151 requests (~3.02 req/s): 120 accepted, 31 throttled with HTTP 429, p95 2.99 ms, zero failed HTTP requests, zero dropped iterations, and 100% checks. All 429 responses had Retry-After and X-RateLimit headers. CodeQL reported no new alerts.
+- This verifies configured per-IP rate-limit behavior on a local isolated stack, not production capacity. No production traffic was sent. Issue #33 remains open pending a dedicated staging backend or an approved monitored production test plan with resource observations.
