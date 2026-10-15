@@ -881,8 +881,8 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Production load probes now require manual dispatch and `run_load_test: true`; no push/PR event launches production load.
 
 
-### Ledger integrity verification — 2026-10-15
+### Final ledger integrity check — 2026-10-15
 
-- After PR #77 merge, live ledger counts are frontend 172, backend 250, legacy `git_commits` 16.
-- Duplicate-key aggregation returned zero duplicate keys in both `frontend_git_commits` and `backend_git_commits`.
-- Merge SHA `e8cbf46cce377ac7501af091e901e177043d4778` exists in both canonical collections.
+- After PR #77 deployment, aggregate counts were verified at 172 frontend and 250 backend canonical commit documents.
+- Duplicate-key aggregation on `key` returned zero duplicates in both `frontend_git_commits` and `backend_git_commits`.
+- CodeRabbit review remained in progress with no actionable inline findings; CodeQL and Semgrep passed, and the CodeQL alert was fixed before merge.
