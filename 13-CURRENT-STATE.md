@@ -897,3 +897,10 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - MongoDB commit ledger entry added in both canonical collections. Counts after this source commit: frontend 173, backend 251; legacy `git_commits` remains 16.
 - PR #78 CI/review and deployment are pending. Do not mark these fixes deployed until PR checks pass, it is merged, and both VPS deployment and Vercel production/browser verification succeed.
 - CodeQL alert 13's current Security-tab state remains unverified; source fix is present and CodeQL check passed on PR #77, but a successful check does not establish that the historical alert is closed.
+
+
+### PR #78 deployment-guard follow-up — 2026-10-15
+
+- Follow-up application commit `6688b2f1e7dec0191ddf1457fb211062804e4cf9` sets the production-branch guard step's working directory to the workspace root. This is required because the test job's default working directory is `backend` and the guard runs before checkout.
+- Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 174, backend 252.
+- PR #78 remains in review; CI must rerun on this latest head.

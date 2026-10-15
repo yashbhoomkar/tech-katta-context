@@ -453,3 +453,9 @@ Source commit: `a32ddafac407ced7e69c8f7ed622c2412a6b7478`.
 - Browser smoke requires the exact canonical article heading and non-empty expanded section body rather than accepting a populated React root.
 - Added unit tests for remote article content resolution: successful remote content wins; valid empty content objects remain authoritative; missing/null/primitive/array content is an error; only network unavailability uses bundled fallback.
 - CI, CodeRabbit review, merge, deployment, and post-deployment browser smoke results are pending.
+
+
+### PR #78 workflow guard correction — pending CI
+
+- Commit `6688b2f1e7dec0191ddf1457fb211062804e4cf9` explicitly sets `working-directory: .` for the production-branch guard, which executes before checkout while the backend test job defaults to `working-directory: backend`.
+- The new PR head's CI must confirm the workflow changes remain valid; production deployment remains gated behind passing tests and merge.
