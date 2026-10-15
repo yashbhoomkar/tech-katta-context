@@ -829,7 +829,7 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 
 - Application branch: `fix/production-readiness-audit-2026-10-15`.
 - Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3`.
-- PR has not yet been merged or deployed. CI and independent review results are pending; do not treat this source commit as production state.
+- Historical note: this entry was written before merge; final merged/deployed status is recorded below.
 - Workflow safety: production load probes now have only a manual `workflow_dispatch` trigger, and the bounded load job requires `run_load_test: true`. Read-only production browser smoke is triggered by frontend-source changes after merge.
 - Deployment safety: the VPS deployment workflow adds a backend test job as a required dependency, least-privilege read permissions, and non-cancelling production deployment concurrency. Docker uses `npm ci --omit=dev`.
 - Frontend correctness/security: successful empty list responses are authoritative; article API responses distinguish 404, server errors, and network unavailability; only network unavailability permits local article fallback. Video embeds use exact HTTPS provider hosts, validated IDs, privacy-enhanced YouTube URLs, and a sandboxed iframe. Reading-progress storage failures are handled without crashing the page.
@@ -842,7 +842,7 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 
 - Follow-up application commit: `4297927885cf9f30d3bbb6a1f531ec8526c67b55` on the same PR branch.
 - CodeQL's PR annotation identified a user-controlled article slug interpolated into a browser console format string. The log messages now use constant format strings and pass the slug/error as structured fields.
-- This is a targeted remediation for the reported alert. The updated CodeQL result and CodeRabbit review are pending; the PR remains unmerged and undeployed.
+- This is a targeted remediation for the reported alert. CodeQL passed on the updated PR head; CodeRabbit remained in progress at merge time. Final deployment status is recorded below.
 - Ledger counts after this second source commit: frontend 170, backend 248; legacy `git_commits` remains 16.
 
 
@@ -864,3 +864,18 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - CodeRabbit generated PR release notes, but its review-status comment remained "in progress" with no actionable inline findings at merge time. CodeQL and Semgrep results were inspected; if CodeRabbit posts actionable findings later, fix them in a follow-up.
 - Deployment and post-deploy production smoke are still pending verification; do not mark production deployed until the backend deployment workflow and production browser smoke results are confirmed.
 - Live ledger counts after merge insertion: frontend 172, backend 250; legacy `git_commits` remains 16.
+
+
+## PR #77 production-readiness remediation — final status 2026-10-15
+
+- PR #77 merged at 2026-10-15T12:10:59Z. Source commit: `e32643d97167ee6bd3471277910f785d0fdd8f16`; main/production merge commit: `e8cbf46cce377ac7501af091e901e177043d4778`. Merge tree is identical to the reviewed source tree.
+- Vercel production deployment is READY for `e8cbf46cce377ac7501af091e901e177043d4778`; verified aliases include `tech.katta.cc`.
+- VPS deployment workflow succeeded. Backend test gate passed, VPS checkout/dependency/runtime configuration completed, systemd API restart passed, and local health returned `{"status":"ok","service":"tech-katta-api","version":"0.1.0","db":"connected"}`.
+- Production backend smoke passed 11 endpoint checks plus CORS and security headers.
+- Post-merge real Chromium smoke passed home, distributed-systems unit, and canonical article routes (HTTP 200); browser-origin API/CORS contract; mobile-emulated home/sidebar/article swipes; and no uncaught page exceptions.
+- Main CI passed backend tests, frontend regression tests/build, CodeQL, and Semgrep. PR local MongoDB/API/frontend smoke and bounded local k6 rate-limit profile passed. No production load test was run.
+- CodeRabbit's status comment remained "review in progress" with no completed independent review body available at merge/deployment time. CodeQL and Semgrep were inspected and passed; monitor for any late CodeRabbit feedback and fix actionable items in a follow-up PR.
+- MongoDB ledger contains source commits `67210687a8668cdcde4cfda43831e9f4de5638c3`, `4297927885cf9f30d3bbb6a1f531ec8526c67b55`, `e32643d97167ee6bd3471277910f785d0fdd8f16`, and merge commit `e8cbf46cce377ac7501af091e901e177043d4778` in both canonical collections. Latest recorded counts: frontend 172, backend 250, legacy `git_commits` 16.
+- The earlier entries in this document that describe PR #77 as pending are historical notes superseded by this final status.
+- Keep broader audit issue #18 open. Separate work remains: issue #70 least-privilege MongoDB runtime credential rotation, issue #29 real overflow/failover architecture (disabled), issue #33 dedicated staging/capacity testing, and the Cloudflare origin-hardening fail-open availability/security trade-off.
+- Production load probes now require manual dispatch and `run_load_test: true`; no push/PR event launches production load.

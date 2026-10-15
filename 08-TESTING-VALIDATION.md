@@ -404,14 +404,14 @@ Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3` on `fix/production-rea
 
 - The first PR head produced a CodeQL high-severity annotation for externally controlled format strings in frontend article-fetch logging.
 - Follow-up commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` replaces slug-interpolated first-argument console strings with constant messages and structured diagnostic objects.
-- CodeQL, CodeRabbit, and the local MongoDB/API smoke workflow must be rechecked against the latest PR head before merge. No new pass is claimed yet.
+- CodeQL and local MongoDB/API smoke passed on the final PR head. CodeRabbit's status comment remained in progress; no completed independent review was available at merge time.
 
 
 ### API list error handling regression coverage — 2026-10-15
 
 - Commit `e32643d97167ee6bd3471277910f785d0fdd8f16` adds a test proving 503 responses from article and category list endpoints are surfaced as server errors, distinct from network failure. Network failure remains the only list-fetch path that returns `null` and allows bundled fallback.
 - Successful empty arrays remain authoritative. HTTP errors and invalid JSON return an error result so the UI clears stale bundled content and shows an accessible service warning.
-- These new tests require a fresh passing frontend CI run before merge.
+- These tests passed in the final PR frontend CI run.
 
 
 ## PR #77 final validation — 2026-10-15
@@ -427,4 +427,18 @@ Merged commit: `e8cbf46cce377ac7501af091e901e177043d4778`.
 - Local rate-limit profile: passed with 151 requests (~3.02 req/s), 120 accepted and 31 HTTP 429, p95 2.36 ms, zero failed requests/dropped iterations, 755/755 checks passed.
 - These results prove local integration and configured rate-limit behavior only. They are not production capacity or stress-test evidence.
 - CodeRabbit review-status comment remained in progress with no actionable inline comments available at merge time. Static-analysis agents were inspected and the CodeQL finding was fixed; monitor for any late review comments.
-- Production deployment and read-only browser smoke remain a separate post-merge validation gate.
+- Production deployment and read-only browser smoke subsequently passed; see final verification below.
+
+
+## PR #77 final production verification — 2026-10-15
+
+- Merged production SHA: `e8cbf46cce377ac7501af091e901e177043d4778`; reviewed source SHA: `e32643d97167ee6bd3471277910f785d0fdd8f16`.
+- Backend CI, frontend regression tests/build, CodeQL, Semgrep, Vercel production deployment, and VPS deployment all passed.
+- VPS health response: `{"status":"ok","service":"tech-katta-api","version":"0.1.0","db":"connected"}`.
+- Production backend smoke passed 11 endpoint checks plus CORS and security headers.
+- Post-merge Chromium browser smoke passed home, distributed-systems unit, and canonical article routes; browser-origin API/CORS; mobile-emulated swipes; and no uncaught page exceptions.
+- Local integration smoke passed. Local k6 rate-limit profile: 151 requests (~3.02 req/s), 120 accepted, 31 HTTP 429, p95 2.36 ms, zero failed requests, zero dropped iterations, 755/755 checks. This is local rate-limit verification, not production capacity/stress evidence.
+- No production load test was run. It remains manual-only and requires `run_load_test: true`.
+- CodeRabbit had not completed its review when the PR was merged; static analysis (CodeQL and Semgrep) passed. Monitor for late review findings and fix them in a follow-up PR.
+- Issue #18 remains open. Issue #33 capacity acceptance criteria remain unmet; issue #29 overflow/failover remains disabled/unimplemented; issue #70 credential rotation remains outstanding.
+- This final verification supersedes earlier entries that said PR #77 merge/deployment/browser smoke were pending.

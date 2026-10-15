@@ -521,3 +521,12 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `backend_git_commits`: same key and description.
 - Source commits `67210687a8668cdcde4cfda43831e9f4de5638c3`, `4297927885cf9f30d3bbb6a1f531ec8526c67b55`, and `e32643d97167ee6bd3471277910f785d0fdd8f16` are also present in both canonical collections.
 - Live counts after insertion: frontend 172, backend 250, legacy `git_commits` 16. Duplicate-key aggregation was not rerun after this insertion; verify during final ledger audit if needed.
+
+
+## PR #77 deployment verification — 2026-10-15
+
+- Exact production merge SHA: `e8cbf46cce377ac7501af091e901e177043d4778`; source SHA: `e32643d97167ee6bd3471277910f785d0fdd8f16`. The merge commit tree matches the source tree.
+- Both canonical collections contain the source SHAs `67210687a8668cdcde4cfda43831e9f4de5638c3`, `4297927885cf9f30d3bbb6a1f531ec8526c67b55`, `e32643d97167ee6bd3471277910f785d0fdd8f16`, and merge SHA `e8cbf46cce377ac7501af091e901e177043d4778`.
+- Post-merge deployment succeeded: Vercel production READY with `tech.katta.cc` alias; VPS health reported MongoDB connected; 11 production API endpoint checks plus CORS/security headers passed; Chromium smoke passed three SPA routes, browser-origin API/CORS, mobile swipe checks, and no uncaught page exceptions.
+- Latest recorded counts after merge insertion: frontend 172, backend 250, legacy `git_commits` 16. No duplicate-key aggregation was rerun after merge insertion; re-run it before the next ledger maintenance operation.
+- CodeRabbit review was still marked in progress at deployment time; do not describe it as a completed independent review. CodeQL and Semgrep passed.
