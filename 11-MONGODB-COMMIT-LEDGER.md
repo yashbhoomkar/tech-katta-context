@@ -513,3 +513,11 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `frontend_git_commits`: `e32643d97167ee6bd3471277910f785d0fdd8f16` — PR review follow-up: distinguish network outages from API 5xx/invalid list responses for article and category endpoints; do not retain stale bundled content on server errors, surface a service warning, and add regression coverage.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 171, backend 249, legacy `git_commits` 16.
+
+
+## PR #77 merge commit — 2026-10-15
+
+- `frontend_git_commits`: `e8cbf46cce377ac7501af091e901e177043d4778` — PR #77 merge commit: production-readiness audit fixes merged after all PR checks passed. CodeQL and Semgrep reported no new alerts. Frontend regression tests/build, backend tests, Vercel preview checks, and isolated local MongoDB/API/frontend smoke passed. Bounded local k6 rate-limit verification: 151 requests (~3.02 req/s), 120 accepted and 31 throttled, p95 2.36 ms, zero failed requests, zero dropped iterations, 755/755 checks passed. Not a production capacity test.
+- `backend_git_commits`: same key and description.
+- Source commits `67210687a8668cdcde4cfda43831e9f4de5638c3`, `4297927885cf9f30d3bbb6a1f531ec8526c67b55`, and `e32643d97167ee6bd3471277910f785d0fdd8f16` are also present in both canonical collections.
+- Live counts after insertion: frontend 172, backend 250, legacy `git_commits` 16. Duplicate-key aggregation was not rerun after this insertion; verify during final ledger audit if needed.

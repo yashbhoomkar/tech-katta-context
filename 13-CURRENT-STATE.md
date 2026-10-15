@@ -852,3 +852,15 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Network outages retain the existing bundled fallback; successful empty arrays remain authoritative; HTTP 5xx or malformed responses clear stale list data and show an accessible service warning instead of silently presenting old content.
 - Added a regression test for 503 responses from both list endpoints. CI reruns are pending on PR #77.
 - Commit SHA recorded in both canonical MongoDB collections. Live counts after insertion: frontend 171, backend 249; legacy `git_commits` remains 16.
+
+
+## PR #77 merged — 2026-10-15
+
+- Merge commit: `e8cbf46cce377ac7501af091e901e177043d4778`; PR: https://github.com/yashbhoomkar/tech-katta/pull/77.
+- Source commits `67210687a8668cdcde4cfda43831e9f4de5638c3`, `4297927885cf9f30d3bbb6a1f531ec8526c67b55`, and `e32643d97167ee6bd3471277910f785d0fdd8f16`, plus merge commit, are recorded in both canonical MongoDB collections.
+- PR checks passed: backend CI, frontend regression tests/build, local MongoDB/API/frontend smoke, CodeQL, Semgrep, Vercel preview comments. CodeQL and Semgrep report no new alerts on the final PR head.
+- CodeQL initially reported an externally controlled console format string; follow-up commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` replaced interpolated format strings with constant messages and structured fields; latest CodeQL is clean.
+- Bounded local-only k6 smoke passed: 442 requests (~7.37 req/s), p95 2.58 ms, zero failed requests, zero dropped iterations, 884/884 checks passed. Separate local rate-limit test passed: 151 requests (~3.02 req/s), 120 accepted, 31 throttled, p95 2.36 ms, zero failed requests, zero dropped iterations, 755/755 checks passed. These are local integration/rate-limit tests, not production capacity estimates.
+- CodeRabbit generated PR release notes, but its review-status comment remained "in progress" with no actionable inline findings at merge time. CodeQL and Semgrep results were inspected; if CodeRabbit posts actionable findings later, fix them in a follow-up.
+- Deployment and post-deploy production smoke are still pending verification; do not mark production deployed until the backend deployment workflow and production browser smoke results are confirmed.
+- Live ledger counts after merge insertion: frontend 172, backend 250; legacy `git_commits` remains 16.

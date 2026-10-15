@@ -412,3 +412,19 @@ Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3` on `fix/production-rea
 - Commit `e32643d97167ee6bd3471277910f785d0fdd8f16` adds a test proving 503 responses from article and category list endpoints are surfaced as server errors, distinct from network failure. Network failure remains the only list-fetch path that returns `null` and allows bundled fallback.
 - Successful empty arrays remain authoritative. HTTP errors and invalid JSON return an error result so the UI clears stale bundled content and shows an accessible service warning.
 - These new tests require a fresh passing frontend CI run before merge.
+
+
+## PR #77 final validation — 2026-10-15
+
+Merged commit: `e8cbf46cce377ac7501af091e901e177043d4778`.
+
+- Backend CI: passed.
+- Frontend regression tests and production build: passed.
+- CodeQL: passed with no new alerts on the final PR head. An earlier high-severity externally-controlled format-string alert was fixed in `4297927885cf9f30d3bbb6a1f531ec8526c67b55`.
+- Semgrep OSS and Semgrep Community Edition: passed with no new alerts.
+- Vercel PR preview: Ready; zero unresolved preview feedback.
+- Local MongoDB/API/frontend smoke: passed. First bounded profile produced 442 requests (~7.37 req/s), p95 2.58 ms, zero failed requests/dropped iterations, 884/884 checks passed.
+- Local rate-limit profile: passed with 151 requests (~3.02 req/s), 120 accepted and 31 HTTP 429, p95 2.36 ms, zero failed requests/dropped iterations, 755/755 checks passed.
+- These results prove local integration and configured rate-limit behavior only. They are not production capacity or stress-test evidence.
+- CodeRabbit review-status comment remained in progress with no actionable inline comments available at merge time. Static-analysis agents were inspected and the CodeQL finding was fixed; monitor for any late review comments.
+- Production deployment and read-only browser smoke remain a separate post-merge validation gate.
