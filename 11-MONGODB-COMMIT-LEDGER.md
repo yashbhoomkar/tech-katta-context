@@ -551,3 +551,10 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `frontend_git_commits`: `db7ec031caff4d5833201a1caa51f8b39766b909` — Run the backend deployment workflow's test job on pull requests touching backend/scripts/deploy workflow, while skipping the production deploy job and production-branch guard on PR events.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 175, backend 253.
+
+
+### PR #78 CodeRabbit second-review fixes — 2026-10-15
+
+- `frontend_git_commits`: `290c256a9608d65029994266387492389cdea438` — PR #78 CodeRabbit follow-up: restrict deployment workflow token to contents:read; pin checkout/setup-node/SSH/artifact actions to full SHAs; disable persisted checkout credentials in both jobs; fetch the exact deployment SHA; validate nested article content iterables before render; make browser smoke fail when article section expansion/visibility fails; add regression tests and JSDoc for analyzed functions.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 176, backend 254.

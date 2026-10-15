@@ -919,3 +919,11 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Frontend build/tests, CodeQL, Semgrep OSS/CE, Vercel preview checks, and local MongoDB/API/frontend smoke all passed.
 - Local-only bounded k6 smoke: 441 requests (~7.35 req/s), p95 2.60 ms, zero failed requests, zero dropped iterations, 882/882 checks passed. Rate-limit profile: 150 requests (~3.00 req/s), 30 throttled, p95 2.29 ms, zero failed requests, zero dropped iterations, 750/750 checks passed. Not production capacity evidence.
 - CodeRabbit review run `0cfddddd-488b-4822-b3b0-b60dfed23c59` is still in progress; do not merge until its findings are checked and any actionable issues fixed.
+
+
+### PR #78 CodeRabbit second-review fixes — 2026-10-15
+
+- Source commit `290c256a9608d65029994266387492389cdea438` addresses the second CodeRabbit review: read-only `contents: read` workflow permission; full-SHA pins for checkout/setup-node/SSH/artifact actions; `persist-credentials: false` on both deployment workflow checkouts; direct fetch of the exact deployment SHA; nested article-content shape validation; browser smoke now fails if section expansion/body visibility fails; added JSDoc for content normalization/validation.
+- New tests cover malformed nested iterables while preserving empty content objects and empty section arrays.
+- Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 176, backend 254.
+- CI and another CodeRabbit review of the latest head are pending; do not merge or deploy until they complete.

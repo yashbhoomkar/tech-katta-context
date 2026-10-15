@@ -477,3 +477,12 @@ Head `db7ec031caff4d5833201a1caa51f8b39766b909`:
 - Local-only rate-limit profile: 150 requests (~3 req/s), 30 throttled, p95 2.29 ms, zero failures/dropped iterations, 750/750 checks passed.
 - Production browser smoke is intentionally skipped for preview deployments; it should run on successful production `deployment_status` after merge and must confirm the embedded build SHA equals the deployed commit.
 - CodeRabbit review is still in progress; no merge/deployment until actionable findings are inspected.
+
+
+### PR #78 second CodeRabbit review — validation pending
+
+- Commit `290c256a9608d65029994266387492389cdea438` adds strict nested content validation for `sections`, legacy section fields, text/list/table/code/video/image/quote blocks, introduction, knowledge-check and summary fields. Empty content objects and empty arrays remain valid; malformed iterables fail closed.
+- Regression tests cover malformed nested iterables.
+- Deployment workflow now has read-only token permissions, SHA-pinned third-party actions, checkout credentials disabled, and direct exact-SHA fetch.
+- Browser smoke now fails if it cannot expand the expected article section or observe visible body content.
+- CI and latest CodeRabbit review are pending.
