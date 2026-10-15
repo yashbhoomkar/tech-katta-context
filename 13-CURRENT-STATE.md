@@ -911,3 +911,11 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Source commit `db7ec031caff4d5833201a1caa51f8b39766b909` adds a pull-request trigger for backend/deployment-workflow changes so the deployment workflow's test job executes before merge.
 - On pull requests, the production-branch guard is skipped and the deploy job is explicitly skipped; production deployment still requires the tested main-branch revision.
 - Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 175, backend 253.
+
+
+### PR #78 CI results — latest head `db7ec031caff4d5833201a1caa51f8b39766b909`
+
+- Backend deployment workflow's PR test job passed; production deploy job was skipped as intended for PR events.
+- Frontend build/tests, CodeQL, Semgrep OSS/CE, Vercel preview checks, and local MongoDB/API/frontend smoke all passed.
+- Local-only bounded k6 smoke: 441 requests (~7.35 req/s), p95 2.60 ms, zero failed requests, zero dropped iterations, 882/882 checks passed. Rate-limit profile: 150 requests (~3.00 req/s), 30 throttled, p95 2.29 ms, zero failed requests, zero dropped iterations, 750/750 checks passed. Not production capacity evidence.
+- CodeRabbit review run `0cfddddd-488b-4822-b3b0-b60dfed23c59` is still in progress; do not merge until its findings are checked and any actionable issues fixed.

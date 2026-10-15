@@ -465,3 +465,15 @@ Source commit: `a32ddafac407ced7e69c8f7ed622c2412a6b7478`.
 
 - Commit `db7ec031caff4d5833201a1caa51f8b39766b909` adds a pull-request trigger for backend, scripts, and deployment workflow changes. The backend test job runs in PR context; the production-branch guard and VPS deployment job are skipped for PR events.
 - The new workflow run must show backend tests passed and deploy job skipped on the latest PR head before merge.
+
+
+### PR #78 latest CI — 2026-10-15
+
+Head `db7ec031caff4d5833201a1caa51f8b39766b909`:
+
+- Backend deployment workflow PR test job: passed; deploy job correctly skipped for pull request context.
+- Frontend build/tests, CodeQL, Semgrep OSS/CE, Vercel preview, and local MongoDB/API/frontend smoke: passed.
+- Local-only bounded smoke: 441 requests (~7.35 req/s), p95 2.60 ms, zero failures/dropped iterations, 882/882 checks passed.
+- Local-only rate-limit profile: 150 requests (~3 req/s), 30 throttled, p95 2.29 ms, zero failures/dropped iterations, 750/750 checks passed.
+- Production browser smoke is intentionally skipped for preview deployments; it should run on successful production `deployment_status` after merge and must confirm the embedded build SHA equals the deployed commit.
+- CodeRabbit review is still in progress; no merge/deployment until actionable findings are inspected.
