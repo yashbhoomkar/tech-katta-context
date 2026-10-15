@@ -879,3 +879,10 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - The earlier entries in this document that describe PR #77 as pending are historical notes superseded by this final status.
 - Keep broader audit issue #18 open. Separate work remains: issue #70 least-privilege MongoDB runtime credential rotation, issue #29 real overflow/failover architecture (disabled), issue #33 dedicated staging/capacity testing, and the Cloudflare origin-hardening fail-open availability/security trade-off.
 - Production load probes now require manual dispatch and `run_load_test: true`; no push/PR event launches production load.
+
+
+### Ledger integrity verification — 2026-10-15
+
+- After PR #77 merge, live ledger counts are frontend 172, backend 250, legacy `git_commits` 16.
+- Duplicate-key aggregation returned zero duplicate keys in both `frontend_git_commits` and `backend_git_commits`.
+- Merge SHA `e8cbf46cce377ac7501af091e901e177043d4778` exists in both canonical collections.
