@@ -904,3 +904,10 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Follow-up application commit `6688b2f1e7dec0191ddf1457fb211062804e4cf9` sets the production-branch guard step's working directory to the workspace root. This is required because the test job's default working directory is `backend` and the guard runs before checkout.
 - Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 174, backend 252.
 - PR #78 remains in review; CI must rerun on this latest head.
+
+
+### PR #78 CI coverage follow-up — 2026-10-15
+
+- Source commit `db7ec031caff4d5833201a1caa51f8b39766b909` adds a pull-request trigger for backend/deployment-workflow changes so the deployment workflow's test job executes before merge.
+- On pull requests, the production-branch guard is skipped and the deploy job is explicitly skipped; production deployment still requires the tested main-branch revision.
+- Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 175, backend 253.

@@ -544,3 +544,10 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `frontend_git_commits`: `6688b2f1e7dec0191ddf1457fb211062804e4cf9` — Set the production-branch guard step working-directory to the workspace root so it can run before checkout despite the backend job's default working-directory.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 174, backend 252.
+
+
+### PR #78 CI coverage follow-up — 2026-10-15
+
+- `frontend_git_commits`: `db7ec031caff4d5833201a1caa51f8b39766b909` — Run the backend deployment workflow's test job on pull requests touching backend/scripts/deploy workflow, while skipping the production deploy job and production-branch guard on PR events.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 175, backend 253.

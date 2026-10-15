@@ -459,3 +459,9 @@ Source commit: `a32ddafac407ced7e69c8f7ed622c2412a6b7478`.
 
 - Commit `6688b2f1e7dec0191ddf1457fb211062804e4cf9` explicitly sets `working-directory: .` for the production-branch guard, which executes before checkout while the backend test job defaults to `working-directory: backend`.
 - The new PR head's CI must confirm the workflow changes remain valid; production deployment remains gated behind passing tests and merge.
+
+
+### PR #78 deployment workflow test gate
+
+- Commit `db7ec031caff4d5833201a1caa51f8b39766b909` adds a pull-request trigger for backend, scripts, and deployment workflow changes. The backend test job runs in PR context; the production-branch guard and VPS deployment job are skipped for PR events.
+- The new workflow run must show backend tests passed and deploy job skipped on the latest PR head before merge.
