@@ -442,3 +442,14 @@ Merged commit: `e8cbf46cce377ac7501af091e901e177043d4778`.
 - CodeRabbit had not completed its review when the PR was merged; static analysis (CodeQL and Semgrep) passed. Monitor for late review findings and fix them in a follow-up PR.
 - Issue #18 remains open. Issue #33 capacity acceptance criteria remain unmet; issue #29 overflow/failover remains disabled/unimplemented; issue #70 credential rotation remains outstanding.
 - This final verification supersedes earlier entries that said PR #77 merge/deployment/browser smoke were pending.
+
+
+## CodeRabbit follow-up PR #78 — validation pending
+
+Source commit: `a32ddafac407ced7e69c8f7ed622c2412a6b7478`.
+
+- Backend deployment workflow pins remote checkout, dependencies, content sync, and restart to the same `github.sha` that passed the workflow's test job, and rejects production dispatches from non-main refs.
+- Production browser smoke is triggered by successful production deployment status (or manual dispatch from main), skips stale deployment events whose SHA is no longer current main, and checks the public alias build-SHA marker against the verified deployment SHA.
+- Browser smoke requires the exact canonical article heading and non-empty expanded section body rather than accepting a populated React root.
+- Added unit tests for remote article content resolution: successful remote content wins; valid empty content objects remain authoritative; missing/null/primitive/array content is an error; only network unavailability uses bundled fallback.
+- CI, CodeRabbit review, merge, deployment, and post-deployment browser smoke results are pending.

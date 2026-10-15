@@ -530,3 +530,10 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - Post-merge deployment succeeded: Vercel production READY with `tech.katta.cc` alias; VPS health reported MongoDB connected; 11 production API endpoint checks plus CORS/security headers passed; Chromium smoke passed three SPA routes, browser-origin API/CORS, mobile swipe checks, and no uncaught page exceptions.
 - Latest recorded counts after merge insertion: frontend 172, backend 250, legacy `git_commits` 16. Final aggregate audit ran after merge insertion and returned zero duplicate keys in both canonical collections.
 - CodeRabbit review was still marked in progress at deployment time; do not describe it as a completed independent review. CodeQL and Semgrep passed.
+
+
+## CodeRabbit follow-up PR #78 source commit — 2026-10-15
+
+- `frontend_git_commits`: `a32ddafac407ced7e69c8f7ed622c2412a6b7478` — PR #78 source commit addressing CodeRabbit follow-up: deploy exact tested GitHub SHA for checkout/dependencies/content sync/restart; run production browser smoke after successful production deployment status and verify deployed build SHA; assert canonical article heading/body; reject missing/null/primitive/array remote content after HTTP success while preserving valid empty content objects and allowing bundled fallback only on network unavailability.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 173, backend 251, legacy `git_commits` 16. Final duplicate-key aggregation must be rerun after the PR's merge commit.

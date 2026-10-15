@@ -886,3 +886,14 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - After PR #77 deployment, aggregate counts were verified at 172 frontend and 250 backend canonical commit documents.
 - Duplicate-key aggregation on `key` returned zero duplicates in both `frontend_git_commits` and `backend_git_commits`.
 - CodeRabbit review remained in progress with no actionable inline findings; CodeQL and Semgrep passed, and the CodeQL alert was fixed before merge.
+
+
+## CodeRabbit follow-up PR #78 — in review
+
+- Branch: `fix/post-merge-review-findings-2026-10-15`.
+- Source commit: `a32ddafac407ced7e69c8f7ed622c2412a6b7478`.
+- Fixes all four CodeRabbit findings from merged PR #77: deployment uses the exact tested SHA for checkout/dependencies/content sync/restart; production browser smoke triggers only after a successful production deployment status and checks the deployed build SHA; article smoke requires the canonical heading and real body text; successful HTTP responses with missing/invalid content no longer use stale bundled content.
+- A build-SHA meta marker is populated by Vercel's `VERCEL_GIT_COMMIT_SHA` and by the smoke workflow's explicit expected SHA for its local preview.
+- MongoDB commit ledger entry added in both canonical collections. Counts after this source commit: frontend 173, backend 251; legacy `git_commits` remains 16.
+- PR #78 CI/review and deployment are pending. Do not mark these fixes deployed until PR checks pass, it is merged, and both VPS deployment and Vercel production/browser verification succeed.
+- CodeQL alert 13's current Security-tab state remains unverified; source fix is present and CodeQL check passed on PR #77, but a successful check does not establish that the historical alert is closed.
