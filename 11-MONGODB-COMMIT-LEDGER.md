@@ -504,3 +504,12 @@ Application commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` is recorded in bot
 - `frontend_git_commits`: `4297927885cf9f30d3bbb6a1f531ec8526c67b55` — PR review follow-up: remove slug-derived values from browser console format strings so externally controlled article slugs cannot affect console formatting; retain structured diagnostic fields.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 170, backend 248, legacy `git_commits` 16.
+
+
+## API list-error/fallback follow-up — 2026-10-15
+
+Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in both canonical collections because it changes the frontend API and list-state behavior as part of the cross-cutting production-readiness PR.
+
+- `frontend_git_commits`: `e32643d97167ee6bd3471277910f785d0fdd8f16` — PR review follow-up: distinguish network outages from API 5xx/invalid list responses for article and category endpoints; do not retain stale bundled content on server errors, surface a service warning, and add regression coverage.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 171, backend 249, legacy `git_commits` 16.

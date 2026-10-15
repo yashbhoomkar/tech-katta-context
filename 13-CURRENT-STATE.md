@@ -844,3 +844,11 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - CodeQL's PR annotation identified a user-controlled article slug interpolated into a browser console format string. The log messages now use constant format strings and pass the slug/error as structured fields.
 - This is a targeted remediation for the reported alert. The updated CodeQL result and CodeRabbit review are pending; the PR remains unmerged and undeployed.
 - Ledger counts after this second source commit: frontend 170, backend 248; legacy `git_commits` remains 16.
+
+
+### API error/fallback follow-up — 2026-10-15
+
+- Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` updates article/category list fetches to distinguish network failure from HTTP/server/invalid-response errors.
+- Network outages retain the existing bundled fallback; successful empty arrays remain authoritative; HTTP 5xx or malformed responses clear stale list data and show an accessible service warning instead of silently presenting old content.
+- Added a regression test for 503 responses from both list endpoints. CI reruns are pending on PR #77.
+- Commit SHA recorded in both canonical MongoDB collections. Live counts after insertion: frontend 171, backend 249; legacy `git_commits` remains 16.

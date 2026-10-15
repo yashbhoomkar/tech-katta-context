@@ -405,3 +405,10 @@ Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3` on `fix/production-rea
 - The first PR head produced a CodeQL high-severity annotation for externally controlled format strings in frontend article-fetch logging.
 - Follow-up commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` replaces slug-interpolated first-argument console strings with constant messages and structured diagnostic objects.
 - CodeQL, CodeRabbit, and the local MongoDB/API smoke workflow must be rechecked against the latest PR head before merge. No new pass is claimed yet.
+
+
+### API list error handling regression coverage — 2026-10-15
+
+- Commit `e32643d97167ee6bd3471277910f785d0fdd8f16` adds a test proving 503 responses from article and category list endpoints are surfaced as server errors, distinct from network failure. Network failure remains the only list-fetch path that returns `null` and allows bundled fallback.
+- Successful empty arrays remain authoritative. HTTP errors and invalid JSON return an error result so the UI clears stale bundled content and shows an accessible service warning.
+- These new tests require a fresh passing frontend CI run before merge.
