@@ -486,3 +486,8 @@ Head `db7ec031caff4d5833201a1caa51f8b39766b909`:
 - Deployment workflow now has read-only token permissions, SHA-pinned third-party actions, checkout credentials disabled, and direct exact-SHA fetch.
 - Browser smoke now fails if it cannot expand the expected article section or observe visible body content.
 - CI and latest CodeRabbit review are pending.
+
+
+### PR #78 workflow syntax correction — latest CI pending
+
+- Commit `8139baf8ee1c460817cd82084bc09746f8e2842d` removes a duplicate top-level `permissions` mapping. The earlier push-triggered workflow run failed before job creation; confirm the latest PR workflow run parses and its backend test job passes before merge.

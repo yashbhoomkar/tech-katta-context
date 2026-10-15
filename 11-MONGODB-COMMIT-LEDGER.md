@@ -558,3 +558,10 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `frontend_git_commits`: `290c256a9608d65029994266387492389cdea438` — PR #78 CodeRabbit follow-up: restrict deployment workflow token to contents:read; pin checkout/setup-node/SSH/artifact actions to full SHAs; disable persisted checkout credentials in both jobs; fetch the exact deployment SHA; validate nested article content iterables before render; make browser smoke fail when article section expansion/visibility fails; add regression tests and JSDoc for analyzed functions.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 176, backend 254.
+
+
+### PR #78 workflow syntax correction — 2026-10-15
+
+- `frontend_git_commits`: `8139baf8ee1c460817cd82084bc09746f8e2842d` — Remove duplicate top-level permissions mapping while retaining the explicit contents:read least-privilege scope; prior workflow push run failed to parse the duplicate key.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 177, backend 255.

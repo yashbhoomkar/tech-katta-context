@@ -927,3 +927,9 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - New tests cover malformed nested iterables while preserving empty content objects and empty section arrays.
 - Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 176, backend 254.
 - CI and another CodeRabbit review of the latest head are pending; do not merge or deploy until they complete.
+
+
+### PR #78 workflow syntax correction — 2026-10-15
+
+- Commit `8139baf8ee1c460817cd82084bc09746f8e2842d` removes a duplicate top-level `permissions` mapping introduced during the second-review hardening edit, retaining one `contents: read` block. The initial workflow push run failed before creating jobs because of the duplicate mapping; latest-head CI must confirm the corrected workflow parses.
+- Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 177, backend 255.
