@@ -823,3 +823,16 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - CodeQL: no new alerts. No production traffic was sent; this is rate-limiter behavior verification only.
 - Latest canonical ledger counts after recording PR #76: frontend 168, backend 246, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections; the six-row duplicate backup remains intact.
 - Issue #33 remains open: there is no dedicated Tech Katta staging backend, and this local test does not satisfy capacity-test acceptance criteria. Issue #70 remains open pending manual least-privilege runtime and ledger-maintenance credential setup; issue #29 remains blocked and overflow remains disabled.
+
+
+## Production-readiness remediation PR — 2026-10-15 (in review)
+
+- Application branch: `fix/production-readiness-audit-2026-10-15`.
+- Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3`.
+- PR has not yet been merged or deployed. CI and independent review results are pending; do not treat this source commit as production state.
+- Workflow safety: production load probes now have only a manual `workflow_dispatch` trigger, and the bounded load job requires `run_load_test: true`. Read-only production browser smoke is triggered by frontend-source changes after merge.
+- Deployment safety: the VPS deployment workflow adds a backend test job as a required dependency, least-privilege read permissions, and non-cancelling production deployment concurrency. Docker uses `npm ci --omit=dev`.
+- Frontend correctness/security: successful empty list responses are authoritative; article API responses distinguish 404, server errors, and network unavailability; only network unavailability permits local article fallback. Video embeds use exact HTTPS provider hosts, validated IDs, privacy-enhanced YouTube URLs, and a sandboxed iframe. Reading-progress storage failures are handled without crashing the page.
+- Runtime: uncaught exceptions perform best-effort cleanup but exit nonzero.
+- Regression coverage added for empty API results, article status distinctions, video provider allowlisting, and restricted browser storage. CI evidence is pending.
+- MongoDB ledger: source SHA recorded in both canonical collections. Current counts after insertion: frontend 169, backend 247; legacy `git_commits` remains 16.

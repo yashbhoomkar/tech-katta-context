@@ -387,3 +387,14 @@ The CI workflow uses an isolated MongoDB service, local Express API, and local f
 Observed: 151 requests (~3.02 req/s), 120 accepted responses, 31 HTTP 429 responses, p95 2.99 ms, zero failed HTTP requests, zero dropped iterations, and 100% checks. The 429 responses carried Retry-After and the configured X-RateLimit headers. CodeQL reported no new alerts.
 
 This is evidence that the configured 120-request/minute per-IP limiter behaves as intended in the local integration environment. It is **not** a production capacity estimate and does not satisfy issue #33's need for a staging-equivalent path, resource monitoring, and controlled capacity ramps.
+
+
+## Frontend regression and deployment-gate changes — 2026-10-15 (pending CI)
+
+Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3` on `fix/production-readiness-audit-2026-10-15`.
+
+- Added Node's built-in test runner for the frontend and CI coverage for authoritative empty API responses, 404 versus 5xx versus network failure, exact HTTPS YouTube/Vimeo host allowlisting, malformed video IDs, and restricted localStorage behavior.
+- Backend deployment now has a test job (`npm ci`, `npm test`, syntax checks, shell syntax validation) required by the deploy job. This is workflow configuration only until a successful Actions run confirms it.
+- Production load workflow no longer runs on branch pushes or pull requests. Only manual dispatch can start it, and the load job requires the explicit boolean input `run_load_test: true`; the configured hard cap remains 60 GET requests at concurrency 3.
+- Production browser smoke remains read-only and is scheduled after merged frontend changes. It is distinct from CI unit/build checks and from load/capacity testing.
+- No tests are claimed passed at the time of this documentation commit; use the PR's actual Actions results to update this entry after validation.

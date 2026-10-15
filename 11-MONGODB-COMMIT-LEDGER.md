@@ -485,3 +485,13 @@ Before insertion, both canonical collections were queried for the PR #76 source 
 - `4f9e0c6739dd747edc27bf9ee79419c4092849ad` — PR #76 merge: local k6 profile passed with 120 accepted and 31 throttled requests, p95 2.99 ms, zero failed requests, zero dropped iterations, and all checks passed.
 
 Inserted count: 4. Latest live counts: frontend 168, backend 246, legacy `git_commits` 16. Duplicate-key aggregation remains zero in both canonical collections.
+
+
+## Production-readiness remediation source commit — 2026-10-15
+
+The application source commit `67210687a8668cdcde4cfda43831e9f4de5638c3` is recorded in both canonical collections because it changes frontend behavior and backend/runtime/deployment workflows.
+
+- `frontend_git_commits`: `67210687a8668cdcde4cfda43831e9f4de5638c3` — PR audit source commit: restrict production load probes to explicit manual dispatch; gate serialized VPS deployments on backend tests; add frontend API/fallback, video-embed, and storage hardening with regression tests; fix fatal shutdown exit status; use lockfile-enforced Docker install.
+- `backend_git_commits`: same key and description.
+- The commit is on `fix/production-readiness-audit-2026-10-15`; PR review, CI, merge, and deployment have not yet been completed at the time of this entry.
+- Live counts immediately after insertion: frontend 169, backend 247, legacy `git_commits` 16. Existing unique-index and duplicate-check evidence remains unchanged.
