@@ -398,3 +398,10 @@ Source commit: `67210687a8668cdcde4cfda43831e9f4de5638c3` on `fix/production-rea
 - Production load workflow no longer runs on branch pushes or pull requests. Only manual dispatch can start it, and the load job requires the explicit boolean input `run_load_test: true`; the configured hard cap remains 60 GET requests at concurrency 3.
 - Production browser smoke remains read-only and is scheduled after merged frontend changes. It is distinct from CI unit/build checks and from load/capacity testing.
 - No tests are claimed passed at the time of this documentation commit; use the PR's actual Actions results to update this entry after validation.
+
+
+### CodeQL alert remediation — 2026-10-15
+
+- The first PR head produced a CodeQL high-severity annotation for externally controlled format strings in frontend article-fetch logging.
+- Follow-up commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` replaces slug-interpolated first-argument console strings with constant messages and structured diagnostic objects.
+- CodeQL, CodeRabbit, and the local MongoDB/API smoke workflow must be rechecked against the latest PR head before merge. No new pass is claimed yet.

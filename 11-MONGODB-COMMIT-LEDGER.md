@@ -495,3 +495,12 @@ The application source commit `67210687a8668cdcde4cfda43831e9f4de5638c3` is reco
 - `backend_git_commits`: same key and description.
 - The commit is on `fix/production-readiness-audit-2026-10-15`; PR review, CI, merge, and deployment have not yet been completed at the time of this entry.
 - Live counts immediately after insertion: frontend 169, backend 247, legacy `git_commits` 16. Existing unique-index and duplicate-check evidence remains unchanged.
+
+
+## CodeQL review follow-up — 2026-10-15
+
+Application commit `4297927885cf9f30d3bbb6a1f531ec8526c67b55` is recorded in both canonical collections because it is part of the frontend API module in the same cross-cutting remediation PR.
+
+- `frontend_git_commits`: `4297927885cf9f30d3bbb6a1f531ec8526c67b55` — PR review follow-up: remove slug-derived values from browser console format strings so externally controlled article slugs cannot affect console formatting; retain structured diagnostic fields.
+- `backend_git_commits`: same key and description.
+- Live counts after insertion: frontend 170, backend 248, legacy `git_commits` 16.

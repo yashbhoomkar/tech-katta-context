@@ -836,3 +836,11 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Runtime: uncaught exceptions perform best-effort cleanup but exit nonzero.
 - Regression coverage added for empty API results, article status distinctions, video provider allowlisting, and restricted browser storage. CI evidence is pending.
 - MongoDB ledger: source SHA recorded in both canonical collections. Current counts after insertion: frontend 169, backend 247; legacy `git_commits` remains 16.
+
+
+### CodeQL review follow-up — 2026-10-15
+
+- Follow-up application commit: `4297927885cf9f30d3bbb6a1f531ec8526c67b55` on the same PR branch.
+- CodeQL's PR annotation identified a user-controlled article slug interpolated into a browser console format string. The log messages now use constant format strings and pass the slug/error as structured fields.
+- This is a targeted remediation for the reported alert. The updated CodeQL result and CodeRabbit review are pending; the PR remains unmerged and undeployed.
+- Ledger counts after this second source commit: frontend 170, backend 248; legacy `git_commits` remains 16.
