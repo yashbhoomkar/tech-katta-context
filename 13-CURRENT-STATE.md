@@ -959,3 +959,11 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 
 - Commit `e31b86f220e96839233f59bdf32df5b8e541f5c2` raises the request-flow top label and node-detail labels to 9px in the narrowest breakpoint, eliminating old 7–8px mobile overrides. Recorded in the MongoDB frontend commit ledger.
 - Latest source head is now `e31b86f220e96839233f59bdf32df5b8e541f5c2`. Frontend CI, CodeQL, Semgrep, bounded local k6 smoke, and CodeRabbit re-review must be checked on this exact head before merge. PR remains open; production untouched.
+
+
+### PR #79 pre-merge checks passed — 2026-10-16
+
+- Candidate source head: `e31b86f220e96839233f59bdf32df5b8e541f5c2`. Frontend CI build/tests, CodeQL, Semgrep, Vercel preview, and bounded local k6 integration/rate-limit checks all passed.
+- k6 smoke: 442 requests (~7.37 req/s), p95 2.79 ms, zero failed requests, zero dropped iterations, 884/884 checks passed. Rate-limit profile: 150 requests (~3.00 req/s), 30 HTTP 429 responses, p95 2.21 ms, zero failed requests, zero dropped iterations, 750/750 checks passed. These are local-only integration tests, not a production load/capacity claim.
+- CodeRabbit's initial review produced three actionable findings; all are fixed and all inline review threads are resolved. A final review request for the last mobile CSS-only adjustment remains unanswered. Manual source and built-preview checks verified the 9px mobile label rules, visible focus halo, deterministic slug tie-breaker, and HTTP 200 SPA shell on home, unit, and article routes.
+- Vercel preview deployment is READY for this exact SHA. No screenshot-based visual comparison or real mobile-device test is claimed. PR #79 is still open and production is unchanged at this checkpoint.
