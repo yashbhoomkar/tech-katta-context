@@ -234,3 +234,5 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - Both application commits were checked for duplicates and recorded in `techkatta_history.frontend_git_commits`.
 - Frontend CI passed on the PR head; Vercel preview status and Semgrep passed. CodeQL and the bounded local k6 workflow were still running at the last check. No browser screenshot comparison or production deployment has been verified.
 - Preserve all existing route behavior, topic search semantics, article schema, collapsible article sections, read-progress/mark-read state, mobile sidebar/swipe behavior, upcoming labels, and dark-only editorial identity.
+
+- Follow-up cleanup commit `a1519bb4b9144f77d786e121f3edbe74e1c79ac8` removes an unused local binding; recorded in the MongoDB frontend commit ledger. PR #79 head advanced to this commit; CI reruns are pending.
