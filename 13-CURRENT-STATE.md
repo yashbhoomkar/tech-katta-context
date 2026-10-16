@@ -938,9 +938,9 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 ## UI redesign in progress — 2026-10-16
 
 - Current `main` base observed from PR #79: `e8cbf46cce377ac7501af091e901e177043d4778`.
-- Draft PR #79: https://github.com/yashbhoomkar/tech-katta/pull/79
+- PR #79: https://github.com/yashbhoomkar/tech-katta/pull/79
 - Candidate branch: `design/editorial-visual-redesign`.
 - Frontend source commits: `6997dbbb661c55d635c9ab6a57fe919c2469f2d4`, `25fda2df01da1b167a66aa33c5b7c680d4cf4dcb`, and `a1519bb4b9144f77d786e121f3edbe74e1c79ac8`; both are recorded in the canonical MongoDB frontend commit ledger.
 - Frontend CI, Vercel preview status, and Semgrep reported success on the PR head. CodeQL and bounded local k6 workflow were still running at the last observation.
-- The PR is open and marked ready for review, not merged. A manual CodeRabbit review was requested; review evidence is not yet available. Production deployment and actual browser/mobile visual validation have not been verified. Do not treat the candidate UI as live production.
+- The PR is open and marked ready for review, not merged. A manual CodeRabbit review is processing; no formal review result or actionable findings are verified yet. Production deployment and actual browser/mobile visual validation have not been verified. Do not treat the candidate UI as live production.
 - Production deployment metadata above is historical context; current production SHA was not independently re-verified as part of this UI audit.
