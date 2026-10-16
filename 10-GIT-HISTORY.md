@@ -758,3 +758,6 @@ Validation at snapshot time: frontend CI passed, Vercel preview status passed, a
 - Follow-up cleanup `a1519bb4b9144f77d786e121f3edbe74e1c79ac8` removes an unused homepage binding; recorded in MongoDB. PR #79 was marked ready for review and manual CodeRabbit review was requested, but review evidence and latest-head CI are pending.
 
 - Follow-up `76454c3d0f5a5917f3316065e4f1a99eadfa96db` improves small-label contrast in the editorial visual system; recorded in MongoDB. Latest-head CI and preview redeployment are pending.
+
+
+- PR #79 review follow-up commits `369a2046d3d993db532c7f32ae1dfa163fb55e11` and `170c0b391a88b5b5737acd2ce68d82446738b730`: deterministic ordering for equal article `order` values, stronger visible keyboard focus styling, and larger system-illustration labels. Both source commits were recorded in the MongoDB frontend ledger. Latest-head CI is pending.
