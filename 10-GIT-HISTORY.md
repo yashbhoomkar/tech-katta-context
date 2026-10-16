@@ -754,3 +754,5 @@ Application commits (both recorded in MongoDB `techkatta_history.frontend_git_co
 - `25fda2df01da1b167a66aa33c5b7c680d4cf4dcb` — refine the design system and responsive editorial layout for the homepage, topic index, recent notes, and article reading experience.
 
 Validation at snapshot time: frontend CI passed, Vercel preview status passed, and Semgrep passed. CodeQL and bounded local k6 workflow were in progress. No merge, production deployment, screenshot comparison, or mobile device test is claimed.
+
+- Follow-up cleanup `a1519bb4b9144f77d786e121f3edbe74e1c79ac8` removes an unused homepage binding; recorded in MongoDB. PR #79 was marked ready for review and manual CodeRabbit review was requested, but review evidence and latest-head CI are pending.
