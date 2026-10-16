@@ -245,3 +245,6 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - Source commits `369a2046d3d993db532c7f32ae1dfa163fb55e11` and `170c0b391a88b5b5737acd2ce68d82446738b730` are recorded in `techkatta_history.frontend_git_commits`.
 - Added deterministic `slug` tie-breaking for published notes with equal `order`; strengthened `.library-search:focus-within` border/halo and raised decorative system visual label sizes (top/footer to 10px/9px, node index to 9px).
 - CodeRabbit identified these three actionable items. They are addressed in source; latest-head CI is running. No merge or production deployment has been performed.
+
+
+- Mobile follow-up commit `e31b86f220e96839233f59bdf32df5b8e541f5c2` removes narrow-screen overrides that reduced request-flow labels to 7–8px; the top label and node-detail labels now remain at 9px. Recorded in the MongoDB frontend commit ledger. Latest-head CI and CodeRabbit review are pending.
