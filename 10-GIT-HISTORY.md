@@ -761,3 +761,6 @@ Validation at snapshot time: frontend CI passed, Vercel preview status passed, a
 
 
 - PR #79 review follow-up commits `369a2046d3d993db532c7f32ae1dfa163fb55e11` and `170c0b391a88b5b5737acd2ce68d82446738b730`: deterministic ordering for equal article `order` values, stronger visible keyboard focus styling, and larger system-illustration labels. Both source commits were recorded in the MongoDB frontend ledger. Latest-head CI is pending.
+
+
+- Mobile label follow-up `e31b86f220e96839233f59bdf32df5b8e541f5c2` raises the request-flow top and node-detail labels to 9px at narrow widths, preventing responsive rules from overriding the label-legibility fix. Recorded in MongoDB; latest-head CI pending.
