@@ -944,3 +944,5 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Frontend CI, Vercel preview status, and Semgrep reported success on the PR head. CodeQL and bounded local k6 workflow were still running at the last observation.
 - The PR is open and marked ready for review, not merged. A manual CodeRabbit review is processing; no formal review result or actionable findings are verified yet. Production deployment and actual browser/mobile visual validation have not been verified. Do not treat the candidate UI as live production.
 - Production deployment metadata above is historical context; current production SHA was not independently re-verified as part of this UI audit.
+
+- Latest source head: `76454c3d0f5a5917f3316065e4f1a99eadfa96db` (small-label contrast refinement). It is ledgered; latest-head CI and preview deployment need re-verification before merge.
