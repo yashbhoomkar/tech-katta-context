@@ -236,3 +236,5 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - Preserve all existing route behavior, topic search semantics, article schema, collapsible article sections, read-progress/mark-read state, mobile sidebar/swipe behavior, upcoming labels, and dark-only editorial identity.
 
 - Follow-up cleanup commit `a1519bb4b9144f77d786e121f3edbe74e1c79ac8` removes an unused local binding; recorded in the MongoDB frontend commit ledger. PR #79 head advanced to this commit; CI reruns are pending.
+
+- Contrast refinement commit `76454c3d0f5a5917f3316065e4f1a99eadfa96db` increases contrast for small metadata and technical illustration labels; recorded in the MongoDB frontend commit ledger. CI and preview redeployment are pending for this latest head.
