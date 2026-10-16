@@ -238,3 +238,10 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - Follow-up cleanup commit `a1519bb4b9144f77d786e121f3edbe74e1c79ac8` removes an unused local binding; recorded in the MongoDB frontend commit ledger. PR #79 head advanced to this commit; CI reruns are pending.
 
 - Contrast refinement commit `76454c3d0f5a5917f3316065e4f1a99eadfa96db` increases contrast for small metadata and technical illustration labels; recorded in the MongoDB frontend commit ledger. CI and preview redeployment are pending for this latest head.
+
+
+### PR #79 review fixes — 2026-10-16
+
+- Source commits `369a2046d3d993db532c7f32ae1dfa163fb55e11` and `170c0b391a88b5b5737acd2ce68d82446738b730` are recorded in `techkatta_history.frontend_git_commits`.
+- Added deterministic `slug` tie-breaking for published notes with equal `order`; strengthened `.library-search:focus-within` border/halo and raised decorative system visual label sizes (top/footer to 10px/9px, node index to 9px).
+- CodeRabbit identified these three actionable items. They are addressed in source; latest-head CI is running. No merge or production deployment has been performed.
