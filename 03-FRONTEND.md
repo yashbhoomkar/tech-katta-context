@@ -256,3 +256,13 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - Local smoke profile: 442 requests (~7.37 req/s), p95 2.79 ms, zero failed requests, zero dropped iterations, 884/884 checks passed. Separate rate-limit profile: 150 requests (~3.00 req/s), 30 HTTP 429 responses, p95 2.21 ms, zero failed requests, zero dropped iterations, 750/750 checks passed. Local-only validation, not a production capacity test.
 - CodeRabbit's three actionable findings were fixed; all four inline review threads are resolved. A requested fresh review for the final mobile-only CSS override fix has not published a new review; the CSS and built preview were manually checked. No screenshot-based visual comparison or real-device test is claimed.
 - Preview deployment for this exact SHA is READY. PR #79 remains open pending merge; production has not yet been changed.
+
+
+## PR #79 merged and deployed — 2026-10-16
+
+- PR #79 merged to `main` with merge commit `f5e422b4459928168a6779211aa0d0ef3fa54951`. The merge SHA is recorded in `techkatta_history.frontend_git_commits`.
+- Vercel production deployment `dpl_ELdg2b94QGGQckwEAfRDH8nfbhtS` is `READY` for the exact merge SHA and has alias `tech.katta.cc`. Production home, `/unit/distributed-systems`, and `/learn/distributed-system-components-overview` return HTTP 200 and serve the new built JS/CSS assets.
+- Post-merge frontend CI, Semgrep, CodeQL, and production read-only Chromium smoke passed. Browser smoke verified home/unit/article routes, browser-origin API/CORS contract, mobile-emulated navigation swipes, and no uncaught page exceptions.
+- The backend was unchanged; no backend deployment was required. The bounded local-only k6 smoke/rate-limit test passed before merge; do not present it as production capacity evidence.
+- CodeRabbit's three original actionable findings were fixed and all inline review threads resolved. A fresh review request for the final mobile CSS override has not returned a separate result; monitor for late comments and handle actionable findings in a follow-up PR.
+- No screenshot-based visual comparison or real physical-device test is claimed.
