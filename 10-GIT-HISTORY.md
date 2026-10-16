@@ -771,3 +771,12 @@ Validation at snapshot time: frontend CI passed, Vercel preview status passed, a
 - Final candidate head `e31b86f220e96839233f59bdf32df5b8e541f5c2`: frontend CI, CodeQL, Semgrep, Vercel preview, and local k6 workflow passed.
 - Local smoke: 442 requests (~7.37 req/s), p95 2.79 ms, 0 failed, 0 dropped, 884/884 checks. Rate-limit verification: 150 requests (~3 req/s), 30 HTTP 429 responses, p95 2.21 ms, 0 failed, 0 dropped, 750/750 checks. These results are isolated local integration evidence only, not production capacity evidence.
 - First CodeRabbit review findings (stable ordering, search focus visibility, small diagram labels) are fixed; all inline review threads are resolved. A final requested review for the mobile breakpoint override fix has not published. Manual source/built-preview verification was completed. No production deployment yet.
+
+
+## PR #79 merged/deployed — 2026-10-16
+
+- PR #79 merge commit: `f5e422b4459928168a6779211aa0d0ef3fa54951`, recorded in the MongoDB frontend commit ledger.
+- Vercel production deployment `dpl_ELdg2b94QGGQckwEAfRDH8nfbhtS` is READY for this exact SHA and includes alias `tech.katta.cc`. Production home, unit, and canonical article routes return HTTP 200 with the new JS/CSS assets.
+- Post-merge frontend CI, Semgrep, CodeQL, and read-only Chromium production smoke all passed. Browser smoke validated three SPA routes, browser-origin API/CORS, mobile-emulated swipes, and absence of uncaught page exceptions.
+- The source changes are frontend-only; no backend deployment was required. Pre-merge local k6 integration and rate-limit tests passed (442 requests; separate 150-request rate-limit run with 30 HTTP 429 responses). These are local-only checks, not production capacity estimates.
+- Initial CodeRabbit review's three findings were fixed; all review threads are resolved. A second review request for the final mobile CSS-only override has not published a result; monitor for late review findings.
