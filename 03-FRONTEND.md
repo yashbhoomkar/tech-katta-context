@@ -223,3 +223,14 @@ The frontend build passed on merge commit 56b229a2c0fa1d586f200a41c79826ed92a044
 ## Issue #18 follow-up — Kafka fallback parity (2026-10-11)
 
 PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdvancedContent.js and appends kafkaAdvancedSections to the local kafka-basics fallback. This keeps advanced Kafka sections available when the API is unreachable and brings frontend fallback content closer to the backend source. Vercel preview status passed; production frontend rollout should be confirmed independently.
+
+
+## Editorial visual redesign — PR #79 (2026-10-16)
+
+- Application branch: `design/editorial-visual-redesign`.
+- Pull request: https://github.com/yashbhoomkar/tech-katta/pull/79 (draft; not merged or deployed).
+- `6997dbbb661c55d635c9ab6a57fe919c2469f2d4` — homepage now uses an editorial hero with a CSS request-flow illustration and a dynamic list of published notes.
+- `25fda2df01da1b167a66aa33c5b7c680d4cf4dcb` — adds a restrained visual layer for topic rows, recent notes, article hierarchy, focus states, and responsive breakpoints.
+- Both application commits were checked for duplicates and recorded in `techkatta_history.frontend_git_commits`.
+- Frontend CI passed on the PR head; Vercel preview status and Semgrep passed. CodeQL and the bounded local k6 workflow were still running at the last check. No browser screenshot comparison or production deployment has been verified.
+- Preserve all existing route behavior, topic search semantics, article schema, collapsible article sections, read-progress/mark-read state, mobile sidebar/swipe behavior, upcoming labels, and dark-only editorial identity.
