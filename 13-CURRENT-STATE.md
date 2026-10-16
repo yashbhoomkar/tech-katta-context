@@ -946,3 +946,10 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - Production deployment metadata above is historical context; current production SHA was not independently re-verified as part of this UI audit.
 
 - Latest source head: `76454c3d0f5a5917f3316065e4f1a99eadfa96db` (small-label contrast refinement). It is ledgered; latest-head CI and preview deployment need re-verification before merge.
+
+
+### PR #79 CodeRabbit findings addressed — 2026-10-16
+
+- CodeRabbit review returned three actionable findings: deterministic ordering for published notes sharing an `order`, stronger visible keyboard focus on the library search, and larger decorative system-visual labels. Source fixes are committed in `369a2046d3d993db532c7f32ae1dfa163fb55e11` and `170c0b391a88b5b5737acd2ce68d82446738b730`.
+- Both commits are recorded in the MongoDB frontend commit ledger. Latest source head is `170c0b391a88b5b5737acd2ce68d82446738b730`; Frontend CI, CodeQL, Semgrep, and bounded local k6 smoke were triggered and are pending.
+- PR #79 remains open and unmerged. Vercel preview exists, but visual screenshot/device validation is not verified. Production remains untouched.
