@@ -745,7 +745,7 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 
 ## Editorial visual redesign — 2026-10-16
 
-Draft PR: https://github.com/yashbhoomkar/tech-katta/pull/79
+PR: https://github.com/yashbhoomkar/tech-katta/pull/79
 
 Branch: `design/editorial-visual-redesign`
 
