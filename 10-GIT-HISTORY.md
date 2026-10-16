@@ -7,7 +7,7 @@ Current main:
 `main = d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`
 
 Latest main commits:
-- `d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b` — Merge PR #71: add read-only production browser smoke
+- `e8cbf46cce377ac7501af091e901e177043d4778` — Merge PR #71: add read-only production browser smoke
 - `4ce8403a9fc610ab9840479d29aabed162d0aeb6` — Merge PR #69: add bounded local k6 integration smoke
 - `d5f8f8c16d98ed775fa0937a022ddc1230610c68` — Merge PR #68: enforce unique commit-ledger keys
 
@@ -741,3 +741,16 @@ All application source and merge SHAs listed below were recorded in `techkatta_h
 - Extended the local-only k6 integration workflow to wait for the previous API-read rate-limit window to expire, then send a bounded 3 requests/second profile for 50 seconds to the isolated CI API.
 - Successful run: https://github.com/yashbhoomkar/tech-katta/actions/runs/38246483684. The profile completed 151 requests (~3.02 req/s): 120 accepted, 31 throttled with HTTP 429, p95 2.99 ms, zero failed HTTP requests, zero dropped iterations, and 100% checks. All 429 responses had Retry-After and X-RateLimit headers. CodeQL reported no new alerts.
 - This verifies configured per-IP rate-limit behavior on a local isolated stack, not production capacity. No production traffic was sent. Issue #33 remains open pending a dedicated staging backend or an approved monitored production test plan with resource observations.
+
+
+## Editorial visual redesign — 2026-10-16
+
+Draft PR: https://github.com/yashbhoomkar/tech-katta/pull/79
+
+Branch: `design/editorial-visual-redesign`
+
+Application commits (both recorded in MongoDB `techkatta_history.frontend_git_commits`):
+- `6997dbbb661c55d635c9ab6a57fe919c2469f2d4` — add an authored homepage hero with a CSS request-flow illustration and dynamic published-note list.
+- `25fda2df01da1b167a66aa33c5b7c680d4cf4dcb` — refine the design system and responsive editorial layout for the homepage, topic index, recent notes, and article reading experience.
+
+Validation at snapshot time: frontend CI passed, Vercel preview status passed, and Semgrep passed. CodeQL and bounded local k6 workflow were in progress. No merge, production deployment, screenshot comparison, or mobile device test is claimed.
