@@ -1,6 +1,6 @@
 # Current State Snapshot
 
-**Snapshot date:** 2026-10-12
+**Snapshot date:** 2026-10-16
 
 This file records the latest application/context state known to this session.
 
@@ -12,7 +12,7 @@ Branch:
 `main`
 
 Current HEAD:
-`d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`
+`e8cbf46cce377ac7501af091e901e177043d4778`
 
 Latest backend work adds a private Vercel REST control layer:
 - `193a11293b10d43534c34fa8b902d24dd12e6cac` — environment-authenticated Vercel client
@@ -933,3 +933,14 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 
 - Commit `8139baf8ee1c460817cd82084bc09746f8e2842d` removes a duplicate top-level `permissions` mapping introduced during the second-review hardening edit, retaining one `contents: read` block. The initial workflow push run failed before creating jobs because of the duplicate mapping; latest-head CI must confirm the corrected workflow parses.
 - Commit recorded in both canonical MongoDB collections. Counts after insertion: frontend 177, backend 255.
+
+
+## UI redesign in progress — 2026-10-16
+
+- Current `main` base observed from PR #79: `e8cbf46cce377ac7501af091e901e177043d4778`.
+- Draft PR #79: https://github.com/yashbhoomkar/tech-katta/pull/79
+- Candidate branch: `design/editorial-visual-redesign`.
+- Frontend source commits: `6997dbbb661c55d635c9ab6a57fe919c2469f2d4` and `25fda2df01da1b167a66aa33c5b7c680d4cf4dcb`; both are recorded in the canonical MongoDB frontend commit ledger.
+- Frontend CI, Vercel preview status, and Semgrep reported success on the PR head. CodeQL and bounded local k6 workflow were still running at the last observation.
+- The PR is not merged. Production deployment and actual browser/mobile visual validation have not been verified. Do not treat the candidate UI as live production.
+- Production deployment metadata above is historical context; current production SHA was not independently re-verified as part of this UI audit.
