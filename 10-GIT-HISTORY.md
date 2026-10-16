@@ -764,3 +764,10 @@ Validation at snapshot time: frontend CI passed, Vercel preview status passed, a
 
 
 - Mobile label follow-up `e31b86f220e96839233f59bdf32df5b8e541f5c2` raises the request-flow top and node-detail labels to 9px at narrow widths, preventing responsive rules from overriding the label-legibility fix. Recorded in MongoDB; latest-head CI pending.
+
+
+### PR #79 final pre-merge validation — 2026-10-16
+
+- Final candidate head `e31b86f220e96839233f59bdf32df5b8e541f5c2`: frontend CI, CodeQL, Semgrep, Vercel preview, and local k6 workflow passed.
+- Local smoke: 442 requests (~7.37 req/s), p95 2.79 ms, 0 failed, 0 dropped, 884/884 checks. Rate-limit verification: 150 requests (~3 req/s), 30 HTTP 429 responses, p95 2.21 ms, 0 failed, 0 dropped, 750/750 checks. These results are isolated local integration evidence only, not production capacity evidence.
+- First CodeRabbit review findings (stable ordering, search focus visibility, small diagram labels) are fixed; all inline review threads are resolved. A final requested review for the mobile breakpoint override fix has not published. Manual source/built-preview verification was completed. No production deployment yet.
