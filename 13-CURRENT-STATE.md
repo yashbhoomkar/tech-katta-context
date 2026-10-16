@@ -967,3 +967,14 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - k6 smoke: 442 requests (~7.37 req/s), p95 2.79 ms, zero failed requests, zero dropped iterations, 884/884 checks passed. Rate-limit profile: 150 requests (~3.00 req/s), 30 HTTP 429 responses, p95 2.21 ms, zero failed requests, zero dropped iterations, 750/750 checks passed. These are local-only integration tests, not a production load/capacity claim.
 - CodeRabbit's initial review produced three actionable findings; all are fixed and all inline review threads are resolved. A final review request for the last mobile CSS-only adjustment remains unanswered. Manual source and built-preview checks verified the 9px mobile label rules, visible focus halo, deterministic slug tie-breaker, and HTTP 200 SPA shell on home, unit, and article routes.
 - Vercel preview deployment is READY for this exact SHA. No screenshot-based visual comparison or real mobile-device test is claimed. PR #79 is still open and production is unchanged at this checkpoint.
+
+
+## PR #79 final status — merged and production-verified (2026-10-16)
+
+- PR: https://github.com/yashbhoomkar/tech-katta/pull/79. Merge commit: `f5e422b4459928168a6779211aa0d0ef3fa54951`. The merge commit is recorded in `techkatta_history.frontend_git_commits`.
+- Vercel production deployment `dpl_ELdg2b94QGGQckwEAfRDH8nfbhtS` is READY for the exact merge SHA and aliases `tech.katta.cc`. Production home, distributed-systems unit, and canonical article paths returned HTTP 200 and served the new JS/CSS assets.
+- Post-merge Frontend CI, Semgrep, CodeQL, and Production Browser Smoke all passed. Real Chromium smoke verified home/unit/article routes, browser-origin API/CORS contract, mobile-emulated swipe navigation, and no uncaught page exceptions.
+- Pre-merge local-only k6 smoke passed: 442 requests (~7.37 req/s), p95 2.79 ms, zero failures/dropped iterations, 884/884 checks. Local rate-limit profile passed: 150 requests (~3 req/s), 30 HTTP 429 responses, p95 2.21 ms, zero failures/dropped iterations, 750/750 checks. These results are not a production capacity claim.
+- The backend was not changed, so no backend deployment was required. Production was updated only after PR checks passed.
+- CodeRabbit's first review found three actionable issues; fixes were committed and all inline threads resolved. A separate review request for the last mobile breakpoint-only CSS adjustment did not publish a result before merge; the change was manually verified in the built preview and production CSS. Monitor for late CodeRabbit comments and fix any actionable findings in a follow-up PR.
+- No screenshot-based visual comparison or real physical-device test is claimed.
