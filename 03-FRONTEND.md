@@ -266,3 +266,17 @@ PR #20 merge 56b229a2c0fa1d586f200a41c79826ed92a0446b adds frontend/src/kafkaAdv
 - The backend was unchanged; no backend deployment was required. The bounded local-only k6 smoke/rate-limit test passed before merge; do not present it as production capacity evidence.
 - CodeRabbit's three original actionable findings were fixed and all inline review threads resolved. A fresh review request for the final mobile CSS override has not returned a separate result; monitor for late comments and handle actionable findings in a follow-up PR.
 - No screenshot-based visual comparison or real physical-device test is claimed.
+
+
+## Tech Katta learning-library MVP — 2026-10-21
+
+The previous minimal deployment-smoke-test frontend was replaced with the first public learning-platform MVP.
+
+Application commits:
+- `6f62cb80160e744e9280d098e8aab9a53b186e0c` — learning library UI and interaction model
+- `6da8361e3c810b1670386a813cc44293173c39f9` — responsive editorial dark-theme styling
+- `35f1d30309a9d3062ac1b577f416afe3dd093826` — title, description, Open Graph and font preconnect metadata
+
+Current MVP includes six topic areas, client-side search, category filtering, six starter notes, three curated roadmap entry points, note detail modals, and browser-local saved notes. It uses vanilla JavaScript on the existing Vite frontend; no new runtime dependency was added. Starter notes are local seed content, not yet backed by MongoDB or the existing article API. The system-design evaluator is intentionally deferred to a later phase.
+
+Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` completed successfully. A follow-up deployment targeting commit `35f1d30309a9d3062ac1b577f416afe3dd093826` was started to ensure the latest metadata commit is included. Public interactive browser testing remains unverified.
