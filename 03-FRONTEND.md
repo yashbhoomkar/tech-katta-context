@@ -279,4 +279,4 @@ Application commits:
 
 Current MVP includes six topic areas, client-side search, category filtering, six starter notes, three curated roadmap entry points, note detail modals, and browser-local saved notes. It uses vanilla JavaScript on the existing Vite frontend; no new runtime dependency was added. Starter notes are local seed content, not yet backed by MongoDB or the existing article API. The system-design evaluator is intentionally deferred to a later phase.
 
-Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` completed successfully. A follow-up deployment targeting commit `35f1d30309a9d3062ac1b577f416afe3dd093826` was started to ensure the latest metadata commit is included. Public interactive browser testing remains unverified.
+Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` completed successfully. A follow-up production deployment targeting commit `35f1d30309a9d3062ac1b577f416afe3dd093826` reached `READY` (deployment `dpl_89bjmM6KDH5rPLoiQzuGYFHSwHS7`); the `tech.katta.cc` alias was explicitly assigned to it. Public interactive browser testing remains unverified.
