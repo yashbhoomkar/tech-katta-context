@@ -978,3 +978,17 @@ Before revoking the current broad Atlas user, create a separate maintenance user
 - The backend was not changed, so no backend deployment was required. Production was updated only after PR checks passed.
 - CodeRabbit's first review found three actionable issues; fixes were committed and all inline threads resolved. A separate review request for the last mobile breakpoint-only CSS adjustment did not publish a result before merge; the change was manually verified in the built preview and production CSS. Monitor for late CodeRabbit comments and fix any actionable findings in a follow-up PR.
 - No screenshot-based visual comparison or real physical-device test is claimed.
+
+
+## Learning platform MVP — 2026-10-21
+
+The frontend was moved beyond the deployment smoke-test screen into an initial technical learning library intended as the foundation for a Fanout.sh alternative.
+
+Application repository commits on `main`:
+- `6f62cb80160e744e9280d098e8aab9a53b186e0c`
+- `6da8361e3c810b1670386a813cc44293173c39f9`
+- `35f1d30309a9d3062ac1b577f416afe3dd093826`
+
+MVP behavior: topic discovery across six areas, client-side search/filtering, starter learning notes with detail modals, three curated roadmap entry points, saved notes in localStorage, responsive layout, and SEO/Open Graph metadata. Seed notes currently live in frontend code and are not yet connected to MongoDB-backed content. This is the platform foundation only; the system-design evaluator, authentication, progress sync, admin content authoring, and a broad verified course catalogue are not implemented in this phase.
+
+Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` reached `READY`. A production deployment for latest commit `35f1d30309a9d3062ac1b577f416afe3dd093826` was initiated; confirm final state before treating that exact commit as deployed. A public browser interaction test has not been completed.
