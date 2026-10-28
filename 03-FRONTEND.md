@@ -299,3 +299,5 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - The SVG remains at `frontend/public/diagrams/kafka-architecture.svg` and shows three main blocks: Producer services → Kafka topic with three partitions → Consumer group. Replication/broker placement is explicitly omitted for clarity.
 - Commit: `2c60ff758ce3c3d43990786862204ded4cdadfb8`, included in PR #99: https://github.com/yashbhoomkar/tech-katta/pull/99.
 - MongoDB ledger record inserted in `techkatta_history.frontend_git_commits`. Vercel preview for this commit is queued at the time of writing; do not claim build passed until it completes. PR remains unmerged pending review and preview validation.
+
+- Follow-up commit `747c0c94b5cd1da488a337737dc630250c89f2c4` aligns the image alt text with the simplified diagram: Consumer A reads P0; Consumer B reads P1/P2. Recorded in the MongoDB frontend commit ledger. CodeRabbit's latest published review excluded SVG files via its path filter, so the new SVG itself was not covered by that review; it must be reviewed separately before merge.
