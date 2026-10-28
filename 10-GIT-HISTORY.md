@@ -799,3 +799,5 @@ PR #99 corrects the screenshot-reported desktop layout and replaces the referenc
 - PR remains open. Do not merge until an independent code review has been obtained and its findings addressed.
 
 - PR #99 follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` adds the third consumer so the illustrative group visibly covers P0/P1/P2. Ledgered; latest PR head must be re-reviewed and revalidated before merge.
+
+- PR #99 squash merge: `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` — desktop Quick Notes layout fix and simple Swiss-style Kafka component diagram. Added to MongoDB frontend commit ledger. Production Vercel deployment started in QUEUED state; CodeQL status remains unverified.
