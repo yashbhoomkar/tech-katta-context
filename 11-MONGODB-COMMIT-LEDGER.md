@@ -565,3 +565,18 @@ Application commit `e32643d97167ee6bd3471277910f785d0fdd8f16` is recorded in bot
 - `frontend_git_commits`: `8139baf8ee1c460817cd82084bc09746f8e2842d` — Remove duplicate top-level permissions mapping while retaining the explicit contents:read least-privilege scope; prior workflow push run failed to parse the duplicate key.
 - `backend_git_commits`: same key and description.
 - Live counts after insertion: frontend 177, backend 255.
+
+
+## Landing page ledger reconciliation — 2026-10-28
+
+A review of the live ledger found that the three merged landing-page commits below were missing. They have now been inserted into `frontend_git_commits` using the required `key = full SHA`, `value = concise change description` shape:
+- `3db601998b8b383dafa2e51560cb495eeb61cc1f` — responsive Tech Katta landing page.
+- `0fa822754f4ab7d13285e05c53b6a03ac49d2d7b` — format landing page stylesheet.
+- `63c8926871bff6e952e5d1d95a90ea38d52cc721` — homepage route fallback.
+
+The following PR #99 source commits were also inserted into `frontend_git_commits`:
+- `b4a1643d59577f3369649cdde96a3e3f96605ca9` — restore readable desktop Quick Notes layout.
+- `b137add6ff37bc4123604a71a0de8b624ea4b86e` — improve custom Kafka figure alternative text.
+- `53095e740cdfd419d698d6ededdaace44c97e00e` — create original Kafka architecture illustration.
+
+PR #99 is still open. If it is merged, record its merge commit SHA separately after the merge. The missing earlier records were a process gap; do not claim they were present before this reconciliation.
