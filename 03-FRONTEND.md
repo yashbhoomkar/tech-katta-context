@@ -291,3 +291,11 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - PR: https://github.com/yashbhoomkar/tech-katta/pull/99. Vercel preview build passed for head `53095e740cdfd419d698d6ededdaace44c97e00e`; visual browser comparison and mobile-device testing remain pending. Do not merge until independent code review is completed.
 
 - PR #99 follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` completes the illustrative consumer-group mapping by showing consumers assigned to partitions P0, P1, and P2. Recorded in `techkatta_history.frontend_git_commits`.
+
+## Kafka figure restyled to the Tech Katta Swiss system — 2026-10-29
+
+- User rejected the prior decorative Kafka diagram. Replace that style with a simple block/component diagram aligned to the provided Swiss Systems Documentation design: white canvas, graphite component borders, hairline grey dividers, cobalt connectors/accent, Inter headings/body, IBM Plex Mono metadata.
+- No shadows, gradients, decorative backgrounds, coloured broker cards, or extra visual ornament.
+- The SVG remains at `frontend/public/diagrams/kafka-architecture.svg` and shows three main blocks: Producer services → Kafka topic with three partitions → Consumer group. Replication/broker placement is explicitly omitted for clarity.
+- Commit: `2c60ff758ce3c3d43990786862204ded4cdadfb8`, included in PR #99: https://github.com/yashbhoomkar/tech-katta/pull/99.
+- MongoDB ledger record inserted in `techkatta_history.frontend_git_commits`. Vercel preview for this commit is queued at the time of writing; do not claim build passed until it completes. PR remains unmerged pending review and preview validation.
