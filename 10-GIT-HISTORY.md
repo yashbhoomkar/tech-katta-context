@@ -780,3 +780,20 @@ Validation at snapshot time: frontend CI passed, Vercel preview status passed, a
 - Post-merge frontend CI, Semgrep, CodeQL, and read-only Chromium production smoke all passed. Browser smoke validated three SPA routes, browser-origin API/CORS, mobile-emulated swipes, and absence of uncaught page exceptions.
 - The source changes are frontend-only; no backend deployment was required. Pre-merge local k6 integration and rate-limit tests passed (442 requests; separate 150-request rate-limit run with 30 HTTP 429 responses). These are local-only checks, not production capacity estimates.
 - Initial CodeRabbit review's three findings were fixed; all review threads are resolved. A second review request for the final mobile CSS-only override has not published a result; monitor for late review findings.
+
+
+## Landing page implementation and desktop regression — 2026-10-28
+
+Earlier landing page merges were reconciled into the MongoDB frontend ledger after review of the live collection:
+- `3db601998b8b383dafa2e51560cb495eeb61cc1f` — responsive Tech Katta landing page.
+- `0fa822754f4ab7d13285e05c53b6a03ac49d2d7b` — format landing page stylesheet.
+- `63c8926871bff6e952e5d1d95a90ea38d52cc721` — harden homepage route fallback.
+
+Post-merge review record audit found that PRs #96, #97, and #98 had no submitted GitHub reviews or inline review threads. They were merged without the expected review step; do not describe them as independently reviewed.
+
+PR #99 corrects the screenshot-reported desktop layout and replaces the reference Kafka figure with an original authored SVG:
+- Branch: `fix/landing-page-desktop-layout-and-diagram`
+- PR: https://github.com/yashbhoomkar/tech-katta/pull/99
+- Source commits: `b4a1643d59577f3369649cdde96a3e3f96605ca9`, `b137add6ff37bc4123604a71a0de8b624ea4b86e`, `53095e740cdfd419d698d6ededdaace44c97e00e`
+- Vercel preview build and project status are successful for the latest head. This is build validation only; no screenshot-based browser comparison or real-device test is claimed.
+- PR remains open. Do not merge until an independent code review has been obtained and its findings addressed.
