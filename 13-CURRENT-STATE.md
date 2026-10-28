@@ -1005,3 +1005,12 @@ Vercel production deployment for latest commit `35f1d30309a9d3062ac1b577f416afe3
 - PR #99 latest follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` makes the static diagram show consumer assignments for all three illustrative partitions. It is included in the open PR; re-review and Vercel preview validation are required for the new head.
 
 - PR #99 is merged to `main` as `a4ab9fb7083015616e474a8f2a943ceeb6f6f201`. This includes the desktop Quick Notes layout correction and the simplified Swiss-style Kafka block component diagram. Vercel production deployment was QUEUED after merge; confirm READY and verify `https://tech.katta.cc/` before saying the update is live. CodeQL has not been verified as run. The CodeRabbit review covered the CSS/JS files but excluded SVG files; the SVG received manual visual/source review but no automated SVG-specific review.
+
+## Landing page polish PR #100 — 2026-10-29
+
+- PR #100: https://github.com/yashbhoomkar/tech-katta/pull/100; branch `feat/landing-page-desktop-mobile-polish`; latest head `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12`.
+- Changes include sticky header, refined two-column desktop hero, inspectable horizontally scrollable Kafka figure, Concepts/Components/Problems micro-diagrams, Monolith vs Distributed comparison table, IBM Plex Mono typography, Swiss palette and responsive mobile refinements.
+- CodeQL workflow added at `.github/workflows/codeql.yml`; no run result has been confirmed yet. CodeRabbit reports repository auto-reviews are disabled; no completed independent review exists.
+- Preview build READY: https://tech-katta-kg21r6p4s-yashbhoomkars-projects.vercel.app
+- Five PR #100 source commits recorded in MongoDB `techkatta_history.frontend_git_commits`.
+- PR is intentionally not merged. Still required: independent code review, confirm CodeQL result, and visual check at desktop and 390px mobile width.
