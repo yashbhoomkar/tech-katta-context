@@ -582,3 +582,5 @@ The following PR #99 source commits were also inserted into `frontend_git_commit
 PR #99 is still open. If it is merged, record its merge commit SHA separately after the merge. The missing earlier records were a process gap; do not claim they were present before this reconciliation.
 
 - PR #99 follow-up: `e998197d95b531ae77fcb863cdac4dfc25ecfed5` — show complete consumer partition assignment in the custom Kafka architecture diagram. Inserted into `frontend_git_commits`.
+
+- PR #99 merge commit `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` — desktop layout fix and Swiss-style Kafka block component diagram. Inserted into `frontend_git_commits` after merge.
