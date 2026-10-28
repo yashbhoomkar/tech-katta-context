@@ -797,3 +797,5 @@ PR #99 corrects the screenshot-reported desktop layout and replaces the referenc
 - Source commits: `b4a1643d59577f3369649cdde96a3e3f96605ca9`, `b137add6ff37bc4123604a71a0de8b624ea4b86e`, `53095e740cdfd419d698d6ededdaace44c97e00e`
 - Vercel preview build and project status are successful for the latest head. This is build validation only; no screenshot-based browser comparison or real-device test is claimed.
 - PR remains open. Do not merge until an independent code review has been obtained and its findings addressed.
+
+- PR #99 follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` adds the third consumer so the illustrative group visibly covers P0/P1/P2. Ledgered; latest PR head must be re-reviewed and revalidated before merge.
