@@ -801,3 +801,13 @@ PR #99 corrects the screenshot-reported desktop layout and replaces the referenc
 - PR #99 follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` adds the third consumer so the illustrative group visibly covers P0/P1/P2. Ledgered; latest PR head must be re-reviewed and revalidated before merge.
 
 - PR #99 squash merge: `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` — desktop Quick Notes layout fix and simple Swiss-style Kafka component diagram. Added to MongoDB frontend commit ledger. Production Vercel deployment started in QUEUED state; CodeQL status remains unverified.
+
+## PR #100 — landing page desktop/mobile polish (2026-10-29)
+
+Open PR: https://github.com/yashbhoomkar/tech-katta/pull/100
+- `93e30fbb60fe3c2db35580c0c242ff5af144e43b` — add curriculum micro-diagrams and tradeoff matrix.
+- `c32c3419e69978a8332ab78a76a0e00e917f47c5` — load Swiss system typography.
+- `ae9e3510d1e9a3888dea22a5845f6ef53af7ab5f` — polish Swiss layout for desktop and mobile.
+- `6034f25b0a9ccef6ff21466f55ffc31b58ef6327` — add CodeQL workflow.
+- `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12` — connect Inspect control to figure viewport.
+All five commits are recorded in the MongoDB frontend ledger. Vercel preview is READY. CodeQL status is unverified and CodeRabbit auto-review is disabled; PR is not merged.
