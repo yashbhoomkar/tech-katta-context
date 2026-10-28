@@ -1001,3 +1001,5 @@ Vercel production deployment for latest commit `35f1d30309a9d3062ac1b577f416afe3
 - PR #99 also replaces the supplied Excalidraw reference/export with an original hand-authored SVG diagram at `frontend/public/diagrams/kafka-architecture.svg`.
 - PR #99: https://github.com/yashbhoomkar/tech-katta/pull/99; latest head `53095e740cdfd419d698d6ededdaace44c97e00e`. Vercel preview build passed. Independent review and visual browser/mobile testing are not yet complete; keep the PR open until review findings are addressed.
 - Process correction: GitHub review records for PRs #96, #97, and #98 were empty. Those PRs were merged without formal code review, and their missing merge-SHA ledger entries were backfilled into MongoDB and documented. Do not repeat this workflow; future UI changes must receive independent review before merge.
+
+- PR #99 latest follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` makes the static diagram show consumer assignments for all three illustrative partitions. It is included in the open PR; re-review and Vercel preview validation are required for the new head.
