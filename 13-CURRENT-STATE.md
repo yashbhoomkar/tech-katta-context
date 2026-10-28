@@ -992,3 +992,12 @@ Application repository commits on `main`:
 MVP behavior: topic discovery across six areas, client-side search/filtering, starter learning notes with detail modals, three curated roadmap entry points, saved notes in localStorage, responsive layout, and SEO/Open Graph metadata. Seed notes currently live in frontend code and are not yet connected to MongoDB-backed content. This is the platform foundation only; the system-design evaluator, authentication, progress sync, admin content authoring, and a broad verified course catalogue are not implemented in this phase.
 
 Vercel production deployment for latest commit `35f1d30309a9d3062ac1b577f416afe3dd093826` reached `READY` as deployment `dpl_89bjmM6KDH5rPLoiQzuGYFHSwHS7`; the `tech.katta.cc` alias was explicitly assigned to this deployment. Build output confirms Vite production build succeeded. A public browser interaction test has not been completed.
+
+
+## Landing page desktop regression and corrective PR — 2026-10-28
+
+- Production currently has the frontend-only Tech Katta landing page on `tech.katta.cc`; homepage content is hardcoded in `frontend/src/home-page.js`.
+- User screenshot exposed unreadably narrow expanded Quick Notes text on desktop, caused by `padding-left: calc(55% + 22px)`. PR #99 replaces that offset with a desktop grid and preserves block-flow/mobile summary layout below 620px.
+- PR #99 also replaces the supplied Excalidraw reference/export with an original hand-authored SVG diagram at `frontend/public/diagrams/kafka-architecture.svg`.
+- PR #99: https://github.com/yashbhoomkar/tech-katta/pull/99; latest head `53095e740cdfd419d698d6ededdaace44c97e00e`. Vercel preview build passed. Independent review and visual browser/mobile testing are not yet complete; keep the PR open until review findings are addressed.
+- Process correction: GitHub review records for PRs #96, #97, and #98 were empty. Those PRs were merged without formal code review, and their missing merge-SHA ledger entries were backfilled into MongoDB and documented. Do not repeat this workflow; future UI changes must receive independent review before merge.
