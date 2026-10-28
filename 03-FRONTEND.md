@@ -289,3 +289,5 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - PR #99 changes each desktop note into a grid; the expanded body occupies columns 2–3 under the title/summary area. At the 620px breakpoint, notes return to block flow and use the existing mobile summary layout.
 - The Kafka architecture figure is an original manually authored SVG at `frontend/public/diagrams/kafka-architecture.svg`, not the Excalidraw reference/export. It shows producers, a three-broker cluster, topic partitions, consumers, and key properties.
 - PR: https://github.com/yashbhoomkar/tech-katta/pull/99. Vercel preview build passed for head `53095e740cdfd419d698d6ededdaace44c97e00e`; visual browser comparison and mobile-device testing remain pending. Do not merge until independent code review is completed.
+
+- PR #99 follow-up commit `e998197d95b531ae77fcb863cdac4dfc25ecfed5` completes the illustrative consumer-group mapping by showing consumers assigned to partitions P0, P1, and P2. Recorded in `techkatta_history.frontend_git_commits`.
