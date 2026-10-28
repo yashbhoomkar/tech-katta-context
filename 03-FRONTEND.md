@@ -280,3 +280,12 @@ Application commits:
 Current MVP includes six topic areas, client-side search, category filtering, six starter notes, three curated roadmap entry points, note detail modals, and browser-local saved notes. It uses vanilla JavaScript on the existing Vite frontend; no new runtime dependency was added. Starter notes are local seed content, not yet backed by MongoDB or the existing article API. The system-design evaluator is intentionally deferred to a later phase.
 
 Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` completed successfully. A follow-up production deployment targeting commit `35f1d30309a9d3062ac1b577f416afe3dd093826` reached `READY` (deployment `dpl_89bjmM6KDH5rPLoiQzuGYFHSwHS7`); the `tech.katta.cc` alias was explicitly assigned to it. Public interactive browser testing remains unverified.
+
+
+## Landing page desktop layout correction — PR #99 (in review, 2026-10-28)
+
+- The new frontend-only landing page uses `frontend/src/home-page.js` and `frontend/src/home-page.css`; content remains hardcoded for this phase.
+- Screenshot review exposed a desktop Quick Notes bug: `.tk-note-body` used `padding-left: calc(55% + 22px)` with a max-width, leaving too little width for expanded note text.
+- PR #99 changes each desktop note into a grid; the expanded body occupies columns 2–3 under the title/summary area. At the 620px breakpoint, notes return to block flow and use the existing mobile summary layout.
+- The Kafka architecture figure is an original manually authored SVG at `frontend/public/diagrams/kafka-architecture.svg`, not the Excalidraw reference/export. It shows producers, a three-broker cluster, topic partitions, consumers, and key properties.
+- PR: https://github.com/yashbhoomkar/tech-katta/pull/99. Vercel preview build passed for head `53095e740cdfd419d698d6ededdaace44c97e00e`; visual browser comparison and mobile-device testing remain pending. Do not merge until independent code review is completed.
