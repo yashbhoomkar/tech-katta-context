@@ -301,3 +301,5 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - MongoDB ledger record inserted in `techkatta_history.frontend_git_commits`. Vercel preview for this commit is queued at the time of writing; do not claim build passed until it completes. PR remains unmerged pending review and preview validation.
 
 - Follow-up commit `747c0c94b5cd1da488a337737dc630250c89f2c4` aligns the image alt text with the simplified diagram: Consumer A reads P0; Consumer B reads P1/P2. Recorded in the MongoDB frontend commit ledger. CodeRabbit's latest published review excluded SVG files via its path filter, so the new SVG itself was not covered by that review; it must be reviewed separately before merge.
+
+- PR #99 merged to `main` as `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` on 2026-10-29. Vercel production deployment for this merge was queued immediately after merge; verify it reaches READY before claiming the custom domain has updated. CodeQL has not been verified as run.
