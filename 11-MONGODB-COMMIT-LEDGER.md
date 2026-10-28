@@ -584,3 +584,14 @@ PR #99 is still open. If it is merged, record its merge commit SHA separately af
 - PR #99 follow-up: `e998197d95b531ae77fcb863cdac4dfc25ecfed5` — show complete consumer partition assignment in the custom Kafka architecture diagram. Inserted into `frontend_git_commits`.
 
 - PR #99 merge commit `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` — desktop layout fix and Swiss-style Kafka block component diagram. Inserted into `frontend_git_commits` after merge.
+
+## Landing page desktop/mobile polish ledger — 2026-10-29
+
+Inserted these PR #100 source commits into `techkatta_history.frontend_git_commits` using the full SHA as `key` and concise commit message as `value`:
+- `93e30fbb60fe3c2db35580c0c242ff5af144e43b`
+- `c32c3419e69978a8332ab78a76a0e00e917f47c5`
+- `ae9e3510d1e9a3888dea22a5845f6ef53af7ab5f`
+- `6034f25b0a9ccef6ff21466f55ffc31b58ef6327`
+- `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12`
+
+PR #100 remains open pending independent review and verification of CodeQL workflow results. The Vercel preview build is ready; this is not proof of CodeQL success or screenshot-based visual testing.
