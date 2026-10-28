@@ -811,3 +811,8 @@ Open PR: https://github.com/yashbhoomkar/tech-katta/pull/100
 - `6034f25b0a9ccef6ff21466f55ffc31b58ef6327` — add CodeQL workflow.
 - `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12` — connect Inspect control to figure viewport.
 All five commits are recorded in the MongoDB frontend ledger. Vercel preview is READY. CodeQL status is unverified and CodeRabbit auto-review is disabled; PR is not merged.
+## PR #100 merged (2026-10-29)
+
+- Squash merge: `30e8d10b5cb3fbf2963a694bbf972c1b98314657` — desktop/mobile landing-page polish, curriculum micro-diagrams, trade-off matrix, and CodeQL workflow.
+- PR: https://github.com/yashbhoomkar/tech-katta/pull/100
+- The merge commit was added to the MongoDB frontend commit ledger. Preview Vercel status checks passed and CodeQL succeeded on the PR head. Independent human/agent review was not completed (CodeRabbit rate limit).
