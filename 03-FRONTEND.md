@@ -303,3 +303,15 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - Follow-up commit `747c0c94b5cd1da488a337737dc630250c89f2c4` aligns the image alt text with the simplified diagram: Consumer A reads P0; Consumer B reads P1/P2. Recorded in the MongoDB frontend commit ledger. CodeRabbit's latest published review excluded SVG files via its path filter, so the new SVG itself was not covered by that review; it must be reviewed separately before merge.
 
 - PR #99 merged to `main` as `a4ab9fb7083015616e474a8f2a943ceeb6f6f201` on 2026-10-29. Vercel production deployment for this merge was queued immediately after merge; verify it reaches READY before claiming the custom domain has updated. CodeQL has not been verified as run.
+
+## Desktop + mobile landing page polish — PR #100 (2026-10-29)
+
+- PR: https://github.com/yashbhoomkar/tech-katta/pull/100
+- Branch: `feat/landing-page-desktop-mobile-polish`
+- Latest source commit: `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12`
+- The desktop hero remains two-column above tablet breakpoints; the header is sticky; the figure has a keyboard-accessible Inspect/Fit control and horizontally scrollable viewport.
+- Concepts, Components, and Problems cards now include restrained CSS micro-diagrams. Guidelines includes a publication-style Monolith vs. Distributed Services comparison table.
+- Design tokens were aligned to white, graphite, cobalt `#2855D9`, hairline `#D9DEE7`, Inter, and IBM Plex Mono. Added 390px-oriented refinements and kept reduced-motion handling.
+- Added `.github/workflows/codeql.yml` for JavaScript/TypeScript analysis. GitHub Actions execution is not yet confirmed; CodeQL is not reported as passed.
+- Vercel preview is READY at https://tech-katta-kg21r6p4s-yashbhoomkars-projects.vercel.app for commit `3bf9b9c6113b57cef992e64b38e0e5a0843e5b12`.
+- CodeRabbit auto-review is disabled at repository level and the attempted review request was skipped. PR remains open; independent review and manual desktop/390px screenshot testing remain pending. Do not merge until reviewed.
