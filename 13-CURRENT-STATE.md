@@ -1048,4 +1048,6 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 
 - Known: browser testing of production after the PR #104 merge (headless Chromium) found horizontal overflow on phones: `scrollWidth` 449px at 320–430px. Cause: the `@container` stacking block for Numbers, added in `d1705cc`, came before the base `.num-row` / `.rules dl` rules of equal specificity, so the base rules won. The pre-merge overflow sweep had only covered 640px and up.
 - PR #105 (https://github.com/yashbhoomkar/tech-katta/pull/105), commit `35d5a146a7dd7e107d9b4afa436b75221034ab6e`, moves the block after the base rules. After the fix, a sweep from 320 to 1440px shows no overflow.
+- Known: PR #105 merged as `abbb76a79371deda253816b76d22ac7cf3785bc8` after CodeQL passed. CodeRabbit did not review it (hourly quota). Production served the fix within about 1 minute. Browser tested on production in headless Chromium: no horizontal overflow at any width from 320 to 1440px, no console errors, and all four sections and three cards render at 1440, 1000 and 390px.
+- Current production `main`: `abbb76a79371deda253816b76d22ac7cf3785bc8`. Rollback point for today's work: `37df67b6ede5853ad3f4b3c5406f4ec1c3315ada`.
 - Lesson: run the full-width overflow sweep (320–1440px) on the final head before merging any layout change, not only at the widths a review names.
