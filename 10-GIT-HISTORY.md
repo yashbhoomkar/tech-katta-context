@@ -816,3 +816,13 @@ All five commits are recorded in the MongoDB frontend ledger. Vercel preview is 
 - Squash merge: `30e8d10b5cb3fbf2963a694bbf972c1b98314657` — desktop/mobile landing-page polish, curriculum micro-diagrams, trade-off matrix, and CodeQL workflow.
 - PR: https://github.com/yashbhoomkar/tech-katta/pull/100
 - The merge commit was added to the MongoDB frontend commit ledger. Preview Vercel status checks passed and CodeQL succeeded on the PR head. Independent human/agent review was not completed (CodeRabbit rate limit).
+
+## Landing page iteration (2026-10-30)
+
+Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger on 2026-10-30:
+- `312be4878c44970d2f4b55ba6d7491bc885a4528` — clear backend for clean rebuild (backend ledger).
+- `95d227de24073dacf32c0c7199f8c2567bdd8f90` — build Tech Katta systems knowledge homepage (React/Vite).
+- `11e9e4d4c0931eb230301b3bfc8fbc56d6ce827c` / `4f634d48f5a5ad316a80e9fbd6d5ded761f63e32` — `test-claude` briefly emptied `frontend/` and `backend/`, then reverted. No net change reached `main`.
+- `648a6cfee27a6725092dfabdb61175bc6d62993e`, `00825888d91b3dcd4a3294c5ab35442392fdb355` → merged as `334fa12e517188dab0b965445cb9fb83a63e16b3` (PR #102): animated replicated-write FIG. 01.
+- `57998a2360b872b6e94b43af694240706c18cf56` → merged as `37df67b6ede5853ad3f4b3c5406f4ec1c3315ada` (PR #103): animated Kafka FIG. 01.
+- PR #104 (open): `7341e0a4232bf9b17d0f106ae2dc2155589c2073` (tap-to-zoom, hero copy), `71deacd2282e9fe99553d1398e4cb0c5faef4040` (mobile figure header, Dashboard/Quick Notes buttons), `b150193a67b15c167e78eadf9f348f4b38927d30` (CAP diagram, library heading), `9f30e1f25bb636a67c26897f927100e11923548f` (Core Components and Interview Questions cards).
