@@ -339,4 +339,6 @@ Conventions:
 - **Motion:** every animation honours `prefers-reduced-motion`, including live changes, through the `useStill()` hook (SMIL) or CSS media queries.
 - **Chrome quirk:** Chrome ignores SMIL `stroke-dasharray` animation, so dashed empty-state outlines are separate overlays whose opacity animates.
 - **Diagrams:** Rule 9 prefers static diagrams. The animated diagrams exist because the user explicitly asked for animation; section 04 is deliberately static.
+- **Zoom dialog accessibility:** while open, `#root` is `inert` and the scrollable diagram is focusable. Escape and backdrop click close it, and focus returns to the zoom button.
+- **Numbers layout:** switches with a container query on `.numbers`, not a viewport breakpoint.
 - **Verification level:** layouts were browser tested in headless Chromium at 1440, 1000/900 and 390px (no console errors, no horizontal overflow). Tap-to-zoom was clicked in an emulated phone viewport; it has not been mobile touch tested on a real device.
