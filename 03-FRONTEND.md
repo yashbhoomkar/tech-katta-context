@@ -321,3 +321,22 @@ Vercel production build for commit `6da8361e3c810b1670386a813cc44293173c39f9` co
 - PR: https://github.com/yashbhoomkar/tech-katta/pull/100
 - Vercel preview checks passed and CodeQL workflow on the PR head completed successfully. No separate production deployment for the merge commit was visible at the time of this update.
 - CodeRabbit review was rate-limited; no independent review was recorded before the user requested merge.
+
+## Current landing page structure — 2026-10-30 (PR #104 branch `test-claude`)
+
+Known: the live landing page is a single React/Vite page rendered by `frontend/src/main.jsx`, and all copy lives in `frontend/src/content.js`. `home-page.js`, `home-page.css`, `main.js`, `style.css`, `mock-interview.js` and `architecture-workspace.js` in `frontend/src/` are not loaded by this page; treat them as legacy until they are removed.
+
+Sections, top to bottom, as of PR #104 head `3e21933d8ecf55943ecc6d4d0d192605404dbc26`:
+1. **Hero:** "System design, explained." with buttons Dashboard → `#topics` and Quick Notes → `#notes`. FIG. 01 is an animated Kafka block diagram (SMIL, 8s loop), with a Tap-to-zoom dialog when the figure is narrower than 620px (container query).
+2. **01 / Technical Library** (`#topics`): "Concepts · Components · Interview Questions". Three cards, each with an SVG mini block diagram: CAP theorem (CSS animation), cache hit/miss read path (SMIL), URL-shortener interview steps (CSS animation).
+3. **02 / Quick Notes** (`#notes`): list of notes, all currently draft or planned.
+4. **03 / Numbers Worth Knowing** (`#numbers`): FIG. 02 log-scale latency chart and estimation shortcuts.
+5. **04 / How the Pieces Connect** (`#keep-reading`): a static path Concept (Replication) → Component (Kafka) → Interview Question (event ingestion pipeline) and a "Start with Concepts" button. The anchor keeps its old name because the Quick Notes rows link to it.
+
+Conventions:
+- **Palette:** white `#FFFFFF`, surface `#F5F7FA`, hairline `#D9DEE7`, graphite `#1C2733`, muted `#586575`, cobalt `#2855D9`. Cobalt is reserved for data flow and active states.
+- **Type:** Inter for text, IBM Plex Mono for labels.
+- **Motion:** every animation honours `prefers-reduced-motion`, including live changes, through the `useStill()` hook (SMIL) or CSS media queries.
+- **Chrome quirk:** Chrome ignores SMIL `stroke-dasharray` animation, so dashed empty-state outlines are separate overlays whose opacity animates.
+- **Diagrams:** Rule 9 prefers static diagrams. The animated diagrams exist because the user explicitly asked for animation; section 04 is deliberately static.
+- **Verification level:** layouts were browser tested in headless Chromium at 1440, 1000/900 and 390px (no console errors, no horizontal overflow). Tap-to-zoom was clicked in an emulated phone viewport; it has not been mobile touch tested on a real device.
