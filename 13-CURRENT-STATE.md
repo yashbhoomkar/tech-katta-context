@@ -1029,7 +1029,7 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known: PR #102 merged as `334fa12e517188dab0b965445cb9fb83a63e16b3` — animated FIG. 01 replicated-write block diagram. CodeQL green; CodeRabbit reviewed and its two findings (mid-width legibility, live reduced-motion changes) were fixed in `00825888`.
 - Known: PR #103 merged as `37df67b6ede5853ad3f4b3c5406f4ec1c3315ada` — FIG. 01 replaced by an animated Kafka block diagram (1 producer, 1 broker with topic `orders` and 2 partitions, a consumer group of 2). Drawn from scratch in JSX/SVG; `frontend/public/diagrams/kafka-architecture.svg` is not used by the live page. CodeQL green; CodeRabbit was rate-limited, so no review.
 - Known: after each merge, production served the new bundle within a minute, verified in headless Chromium at 1440, 1000 and 390px (no console errors, no horizontal overflow).
-- Open: PR #104 (https://github.com/yashbhoomkar/tech-katta/pull/104), head `d1705cc4dd5fa0e3ba0f1bbb005618ed56dcc3d2`, not merged at the time of writing:
+- Known: PR #104 (https://github.com/yashbhoomkar/tech-katta/pull/104) merged as `b43d8c848f6475744bb8c46311e479f978806e5c` (final head `d1705cc`). It was merged by Claude Code after CodeQL passed and CodeRabbit confirmed all 4 findings fixed. Production served the new bundle within about 1 minute. Contents:
   - FIG. 01 is horizontal at every width with a "Tap to zoom" dialog below 620px of figure width; the figure header wraps instead of overflowing on phones.
   - Hero: "System design, explained." with buttons "Dashboard →" (`#topics`) and "Quick Notes" (`#notes`).
   - Library section headed "Concepts · Components · Interview Questions". The "Problems" tab, card and footer link are renamed "Interview Questions" (anchor stays `#problems`).
@@ -1043,3 +1043,9 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Historical vs current design: `01-PROJECT-IDENTITY.md` describes a dark-only, purple-accent design. The live landing page is light and Swiss-style: white `#FFFFFF`, surface `#F5F7FA`, hairline `#D9DEE7`/`#9AA5B4`, graphite `#1C2733`, muted `#586575`, cobalt accent `#2855D9`, Inter + IBM Plex Mono. Treat the dark-only description as Historical.
 - Known limitations of the cloud agent session: Vercel preview URLs require a Vercel login; direct SSH to the VPS (129.121.133.47) times out through the session proxy, and the stored key is passphrase-protected; force-pushes were blocked, so `test-claude` history was corrected with a revert commit (`4f634d4`) instead.
 - Known: MongoDB ledger backfilled on 2026-10-30. 12 records were added to `frontend_git_commits` (`95d227d`, the `test-claude` setup and revert commits, PR #102/#103 commits and merges, PR #104 commits) and 3 to `backend_git_commits` (`312be48`, and the two `test-claude` commits that touched `backend/`).
+
+## PR #104 production check and PR #105 hotfix — 2026-10-30
+
+- Known: browser testing of production after the PR #104 merge (headless Chromium) found horizontal overflow on phones: `scrollWidth` 449px at 320–430px. Cause: the `@container` stacking block for Numbers, added in `d1705cc`, came before the base `.num-row` / `.rules dl` rules of equal specificity, so the base rules won. The pre-merge overflow sweep had only covered 640px and up.
+- PR #105 (https://github.com/yashbhoomkar/tech-katta/pull/105), commit `35d5a146a7dd7e107d9b4afa436b75221034ab6e`, moves the block after the base rules. After the fix, a sweep from 320 to 1440px shows no overflow.
+- Lesson: run the full-width overflow sweep (320–1440px) on the final head before merging any layout change, not only at the widths a review names.
