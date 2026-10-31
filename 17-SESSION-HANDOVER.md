@@ -12,6 +12,10 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 
 ## 1. TL;DR for the next session
 
+> **Update 2026-10-31 (later):** production is now a **private placeholder** (PR #107, merge `a83651b`).
+> The landing page described below is still in the code but not served. Do not relaunch or add pricing
+> until the owner says so. Restore = revert `a83651b`. Ledger entries for PR #107 are pending.
+
 - Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
   design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).
 - Everything you will normally touch is in three files: `frontend/src/content.js` (all copy),

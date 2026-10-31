@@ -1064,3 +1064,14 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known: PR #106 was merged by the user as `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` after CodeQL passed on the final head; the one CodeRabbit finding was fixed and confirmed. Production served the new bundle within about 30 seconds. Browser tested on production in headless Chromium: sections 01–03 only, no section 04 text, no console errors, no horizontal overflow from 320 to 1440px.
 - Current production `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`.
 - Known pre-existing issue: the footer "RSS" link points to `#rss`, which does not exist. It is unchanged; awaiting the user's decision.
+
+## Site switched to a private placeholder — PR #107 (merged, 2026-10-31)
+
+- Decided (user): take the public landing page offline for now. The ₹99 launch and any public relaunch are on hold until the owner decides otherwise.
+- PR #107 (https://github.com/yashbhoomkar/tech-katta/pull/107), commit `234b3e9cb5476cf98d9b6db976e87d404af1b7ad`, merged as `a83651b159ad88a5ba81499ae11a25e5bdc8564d` after CodeQL passed.
+- `frontend/index.html` is a static "PRIVATE / This site is not public." page and no longer loads `src/main.jsx`, so the build ships no JS bundle and no landing-page content. `noindex,nofollow` meta tag, `X-Robots-Tag: noindex, nofollow` header on every path (`vercel.json`), and `public/robots.txt` disallowing all.
+- Landing page source (`main.jsx`, `content.js`, `styles.css`) is unchanged. **Restore = revert merge `a83651b`.**
+- Known (production, 2026-10-31): `tech.katta.cc` and `tech-katta.vercel.app` serve the private page within ~20 s of merge; `X-Robots-Tag` present; `/robots.txt` and `/health` OK.
+- Still public (not changed): `/diagrams/kafka-architecture.svg` (legacy file in `frontend/public`), the Vercel projects `tech-katta-status` and `tech-katta-system-design-demo` (`*.vercel.app`), and both GitHub repos (`tech-katta`, `tech-katta-context`) are public.
+- Pending: MongoDB ledger entries for `234b3e9…` and `a83651b…` — the Atlas connection was denied in this session's permission mode; record them in the next session that has access.
+- Current production `main`: `a83651b159ad88a5ba81499ae11a25e5bdc8564d`.
