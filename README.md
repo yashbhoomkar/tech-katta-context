@@ -16,6 +16,7 @@ This repository is **context**, not the application itself.
 
 ## Read these files first
 
+0. **`17-SESSION-HANDOVER.md` — latest session handover (2026-10-31): current landing page, workflow, environment limits, backlog, pending ₹99 positioning. Start here.**
 1. `00-SESSION-BOOTSTRAP.md` — how a new AI session should behave.
 2. `01-PROJECT-IDENTITY.md` — what Tech Katta is and what the user is trying to achieve.
 3. `02-ARCHITECTURE.md` — system architecture and request/data flows.
@@ -46,3 +47,5 @@ Before making a change, an AI session should:
 6. Never store credentials, API tokens, private keys, passwords, or connection strings in this repository.
 
 This repository is intentionally written as an **AI handoff document** rather than normal product documentation.
+
+18. `17-SESSION-HANDOVER.md` — Claude Code session handover, 2026-10-31.

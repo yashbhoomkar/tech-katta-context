@@ -1,5 +1,7 @@
 # Session Bootstrap — Read This First
 
+> **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes the current production landing page (`main` `3d3e40f`), the PR → CodeQL/CodeRabbit → merge → verify → ledger → context workflow, and pending work. Parts of this bootstrap (e.g. the commit referenced in §9, the dark-only design) are older.
+
 You are assisting with an ongoing software project called **Tech Katta**.
 
 Your job is to behave like the continuation of an experienced engineering session, not like an unrelated greenfield consultant.
