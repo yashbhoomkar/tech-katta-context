@@ -1129,3 +1129,12 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - PR #116 (merge `ba4f97b740b48b215b69139495034883503e145e`, commit `dc8653b`): the player fetches `/audio/<slug>/manifest.json` only when the article has `audio: true` (no 404s in the console). Merged on CodeQL (CodeRabbit rate-limited; small fix).
 - Known (production): new layout live; `/audio/api-types/manifest.json` 404; no console errors; no overflow 320–1440 px; read aloud via device voices.
 - Current production `main`: `ba4f97b740b48b215b69139495034883503e145e`.
+
+## Zotato + three animated figures — PR #117 (merged, 2026-10-31)
+
+- Example system renamed Dabba → Zotato (owner's choice).
+- New figures in the API article: FIG. 02 Choosing an API type (question ladder; webhook asked before queue after CodeRabbit's finding), FIG. 03 One Zotato order, end to end (sequence diagram, 8 steps), FIG. 04 A retry that does not charge twice (idempotency key). Figure registry `FIGS`, automatic numbering, per-figure full-screen aspect ratio.
+- Commits `333bab6` and `24c803a`; merge `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`. CodeRabbit: 1 finding, fixed and replied. CodeQL green.
+- Also: the Hello Interview notes moved to the private repo `yashbhoomkar/tech-katta-private` (`references/`, commit `030618b`); removed from this repo's `main` in PR #35 (still in history at `a2affb8`).
+- Known (production): four figure titles, no "Dabba" left, ladder starts with the webhook question; no overflow 320–1440 px; no console errors; reduced motion → 0 packets.
+- Current production `main`: `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`.

@@ -285,7 +285,7 @@ This is not optional when the change is part of the application commit synchroni
 
 1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.
 2. **Every figure is animated where possible**, on a loop, in the Swiss palette, with a static version for `prefers-reduced-motion` (`useStill()`). Animation must show the concept happening (a request travelling, an event waiting in a queue), not decoration.
-3. **Explain through one example system where it fits: Dabba**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Each article says that *it* uses Dabba (not "every concept on the site"); each idea gets an "In Dabba" explanation where it fits; figures use Dabba's parts. Extend Dabba (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
+3. **Explain through one example system where it fits: Zotato**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Each article says that *it* uses Zotato (not "every concept on the site"); each idea gets an "In Zotato" explanation where it fits; figures use Zotato's parts. Extend Zotato (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
 4. Copy stays plain and human; no copying from reference sites (they are guidance only).
 
 ## Audience: mobile first (Decided by user, 2026-10-31)
@@ -308,6 +308,11 @@ This is not optional when the change is part of the application commit synchroni
 
 ## Article shape (Decided by user, 2026-10-31)
 
-- Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Dabba), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
+- Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Zotato), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
 - Read aloud covers the main text only. After recording an article with `tools/tts`, set `audio: true` on it.
 - Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Paid reference notes must not live in this public repo. They are kept in the private repo `yashbhoomkar/tech-katta-private` (`references/`); `hello-interview-api-design` moved there on 2026-10-31. Its old copy remains in this repo's git history (commit `a2affb8`) unless this repo is made private or its history rewritten.
+
+## Example system renamed to Zotato (Decided by user, 2026-10-31)
+
+- The example system is **Zotato** (formerly Dabba): same food delivery app, same parts. Note: the name is close to the real company Zomato; the owner chose it knowingly.
+- Figures: add one wherever a picture explains more than text (decision ladders, end-to-end sequences, before/after timelines). Register new figures in `FIGS` in `frontend/src/dashboard.jsx`; keep every element inside the 640-wide viewBox; animate with `Dot`/`Glow`/`Show`; static under reduced motion.
