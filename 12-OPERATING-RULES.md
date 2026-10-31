@@ -310,4 +310,4 @@ This is not optional when the change is part of the application commit synchroni
 
 - Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Dabba), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
 - Read aloud covers the main text only. After recording an article with `tools/tts`, set `audio: true` on it.
-- Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Note: the owner's `hello-interview-api-design` file sits in this public repo.
+- Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Paid reference notes must not live in this public repo; `hello-interview-api-design` was removed from it on 2026-10-31 (it remains in git history at commit `a2affb8`).
