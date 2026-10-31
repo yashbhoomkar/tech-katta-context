@@ -270,3 +270,44 @@ This is not optional when the change is part of the application commit synchroni
 
 - Before inserting a commit record, query both canonical collections for the full SHA and insert only if it is absent.
 - If historical duplicate rows are discovered, do not blindly delete or overwrite them during normal ledger updates. Preserve their `_id`, key, and value as audit evidence; handle cleanup through a dedicated, backed-up operation with a recorded canonical description and a verified unique index.
+
+## Code review on every PR (Decided by user, 2026-10-31)
+
+- **Always request code review on every PR in `yashbhoomkar/tech-katta`**, right after opening it:
+  1. Comment `@coderabbitai review` (plus the Claude Code footer). CodeRabbit is on the free open-source tier (shows "Plan: Advanced"), but **skips auto-review because the repo has fewer than 10 stars**, so the manual trigger is required. Limits refill hourly; if rate-limited, say so and wait or proceed on CodeQL for small/urgent fixes.
+  2. Call `request_copilot_review`. It is accepted without error but produced no review on PR #110 — Copilot code review needs a paid Copilot plan on the account. Keep requesting; it costs nothing and starts working if a plan is added.
+  3. CodeQL runs automatically.
+- Verify every finding; fix real ones; reply on each thread with what changed or why it was left; then merge.
+- `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
+- Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.
+
+## Article rules (Decided by user, 2026-10-31)
+
+1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.
+2. **Every figure is animated where possible**, on a loop, in the Swiss palette, with a static version for `prefers-reduced-motion` (`useStill()`). Animation must show the concept happening (a request travelling, an event waiting in a queue), not decoration.
+3. **Explain through one example system where it fits: Dabba**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Each article says that *it* uses Dabba (not "every concept on the site"); each idea gets an "In Dabba" explanation where it fits; figures use Dabba's parts. Extend Dabba (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
+4. Copy stays plain and human; no copying from reference sites (they are guidance only).
+
+## Audience: mobile first (Decided by user, 2026-10-31)
+
+- The site will be promoted on **Instagram and LinkedIn**; expect **~75 % of visitors on phones**. Design and verify for a phone first (iPhone-size emulation, 320–430 px), then desktop.
+- Figures must fit the screen without sideways scrolling and offer **"Tap to view full screen"** (modal; rotated in portrait). Tables become cards on phones. Touch targets ≥ 40 px.
+- Every page needs Open Graph / Twitter tags; `/og.png` (1200×630) is the default preview image. Articles have a **Share** button (native share sheet).
+- Hash routes (`/dashboard/#concepts/api-types`) all share the dashboard's preview card; per-article previews need real per-article URLs (pending decision).
+
+## Recorded narration (Decided by user, 2026-10-31)
+
+- Voice engine: **Kokoro** (open-source, Apache-2.0), default voice `af_heart`. Tooling in `tech-katta/tools/tts/` (`export-chunks.mjs`, `generate.py`); output `frontend/public/audio/<slug>/` + `manifest.json`; the player uses it automatically and falls back to device voices per chunk.
+- **Record an article only when its content is final** (owner: content will change a lot). Do not commit audio for drafts.
+- Kokoro runs inside the cloud session container (`/tmp/tts/venv`, model in `/tmp/ttsmodel`: `kokoro-v1.0.int8.onnx` + `voices-v1.0.bin` from github.com/thewh1teagle/kokoro-onnx releases `model-files-v1.0`). The container is temporary: reinstall when recording. A full article (~120 chunks) takes ~30 min on CPU and is ~6 MB.
+
+## Read-aloud voice quality (2026-10-31)
+
+- Browser voices vary by device; the reader ranks natural ones first and offers a Voice picker.
+- A human-sounding narration needs pre-generated audio from a neural TTS model. Tried installing the open-source Kokoro model (kokoro-onnx) in the session to pre-render MP3s: **blocked by the session's permission classifier** — needs the owner's go-ahead (or a cloud TTS key: Google Cloud TTS / Azure have free monthly tiers far above one article).
+
+## Article shape (Decided by user, 2026-10-31)
+
+- Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Dabba), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
+- Read aloud covers the main text only. After recording an article with `tools/tts`, set `audio: true` on it.
+- Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Paid reference notes must not live in this public repo; `hello-interview-api-design` was removed from it on 2026-10-31 (it remains in git history at commit `a2affb8`).

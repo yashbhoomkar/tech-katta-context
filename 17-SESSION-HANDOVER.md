@@ -12,6 +12,14 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 
 ## 1. TL;DR for the next session
 
+> **Update 2026-10-31 (later):** production briefly became a private placeholder (PR #107, merge `a83651b`)
+> and was then reverted at the user's request (PR #108, merge `53a8ae0`). The landing page below is live
+> again. PR #109 (merge `e234b3b`) added the **Dashboard page** at `/dashboard/` (see `03-FRONTEND.md`);
+> PR #110 added `.coderabbit.yaml`. PR #111 (merge `f939092`) published the first article (Concepts › API types)
+> and removed the GitHub/RSS footer links — **never show a GitHub link on the site**. Current `main` = `f939092`.
+> PR #112 (merge `a25a09d`, current `main`) added read-aloud, mobile-fit + full-screen figures, Share, OG previews,, the animated FIG. 01 and **Dabba**, the example
+> system every article must use — see `12-OPERATING-RULES.md` › Article rules. Ledger entries for PRs #107–#112 are pending.
+
 - Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
   design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).
 - Everything you will normally touch is in three files: `frontend/src/content.js` (all copy),
@@ -79,7 +87,7 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 6. **PR** via GitHub MCP (`mcp__github__create_pull_request`), base `main`. Body: summary, test
    plan with checkboxes, `🤖 Generated with Claude Code` + session link. Subscribe with
    `subscribe_pr_activity`. Schedule a ~50 min `send_later` safety check-in.
-7. **Reviews:** CodeQL runs automatically (`.github/workflows/codeql.yml`). CodeRabbit auto-review
+7. **Reviews (always — see `12-OPERATING-RULES.md` › Code review on every PR):** comment `@coderabbitai review` and call `request_copilot_review` on every PR. CodeQL runs automatically (`.github/workflows/codeql.yml`). CodeRabbit auto-review
    is **disabled** on the repo — trigger with a PR comment `@coderabbitai review` (+ the Claude
    Code footer). Free plan = **1 review per hour**; when rate-limited, wait or merge on CodeQL
    alone for small/urgent fixes and say so. Verify each finding, fix real ones, reply on the

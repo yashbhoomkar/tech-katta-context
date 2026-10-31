@@ -1064,3 +1064,68 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known: PR #106 was merged by the user as `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` after CodeQL passed on the final head; the one CodeRabbit finding was fixed and confirmed. Production served the new bundle within about 30 seconds. Browser tested on production in headless Chromium: sections 01–03 only, no section 04 text, no console errors, no horizontal overflow from 320 to 1440px.
 - Current production `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`.
 - Known pre-existing issue: the footer "RSS" link points to `#rss`, which does not exist. It is unchanged; awaiting the user's decision.
+
+## Site switched to a private placeholder — PR #107 (merged, 2026-10-31)
+
+- Decided (user): take the public landing page offline for now. The ₹99 launch and any public relaunch are on hold until the owner decides otherwise.
+- PR #107 (https://github.com/yashbhoomkar/tech-katta/pull/107), commit `234b3e9cb5476cf98d9b6db976e87d404af1b7ad`, merged as `a83651b159ad88a5ba81499ae11a25e5bdc8564d` after CodeQL passed.
+- `frontend/index.html` is a static "PRIVATE / This site is not public." page and no longer loads `src/main.jsx`, so the build ships no JS bundle and no landing-page content. `noindex,nofollow` meta tag, `X-Robots-Tag: noindex, nofollow` header on every path (`vercel.json`), and `public/robots.txt` disallowing all.
+- Landing page source (`main.jsx`, `content.js`, `styles.css`) is unchanged. **Restore = revert merge `a83651b`.**
+- Known (production, 2026-10-31): `tech.katta.cc` and `tech-katta.vercel.app` serve the private page within ~20 s of merge; `X-Robots-Tag` present; `/robots.txt` and `/health` OK.
+- Still public (not changed): `/diagrams/kafka-architecture.svg` (legacy file in `frontend/public`), the Vercel projects `tech-katta-status` and `tech-katta-system-design-demo` (`*.vercel.app`), and both GitHub repos (`tech-katta`, `tech-katta-context`) are public.
+- Pending: MongoDB ledger entries for `234b3e9…` and `a83651b…` — the Atlas connection was denied in this session's permission mode; record them in the next session that has access.
+- Current production `main`: `a83651b159ad88a5ba81499ae11a25e5bdc8564d`.
+
+## PR #107 reverted — PR #108 (merged, 2026-10-31)
+
+- Decided (user): revert the private placeholder. PR #108, commit `7b823257fda65bdfef6ca14c8e5e2880e01fb001` (revert of `a83651b`), merged as `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e` after CodeQL passed. Tree identical to `3d3e40f`.
+- Known (production, 2026-10-31): the landing page is served again within ~30 s; no `X-Robots-Tag`, `/robots.txt` 404; headless Chromium shows H1 "System design, explained.", no console errors, no overflow at 320/390/768/1024/1440 px.
+- Pending: MongoDB ledger entries for `234b3e9…`, `a83651b…`, `7b82325…`, `53a8ae0…` (Atlas access denied in this session).
+- Current production `main`: `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`.
+
+## Dashboard page — PR #109 (merged, 2026-10-31)
+
+- Decided (user): add a Dashboard page based on the user's Stitch mock (`tech_katta_dashboard_application_shell.html`, uploaded in-session, not stored), Swiss colour scheme; the landing **Dashboard →** button opens it.
+- PR #109, commit `3726258ed1013bc2dbd6f65c11f0eaab6cbf2009`, merged as `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c` after CodeQL passed (CodeRabbit not requested).
+- `/dashboard/` = second Vite entry (`frontend/dashboard/index.html` → `src/dashboard.jsx`, `src/dashboard.css`; `frontend/vite.config.js` lists both inputs). `vercel.json` rewrites `/dashboard` → `/dashboard/index.html`.
+- Shell: 260 px sidebar (TK brand, "SYSTEM DESIGN LIBRARY", 4 sections with inline SVG icons, "Back to site"), collapsible to 64 px rail (`localStorage` key `tk-sidebar`); top tabs; active section in URL hash (`#concepts`, `#components`, `#interview-questions`, `#quick-notes`); ≤900 px sidebar becomes a drawer (scrim, Escape, focus handling).
+- Content from `content.js` → new `dashboard` key; Quick Notes lists the 4 notes with status; other sections show an honest "Nothing published here yet" empty state.
+- Left out of the mock on purpose: "SYS: OPERATIONAL", "ENV PROD-SYS-v2.4", user avatar (nothing real behind them).
+- Known (production): `/dashboard`, `/dashboard/`, `/`, `/health` all 200; landing button → dashboard; tabs/sidebar sync; collapse; drawer; no console errors; no overflow 320–1440 px.
+- Pending: MongoDB ledger entries for `3726258…` and `e234b3b…` (plus PRs #107/#108).
+- Current production `main`: `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c`.
+
+## First article, footer cleanup — PR #111 (merged, 2026-10-31)
+
+- Decided (user): **never display a GitHub link on the site.** Footer GitHub link removed (it was the only one). Footer RSS link removed too (CodeRabbit: `#rss` had no target).
+- Footer "Last updated: [date]" was an unfilled placeholder; it now shows the **build date** (`__BUILD_DATE__` defined in `frontend/vite.config.js`, IST, e.g. "31 Oct 2026").
+- Article system: `frontend/src/articles.js` (data + body blocks `p/h2/type/fig/table/list`, backticks → `<code>`); dashboard route `#<section>/<slug>`; section page lists its articles; sidebar sub-list; breadcrumb; read time; malformed/unknown hashes fall back to the section.
+- **Concept 01 published:** "APIs: the main types, and which one to use where" — `/dashboard/#concepts/api-types`. REST, GraphQL, gRPC, WebSockets, SSE, webhooks, queues; resource vs RPC styles; audiences (internal/partner/public/composite); comparison table; decision list; shop example; "what every API needs" (authn/authz, rate limits/429, pagination, idempotency keys, errors, versioning); interview advice. FIG. 01 block diagram of four interaction patterns.
+- Sources the user pointed to for guidance (not copied): Hello Interview API design core concept, AWS "What is an API"; GeeksforGeeks returned 403 to the fetch tool and was not read.
+- Reviews: CodeRabbit 8 findings, all fixed and confirmed on thread; its re-review of the second commit was rate-limited. CodeQL green. Copilot requested (no review: needs paid plan).
+- PR #111 commits `79b244d…` (footer), `14f5786…` (article), `9602a40…` (review fixes + enrichment); merge `f93909215c4c020cc3bb514a821700420124ff73`. Verified on production: article, navigation, footer date, 0 GitHub links, no overflow 320–1440 px, no console errors.
+- Current production `main`: `f93909215c4c020cc3bb514a821700420124ff73`.
+
+## Read aloud, animated figure, Dabba, mobile-first — PR #112 (merged, 2026-10-31)
+
+- Commits: `af1c703…` (read aloud, animated FIG. 01, Dabba), `663d003…` (mobile fit + full screen, voice ranking/picker, Share, OG tags + `/og.png`, Dabba wording), `4575935…` (CodeRabbit fixes: accessible phone table, no restart after Stop, Share fallback/error); merge `a25a09d080a8e252cf49c63f805c6f8127b692d4` after CodeQL passed.
+- Reviews: CodeRabbit was rate-limited on the first push; re-triggered after the reset (scheduled check-in), 3 findings, all fixed and replied to. Copilot requested (no review without a paid plan).
+- Read aloud: Web Speech API, natural voices ranked first + Voice picker (localStorage `tk-voice`), speed, sticky player, highlight. Human-sounding pre-rendered narration is **pending the owner's choice** (allow installing the open-source Kokoro model in-session, or provide a cloud TTS key).
+- Known (production): article shows the Dabba box, animated FIG. 01 (12 packets; 0 with reduced motion), read-aloud bar, Share; full-screen figure on phones (rotated in portrait); table cards on phones; `og.png` 200; OG tags present; no overflow 320–1440 px; no console errors.
+- Pending decision: real per-article URLs so LinkedIn/Instagram show the article's own preview (hash routes share the dashboard card).
+- Current production `main`: `a25a09d080a8e252cf49c63f805c6f8127b692d4`.
+
+## Read-aloud player scrolls away — PR #113 (merged, 2026-10-31)
+
+- Owner: the play/pause box should not stay pinned while scrolling. Removed `.reader.on{position:sticky}`. Commit `0177d46a5c134b4a808b75165181d6adb83b8a86`, merge `7969b9f11b8964f9f3b9a669bfd8faca79424b09`. CodeRabbit rate-limited (merged on CodeQL as a two-rule CSS fix). Verified on production (iPhone 13): player scrolls off screen while reading; no overflow 320–1440 px.
+- Current production `main`: `7969b9f11b8964f9f3b9a669bfd8faca79424b09`.
+
+## PR #114 merged by owner; article restructured — PRs #115, #116 (2026-10-31)
+
+- PR #114 (merge `9708d31`) was merged by the owner at `a4b5f0c`, i.e. **with** the draft recordings; the removal commit `d24a712` landed after the merge. Production briefly served the recorded narration.
+- Owner: "the article is very big… we need very structured short content covering all topics in depth". PR #115 (merge `28f923c2e50b3b1ba5c6f3d7704489b4bb3cbdfd`; commits `d24a712` recordings removed, `618c57b` restructure, `e6aca39` CodeRabbit fix: only browsers need gRPC-Web):
+  - "In 30 seconds" box; seven type cards (what / use it for / avoid it for / in Dabba) with "How it works and what it costs" collapsed; "Go deeper" collapsed sections hold the table, order example, retries/status codes/audiences, auth/pagination/errors/versioning; decision list; REST rules + endpoint list; seven one-liners; interview checklist.
+  - Read time shows "5 MIN READ · 10 WITH DETAILS"; read aloud covers main text only (`spoken()` in `speech.js`); recursive `Block` renderer; native `<details>`.
+- PR #116 (merge `ba4f97b740b48b215b69139495034883503e145e`, commit `dc8653b`): the player fetches `/audio/<slug>/manifest.json` only when the article has `audio: true` (no 404s in the console). Merged on CodeQL (CodeRabbit rate-limited; small fix).
+- Known (production): new layout live; `/audio/api-types/manifest.json` 404; no console errors; no overflow 320–1440 px; read aloud via device voices.
+- Current production `main`: `ba4f97b740b48b215b69139495034883503e145e`.

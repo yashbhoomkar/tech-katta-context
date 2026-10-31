@@ -832,3 +832,13 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #106 (open): `4116c421fe43b2b85306598a52c8f012d1b32870` — Numbers Worth Knowing rework with the worked URL-shortener estimate.
 - PR #106: `7a3c2626bf413aeced9248460a13f8c933eae73e` — estimate divisor fix.
 - PR #106: `3df52fb6e5d435ecafccd01823356de7599caab7` (section 04 removed); merge `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`, verified on production.
+- PR #107: `234b3e9cb5476cf98d9b6db976e87d404af1b7ad` (landing page replaced by a private placeholder, noindex); merge `a83651b159ad88a5ba81499ae11a25e5bdc8564d`, verified on production. Not yet in the MongoDB ledger.
+- PR #108: `7b823257fda65bdfef6ca14c8e5e2880e01fb001` (revert of PR #107); merge `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`, verified on production. Not yet in the MongoDB ledger.
+- PR #109: `3726258ed1013bc2dbd6f65c11f0eaab6cbf2009` (dashboard page, Dashboard button → /dashboard/); merge `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c`, verified on production. Not yet in the MongoDB ledger.
+- PR #110: `af4b98fa5d07983e73594e5df3931b8d6b45e09a`, `a6974b02ea2ec0c2ae5330578a4919e0086a7a09` (`.coderabbit.yaml`); merge `8e8cfc208f6b6357fba0d9f6d2bb43ae0e810a47`. Not yet in the MongoDB ledger.
+- PR #111: `79b244d…` (GitHub link removed, build-date footer), `14f578628fe7d001da046dbd35b4a5e2981daec0` (article system + API types article), `9602a409ce364de0c6f572edd21c254b3fec866b` (review fixes, enrichment, RSS removed); merge `f93909215c4c020cc3bb514a821700420124ff73`, verified on production. Not yet in the MongoDB ledger.
+- PR #112: `af1c70375e774bd93f867caeeddd85ba21d34e0e`, `663d0031ab93cd119cefa05b0c90f80cc8b6daa9`, `45759356d70cad1e1f65abb51e8b32443be6c5e1`; merge `a25a09d080a8e252cf49c63f805c6f8127b692d4`, verified on production. Not yet in the MongoDB ledger.
+- PR #113: `0177d46a5c134b4a808b75165181d6adb83b8a86` (player no longer sticky); merge `7969b9f11b8964f9f3b9a669bfd8faca79424b09`, verified on production. Not yet in the MongoDB ledger.
+- PR #114: `18811b8`, `9554e74`, `a4b5f0c` (Kokoro tooling + recordings + REST design section); merged by the owner as `9708d31`.
+- PR #115: `d24a712` (recordings removed), `790a839` (merge main), `618c57b` (restructure), `e6aca39` (gRPC-Web wording); merge `28f923c2e50b3b1ba5c6f3d7704489b4bb3cbdfd`, verified on production.
+- PR #116: `dc8653b0c932d3460a09f1f99ded36dd82daab69` (manifest only for `audio:true`); merge `ba4f97b740b48b215b69139495034883503e145e`, verified on production. PRs #107–#116 not yet in the MongoDB ledger.
