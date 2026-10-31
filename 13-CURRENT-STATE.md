@@ -1094,3 +1094,14 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known (production): `/dashboard`, `/dashboard/`, `/`, `/health` all 200; landing button → dashboard; tabs/sidebar sync; collapse; drawer; no console errors; no overflow 320–1440 px.
 - Pending: MongoDB ledger entries for `3726258…` and `e234b3b…` (plus PRs #107/#108).
 - Current production `main`: `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c`.
+
+## First article, footer cleanup — PR #111 (merged, 2026-10-31)
+
+- Decided (user): **never display a GitHub link on the site.** Footer GitHub link removed (it was the only one). Footer RSS link removed too (CodeRabbit: `#rss` had no target).
+- Footer "Last updated: [date]" was an unfilled placeholder; it now shows the **build date** (`__BUILD_DATE__` defined in `frontend/vite.config.js`, IST, e.g. "31 Oct 2026").
+- Article system: `frontend/src/articles.js` (data + body blocks `p/h2/type/fig/table/list`, backticks → `<code>`); dashboard route `#<section>/<slug>`; section page lists its articles; sidebar sub-list; breadcrumb; read time; malformed/unknown hashes fall back to the section.
+- **Concept 01 published:** "APIs: the main types, and which one to use where" — `/dashboard/#concepts/api-types`. REST, GraphQL, gRPC, WebSockets, SSE, webhooks, queues; resource vs RPC styles; audiences (internal/partner/public/composite); comparison table; decision list; shop example; "what every API needs" (authn/authz, rate limits/429, pagination, idempotency keys, errors, versioning); interview advice. FIG. 01 block diagram of four interaction patterns.
+- Sources the user pointed to for guidance (not copied): Hello Interview API design core concept, AWS "What is an API"; GeeksforGeeks returned 403 to the fetch tool and was not read.
+- Reviews: CodeRabbit 8 findings, all fixed and confirmed on thread; its re-review of the second commit was rate-limited. CodeQL green. Copilot requested (no review: needs paid plan).
+- PR #111 commits `79b244d…` (footer), `14f5786…` (article), `9602a40…` (review fixes + enrichment); merge `f93909215c4c020cc3bb514a821700420124ff73`. Verified on production: article, navigation, footer date, 0 GitHub links, no overflow 320–1440 px, no console errors.
+- Current production `main`: `f93909215c4c020cc3bb514a821700420124ff73`.

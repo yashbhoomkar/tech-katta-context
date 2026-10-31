@@ -15,7 +15,9 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 > **Update 2026-10-31 (later):** production briefly became a private placeholder (PR #107, merge `a83651b`)
 > and was then reverted at the user's request (PR #108, merge `53a8ae0`). The landing page below is live
 > again. PR #109 (merge `e234b3b`) added the **Dashboard page** at `/dashboard/` (see `03-FRONTEND.md`);
-> PR #110 (merge `8e8cfc2`) added `.coderabbit.yaml`; current `main` = `8e8cfc2`. Ledger entries for PRs #107–#110 are pending.
+> PR #110 added `.coderabbit.yaml`. PR #111 (merge `f939092`) published the first article (Concepts › API types)
+> and removed the GitHub/RSS footer links — **never show a GitHub link on the site**. Current `main` = `f939092`.
+> Ledger entries for PRs #107–#111 are pending.
 
 - Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
   design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).
