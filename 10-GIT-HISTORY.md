@@ -830,3 +830,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - `35d5a146a7dd7e107d9b4afa436b75221034ab6e` (PR #105): hotfix for phone overflow in the Numbers section.
 - Merge `abbb76a79371deda253816b76d22ac7cf3785bc8` (PR #105), verified on production.
 - PR #106 (open): `4116c421fe43b2b85306598a52c8f012d1b32870` — Numbers Worth Knowing rework with the worked URL-shortener estimate.
+- PR #106: `7a3c2626bf413aeced9248460a13f8c933eae73e` — estimate divisor fix.

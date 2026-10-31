@@ -1059,3 +1059,5 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - **Estimation shortcuts:** adds sizes (1 KB × 1M ≈ 1 GB, × 1B ≈ 1 TB) and typical read:write ratios.
 - **New FIG. 03:** a worked estimate of the URL shortener. 100M links/day → ≈1.2K writes/s → ≈116K reads/s (cache) → ≈50 GB/day, ≈18 TB/year (sharding) → ×3 at peak. The arithmetic was checked.
 - Verification: build passed. Browser tested in headless Chromium at 1440, 900 and 390px, and an overflow sweep from 320 to 1440px is clean.
+- `7a3c2626bf413aeced9248460a13f8c933eae73e`: fixes CodeRabbit's one finding on PR #106. The worked estimate showed "÷ 10⁵ s" but gave the ÷ 86,400 s result; it now shows 86,400 s. Thread replied to and resolved.
+- Open question for the user: whether to keep section 04 "How the Pieces Connect". The recommendation given is to remove it until the Replication, Kafka and event-ingestion notes exist, because its links currently repeat section 01.
