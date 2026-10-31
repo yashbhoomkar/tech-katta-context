@@ -1052,7 +1052,7 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Current production `main`: `abbb76a79371deda253816b76d22ac7cf3785bc8`. Rollback point for today's work: `37df67b6ede5853ad3f4b3c5406f4ec1c3315ada`.
 - Lesson: run the full-width overflow sweep (320–1440px) on the final head before merging any layout change, not only at the widths a review names.
 
-## Numbers Worth Knowing rework — PR #106 (open, 2026-10-31)
+## Numbers Worth Knowing rework and section 04 removal — PR #106 (merged, 2026-10-31)
 
 - PR #106 (https://github.com/yashbhoomkar/tech-katta/pull/106), commit `4116c421fe43b2b85306598a52c8f012d1b32870`. Not merged at the time of writing.
 - **FIG. 02:** the latency rows are now the ones a design discussion uses: memory 100 ns, SSD 4 KB ~100 µs, cache read over the network ~0.5 ms, indexed database read ~1 ms, HDD seek ~10 ms, US–Europe ~150 ms. The L1 cache row is removed. The log scale runs from 10 ns to 1 s, and a dashed marker at ~100 ms shows where people notice delay.
@@ -1060,4 +1060,7 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - **New FIG. 03:** a worked estimate of the URL shortener. 100M links/day → ≈1.2K writes/s → ≈116K reads/s (cache) → ≈50 GB/day, ≈18 TB/year (sharding) → ×3 at peak. The arithmetic was checked.
 - Verification: build passed. Browser tested in headless Chromium at 1440, 900 and 390px, and an overflow sweep from 320 to 1440px is clean.
 - `7a3c2626bf413aeced9248460a13f8c933eae73e`: fixes CodeRabbit's one finding on PR #106. The worked estimate showed "÷ 10⁵ s" but gave the ÷ 86,400 s result; it now shows 86,400 s. Thread replied to and resolved.
-- Open question for the user: whether to keep section 04 "How the Pieces Connect". The recommendation given is to remove it until the Replication, Kafka and event-ingestion notes exist, because its links currently repeat section 01.
+- `3df52fb6e5d435ecafccd01823356de7599caab7`: section 04 "How the Pieces Connect" is removed at the user's request. Its links repeated section 01, and its target notes (Replication, Kafka, event ingestion) are unpublished. Bring it back when those notes exist. The Quick Notes rows were relinked from `#keep-reading` to `#notes`.
+- Known: PR #106 was merged by the user as `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` after CodeQL passed on the final head; the one CodeRabbit finding was fixed and confirmed. Production served the new bundle within about 30 seconds. Browser tested on production in headless Chromium: sections 01–03 only, no section 04 text, no console errors, no horizontal overflow from 320 to 1440px.
+- Current production `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`.
+- Known pre-existing issue: the footer "RSS" link points to `#rss`, which does not exist. It is unchanged; awaiting the user's decision.

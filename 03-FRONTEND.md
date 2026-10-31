@@ -331,7 +331,7 @@ Sections, top to bottom, as of PR #104 head `3e21933d8ecf55943ecc6d4d0d192605404
 2. **01 / Technical Library** (`#topics`): "Concepts · Components · Interview Questions". Three cards, each with an SVG mini block diagram: CAP theorem (CSS animation), cache hit/miss read path (SMIL), URL-shortener interview steps (CSS animation).
 3. **02 / Quick Notes** (`#notes`): list of notes, all currently draft or planned.
 4. **03 / Numbers Worth Knowing** (`#numbers`): FIG. 02 log-scale latency chart and estimation shortcuts.
-5. **04 / How the Pieces Connect** (`#keep-reading`): a static path Concept (Replication) → Component (Kafka) → Interview Question (event ingestion pipeline) and a "Start with Concepts" button. The anchor keeps its old name because the Quick Notes rows link to it.
+5. *(Removed in PR #106, `3df52fb`)* **04 / How the Pieces Connect** (`#keep-reading`): a static path Concept (Replication) → Component (Kafka) → Interview Question (event ingestion pipeline) and a "Start with Concepts" button. The anchor keeps its old name because the Quick Notes rows link to it.
 
 Conventions:
 - **Palette:** white `#FFFFFF`, surface `#F5F7FA`, hairline `#D9DEE7`, graphite `#1C2733`, muted `#586575`, cobalt `#2855D9`. Cobalt is reserved for data flow and active states.
@@ -342,3 +342,5 @@ Conventions:
 - **Zoom dialog accessibility:** while open, `#root` is `inert` and the scrollable diagram is focusable. Escape and backdrop click close it, and focus returns to the zoom button.
 - **Numbers layout:** switches with a container query on `.numbers`, not a viewport breakpoint.
 - **Verification level:** layouts were browser tested in headless Chromium at 1440, 1000/900 and 390px (no console errors, no horizontal overflow). Tap-to-zoom was clicked in an emulated phone viewport; it has not been mobile touch tested on a real device.
+
+Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The numbers behind a design": FIG. 02 latency chart from 10 ns to 1 s with a ~100 ms notice marker, estimation shortcuts, and FIG. 03, a worked URL-shortener estimate. Section 04 is removed.

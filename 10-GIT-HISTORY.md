@@ -831,3 +831,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - Merge `abbb76a79371deda253816b76d22ac7cf3785bc8` (PR #105), verified on production.
 - PR #106 (open): `4116c421fe43b2b85306598a52c8f012d1b32870` — Numbers Worth Knowing rework with the worked URL-shortener estimate.
 - PR #106: `7a3c2626bf413aeced9248460a13f8c933eae73e` — estimate divisor fix.
+- PR #106: `3df52fb6e5d435ecafccd01823356de7599caab7` (section 04 removed); merge `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`, verified on production.
