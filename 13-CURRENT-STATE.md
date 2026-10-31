@@ -1114,3 +1114,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known (production): article shows the Dabba box, animated FIG. 01 (12 packets; 0 with reduced motion), read-aloud bar, Share; full-screen figure on phones (rotated in portrait); table cards on phones; `og.png` 200; OG tags present; no overflow 320–1440 px; no console errors.
 - Pending decision: real per-article URLs so LinkedIn/Instagram show the article's own preview (hash routes share the dashboard card).
 - Current production `main`: `a25a09d080a8e252cf49c63f805c6f8127b692d4`.
+
+## Read-aloud player scrolls away — PR #113 (merged, 2026-10-31)
+
+- Owner: the play/pause box should not stay pinned while scrolling. Removed `.reader.on{position:sticky}`. Commit `0177d46a5c134b4a808b75165181d6adb83b8a86`, merge `7969b9f11b8964f9f3b9a669bfd8faca79424b09`. CodeRabbit rate-limited (merged on CodeQL as a two-rule CSS fix). Verified on production (iPhone 13): player scrolls off screen while reading; no overflow 320–1440 px.
+- Current production `main`: `7969b9f11b8964f9f3b9a669bfd8faca79424b09`.
