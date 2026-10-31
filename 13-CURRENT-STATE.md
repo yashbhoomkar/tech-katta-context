@@ -1119,3 +1119,13 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 
 - Owner: the play/pause box should not stay pinned while scrolling. Removed `.reader.on{position:sticky}`. Commit `0177d46a5c134b4a808b75165181d6adb83b8a86`, merge `7969b9f11b8964f9f3b9a669bfd8faca79424b09`. CodeRabbit rate-limited (merged on CodeQL as a two-rule CSS fix). Verified on production (iPhone 13): player scrolls off screen while reading; no overflow 320–1440 px.
 - Current production `main`: `7969b9f11b8964f9f3b9a669bfd8faca79424b09`.
+
+## PR #114 merged by owner; article restructured — PRs #115, #116 (2026-10-31)
+
+- PR #114 (merge `9708d31`) was merged by the owner at `a4b5f0c`, i.e. **with** the draft recordings; the removal commit `d24a712` landed after the merge. Production briefly served the recorded narration.
+- Owner: "the article is very big… we need very structured short content covering all topics in depth". PR #115 (merge `28f923c2e50b3b1ba5c6f3d7704489b4bb3cbdfd`; commits `d24a712` recordings removed, `618c57b` restructure, `e6aca39` CodeRabbit fix: only browsers need gRPC-Web):
+  - "In 30 seconds" box; seven type cards (what / use it for / avoid it for / in Dabba) with "How it works and what it costs" collapsed; "Go deeper" collapsed sections hold the table, order example, retries/status codes/audiences, auth/pagination/errors/versioning; decision list; REST rules + endpoint list; seven one-liners; interview checklist.
+  - Read time shows "5 MIN READ · 10 WITH DETAILS"; read aloud covers main text only (`spoken()` in `speech.js`); recursive `Block` renderer; native `<details>`.
+- PR #116 (merge `ba4f97b740b48b215b69139495034883503e145e`, commit `dc8653b`): the player fetches `/audio/<slug>/manifest.json` only when the article has `audio: true` (no 404s in the console). Merged on CodeQL (CodeRabbit rate-limited; small fix).
+- Known (production): new layout live; `/audio/api-types/manifest.json` 404; no console errors; no overflow 320–1440 px; read aloud via device voices.
+- Current production `main`: `ba4f97b740b48b215b69139495034883503e145e`.

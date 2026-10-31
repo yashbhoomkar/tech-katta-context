@@ -305,3 +305,9 @@ This is not optional when the change is part of the application commit synchroni
 
 - Browser voices vary by device; the reader ranks natural ones first and offers a Voice picker.
 - A human-sounding narration needs pre-generated audio from a neural TTS model. Tried installing the open-source Kokoro model (kokoro-onnx) in the session to pre-render MP3s: **blocked by the session's permission classifier** — needs the owner's go-ahead (or a cloud TTS key: Google Cloud TTS / Azure have free monthly tiers far above one article).
+
+## Article shape (Decided by user, 2026-10-31)
+
+- Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Dabba), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
+- Read aloud covers the main text only. After recording an article with `tools/tts`, set `audio: true` on it.
+- Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Note: the owner's `hello-interview-api-design` file sits in this public repo.
