@@ -1075,3 +1075,10 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Still public (not changed): `/diagrams/kafka-architecture.svg` (legacy file in `frontend/public`), the Vercel projects `tech-katta-status` and `tech-katta-system-design-demo` (`*.vercel.app`), and both GitHub repos (`tech-katta`, `tech-katta-context`) are public.
 - Pending: MongoDB ledger entries for `234b3e9…` and `a83651b…` — the Atlas connection was denied in this session's permission mode; record them in the next session that has access.
 - Current production `main`: `a83651b159ad88a5ba81499ae11a25e5bdc8564d`.
+
+## PR #107 reverted — PR #108 (merged, 2026-10-31)
+
+- Decided (user): revert the private placeholder. PR #108, commit `7b823257fda65bdfef6ca14c8e5e2880e01fb001` (revert of `a83651b`), merged as `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e` after CodeQL passed. Tree identical to `3d3e40f`.
+- Known (production, 2026-10-31): the landing page is served again within ~30 s; no `X-Robots-Tag`, `/robots.txt` 404; headless Chromium shows H1 "System design, explained.", no console errors, no overflow at 320/390/768/1024/1440 px.
+- Pending: MongoDB ledger entries for `234b3e9…`, `a83651b…`, `7b82325…`, `53a8ae0…` (Atlas access denied in this session).
+- Current production `main`: `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`.

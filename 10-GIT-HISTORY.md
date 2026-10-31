@@ -833,3 +833,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #106: `7a3c2626bf413aeced9248460a13f8c933eae73e` — estimate divisor fix.
 - PR #106: `3df52fb6e5d435ecafccd01823356de7599caab7` (section 04 removed); merge `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`, verified on production.
 - PR #107: `234b3e9cb5476cf98d9b6db976e87d404af1b7ad` (landing page replaced by a private placeholder, noindex); merge `a83651b159ad88a5ba81499ae11a25e5bdc8564d`, verified on production. Not yet in the MongoDB ledger.
+- PR #108: `7b823257fda65bdfef6ca14c8e5e2880e01fb001` (revert of PR #107); merge `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`, verified on production. Not yet in the MongoDB ledger.
