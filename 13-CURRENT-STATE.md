@@ -1105,3 +1105,12 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Reviews: CodeRabbit 8 findings, all fixed and confirmed on thread; its re-review of the second commit was rate-limited. CodeQL green. Copilot requested (no review: needs paid plan).
 - PR #111 commits `79b244d…` (footer), `14f5786…` (article), `9602a40…` (review fixes + enrichment); merge `f93909215c4c020cc3bb514a821700420124ff73`. Verified on production: article, navigation, footer date, 0 GitHub links, no overflow 320–1440 px, no console errors.
 - Current production `main`: `f93909215c4c020cc3bb514a821700420124ff73`.
+
+## Read aloud, animated figure, Dabba, mobile-first — PR #112 (merged, 2026-10-31)
+
+- Commits: `af1c703…` (read aloud, animated FIG. 01, Dabba), `663d003…` (mobile fit + full screen, voice ranking/picker, Share, OG tags + `/og.png`, Dabba wording), `4575935…` (CodeRabbit fixes: accessible phone table, no restart after Stop, Share fallback/error); merge `a25a09d080a8e252cf49c63f805c6f8127b692d4` after CodeQL passed.
+- Reviews: CodeRabbit was rate-limited on the first push; re-triggered after the reset (scheduled check-in), 3 findings, all fixed and replied to. Copilot requested (no review without a paid plan).
+- Read aloud: Web Speech API, natural voices ranked first + Voice picker (localStorage `tk-voice`), speed, sticky player, highlight. Human-sounding pre-rendered narration is **pending the owner's choice** (allow installing the open-source Kokoro model in-session, or provide a cloud TTS key).
+- Known (production): article shows the Dabba box, animated FIG. 01 (12 packets; 0 with reduced motion), read-aloud bar, Share; full-screen figure on phones (rotated in portrait); table cards on phones; `og.png` 200; OG tags present; no overflow 320–1440 px; no console errors.
+- Pending decision: real per-article URLs so LinkedIn/Instagram show the article's own preview (hash routes share the dashboard card).
+- Current production `main`: `a25a09d080a8e252cf49c63f805c6f8127b692d4`.
