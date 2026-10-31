@@ -1051,3 +1051,11 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known: PR #105 merged as `abbb76a79371deda253816b76d22ac7cf3785bc8` after CodeQL passed. CodeRabbit did not review it (hourly quota). Production served the fix within about 1 minute. Browser tested on production in headless Chromium: no horizontal overflow at any width from 320 to 1440px, no console errors, and all four sections and three cards render at 1440, 1000 and 390px.
 - Current production `main`: `abbb76a79371deda253816b76d22ac7cf3785bc8`. Rollback point for today's work: `37df67b6ede5853ad3f4b3c5406f4ec1c3315ada`.
 - Lesson: run the full-width overflow sweep (320–1440px) on the final head before merging any layout change, not only at the widths a review names.
+
+## Numbers Worth Knowing rework — PR #106 (open, 2026-10-31)
+
+- PR #106 (https://github.com/yashbhoomkar/tech-katta/pull/106), commit `4116c421fe43b2b85306598a52c8f012d1b32870`. Not merged at the time of writing.
+- **FIG. 02:** the latency rows are now the ones a design discussion uses: memory 100 ns, SSD 4 KB ~100 µs, cache read over the network ~0.5 ms, indexed database read ~1 ms, HDD seek ~10 ms, US–Europe ~150 ms. The L1 cache row is removed. The log scale runs from 10 ns to 1 s, and a dashed marker at ~100 ms shows where people notice delay.
+- **Estimation shortcuts:** adds sizes (1 KB × 1M ≈ 1 GB, × 1B ≈ 1 TB) and typical read:write ratios.
+- **New FIG. 03:** a worked estimate of the URL shortener. 100M links/day → ≈1.2K writes/s → ≈116K reads/s (cache) → ≈50 GB/day, ≈18 TB/year (sharding) → ×3 at peak. The arithmetic was checked.
+- Verification: build passed. Browser tested in headless Chromium at 1440, 900 and 390px, and an overflow sweep from 320 to 1440px is clean.
