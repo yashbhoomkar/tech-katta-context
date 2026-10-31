@@ -280,3 +280,10 @@ This is not optional when the change is part of the application commit synchroni
 - Verify every finding; fix real ones; reply on each thread with what changed or why it was left; then merge.
 - `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
 - Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.
+
+## Article rules (Decided by user, 2026-10-31)
+
+1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.
+2. **Every figure is animated where possible**, on a loop, in the Swiss palette, with a static version for `prefers-reduced-motion` (`useStill()`). Animation must show the concept happening (a request travelling, an event waiting in a queue), not decoration.
+3. **Explain through one example system: Dabba**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Every concept gets an "In Dabba" explanation; figures use Dabba's parts. Extend Dabba (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
+4. Copy stays plain and human; no copying from reference sites (they are guidance only).
