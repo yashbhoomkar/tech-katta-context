@@ -344,3 +344,9 @@ Conventions:
 - **Verification level:** layouts were browser tested in headless Chromium at 1440, 1000/900 and 390px (no console errors, no horizontal overflow). Tap-to-zoom was clicked in an emulated phone viewport; it has not been mobile touch tested on a real device.
 
 Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The numbers behind a design": FIG. 02 latency chart from 10 ns to 1 s with a ~100 ms notice marker, estimation shortcuts, and FIG. 03, a worked URL-shortener estimate. Section 04 is removed.
+
+## Dashboard page (PR #109, 2026-10-31)
+
+- Two Vite entries: `/` (`index.html` → `src/main.jsx`) and `/dashboard/` (`dashboard/index.html` → `src/dashboard.jsx` + `src/dashboard.css`), declared in `frontend/vite.config.js`. Shared copy in `src/content.js` (`dashboard` key added).
+- `dashboard.jsx`: `ICON` (inline SVG paths), `Section({id})` (panel per section), `Dashboard` (sidebar + tabs + drawer; state: `active` from URL hash, `collapsed` persisted in `localStorage['tk-sidebar']`, `open` for the mobile drawer).
+- `dashboard.css` uses the same tokens as `styles.css`; breakpoints 900 px (drawer) and 680 px (compact panel). Hero "Dashboard →" links to `/dashboard/`.

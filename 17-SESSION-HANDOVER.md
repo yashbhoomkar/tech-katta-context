@@ -14,7 +14,8 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 
 > **Update 2026-10-31 (later):** production briefly became a private placeholder (PR #107, merge `a83651b`)
 > and was then reverted at the user's request (PR #108, merge `53a8ae0`). The landing page below is live
-> again; current `main` = `53a8ae0`. Ledger entries for PRs #107/#108 are pending.
+> again. PR #109 (merge `e234b3b`) added the **Dashboard page** at `/dashboard/` (see `03-FRONTEND.md`);
+> current `main` = `e234b3b`. Ledger entries for PRs #107–#109 are pending.
 
 - Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
   design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).

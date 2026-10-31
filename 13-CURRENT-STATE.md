@@ -1082,3 +1082,15 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known (production, 2026-10-31): the landing page is served again within ~30 s; no `X-Robots-Tag`, `/robots.txt` 404; headless Chromium shows H1 "System design, explained.", no console errors, no overflow at 320/390/768/1024/1440 px.
 - Pending: MongoDB ledger entries for `234b3e9…`, `a83651b…`, `7b82325…`, `53a8ae0…` (Atlas access denied in this session).
 - Current production `main`: `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`.
+
+## Dashboard page — PR #109 (merged, 2026-10-31)
+
+- Decided (user): add a Dashboard page based on the user's Stitch mock (`tech_katta_dashboard_application_shell.html`, uploaded in-session, not stored), Swiss colour scheme; the landing **Dashboard →** button opens it.
+- PR #109, commit `3726258ed1013bc2dbd6f65c11f0eaab6cbf2009`, merged as `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c` after CodeQL passed (CodeRabbit not requested).
+- `/dashboard/` = second Vite entry (`frontend/dashboard/index.html` → `src/dashboard.jsx`, `src/dashboard.css`; `frontend/vite.config.js` lists both inputs). `vercel.json` rewrites `/dashboard` → `/dashboard/index.html`.
+- Shell: 260 px sidebar (TK brand, "SYSTEM DESIGN LIBRARY", 4 sections with inline SVG icons, "Back to site"), collapsible to 64 px rail (`localStorage` key `tk-sidebar`); top tabs; active section in URL hash (`#concepts`, `#components`, `#interview-questions`, `#quick-notes`); ≤900 px sidebar becomes a drawer (scrim, Escape, focus handling).
+- Content from `content.js` → new `dashboard` key; Quick Notes lists the 4 notes with status; other sections show an honest "Nothing published here yet" empty state.
+- Left out of the mock on purpose: "SYS: OPERATIONAL", "ENV PROD-SYS-v2.4", user avatar (nothing real behind them).
+- Known (production): `/dashboard`, `/dashboard/`, `/`, `/health` all 200; landing button → dashboard; tabs/sidebar sync; collapse; drawer; no console errors; no overflow 320–1440 px.
+- Pending: MongoDB ledger entries for `3726258…` and `e234b3b…` (plus PRs #107/#108).
+- Current production `main`: `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c`.
