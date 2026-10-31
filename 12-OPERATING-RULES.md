@@ -270,3 +270,13 @@ This is not optional when the change is part of the application commit synchroni
 
 - Before inserting a commit record, query both canonical collections for the full SHA and insert only if it is absent.
 - If historical duplicate rows are discovered, do not blindly delete or overwrite them during normal ledger updates. Preserve their `_id`, key, and value as audit evidence; handle cleanup through a dedicated, backed-up operation with a recorded canonical description and a verified unique index.
+
+## Code review on every PR (Decided by user, 2026-10-31)
+
+- **Always request code review on every PR in `yashbhoomkar/tech-katta`**, right after opening it:
+  1. Comment `@coderabbitai review` (plus the Claude Code footer). CodeRabbit is on the free open-source tier (shows "Plan: Advanced"), but **skips auto-review because the repo has fewer than 10 stars**, so the manual trigger is required. Limits refill hourly; if rate-limited, say so and wait or proceed on CodeQL for small/urgent fixes.
+  2. Call `request_copilot_review`. It is accepted without error but produced no review on PR #110 — Copilot code review needs a paid Copilot plan on the account. Keep requesting; it costs nothing and starts working if a plan is added.
+  3. CodeQL runs automatically.
+- Verify every finding; fix real ones; reply on each thread with what changed or why it was left; then merge.
+- `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
+- Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.

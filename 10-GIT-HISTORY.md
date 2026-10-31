@@ -835,3 +835,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #107: `234b3e9cb5476cf98d9b6db976e87d404af1b7ad` (landing page replaced by a private placeholder, noindex); merge `a83651b159ad88a5ba81499ae11a25e5bdc8564d`, verified on production. Not yet in the MongoDB ledger.
 - PR #108: `7b823257fda65bdfef6ca14c8e5e2880e01fb001` (revert of PR #107); merge `53a8ae098a9bc738d28bbf74fd601e5b3ad1846e`, verified on production. Not yet in the MongoDB ledger.
 - PR #109: `3726258ed1013bc2dbd6f65c11f0eaab6cbf2009` (dashboard page, Dashboard button → /dashboard/); merge `e234b3b4bfdea721b1cc6e51f2ef367bacc0c42c`, verified on production. Not yet in the MongoDB ledger.
+- PR #110: `af4b98fa5d07983e73594e5df3931b8d6b45e09a`, `a6974b02ea2ec0c2ae5330578a4919e0086a7a09` (`.coderabbit.yaml`); merge `8e8cfc208f6b6357fba0d9f6d2bb43ae0e810a47`. Not yet in the MongoDB ledger.

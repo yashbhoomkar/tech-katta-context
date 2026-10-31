@@ -15,7 +15,7 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 > **Update 2026-10-31 (later):** production briefly became a private placeholder (PR #107, merge `a83651b`)
 > and was then reverted at the user's request (PR #108, merge `53a8ae0`). The landing page below is live
 > again. PR #109 (merge `e234b3b`) added the **Dashboard page** at `/dashboard/` (see `03-FRONTEND.md`);
-> current `main` = `e234b3b`. Ledger entries for PRs #107–#109 are pending.
+> PR #110 (merge `8e8cfc2`) added `.coderabbit.yaml`; current `main` = `8e8cfc2`. Ledger entries for PRs #107–#110 are pending.
 
 - Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
   design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).
@@ -84,7 +84,7 @@ Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiti
 6. **PR** via GitHub MCP (`mcp__github__create_pull_request`), base `main`. Body: summary, test
    plan with checkboxes, `🤖 Generated with Claude Code` + session link. Subscribe with
    `subscribe_pr_activity`. Schedule a ~50 min `send_later` safety check-in.
-7. **Reviews:** CodeQL runs automatically (`.github/workflows/codeql.yml`). CodeRabbit auto-review
+7. **Reviews (always — see `12-OPERATING-RULES.md` › Code review on every PR):** comment `@coderabbitai review` and call `request_copilot_review` on every PR. CodeQL runs automatically (`.github/workflows/codeql.yml`). CodeRabbit auto-review
    is **disabled** on the repo — trigger with a PR comment `@coderabbitai review` (+ the Claude
    Code footer). Free plan = **1 review per hour**; when rate-limited, wait or merge on CodeQL
    alone for small/urgent fixes and say so. Verify each finding, fix real ones, reply on the
