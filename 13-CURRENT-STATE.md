@@ -1147,3 +1147,14 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known (production): rendered text identical to before the switch (checked against the production API before merge); no copy in JS bundles; API calls `/v1/site`, `/v1/articles`, `/v1/articles/api-types`; no console errors; no overflow 320–1440 px; read aloud, figures, full screen OK.
 - **To change content now:** edit `backend/src/content/…`, `cd backend && npm test`, PR → merge to `main` → the backend workflow deploys → site updates within ~60 s (no frontend deploy needed).
 - Current production `main`: `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`.
+
+## Content stored on the VPS disk — PR #120 (merged, 2026-10-31)
+
+- Decided (user): store content on the VPS's 50 GB SSD, structured properly (not MongoDB, not compiled into code).
+- Repo `content/`: `site.json`, `examples/zotato.json`, `articles/index.json`, `articles/<section>/<slug>.json`, `README.md`. Backend `src/content/store.js` + `validate.js` load/validate a directory (`CONTENT_DIR`, default repo `content/`); refuses to start on invalid content; `SIGHUP` reloads, keeping the last good release on failure; `/health` shows `content.release`. `scripts/check-content.mjs <dir>`.
+- **VPS layout:** `/var/lib/tech-katta/content/releases/<UTC timestamp>-<sha>/` (10 newest kept), `/var/lib/tech-katta/content/current` → newest validated release; systemd drop-in `CONTENT_DIR=/var/lib/tech-katta/content/current`. Deploy (also triggered by `content/**`): copy → validate → atomic symlink switch → restart; fails safe (old release keeps serving).
+- **Rollback on the VPS:** `ln -sfn /var/lib/tech-katta/content/releases/<older> /var/lib/tech-katta/content/current && sudo systemctl kill -s HUP tech-katta-api`.
+- Rehearsal caught a bug before merge: pruning by mtime would delete the newest release (`cp -a` preserves the source mtime); pruning sorts by timestamped name.
+- Commit `a2b4a50`, merge `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`. CodeRabbit rate-limited (owner: don't wait); CodeQL green; deploy workflow green incl. "Validate content".
+- Known (production): `/health` → `"content":{"release":"20261031T130720Z-ec3ff0f","articles":1}`; `/v1/site`, `/v1/articles`, `/v1/articles/api-types` byte-identical to repo content; site unchanged, no console errors, no overflow.
+- Current production `main`: `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`.

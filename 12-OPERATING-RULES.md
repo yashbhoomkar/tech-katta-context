@@ -319,6 +319,11 @@ This is not optional when the change is part of the application commit synchroni
 
 ## Content lives in the backend (Decided by user, 2026-10-31)
 
-- All site copy is in `tech-katta/backend/src/content/` and served by `tech-api.katta.cc` (`/v1/site`, `/v1/articles`, `/v1/articles/:slug`). The frontend must not hardcode content; it only renders what the API returns (UI strings like "Loading…" are fine).
-- Content PRs touch `backend/` only and are deployed by the backend workflow; run `npm test` (content validation) before opening the PR. New block types or figures need a frontend change too (renderer / `FIGS`) — ship the frontend first only if it ignores unknown blocks safely, otherwise backend first.
+- All site copy is JSON in `tech-katta/content/` (deployed to the VPS at `/var/lib/tech-katta/content/current`, see `content/README.md`) and served by `tech-api.katta.cc` (`/v1/site`, `/v1/articles`, `/v1/articles/:slug`). The frontend must not hardcode content; it only renders what the API returns (UI strings like "Loading…" are fine).
+- Content PRs touch `content/` only and are deployed by the backend workflow; run `npm test` (content validation) before opening the PR. New block types or figures need a frontend change too (renderer / `FIGS`) — ship the frontend first only if it ignores unknown blocks safely, otherwise backend first.
 - Ship order for API changes the frontend depends on: backend PR → deploy → verify live → frontend PR.
+
+## Where data lives (Decided by user, 2026-10-31)
+
+- **Content** (articles, site copy, example systems; later narration audio and images): files on the VPS disk (50 GB SSD) under `/var/lib/tech-katta/content`, published as validated releases from the repo's `content/`.
+- **MongoDB Atlas**: dynamic data only when it exists (accounts, payments, progress, feedback) — and the existing commit ledger.

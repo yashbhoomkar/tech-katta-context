@@ -845,3 +845,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #117: `333bab69382562ab1a70c9f8db7c6678ff3eddc4` (Zotato + FIG. 02–04), `24c803ae9aa0d47b572a25ff15d29b5ac142ab06` (webhook before queue); merge `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`, verified on production. Not yet in the MongoDB ledger.
 - PR #118: `86f4ef6b5b66ba3295c0930e30d61dfe4244a83c` (backend content API); merge `096c7bc1167397d4115e1caf25aab94376d8f519`, deployed to the VPS, verified.
 - PR #119: `76c3a31` (frontend loads content from API), `5066c35` (example heading colour), `a146d1e` (merge main); merge `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`, verified on production. PRs #107–#119 not yet in the MongoDB ledger.
+- PR #120: `a2b4a506bf351d8c4ec18afa6d2a69e7c6174fbf` (content as JSON releases on the VPS disk); merge `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`, deployed, verified. PRs #107–#120 not yet in the MongoDB ledger.
