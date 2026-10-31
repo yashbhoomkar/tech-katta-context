@@ -285,5 +285,17 @@ This is not optional when the change is part of the application commit synchroni
 
 1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.
 2. **Every figure is animated where possible**, on a loop, in the Swiss palette, with a static version for `prefers-reduced-motion` (`useStill()`). Animation must show the concept happening (a request travelling, an event waiting in a queue), not decoration.
-3. **Explain through one example system: Dabba**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Every concept gets an "In Dabba" explanation; figures use Dabba's parts. Extend Dabba (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
+3. **Explain through one example system where it fits: Dabba**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Each article says that *it* uses Dabba (not "every concept on the site"); each idea gets an "In Dabba" explanation where it fits; figures use Dabba's parts. Extend Dabba (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
 4. Copy stays plain and human; no copying from reference sites (they are guidance only).
+
+## Audience: mobile first (Decided by user, 2026-10-31)
+
+- The site will be promoted on **Instagram and LinkedIn**; expect **~75 % of visitors on phones**. Design and verify for a phone first (iPhone-size emulation, 320–430 px), then desktop.
+- Figures must fit the screen without sideways scrolling and offer **"Tap to view full screen"** (modal; rotated in portrait). Tables become cards on phones. Touch targets ≥ 40 px.
+- Every page needs Open Graph / Twitter tags; `/og.png` (1200×630) is the default preview image. Articles have a **Share** button (native share sheet).
+- Hash routes (`/dashboard/#concepts/api-types`) all share the dashboard's preview card; per-article previews need real per-article URLs (pending decision).
+
+## Read-aloud voice quality (2026-10-31)
+
+- Browser voices vary by device; the reader ranks natural ones first and offers a Voice picker.
+- A human-sounding narration needs pre-generated audio from a neural TTS model. Tried installing the open-source Kokoro model (kokoro-onnx) in the session to pre-render MP3s: **blocked by the session's permission classifier** — needs the owner's go-ahead (or a cloud TTS key: Google Cloud TTS / Azure have free monthly tiers far above one article).
