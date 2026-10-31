@@ -316,3 +316,9 @@ This is not optional when the change is part of the application commit synchroni
 
 - The example system is **Zotato** (formerly Dabba): same food delivery app, same parts. Note: the name is close to the real company Zomato; the owner chose it knowingly.
 - Figures: add one wherever a picture explains more than text (decision ladders, end-to-end sequences, before/after timelines). Register new figures in `FIGS` in `frontend/src/dashboard.jsx`; keep every element inside the 640-wide viewBox; animate with `Dot`/`Glow`/`Show`; static under reduced motion.
+
+## Content lives in the backend (Decided by user, 2026-10-31)
+
+- All site copy is in `tech-katta/backend/src/content/` and served by `tech-api.katta.cc` (`/v1/site`, `/v1/articles`, `/v1/articles/:slug`). The frontend must not hardcode content; it only renders what the API returns (UI strings like "Loading…" are fine).
+- Content PRs touch `backend/` only and are deployed by the backend workflow; run `npm test` (content validation) before opening the PR. New block types or figures need a frontend change too (renderer / `FIGS`) — ship the frontend first only if it ignores unknown blocks safely, otherwise backend first.
+- Ship order for API changes the frontend depends on: backend PR → deploy → verify live → frontend PR.

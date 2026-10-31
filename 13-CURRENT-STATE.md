@@ -1138,3 +1138,12 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Also: the Hello Interview notes moved to the private repo `yashbhoomkar/tech-katta-private` (`references/`, commit `030618b`); removed from this repo's `main` in PR #35 (still in history at `a2affb8`).
 - Known (production): four figure titles, no "Dabba" left, ladder starts with the webhook question; no overflow 320–1440 px; no console errors; reduced motion → 0 packets.
 - Current production `main`: `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`.
+
+## Content served by the backend — PRs #118, #119 (merged, 2026-10-31)
+
+- Decided (user, "important"): content lives in the backend and the frontend renders what the API serves. Owner said not to wait for CodeRabbit; both PRs merged on CodeQL.
+- **Backend (PR #118, `86f4ef6`, merge `096c7bc1167397d4115e1caf25aab94376d8f519`)**: `backend/src/content/` — `site.js` (landing + dashboard copy), `example.js` (Zotato), `articles/<slug>.js`, `index.js`, `README.md` (block types, how to edit). Endpoints: `GET /v1/site` (site + example), `GET /v1/articles[?section=]` (summaries), `GET /v1/articles/:slug` (full article + example). Public read-only: `Access-Control-Allow-Origin: *`, `Cache-Control: public, max-age=60, stale-while-revalidate=600`, ETag/304, HEAD/OPTIONS, 405 on writes, slug validation, 404 `no-store`. 11 tests incl. content validation (block types, figure ids, table widths, slugs, sections). Deployed by "Deploy Tech Katta Backend" (success); verified live through Cloudflare.
+- **Frontend (PR #119, `76c3a31` + `5066c35`, merge `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`)**: `src/api.js` (`getJSON`, `VITE_API_BASE`, retry once, 8 s timeout), `src/status.jsx` (Loading / LoadError with Try again); landing loads `/v1/site`; dashboard loads `/v1/site` + `/v1/articles`, article bodies on open. Removed `src/content.js`, `src/articles.js`; `tools/tts` reads `backend/src/content`. Example-system heading all cobalt (owner: consistency).
+- Known (production): rendered text identical to before the switch (checked against the production API before merge); no copy in JS bundles; API calls `/v1/site`, `/v1/articles`, `/v1/articles/api-types`; no console errors; no overflow 320–1440 px; read aloud, figures, full screen OK.
+- **To change content now:** edit `backend/src/content/…`, `cd backend && npm test`, PR → merge to `main` → the backend workflow deploys → site updates within ~60 s (no frontend deploy needed).
+- Current production `main`: `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`.
