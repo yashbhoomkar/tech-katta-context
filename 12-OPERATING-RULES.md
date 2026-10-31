@@ -295,6 +295,12 @@ This is not optional when the change is part of the application commit synchroni
 - Every page needs Open Graph / Twitter tags; `/og.png` (1200×630) is the default preview image. Articles have a **Share** button (native share sheet).
 - Hash routes (`/dashboard/#concepts/api-types`) all share the dashboard's preview card; per-article previews need real per-article URLs (pending decision).
 
+## Recorded narration (Decided by user, 2026-10-31)
+
+- Voice engine: **Kokoro** (open-source, Apache-2.0), default voice `af_heart`. Tooling in `tech-katta/tools/tts/` (`export-chunks.mjs`, `generate.py`); output `frontend/public/audio/<slug>/` + `manifest.json`; the player uses it automatically and falls back to device voices per chunk.
+- **Record an article only when its content is final** (owner: content will change a lot). Do not commit audio for drafts.
+- Kokoro runs inside the cloud session container (`/tmp/tts/venv`, model in `/tmp/ttsmodel`: `kokoro-v1.0.int8.onnx` + `voices-v1.0.bin` from github.com/thewh1teagle/kokoro-onnx releases `model-files-v1.0`). The container is temporary: reinstall when recording. A full article (~120 chunks) takes ~30 min on CPU and is ~6 MB.
+
 ## Read-aloud voice quality (2026-10-31)
 
 - Browser voices vary by device; the reader ranks natural ones first and offers a Voice picker.
