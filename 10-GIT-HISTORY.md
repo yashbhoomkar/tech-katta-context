@@ -848,3 +848,4 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #120: `a2b4a506bf351d8c4ec18afa6d2a69e7c6174fbf` (content as JSON releases on the VPS disk); merge `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`, deployed, verified. PRs #107–#120 not yet in the MongoDB ledger.
 - PRs #121 (`67fefec`, `77dc1be`; merge `52acee0`), #122 (`a806ac6`; merge `a268582`), #123 (`2357c51`; merge `5ca1ec0`): System Design Lab phase 1, verified on production. PRs #107–#123 not yet in the MongoDB ledger.
 - PR #124: `f9fc4f786ccd1720aadc13a5c673d1858fdee716` (Lab credits drain over simulated time; free-spot placement); merge `54bab80955a0af2de53719c31f6e5f1599656d0a`, verified on production.
+- PR #125: `6e73d13d193b45f3883084a53c69d9ce47ce7571` (Lab palette drag with pointer events); merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`, verified on production.

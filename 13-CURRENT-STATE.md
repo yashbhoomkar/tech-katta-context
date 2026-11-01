@@ -1177,3 +1177,11 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - US digit grouping for all Lab numbers (was en-IN next to dollars). `content/lab.json` intro updated.
 - Commit `f9fc4f7`; merge `54bab80955a0af2de53719c31f6e5f1599656d0a`. CodeRabbit rate-limited (merged on CodeQL per owner). Verified on production: no overlaps; 4 Clients → 4,000 req/s, 30% served; 3 s @1 week/s → ~3 weeks, $25,710 spent; persisted across reload; exhaustion after 4.2 months stops the run; duplicate restores $200,000; no console errors.
 - Current production `main`: `54bab80955a0af2de53719c31f6e5f1599656d0a`.
+
+## Lab palette drag — PR #125 (merged, 2026-11-01)
+
+- Owner: tapping a palette component adds it (keep), and also allow dragging it from the sidebar.
+- The palette used HTML5 drag-and-drop (Firefox won't start it from buttons; touch screens don't support it). Now pointer events: move > 6 px shows a ghost and outlines the canvas, drop places the component where released over the canvas (nearest free spot); release elsewhere adds nothing; tap/click and keyboard still add.
+- Commit `6e73d13`; merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`. CodeRabbit rate-limited; merged on CodeQL. Verified on production: mouse drag, 2 px wobble = tap, release outside = nothing, keyboard Enter, touch drag and tap on an iPad viewport; no console errors.
+- `17-SESSION-HANDOVER.md` rewritten as a complete, current handover for the next session.
+- Current production `main`: `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`.
