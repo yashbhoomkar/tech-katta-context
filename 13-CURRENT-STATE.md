@@ -1185,3 +1185,11 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Commit `6e73d13`; merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`. CodeRabbit rate-limited; merged on CodeQL. Verified on production: mouse drag, 2 px wobble = tap, release outside = nothing, keyboard Enter, touch drag and tap on an iPad viewport; no console errors.
 - `17-SESSION-HANDOVER.md` rewritten as a complete, current handover for the next session.
 - Current production `main`: `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`.
+
+## Lab crash policy — PR #126 (merged, 2026-11-01)
+
+- Owner: does the database ever turn red? What is the crash policy? → "You decide and build".
+- Findings: the database only went red when servers could pass it more than its capacity (example capped at 48%); nothing ever crashed.
+- Built: queries per request (Server, default 2), one retry per failed request, crash policy (Server >150% for 10 min → down 5; Database >120% for 5 min → Multi-AZ failover 2 / single-AZ down 30; API Gateway and Clients never crash), event-driven `advance()`, CRASHED state, grey arrows, availability, run log, speeds 1 min/10 min/1 h/1 day/1 week (default 1 min), credit in cents. Numbers in `content/lab.json`, validated.
+- Commit `e5f6d82`; merge `608252f38cd628436a4e472cdddc87357105161f`. CodeRabbit rate-limited; merged on CodeQL. Verified on production: 3 servers @1,600 req/s → DB crashes ~00:12, Multi-AZ failover, availability ~64%; example @2,400 req/s → server crash loop (00:10 crash, 00:15 back, 00:25 crash), availability ~40%; no console errors.
+- Current production `main`: `608252f38cd628436a4e472cdddc87357105161f`.

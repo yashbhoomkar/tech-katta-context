@@ -13,7 +13,7 @@ on the owner.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `0bdbaed`** (PR #125). Production: `https://tech.katta.cc` (Vercel),
+- **tech-katta `main` = `608252f`** (PR #126). Production: `https://tech.katta.cc` (Vercel),
   API `https://tech-api.katta.cc` (VPS, behind Cloudflare). Both verified after the last merge.
 - The site has three parts:
   1. **Landing page** `/` — hero with the animated Kafka figure, Technical Library cards, Quick Notes,
@@ -24,7 +24,7 @@ on the owner.
   3. **System Design Lab** `/dashboard/#lab` — the site's main differentiator (§6).
 - **All content** (copy, articles, Lab catalogue) is JSON in `tech-katta/content/`, served by the
   API and stored on the VPS disk as validated releases (§5). The frontend hardcodes no content.
-- Last content release on the VPS: `20261101T150245Z-54bab80` (`/health` shows it).
+- Last content release on the VPS: `20261101T152420Z-608252f` (`/health` shows it).
 
 ---
 
@@ -205,6 +205,20 @@ for now); laptop-first; React Flow approved; everything else delegated — chose
   nodes, edges, credit:{spent,hours}, updated}}}`), autosave; dashboard sidebar folds to icons on the
   Lab. React Flow attribution is kept (MIT; removing it is for paying users).
 
+**Crash policy (Decided by the session on the owner's "you decide and build", PR #126):** numbers
+in `content/lab.json` (`crash` per component, `retries`), validated by the backend.
+- Server: "Database queries per request" (default 2). Server group crashes after **10 simulated
+  minutes above 150 %**, restarts after **5** (crash loop if still overloaded).
+- Database: crashes after **5 minutes above 120 %**; **Multi-AZ fails over in 2 minutes**, single-AZ
+  is down for **30**.
+- API Gateway never crashes (throttles, 429); Clients never crash. Clients **retry a failed request
+  once** (adds load). Crashed components are still billed.
+- Engine: `simulate(design, lab, {down})`, event-driven `advance(design, lab, run, minutes)`,
+  `newRun()`; 11 tests. UI: "CRASHED · back in N min", grey arrows, availability %, run log in the
+  design panel, speeds 1 s = 1 minute (default) / 10 minutes / 1 hour / 1 day / 1 week; credit in
+  cents. Why the database rarely went red before: overloaded servers can't send more queries than
+  the requests they process — the realistic driver is queries per request (and retries).
+
 **Ideas offered to the owner for this phase (Pending — owner hasn't picked):** undo/redo and
 copy-paste; live req/s labels on arrows; rename components; connection hints while dragging an
 arrow; credit-over-time chart; "reset clock" without duplicating.
@@ -219,7 +233,7 @@ per-user history and credit.
 ## 7. Environment facts and gotchas (cloud session)
 
 - **Blocked by the safety classifier**: MongoDB Atlas `remote-atlas-connect` (so the commit ledger
-  could not be updated — entries for PRs #107–#125 are missing); force-push; `rm -rf` inside
+  could not be updated — entries for PRs #107–#126 are missing); force-push; `rm -rf` inside
   `bash -c` scripts; creating GitHub repos via the GitHub app (owner creates them, then `add_repo`).
   Installing Kokoro was blocked until the owner explicitly chose it, then allowed.
 - `pkill -f "<pattern>"` can match the shell running it and kill the command (exit 144). Use a
@@ -249,7 +263,7 @@ per-user history and credit.
    media → `content/media/` served by the API; delete unused `kafka-architecture.svg`) — offered,
    not decided.
 5. **Recorded narration** for the API article when the owner says it is final.
-6. **MongoDB ledger** for PRs #107–#125 (needs a session where Atlas access is allowed).
+6. **MongoDB ledger** for PRs #107–#126 (needs a session where Atlas access is allowed).
 7. CodeRabbit never fully reviewed PRs #122–#125 (rate-limited); a later quiet hour could request
    reviews on a follow-up PR touching `frontend/src/lab/`.
 8. Clean up legacy frontend files (separate PR).
@@ -276,6 +290,7 @@ per-user history and credit.
 | #121–#123 | System Design Lab phase 1 (catalogue/API, Lab view, tab) |
 | #124 | Lab credits drain over simulated time; no stacking of new components |
 | #125 | Lab palette drag with pointer events (mouse, touch, pen) |
+| #126 | Lab crash policy, queries per request, retries, run log, availability |
 
 Context repo: PR #35 removed the paid reference file from `main`; later doc updates are merged with
 this handover. Private repo `tech-katta-private`: `references/hello-interview-api-design.txt`.
