@@ -1,0 +1,37 @@
+# Browser checks (Playwright)
+
+Headless-Chromium checks used to verify tech.katta.cc before and after every merge. They are plain
+Node scripts (no test runner). Playwright is preinstalled in Claude Code cloud sessions
+(`require('playwright')` works from any directory; do not run `playwright install`).
+
+```bash
+mkdir -p /tmp/shots                       # some scripts save screenshots here
+cd /tmp                                   # run from a neutral directory
+node /path/to/tools/e2e/site-sweep.js https://tech.katta.cc        # production
+node /path/to/tools/e2e/site-sweep.js http://localhost:5199        # a local `vite preview`
+```
+
+Every script takes the site's base URL as its only argument (default `https://tech.katta.cc`) and
+prints a few result lines ending with `errors: [...]` (page errors and console errors; must be empty).
+
+| Script | What it checks |
+|---|---|
+| `site-sweep.js` | Footer date, no GitHub links, Concepts list, article opens, breadcrumb back, bad slug / malformed hash fall back, **overflow sweep 320→1440 px** on the article, Concepts, Quick Notes and `/` |
+| `read-aloud.js` | Read aloud with a **stubbed speech engine** (forces a device voice): highlight moves, pause/resume/stop, reads to the end, stops on navigation, figure animation packets, reduced motion → 0 packets |
+| `mobile-figures.js` | iPhone 13: voice ranking order, figure fits the column, full-screen dialog (focus on Close, `#root` inert, Escape returns focus) |
+| `recorded-audio.js` | Recorded narration path (only meaningful when an article has `audio: true` and a manifest) |
+| `api-down.js` | API unreachable → "Couldn't load this page" + Try again; recovers when the API returns. Expects the site built with `VITE_API_BASE=http://127.0.0.1:5111` and starts `backend/src/server.js` on port 5111 itself (edit the backend path at the top if needed) |
+| `lab-basics.js` | Lab tab, example loads, Run, raising Clients overloads the Server, palette click and drag add components, autosave across reload, new design, designs list |
+| `lab-drag.js` | Palette drag with pointer events (mouse drag, 2 px wobble = tap, release outside canvas = nothing, keyboard Enter) and **real touch events via CDP** on an iPad viewport |
+| `lab-credits.js` | Free-spot placement (no overlaps), several Clients into one gateway, credit drains on the simulated clock and survives a reload, running out of credit stops the run, Designs → ⧉ duplicate gives fresh credit |
+| `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
+
+Tips
+- Use a **new port** for every `npx vite preview --port N --strictPort` (old servers serve stale
+  files). Chromium refuses some ports (e.g. 5061).
+- To test against a **local API**: `PORT=5181 CONTENT_DIR=<dir> node backend/src/server.js`, then
+  build the frontend with `VITE_API_BASE=http://127.0.0.1:5181 npm run build`. Building without
+  `VITE_API_BASE` talks to the **production** API (a common source of confusing results).
+- Stop servers with `pkill -f "vite prev[i]ew"` / `pkill -f "src/server[.]js"` as a **separate
+  command** — if the same command line also contains "vite preview", pkill kills its own shell.
+- Freeze SVG animation: `svg.pauseAnimations(); svg.setCurrentTime(t)`.

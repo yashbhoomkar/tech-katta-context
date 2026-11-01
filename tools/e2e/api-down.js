@@ -1,0 +1,5 @@
+const {chromium,devices}=require('playwright');const {spawn}=require('child_process');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await chromium.launch();const p=await (await b.newContext(devices['iPhone 13'])).newPage();
+await p.goto(B+'/dashboard/#concepts/api-types');await p.waitForSelector('.st-err',{timeout:30000});console.log('api down →',(await p.innerText('.st-err')).replace(/\n/g,' | '));await p.screenshot({path:'/tmp/shots/err.png'});
+const api=spawn(process.execPath,['src/server.js'],{cwd:'/home/user/tech-katta/backend',env:{...process.env,PORT:'5111'},stdio:'ignore'});await new Promise(r=>setTimeout(r,800));
+await p.click('.st-err button');await p.waitForSelector('.d-article',{timeout:15000});console.log('after retry → article h1:',await p.innerText('h1'));
+const l=await b.newPage();await l.goto(B+'/');await l.waitForSelector('h1');console.log('landing h1:',await l.innerText('h1'));api.kill();await b.close()})();
