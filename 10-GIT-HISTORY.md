@@ -842,3 +842,10 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #114: `18811b8`, `9554e74`, `a4b5f0c` (Kokoro tooling + recordings + REST design section); merged by the owner as `9708d31`.
 - PR #115: `d24a712` (recordings removed), `790a839` (merge main), `618c57b` (restructure), `e6aca39` (gRPC-Web wording); merge `28f923c2e50b3b1ba5c6f3d7704489b4bb3cbdfd`, verified on production.
 - PR #116: `dc8653b0c932d3460a09f1f99ded36dd82daab69` (manifest only for `audio:true`); merge `ba4f97b740b48b215b69139495034883503e145e`, verified on production. PRs #107–#116 not yet in the MongoDB ledger.
+- PR #117: `333bab69382562ab1a70c9f8db7c6678ff3eddc4` (Zotato + FIG. 02–04), `24c803ae9aa0d47b572a25ff15d29b5ac142ab06` (webhook before queue); merge `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`, verified on production. Not yet in the MongoDB ledger.
+- PR #118: `86f4ef6b5b66ba3295c0930e30d61dfe4244a83c` (backend content API); merge `096c7bc1167397d4115e1caf25aab94376d8f519`, deployed to the VPS, verified.
+- PR #119: `76c3a31` (frontend loads content from API), `5066c35` (example heading colour), `a146d1e` (merge main); merge `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`, verified on production. PRs #107–#119 not yet in the MongoDB ledger.
+- PR #120: `a2b4a506bf351d8c4ec18afa6d2a69e7c6174fbf` (content as JSON releases on the VPS disk); merge `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`, deployed, verified. PRs #107–#120 not yet in the MongoDB ledger.
+- PRs #121 (`67fefec`, `77dc1be`; merge `52acee0`), #122 (`a806ac6`; merge `a268582`), #123 (`2357c51`; merge `5ca1ec0`): System Design Lab phase 1, verified on production. PRs #107–#123 not yet in the MongoDB ledger.
+- PR #124: `f9fc4f786ccd1720aadc13a5c673d1858fdee716` (Lab credits drain over simulated time; free-spot placement); merge `54bab80955a0af2de53719c31f6e5f1599656d0a`, verified on production.
+- PR #125: `6e73d13d193b45f3883084a53c69d9ce47ce7571` (Lab palette drag with pointer events); merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`, verified on production.

@@ -1129,3 +1129,59 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - PR #116 (merge `ba4f97b740b48b215b69139495034883503e145e`, commit `dc8653b`): the player fetches `/audio/<slug>/manifest.json` only when the article has `audio: true` (no 404s in the console). Merged on CodeQL (CodeRabbit rate-limited; small fix).
 - Known (production): new layout live; `/audio/api-types/manifest.json` 404; no console errors; no overflow 320–1440 px; read aloud via device voices.
 - Current production `main`: `ba4f97b740b48b215b69139495034883503e145e`.
+
+## Zotato + three animated figures — PR #117 (merged, 2026-10-31)
+
+- Example system renamed Dabba → Zotato (owner's choice).
+- New figures in the API article: FIG. 02 Choosing an API type (question ladder; webhook asked before queue after CodeRabbit's finding), FIG. 03 One Zotato order, end to end (sequence diagram, 8 steps), FIG. 04 A retry that does not charge twice (idempotency key). Figure registry `FIGS`, automatic numbering, per-figure full-screen aspect ratio.
+- Commits `333bab6` and `24c803a`; merge `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`. CodeRabbit: 1 finding, fixed and replied. CodeQL green.
+- Also: the Hello Interview notes moved to the private repo `yashbhoomkar/tech-katta-private` (`references/`, commit `030618b`); removed from this repo's `main` in PR #35 (still in history at `a2affb8`).
+- Known (production): four figure titles, no "Dabba" left, ladder starts with the webhook question; no overflow 320–1440 px; no console errors; reduced motion → 0 packets.
+- Current production `main`: `f03c2d7f052c47c4cb5c8a7e2a9bd4a9bd6aeb3e`.
+
+## Content served by the backend — PRs #118, #119 (merged, 2026-10-31)
+
+- Decided (user, "important"): content lives in the backend and the frontend renders what the API serves. Owner said not to wait for CodeRabbit; both PRs merged on CodeQL.
+- **Backend (PR #118, `86f4ef6`, merge `096c7bc1167397d4115e1caf25aab94376d8f519`)**: `backend/src/content/` — `site.js` (landing + dashboard copy), `example.js` (Zotato), `articles/<slug>.js`, `index.js`, `README.md` (block types, how to edit). Endpoints: `GET /v1/site` (site + example), `GET /v1/articles[?section=]` (summaries), `GET /v1/articles/:slug` (full article + example). Public read-only: `Access-Control-Allow-Origin: *`, `Cache-Control: public, max-age=60, stale-while-revalidate=600`, ETag/304, HEAD/OPTIONS, 405 on writes, slug validation, 404 `no-store`. 11 tests incl. content validation (block types, figure ids, table widths, slugs, sections). Deployed by "Deploy Tech Katta Backend" (success); verified live through Cloudflare.
+- **Frontend (PR #119, `76c3a31` + `5066c35`, merge `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`)**: `src/api.js` (`getJSON`, `VITE_API_BASE`, retry once, 8 s timeout), `src/status.jsx` (Loading / LoadError with Try again); landing loads `/v1/site`; dashboard loads `/v1/site` + `/v1/articles`, article bodies on open. Removed `src/content.js`, `src/articles.js`; `tools/tts` reads `backend/src/content`. Example-system heading all cobalt (owner: consistency).
+- Known (production): rendered text identical to before the switch (checked against the production API before merge); no copy in JS bundles; API calls `/v1/site`, `/v1/articles`, `/v1/articles/api-types`; no console errors; no overflow 320–1440 px; read aloud, figures, full screen OK.
+- **To change content now:** edit `backend/src/content/…`, `cd backend && npm test`, PR → merge to `main` → the backend workflow deploys → site updates within ~60 s (no frontend deploy needed).
+- Current production `main`: `1e0f46d20eb8a5ad5a5ede78e28137924da2c031`.
+
+## Content stored on the VPS disk — PR #120 (merged, 2026-10-31)
+
+- Decided (user): store content on the VPS's 50 GB SSD, structured properly (not MongoDB, not compiled into code).
+- Repo `content/`: `site.json`, `examples/zotato.json`, `articles/index.json`, `articles/<section>/<slug>.json`, `README.md`. Backend `src/content/store.js` + `validate.js` load/validate a directory (`CONTENT_DIR`, default repo `content/`); refuses to start on invalid content; `SIGHUP` reloads, keeping the last good release on failure; `/health` shows `content.release`. `scripts/check-content.mjs <dir>`.
+- **VPS layout:** `/var/lib/tech-katta/content/releases/<UTC timestamp>-<sha>/` (10 newest kept), `/var/lib/tech-katta/content/current` → newest validated release; systemd drop-in `CONTENT_DIR=/var/lib/tech-katta/content/current`. Deploy (also triggered by `content/**`): copy → validate → atomic symlink switch → restart; fails safe (old release keeps serving).
+- **Rollback on the VPS:** `ln -sfn /var/lib/tech-katta/content/releases/<older> /var/lib/tech-katta/content/current && sudo systemctl kill -s HUP tech-katta-api`.
+- Rehearsal caught a bug before merge: pruning by mtime would delete the newest release (`cp -a` preserves the source mtime); pruning sorts by timestamped name.
+- Commit `a2b4a50`, merge `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`. CodeRabbit rate-limited (owner: don't wait); CodeQL green; deploy workflow green incl. "Validate content".
+- Known (production): `/health` → `"content":{"release":"20261031T130720Z-ec3ff0f","articles":1}`; `/v1/site`, `/v1/articles`, `/v1/articles/api-types` byte-identical to repo content; site unchanged, no console errors, no overflow.
+- Current production `main`: `ec3ff0ff8a7bcd942f474da73e189a98c2326a0c`.
+
+## System Design Lab, phase 1 — PRs #121, #122, #123 (merged, 2026-11-01)
+
+- Decided (user, "very important"): the site's differentiator is a System Design Lab: a Miro-like canvas, a simulator with virtual traffic, chaos testing and an evaluator. Answers: **$200,000 virtual AWS credit per design** (monthly budget); designs saved in the user's history (this browser for now, no login); **laptop-first**; React Flow approved; rest delegated (region Mumbai `ap-south-1`; tab name "Lab"; phase 1 includes a basic steady-load simulation).
+- **#121** (`67fefec`, `77dc1be`; merge `52acee0`): `content/lab.json` (catalogue: Clients, API Gateway, Server, Database with sizes, rule-of-thumb capacities, approximate Mumbai prices, example "Zotato order API"), `GET /v1/lab`, strict lab validation (shape/units of every setting), preflight allows `If-None-Match`. CodeRabbit: 3 findings fixed.
+- **#122** (`a806ac6`; merge `a268582`): `frontend/src/lab/` — `Lab.jsx` (React Flow canvas, palette drag/click, connection rules, settings panel, budget meter, Run traffic, designs in localStorage `tk-lab-v1`, autosave), `engine.js` (pure steady-state model: offered/served/dropped, utilisation, latency = base/(1−ρ), success %, cost; 6 node tests via `npm test`), `lab.css` (Swiss; amber ≥70%, red >100%). Lab lazy-loaded (~67 KB gz chunk). Sidebar folds to icons on the Lab only. CodeRabbit rate-limited; merged on CodeQL (owner's standing instruction).
+- **#123** (`2357c51`; merge `5ca1ec0adea1452a60f6750c4c71bfec2ed1381c`): `site.json` adds the dashboard section `["lab","Lab",null]`; example spaced for laptops.
+- Known (production): Lab tab in sidebar + top bar; example: 1,000 req/s → 100% served, 139 ms, busiest Server 83%; 1,800 req/s → 66.7% served, Server 150%, drops 600/s; add by click/drag, autosave across reload, new design, designs list; no console errors. Content release `20261101T144907Z-5ca1ec0`.
+- **Next phases:** 2 time-based simulation (ramps/spikes, autoscaling) + more components (load balancer, cache, queue, CDN, read replicas); 3 chaos testing (kill instance, AZ outage, latency, partition); 4 evaluator + Zotato challenges; 5 accounts (MongoDB) for per-user history/credits.
+- Current production `main`: `5ca1ec0adea1452a60f6750c4c71bfec2ed1381c`.
+
+## Lab refinements: credits drain, no stacking — PR #124 (merged, 2026-11-01)
+
+- Owner's review of phase 1: (1) credits must be consumed continuously while traffic runs; (2) check multiple Clients into one API Gateway; (3) refine this phase before phase 2.
+- Credits model (Decided): each design starts with $200,000 and spends it at its hourly cost (monthly ÷ 730) on a simulated clock — 1 s = 1 hour / 1 day (default) / 1 week (remembered in localStorage `tk-lab-speed`). Top bar: credit left, burn/hour, /month; status: simulated day/hour. At $0 the run stops exactly, Run is disabled; Designs → ⧉ duplicates with fresh credit. Credit `{spent, hours}` saved per design.
+- Multiple Clients: engine was correct (loads sum at the gateway); bug was placement — repeated palette clicks stacked new components on one spot. Fixed with `freeSpot()` (nearest free grid spot). Status shows "sent by K Clients".
+- US digit grouping for all Lab numbers (was en-IN next to dollars). `content/lab.json` intro updated.
+- Commit `f9fc4f7`; merge `54bab80955a0af2de53719c31f6e5f1599656d0a`. CodeRabbit rate-limited (merged on CodeQL per owner). Verified on production: no overlaps; 4 Clients → 4,000 req/s, 30% served; 3 s @1 week/s → ~3 weeks, $25,710 spent; persisted across reload; exhaustion after 4.2 months stops the run; duplicate restores $200,000; no console errors.
+- Current production `main`: `54bab80955a0af2de53719c31f6e5f1599656d0a`.
+
+## Lab palette drag — PR #125 (merged, 2026-11-01)
+
+- Owner: tapping a palette component adds it (keep), and also allow dragging it from the sidebar.
+- The palette used HTML5 drag-and-drop (Firefox won't start it from buttons; touch screens don't support it). Now pointer events: move > 6 px shows a ghost and outlines the canvas, drop places the component where released over the canvas (nearest free spot); release elsewhere adds nothing; tap/click and keyboard still add.
+- Commit `6e73d13`; merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`. CodeRabbit rate-limited; merged on CodeQL. Verified on production: mouse drag, 2 px wobble = tap, release outside = nothing, keyboard Enter, touch drag and tap on an iPad viewport; no console errors.
+- `17-SESSION-HANDOVER.md` rewritten as a complete, current handover for the next session.
+- Current production `main`: `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`.

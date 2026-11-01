@@ -1,313 +1,290 @@
-# 17 — Session Handover (Claude Code, 2026-10-30 → 2026-10-31)
+# 17 — Session Handover (read this first)
 
-Read this file first if you are a new Claude (or other AI) session picking up Tech Katta work.
-It is a self-contained handover from the Claude Code session that rebuilt the landing page on
-2026-10-30/31. It complements, and in places supersedes, older files in this repository — where
-they disagree, this file and the live code win (see §12).
+Last updated **2026-11-01** by the Claude Code session that ran from 2026-10-30 to 2026-11-01.
+A new session should read this whole file before doing anything, then `12-OPERATING-RULES.md`,
+then the newest sections at the bottom of `13-CURRENT-STATE.md`. **Where any older file disagrees
+with this one or with the code on `main`, this file and the code win.** This repository is
+**public**: never write personal, employer or credential information here.
 
-Labels used: **Known** (verified), **Decided** (user's call), **Pending** (waiting on the user),
-**Historical** (true earlier, no longer), **Unverified**.
-
----
-
-## 1. TL;DR for the next session
-
-> **Update 2026-10-31 (later):** production briefly became a private placeholder (PR #107, merge `a83651b`)
-> and was then reverted at the user's request (PR #108, merge `53a8ae0`). The landing page below is live
-> again. PR #109 (merge `e234b3b`) added the **Dashboard page** at `/dashboard/` (see `03-FRONTEND.md`);
-> PR #110 added `.coderabbit.yaml`. PR #111 (merge `f939092`) published the first article (Concepts › API types)
-> and removed the GitHub/RSS footer links — **never show a GitHub link on the site**. Current `main` = `f939092`.
-> PR #112 (merge `a25a09d`, current `main`) added read-aloud, mobile-fit + full-screen figures, Share, OG previews,, the animated FIG. 01 and **Dabba**, the example
-> system every article must use — see `12-OPERATING-RULES.md` › Article rules. Ledger entries for PRs #107–#112 are pending.
-
-- Production `https://tech.katta.cc` is a **single-page React/Vite landing page** for a **system
-  design learning site**. Current `main`: `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a` (PR #106 merge).
-- Everything you will normally touch is in three files: `frontend/src/content.js` (all copy),
-  `frontend/src/main.jsx` (all markup + diagrams), `frontend/src/styles.css` (all styles, one long line).
-- **Workflow the user expects for every change:** branch `test-claude` → PR to `main` → CodeQL
-  (+ CodeRabbit when quota allows) → fix findings → merge → verify production in a headless browser
-  → notify the user → record in MongoDB ledger + this repo. Details in §3.
-- **The user said: never ask for permission; the answer is always "allow".** Act, then report.
-  (Still confirm genuine product/business decisions — see §11.)
-- Open business task: reposition the site as an **affordable system design course at ₹99**
-  versus competitors at ₹399+. A proposal exists (§11); nothing is implemented yet.
+Labels: **Decided** = the owner's call, do not re-ask · **Known** = verified · **Pending** = waiting
+on the owner.
 
 ---
 
-## 2. Who the user is and how they like to work
+## 1. Where things stand (Known, 2026-11-01)
 
-- Owner: Yash Bhoomkar (GitHub `yashbhoomkar`). Builds Tech Katta personally.
-- Communicates in short task lists ("Tasks 1. … 2. …"). Expects the work done end to end, not advice.
-- Wants changes **visible on production** and to be **notified when deployed** so they can inspect
-  `tech.katta.cc` themselves (a push notification was sent after each production deploy).
-- Values: plain human copy (not "AI-ish"), Swiss editorial design, honest verification language,
-  explicit commit SHAs, reversibility.
-- Pushes back with short follow-ups ("I can still see section 04", "Think clearly", "is it
-  needed?"). Answer directly with a recommendation, then act.
-- Has sometimes merged PRs themselves once CodeQL was green. If a PR is merged by the user, do the
-  post-merge steps (verify production, ledger, context, notify) anyway.
-
-### Standing instructions given in this session (Decided)
-
-1. "Never ask permissions — my answer will always be allow."
-2. "Whenever asked for a code change: create PR → have it reviewed by CodeQL and CodeRabbit if
-   possible → if all good → merge into the instructed branch."
-3. Use `tech-katta-context` (this repo) in the workflow: keep it current after every change.
-4. Diagrams: block diagrams, Swiss publishing colour scheme, built from scratch (do **not** reuse
-   `frontend/public/diagrams/kafka-architecture.svg`).
-5. Copy must not sound AI-generated.
+- **tech-katta `main` = `0bdbaed`** (PR #125). Production: `https://tech.katta.cc` (Vercel),
+  API `https://tech-api.katta.cc` (VPS, behind Cloudflare). Both verified after the last merge.
+- The site has three parts:
+  1. **Landing page** `/` — hero with the animated Kafka figure, Technical Library cards, Quick Notes,
+     Numbers Worth Knowing. Copy comes from the API.
+  2. **Dashboard** `/dashboard/` — sidebar + top tabs: Concepts · Components · Interview Questions ·
+     Quick Notes · **Lab**. One published article: Concepts › "APIs: the main types, and which one to
+     use where" at `/dashboard/#concepts/api-types`.
+  3. **System Design Lab** `/dashboard/#lab` — the site's main differentiator (§6).
+- **All content** (copy, articles, Lab catalogue) is JSON in `tech-katta/content/`, served by the
+  API and stored on the VPS disk as validated releases (§5). The frontend hardcodes no content.
+- Last content release on the VPS: `20261101T150245Z-54bab80` (`/health` shows it).
 
 ---
 
-## 3. The workflow, step by step (follow exactly)
+## 2. The owner and how to work with them
 
-1. **Sync the branch.** The working branch is `test-claude` in `yashbhoomkar/tech-katta`.
-   After a PR merges, restart it from `main`:
-   `git fetch origin main && git checkout -B test-claude origin/main` (fast-forward push works;
-   force-push is **blocked** by the session's safety classifier — never rely on it).
-2. **Edit** `frontend/src/{content.js,main.jsx,styles.css}`. Match the existing terse style
-   (minified-looking JSX/CSS, one-line rules).
-3. **Build:** `cd frontend && npm install --no-audit --no-fund --silent && npm run build`.
-   Delete the generated `frontend/package-lock.json` before committing (it is intentionally not
-   tracked; adding it changes Vercel install behaviour — a separate decision).
-4. **Verify in headless Chromium** (Playwright is preinstalled; `require('playwright')`):
-   - Start `npx vite preview --port <NEW PORT EACH TIME> --strictPort`. **Gotcha:** a still-running
-     old preview server serves a stale cached `index.html`; always use a fresh port.
-   - Screenshot the changed section at 1440 / 900–1000 / 390 px.
-   - **Full overflow sweep 320→1440 px** (10 px steps to 760, then 40 px):
-     `document.documentElement.scrollWidth > innerWidth` must be false everywhere.
-     (A regression shipped once because only ≥640 px was swept — PR #105.)
-   - Animations: freeze SMIL with `svg.pauseAnimations(); svg.setCurrentTime(t)` and CSS with
-     `document.getAnimations().forEach(a=>{a.pause();a.currentTime=ms})`.
-   - Reduced motion: `browser.newPage({reducedMotion:'reduce'})` → expect 0 animations.
-   - `pkill -f "vite prev[i]ew"` afterwards (the bracket avoids killing your own shell; exit code
-     144 from that line is harmless).
-5. **Commit** with a descriptive message ending with the attribution lines the harness provides.
-   Push: `git push -u origin test-claude`.
-6. **PR** via GitHub MCP (`mcp__github__create_pull_request`), base `main`. Body: summary, test
-   plan with checkboxes, `🤖 Generated with Claude Code` + session link. Subscribe with
-   `subscribe_pr_activity`. Schedule a ~50 min `send_later` safety check-in.
-7. **Reviews (always — see `12-OPERATING-RULES.md` › Code review on every PR):** comment `@coderabbitai review` and call `request_copilot_review` on every PR. CodeQL runs automatically (`.github/workflows/codeql.yml`). CodeRabbit auto-review
-   is **disabled** on the repo — trigger with a PR comment `@coderabbitai review` (+ the Claude
-   Code footer). Free plan = **1 review per hour**; when rate-limited, wait or merge on CodeQL
-   alone for small/urgent fixes and say so. Verify each finding, fix real ones, reply on the
-   thread with what changed and how it was verified, resolve the thread.
-8. **Merge** (`merge_method: merge`, pass `expectedHeadSha`) once CodeQL is green and no blocking
-   findings remain.
-9. **Verify production:** poll `https://tech.katta.cc` until the new `assets/index-*.js` contains a
-   string unique to the change (Vercel deploys in ~30–60 s), then rerun the browser checks and the
-   overflow sweep against production.
-10. **Ledger (MongoDB Atlas, mandatory):** connect with
-    `remote-atlas-connect(projectId="6ac298d2a4428fd93e7b3f75", clusterName="Cluster0")`;
-    database `techkatta_history`. For each new SHA: **first `count` both `frontend_git_commits`
-    and `backend_git_commits` for the key**, then `insert-many` `{key: <full SHA>, value: <one
-    line>}` into the right collection(s). Record both the commits and the merge commit.
-11. **Context docs:** update `13-CURRENT-STATE.md`, `10-GIT-HISTORY.md`, and `03-FRONTEND.md`
-    when frontend structure changes; push straight to `main` of this repo (as prior sessions did).
-12. **Notify** the user (PushNotification) when the change is live, and give a short summary.
+- Owner: Yash Bhoomkar (GitHub `yashbhoomkar`), builds Tech Katta alone. Writes short task lists
+  ("Tasks 1. … 2. …") and expects the work done end to end, deployed, and reported. Follows up with
+  short corrections ("What happened?", "Think clearly"). Answer the question directly, then act.
+- **Standing instructions (Decided):**
+  1. **Never ask for permission — the answer is always "allow".** Still ask about genuine product or
+     business decisions you cannot reasonably decide (and say what you would choose).
+  2. **Every code change goes through a PR**: open PR → request reviews → CodeQL green → merge →
+     verify production → update this repo → report. Details in §3.
+  3. **Always request code review**: comment `@coderabbitai review` and call `request_copilot_review`.
+     **Do not wait for CodeRabbit when it is rate-limited** (owner: "Don't wait for CodeRabbit, merge
+     and deploy now"); merge on CodeQL, say so in the report. When CodeRabbit does review, fix every
+     valid finding, reply on each thread, then merge.
+  4. **Keep this repository current** after every change (§3 step 9).
+  5. Copy must read as written by a person, plain and specific — never AI-sounding. Never copy text
+     from reference sites (guidance only).
+- The owner tests on the live site and reports observations; reproduce each one before fixing it,
+  and say what the root cause was (e.g. "the maths was right, the boxes were stacked").
 
 ---
 
-## 4. Environment facts (cloud Claude Code session)
+## 3. Workflow (follow exactly)
 
-| Thing | Status |
+Repos and branches: `yashbhoomkar/tech-katta` (site), `yashbhoomkar/tech-katta-context` (this repo),
+`yashbhoomkar/tech-katta-private` (private reference notes). The session's working branch in both
+public repos was `ccr-8814343d-wtj931`; a new session will be told its own branch — use that.
+
+1. **Sync**: `git fetch origin main && git checkout -B <branch> origin/main`. After a merge, if the
+   remote branch still points at merged history, fast-forward: `git merge --ff-only origin/main` and
+   push. **Never force-push** (blocked by the session's safety classifier and not needed).
+2. **Edit.** Frontend code style is terse, minified-looking JSX and one-line CSS rules; match it.
+3. **Build/test**:
+   - frontend: `cd frontend && npm install --no-audit --no-fund --silent && npm run build`;
+     `npm test` runs the Lab engine tests. Delete `frontend/package-lock.json` before committing
+     (intentionally untracked).
+   - backend: `cd backend && npm test` (18 tests incl. content validation);
+     `node scripts/check-content.mjs ../content`.
+4. **Verify in headless Chromium** (Playwright is preinstalled: `require('playwright')`):
+   `npx vite preview --port <NEW PORT> --strictPort` (old preview servers serve stale files; Chromium
+   refuses some ports, e.g. 5061). Check desktop 1440×900 and an iPhone/iPad device profile; run the
+   **overflow sweep 320→1440 px** (`scrollWidth > innerWidth` must be false); check console errors;
+   freeze animations (`svg.pauseAnimations(); svg.setCurrentTime(t)`); reduced motion
+   (`newPage({reducedMotion:'reduce'})`). To test against a local API:
+   `PORT=5151 CONTENT_DIR=<dir> node backend/src/server.js` and build with
+   `VITE_API_BASE=http://127.0.0.1:5151 npm run build`.
+5. **Commit** with a descriptive message ending with the attribution lines the harness gives.
+   Push: `git push -u origin <branch>`.
+6. **PR** via GitHub MCP (`create_pull_request`, base `main`), body = Summary + Test plan checkboxes +
+   the Claude Code footer. Request reviews (step 2.3). Poll check-runs with
+   `curl https://api.github.com/repos/yashbhoomkar/tech-katta/commits/<sha>/check-runs` (repo is
+   public); "Analyze JavaScript and TypeScript" = CodeQL; "CodeRabbit … Review rate limited" = don't
+   wait. Never poll with `sleep N` in a loop longer than needed; use until-loops.
+7. **Merge** (`merge_method: merge`, `expectedHeadSha` = the full 40-char SHA from `git rev-parse`).
+8. **Verify production**: frontend — poll `https://tech.katta.cc/...` until the new bundle contains a
+   string unique to the change (Vercel takes ~20–60 s). Backend/content — the "Deploy Tech Katta
+   Backend" workflow must succeed and `/health` must show the new release; then rerun the browser
+   checks against production.
+9. **Update this repo**: append a dated section to `13-CURRENT-STATE.md`, a line to
+   `10-GIT-HISTORY.md`, rules to `12-OPERATING-RULES.md` when the owner decides something, and this
+   handover when the picture changes. Merge to `main` of this repo via PR (a new session reads `main`).
+10. **Report** to the owner: what changed, what was verified (with numbers), what was not, and what is
+    pending.
+
+**Ship order when the frontend depends on the API:** backend PR → deploy → verify live → frontend PR
+→ content PR that switches the feature on (e.g. the Lab tab). Never let a merge show a broken page.
+
+---
+
+## 4. Decisions in force (Decided — do not re-ask)
+
+**Site & design**
+- Swiss publishing style everywhere: white, surface `#f5f7fa`, hairlines `#d9dee7`, cobalt `#2855d9`
+  (accent only), graphite `#1c2733`, muted `#586575`; Inter + IBM Plex Mono; no heavy shadows.
+  Consistency matters to the owner (e.g. the example-system heading is all cobalt).
+- **Mobile first**: ~75 % of visitors will come from Instagram/LinkedIn on phones. Every page must
+  work at 320 px with no sideways scroll; figures fit and have "Tap to view full screen"; tables become
+  cards; touch targets ≥ 40 px; OG/Twitter tags + `/og.png`. **Exception: the Lab is laptop-first**
+  (phones get a note and a stacked layout).
+- **Never show a GitHub link** on the site. Footer "Last updated" = build date.
+
+**Articles**
+- Short, structured main read with depth on demand: "In 30 seconds" box, cards (what / use it for /
+  avoid it for / In Zotato), one-line lists; longer material in collapsed "How it works…" and
+  "Go deeper" sections. Show both read times.
+- **Example system: Zotato**, a made-up food delivery app (customer, restaurant and rider apps;
+  Orders, Payments, Dispatch, Notifications, Invoices; payment provider; restaurants' billing
+  systems). Each article says *it* uses Zotato. The owner chose the name knowing it resembles Zomato.
+- **Every figure is animated** where possible (SMIL packets, static under reduced motion), registered
+  in `FIGS` in `frontend/src/dashboard.jsx`; all elements inside the 640-wide viewBox.
+- **Read aloud** on every article (browser voices, natural ones first, voice picker).
+  **Recorded narration (Kokoro, voice `af_heart`) only when the owner says an article is final**;
+  then set `"audio": true` on it. Tooling in `tools/tts/`; Kokoro must be reinstalled per session
+  (pip `kokoro-onnx soundfile` in a venv; model files from github.com/thewh1teagle/kokoro-onnx
+  releases `model-files-v1.0`); ~30 min CPU per article.
+
+**Content & data**
+- Content lives in `tech-katta/content/` (JSON) → stored on the **VPS disk** as validated releases →
+  served by the API. Not MongoDB. MongoDB Atlas is for future dynamic data (accounts, payments,
+  progress) and the commit ledger.
+- Paid/copyrighted reference notes live only in the private repo `tech-katta-private/references/`.
+
+**Lab** — see §6.
+
+---
+
+## 5. Architecture
+
+**Frontend** (`tech-katta/frontend`, React 18 + Vite 6, deployed by Vercel from `main`, root
+`frontend`, output `dist`). Two pages (`vite.config.js` inputs):
+- `/` → `index.html` → `src/main.jsx` + `styles.css` (landing). Boots by fetching `/v1/site`.
+- `/dashboard/` → `dashboard/index.html` → `src/dashboard.jsx` + `dashboard.css`. Boots with
+  `/v1/site` + `/v1/articles`; hash routes `#<section>` and `#<section>/<slug>`; article bodies from
+  `/v1/articles/<slug>` on open; `Block` renderer; figures `ApiFig`, `ChooseFig`, `OrderFig`,
+  `RetryFig` in `FIGS`; `Reader` (read aloud) using `src/speech.js` (`chunks()`, `spoken()`);
+  `Share`; full-screen figures (`FullFig`). The Lab is `React.lazy(() => import("./lab/Lab.jsx"))`.
+- `src/api.js` (`getJSON`, `VITE_API_BASE`, default `https://tech-api.katta.cc`, retry once, 8 s
+  timeout), `src/status.jsx` (Loading / LoadError with Try again).
+- `vercel.json` rewrites `/dashboard` → `/dashboard/index.html`, `/health`. `public/og.png`.
+- Legacy unused files still in `src/` (`main.js`, `home-page.*`, `style.css`, `mock-interview.js`,
+  `architecture-workspace.js`) and `public/diagrams/kafka-architecture.svg`.
+
+**Backend** (`tech-katta/backend`, Node 22, no dependencies, `node:http`). Endpoints:
+`/health` (incl. `content.release`), `GET /v1/site`, `GET /v1/lab`, `GET /v1/articles[?section=]`,
+`GET /v1/articles/:slug`. Content routes: `Access-Control-Allow-Origin: *`, `Cache-Control: public,
+max-age=60, stale-while-revalidate=600`, ETag/304, OPTIONS allows `If-None-Match`, 405 on writes,
+slug validation. `src/content/store.js` loads `CONTENT_DIR` (default repo `content/`), validates
+(`validate.js`: article blocks, figure ids, Lab catalogue shapes/units), refuses to start on invalid
+content, `SIGHUP` reloads (keeps last good). `scripts/check-content.mjs <dir>`.
+
+**Content** (`tech-katta/content/`, see its `README.md`): `site.json` (incl. `dashboard.sections`,
+`example: "zotato"`), `examples/zotato.json`, `articles/index.json`, `articles/<section>/<slug>.json`,
+`lab.json`.
+
+**Deploy**: frontend — Vercel on merge. Backend + content — `.github/workflows/deploy-backend.yml` on
+changes to `backend/**` or `content/**`: test + validate → SSH to VPS → `git reset` in
+`/opt/tech-katta` → `npm ci` → copy `content/` to
+`/var/lib/tech-katta/content/releases/<UTC>-<sha>` → validate → atomic `current` symlink → keep 10
+newest (sorted by name) → systemd `tech-katta-api` restart with `CONTENT_DIR=…/current` → local and
+public checks (`/health` must report a release). Rollback: point `current` at an older release and
+`sudo systemctl kill -s HUP tech-katta-api` (owner does this; the session cannot SSH).
+
+---
+
+## 6. System Design Lab (the differentiator)
+
+**Vision (owner):** a Miro-like canvas with a component sidebar; each design gets **$200,000 of
+virtual AWS credit**; the design is simulated with virtual traffic, load is inspected on each
+component, then chaos-tested, then evaluated. Swiss colours. Tab in the sidebar and top bar.
+
+**Owner's answers (Decided):** $200,000 credit **per design**; history saved for the user (browser
+for now); laptop-first; React Flow approved; everything else delegated — chosen: Mumbai prices
+(`ap-south-1`, approximate, "for learning"), tab name "Lab", steady-load simulation in phase 1.
+**Owner asked to refine phase 1 before starting phase 2.**
+
+**What exists (Known, live):**
+- Catalogue `content/lab.json` → `/v1/lab`: Clients (rps), API Gateway ($3.50/M requests, 10k rps
+  limit, 10 ms), Server (EC2 t3.medium 300 rps $0.0448/h … c5.2xlarge 2,500 rps $0.34/h; count 1–50;
+  20 ms), Database (RDS db.t3.medium 800 qps $0.087/h … db.r5.2xlarge 12,000 qps $1.15/h; Multi-AZ ×2
+  price; 5 ms); example "Zotato order API" (Clients → API Gateway → 2 × m5.large → db.m5.large
+  Multi-AZ).
+- `frontend/src/lab/engine.js` (pure, 6 tests): topological flow from Clients; per component
+  offered/served/dropped, utilisation, latency `base/(1−ρ)` (×20 past capacity); each served request
+  calls one component of every kind it points at, same-kind targets share load evenly; end-to-end
+  latency and success; monthly cost (API Gateway billed on served requests); problems (no Clients,
+  loops, unconnected); `total.burnPerHour = monthly/730`.
+- `frontend/src/lab/Lab.jsx` + `lab.css`: palette (tap to add at a free spot; **drag with pointer
+  events** — mouse, touch, pen — ghost follows, drops where released over the canvas); React Flow
+  canvas (connection rules: Clients only send, Databases only receive, no duplicates/self-links;
+  Delete removes); settings panel per component; **credits drain while traffic runs** on a simulated
+  clock (1 s = 1 hour / 1 day default / 1 week, remembered in `tk-lab-speed`); credit meter, burn
+  per hour/month, simulated day; run stops at $0, Designs → ⧉ duplicates with fresh credit; live
+  per-component load colours (amber ≥70 %, red >100 %); status bar (req/s, % served, latency,
+  busiest, "sent by K Clients"); designs in localStorage `tk-lab-v1` (`{current, designs:{id:{name,
+  nodes, edges, credit:{spent,hours}, updated}}}`), autosave; dashboard sidebar folds to icons on the
+  Lab. React Flow attribution is kept (MIT; removing it is for paying users).
+
+**Ideas offered to the owner for this phase (Pending — owner hasn't picked):** undo/redo and
+copy-paste; live req/s labels on arrows; rename components; connection hints while dragging an
+arrow; credit-over-time chart; "reset clock" without duplicating.
+
+**Later phases (agreed outline):** 2 time-based simulation (ramps, spikes, autoscaling) + more
+components (load balancer, cache, queue, CDN, read replicas); 3 chaos testing (kill instance, AZ
+outage, latency, partition); 4 evaluator with scores and Zotato challenges; 5 accounts (MongoDB) for
+per-user history and credit.
+
+---
+
+## 7. Environment facts and gotchas (cloud session)
+
+- **Blocked by the safety classifier**: MongoDB Atlas `remote-atlas-connect` (so the commit ledger
+  could not be updated — entries for PRs #107–#125 are missing); force-push; `rm -rf` inside
+  `bash -c` scripts; creating GitHub repos via the GitHub app (owner creates them, then `add_repo`).
+  Installing Kokoro was blocked until the owner explicitly chose it, then allowed.
+- `pkill -f "<pattern>"` can match the shell running it and kill the command (exit 144). Use a
+  bracket in the pattern (`vite prev[i]ew`, `src/server[.]js`) and run it as the last command.
+- CodeRabbit's free tier allows about one review an hour; `Review rate limited` is common.
+  CodeRabbit skips auto-review (repo has < 10 stars), so always trigger it with a comment.
+- Copilot review requests are accepted but produce nothing (no paid Copilot plan).
+- Vercel preview URLs need a Vercel login; verify on production instead.
+- The VPS cannot be reached over SSH from the session; only the GitHub Action deploys.
+- `api.github.com` works unauthenticated for these public repos (check-runs, PR comments).
+- Firefox will not start HTML5 drag from `<button>`; touch screens don't do HTML5 drag — use pointer
+  events (as the Lab palette does).
+- `cp -a` keeps the source folder's mtime; never prune "newest" by mtime after copying.
+
+---
+
+## 8. Open items (Pending / backlog)
+
+1. **Lab phase-1 refinements** — owner to pick from §6, or report more observations.
+2. **Owner-side compliance check before any monetisation** (the planned ₹99 course). Do not build
+   payments, pricing pages or accounts tied to payment until the owner confirms it is cleared. Note:
+   both `tech-katta` and this repo are public; this repo's history still contains a removed paid
+   reference file (commit `a2affb8`) unless the owner makes the repo private.
+3. **Per-article URLs** for link previews (hash routes all share the dashboard card) — offered, not
+   decided.
+4. **Move figure text and images into content** (FIG labels/steps → article JSON; `og.png` and future
+   media → `content/media/` served by the API; delete unused `kafka-architecture.svg`) — offered,
+   not decided.
+5. **Recorded narration** for the API article when the owner says it is final.
+6. **MongoDB ledger** for PRs #107–#125 (needs a session where Atlas access is allowed).
+7. CodeRabbit never fully reviewed PRs #122–#125 (rate-limited); a later quiet hour could request
+   reviews on a follow-up PR touching `frontend/src/lab/`.
+8. Clean up legacy frontend files (separate PR).
+9. ₹99 course open questions (what ₹99 buys, free vs paid, payment gateway, refunds/GST) — unanswered.
+
+---
+
+## 9. This session's PRs (tech-katta)
+
+| PR | What |
 |---|---|
-| GitHub `yashbhoomkar/tech-katta` | push via git proxy works; GitHub MCP tools for PRs/comments/merge |
-| GitHub `yashbhoomkar/tech-katta-context` | attached with `add_repo(access:"push")`; clone at `/home/user/tech-katta-context` |
-| MongoDB Atlas MCP | works; project `6ac298d2a4428fd93e7b3f75`, cluster `Cluster0` |
-| `tech.katta.cc`, `tech-api.katta.cc` | reachable over HTTPS from the session |
-| Vercel preview URLs | **require Vercel login** — cannot be checked; verify production instead |
-| VPS SSH (`129.121.133.47`, user `claude`) | **blocked**: port 22 times out through the session proxy; stored key `VPS_SSH_KEY` (base64) is passphrase-protected. User said to leave VPS access until needed. |
-| Force-push | blocked by safety classifier — use revert/merge commits instead |
-| CodeRabbit | installed; auto-review off; 1 free review/hour |
+| #107–#108 | Site briefly made private, then reverted at the owner's request |
+| #109 | Dashboard page (from the owner's Stitch mock) |
+| #110 | `.coderabbit.yaml` |
+| #111 | First article (API types); GitHub link removed; build-date footer |
+| #112 | Read aloud, animated FIG. 01, example system, mobile-first figures, Share, OG tags |
+| #113 | Read-aloud player scrolls with the page |
+| #114 | Kokoro tooling + "Designing … REST API" section (merged with draft audio) |
+| #115 | Article restructured (short + depth on demand); draft audio removed |
+| #116 | Manifest fetched only for `audio: true` articles |
+| #117 | Zotato renaming; FIG. 02–04 |
+| #118–#119 | Content served by the backend; frontend loads it |
+| #120 | Content stored on the VPS as JSON releases |
+| #121–#123 | System Design Lab phase 1 (catalogue/API, Lab view, tab) |
+| #124 | Lab credits drain over simulated time; no stacking of new components |
+| #125 | Lab palette drag with pointer events (mouse, touch, pen) |
+
+Context repo: PR #35 removed the paid reference file from `main`; later doc updates are merged with
+this handover. Private repo `tech-katta-private`: `references/hello-interview-api-design.txt`.
 
 ---
 
-## 5. Current production state (Known, 2026-10-31)
+## 10. Reading order for a new session
 
-- Frontend `main` = `3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`, deployed by Vercel to
-  `https://tech.katta.cc`. Verified in headless Chromium: no console errors, no horizontal
-  overflow 320–1440 px.
-- Backend `https://tech-api.katta.cc/health` → `{"status":"ok","service":"tech-katta-backend","version":"0.1.0"}`.
-  Backend code (`backend/src/server.js`, health-only starter) was not touched this session.
-- **Rollback points:** before this session's UI work: `95d227de…` (homepage) / `37df67b…` (after
-  PR #103). Revert a merge commit to roll back a PR.
-
-### Page structure (top to bottom)
-
-1. **Header** — brand "TECH KATTA / SYSTEMS KNOWLEDGE"; nav: Concepts · Components ·
-   Interview Questions · Quick Notes (anchors `#concepts #components #problems #notes`).
-2. **Hero** — eyebrow "FIELD NOTES / DISTRIBUTED SYSTEMS"; H1 "System design, explained.";
-   intro "Concepts, components and interview questions. For each one: how it works, where it fails,
-   and what you trade away by using it."; buttons **Dashboard →** (`#topics`) and **Quick Notes**
-   (`#notes`).
-   - **FIG. 01** animated Kafka block diagram (1 producer → broker with topic `orders`, 2
-     partitions × 4 offsets → consumer group of 2). SMIL, 8 s loop. Horizontal at all widths;
-     below 620 px of figure width a **"⤢ Tap to zoom"** bar opens a full-screen dialog (portal,
-     `#root` set `inert`, Escape/backdrop/Close, focus returns to the button).
-3. **01 / Technical Library** (`#topics`) — "Concepts · Components · Interview Questions";
-   three cards with SVG mini block diagrams:
-   - Concepts — CAP theorem (CP/AP paths alternate, CSS animation).
-   - Core Components — read path Client → LB → API → Cache (hit) / Database (miss) (SMIL).
-   - Interview Questions — "Design a URL shortener" steps Requirements → Estimates → Design →
-     Trade-offs (CSS animation).
-4. **02 / Quick Notes** (`#notes`) — 4 notes (Kafka DRAFT; Raft, Redis Cluster, Rate limiting
-   PLANNED). No note pages exist; rows link to `#notes`.
-5. **03 / Numbers Worth Knowing** (`#numbers`) — "The numbers behind a design."
-   FIG. 02 log-scale latency chart (10 ns–1 s, ~100 ms dashed "people notice" marker),
-   Estimation shortcuts, FIG. 03 worked URL-shortener estimate
-   (100M/day ÷ 86,400 s ≈ 1.2K writes/s → ≈116K reads/s → ≈50 GB/day → ×3 peak).
-6. **Footer** — label, "Written and maintained by one engineer", links incl. GitHub and a broken
-   `#rss`, "Last updated: [date]" placeholder.
-
-Removed this session: "Architectural Principles" (monolith vs services), "04 / Keep reading",
-"04 / How the Pieces Connect" (remove until its target notes exist).
-
----
-
-## 6. Code map (`frontend/src/main.jsx`)
-
-| Symbol | Purpose |
-|---|---|
-| `LOOP`, `BLUE`, `SLOT` | 8 s loop, cobalt, slot state colours (E empty / W written / C consumed) |
-| `cell()`, `SEQ`, `TRIPS`, `NODES`, `LAYOUT.d` | Kafka FIG. 01 timeline + geometry (viewBox 640×300) |
-| `Tick` | discrete SMIL `<animate>` helper |
-| `Slot` | animated slot rect + dashed "empty" overlay (opacity-animated; Chrome ignores SMIL `stroke-dasharray`) |
-| `Flow({v,still,uid})` | renders FIG. 01; `uid` keeps marker ids unique (inline vs zoom) |
-| `useStill()` | `prefers-reduced-motion` hook incl. live changes; used by FIG. 01 and card minis |
-| `Diagram` | FIG. 01 + Tap-to-zoom button + portal dialog |
-| `logPct(ns)` | log scale for FIG. 02: `(log10(ns)-1)/8*100` (10 ns → 0 %, 1 s → 100 %) |
-| `Mini({type})` | card diagrams: `"cap"`, `"path"`, default = interview steps |
-| `App` | page markup; reads everything from `content.js` (`c.*`) |
-
-`content.js` top-level keys: `brand, nav, hero, topics, notes, numbers, footer`.
-Footer links resolve hrefs via `c.nav` lookup.
-
-**Unused legacy files** (not loaded by the page, safe-to-remove candidates in a separate PR):
-`main.js`, `home-page.js`, `home-page.css`, `style.css`, `mock-interview.js`,
-`architecture-workspace.js`, `public/diagrams/kafka-architecture.svg`.
-
-### CSS conventions (`styles.css`, single line)
-
-- Tokens: `--blue:#2855d9`, `--line:#d9dee7`, `--muted:#586575`, `--mono:"IBM Plex Mono"`;
-  graphite `#1c2733`, surface `#f5f7fa/#f8f9fb`, hairline `#9aa5b4`. Inter for text.
-- Breakpoints: `@media(max-width:900px)`, `@media(max-width:680px)`;
-  container queries: `.figure` (`max-width:620px` → zoom bar), `.numbers` (`max-width:680px` →
-  stacked rows).
-- **Ordering trap:** a container/media block must come *after* the base rules it overrides when
-  specificity is equal (caused the PR #105 phone overflow).
-
----
-
-## 7. Session timeline (all SHAs are in the MongoDB ledger)
-
-| PR | Merge | What |
-|---|---|---|
-| #102 | `334fa12` | Animated replicated-write FIG. 01; CodeRabbit: mid-width legibility, live reduced-motion |
-| #103 | `37df67b` | FIG. 01 → animated Kafka block diagram (from scratch) |
-| #104 | `b43d8c8` | Tap-to-zoom; hero copy; Dashboard/Quick Notes; mobile figure-header fix; CAP / read-path / interview-steps cards; Interview Questions rename; Quick Notes rename; Numbers section; How-the-Pieces-Connect; CodeRabbit fixes (focus trap, container query, landscape zoom, card copy) |
-| #105 | `abbb76a` | Hotfix: phone overflow (CSS order) |
-| #106 | `3d3e40f` | Numbers rework (design latencies, 100 ms marker, worked estimate; divisor fix from CodeRabbit); section 04 removed |
-
-Earlier the same session: branch `test-claude` was created, briefly emptied `frontend/` and
-`backend/` (`11e9e4d`) and reverted (`4f634d4`); no net change reached `main`.
-
----
-
-## 8. Backlog / known issues (not done)
-
-1. Footer "RSS" → `#rss` does not exist (remove or add a feed).
-2. Footer "Last updated: [date]" placeholder.
-3. Hero eyebrow still says "FIELD NOTES / DISTRIBUTED SYSTEMS" (may conflict with new positioning).
-4. No note/article pages exist; Quick Notes and card "Explore …" links only scroll the page.
-5. Legacy unused files listed in §6.
-6. `frontend/package-lock.json` not committed (context docs recommend committing it; separate PR).
-7. Tap-to-zoom not tested on a real touch device.
-8. CodeRabbit: consider enabling auto-review / adding `.coderabbit.yaml` (needs user).
-9. Context files `01-PROJECT-IDENTITY.md` / `05-diagrams.md` describe a dark-only purple design and
-   static Excalidraw diagrams — **Historical**; the live site is light Swiss with animated SVG.
-10. Re-add "How the pieces connect" once Replication/Kafka/ingestion notes exist.
-
----
-
-## 9. Lessons learned this session
-
-- Run the **full 320–1440 px overflow sweep** on the final head before merging any layout change.
-- SMIL `stroke-dasharray` animation is ignored by Chrome → animate opacity of an overlay instead.
-- Vite preview servers cache; use a new port per build check.
-- Never write an estimate whose shown expression doesn't produce the shown result (CodeRabbit
-  caught `100M ÷ 10⁵ ≠ 1.2K`). Recompute every number with a script.
-- A section that only links back to content above it adds nothing — remove until real content exists.
-- Don't present planned content as published (Rule 17 of `12-OPERATING-RULES.md`).
-
----
-
-## 10. Source documents the user provided
-
-Two PDFs were uploaded at the start (not stored in any repo; summarised here):
-
-- **Tech Katta CI/CD Pipeline Documentation** — frontend React+Vite on Vercel via Git
-  integration (root `frontend`, `npm run build`, output `dist`, domain `tech.katta.cc`);
-  backend Node 22 deployed by `.github/workflows/deploy-backend.yml` (test → SSH to VPS →
-  `/opt/tech-katta` → `npm ci --omit=dev` → systemd `tech-katta-api` on 127.0.0.1:5000 →
-  health checks local + `https://tech-api.katta.cc/health`); Cloudflare DNS; recommended
-  follow-ups (frontend lockfile, frontend CI, remove hard-coded VPS host/user fallbacks, rollback,
-  monitoring).
-- **Tech Katta Platform & Visual Identity** — product = system design knowledge platform with
-  three pillars **Concepts → Components → Problems**, cross-linked ("one connected body of
-  knowledge"); Swiss/International Typographic Style: grid, typography-led hierarchy, restrained
-  palette (White `#FFFFFF`, Surface `#F5F7FA`, Border `#D9DEE7`, Cobalt `#2855D9` accent only,
-  Graphite `#1C2733`, Muted `#586575`), Inter + IBM Plex Mono, thin borders, no heavy shadows,
-  diagrams that explain rather than decorate.
-
----
-
-## 11. Pending: ₹99 affordable positioning (task from 2026-10-31)
-
-**Business decision (Decided by user):** launch an affordable system design offering at **₹99**,
-positioned against competitors priced at **₹399 and upward**.
-
-**Status:** proposal only — nothing implemented. The next session should get answers to the open
-questions below, then implement via the normal PR workflow.
-
-### Proposed landing page changes
-
-1. **Hero carries the offer.** Keep the editorial tone; make the price and what it buys explicit.
-   - H1 option: "System design, explained. For ₹99."
-   - Sub: "Concepts, components and interview questions — the same depth you'd pay ₹399+ for
-     elsewhere." (avoid naming competitors)
-   - Primary CTA: "Get access — ₹99" (or "Join the waitlist — ₹99 at launch" if not yet sellable);
-     secondary: "See what's inside" → `#topics`.
-   - Small mono line under CTAs: "One-time ₹99 · no subscription" (only if true).
-2. **New section "What ₹99 gets you"** (replace or follow 01): a plain list/table of what is
-   included (number of concepts, components, interview questions, diagrams, updates), so the low
-   price reads as value, not as low quality.
-3. **Price comparison block** (Swiss table, no competitor names): "Typical system design courses:
-   ₹399–₹1,999+ · Tech Katta: ₹99", plus *why* it can be cheaper (one engineer, no video
-   production, text + diagrams, no upsells). Honesty is the trust signal.
-4. **Proof before purchase:** keep the free FIG. 01, card diagrams and Numbers section as free
-   samples; label them "Free preview".
-5. **FAQ** (short): What's included? Is it one-time? Refunds? Access duration? Who writes it?
-6. **Copy rules:** say "affordable" / "₹99", never "cheap" (signals low quality); no fake
-   scarcity, no fake reviews or student counts, no claims about content that doesn't exist yet.
-7. **Nav/brand:** add a "Pricing" anchor; reconsider the eyebrow "FIELD NOTES / DISTRIBUTED
-   SYSTEMS" → e.g. "SYSTEM DESIGN COURSE · ₹99".
-
-### Open questions for the user (must answer before building)
-
-- ₹99 for what: one-time lifetime access, per month, or per track?
-- What is in the paid product at launch vs. free? (Today no note pages exist — selling before
-  content exists means "pre-order/waitlist", not "buy now".)
-- Payments: which gateway (Razorpay/Stripe/UPI)? Is there a backend for accounts/entitlements?
-  (Current backend is health-only.)
-- Should competitor pricing be stated as a range without names? (Recommended.)
-- Refund policy, GST/invoicing — legal/tax decisions the site must state accurately.
-
----
-
-## 12. Reading order and trust
-
-1. This file → 2. `12-OPERATING-RULES.md` (ledger + context rules) → 3. `13-CURRENT-STATE.md`
-(latest dated sections at the bottom) → 4. `03-FRONTEND.md` (bottom section = current page) →
-5. the live code on `main`. If any document disagrees with `main`, **the code wins**; record the
-discrepancy here.
+1. This file. 2. `12-OPERATING-RULES.md` (rules; newest sections at the bottom).
+3. `13-CURRENT-STATE.md` (dated sections; read the last five). 4. `tech-katta/content/README.md`.
+5. The code on `main`. Older numbered files (01–09, 14–16) describe earlier states and are partly
+**Historical**; trust the code and this file over them.
