@@ -15,9 +15,9 @@ Do not replace the stack because another stack is fashionable.
 Current architecture:
 - React/Vite frontend
 - Vercel
-- Express backend
-- Ubuntu VPS
-- MongoDB Atlas
+- dependency-free Node 22 backend (`node:http`) serving JSON content
+- Ubuntu VPS (content as validated releases on its disk)
+- MongoDB Atlas (commit ledger only for now)
 - Cloudflare
 - GitHub Actions
 
@@ -111,13 +111,11 @@ Tech Katta Git commit
 
 A future AI session must be able to understand the change from either the Git history or the context repository.
 
-## Rule 5 — Do not touch MongoDB content casually
+## Rule 5 — Content changes go through the repo
 
-Article content is seeded from Git.
+All content (articles, site copy, the Lab catalogue) lives in `tech-katta/content/` and reaches production only through the backend deploy, as a validated release on the VPS disk.
 
-Do not make one-off production DB mutations when the same change should live in source control.
-
-If a DB migration is necessary, document it.
+Never edit files under `/var/lib/tech-katta/content` by hand, and never put content in MongoDB. If the content format changes, update `backend/src/content/validate.js`, its tests and `content/README.md` in the same PR.
 
 ## Rule 6 — Never expose secrets
 
@@ -129,15 +127,11 @@ Never write secrets into:
 - issue comments
 - documentation
 
-## Rule 7 — Distinguish fallback from primary state
+## Rule 7 — The API is the only source of content
 
-Frontend local data is fallback.
+The frontend renders only what `/v1/site`, `/v1/articles` and `/v1/lab` return; it keeps no fallback copy of content. When the API is down it shows a load error with Try again.
 
-MongoDB is runtime backend content.
-
-Git source is the reproducible authoring source.
-
-Do not accidentally make fallback content diverge from primary content.
+Git (`content/`) is the authoring source; the VPS release is what is served. Do not add hardcoded content to the frontend (UI strings such as "Loading…" are fine).
 
 ## Rule 8 — Preserve human tone
 
@@ -271,9 +265,11 @@ This is not optional when the change is part of the application commit synchroni
 - Before inserting a commit record, query both canonical collections for the full SHA and insert only if it is absent.
 - If historical duplicate rows are discovered, do not blindly delete or overwrite them during normal ledger updates. Preserve their `_id`, key, and value as audit evidence; handle cleanup through a dedicated, backed-up operation with a recorded canonical description and a verified unique index.
 
-## Code review on every PR (Decided by user, 2026-10-31)
+## Code review on every PR (Historical — superseded 2026-11-01)
 
-- **Always request code review on every PR in `yashbhoomkar/tech-katta`**, right after opening it:
+> **Current rule (Decided by the owner, 2026-11-01: "You may skip it"):** do not request CodeRabbit or Copilot reviews and do not wait for them. Merge when CodeQL and the frontend CI ("Test and build frontend") are green. If CodeRabbit reviews anyway, fix every valid finding and reply on each thread. The text below records the earlier rule.
+
+- (Earlier rule) Request code review on every PR in `yashbhoomkar/tech-katta`, right after opening it:
   1. Comment `@coderabbitai review` (plus the Claude Code footer). CodeRabbit is on the free open-source tier (shows "Plan: Advanced"), but **skips auto-review because the repo has fewer than 10 stars**, so the manual trigger is required. Limits refill hourly; if rate-limited, say so and wait or proceed on CodeQL for small/urgent fixes.
   2. Call `request_copilot_review`. It is accepted without error but produced no review on PR #110 — Copilot code review needs a paid Copilot plan on the account. Keep requesting; it costs nothing and starts working if a plan is added.
   3. CodeQL runs automatically.
@@ -304,7 +300,7 @@ This is not optional when the change is part of the application commit synchroni
 ## Read-aloud voice quality (2026-10-31)
 
 - Browser voices vary by device; the reader ranks natural ones first and offers a Voice picker.
-- A human-sounding narration needs pre-generated audio from a neural TTS model. Tried installing the open-source Kokoro model (kokoro-onnx) in the session to pre-render MP3s: **blocked by the session's permission classifier** — needs the owner's go-ahead (or a cloud TTS key: Google Cloud TTS / Azure have free monthly tiers far above one article).
+- A human-sounding narration needs pre-generated audio from a neural TTS model. The first attempt to install Kokoro (kokoro-onnx) was blocked by the session's permission classifier; it was allowed once the owner chose Kokoro (see "Recorded narration" above, which is the current rule).
 
 ## Article shape (Decided by user, 2026-10-31)
 
