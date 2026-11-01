@@ -288,10 +288,30 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
 labels on arrows; rename components; connection hints while dragging an arrow; credit-over-time chart;
 "reset clock" without duplicating.
 
-**Roadmap:** 2 (started: LB, cache, queue done) time-based traffic (ramps, spikes, autoscaling),
-read/write mix on Clients, CDN, read replicas, p95/p99, data transfer and storage costs; 3 chaos testing (user-triggered: kill instance, AZ outage,
-latency, partition); 4 evaluator with scores and Zotato challenges; 5 accounts (MongoDB) for per-user
-history and credit.
+### Lab phases (the plan; scope set when phase 1 shipped, 2026-11-01)
+
+| Phase | What it is | Status |
+|---|---|---|
+| 1 | Canvas, 4 components (Clients, API Gateway, Server, Database), steady-load simulator, $200k credit draining on a simulated clock, crash policy, retries, run log | ✅ Done (#121–#126) |
+| 2 | **More components + time-based traffic** (below) | 🟡 In progress |
+| 3 | **Chaos testing**, user-triggered: kill an instance, AZ outage, added latency, network partition | Not started |
+| 4 | **Evaluator**: scores and feedback on a design, Zotato challenges with requirements to meet | Not started |
+| 5 | **Accounts** (MongoDB): per-user design history and credit across devices | Not started |
+
+**Phase 2 in detail**
+
+| Part | Status |
+|---|---|
+| Load Balancer (ALB, per hour + per LCU) | ✅ Done (#128) |
+| Cache (`Server → Cache → Database`; hit %, write %; only misses + writes reach the DB) | ✅ Done (#128) |
+| Queue (SQS; async; workers pull at capacity; backlog grows/drains over simulated time) | ✅ Done (#128) |
+| Time-based traffic: ramps and spikes across the simulated day (today Clients send a constant rate) | Next |
+| Autoscaling: server groups add/remove instances with load (min/max, scale-out delay) | Not started |
+| CDN (offloads static/cacheable requests before the edge) | Not started |
+| Read replicas (database reads spread over replicas, writes to the primary) | Not started |
+
+Suggested by the external review, **not yet the owner's decision** (offer, don't assume): read/write
+mix set on Clients; p95/p99 latency; data-transfer and storage costs.
 
 ---
 
@@ -330,7 +350,8 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 
 ## 10. Open items (Pending / backlog)
 
-1. **Lab**: owner to pick refinements (§7) or report more observations; then phase 2.
+1. **Lab**: phase 2 is in progress (§7 "Lab phases"): next is time-based traffic, then autoscaling,
+   CDN, read replicas. Phase-1 refinement ideas (§7) are still offered, not picked.
 2. **Before any monetisation** (the planned ₹99 course): owner-side clearance is pending — see the
    private note (§11). Don't build payments, pricing pages or paid accounts until the owner confirms.
    Both public repos are public; this repo's history still contains a removed paid reference file
