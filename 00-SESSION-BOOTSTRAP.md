@@ -1,6 +1,6 @@
 # Session Bootstrap — Read This First
 
-> **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes the current production landing page (`main` `3d3e40f`), the PR → CodeQL/CodeRabbit → merge → verify → ledger → context workflow, and pending work. Parts of this bootstrap (e.g. the commit referenced in §9, the dark-only design) are older.
+> **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes current production, the PR → CodeQL + frontend CI → merge → verify → context workflow (CodeRabbit is skipped by the owner's decision), the System Design Lab and pending work. Where this bootstrap disagrees with the handover, the handover wins.
 
 You are assisting with an ongoing software project called **Tech Katta**.
 
@@ -35,7 +35,7 @@ The application repository is the implementation source of truth. This repositor
 
 ## 3. Current implementation
 
-The application is a React/Vite frontend plus Node.js/Express backend.
+The application is a React/Vite frontend plus a dependency-free Node.js 22 backend that serves validated JSON content (articles, site copy, the Lab catalogue) from the VPS disk.
 
 Frontend:
 - Vercel
@@ -44,10 +44,11 @@ Frontend:
 Backend:
 - Ubuntu VPS
 - public API `tech-api.katta.cc`
-- Express
-- MongoDB Atlas
+- Node 22 `node:http` server (no Express, no runtime dependencies)
+- content: JSON releases under `/var/lib/tech-katta/content` (from the repo's `content/`)
+- MongoDB Atlas holds only the commit ledger
 
-The backend has deterministic local fallback data so the frontend can remain usable if the API is unavailable.
+The frontend hardcodes no content: if the API is unreachable it shows "Couldn't load this page" with Try again (there is no local fallback data any more).
 
 ## 4. How to work
 
@@ -128,8 +129,4 @@ If credentials appear in an old conversation or source, describe the fact withou
 
 This repository is a snapshot. The AI must always reconcile it with the live application repository before making implementation decisions.
 
-The latest documented application commit is:
-
-`6af1c16793d4f4dd3b9e76ce04898a9f84ba07e1`
-
-If `main` has advanced, update the understanding before modifying anything.
+The current `main` commit and content release are recorded in `17-SESSION-HANDOVER.md` §1. Check `git log origin/main` and `https://tech-api.katta.cc/health` before relying on them.

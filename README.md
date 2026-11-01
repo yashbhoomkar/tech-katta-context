@@ -2,7 +2,7 @@
 
 This repository is the portable context and operating manual for the Tech Katta project.
 
-**Purpose:** a future ChatGPT session should be able to read this repository and reconstruct the project's architecture, current implementation, infrastructure, history, constraints, decisions, workflows, and working preferences without relying on the previous chat session.
+**Purpose:** a future AI session (Claude Code or another assistant) should be able to read this repository and reconstruct the project's architecture, current implementation, infrastructure, history, constraints, decisions, workflows, and working preferences without relying on the previous chat session.
 
 ## Source of truth
 
@@ -10,18 +10,18 @@ The primary implementation repository is:
 
 - GitHub: https://github.com/yashbhoomkar/tech-katta
 - Branch: `main`
-- Current implementation commit documented at the time this context snapshot was created: `6af1c16793d4f4dd3b9e76ce04898a9f84ba07e1`
+- The current `main` commit and production release are recorded in `17-SESSION-HANDOVER.md` §1 (kept up to date after every merge). Always check `git log origin/main` and `https://tech-api.katta.cc/health` rather than trusting a written SHA.
 
 This repository is **context**, not the application itself.
 
 ## Read these files first
 
-0. **`17-SESSION-HANDOVER.md` — latest session handover (2026-10-31): current landing page, workflow, environment limits, backlog, pending ₹99 positioning. Start here.**
+0. **`17-SESSION-HANDOVER.md` — the current handover: production state, the owner's decisions, workflow, the System Design Lab, environment limits and open items. Start here; it overrides older files.**
 1. `00-SESSION-BOOTSTRAP.md` — how a new AI session should behave.
 2. `01-PROJECT-IDENTITY.md` — what Tech Katta is and what the user is trying to achieve.
 3. `02-ARCHITECTURE.md` — system architecture and request/data flows.
 4. `03-FRONTEND.md` — React/Vite implementation and UI conventions.
-5. `04-BACKEND.md` — Express/MongoDB implementation and API behavior.
+5. `04-BACKEND.md` — backend history (Express/MongoDB era; partly Historical — the backend is now a dependency-free Node server serving JSON content from the VPS disk, see the handover §6).
 6. `05-CONTENT-MODEL.md` — article schema and content authoring rules.
 7. `06-INFRA-DEPLOYMENT.md` — Vercel, VPS, Cloudflare, GitHub Actions and deployment.
 8. `07-SECURITY-RELIABILITY.md` — hardening, threat model, DDoS, overflow architecture and known gaps.
@@ -43,9 +43,8 @@ Before making a change, an AI session should:
 2. Inspect the current GitHub state instead of trusting this snapshot blindly.
 3. Inspect existing implementation before proposing a replacement.
 4. Preserve established architecture and terminology unless the user explicitly changes direction.
-5. After every GitHub commit, update the MongoDB commit ledger.
+5. After every GitHub commit, update the MongoDB commit ledger (currently blocked from cloud sessions; see the handover §9–§10).
 6. Never store credentials, API tokens, private keys, passwords, or connection strings in this repository.
 
 This repository is intentionally written as an **AI handoff document** rather than normal product documentation.
 
-18. `17-SESSION-HANDOVER.md` — Claude Code session handover, 2026-10-31.
