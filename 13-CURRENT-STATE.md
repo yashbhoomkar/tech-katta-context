@@ -1231,3 +1231,30 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   design runs (cache 5%, db 73%, queue backlog grows at 200/s, worker 100% amber); all Lab e2e
   scripts errors [].
 - Current production `main`: `095e2cc6f9271d3719d94537acb15376c6c48a5e`.
+
+## Lab phase 2: traffic through the day and autoscaling — PR #129 (merged, 2026-11-01)
+
+- Owner: "Proceed with phase 2 of lab"; the handover's phase table (owner's update, context #42) put
+  time-based traffic next, then autoscaling, CDN, read replicas. This PR covers the first two.
+- **Traffic patterns** (`client.patterns` in `content/lab.json`): `steady`, `meals` "Lunch and dinner
+  rush" (Zotato; full rate at 8:30 pm, 0.75 at 1 pm, 0.05 at 4 am), `sale` "Flash sale at 8 pm" (full
+  rate 15 min, 0.2 otherwise). `[hour, multiplier]` points, linear, a jump where two points share an
+  hour; they repeat on the Lab's simulated clock. The `rps` setting is now the rate at the busiest
+  moment. The Clients panel has a picker, a description line and a day chart with a "now" marker.
+- **Autoscaling** (`server.autoscaling`; design `autoscale`, `count` = fewest, `maxCount` = most):
+  60 % target, 4 min warm-up, scale-in after 15 min low, default max 10. Billed per running
+  instance; run-log "scaled out/in to N"; canvas "N × size · up to M" and "+k booting".
+- Engine: `simulate(design, lab, {down, backlog, minute, counts})`; `runOptions(run, minute)`;
+  `advance()` steps ≥1 simulated minute (≤1,500 steps per call) only when load varies, so steady
+  designs are unchanged. The Lab view now passes queue backlogs to `simulate()` too.
+- Fix: run maps (`down`, `over`, `backlog`, `scale`) are null-prototype; a node id `__proto__` (kept by
+  the store repair) used to make `advance()` step NaN.
+- Validation and store: optional fields shape-checked with negative tests; design pattern/autoscale/
+  maxCount checked and repaired; `content/README.md` documents them.
+- Compatibility: old frontend + new catalogue and new frontend + old catalogue both passed the
+  Lab checks, so it shipped in one PR.
+- Commit `79319fb`; merge `e3e98ce15ddaf8390bf649593f9f592321330136`; CodeQL + frontend CI green
+  (CodeRabbit skipped). Release `20261101T164003Z-e3e98ce`. Production: new `tools/e2e/lab-traffic.js`
+  (scales out to 6 for the dinner peak, back to 2 by 23:27; flash sale crashes a fixed group at
+  20:10), lab-basics, lab-credits, lab-crash, lab-phase2, lab-storage-links, site-sweep: errors [].
+- Current production `main`: `e3e98ce15ddaf8390bf649593f9f592321330136`.
