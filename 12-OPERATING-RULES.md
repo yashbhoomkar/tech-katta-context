@@ -327,3 +327,21 @@ This is not optional when the change is part of the application commit synchroni
 
 - **Content** (articles, site copy, example systems; later narration audio and images): files on the VPS disk (50 GB SSD) under `/var/lib/tech-katta/content`, published as validated releases from the repo's `content/`.
 - **MongoDB Atlas**: dynamic data only when it exists (accounts, payments, progress, feedback) — and the existing commit ledger.
+
+## Deploys, CI and lockfiles (2026-11-01, after the external repo review)
+
+- `frontend/package-lock.json` is **committed** now (CI and Vercel use `npm ci`). Do not delete it;
+  regenerate it with `npm install` when dependencies change. Node 22 (`frontend/.nvmrc`).
+- `.github/workflows/frontend.yml` runs the Lab tests and the production build on every PR touching
+  `frontend/`. A PR is mergeable only with it green (plus CodeQL).
+- The backend deploy deploys **exactly `github.sha`**, is live only when `/health` reports the new
+  release (`<UTC>-<short sha>`), and rolls back code and content automatically on any failure after
+  the checkout changes (EXIT trap). Never weaken this; rehearse any change to the script locally with
+  stubbed `sudo`/`systemctl`/`curl` (both `dash` and `bash`) before merging.
+- Actions are pinned to commit SHAs; when bumping, resolve tags with `git ls-remote` (the GitHub API
+  is not reachable for other repos from the session).
+- Content validation covers every field the frontend reads. When the frontend starts reading a new
+  field, add it to the shape spec in `backend/src/content/validate.js` with a negative test.
+- Saved Lab data goes through `frontend/src/lab/store.js` (`readStore`); never read
+  `localStorage` directly in the Lab. Bump `STORE_VERSION` and add a migration if the shape changes.
+- Lab colours: red only **above** 100% (`u > 1`); exactly 100% (a worker draining a backlog) is amber.

@@ -24,6 +24,8 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `lab-basics.js` | Lab tab, example loads, Run, raising Clients overloads the Server, palette click and drag add components, autosave across reload, new design, designs list |
 | `lab-drag.js` | Palette drag with pointer events (mouse drag, 2 px wobble = tap, release outside canvas = nothing, keyboard Enter) and **real touch events via CDP** on an iPad viewport |
 | `lab-credits.js` | Free-spot placement (no overlaps), several Clients into one gateway, credit drains on the simulated clock and survives a reload, running out of credit stops the run, Designs → ⧉ duplicate gives fresh credit |
+| `lab-storage-links.js` | Corrupted `tk-lab-v1` (garbage, wrong shape, `__proto__`/`constructor` ids, bad nodes/edges) loads without errors and is re-saved as version 1; landing card and quick-note links open the right dashboard section |
+| `lab-phase2.js` | Seeds a 7-component design (Load Balancer, Cache, Queue, worker) and checks the node readouts, queue backlog, panels and run log |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 
 Tips

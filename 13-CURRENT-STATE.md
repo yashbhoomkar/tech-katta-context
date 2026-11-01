@@ -1193,3 +1193,41 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Built: queries per request (Server, default 2), one retry per failed request, crash policy (Server >150% for 10 min → down 5; Database >120% for 5 min → Multi-AZ failover 2 / single-AZ down 30; API Gateway and Clients never crash), event-driven `advance()`, CRASHED state, grey arrows, availability, run log, speeds 1 min/10 min/1 h/1 day/1 week (default 1 min), credit in cents. Numbers in `content/lab.json`, validated.
 - Commit `e5f6d82`; merge `608252f38cd628436a4e472cdddc87357105161f`. CodeRabbit rate-limited; merged on CodeQL. Verified on production: 3 servers @1,600 req/s → DB crashes ~00:12, Multi-AZ failover, availability ~64%; example @2,400 req/s → server crash loop (00:10 crash, 00:15 back, 00:25 crash), availability ~40%; no console errors.
 - Current production `main`: `608252f38cd628436a4e472cdddc87357105161f`.
+
+## External repo review → reliability fixes — PR #127 (merged, 2026-11-01)
+
+- Owner ran an external review agent on the repo and said "Do everything to fix everything". Every
+  finding was checked against the code first; all engineering findings were confirmed.
+- Deploy: exact-SHA deploy (refuses commits not on main), release live only when `/health` reports
+  it, EXIT-trap rollback of code + content on any failure, pruning only after success, public check
+  requires the new release and checks `/v1/lab`, optional `VPS_FINGERPRINT`, actions pinned to SHAs.
+  **Known:** `VPS_HOST`/`VPS_USER` secrets are NOT set (the log shows the fallbacks in use), so the
+  hardcoded fallbacks stay until the owner adds them (Pending, owner).
+- Frontend CI workflow; lockfile committed; Node 22 pinned.
+- Validation: shape spec for all of `site.json` and `examples/*.json`, cross-refs, `type.more`,
+  table cells, `lab.smallScreen`, full Lab example design checks; fuzzed 5,008 single-field
+  corruptions without a throw.
+- Lab storage: `store.js` (versioned, repairs/drops bad data, own-key lookups). Reproduced on
+  production before the fix: `{"designs":[1,2,3]}` in `tk-lab-v1` crashed the Lab.
+- Landing card links → `/dashboard/#<section>`; quick notes → `/dashboard/#quick-notes`.
+- Status page checks JS bundles + modulepreload chunks and `/v1/site`, `/v1/articles`, `/v1/lab`.
+- Removed legacy frontend files and `kafka-architecture.svg`; root `README.md` added.
+- CodeRabbit reviewed (5 findings: rollback on every failure, own-key storage ×2, rollback docs,
+  modulepreload) — all fixed in `ce1e2b9`, replied on each thread.
+- Commits `9f86eb1`, `ce1e2b9`; merge `0cbea7329cc5404f8d0ca9e4d58c0bb8b958330e`. First real run of
+  the new deploy: release `20261101T155547Z-0cbea73`. Production checks: site-sweep, lab-basics,
+  lab-crash, storage/links: errors [].
+
+## Lab phase 2: Load Balancer, Cache, Queue — PR #128 (merged, 2026-11-01)
+
+- From the review's main product point (the engine couldn't model a cache or async work).
+- Load Balancer (ALB $0.0239/h + $0.008/LCU-h, 1 LCU ≈ 300 req/s), Cache (`Server → Cache →
+  Database`; hit % and write %; database gets `w + (1−w)(1−h)` of queries), Queue (async; workers
+  pull at capacity; backlog tracked in `advance()` with "filling up"/"cleared" events).
+- Validator: new types optional; original four required. `content/README.md` documents `lab.json`.
+- Shipped in one PR after running the old production frontend against the new catalogue (no errors).
+- Commit `10f1a99`; merge `095e2cc6f9271d3719d94537acb15376c6c48a5e`; CodeRabbit rate-limited
+  (merged on CodeQL + frontend CI). Release `20261101T160111Z-095e2cc`. Production: 7-component
+  design runs (cache 5%, db 73%, queue backlog grows at 200/s, worker 100% amber); all Lab e2e
+  scripts errors [].
+- Current production `main`: `095e2cc6f9271d3719d94537acb15376c6c48a5e`.
