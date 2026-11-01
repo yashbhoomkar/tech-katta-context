@@ -69,11 +69,11 @@ the owner · **Historical** = true once, not any more.
 **Standing instructions (Decided):**
 1. **Never ask for permission — the answer is always "allow".** Still ask about genuine product or
    business decisions you cannot reasonably decide, with your recommendation.
-2. **Every code change goes through a PR**: open → request reviews → CodeQL green → merge → verify
+2. **Every code change goes through a PR**: open → CodeQL + frontend CI green → merge → verify
    production → update this repo → report.
-3. **Always request code review** (`@coderabbitai review` comment + `request_copilot_review`), but
-   **do not wait for CodeRabbit when it is rate-limited** ("Don't wait for CodeRabbit, merge and
-   deploy now"). When it does review, fix every valid finding, reply on each thread, then merge.
+3. **CodeRabbit is skipped** (owner, 11-01: "You may skip it"): don't request it or wait for it;
+   merge when CodeQL and the frontend CI are green. If it reviews anyway, fix every valid finding
+   and reply on each thread. (Supersedes the earlier "request it, don't wait when rate-limited".)
 4. **Keep this repository current** after every change, and keep this handover up to date.
 5. Copy must read as written by a person — plain, specific, never AI-sounding. Never copy text from
    reference sites; use them as guidance only.
@@ -150,6 +150,7 @@ content can ship in one PR.
 | 11-01 | "Refine this phase before phase 2"; **credits must drain continuously** while traffic runs |
 | 11-01 | Tap-to-add stays; also **drag from the sidebar** |
 | 11-01 | Crash policy: "You decide and build" → §7 |
+| 11-01 | **Skip CodeRabbit** ("You may skip it"): don't request or wait for it; merge on CodeQL + frontend CI. If it reviews anyway, fix valid findings |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
 Design rules in force: Swiss publishing style (white, surface `#f5f7fa`, hairlines `#d9dee7`, cobalt
