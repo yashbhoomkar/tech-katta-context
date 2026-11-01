@@ -850,3 +850,5 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #124: `f9fc4f786ccd1720aadc13a5c673d1858fdee716` (Lab credits drain over simulated time; free-spot placement); merge `54bab80955a0af2de53719c31f6e5f1599656d0a`, verified on production.
 - PR #125: `6e73d13d193b45f3883084a53c69d9ce47ce7571` (Lab palette drag with pointer events); merge `0bdbaed8c2cbcf4ee29a5c6a77d585391d550ac7`, verified on production.
 - PR #126: `e5f6d82625a3eb10d234dad7e241913bd8ee5001` (Lab crash policy, queries per request, retries, run log); merge `608252f38cd628436a4e472cdddc87357105161f`, verified on production.
+- PR #127: `9f86eb17046debfe4f9093d632584ea9e2126126` (reliability fixes from the repo review), `ce1e2b9983ddaf2041eaa9a79e4e43e0eacc6311` (CodeRabbit fixes); merge `0cbea7329cc5404f8d0ca9e4d58c0bb8b958330e`, deployed with the new exact-SHA deploy, verified on production.
+- PR #128: `10f1a99852bbd0d59ddd021cf4960f65e21229e1` (Lab phase 2: Load Balancer, Cache, Queue); merge `095e2cc6f9271d3719d94537acb15376c6c48a5e`, verified on production. PRs #107–#128 not yet in the MongoDB ledger.
