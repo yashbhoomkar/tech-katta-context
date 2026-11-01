@@ -1168,3 +1168,12 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Known (production): Lab tab in sidebar + top bar; example: 1,000 req/s → 100% served, 139 ms, busiest Server 83%; 1,800 req/s → 66.7% served, Server 150%, drops 600/s; add by click/drag, autosave across reload, new design, designs list; no console errors. Content release `20261101T144907Z-5ca1ec0`.
 - **Next phases:** 2 time-based simulation (ramps/spikes, autoscaling) + more components (load balancer, cache, queue, CDN, read replicas); 3 chaos testing (kill instance, AZ outage, latency, partition); 4 evaluator + Zotato challenges; 5 accounts (MongoDB) for per-user history/credits.
 - Current production `main`: `5ca1ec0adea1452a60f6750c4c71bfec2ed1381c`.
+
+## Lab refinements: credits drain, no stacking — PR #124 (merged, 2026-11-01)
+
+- Owner's review of phase 1: (1) credits must be consumed continuously while traffic runs; (2) check multiple Clients into one API Gateway; (3) refine this phase before phase 2.
+- Credits model (Decided): each design starts with $200,000 and spends it at its hourly cost (monthly ÷ 730) on a simulated clock — 1 s = 1 hour / 1 day (default) / 1 week (remembered in localStorage `tk-lab-speed`). Top bar: credit left, burn/hour, /month; status: simulated day/hour. At $0 the run stops exactly, Run is disabled; Designs → ⧉ duplicates with fresh credit. Credit `{spent, hours}` saved per design.
+- Multiple Clients: engine was correct (loads sum at the gateway); bug was placement — repeated palette clicks stacked new components on one spot. Fixed with `freeSpot()` (nearest free grid spot). Status shows "sent by K Clients".
+- US digit grouping for all Lab numbers (was en-IN next to dollars). `content/lab.json` intro updated.
+- Commit `f9fc4f7`; merge `54bab80955a0af2de53719c31f6e5f1599656d0a`. CodeRabbit rate-limited (merged on CodeQL per owner). Verified on production: no overlaps; 4 Clients → 4,000 req/s, 30% served; 3 s @1 week/s → ~3 weeks, $25,710 spent; persisted across reload; exhaustion after 4.2 months stops the run; duplicate restores $200,000; no console errors.
+- Current production `main`: `54bab80955a0af2de53719c31f6e5f1599656d0a`.
