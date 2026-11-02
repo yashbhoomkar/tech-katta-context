@@ -13,6 +13,6 @@ await p.goto(B+'/');await p.waitForSelector('.card');
 const cards=await p.$$eval('.card .card-foot a',a=>a.map(x=>x.getAttribute('href')));const hero=await p.$$eval('.hero .btn',a=>a.map(x=>x.getAttribute('href')));const nav=await p.$$eval('.nav a',a=>a.map(x=>x.getAttribute('href')));
 console.log('card links',cards.join(' '),'| hero',hero.join(' '),'| nav',nav.join(' '));
 await p.click('.card .card-foot a');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('after click:',p.url(),'| h1',await p.textContent('h1'));
-// Quick Notes left the landing page (owner, 11-02); the hero's first button opens the Lab.
-await p.goto(B+'/');await p.waitForSelector('.hero .btn');await p.click('.hero .btn.primary');await p.waitForURL(/dashboard/);await p.waitForSelector('.react-flow__node');console.log('hero Lab click:',p.url(),'| lab nodes',await p.locator('.react-flow__node').count());
+// The hero's first button opens the dashboard (owner, 11-02), which starts on Learn.
+await p.goto(B+'/');await p.waitForSelector('.hero .btn');await p.click('.hero .btn.primary');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('hero Dashboard click:',p.url(),'| h1',await p.textContent('h1'));
 console.log('errors',JSON.stringify(errors));await br.close()})();

@@ -1334,3 +1334,19 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   errors [].
 - Current production `main`: `86bf748361ff70bc0fd923cab1f64df5dc167215`.
 
+## Real Lab on the landing page, Did you know tab, CDN — PR #134 (merged, 2026-11-02)
+
+- Owner: (1) remove Did you know from the landing page; (2) instead, the actual Lab on the landing
+  page for the IND vs PAK problem; (3) Did you know → dashboard, with sidebar and top-bar tabs;
+  (4) hero button back to Dashboard.
+- CDN component (hit % at the edge, $0.009/10k requests, never crashes, "live content"); Clients up
+  to 10M req/s; pattern "IND vs PAK match night"; challenge `ind-vs-pak` (intermediate; 8.75M req/s
+  at the last over; CDN fixed 99 % live; stars: ≥99 %, no server crash, ≥99.95 %).
+- Landing: hero → "01 Try it" (embedded Lab, lazy-loaded, embedded mode) → "02 Library". Old widget
+  `challenge.js` deleted. Did you know is `#did-you-know` in the dashboard.
+- Commit `cd670cf`; merge `3c0064752ca0ec6b496f43d72d34031cbaf4a4cf`; release
+  `20261102T031123Z-3c00647`. Production: landing-lab (embedded Lab 0★ → CDN + rewire + 40 servers
+  → 3★; Did you know tab in sidebar and top bar), landing desktop/iPhone overflow 0, and every other
+  check: errors [].
+- Current production `main`: `3c0064752ca0ec6b496f43d72d34031cbaf4a4cf`.
+
