@@ -29,6 +29,7 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `lab-traffic.js` | Lunch-and-dinner pattern with an autoscaled server group (status req/s through the evening, scale-out for the dinner peak and scale-in overnight, cost follows instances), Clients panel day chart, flash sale crashing a fixed group |
 | `learn-challenges.js` | Dashboard opens on Learn, level remembered, article analogies tick the reading step, `#lab/one-server` scores 0 stars then 3 after a fix, Challenges menu ★ count, Learn shows the stars |
 | `tour-import.js` | Tour starts once (webdriver hidden), Next/Back/Done/Esc, Lab tour; Import: bad line blocks Create, the example imports as 7 components and runs, Export → re-import from the file |
+| `landing-lab.js` | Landing sections (hero, IND vs PAK Lab, library; no Did you know), hero buttons, the embedded Lab scores 0★, then add a CDN, rewire by dragging handles, 40 servers → 3★; the Did you know dashboard tab |
 | `lab-cache-arrows.js` | Write-back cache pushed past 150 %: crash, writes lost, queries fall through to the database, back empty and warming up; arrows removed with ✕, the Arrow panel button and Delete, and still gone after a reload |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 

@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#133).
+Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#134).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,24 +28,24 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `86bf748`** (PR #133). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `3c00647`** (PR #134). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261102T025259Z-86bf748` (release names end with the deployed commit).
+  `20261102T031123Z-3c00647` (release names end with the deployed commit).
 - The site:
-  1. **Landing** `/` (reworked in #131 after the UI/UX meeting, §4a) — nav Concepts / Components /
-     Interview Questions / Lab (all open dashboard sections); hero "System design, explained." with
-     the animated Kafka figure (FIG. 01), buttons **Open the Lab** → `/dashboard/#lab` and **Read the
-     library** → `/dashboard/`; **01 Try it: "Can your design survive IND vs PAK?"** (pick CDN none /
-     90 % / 98 %, most servers 10–2,000, autoscale vs start all before the toss; play the match; chart
-     of live viewers vs your servers' limit, buffering in red, result + stats + "Build it properly in
-     the Lab"; model `frontend/src/challenge.js`, numbers in `site.json` `challenge`); **02 Did you
-     know** (one of the busiest websites is an adult video site — unnamed, SFW; ~115M visits/day 2019,
-     4,403 PB in 2018 ≈ 147 GB/s, from its own yearly reports; 3 points on chunked video, CDN, plan
-     for the peak; `site.json` `fact`); **03 Library** cards; footer (no GitHub link, "Last updated:
-     <build date>"). Quick Notes and Numbers Worth Knowing are **not** on the landing page any more:
-     Numbers Worth Knowing is on the dashboard's Quick Notes page (`numbers.jsx`, `numbers.css`).
+  1. **Landing** `/` (#131, then #134 per the owner) — nav Concepts / Components / Interview
+     Questions / Lab (all open dashboard sections); hero "System design, explained." with the animated
+     Kafka figure (FIG. 01), buttons **Dashboard** → `/dashboard/` and **Try IND vs PAK** →
+     `#ind-vs-pak`; **01 Try it: "Can your design survive IND vs PAK?" — the real Lab embedded**
+     (lazy-loaded when the section nears the screen; the Lab challenge `ind-vs-pak` in embedded mode:
+     no Designs/Challenges menus, "Open in the full Lab" → `/dashboard/#lab/ind-vs-pak`; copy in
+     `site.json` `landingLab`); **02 Library** cards; footer (no GitHub link, "Last updated: <build
+     date>"). Not on the landing page: Quick Notes, Numbers Worth Knowing (dashboard Quick Notes
+     page), Did you know (its own dashboard tab). The old IND vs PAK widget (`challenge.js`) is deleted.
   2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Learn · Concepts · Components · Interview
-     Questions · Quick Notes · Lab**; it opens on **Learn** (#132): Beginner / Intermediate / Advanced
+     Questions · Quick Notes · Did you know · Lab**. **Did you know** (#134; `site.json` `fact`): one of
+     the busiest websites is an adult video site (unnamed, SFW; ~115M visits/day 2019, 4,403 PB in 2018
+     ≈ 147 GB/s, from its own yearly reports; chunked video, CDN, plan for the peak; link to the IND vs
+     PAK challenge). The dashboard it opens on **Learn** (#132): Beginner / Intermediate / Advanced
      cards ("n of m steps done") and the chosen level's path of steps (read / play IND vs PAK / run
      the Lab / challenges / import), ticked off automatically with stars; at Advanced, "go deeper"
      sections start open. Progress in localStorage `tk-progress-v1` (`src/progress.js`). Header
@@ -102,7 +102,7 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
    - frontend: `cd frontend && npm ci && npm run build`; `npm test` = Lab engine + saved-design
-     tests (49). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
+     tests (45). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
    - backend: `cd backend && npm test` (29 tests incl. content validation);
      `node scripts/check-content.mjs ../content`.
 4. **Verify in headless Chromium** with the scripts in `tools/e2e/` (see its README): desktop
@@ -166,6 +166,7 @@ content can ship in one PR.
 | 11-01 | Cache policies: owner asked "should they be part of the simulation"; recommendation accepted ("Build three"): **warm-up after restart, down → database or fail, write-through vs write-back**. Not simulated (explained in text only): read-through vs cache-aside, LRU/LFU, TTL, write-around, miss coalescing |
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
+| 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
 | 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
@@ -179,8 +180,8 @@ content can ship in one PR.
 | 4 | Read-out feature fix → "voice sounds robotic" | ✅ #131 Kokoro narration for the API article |
 | 5 | User-level-wise learning | ✅ #132 (Learn tab, 3 level paths) |
 | 6 | Quick Notes should not be on the landing page | ✅ #131 (and Numbers moved to the dashboard) |
-| 7 | "Give the user the unexpected → adult website": surprise visitors with how much traffic such sites get at night and how their systems work | ✅ #131 "Did you know"; owner chose **unnamed, SFW wording** |
-| 8 | IND vs PAK → **Lab challenge on the landing page, to acquire users** | ✅ #131; owner chose **real numbers, no app name** (3.5 crore concurrent, WC 2023) |
+| 7 | "Give the user the unexpected → adult website": surprise visitors with how much traffic such sites get at night and how their systems work | ✅ #131 "Did you know"; owner chose **unnamed, SFW wording**; **moved to its own dashboard tab in #134** (owner) |
+| 8 | IND vs PAK → **Lab challenge on the landing page, to acquire users** | ✅ #131 widget; owner chose **real numbers, no app name** (3.5 crore concurrent, WC 2023); **#134: the real Lab embedded on the landing page** with the `ind-vs-pak` challenge (owner) |
 | 9 | Analogy with a real-world example | ✅ #132 ("In real life" in articles and on every Lab component) |
 | 10 | Gamification | ✅ #132 (6 Lab challenges, up to 3 stars each) |
 
@@ -272,7 +273,10 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
 **Built and live:**
 - Catalogue `content/lab.json` → `/v1/lab`: `budget` 200000, `retries` 1, region Mumbai
   (`ap-south-1`), notes (`priceNote`, `modelNote`, `crashNote`, `smallScreen`), components:
-  - Clients (`rps` 1–200,000, default 1,000 = the rate at the busiest moment; **traffic patterns**
+  - CDN (#134; CloudFront: `hitPct` default 95, max 99, answered at the edge; 20M req/s; never crashes;
+    $0.009 per 10,000 requests; **live content** setting: the edge needs the origin for every new
+    chunk, so origin failures reach every viewer; Clients → CDN → your edge)
+  - Clients (`rps` 1–10,000,000 since #134; pattern `match` "IND vs PAK match night" added; default 1,000 = the rate at the busiest moment; **traffic patterns**
     `steady` / `meals` "Lunch and dinner rush" (full rate 8:30 pm, 0.75 at 1 pm, 0.05 at 4 am) /
     `sale` "Flash sale at 8 pm" (full rate 15 min, 0.2 otherwise); `[hour, multiplier]` points,
     linear, repeat daily on the Lab clock; day chart in the panel) — phase 2, #129
@@ -328,8 +332,9 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
   - dashboard sidebar folds to icons on the Lab only; laptop-first; below 900 px a note + stacked layout.
 
 Challenges (#132; `lab.json` `levels` + `challenges`, `src/lab/challenges.js`): Too much for one
-server, Lunch and dinner rush (beginner); The 8 pm flash sale, The menu everyone reads
-(intermediate); The cache restarts at dinner, Don't lose an order (advanced). Each: brief, hint,
+server, Lunch and dinner rush (beginner); The 8 pm flash sale, **Survive IND vs PAK** (#134: 8.75M
+req/s peak, CDN fixed 99 % + live; 0★ no CDN, 2★ too few servers or autoscale from a few, 3★ ~36+
+running before the toss), The menu everyone reads (intermediate); The cache restarts at dinner, Don't lose an order (advanced). Each: brief, hint,
 starting design, traffic owned by the challenge (+ `fixed` settings), optional chaos (crash the
 busiest cache at minute N via `crashNow()`), stars. "Score my design" plays the scenario at once
 (<50 ms). Challenges menu (★ n/18), `#lab/<id>` links, score dialog with next challenge. A test pins
@@ -366,7 +371,7 @@ labels on arrows; rename components; connection hints while dragging an arrow; c
 | Time-based traffic: daily patterns on Clients (steady, lunch and dinner rush, 8 pm flash sale) | ✅ Done (#129) |
 | Autoscaling: server groups add/remove instances with load (min/max, 4 min warm-up, 15 min scale-in) | ✅ Done (#129) |
 | Cache behaviour: warm-up after restart, down → database/fail, write-through/write-back | ✅ Done (#130) |
-| CDN (offloads static/cacheable requests before the edge) | Not started |
+| CDN (hit % at the edge, per-request price, live content) | ✅ Done (#134) |
 | Read replicas (database reads spread over replicas, writes to the primary) | Not started |
 
 Suggested by the external review, **not yet the owner's decision** (offer, don't assume): read/write
@@ -420,11 +425,10 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 4. **Figure text and images into content** (FIG labels → JSON; `og.png` and future media →
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
 5. **Narration**: re-record (`tools/tts`) whenever the API article changes; record new articles.
-10. **After the MoM**: all 10 items shipped (#131–#133). Follow-ups worth offering: more challenges
-    (an IND vs PAK Lab challenge needs the CDN component, phase 2 — "Build it properly in the Lab"
-    still opens the Lab without it); more articles so levels have more to read; accounts (phase 5)
-    to keep progress across devices.
-6. **MongoDB ledger** for PRs #107–#133.
+10. **After the MoM**: all 10 items shipped (#131–#134). Follow-ups worth offering: read replicas
+    (last part of phase 2); more challenges; more articles so levels have more to read; accounts
+    (phase 5) to keep progress across devices; the embedded Lab is long on phones (stacked layout).
+6. **MongoDB ledger** for PRs #107–#134.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -470,6 +474,7 @@ monetisation, publishing policy or references.
 | #130 | Lab: cache warm-up, behaviour when down, write-back; remove arrows |
 | #132 | Learn tab with levels, 6 Lab challenges with stars, real-life analogies; narration re-recorded |
 | #133 | Website tour; import your own architecture (text or JSON) and export |
+| #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 
 Context repo PRs: #35 removed the paid reference file from `main`; #36–#38 handover and state
