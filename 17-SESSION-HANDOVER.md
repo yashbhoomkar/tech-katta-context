@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#131).
+Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#133).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,9 +28,9 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `57ce43f`** (PR #131). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `86bf748`** (PR #133). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261102T022139Z-57ce43f` (release names end with the deployed commit).
+  `20261102T025259Z-86bf748` (release names end with the deployed commit).
 - The site:
   1. **Landing** `/` (reworked in #131 after the UI/UX meeting, §4a) — nav Concepts / Components /
      Interview Questions / Lab (all open dashboard sections); hero "System design, explained." with
@@ -44,10 +44,14 @@ the owner · **Historical** = true once, not any more.
      for the peak; `site.json` `fact`); **03 Library** cards; footer (no GitHub link, "Last updated:
      <build date>"). Quick Notes and Numbers Worth Knowing are **not** on the landing page any more:
      Numbers Worth Knowing is on the dashboard's Quick Notes page (`numbers.jsx`, `numbers.css`).
-  2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Concepts · Components · Interview Questions ·
-     Quick Notes · Lab**. One published article: Concepts › "APIs: the main types, and which one to
-     use where" (`/dashboard/#concepts/api-types`). Components and Interview Questions are empty
-     ("Nothing published here yet").
+  2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Learn · Concepts · Components · Interview
+     Questions · Quick Notes · Lab**; it opens on **Learn** (#132): Beginner / Intermediate / Advanced
+     cards ("n of m steps done") and the chosen level's path of steps (read / play IND vs PAK / run
+     the Lab / challenges / import), ticked off automatically with stars; at Advanced, "go deeper"
+     sections start open. Progress in localStorage `tk-progress-v1` (`src/progress.js`). Header
+     **Tour** button (#133). One published article: Concepts › "APIs: the main types, and which one to
+     use where" (`/dashboard/#concepts/api-types`), with "In real life" analogies. Components and
+     Interview Questions are empty ("Nothing published here yet").
   3. **System Design Lab** `/dashboard/#lab` — the site's main differentiator (§7).
 - **All content** (copy, articles, Lab catalogue) is JSON in `tech-katta/content/`, stored on the VPS
   disk as validated releases and served by the API (§6). The frontend hardcodes no content.
@@ -98,8 +102,8 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
    - frontend: `cd frontend && npm ci && npm run build`; `npm test` = Lab engine + saved-design
-     tests (39). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
-   - backend: `cd backend && npm test` (25 tests incl. content validation);
+     tests (49). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
+   - backend: `cd backend && npm test` (29 tests incl. content validation);
      `node scripts/check-content.mjs ../content`.
 4. **Verify in headless Chromium** with the scripts in `tools/e2e/` (see its README): desktop
    1440×900 + iPhone/iPad profiles, overflow sweep 320→1440 px, no console errors, reduced motion,
@@ -162,6 +166,7 @@ content can ship in one PR.
 | 11-01 | Cache policies: owner asked "should they be part of the simulation"; recommendation accepted ("Build three"): **warm-up after restart, down → database or fail, write-through vs write-back**. Not simulated (explained in text only): read-through vs cache-aside, LRU/LFU, TTL, write-around, miss coalescing |
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
+| 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
 ### 4a. UI/UX meeting minutes (owner, 11-02) and what happened to each
@@ -169,15 +174,15 @@ content can ship in one PR.
 | # | Item (owner's words) | Status |
 |---|---|---|
 | 1 | Landing page should have less content | ✅ #131 (hero, Try it, Did you know, Library) |
-| 2 | Website tour | Not started |
-| 3 | Import your own architecture | Not started |
+| 2 | Website tour | ✅ #133 (dashboard 4 steps, Lab 6; first visit + Tour button) |
+| 3 | Import your own architecture | ✅ #133 (text chains or JSON; Export JSON) |
 | 4 | Read-out feature fix → "voice sounds robotic" | ✅ #131 Kokoro narration for the API article |
-| 5 | User-level-wise learning | Not started |
+| 5 | User-level-wise learning | ✅ #132 (Learn tab, 3 level paths) |
 | 6 | Quick Notes should not be on the landing page | ✅ #131 (and Numbers moved to the dashboard) |
 | 7 | "Give the user the unexpected → adult website": surprise visitors with how much traffic such sites get at night and how their systems work | ✅ #131 "Did you know"; owner chose **unnamed, SFW wording** |
 | 8 | IND vs PAK → **Lab challenge on the landing page, to acquire users** | ✅ #131; owner chose **real numbers, no app name** (3.5 crore concurrent, WC 2023) |
-| 9 | Analogy with a real-world example | Not started |
-| 10 | Gamification | Not started |
+| 9 | Analogy with a real-world example | ✅ #132 ("In real life" in articles and on every Lab component) |
+| 10 | Gamification | ✅ #132 (6 Lab challenges, up to 3 stars each) |
 
 Design rules in force: Swiss publishing style (white, surface `#f5f7fa`, hairlines `#d9dee7`, cobalt
 `#2855d9` accent only, graphite `#1c2733`, muted `#586575`; Inter + IBM Plex Mono; no heavy shadows);
@@ -322,6 +327,18 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
     the wrong one).
   - dashboard sidebar folds to icons on the Lab only; laptop-first; below 900 px a note + stacked layout.
 
+Challenges (#132; `lab.json` `levels` + `challenges`, `src/lab/challenges.js`): Too much for one
+server, Lunch and dinner rush (beginner); The 8 pm flash sale, The menu everyone reads
+(intermediate); The cache restarts at dinner, Don't lose an order (advanced). Each: brief, hint,
+starting design, traffic owned by the challenge (+ `fixed` settings), optional chaos (crash the
+busiest cache at minute N via `crashNow()`), stars. "Score my design" plays the scenario at once
+(<50 ms). Challenges menu (★ n/18), `#lab/<id>` links, score dialog with next challenge. A test pins
+that every starting design scores 0 and a worked solution scores every star — keep it that way when
+editing numbers.
+Import (#133, `src/lab/importer.js`): Designs → Import… (text chains with aliases, `:label`, options;
+line errors; auto layout; or a JSON file) and Export JSON (`{tk:"lab-design",version:1,design}`).
+Tour (#133, `src/tour.jsx`, steps in `site.json` `tour`).
+
 Arrows: click/tap selects; ✕ on the arrow or "Remove arrow" in the Arrow panel removes it; Delete
 works too (custom edge type `arrow` in `Lab.jsx`).
 
@@ -403,10 +420,11 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 4. **Figure text and images into content** (FIG labels → JSON; `og.png` and future media →
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
 5. **Narration**: re-record (`tools/tts`) whenever the API article changes; record new articles.
-10. **MoM items 2, 3, 5, 9, 10** (§4a): website tour, import your own architecture, level-wise
-    learning, real-world analogies, gamification — not started. "Build it properly in the Lab" from the
-    IND vs PAK challenge opens an empty Lab; a matching Lab challenge needs the CDN (phase 2).
-6. **MongoDB ledger** for PRs #107–#131.
+10. **After the MoM**: all 10 items shipped (#131–#133). Follow-ups worth offering: more challenges
+    (an IND vs PAK Lab challenge needs the CDN component, phase 2 — "Build it properly in the Lab"
+    still opens the Lab without it); more articles so levels have more to read; accounts (phase 5)
+    to keep progress across devices.
+6. **MongoDB ledger** for PRs #107–#133.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -450,6 +468,8 @@ monetisation, publishing policy or references.
 | #128 | Lab phase 2: Load Balancer, Cache, Queue |
 | #129 | Lab phase 2: traffic through the day (patterns) and server autoscaling; null-prototype run maps |
 | #130 | Lab: cache warm-up, behaviour when down, write-back; remove arrows |
+| #132 | Learn tab with levels, 6 Lab challenges with stars, real-life analogies; narration re-recorded |
+| #133 | Website tour; import your own architecture (text or JSON) and export |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 
 Context repo PRs: #35 removed the paid reference file from `main`; #36–#38 handover and state
