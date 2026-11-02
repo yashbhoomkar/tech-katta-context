@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-01 (night)** by the session that shipped Lab traffic patterns and autoscaling (PR #129).
+Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#130).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,9 +28,9 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `e3e98ce`** (PR #129). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `8463a27`** (PR #130). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261101T164003Z-e3e98ce` (release names end with the deployed commit).
+  `20261101T170400Z-8463a27` (release names end with the deployed commit).
 - The site:
   1. **Landing** `/` — hero "System design, explained." with the animated Kafka figure (FIG. 01),
      buttons Dashboard → `/dashboard/` and Quick Notes; Technical Library cards (links open
@@ -93,8 +93,8 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
    - frontend: `cd frontend && npm ci && npm run build`; `npm test` = Lab engine + saved-design
-     tests (27). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
-   - backend: `cd backend && npm test` (23 tests incl. content validation);
+     tests (33). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
+   - backend: `cd backend && npm test` (24 tests incl. content validation);
      `node scripts/check-content.mjs ../content`.
 4. **Verify in headless Chromium** with the scripts in `tools/e2e/` (see its README): desktop
    1440×900 + iPhone/iPad profiles, overflow sweep 320→1440 px, no console errors, reduced motion,
@@ -153,6 +153,9 @@ content can ship in one PR.
 | 11-01 | Tap-to-add stays; also **drag from the sidebar** |
 | 11-01 | Crash policy: "You decide and build" → §7 |
 | 11-01 | **Skip CodeRabbit** ("You may skip it"): don't request or wait for it; merge on CodeQL + frontend CI. If it reviews anyway, fix valid findings |
+| 11-01 | Lab phase 2 order (owner's handover update): time-based traffic → autoscaling → CDN → read replicas. Read/write mix, p95/p99, transfer/storage costs only suggested, not decided |
+| 11-01 | Cache policies: owner asked "should they be part of the simulation"; recommendation accepted ("Build three"): **warm-up after restart, down → database or fail, write-through vs write-back**. Not simulated (explained in text only): read-through vs cache-aside, LRU/LFU, TTL, write-around, miss coalescing |
+| 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
 Design rules in force: Swiss publishing style (white, surface `#f5f7fa`, hairlines `#d9dee7`, cobalt
@@ -257,13 +260,18 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
     backlog tracked over simulated time, run-log "filling up"/"cleared") — phase 2
   - Cache (ElastiCache cache.t3.medium 20,000 ops $0.068/h · m5.large 50,000 $0.156 · r5.large
     60,000 $0.216; `Server → Cache → Database`; settings hit % (default 80) and write % (default 10);
-    database gets `w + (1−w)(1−h)` of queries; crash >150 % for 5 min → down 10) — phase 2
+    database gets `w + (1−w)(1−h)` of queries; crash >150 % for 5 min → down 10) — phase 2.
+    **Behaviour (#130):** comes back **empty** after a crash, hits climb to the set % over
+    `warmupMinutes` 10 (a run starts warm); **when down** `onDown`: `database` (default, cache-aside
+    fall-through) or `fail`; **writes** `writePolicy`: `through` (default) or `back` (acked by the
+    cache, flushed at the DB's spare capacity, backlog "unflushed writes"; a crash loses the backlog +
+    `flushSeconds` 5 of writes → "N writes lost", shown in the design panel)
   - Database (RDS db.t3.medium 800 qps $0.087/h · db.m5.large 2,500 $0.205 · db.m5.xlarge 5,000
     $0.41 · db.r5.2xlarge 12,000 $1.15; 5 ms; Multi-AZ ×2 price; crash >120 % for 5 min → Multi-AZ
     failover 2 min, single-AZ down 30)
   - example "Zotato order API": Clients 1,000 → API Gateway → Server 2 × m5.large (2 q/req) →
     db.m5.large Multi-AZ.
-- Engine `frontend/src/lab/engine.js` (pure; `npm test`, 15 engine tests): topological flow; each served
+- Engine `frontend/src/lab/engine.js` (pure; `npm test`, 20 engine tests): topological flow; each served
   request calls one component of each kind it points at (servers send `queriesPerRequest` queries);
   same-kind targets share load evenly; served = min(offered, capacity); latency `base/(1−ρ)` (×20
   past capacity); crashed nodes serve nothing; retries solved as a fixed point (user success
@@ -291,6 +299,9 @@ and get evaluated. Swiss colours; Lab tab in sidebar and top bar.
     the wrong one).
   - dashboard sidebar folds to icons on the Lab only; laptop-first; below 900 px a note + stacked layout.
 
+Arrows: click/tap selects; ✕ on the arrow or "Remove arrow" in the Arrow panel removes it; Delete
+works too (custom edge type `arrow` in `Lab.jsx`).
+
 **Pending (owner hasn't picked)** — refinement ideas offered: undo/redo and copy-paste; live req/s
 labels on arrows; rename components; connection hints while dragging an arrow; credit-over-time chart;
 "reset clock" without duplicating.
@@ -314,6 +325,7 @@ labels on arrows; rename components; connection hints while dragging an arrow; c
 | Queue (SQS; async; workers pull at capacity; backlog grows/drains over simulated time) | ✅ Done (#128) |
 | Time-based traffic: daily patterns on Clients (steady, lunch and dinner rush, 8 pm flash sale) | ✅ Done (#129) |
 | Autoscaling: server groups add/remove instances with load (min/max, 4 min warm-up, 15 min scale-in) | ✅ Done (#129) |
+| Cache behaviour: warm-up after restart, down → database/fail, write-through/write-back | ✅ Done (#130) |
 | CDN (offloads static/cacheable requests before the edge) | Not started |
 | Read replicas (database reads spread over replicas, writes to the primary) | Not started |
 
@@ -358,7 +370,8 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 ## 10. Open items (Pending / backlog)
 
 1. **Lab**: phase 2 is in progress (§7 "Lab phases"): traffic patterns and autoscaling done (#129);
-   next CDN, then read replicas. Phase-1 refinement ideas (§7) are still offered, not picked.
+   cache behaviour and arrow removal done (#130); next CDN (reuse the cache's hit/warm-up model),
+   then read replicas. Phase-1 refinement ideas (§7) are still offered, not picked.
 2. **Before any monetisation** (the planned ₹99 course): owner-side clearance is pending — see the
    private note (§11). Don't build payments, pricing pages or paid accounts until the owner confirms.
    Both public repos are public; this repo's history still contains a removed paid reference file
@@ -367,7 +380,7 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 4. **Figure text and images into content** (FIG labels → JSON; `og.png` and future media →
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
 5. **Recorded narration** for the API article once final.
-6. **MongoDB ledger** for PRs #107–#129.
+6. **MongoDB ledger** for PRs #107–#130.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -410,6 +423,7 @@ monetisation, publishing policy or references.
 | #127 | Review fixes: exact-SHA deploy + automatic rollback, frontend CI + lockfile, deep content validation, safe Lab storage, landing links, status checks, legacy removal, README |
 | #128 | Lab phase 2: Load Balancer, Cache, Queue |
 | #129 | Lab phase 2: traffic through the day (patterns) and server autoscaling; null-prototype run maps |
+| #130 | Lab: cache warm-up, behaviour when down, write-back; remove arrows |
 
 Context repo PRs: #35 removed the paid reference file from `main`; #36–#38 handover and state
 updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner-context.md`.
