@@ -1310,3 +1310,27 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   were flaky while the reader scrolls the page (failed the same way on production before).
 - Current production `main`: `57ce43f0e5401301ac3d30ee12d483608e1014e3`.
 
+## Learn, challenges, analogies — PR #132 (merged, 2026-11-02)
+
+- Owner: "You decide and build the remaining items" (MoM 2, 3, 5, 9, 10). This PR: 5, 9, 10.
+- Analogies: `analogy` block + `like` on type cards (API article: restaurant menu; counter order,
+  thali, pre-printed forms, phone call, radio commentary, tailor calling you, bank tokens) and on
+  every Lab component (+ autoscaling). Read aloud includes them; narration re-recorded (63 chunks).
+- Challenges: 6 (2 per level) with stars; engine `crashNow()` for chaos; runner `challenges.js`;
+  Lab Challenges menu, `#lab/<id>`, Design-panel brief/goals/hint/"Score my design", score dialog.
+- Learn tab (first section; the dashboard opens there) with level paths; `progress.js`; Advanced
+  opens "go deeper" sections; "Read the library" → Concepts.
+- Commit `36d9645`; merge `1872f52baa5ce48cf333729f2cd3cb25c94093d9`; release
+  `20261102T024150Z-1872f52`. Production: learn-challenges (0 → 3 stars on one-server) errors [].
+
+## Tour and import/export — PR #133 (merged, 2026-11-02)
+
+- Import (text chains with aliases or JSON) and Export JSON in the Lab's Designs menu; tour (4
+  dashboard steps, 6 Lab steps) on first visit to Learn / the Lab and from the header's Tour
+  button; not auto-started for automated browsers.
+- Commit `90f913c`; merge `86bf748361ff70bc0fd923cab1f64df5dc167215`; release
+  `20261102T025259Z-86bf748`. Production: tour-import, tour on iPhone 13, landing, learn-challenges,
+  site-sweep, read-aloud, recorded-audio, mobile-figures, lab-storage-links and every lab-* check:
+  errors [].
+- Current production `main`: `86bf748361ff70bc0fd923cab1f64df5dc167215`.
+
