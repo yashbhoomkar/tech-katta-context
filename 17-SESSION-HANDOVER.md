@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#134).
+Last updated **2026-11-02 (afternoon)** by the session that shipped PRs #129–#138 (Lab phase 2, the UI/UX meeting items, and the fixes from an in-depth QA run).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,9 +28,9 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `3c00647`** (PR #134). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `ba23949`** (PR #138). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261102T031123Z-3c00647` (release names end with the deployed commit).
+  `20261102T120336Z-35263dc` (release names; #138 was frontend-only, so the last release is #137's) end with the deployed commit).
 - The site:
   1. **Landing** `/` (#131, then #134 per the owner) — nav Concepts / Components / Interview
      Questions / Lab (all open dashboard sections); hero "System design, explained." with the animated
@@ -38,7 +38,9 @@ the owner · **Historical** = true once, not any more.
      `#ind-vs-pak`; **01 Try it: "Can your design survive IND vs PAK?" — the real Lab embedded**
      (lazy-loaded when the section nears the screen; the Lab challenge `ind-vs-pak` in embedded mode:
      no Designs/Challenges menus, "Open in the full Lab" → `/dashboard/#lab/ind-vs-pak`; copy in
-     `site.json` `landingLab`); **02 Library** cards; footer (no GitHub link, "Last updated: <build
+     `site.json` `landingLab`; **below 900 px a three-control version** — CDN on/off, servers −/+,
+     before the toss vs autoscale, Score — `src/lablite.jsx`, copy `landingLab.lite`, #137); **02
+     Library** cards; footer (no GitHub link, "Last updated: <build
      date>"). Not on the landing page: Quick Notes, Numbers Worth Knowing (dashboard Quick Notes
      page), Did you know (its own dashboard tab). The old IND vs PAK widget (`challenge.js`) is deleted.
   2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Learn · Concepts · Components · Interview
@@ -167,6 +169,7 @@ content can ship in one PR.
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
+| 11-02 | Owner: "Invoke another agent … in depth" → independent QA run (§8); "Continue" → all four fix groups built (scoring, saving, phones, the rest), incl. **phones get a three-control version of the landing IND vs PAK** |
 | 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
@@ -337,7 +340,7 @@ req/s peak, CDN fixed 99 % + live; 0★ no CDN, 2★ too few servers or autoscal
 running before the toss), The menu everyone reads (intermediate); The cache restarts at dinner, Don't lose an order (advanced). Each: brief, hint,
 starting design, traffic owned by the challenge (+ `fixed` settings), optional chaos (crash the
 busiest cache at minute N via `crashNow()`), stars. "Score my design" plays the scenario at once
-(<50 ms). Challenges menu (★ n/18), `#lab/<id>` links, score dialog with next challenge. A test pins
+(<50 ms). Challenges menu (★ n/21), `#lab/<id>` links, score dialog with next challenge. A test pins
 that every starting design scores 0 and a worked solution scores every star — keep it that way when
 editing numbers.
 Import (#133, `src/lab/importer.js`): Designs → Import… (text chains with aliases, `:label`, options;
@@ -381,10 +384,23 @@ mix set on Clients; p95/p99 latency; data-transfer and storage costs.
 
 ## 8. Testing
 
-`tools/e2e/` in this repo holds the Playwright scripts used for every merge (site sweep, read aloud,
-mobile figures, API-down handling, Lab basics, drag incl. real touch, credits, crash policy, corrupted
-storage + landing links, phase 2 components) — see its
-README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend && npm test`.
+`tools/e2e/` in this repo holds the Playwright scripts used for every merge — 19 of them now (site
+sweep, read aloud, recorded audio, mobile figures, API down, every Lab area, landing desktop + phone,
+Learn/challenges, tour/import, and the QA regressions `qa-scoring`, `qa-saving`, `qa-a11y`) — see its
+README. Run the whole set against production after each merge. Engine tests: `cd frontend && npm
+test` (53). Backend + content: `cd backend && npm test` (29).
+
+**In-depth QA run (11-02, owner asked for "another agent … in depth"):** an independent agent tested
+code and production (40 findings: 7 High, 9 Medium, 24 Low). Fixed in #135 (scoring: `requires`
+paths, dead-end parts fail, queue backlog counts, time windows on goals, goal ticks, locked fixed
+settings, Run at the challenge hour with chaos), #136 (saving: tabs merge, credit saved while
+running and on leave, embedded Lab never changes `current`, blocked storage, error boundary, import
+caps 200 components / 20,000 chars / 1 MB), #137 (phones get the three-control IND vs PAK on the
+landing page, `src/lablite.jsx`), #138 (keyboard connections, Back restores scroll, tour/menu focus,
+favicon/robots/sitemap/security headers). **Left for the owner:** crore/lakh in copy vs en-US numbers
+in the Lab (L10); latency counts one database round trip per request (L11); iPad portrait gets the
+stacked Lab (L12); no copy without the API, by design (L14). Not tested by anyone: real phones, iOS
+Safari, Firefox, screen readers, load.
 
 ---
 
@@ -425,10 +441,11 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 4. **Figure text and images into content** (FIG labels → JSON; `og.png` and future media →
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
 5. **Narration**: re-record (`tools/tts`) whenever the API article changes; record new articles.
-10. **After the MoM**: all 10 items shipped (#131–#134). Follow-ups worth offering: read replicas
-    (last part of phase 2); more challenges; more articles so levels have more to read; accounts
-    (phase 5) to keep progress across devices; the embedded Lab is long on phones (stacked layout).
-6. **MongoDB ledger** for PRs #107–#134.
+10. **After the MoM and the QA run**: all 10 items shipped (#131–#134) and the QA findings fixed
+    (#135–#138, see §8). Follow-ups worth offering: read replicas (last part of phase 2); more
+    challenges; more articles; accounts (phase 5) for progress across devices; testing on real
+    phones / iOS Safari; the four QA items left for the owner (§8).
+6. **MongoDB ledger** for PRs #107–#138.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -474,6 +491,10 @@ monetisation, publishing policy or references.
 | #130 | Lab: cache warm-up, behaviour when down, write-back; remove arrows |
 | #132 | Learn tab with levels, 6 Lab challenges with stars, real-life analogies; narration re-recorded |
 | #133 | Website tour; import your own architecture (text or JSON) and export |
+| #135 | QA fixes — scoring: required paths, dead ends, time windows, goal ticks, locked settings |
+| #136 | QA fixes — saving: tabs merge, credit saved while running, landing Lab leaves your design alone, import caps |
+| #137 | QA fixes — landing on phones: IND vs PAK with three controls (`lablite.jsx`) |
+| #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 

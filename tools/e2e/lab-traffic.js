@@ -14,7 +14,7 @@ const txt=async id=>(await p.locator(`.react-flow__node[data-id="${id}"]`).inner
 const status=async()=>(await p.innerText('.lab-status')).replace(/\n/g,' | ');
 console.log('before:',await txt('c'),'||',await txt('api'),'||',(await p.innerText('.lab-burn')));
 await p.locator('.react-flow__node[data-id="c"]').click();await p.waitForTimeout(200);
-console.log('pattern:',await p.locator('.lab-ins select').inputValue(),'| chart:',await p.locator('.lab-day svg').count(),'|',await p.innerText('.lab-day figcaption'));
+console.log('pattern:',await p.locator('.lab-ins .lab-f:has-text("Traffic through") select').inputValue(),'| chart:',await p.locator('.lab-day svg').count(),'|',await p.innerText('.lab-day figcaption'));
 await p.click('.react-flow__pane',{position:{x:60,y:700}});
 await p.click('text=▶ Run traffic');
 const seen=[];for(let i=0;i<12;i++){await p.waitForTimeout(250*4);seen.push((await status()).split(' | ').slice(0,2).join(' '))}
