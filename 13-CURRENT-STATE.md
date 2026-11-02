@@ -1282,3 +1282,31 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   removed three ways, still gone after a reload) and every other Lab check + site-sweep: errors [].
 - Current production `main`: `8463a272687bd5fbed377fc88c4290e1f2765219`.
 
+## Landing rework, IND vs PAK challenge, narration — PR #131 (merged, 2026-11-02)
+
+- Owner's UI/UX meeting minutes (10 items, handover §4a). This PR covers 1, 4, 6, 7, 8.
+- Landing: hero (shorter; Open the Lab / Read the library) → 01 "Can your design survive IND vs
+  PAK?" → 02 "Did you know" → 03 Library. Nav: Concepts, Components, Interview Questions, Lab.
+  Quick Notes and Numbers Worth Knowing removed from the landing; Numbers now on the dashboard's
+  Quick Notes page.
+- Challenge model (`frontend/src/challenge.js`, numbers in `site.json` `challenge`): viewer curve
+  (crore) over a 215-minute match peaking at 3.5 crore in the last over; 2 Mbps/viewer; origin
+  servers 10 Gbps, ~$0.50/h; CDN offload 0 / 0.9 / 0.98; autoscale target 70 %, 5 min boot, 10 min
+  scale-in; or all servers before the toss. No CDN → 7,000 servers (70 Tbps); 98 % CDN → 140.
+  Defaults (98 %, 100, autoscale) buffer ~1 crore at the last over; autoscale with room still buffers
+  at the toss and the chase; 150 started before the toss survives (costs more).
+- Fact: unnamed adult video site, ~115M visits/day (2019), 4,403 PB in 2018 (≈147 GB/s), from its own
+  yearly reports; how such a site stays up (chunks, CDN, plan for the peak).
+- Narration: Kokoro `af_heart`, 54 chunks, `audio: true` on the API article.
+- Validation: `challenge?`, `fact?` and hero hrefs shape-checked, with semantic checks on the curve,
+  moments, rates, offloads, servers range and defaults.
+- Commit `e5ba1dd`; merge `57ce43f0e5401301ac3d30ee12d483608e1014e3`; CodeQL + frontend CI green.
+  Release `20261102T022139Z-57ce43f`. Production (desktop + iPhone 13): landing sections, challenge
+  plays (default result "Buffering for 1 crore viewers around the last over"), overflow 0; Numbers on
+  Quick Notes; site-sweep, recorded-audio, read-aloud, mobile-figures, lab-storage-links,
+  lab-basics, lab-traffic, lab-cache-arrows, lab-crash: errors [].
+- e2e changes: `lab-storage-links.js` checks the new landing links (hero → Lab); `recorded-audio.js`
+  handles fully recorded articles; `mobile-figures.js` forces clicks/skips element screenshots that
+  were flaky while the reader scrolls the page (failed the same way on production before).
+- Current production `main`: `57ce43f0e5401301ac3d30ee12d483608e1014e3`.
+

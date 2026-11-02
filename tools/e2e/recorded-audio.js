@@ -9,7 +9,8 @@ console.log('after 1.2s:',JSON.stringify(await st()),'| highlight:',await p.eval
 await p.click('.r-btn.primary');await p.waitForTimeout(800);console.log('paused btn:',await p.innerText('.r-btn.primary'));
 await p.selectOption('.r-rate select','1.5');await p.click('.r-btn.primary');await p.waitForTimeout(300);console.log('resumed:',JSON.stringify(await st()));
 // let recorded chunks finish fast
-await p.waitForFunction(()=>__spoken.length>0,null,{timeout:90000});console.log('fell back to device voice after recordings:',JSON.stringify(await st()));
+// Fully recorded articles never fall back; partly recorded ones fall back to the device voice per chunk.
+await p.waitForTimeout(3000);const s2=await st();console.log(s2.spoken?'fell back to device voice for unrecorded chunks:':'all recorded so far, no device voice:',JSON.stringify({played:s2.played.length,spoken:s2.spoken}));
 await p.click('text=■ Stop');
 await p.selectOption('.r-voice select',{index:1});await p.click('.r-btn.primary');await p.waitForTimeout(500);console.log('device voice chosen → no audio:',JSON.stringify(await st()),'| note:',await p.innerText('.r-note'));
 await p.click('text=■ Stop');console.log('errors:',errs);await b.close()})();

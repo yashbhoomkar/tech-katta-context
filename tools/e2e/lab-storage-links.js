@@ -10,8 +10,9 @@ for(const [label,raw] of [["garbage","{not json"],["wrong shape",'{"designs":[1,
  console.log(label,'| nodes',n,'edges',e,'| saved version',saved.version,'| speed select',speed);await ctx.close()}
 const ctx=await br.newContext();const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));
 await p.goto(B+'/');await p.waitForSelector('.card');
-const cards=await p.$$eval('.card .card-foot a',a=>a.map(x=>x.getAttribute('href')));const notes=await p.$$eval('.note',a=>a.map(x=>x.getAttribute('href')));const all=await p.getAttribute('.text-link','href');
-console.log('card links',cards.join(' '),'| notes',[...new Set(notes)].join(' '),'| all',all);
+const cards=await p.$$eval('.card .card-foot a',a=>a.map(x=>x.getAttribute('href')));const hero=await p.$$eval('.hero .btn',a=>a.map(x=>x.getAttribute('href')));const nav=await p.$$eval('.nav a',a=>a.map(x=>x.getAttribute('href')));
+console.log('card links',cards.join(' '),'| hero',hero.join(' '),'| nav',nav.join(' '));
 await p.click('.card .card-foot a');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('after click:',p.url(),'| h1',await p.textContent('h1'));
-await p.goto(B+'/');await p.waitForSelector('.note');await p.click('.note');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('note click:',p.url(),'| h1',await p.textContent('h1'));
+// Quick Notes left the landing page (owner, 11-02); the hero's first button opens the Lab.
+await p.goto(B+'/');await p.waitForSelector('.hero .btn');await p.click('.hero .btn.primary');await p.waitForURL(/dashboard/);await p.waitForSelector('.react-flow__node');console.log('hero Lab click:',p.url(),'| lab nodes',await p.locator('.react-flow__node').count());
 console.log('errors',JSON.stringify(errors));await br.close()})();
