@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#130).
+Last updated **2026-11-02** by the session that shipped Lab traffic patterns, autoscaling, cache behaviour and arrow removal (PRs #129–#131).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,17 +28,22 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `8463a27`** (PR #130). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `57ce43f`** (PR #131). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261101T170400Z-8463a27` (release names end with the deployed commit).
+  `20261102T022139Z-57ce43f` (release names end with the deployed commit).
 - The site:
-  1. **Landing** `/` — hero "System design, explained." with the animated Kafka figure (FIG. 01),
-     buttons Dashboard → `/dashboard/` and Quick Notes; Technical Library cards (links open
-     `/dashboard/#<section>`; quick notes open `/dashboard/#quick-notes`) (Concepts / Core
-     Components / Interview Questions, each with a small animated diagram); Quick Notes (4 notes:
-     Kafka DRAFT, Raft / Redis Cluster / Rate limiting PLANNED); Numbers Worth Knowing (log-scale
-     latency chart, estimation shortcuts, worked URL-shortener estimate); footer (no GitHub link,
-     "Last updated: <build date>").
+  1. **Landing** `/` (reworked in #131 after the UI/UX meeting, §4a) — nav Concepts / Components /
+     Interview Questions / Lab (all open dashboard sections); hero "System design, explained." with
+     the animated Kafka figure (FIG. 01), buttons **Open the Lab** → `/dashboard/#lab` and **Read the
+     library** → `/dashboard/`; **01 Try it: "Can your design survive IND vs PAK?"** (pick CDN none /
+     90 % / 98 %, most servers 10–2,000, autoscale vs start all before the toss; play the match; chart
+     of live viewers vs your servers' limit, buffering in red, result + stats + "Build it properly in
+     the Lab"; model `frontend/src/challenge.js`, numbers in `site.json` `challenge`); **02 Did you
+     know** (one of the busiest websites is an adult video site — unnamed, SFW; ~115M visits/day 2019,
+     4,403 PB in 2018 ≈ 147 GB/s, from its own yearly reports; 3 points on chunked video, CDN, plan
+     for the peak; `site.json` `fact`); **03 Library** cards; footer (no GitHub link, "Last updated:
+     <build date>"). Quick Notes and Numbers Worth Knowing are **not** on the landing page any more:
+     Numbers Worth Knowing is on the dashboard's Quick Notes page (`numbers.jsx`, `numbers.css`).
   2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Concepts · Components · Interview Questions ·
      Quick Notes · Lab**. One published article: Concepts › "APIs: the main types, and which one to
      use where" (`/dashboard/#concepts/api-types`). Components and Interview Questions are empty
@@ -93,8 +98,8 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
    - frontend: `cd frontend && npm ci && npm run build`; `npm test` = Lab engine + saved-design
-     tests (33). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
-   - backend: `cd backend && npm test` (24 tests incl. content validation);
+     tests (39). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
+   - backend: `cd backend && npm test` (25 tests incl. content validation);
      `node scripts/check-content.mjs ../content`.
 4. **Verify in headless Chromium** with the scripts in `tools/e2e/` (see its README): desktop
    1440×900 + iPhone/iPad profiles, overflow sweep 320→1440 px, no console errors, reduced motion,
@@ -156,7 +161,23 @@ content can ship in one PR.
 | 11-01 | Lab phase 2 order (owner's handover update): time-based traffic → autoscaling → CDN → read replicas. Read/write mix, p95/p99, transfer/storage costs only suggested, not decided |
 | 11-01 | Cache policies: owner asked "should they be part of the simulation"; recommendation accepted ("Build three"): **warm-up after restart, down → database or fail, write-through vs write-back**. Not simulated (explained in text only): read-through vs cache-aside, LRU/LFU, TTL, write-around, miss coalescing |
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
+| 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
+
+### 4a. UI/UX meeting minutes (owner, 11-02) and what happened to each
+
+| # | Item (owner's words) | Status |
+|---|---|---|
+| 1 | Landing page should have less content | ✅ #131 (hero, Try it, Did you know, Library) |
+| 2 | Website tour | Not started |
+| 3 | Import your own architecture | Not started |
+| 4 | Read-out feature fix → "voice sounds robotic" | ✅ #131 Kokoro narration for the API article |
+| 5 | User-level-wise learning | Not started |
+| 6 | Quick Notes should not be on the landing page | ✅ #131 (and Numbers moved to the dashboard) |
+| 7 | "Give the user the unexpected → adult website": surprise visitors with how much traffic such sites get at night and how their systems work | ✅ #131 "Did you know"; owner chose **unnamed, SFW wording** |
+| 8 | IND vs PAK → **Lab challenge on the landing page, to acquire users** | ✅ #131; owner chose **real numbers, no app name** (3.5 crore concurrent, WC 2023) |
+| 9 | Analogy with a real-world example | Not started |
+| 10 | Gamification | Not started |
 
 Design rules in force: Swiss publishing style (white, surface `#f5f7fa`, hairlines `#d9dee7`, cobalt
 `#2855d9` accent only, graphite `#1c2733`, muted `#586575`; Inter + IBM Plex Mono; no heavy shadows);
@@ -190,7 +211,9 @@ colours only for load in the Lab (amber ≥70 % incl. exactly 100 %, red >100 % 
 - **Read aloud**: browser voices ranked (Edge Natural/Online, Apple Premium/Enhanced/Siri, Google;
   en-IN preferred), voice picker, speed, highlight, sentence-sized chunks (`speech.js`); collapsed
   sections not read. Recorded narration via `tools/tts` (Kokoro `af_heart`) plays when the article has
-  `audio: true` — none is recorded yet (owner: only when final).
+  `audio: true`. **The API article is recorded** (#131, 54 chunks, 2.8 MB in
+  `frontend/public/audio/api-types/`): the owner found device voices robotic (11-02), which overrides
+  "record only when final". Re-run `tools/tts` after editing the article (unchanged chunks are kept).
 - Share button (native share sheet / copy link); OG/Twitter tags + `/og.png` on both pages.
 
 ---
@@ -379,8 +402,11 @@ README. Engine tests: `cd frontend && npm test`. Backend + content: `cd backend 
 3. **Per-article URLs** for link previews (hash routes share one card) — offered, not decided.
 4. **Figure text and images into content** (FIG labels → JSON; `og.png` and future media →
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
-5. **Recorded narration** for the API article once final.
-6. **MongoDB ledger** for PRs #107–#130.
+5. **Narration**: re-record (`tools/tts`) whenever the API article changes; record new articles.
+10. **MoM items 2, 3, 5, 9, 10** (§4a): website tour, import your own architecture, level-wise
+    learning, real-world analogies, gamification — not started. "Build it properly in the Lab" from the
+    IND vs PAK challenge opens an empty Lab; a matching Lab challenge needs the CDN (phase 2).
+6. **MongoDB ledger** for PRs #107–#131.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -424,6 +450,7 @@ monetisation, publishing policy or references.
 | #128 | Lab phase 2: Load Balancer, Cache, Queue |
 | #129 | Lab phase 2: traffic through the day (patterns) and server autoscaling; null-prototype run maps |
 | #130 | Lab: cache warm-up, behaviour when down, write-back; remove arrows |
+| #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 
 Context repo PRs: #35 removed the paid reference file from `main`; #36–#38 handover and state
 updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner-context.md`.
