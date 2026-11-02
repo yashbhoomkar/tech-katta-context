@@ -1350,3 +1350,30 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   check: errors [].
 - Current production `main`: `3c0064752ca0ec6b496f43d72d34031cbaf4a4cf`.
 
+## In-depth QA run and fixes — PRs #135–#138 (merged, 2026-11-02)
+
+- Owner asked for another agent to test everything in depth. Findings: 0 Critical, 7 High, 9 Medium,
+  24 Low; build and all existing e2e were green, but challenges could be won by designs that did
+  nothing (CDN alone 3★ on IND vs PAK; Clients → Database 3★ on 6 of 7), saving lost work (tabs
+  overwrote each other; nothing saved while running, so reload refunded credit), the landing page
+  switched the user's open design, and the embedded Lab was unusable on phones (scroll trap, 3.7 px
+  handles).
+- **#135** (`5714743`; merge `3524a61`): `requires` per challenge + `missingOnPath()`; LB/gateway with
+  nothing behind fail, CDN misses fail without an origin, cache misses/writes fail without a DB;
+  queue/write-back backlog left at the end counts as failed; star windows (`from`/`to`) — IND vs PAK
+  ★ 99 % evening, ★ 99.95 % toss 7:05–7:35, ★ 99.95 % last over 10:10–10:35; goals of the best run
+  saved (`progress.goals`); fixed settings locked in the UI; Run starts at the challenge hour and
+  applies chaos; 140 GB/s copy fix.
+- **#136** (`4dbfd83`; merge `d184e27`): writeDesign() merges into storage; credit saved ≤2 s while
+  running and on stop/pagehide/unmount/switch; embedded Lab never writes `current`; opening on a
+  challenge creates only that design; storage try/catch + error boundary; MAX_NODES 200, text 20,000
+  chars, file 1 MB; import label ids, names, export file names, edge ids.
+- **#137** (`cae50d9`; merge `35263dc`): `lablite.jsx` on the landing page below 900 px; release
+  `20261102T120336Z-35263dc`.
+- **#138** (`2125cf7`; merge `ba239494fc591f3b068d4f496b91fd27ddeb9bb9`): keyboard "Connect to" + arrow
+  list, scroll restore on Back, tour/score focus traps, menus close on Esc/outside, Lab h1, unknown
+  challenge message, numbers after Stop, favicon/robots/sitemap, security headers in `vercel.json`.
+- Production after #138: all 19 e2e scripts errors []; headers and new files served.
+- Left for the owner: L10, L11, L12, L14 (see handover §8).
+- Current production `main`: `ba239494fc591f3b068d4f496b91fd27ddeb9bb9`.
+
