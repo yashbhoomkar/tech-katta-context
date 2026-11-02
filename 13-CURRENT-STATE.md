@@ -1258,3 +1258,27 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   (scales out to 6 for the dinner peak, back to 2 by 23:27; flash sale crashes a fixed group at
   20:10), lab-basics, lab-credits, lab-crash, lab-phase2, lab-storage-links, site-sweep: errors [].
 - Current production `main`: `e3e98ce15ddaf8390bf649593f9f592321330136`.
+
+## Lab: cache behaviour and arrow removal — PR #130 (merged, 2026-11-01)
+
+- Owner asked whether cache hit/miss policies should be simulated; recommendation (simulate only what
+  changes the Lab's numbers without invented inputs) accepted: "Build three". Also: remove arrows.
+- **Warm-up**: a cache that restarts after a crash is empty; hits climb from 0 to its hit % over
+  10 simulated min while misses hit the database. A run starts warm. Example: 2,000 queries/s, 80 %
+  hits, 10 % writes on db.t3.medium → 560/s warm (70 %), 2,000/s cold (250 %) → the database
+  crashes at 5 min.
+- **When down**: "Send queries to the database" (default) or "Fail the queries". This changes the
+  default: before, a down cache always failed its queries.
+- **Writes**: write-through (default) or write-back: acked by the cache, flushed at the database's
+  spare capacity, backlog of unflushed writes; a crash loses the backlog plus the last 5 s of writes
+  ("N writes lost"; design panel "Writes lost"). Writes no longer wait on the database.
+- **Arrows**: selecting an arrow shows ✕ on it and an Arrow panel with "Remove arrow"; Delete works.
+- Engine `cacheFlow()`, `simulate({warm})`, `runOptions(run, minute, lab)`, `run.cold`, `run.lost`.
+  Validation: choices must have exactly the ids `through`/`back`, `database`/`fail`. Store repair,
+  `content/README.md` updated.
+- Commit `f946b5c`; merge `8463a272687bd5fbed377fc88c4290e1f2765219`; CodeQL + frontend CI green.
+  Release `20261101T170400Z-8463a27`. Production: new `tools/e2e/lab-cache-arrows.js` (cache crash at
+  00:05 → 50,000 writes lost, queries go to the database, back empty at 00:15 at 16 % hits; arrows
+  removed three ways, still gone after a reload) and every other Lab check + site-sweep: errors [].
+- Current production `main`: `8463a272687bd5fbed377fc88c4290e1f2765219`.
+
