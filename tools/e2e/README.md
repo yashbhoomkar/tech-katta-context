@@ -36,7 +36,22 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `qa-a11y.js` | QA regressions: connect/remove arrows from the panel, menus close on Esc/outside, numbers after Stop, unknown challenge message, Back restores scroll, tour keeps focus, MENU aria-expanded + Esc |
 | `dashboard-home.js` | Dashboard start page: no tab selected, the three Library cards with diagrams, each card → its tab and first article/section; landing page has no cards; desktop + iPhone 13, no overflow |
 | `lab-cache-arrows.js` | Write-back cache pushed past 150 %: crash, writes lost, queries fall through to the database, back empty and warming up; arrows removed with ✕, the Arrow panel button and Delete, and still gone after a reload |
+| `account.js` | **Local only.** Sign in with Google across two browser profiles (Google's script stubbed; tokens minted by `auth-stack.mjs`): sign-in merges local designs up, the other device gets them, an edit and a deletion reach the first device, account menu, privacy page, sign out keeps local data, delete account. Usage: `node account.js <site> http://127.0.0.1:5191` |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
+
+Testing sign-in (local; production has sign-in off until the owner adds the secrets)
+```bash
+cd tech-katta/backend && npm ci
+node /path/to/tools/e2e/auth-stack.mjs local-test.apps.googleusercontent.com /tmp/uri.txt &   # MongoDB + fake Google keys on :5191
+cd tech-katta && PORT=5181 HOST=127.0.0.1 CONTENT_DIR=$PWD/content FRONTEND_ORIGIN=http://localhost:5411 \
+  GOOGLE_CLIENT_ID=local-test.apps.googleusercontent.com MONGODB_URI="$(cat /tmp/uri.txt)" MONGODB_DB=tk_e2e \
+  SESSION_SECRET=$(head -c 48 /dev/urandom | base64) COOKIE_SECURE=0 GOOGLE_JWKS_URL=http://127.0.0.1:5191/certs node backend/src/server.js &
+cd frontend && VITE_API_BASE=http://localhost:5181 npx vite build --outDir /tmp/authbuild && npx vite preview --outDir /tmp/authbuild --port 5411 --strictPort &
+cd /tmp && node /path/to/tools/e2e/account.js http://localhost:5411 http://127.0.0.1:5191
+```
+Use `localhost` (not 127.0.0.1) for both the site and the API so the cookie counts as same-site.
+Other scripts run against this stack log Google's "client ID is not found" (the fake ID); run them
+with sign-in off.
 
 Tips
 - Use a **new port** for every `npx vite preview --port N --strictPort` (old servers serve stale
