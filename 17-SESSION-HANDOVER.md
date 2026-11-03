@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-02 (afternoon)** by the session that shipped PRs #129–#138 (Lab phase 2, the UI/UX meeting items, and the fixes from an in-depth QA run).
+Last updated **2026-11-03** by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,9 +28,9 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-01)
 
-- **tech-katta `main` = `ba23949`** (PR #138). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `6fba198`** (PR #140). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261102T120336Z-35263dc` (release names; #138 was frontend-only, so the last release is #137's) end with the deployed commit).
+  `20261103T034218Z-6fba198` (release names end with the deployed commit).
 - The site:
   1. **Landing** `/` (#131, then #134 per the owner) — nav Concepts / Components / Interview
      Questions / Lab (all open dashboard sections); hero "System design, explained." with the animated
@@ -39,19 +39,19 @@ the owner · **Historical** = true once, not any more.
      (lazy-loaded when the section nears the screen; the Lab challenge `ind-vs-pak` in embedded mode:
      no Designs/Challenges menus, "Open in the full Lab" → `/dashboard/#lab/ind-vs-pak`; copy in
      `site.json` `landingLab`; **below 900 px a three-control version** — CDN on/off, servers −/+,
-     before the toss vs autoscale, Score — `src/lablite.jsx`, copy `landingLab.lite`, #137); **02
-     Library** cards; footer (no GitHub link, "Last updated: <build
-     date>"). Not on the landing page: Quick Notes, Numbers Worth Knowing (dashboard Quick Notes
-     page), Did you know (its own dashboard tab). The old IND vs PAK widget (`challenge.js`) is deleted.
-  2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Learn · Concepts · Components · Interview
-     Questions · Quick Notes · Did you know · Lab**. **Did you know** (#134; `site.json` `fact`): one of
+     before the toss vs autoscale, Score — `src/lablite.jsx`, copy `landingLab.lite`, #137); footer (no GitHub link, "Last updated: <build
+     date>"). Not on the landing page: the Library cards (dashboard start page, #140), Quick Notes,
+     Numbers Worth Knowing (dashboard Quick Notes page), Did you know (its own dashboard tab). The old IND vs PAK widget (`challenge.js`) is deleted.
+  2. **Dashboard** `/dashboard/` — sidebar + top tabs: **Concepts · Components · Interview Questions ·
+     Quick Notes · Did you know · Lab**. **Start page (#140, owner): no tab selected**; it shows the
+     three Library cards with their mini diagrams (`src/library.jsx`, `library.css`; "LIBRARY /
+     Concepts · Components · Interview Questions"); a card selects its tab and opens the section's
+     first article (or the section while it has none). Unknown or malformed hashes land here too. **Did you know** (#134; `site.json` `fact`): one of
      the busiest websites is an adult video site (unnamed, SFW; ~115M visits/day 2019, 4,403 PB in 2018
      ≈ 147 GB/s, from its own yearly reports; chunked video, CDN, plan for the peak; link to the IND vs
-     PAK challenge). The dashboard it opens on **Learn** (#132): Beginner / Intermediate / Advanced
-     cards ("n of m steps done") and the chosen level's path of steps (read / play IND vs PAK / run
-     the Lab / challenges / import), ticked off automatically with stars; at Advanced, "go deeper"
-     sections start open. Progress in localStorage `tk-progress-v1` (`src/progress.js`). Header
-     **Tour** button (#133). One published article: Concepts › "APIs: the main types, and which one to
+     PAK challenge). The **Learn** tab (levels) was **removed** in #139 at the owner's request.
+     Progress in localStorage `tk-progress-v1` (`src/progress.js`) keeps tour-seen flags and challenge
+     stars. Header **Tour** button (#133; dashboard tour 3 steps). One published article: Concepts › "APIs: the main types, and which one to
      use where" (`/dashboard/#concepts/api-types`), with "In real life" analogies. Components and
      Interview Questions are empty ("Nothing published here yet").
   3. **System Design Lab** `/dashboard/#lab` — the site's main differentiator (§7).
@@ -169,6 +169,7 @@ content can ship in one PR.
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
+| 11-03 | **Learn tab removed** (#139). **Dashboard start page: no tab selected** ("Trust me and do this"), showing the **Library cards moved from the landing page**; a card opens its tab and first article (#140) |
 | 11-02 | Owner: "Invoke another agent … in depth" → independent QA run (§8); "Continue" → all four fix groups built (scoring, saving, phones, the rest), incl. **phones get a three-control version of the landing IND vs PAK** |
 | 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
@@ -178,10 +179,10 @@ content can ship in one PR.
 | # | Item (owner's words) | Status |
 |---|---|---|
 | 1 | Landing page should have less content | ✅ #131 (hero, Try it, Did you know, Library) |
-| 2 | Website tour | ✅ #133 (dashboard 4 steps, Lab 6; first visit + Tour button) |
+| 2 | Website tour | ✅ #133 (dashboard 3 steps since #139, Lab 6; first visit + Tour button) |
 | 3 | Import your own architecture | ✅ #133 (text chains or JSON; Export JSON) |
 | 4 | Read-out feature fix → "voice sounds robotic" | ✅ #131 Kokoro narration for the API article |
-| 5 | User-level-wise learning | ✅ #132 (Learn tab, 3 level paths) |
+| 5 | User-level-wise learning | ✅ #132 (Learn tab) — **removed in #139** (owner: "Remove that beginner intermediate and advanced thing from the dashboard"); challenges keep their level grouping inside the Lab |
 | 6 | Quick Notes should not be on the landing page | ✅ #131 (and Numbers moved to the dashboard) |
 | 7 | "Give the user the unexpected → adult website": surprise visitors with how much traffic such sites get at night and how their systems work | ✅ #131 "Did you know"; owner chose **unnamed, SFW wording**; **moved to its own dashboard tab in #134** (owner) |
 | 8 | IND vs PAK → **Lab challenge on the landing page, to acquire users** | ✅ #131 widget; owner chose **real numbers, no app name** (3.5 crore concurrent, WC 2023); **#134: the real Lab embedded on the landing page** with the `ind-vs-pak` challenge (owner) |
@@ -445,7 +446,7 @@ Safari, Firefox, screen readers, load.
     (#135–#138, see §8). Follow-ups worth offering: read replicas (last part of phase 2); more
     challenges; more articles; accounts (phase 5) for progress across devices; testing on real
     phones / iOS Safari; the four QA items left for the owner (§8).
-6. **MongoDB ledger** for PRs #107–#138.
+6. **MongoDB ledger** for PRs #107–#140.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -495,6 +496,8 @@ monetisation, publishing policy or references.
 | #136 | QA fixes — saving: tabs merge, credit saved while running, landing Lab leaves your design alone, import caps |
 | #137 | QA fixes — landing on phones: IND vs PAK with three controls (`lablite.jsx`) |
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
+| #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
+| #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
 | #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 

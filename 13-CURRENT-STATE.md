@@ -1377,3 +1377,19 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - Left for the owner: L10, L11, L12, L14 (see handover §8).
 - Current production `main`: `ba239494fc591f3b068d4f496b91fd27ddeb9bb9`.
 
+## Learn removed; dashboard start page with the Library cards — PRs #139, #140 (merged, 2026-11-03)
+
+- #139 (`7eb565b`; merge `c19fc92`): owner "Remove that beginner intermediate and advanced thing from
+  the dashboard". Learn tab, `site.json` `learn`, its validation/styles, level and step marks removed;
+  tour's level step removed. While cutting it, the Did you know component was removed by mistake and
+  restored before merge; `learn-challenges.js` now opens every tab and fails on the error boundary.
+- #140 (`dbb1917`; merge `6fba198cc604a60ba43d6335d0ba96b3c18ebadd`): owner "Default should be empty,
+  no tab selected" and "These three cards … should be there on main dashboard page … open the first
+  of each". `/dashboard/` (and unknown hashes) select no tab and show the Library cards
+  (`library.jsx`/`library.css`); cards → `#concepts/api-types`, `#components`, `#interview-questions`.
+  Landing page: hero + IND vs PAK only. Caught in testing: missing `Tick` helper (error boundary
+  showed it) and a `d-home` class clash that hid the cards on phones (now `d-start`).
+- Release `20261103T034218Z-6fba198`. Production: dashboard-home (desktop + iPhone 13) and all other
+  e2e scripts: errors [].
+- Current production `main`: `6fba198cc604a60ba43d6335d0ba96b3c18ebadd`.
+

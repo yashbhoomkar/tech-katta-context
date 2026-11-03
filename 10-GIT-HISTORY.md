@@ -862,3 +862,5 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #136: `4dbfd838eaa33afdca37479a7ffd903de3ebd6de` (QA: saving fixes); merge `d184e2706e2a9a8d1e96f8efa9a2b3c3d2e6d2af`, verified.
 - PR #137: `cae50d9a60a17103e4ed2e0daee0ce48df3d4b89` (QA: landing on phones); merge `35263dcae077506d7867077803d8ab3bea70ab82`, deployed (release `20261102T120336Z-35263dc`), verified.
 - PR #138: `2125cf7c68222384d0a22fac1179dbdb5c735386` (QA: keyboard, Back, focus, site basics); merge `ba239494fc591f3b068d4f496b91fd27ddeb9bb9`, verified on production. PRs #107–#138 not yet in the MongoDB ledger.
+- PR #139: `7eb565b60eadc310265aaf1efdccfdfbadf380dc` (Learn tab removed); merge `c19fc92b75c9767fcbfc181a551e30a30f26ef9d`, deployed, verified.
+- PR #140: `dbb19173fa68f188ee683341bb04a707817e13c8` (dashboard start page: no tab selected + Library cards; cards off the landing page); merge `6fba198cc604a60ba43d6335d0ba96b3c18ebadd`, deployed (release `20261103T034218Z-6fba198`), verified. PRs #107–#140 not yet in the MongoDB ledger.
