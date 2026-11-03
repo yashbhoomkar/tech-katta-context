@@ -25,7 +25,7 @@ await p.goto(B+'/dashboard/#concepts/api-types');await p.waitForSelector('.a-ana
 await p.click('.tabs a[href="#lab"]');await p.waitForSelector('.lab-name');console.log('after link, scrollY:',await p.evaluate(()=>scrollY));
 await p.goBack();await p.waitForSelector('.a-analogy');await p.waitForTimeout(1200);console.log('after Back, scrollY:',await p.evaluate(()=>Math.round(scrollY)));
 // M9: tour focus
-await p.goto(B+'/dashboard/#learn');await p.waitForSelector('.learn-levels');await p.click('.d-tour');await p.waitForSelector('.tour-card');await p.waitForTimeout(300);
+await p.goto(B+'/dashboard/#concepts');await p.waitForSelector('.tabs');await p.click('.d-tour');await p.waitForSelector('.tour-card');await p.waitForTimeout(300);
 const inCard=()=>p.evaluate(()=>!!document.activeElement?.closest('.tour-card'));console.log('tour focus on card:',await inCard());
 for(let i=0;i<6;i++)await p.keyboard.press('Tab');console.log('after 6 Tabs still in card:',await inCard());await p.keyboard.press('Escape');
 // L24

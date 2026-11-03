@@ -16,7 +16,7 @@ await p.tap('.ll-score');await p.waitForSelector('.ll-res');console.log('fixed:'
 const touchTargets=await p.$$eval('.ll button, .ll input',a=>a.map(e=>{const r=e.getBoundingClientRect();return Math.round(Math.min(r.width,r.height))}));console.log('smallest control (px):',Math.min(...touchTargets));
 console.log('overflow:',await p.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth));
 await p.screenshot({path:'/tmp/shots/landing-phone.png',fullPage:false});
-await p.goto(B+'/dashboard/#learn');await p.waitForSelector('.learn-levels');await p.tap('.learn-level >> nth=1');await p.waitForTimeout(200);
-console.log('learn intermediate:',(await p.$$eval('.learn-steps li',a=>a.map(x=>x.className+':'+x.querySelector('em').textContent))).join(' | '));
+await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab-ch-btn');
+console.log('stars reach the full Lab:',await p.innerText('.lab-ch-btn'));
 const d=await (await br.newContext({viewport:{width:1280,height:800}})).newPage();await d.goto(B+'/#ind-vs-pak');await d.waitForSelector('#ind-vs-pak .react-flow__node',{timeout:20000});console.log('laptop gets the full Lab:',await d.locator('#ind-vs-pak .ll').count()===0);
 console.log('errors:',JSON.stringify(errors));await br.close()})();

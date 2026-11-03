@@ -9,10 +9,10 @@ for(const [label,raw] of [["garbage","{not json"],["wrong shape",'{"designs":[1,
  await p.waitForTimeout(700);const saved=JSON.parse(await p.evaluate(()=>localStorage.getItem('tk-lab-v1')));
  console.log(label,'| nodes',n,'edges',e,'| saved version',saved.version,'| speed select',speed);await ctx.close()}
 const ctx=await br.newContext();const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));
-await p.goto(B+'/');await p.waitForSelector('.card');
-const cards=await p.$$eval('.card .card-foot a',a=>a.map(x=>x.getAttribute('href')));const hero=await p.$$eval('.hero .btn',a=>a.map(x=>x.getAttribute('href')));const nav=await p.$$eval('.nav a',a=>a.map(x=>x.getAttribute('href')));
+// The library cards are on the dashboard's start page now (owner, 11-03).
+await p.goto(B+'/dashboard/');await p.waitForSelector('.d-start .card');const cards=await p.$$eval('.d-start .card',a=>a.map(x=>x.getAttribute('href')));await p.goto(B+'/');await p.waitForSelector('.hero .btn');const hero=await p.$$eval('.hero .btn',a=>a.map(x=>x.getAttribute('href')));const nav=await p.$$eval('.nav a',a=>a.map(x=>x.getAttribute('href')));
 console.log('card links',cards.join(' '),'| hero',hero.join(' '),'| nav',nav.join(' '));
-await p.click('.card .card-foot a');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('after click:',p.url(),'| h1',await p.textContent('h1'));
+await p.goto(B+'/dashboard/');await p.waitForSelector('.d-start .card');await p.click('.d-start .card');await p.waitForSelector('main h1');console.log('after click:',p.url(),'| h1',await p.textContent('h1'));
 // The hero's first button opens the dashboard (owner, 11-02), which starts on Learn.
 await p.goto(B+'/');await p.waitForSelector('.hero .btn');await p.click('.hero .btn.primary');await p.waitForURL(/dashboard/);await p.waitForSelector('h1');console.log('hero Dashboard click:',p.url(),'| h1',await p.textContent('h1'));
 console.log('errors',JSON.stringify(errors));await br.close()})();

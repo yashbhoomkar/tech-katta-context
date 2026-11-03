@@ -27,13 +27,14 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `lab-storage-links.js` | Corrupted `tk-lab-v1` (garbage, wrong shape, `__proto__`/`constructor` ids, bad nodes/edges) loads without errors and is re-saved as version 1; landing card and quick-note links open the right dashboard section |
 | `lab-phase2.js` | Seeds a 7-component design (Load Balancer, Cache, Queue, worker) and checks the node readouts, queue backlog, panels and run log |
 | `lab-traffic.js` | Lunch-and-dinner pattern with an autoscaled server group (status req/s through the evening, scale-out for the dinner peak and scale-in overnight, cost follows instances), Clients panel day chart, flash sale crashing a fixed group |
-| `learn-challenges.js` | Dashboard opens on Learn, level remembered, article analogies tick the reading step, `#lab/one-server` scores 0 stars then 3 after a fix, Challenges menu ★ count, Learn shows the stars |
+| `learn-challenges.js` | Dashboard starts with no tab selected (no Learn tab), article analogies, `#lab/one-server` scores 0 stars then 3 after a fix, Challenges ★ count, every dashboard tab renders (no error boundary) |
 | `tour-import.js` | Tour starts once (webdriver hidden), Next/Back/Done/Esc, Lab tour; Import: bad line blocks Create, the example imports as 7 components and runs, Export → re-import from the file |
 | `landing-lab.js` | Landing sections (hero, IND vs PAK Lab, library; no Did you know), hero buttons, the embedded Lab scores 0★, then add a CDN, rewire by dragging handles, 40 servers → 3★; the Did you know dashboard tab |
 | `landing-phone.js` | iPhone 13: the landing page's three-control IND vs PAK (no canvas; a swipe scrolls the page), 0★ → CDN + 40 servers → 3★, the Learn step, no overflow; a laptop still gets the full Lab |
 | `qa-scoring.js` | QA regressions: CDN-only on the landing Lab scores 0★ with a "never reach the Server" note; fixed CDN settings locked; Run starts at 19:00; 34 servers → ✓✓✕ and the panel ticks the right goals |
 | `qa-saving.js` | QA regressions: first landing visit creates one design; the full Lab still opens your own design afterwards; two tabs keep each other's changes; credit spent mid-run survives a reload; blocked storage still renders the dashboard |
 | `qa-a11y.js` | QA regressions: connect/remove arrows from the panel, menus close on Esc/outside, numbers after Stop, unknown challenge message, Back restores scroll, tour keeps focus, MENU aria-expanded + Esc |
+| `dashboard-home.js` | Dashboard start page: no tab selected, the three Library cards with diagrams, each card → its tab and first article/section; landing page has no cards; desktop + iPhone 13, no overflow |
 | `lab-cache-arrows.js` | Write-back cache pushed past 150 %: crash, writes lost, queries fall through to the database, back empty and warming up; arrows removed with ✕, the Arrow panel button and Delete, and still gone after a reload |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 

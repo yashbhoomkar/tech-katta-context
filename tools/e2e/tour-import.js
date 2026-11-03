@@ -10,7 +10,7 @@ const card=async()=>(await p.innerText('.tour-card')).split('\n').slice(0,2).joi
 await p.goto(B+'/dashboard/');await p.waitForSelector('.tour-card',{timeout:10000});console.log('auto tour:',await card());
 await p.click('.tour-next');await p.waitForTimeout(250);console.log('next:',await card());await p.click('.tour-act >> text=Back');await p.waitForTimeout(250);console.log('back:',await card());
 for(let i=0;i<6&&await p.locator('.tour-card').count();i++){await p.click('.tour-next');await p.waitForTimeout(200)}console.log('closed with Done:',await p.locator('.tour').count()===0);
-await p.reload();await p.waitForSelector('.learn-levels');await p.waitForTimeout(1500);console.log('no auto tour on return:',await p.locator('.tour').count()===0);
+await p.reload();await p.waitForSelector('.tabs');await p.waitForTimeout(1500);console.log('no auto tour on return:',await p.locator('.tour').count()===0);
 await p.click('.d-tour');await p.waitForSelector('.tour-card');await p.keyboard.press('Escape');await p.waitForTimeout(200);console.log('Esc closes:',await p.locator('.tour').count()===0);
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.tour-card',{timeout:10000});const n=(await card()).match(/\/ (\d+)/)[1];console.log('lab auto tour:',await card(),'| steps',n);
 await p.click('.tour-next');await p.click('.tour-next');await p.waitForTimeout(250);await p.screenshot({path:'/tmp/shots/tour-lab.png'});await p.click('.tour-skip');
@@ -25,5 +25,4 @@ await p.click('text=Designs ▾');const[dl]=await Promise.all([p.waitForEvent('d
 const j=JSON.parse(fs.readFileSync(file,'utf8'));console.log('export:',dl.suggestedFilename(),j.tk,j.design.nodes.length,'nodes');
 await p.click('text=Designs ▾');await p.click('text=Import…');await p.setInputFiles('.lab-imp-file input',file);await p.waitForTimeout(300);console.log('file summary:',(await p.innerText('.lab-imp-res')).split('\n')[0]);
 await p.click('text=Create design');await p.waitForTimeout(500);console.log('reimported nodes:',await p.locator('.react-flow__node').count());
-await p.waitForTimeout(600);await p.goto(B+'/dashboard/#learn');await p.click('.learn-level >> nth=2');await p.waitForTimeout(200);console.log('advanced import step:',await p.getAttribute('.learn-steps li >> nth=2','class'));
 console.log('errors:',JSON.stringify(errors));await br.close()})();
