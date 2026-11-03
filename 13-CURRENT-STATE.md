@@ -1393,3 +1393,21 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   e2e scripts: errors [].
 - Current production `main`: `6fba198cc604a60ba43d6335d0ba96b3c18ebadd`.
 
+## Sign in with Google, accounts in MongoDB — PR #141 (merged, 2026-11-03)
+
+- Owner: "We need to integrate sign in as google. But in which database…" → MongoDB Atlas
+  recommended; "Use mongodb and complete the task"; after two Firebase questions, "Stay with MongoDB
+  and finish it".
+- #141 (`9357004`; merge `04e1a2060e2a217ac04fed62a2acdc01869bb881`): backend `src/auth/` (Google
+  ID-token verification, accounts/sessions/lab in db `techkatta_app`, routes), deploy writes
+  `/etc/tech-katta/api.env` from GitHub secrets, frontend account control + Lab sync + `#privacy`.
+  Details in handover §6 "Sign-in".
+- Tests: backend 36/36 (real MongoDB via mongodb-memory-server), frontend 57/57; two-device browser
+  test `tools/e2e/account.js` with `auth-stack.mjs`: errors []. Caught in testing: oversized bodies
+  reset the connection (now 413), the Google button rendered before its container existed, and a
+  deletion on one device was undone by the other (the Lab re-stamped unchanged designs).
+- Release `20261103T141741Z-04e1a20`; production `/health` `auth: "off"`, `/v1/auth/config`
+  `{"enabled":false}`; all 20 e2e scripts errors [] on production.
+- **Sign-in is OFF until the owner adds `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET`** (handover §10 item 11).
+- Current production `main`: `04e1a2060e2a217ac04fed62a2acdc01869bb881`.
+

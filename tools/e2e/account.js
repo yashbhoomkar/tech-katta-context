@@ -1,6 +1,6 @@
 // Sign in with Google and account sync, across two "devices" (two browser profiles). Needs a local
 // stack: the API with sign-in on, MongoDB and a stand-in for Google's keys that can mint tokens
-// (see README: tools/e2e "Testing sign-in"). Google's own script is replaced by a stub whose button
+// (auth-stack.mjs; see README "Testing sign-in"). Google's own script is replaced by a stub whose button
 // hands the page a token minted for the test user. Usage: node account.js <site> <mint base>
 const{chromium}=require('playwright');const B=process.argv[2]||'http://localhost:5411',MINT=process.argv[3]||'http://127.0.0.1:5191';
 const GIS=`window.google={accounts:{id:{_cb:null,initialize(o){this._cb=o.callback},disableAutoSelect(){},renderButton(el){el.innerHTML='';const b=document.createElement('button');b.type='button';b.className='test-gsi';b.textContent='Sign in with Google';b.onclick=async()=>{const t=await (await fetch(window.__mint)).text();window.google.accounts.id._cb({credential:t})};el.appendChild(b)}}}};`;

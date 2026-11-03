@@ -26,11 +26,15 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
-## 1. Where things stand (Known, 2026-11-01)
+## 1. Where things stand (Known, 2026-11-03)
 
-- **tech-katta `main` = `6fba198`** (PR #140). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `04e1a20`** (PR #141). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261103T034218Z-6fba198` (release names end with the deployed commit).
+  `20261103T141741Z-04e1a20` (release names end with the deployed commit).
+- **Sign in with Google is built and deployed but OFF** (#141): `/health` shows `auth: "off"`,
+  `/v1/auth/config` → `{"enabled":false}`, no button on the site. It switches on when the owner adds
+  the GitHub secrets `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET` and reruns the backend
+  deploy (§6 "Sign-in", §10 item 11).
 - The site:
   1. **Landing** `/` (#131, then #134 per the owner) — nav Concepts / Components / Interview
      Questions / Lab (all open dashboard sections); hero "System design, explained." with the animated
@@ -170,6 +174,7 @@ content can ship in one PR.
 | 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
 | 11-03 | **Learn tab removed** (#139). **Dashboard start page: no tab selected** ("Trust me and do this"), showing the **Library cards moved from the landing page**; a card opens its tab and first article (#140) |
+| 11-03 | **Sign in with Google; user data in MongoDB Atlas** (owner: "Use mongodb and complete the task"; asked about Firebase twice, then "Stay with MongoDB and finish it"). Database `techkatta_app` on the existing Cluster0, separate DB user for the API. Saved per account: Lab designs, challenge stars, tour flags. Signed out = browser only, as before |
 | 11-02 | Owner: "Invoke another agent … in depth" → independent QA run (§8); "Continue" → all four fix groups built (scoring, saving, phones, the rest), incl. **phones get a three-control version of the landing IND vs PAK** |
 | 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
@@ -239,7 +244,7 @@ hash routes `#<section>`, `#<section>/<slug>`; `ArticlePage` fetches bodies; `Bl
 `vercel.json` rewrites `/dashboard`, `/health`. Legacy files were removed in #127. Root `README.md`
 describes layout, local run, tests and deploy.
 
-**Backend** (`tech-katta/backend`, Node 22, no dependencies): `/health` (incl. `content.release`),
+**Backend** (`tech-katta/backend`, Node 22; one dependency, `mongodb`, for sign-in; dev: `mongodb-memory-server`): `/health` (incl. `content.release`),
 `GET /v1/site`, `/v1/lab`, `/v1/articles[?section=]`, `/v1/articles/:slug`. Content routes: CORS `*`,
 `Cache-Control: public, max-age=60, stale-while-revalidate=600`, ETag/304, OPTIONS allows
 `If-None-Match`, 405 on writes, slug validation, 404 `no-store`. `src/content/store.js` +
@@ -263,8 +268,27 @@ the job. Public check requires the new release and `/v1/site`, `/v1/articles`, `
 pinned to SHAs. Manual rollback: see the root README (content-only vs code).
 Secrets: `VPS_SSH_KEY` set; **`VPS_HOST`/`VPS_USER`/`VPS_FINGERPRINT` not set** — the workflow falls
 back to hardcoded host/user until the owner adds them (§10).
-DNS via Cloudflare. MongoDB Atlas (project `6ac298d2a4428fd93e7b3f75`, cluster `Cluster0`, db
-`techkatta_history`) holds the commit ledger only.
+DNS via Cloudflare. MongoDB Atlas (project `6ac298d2a4428fd93e7b3f75`, cluster `Cluster0`): db
+`techkatta_history` holds the commit ledger; db `techkatta_app` holds accounts (once sign-in is on).
+
+**Sign-in** (#141; `backend/src/auth/`): `google.js` verifies Google ID tokens itself (RS256 via
+Google's JWKS with node:crypto; iss, aud = client ID, exp, `email_verified`; keys cached per
+Cache-Control, unknown kid refreshes at most once a minute). `accounts.js`: collections `users`
+(googleSub unique), `sessions` (only an HMAC-SHA256 of the token keyed with `SESSION_SECRET`; TTL index,
+30 days), `lab` (designs, deleted tombstones, progress). `routes.js`: `GET /v1/auth/config`,
+`POST /v1/auth/google`, `POST /v1/auth/signout`, `GET /v1/me` (`{user}` or `{user:null}`),
+`DELETE /v1/me` (deletes everything), `GET/POST /v1/me/lab` (merge in, merged out). Cookie
+`tk_session` HttpOnly; SameSite=Lax; Secure. Writes need `Origin: FRONTEND_ORIGIN` (403 otherwise),
+credentialed CORS only for that origin, per-IP limits (sign-in 30/10 min, Lab 120/min), 2 MB bodies.
+On only when all three settings exist (`authConfig`); `MONGODB_DB`, `GOOGLE_JWKS_URL`, `COOKIE_SECURE=0`
+are for tests/local. Deploy: "Prepare API settings" step base64-encodes + masks the secrets, the VPS
+writes them to root-only `/etc/tech-katta/api.env` (only if all three are set), loaded by the systemd
+drop-in `EnvironmentFile=-`. Frontend: `src/account.js` (state, Google Identity Services button,
+sync on sign-in / Lab open / 3 s after changes), `src/lab/merge.js` shared with the API (newest
+design wins, tombstones win over older copies, best stars kept), `AccountControl` in the dashboard
+header (avatar menu: saved status, Privacy, Sign out, Delete my account), `#privacy` page
+(`site.json` `account`, `privacy`). Gotcha fixed: the Lab used to re-stamp unchanged designs on
+flush, which resurrected deletions from another device; it now skips unchanged saves.
 
 ---
 
@@ -453,6 +477,15 @@ Safari, Firefox, screen readers, load.
    (`ssh-keyscan -t ed25519 <host> | ssh-keygen -lf -` gives the SHA256 fingerprint); then delete the
    hardcoded fallbacks in `deploy-backend.yml`. The IP is already in git history and old logs.
 9. ₹99 course questions unanswered (what it buys, free vs paid, payment gateway, refunds/GST).
+11. **Owner action to switch sign-in on** (#141): (a) Google Cloud console → APIs & Services →
+    Credentials → OAuth client ID, type Web, Authorized JavaScript origin `https://tech.katta.cc`
+    (consent screen: app name, support email, privacy link `https://tech.katta.cc/dashboard/#privacy`)
+    → secret `GOOGLE_CLIENT_ID`; (b) Atlas → Database Access → new user (e.g. `techkatta-api`,
+    readWrite on `techkatta_app` only) and Network Access → the VPS IP → secret `MONGODB_URI`
+    (`mongodb+srv://techkatta-api:<password>@cluster0.q5q8bgn.mongodb.net/`); (c) `SESSION_SECRET` from
+    `openssl rand -base64 48`; then Actions → "Deploy Tech Katta Backend" → Run workflow. Check
+    `/health` shows `auth: "on"`. Never put any of these in either repo. The privacy page has no
+    contact address yet (owner may want one).
 
 ---
 
@@ -498,6 +531,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #141 | Sign in with Google, accounts and Lab sync in MongoDB (off until the three secrets exist); privacy page |
 | #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
 
