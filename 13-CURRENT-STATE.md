@@ -1433,5 +1433,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - #146 (`9a074a6`; merge `c2b61cde5dd890b692cd8fe1be3f099391ac67fb`): article `components/caches`
   (COMPONENT // 05, Storage), figures `cache-aside`, `cache-warm`, Lab card to `read-heavy`. Release
   `20261104T132250Z-c2b61cd`; all 21 e2e scripts errors [] on production.
-- Current production `main`: `c2b61cde5dd890b692cd8fe1be3f099391ac67fb`.
+- #147 (`9ec3c96`; merge `b659aa1d8e5ea639eb631c0559e00621d34770df`): article `components/databases`
+  (COMPONENT // 06), figures `db-index`, `db-replicas`. Release `20261104T140224Z-b659aa1`; all 21 e2e
+  scripts errors [] on production (dashboard-home timed out once right after the deploy, then passed twice).
+- Current production `main`: `b659aa1d8e5ea639eb631c0559e00621d34770df`.
 
