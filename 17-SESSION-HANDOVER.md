@@ -28,9 +28,20 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-03)
 
-- **tech-katta `main` = `04e1a20`** (PR #141). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `5c67fdd`** (PR #142). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261103T141741Z-04e1a20` (release names end with the deployed commit).
+  `20261104T032850Z-5c67fdd` (release names end with the deployed commit).
+- **Components articles in progress** (owner 11-04: "Till then let's write articles in the components
+  section … Decide the sub sections, topics first and start writing one by one"). Subsections
+  (`site.json` `dashboard.groups`) and the plan, one article per PR, in this order:
+  - **Edge**: 1 Load balancers ✅ (#142), 2 CDNs, 3 API gateways and rate limiting.
+  - **Compute**: 4 App servers and autoscaling.
+  - **Storage**: 5 Caches (Redis), 6 Databases (SQL vs NoSQL, indexes, replicas, Multi-AZ), 7 Sharding and partitioning, 8 Object storage.
+  - **Messaging**: 9 Queues vs event streams (Kafka).
+
+  Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
+  figures (`frontend/src/figs/components.jsx`, ids also in `validate.js` `FIGS`), `type` cards for the
+  choices, costs and failure modes, In an interview, and a `lab` card. No narration until the owner says the content is final.
 - **Sign in with Google is built and deployed but OFF** (#141): `/health` shows `auth: "off"`,
   `/v1/auth/config` → `{"enabled":false}`, no button on the site. It switches on when the owner adds
   the GitHub secrets `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET` and reruns the backend
@@ -531,6 +542,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #142 | Components subsections, `lab` block, figures moved to `src/figs/`; article COMPONENT // 01 Load balancers |
 | #141 | Sign in with Google, accounts and Lab sync in MongoDB (off until the three secrets exist); privacy page |
 | #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
 | #131 | Landing: IND vs PAK challenge, "did you know" fact, less content (Quick Notes/Numbers off); Kokoro narration for the API article |
