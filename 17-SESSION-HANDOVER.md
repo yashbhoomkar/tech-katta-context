@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-04** (sign-in session: #148–#151). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-04** (sign-in session: #148–#153). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `c85ed0f`** (PR #151). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `e8349ac`** (PR #153). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -67,6 +67,17 @@ the owner · **Historical** = true once, not any more.
   - Sessions (#151): re-sign-in ends the browser's old session; `POST /v1/auth/signout-all` + menu
     "Sign out on all devices"; renewed to 30 days on use (at most once a day), never past 90 days
     after sign-in.
+
+  **Usage events (Decided, owner 11-04: "record every action for analysis"; #152, #153):**
+  `techkatta_app.events` `{name, at, visitor, userId?, device, page, props}`, TTL 13 months, linked to
+  the account when signed in (Delete my account deletes those). Allowlist in
+  `backend/src/auth/events.js` (page_view, article_open/finish/close, read_aloud, lab_open,
+  component_add, run_start, challenge_start, score, sign_in/out/out_all, delete_account); client
+  `frontend/src/analytics.js` (visitor id `tk-visitor` in localStorage, no cookie; batches every 5 s,
+  sendBeacon on hide). Nothing is sent with GPC/DNT on, or from automated browsers
+  (`navigator.webdriver`, so tools/e2e runs don't count). Privacy page section "How the site is used".
+  Test e2e: `tools/e2e/events.js`. 3 events from a check at 17:52 UTC (visitor
+  `hm3xs4xrh7tzr504wyfiq8ok`) are test traffic: exclude or delete.
 
   **Correction:** the VPS IP `129.121.133.47` is **not** in the Atlas network list (only
   `0.0.0.0/0` and `103.234.212.68`). Add it before removing `0.0.0.0/0`.
@@ -583,6 +594,8 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #153 | Analytics: no events from automated browsers |
+| #152 | Usage events for analysis (`/v1/events`, `techkatta_app.events`, 13 months) |
 | #151 | Accounts db from `ACCOUNTS_DB` (default `techkatta_app`); re-sign-in ends old session; sign out on all devices; sessions renew (30 d, cap 90 d) |
 | #150 | Deploy log: yes/no shape check of `MONGODB_URI` |
 | #149 | Sign in with Google on the landing page header + under the IND vs PAK score; dashboard header avatar only; one `ch-<challenge>` design across devices |
