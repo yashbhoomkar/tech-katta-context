@@ -28,13 +28,13 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-03)
 
-- **tech-katta `main` = `5c67fdd`** (PR #142). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `79d0ad4`** (PR #143). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261104T032850Z-5c67fdd` (release names end with the deployed commit).
+  `20261104T123107Z-79d0ad4` (release names end with the deployed commit).
 - **Components articles in progress** (owner 11-04: "Till then let's write articles in the components
   section … Decide the sub sections, topics first and start writing one by one"). Subsections
   (`site.json` `dashboard.groups`) and the plan, one article per PR, in this order:
-  - **Edge**: 1 Load balancers ✅ (#142), 2 CDNs, 3 API gateways and rate limiting.
+  - **Edge**: 1 Load balancers ✅ (#142), 2 CDNs ✅ (#143), 3 API gateways and rate limiting.
   - **Compute**: 4 App servers and autoscaling.
   - **Storage**: 5 Caches (Redis), 6 Databases (SQL vs NoSQL, indexes, replicas, Multi-AZ), 7 Sharding and partitioning, 8 Object storage.
   - **Messaging**: 9 Queues vs event streams (Kafka).
@@ -542,6 +542,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #143 | Components article COMPONENT // 02 CDNs (figures `cdn-edge`, `cdn-ttl`) |
 | #142 | Components subsections, `lab` block, figures moved to `src/figs/`; article COMPONENT // 01 Load balancers |
 | #141 | Sign in with Google, accounts and Lab sync in MongoDB (off until the three secrets exist); privacy page |
 | #134 | Landing embeds the real Lab (IND vs PAK challenge); Did you know → dashboard tab; Dashboard button; CDN component |
