@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-04** (sign-in session: #148–#154). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-04** (sign-in session: #148–#155). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `7c7fd10`** (PR #154). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `238f3db`** (PR #155). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -81,6 +81,12 @@ the owner · **Historical** = true once, not any more.
   export). Never commit or post the output. Privacy page section "Ads on Facebook and Instagram".
   e2e: `tools/e2e/landing-lock.js` (local stack); `landing-lab.js`/`landing-phone.js` answer
   `/v1/auth/config` with "off" so they can still drive the Lab on production.
+
+  **Box wording (Decided, owner 11-04, #155 — follow it exactly):** the opt-in box reads only
+  "I agree to the [Terms and conditions]" with a [Privacy policy] link under it. The Facebook/Instagram
+  sentences live in the Terms page (`/dashboard/#terms`, `site.json` `terms`, section "Updates on
+  Facebook and Instagram") and a short Privacy section. Don't put the Meta wording back on the box.
+  Consent version `2026-11-04.2`.
 
   **Usage events (Decided, owner 11-04: "record every action for analysis"; #152, #153):**
   `techkatta_app.events` `{name, at, visitor, userId?, device, page, props}`, TTL 13 months, linked to
@@ -608,6 +614,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #155 | Terms and conditions page; box reads "I agree to the Terms and conditions" |
 | #154 | Landing Lab locked until sign-in; opt-in for Meta ads; first/last name, country; Meta audience export |
 | #153 | Analytics: no events from automated browsers |
 | #152 | Usage events for analysis (`/v1/events`, `techkatta_app.events`, 13 months) |
