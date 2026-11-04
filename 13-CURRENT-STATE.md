@@ -1424,5 +1424,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - #143 (`97d0e9e`; merge `79d0ad4cc1d4fb959caa8c615e8f1c46711b5c05`): article `components/cdns` (COMPONENT // 02),
   figures `cdn-edge`, `cdn-ttl`, Lab card to `ind-vs-pak`. Release `20261104T123107Z-79d0ad4`; all 21 e2e
   scripts errors [] on production.
-- Current production `main`: `79d0ad4cc1d4fb959caa8c615e8f1c46711b5c05`.
+- #144 (`465eee0`; merge `b38343b77e4f029d45e98c5e8235d74bdce72a1a`): article `components/api-gateways`
+  (COMPONENT // 03), figures `gw-front`, `rate-limit`, Lab card to `first-rush`. Release
+  `20261104T124606Z-b38343b`; all 21 e2e scripts errors [] on production. Edge subsection complete.
+- Current production `main`: `b38343b77e4f029d45e98c5e8235d74bdce72a1a`.
 
