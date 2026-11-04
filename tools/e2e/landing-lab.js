@@ -3,7 +3,10 @@
 // the full Lab" link), the starting design scores 0 stars, then add a CDN, rewire the arrows by
 // dragging handles, add servers and score 3 stars. Also: the "Did you know" dashboard tab.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
+// The landing Lab is locked until sign-in (#154; tested by landing-lock.js). Here the API's sign-in
+// config is answered with "off", which opens the Lab exactly as when sign-in is disabled.
+const signInOff=c=>c.route('**/v1/auth/config',r=>r.fulfill({contentType:'application/json',body:'{"enabled":false}',headers:{'access-control-allow-origin':new URL(B).origin,'access-control-allow-credentials':'true'}}));
+(async()=>{const br=await chromium.launch();const ctx0=await br.newContext({viewport:{width:1440,height:900}});await signInOff(ctx0);const p=await ctx0.newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 await p.goto(B+'/');await p.waitForSelector('.hero h1');
 console.log('sections:',await p.$$eval('main > section',a=>a.map(s=>s.id||s.className.split(' ')[0]).join(', ')),'| fact on landing:',await p.locator('#fact').count());
