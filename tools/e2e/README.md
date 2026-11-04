@@ -37,6 +37,7 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `dashboard-home.js` | Dashboard start page: no tab selected, the three Library cards with diagrams, each card → its tab and first article/section; landing page has no cards; desktop + iPhone 13, no overflow |
 | `lab-cache-arrows.js` | Write-back cache pushed past 150 %: crash, writes lost, queries fall through to the database, back empty and warming up; arrows removed with ✕, the Arrow panel button and Delete, and still gone after a reload |
 | `account.js` | **Local only.** Sign in with Google across two browser profiles (Google's script stubbed; tokens minted by `auth-stack.mjs`): sign-in merges local designs up, the other device gets them, an edit and a deletion reach the first device, account menu, privacy page, sign out keeps local data, delete account. Usage: `node account.js <site> http://127.0.0.1:5191` |
+| `components.js` | Components section: subsections and their article counts, sidebar subs, every article opens with its figures, Lab cards open their challenge, 320 px: no overflow, figures fit, full screen opens |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 
 Testing sign-in (local; production has sign-in off until the owner adds the secrets)

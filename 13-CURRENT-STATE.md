@@ -1411,3 +1411,14 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - **Sign-in is OFF until the owner adds `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET`** (handover §10 item 11).
 - Current production `main`: `04e1a2060e2a217ac04fed62a2acdc01869bb881`.
 
+## Components section — PR #142 (merged, 2026-11-04)
+
+- Owner: write the Components articles; decide subsections and topics, then one by one.
+- #142 (`ea543b6`; merge `5c67fddb1a1ac0563a5b5618700fa6653a7fa0ef`): `dashboard.groups` (Edge, Compute,
+  Storage, Messaging; empty ones show "Coming soon."), article `group`, sidebar grouped, `lab` block
+  (card to the Lab or a challenge, validated), figure helpers in `frontend/src/figs/parts.jsx`,
+  component figures in `figs/components.jsx` (a backend test checks the ids match), article
+  `components/load-balancers` with figures `lb-spread` and `lb-algos`.
+- Release `20261104T032850Z-5c67fdd`; production: new `components.js` and all 20 other e2e scripts errors [].
+- Current production `main`: `5c67fddb1a1ac0563a5b5618700fa6653a7fa0ef`.
+
