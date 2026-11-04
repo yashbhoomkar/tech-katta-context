@@ -35,4 +35,8 @@ await A.click('.acct-btn');console.log('menu:',(await A.innerText('.acct-menu'))
 await A.click('.acct-btn');await A.click('.acct-menu >> text=Sign out');await A.waitForSelector('.acct-btn',{state:'detached'});console.log('A signed out; server:',await server(A),'| local kept:',await lab(A)||'(none)');
 B2.once('dialog',d=>d.accept());await B2.click('.acct-btn');await B2.click('.acct-menu >> text=Delete my account');await B2.waitForSelector('.acct-btn',{state:'detached'});console.log('B deleted account; server:',await server(B2));
 await A.goto(B+'/');await A.click('.header .test-gsi');await A.waitForSelector('.acct-btn');await A.waitForTimeout(1500);console.log('A signs in again (new empty account gets A\'s local copy):',await server(A));
+// sign out on all devices: B signs in too; A ends every session; both are signed out
+await B2.goto(B+'/');await B2.click('.header .test-gsi');await B2.waitForSelector('.acct-btn');await B2.waitForTimeout(1000);
+A.once('dialog',d=>d.accept());await A.click('.acct-btn');await A.click('.acct-menu >> text=Sign out on all devices');await A.waitForSelector('.acct-btn',{state:'detached'});
+await B2.reload();await B2.waitForSelector('.header');await B2.waitForTimeout(1500);console.log('after sign out on all devices: A server',await server(A),'| B server',await server(B2),'| B avatar',await B2.locator('.acct-btn').count());
 console.log('errors:',JSON.stringify(errors));await br.close()})();

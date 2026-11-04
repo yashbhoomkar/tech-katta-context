@@ -45,7 +45,7 @@ Testing sign-in (local stack; sign-in is on in production since 2026-11-04, and 
 cd tech-katta/backend && npm ci
 node /path/to/tools/e2e/auth-stack.mjs local-test.apps.googleusercontent.com /tmp/uri.txt &   # MongoDB + fake Google keys on :5191
 cd tech-katta && PORT=5181 HOST=127.0.0.1 CONTENT_DIR=$PWD/content FRONTEND_ORIGIN=http://localhost:5411 \
-  GOOGLE_CLIENT_ID=local-test.apps.googleusercontent.com MONGODB_URI="$(cat /tmp/uri.txt)" MONGODB_DB=tk_e2e \
+  GOOGLE_CLIENT_ID=local-test.apps.googleusercontent.com MONGODB_URI="$(cat /tmp/uri.txt)" ACCOUNTS_DB=tk_e2e \
   SESSION_SECRET=$(head -c 48 /dev/urandom | base64) COOKIE_SECURE=0 GOOGLE_JWKS_URL=http://127.0.0.1:5191/certs node backend/src/server.js &
 cd frontend && VITE_API_BASE=http://localhost:5181 npx vite build --outDir /tmp/authbuild && npx vite preview --outDir /tmp/authbuild --port 5411 --strictPort &
 cd /tmp && node /path/to/tools/e2e/account.js http://localhost:5411 http://127.0.0.1:5191
