@@ -28,15 +28,15 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-03)
 
-- **tech-katta `main` = `c2b61cd`** (PR #146). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `b659aa1`** (PR #147). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261104T132250Z-c2b61cd` (release names end with the deployed commit).
+  `20261104T140224Z-b659aa1` (release names end with the deployed commit).
 - **Components articles in progress** (owner 11-04: "Till then let's write articles in the components
   section … Decide the sub sections, topics first and start writing one by one"). Subsections
   (`site.json` `dashboard.groups`) and the plan, one article per PR, in this order:
   - **Edge**: 1 Load balancers ✅ (#142), 2 CDNs ✅ (#143), 3 API gateways and rate limiting ✅ (#144).
   - **Compute**: 4 App servers and autoscaling ✅ (#145).
-  - **Storage**: 5 Caches (Redis) ✅ (#146), 6 Databases (SQL vs NoSQL, indexes, replicas, Multi-AZ), 7 Sharding and partitioning, 8 Object storage.
+  - **Storage**: 5 Caches (Redis) ✅ (#146), 6 Databases ✅ (#147; owner asked to think the content through first: outline in the plan, scope excludes CAP lectures, storage engines, normal forms), 7 Sharding and partitioning, 8 Object storage.
   - **Messaging**: 9 Queues vs event streams (Kafka).
 
   Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
@@ -543,6 +543,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #147 | Components article COMPONENT // 06 Databases (figures `db-index`, `db-replicas`; Lab card to `#lab`, since the Lab has no replicas yet) |
 | #146 | Components article COMPONENT // 05 Caches (figures `cache-aside`, `cache-warm`) |
 | #145 | Components article COMPONENT // 04 App servers and autoscaling (figures `scale-out`, `autoscale`) |
 | #144 | Components article COMPONENT // 03 API gateways and rate limiting (figures `gw-front`, `rate-limit`; the rate-limit figure computes its marks with the three algorithms) |
