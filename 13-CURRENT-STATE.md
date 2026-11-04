@@ -1421,4 +1421,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   `components/load-balancers` with figures `lb-spread` and `lb-algos`.
 - Release `20261104T032850Z-5c67fdd`; production: new `components.js` and all 20 other e2e scripts errors [].
 - Current production `main`: `5c67fddb1a1ac0563a5b5618700fa6653a7fa0ef`.
+- #143 (`97d0e9e`; merge `79d0ad4cc1d4fb959caa8c615e8f1c46711b5c05`): article `components/cdns` (COMPONENT // 02),
+  figures `cdn-edge`, `cdn-ttl`, Lab card to `ind-vs-pak`. Release `20261104T123107Z-79d0ad4`; all 21 e2e
+  scripts errors [] on production.
+- Current production `main`: `79d0ad4cc1d4fb959caa8c615e8f1c46711b5c05`.
 
