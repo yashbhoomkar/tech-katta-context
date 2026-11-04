@@ -50,6 +50,7 @@ cd tech-katta && PORT=5181 HOST=127.0.0.1 CONTENT_DIR=$PWD/content FRONTEND_ORIG
 cd frontend && VITE_API_BASE=http://localhost:5181 npx vite build --outDir /tmp/authbuild && npx vite preview --outDir /tmp/authbuild --port 5411 --strictPort &
 cd /tmp && node /path/to/tools/e2e/account.js http://localhost:5411 http://127.0.0.1:5191
 ```
+`landing-lock.js` and `events.js` also need the MongoDB driver: `NODE_PATH=tech-katta/backend/node_modules:$(npm root -g)`.
 Use `localhost` (not 127.0.0.1) for both the site and the API so the cookie counts as same-site.
 Other scripts run against this stack log Google's "client ID is not found" (the fake ID); run them
 with sign-in off.
