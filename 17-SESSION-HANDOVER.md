@@ -442,8 +442,10 @@ Safari, Firefox, screen readers, load.
 
 ## 9. Environment facts and gotchas (cloud session)
 
-- **Blocked by the safety classifier**: MongoDB Atlas `remote-atlas-connect` (ledger not updated —
-  PRs #107–#126 missing); force-push; `rm -rf` inside `bash -c`; creating GitHub repos via the app
+- MongoDB Atlas: the owner added the MongoDB plugin on 11-04 and `remote-atlas-connect` now works
+  (it was blocked before). Ledger fully reconciled against main on 11-04 (see 11-MONGODB-COMMIT-LEDGER.md).
+  The cloud clone is **shallow**: run `git fetch --unshallow origin` before listing history.
+- **Blocked by the safety classifier**: force-push; `rm -rf` inside `bash -c`; creating GitHub repos via the app
   (owner creates them, then `add_repo`). Kokoro install was allowed once the owner chose it.
 - `pkill -f "<pattern>"` can kill its own shell (exit 144) when the same command line contains the
   pattern text — use a bracket (`vite prev[i]ew`, `src/server[.]js`) and run pkill as a separate
@@ -482,7 +484,7 @@ Safari, Firefox, screen readers, load.
     (#135–#138, see §8). Follow-ups worth offering: read replicas (last part of phase 2); more
     challenges; more articles; accounts (phase 5) for progress across devices; testing on real
     phones / iOS Safari; the four QA items left for the owner (§8).
-6. **MongoDB ledger** for PRs #107–#140.
+6. ~~MongoDB ledger for PRs #107–#140~~ done 11-04: all 504 commits on main are in the ledger (141 inserted). Record each new PR's SHAs after merging.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`

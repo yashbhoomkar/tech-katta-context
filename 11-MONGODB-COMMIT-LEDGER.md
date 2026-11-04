@@ -598,3 +598,42 @@ PR #100 remains open pending independent review and verification of CodeQL workf
 ## PR #100 merge ledger entry — 2026-10-29
 
 Inserted merge commit `30e8d10b5cb3fbf2963a694bbf972c1b98314657` into `techkatta_history.frontend_git_commits` with the concise merge description. The five source commits are also recorded above.
+
+## Full reconciliation against main — 2026-11-04
+
+The ledger had not been updated since the PR #106 merge (`3d3e40fd00c9d2d8868c6f7606b1d8e0ca76c75a`).
+Earlier cloud sessions were blocked from connecting (the safety classifier refused
+`remote-atlas-connect`); on 2026-11-04 the owner added the MongoDB plugin and asked for the remaining
+ledger updates, and the connection was allowed.
+
+Method:
+1. A full (unshallowed) clone of `tech-katta`: `git rev-list origin/main` gave 504 commits. The cloud
+   checkout is shallow by default, so a plain `git rev-list` there shows only ~150; run
+   `git fetch --unshallow origin` first.
+2. Every one of the 504 SHAs was checked against the union of `frontend_git_commits`,
+   `backend_git_commits` and the legacy `git_commits`, with an aggregation using `$setDifference`.
+3. Missing SHAs were classified by the files each commit changed (merges by their first-parent diff):
+   `frontend/` or `status-page/` → frontend collection; `backend/`, `content/`, `.github/`, `tools/` or
+   repo config → backend collection; both → both. The three "Merge main into the branch" syncs
+   (no changes of their own) went with their PR's area (frontend). `27ad6702` (`fix(backend)`, no
+   file changes of its own) went to backend.
+4. Values are the commit subject; merge commits are `Merge PR #N: ` plus the PR's own commit
+   subjects. The PR #141 source commit's message says "WIP … not merged"; its record says it was
+   merged, to avoid a misleading permanent entry.
+
+Found missing and inserted:
+- **99 commits after the PR #106 merge** (PRs #107–#147, their source commits and merges):
+  86 rows into `frontend_git_commits`, 62 into `backend_git_commits`.
+- **42 older commits** that the 2026-10-30 note had not covered: the internal Vercel control client
+  and CLI (2026-10-08), the VPS static-deploy and HTTPS workflow (2026-10-17), the reset of main for
+  a clean rebuild, the minimal API package with health endpoints and tests, the health dashboard and
+  status page (2026-10-21), and the Engineering Notebook / system design studio commits and PR #89
+  merge (2026-10-22/23): 20 rows into `frontend_git_commits`, 23 into `backend_git_commits`.
+
+Verification after insertion: all 504 SHAs on main are present in at least one canonical
+collection (`$setDifference` empty); counts are frontend 345 (was 239) and backend 344 (was 259),
+689 rows for 613 distinct keys; the duplicate-key aggregation returns zero groups in both
+collections. No existing rows were modified or deleted. Legacy `git_commits` was not written.
+
+From here, record each new PR's source and merge SHAs right after it merges (same rules).
+

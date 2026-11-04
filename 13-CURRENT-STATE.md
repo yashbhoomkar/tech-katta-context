@@ -1438,3 +1438,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
   scripts errors [] on production (dashboard-home timed out once right after the deploy, then passed twice).
 - Current production `main`: `b659aa1d8e5ea639eb631c0559e00621d34770df`.
 
+## MongoDB ledger reconciled — 2026-11-04
+
+All 504 commits on main are in `techkatta_history` (141 were missing: 99 after PR #106 and 42 older
+ones). Counts now: frontend 345, backend 344; zero duplicate keys. Details in 11-MONGODB-COMMIT-LEDGER.md.
+
