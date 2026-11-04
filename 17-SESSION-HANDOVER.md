@@ -26,11 +26,12 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
-## 1. Where things stand (Known, 2026-11-03)
+## 1. Where things stand (Known, 2026-11-04)
 
 - **tech-katta `main` = `b659aa1`** (PR #147). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
-  `20261104T140224Z-b659aa1` (release names end with the deployed commit).
+  `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
+  re-deploy of the same commit to load the sign-in secrets).
 - **Components articles in progress** (owner 11-04: "Till then let's write articles in the components
   section … Decide the sub sections, topics first and start writing one by one"). Subsections
   (`site.json` `dashboard.groups`) and the plan, one article per PR, in this order:
@@ -42,10 +43,24 @@ the owner · **Historical** = true once, not any more.
   Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
   figures (`frontend/src/figs/components.jsx`, ids also in `validate.js` `FIGS`), `type` cards for the
   choices, costs and failure modes, In an interview, and a `lab` card. No narration until the owner says the content is final.
-- **Sign in with Google is built and deployed but OFF** (#141): `/health` shows `auth: "off"`,
-  `/v1/auth/config` → `{"enabled":false}`, no button on the site. It switches on when the owner adds
-  the GitHub secrets `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET` and reruns the backend
-  deploy (§6 "Sign-in", §10 item 11).
+- **Sign in with Google is ON** since 2026-11-04 ~15:55 UTC (#141). The owner created the Google
+  OAuth client (Web, origin `https://tech.katta.cc`, no redirect URIs; client ID
+  `1084375438071-8ssv8q2lmh8odjb1vsms7va7bpcjmjn8.apps.googleusercontent.com`, public), the Atlas user
+  for the API, and the GitHub secrets `GOOGLE_CLIENT_ID`, `MONGODB_URI`, `SESSION_SECRET`.
+
+  A manual "Deploy Tech Katta Backend" run wrote them to `/etc/tech-katta/api.env`. `/health` shows
+  `auth: "on"` and `/v1/auth/config` returns `enabled: true` with the client ID.
+
+  **Not yet verified:**
+  - a real sign-in by the owner;
+  - the records in `techkatta_app` (indexes are created on the first sign-in);
+  - the e2e suite against production with the button showing.
+
+  **Owner to-dos:**
+  - Reset the Google client secret: it was pasted into a chat; the site never uses it.
+  - Decide whether to remove the Atlas `0.0.0.0/0` network entry; the VPS IP is in the list.
+  - The classifier blocked Claude from creating the Atlas database user, so the owner did it.
+
 - The site:
   1. **Landing** `/` (#131, then #134 per the owner) — nav Concepts / Components / Interview
      Questions / Lab (all open dashboard sections); hero "System design, explained." with the animated
@@ -491,15 +506,13 @@ Safari, Firefox, screen readers, load.
    (`ssh-keyscan -t ed25519 <host> | ssh-keygen -lf -` gives the SHA256 fingerprint); then delete the
    hardcoded fallbacks in `deploy-backend.yml`. The IP is already in git history and old logs.
 9. ₹99 course questions unanswered (what it buys, free vs paid, payment gateway, refunds/GST).
-11. **Owner action to switch sign-in on** (#141): (a) Google Cloud console → APIs & Services →
-    Credentials → OAuth client ID, type Web, Authorized JavaScript origin `https://tech.katta.cc`
-    (consent screen: app name, support email, privacy link `https://tech.katta.cc/dashboard/#privacy`)
-    → secret `GOOGLE_CLIENT_ID`; (b) Atlas → Database Access → new user (e.g. `techkatta-api`,
-    readWrite on `techkatta_app` only) and Network Access → the VPS IP → secret `MONGODB_URI`
-    (`mongodb+srv://techkatta-api:<password>@cluster0.q5q8bgn.mongodb.net/`); (c) `SESSION_SECRET` from
-    `openssl rand -base64 48`; then Actions → "Deploy Tech Katta Backend" → Run workflow. Check
-    `/health` shows `auth: "on"`. Never put any of these in either repo. The privacy page has no
-    contact address yet (owner may want one).
+11. ~~Owner action to switch sign-in on~~: done 11-04 (see §1). Left over:
+    - the owner's own sign-in test;
+    - resetting the Google client secret;
+    - the Atlas `0.0.0.0/0` entry;
+    - a contact address on the privacy page;
+    - optionally moving `GOOGLE_CLIENT_ID` out of secrets (it is public) and generating
+      `SESSION_SECRET` on the VPS, so only `MONGODB_URI` stays a secret.
 
 ---
 
