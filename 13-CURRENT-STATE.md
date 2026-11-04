@@ -1430,5 +1430,8 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 - #145 (`4d3bbaa`; merge `e038e3d16e3d816f08f3bb321313ca0f8dc67ffc`): article `components/app-servers`
   (COMPONENT // 04, Compute), figures `scale-out`, `autoscale`, Lab card to `flash-sale`. Release
   `20261104T125938Z-e038e3d`; all 21 e2e scripts errors [] on production.
-- Current production `main`: `e038e3d16e3d816f08f3bb321313ca0f8dc67ffc`.
+- #146 (`9a074a6`; merge `c2b61cde5dd890b692cd8fe1be3f099391ac67fb`): article `components/caches`
+  (COMPONENT // 05, Storage), figures `cache-aside`, `cache-warm`, Lab card to `read-heavy`. Release
+  `20261104T132250Z-c2b61cd`; all 21 e2e scripts errors [] on production.
+- Current production `main`: `c2b61cde5dd890b692cd8fe1be3f099391ac67fb`.
 
