@@ -40,7 +40,7 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `components.js` | Components section: subsections and their article counts, sidebar subs, every article opens with its figures, Lab cards open their challenge, 320 px: no overflow, figures fit, full screen opens |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 
-Testing sign-in (local; production has sign-in off until the owner adds the secrets)
+Testing sign-in (local stack; sign-in is on in production since 2026-11-04, and since #149 the button is in the landing page header, so account.js signs in on `/`)
 ```bash
 cd tech-katta/backend && npm ci
 node /path/to/tools/e2e/auth-stack.mjs local-test.apps.googleusercontent.com /tmp/uri.txt &   # MongoDB + fake Google keys on :5191
