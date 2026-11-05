@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#162). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#163). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `116f9e9`** (PR #162). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `472057d`** (PR #163). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -43,6 +43,14 @@ the owner · **Historical** = true once, not any more.
   Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
   figures (`frontend/src/figs/components.jsx`, ids also in `validate.js` `FIGS`), `type` cards for the
   choices, costs and failure modes, In an interview, and a `lab` card. No narration until the owner says the content is final.
+- **Concepts articles in progress** (owner 11-05: "More concepts"). Subsections
+  (`dashboard.groups.concepts`) and the plan, one article per PR:
+  - **Basics**: 1 APIs ✅ (grouped here in #163, body and narration unchanged), 9 Back-of-the-envelope numbers.
+  - **Data across machines**: 2 Replication ✅ (#163; figures `repl-sync`, `repl-failover`), 3 Consistency models, 4 CAP and PACELC in practice.
+  - **Staying up**: 5 Availability, SLOs and the nines, 6 Timeouts, retries and circuit breakers.
+  - **Agreeing**: 7 Consensus and leader election, 8 Distributed transactions (2PC, sagas).
+
+  Concept figures live in `frontend/src/figs/concepts.jsx` (`CONCEPT_FIGS`); ids also in `validate.js` `FIGS`.
 - **Sign in with Google is ON** since 2026-11-04 ~15:55 UTC (#141). The owner created the Google
   OAuth client (Web, origin `https://tech.katta.cc`, no redirect URIs; client ID
   `1084375438071-8ssv8q2lmh8odjb1vsms7va7bpcjmjn8.apps.googleusercontent.com`, public), the Atlas user
@@ -645,6 +653,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #163 | Concepts subsections; CONCEPT // 02 Replication (figures `repl-sync`, `repl-failover`) |
 | #162 | Components article COMPONENT // 09 Queues and event streams (figures `queue-vs-stream`, `consumer-lag`) |
 | #161 | Components article COMPONENT // 08 Object storage (figures `obj-upload`, `obj-tiers`) |
 | #160 | Components article COMPONENT // 07 Sharding and partitioning (figures `shard-key`, `hot-shard`) |
