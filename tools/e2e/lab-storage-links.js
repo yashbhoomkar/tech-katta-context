@@ -1,5 +1,5 @@
 const{chromium}=require('playwright');const B=process.argv[2];
-(async()=>{const br=await chromium.launch();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const errors=[];
 for(const [label,raw] of [["garbage","{not json"],["wrong shape",'{"designs":[1,2,3]}'],["proto ids",'{"current":"constructor","designs":{"__proto__":{"name":"P","nodes":[{"id":"a","type":"constructor"},{"id":"c","type":"client","x":0,"y":0}],"edges":[]}}}'],["bad design",'{"current":"a","designs":{"a":{"name":"Mine","nodes":[{"id":"c","type":"client","config":{"rps":"lots"}},{"id":"x","type":"alien"},{"id":"s","type":"server","x":300,"y":0,"config":{"size":"nope"}}],"edges":[{"from":"c","to":"s"},{"from":"s","to":"c"},{"from":"c","to":"ghost"}]}}}']]){
  const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();p.on('pageerror',e=>errors.push(label+': '+e.message));p.on('console',m=>m.type()==='error'&&errors.push(label+': '+m.text()));
  await p.addInitScript(([r])=>{if(!sessionStorage.getItem('seeded')){localStorage.setItem('tk-lab-v1',r);localStorage.setItem('tk-lab-speed','999');sessionStorage.setItem('seeded','1')}},[raw]);

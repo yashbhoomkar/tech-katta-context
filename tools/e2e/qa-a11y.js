@@ -4,7 +4,7 @@
 // unknown challenge link says so (L3), numbers stay after Stop (L18), MENU has aria-expanded and
 // closes on Esc (L24).
 const{chromium,devices}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.react-flow__node');console.log('lab h1:',await p.locator('.lab h1').innerText());
 // M6: select the database's left neighbour by keyboard-reachable panel: add a Cache, connect Server → Cache from the panel

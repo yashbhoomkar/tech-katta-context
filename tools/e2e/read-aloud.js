@@ -1,4 +1,4 @@
-const {chromium}=require('playwright');const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');(async()=>{const b=await chromium.launch();
+const {chromium}=require('playwright');const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');(async()=>{const b=await require('./open-site.js')(chromium).launch();
 const ctx=await b.newContext({viewport:{width:1440,height:900}});
 // fake speech engine: each utterance "ends" after 120 ms; log what was spoken
 await ctx.addInitScript(()=>{localStorage.setItem('tk-voice','fake');window.__spoken=[];const ss={speaking:false,_t:null,_u:null,getVoices:()=>[{lang:'en-IN',name:'fake'}],speak(u){window.__spoken.push({t:u.text,r:u.rate});this._u=u;this._t=setTimeout(()=>{this._u=null;u.onend&&u.onend()},400)},cancel(){clearTimeout(this._t);const u=this._u;this._u=null;u&&u.onerror&&u.onerror({error:'interrupted'})},pause(){},resume(){}};Object.defineProperty(window,'speechSynthesis',{value:ss});window.SpeechSynthesisUtterance=function(t){this.text=t}});

@@ -1,4 +1,4 @@
-const {chromium,devices}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await chromium.launch();
+const {chromium,devices}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await require('./open-site.js')(chromium).launch();
 const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab .react-flow__node');await p.evaluate(()=>localStorage.removeItem('tk-lab-v1'));await p.reload();await p.waitForSelector('.lab .react-flow__node');await p.waitForTimeout(500);
 const count=()=>p.locator('.react-flow__node').count();const item=t=>p.locator('.lab-item',{hasText:t});

@@ -1,4 +1,4 @@
-const {chromium}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await chromium.launch();const ctx=await b.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>m.type()==='error'&&errs.push(m.text()));
+const {chromium}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await require('./open-site.js')(chromium).launch();const ctx=await b.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>m.type()==='error'&&errs.push(m.text()));
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab .react-flow__node',{timeout:20000});await p.waitForTimeout(800);
 console.log('tabs:',(await p.locator('.tab').allInnerTexts()).join(' | '),'| nodes:',await p.locator('.react-flow__node').count(),'| edges:',await p.locator('.react-flow__edge').count());
 console.log('budget:',await p.innerText('.lab-budget span'));await p.screenshot({path:'/tmp/shots/lab1.png'});

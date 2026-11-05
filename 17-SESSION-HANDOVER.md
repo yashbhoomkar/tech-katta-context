@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#158). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#159). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `5431cba`** (PR #158). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `29af1b8`** (PR #159). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -82,15 +82,22 @@ the owner · **Historical** = true once, not any more.
   e2e: `tools/e2e/landing-lock.js` (local stack); `landing-lab.js`/`landing-phone.js` answer
   `/v1/auth/config` with "off" so they can still drive the Lab on production.
 
+  **Dashboard tabs need sign-in (Decided, owner 11-05, #159):** every tab and article shows
+  `PageLock` ("Sign in to open this", page title, required Terms box) over a blurred stand-in while
+  signed out; the real page isn't loaded (no fetch, no opened events), event `page_locked`. The start
+  page, Privacy and Terms stay open. Production e2e scripts wrap `chromium` with
+  `tools/e2e/open-site.js` (sign-in config answered "off"); `E2E_SIGNIN=on` disables that. Lock e2e:
+  `dashboard-lock.js` (local stack).
+
   **Analytics dashboard (owner 11-05, #158):** page `frontend/analytics/` (`src/admin.jsx`), live at
   `https://tech.katta.cc/analytics/`; meant for `https://analytics.katta.cc` (vercel.json redirects
   `/` there to `/analytics/`). Data from `GET /v1/admin/summary?days=` and `/v1/admin/audience.csv`,
   only for `users.role: "admin"`; `ANALYTICS_ORIGIN` gets read-only CORS. The dashboard uses the
   session from signing in on tech.katta.cc (same site). **Pending:** (1) the owner approves Vercel team
   access so Claude can add the domain to project `tech-katta` (prj_7GIELC6DNWbKJSaluZwo373Pn8ZF);
-  (2) DNS `analytics` CNAME `cname.vercel-dns.com` (DNS only) in Cloudflare; (3) the owner deleted
-  their account on 11-05 02:23 UTC while testing, so after they sign in again set `role: "admin"` on
-  their `techkatta_app.users` doc. Automated browsers send no events, so e2e runs don't show up.
+  (2) DNS `analytics` CNAME `cname.vercel-dns.com` (DNS only) in Cloudflare; (3) admin = the owner's Google-verified
+  address (#159: only its SHA-256 is in the code, `ADMIN_EMAIL_SHA256`; also `ADMIN_EMAILS` env or
+  `role: "admin"`), so the owner just signs in again (they deleted their account on 11-05 02:23 UTC). Automated browsers send no events, so e2e runs don't show up.
   e2e: `tools/e2e/analytics.js`; `events.js` now opens the locked landing Lab and clicks Lab buttons
   directly (the phone Lab palette sits under the sticky bar for Playwright).
 
@@ -636,6 +643,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #159 | Dashboard tabs locked while signed out; admin = owner's verified email (hash in code) |
 | #158 | Analytics dashboard (`/analytics/`, admin-only summary + Meta CSV API) for analytics.katta.cc |
 | #157 | Sign-in requires the Terms box (API too); Meta ads only from the account menu switch |
 | #156 | Backend hardening (lab rev, sign-in race, consent log, delete order, events storage cap, startup indexes); start page cards without panel |

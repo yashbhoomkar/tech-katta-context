@@ -2,7 +2,7 @@
 // (scales out for the dinner peak, cost rises), the day chart in the Clients panel, and a flash sale
 // that crashes a fixed-size group.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const N=(id,type,x,y,config={})=>({id,type,x,y,config});
 const design=(id,name,hours,client,server)=>({id,name,updated:Date.now(),credit:{spent:0,hours},nodes:[N("c","client",0,0,client),N("gw","apigw",220,0),N("api","server",440,0,server),N("db","database",660,0,{size:"db.r5.2xlarge"})],edges:[{from:"c",to:"gw"},{from:"gw",to:"api"},{from:"api",to:"db"}]});

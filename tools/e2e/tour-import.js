@@ -3,7 +3,7 @@
 // doesn't come back; the Tour button replays it, in the Lab too. Import: typed text becomes a laid-out
 // design that runs, mistakes are shown by line and block Create, Export downloads JSON that imports back.
 const{chromium}=require('playwright');const fs=require('fs');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const ctx=await br.newContext({viewport:{width:1440,height:900},acceptDownloads:true});
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const ctx=await br.newContext({viewport:{width:1440,height:900},acceptDownloads:true});
 await ctx.addInitScript(()=>{Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false})});
 const p=await ctx.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const card=async()=>(await p.innerText('.tour-card')).split('\n').slice(0,2).join(' ');

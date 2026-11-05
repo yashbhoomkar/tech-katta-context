@@ -3,7 +3,7 @@
 // design the full Lab opens, and a first visit creates one design; blocked storage doesn't blank
 // the dashboard.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const errors=[];const watch=p=>{p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));return p};
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const errors=[];const watch=p=>{p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));return p};
 const stored=p=>p.evaluate(()=>{const s=JSON.parse(localStorage.getItem('tk-lab-v1')||'{}');return{current:s.current,designs:Object.values(s.designs||{}).map(d=>({name:d.name,n:d.nodes.length,spent:Math.round(d.credit?.spent||0)}))}});
 // 1. first visit to the landing page: one design, current not set by the embed
 let ctx=await br.newContext({viewport:{width:1440,height:900}});let p=watch(await ctx.newPage());

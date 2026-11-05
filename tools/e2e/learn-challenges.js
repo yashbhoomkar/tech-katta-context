@@ -2,7 +2,7 @@
 // removed 11-03), an article shows its "In real life" analogies, a challenge opens from #lab/<id>, its
 // starting design scores 0 stars, a fixed design scores 3, and the Challenges button counts them.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 await p.goto(B+'/dashboard/');await p.waitForSelector('.tabs');await p.waitForTimeout(400);console.log('opens with no tab selected:',await p.locator('.tabs a.active').count()===0,'| empty:',(await p.locator('main .d-panel').count())===0,'| Learn tab:',await p.locator('.tabs a[href="#learn"]').count());
 await p.goto(B+'/dashboard/#concepts/api-types');await p.waitForSelector('.a-analogy');

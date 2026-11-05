@@ -3,7 +3,7 @@
 // panel shows the challenge's fixed settings locked; Run starts at 19:00 (the challenge's hour);
 // the challenge panel ticks the goals that were met, not the first N.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const L='#ind-vs-pak ';await p.goto(B+'/#ind-vs-pak');await p.waitForSelector(L+'.react-flow__node',{timeout:20000});await p.locator(L+'.lab-canvas').scrollIntoViewIfNeeded();await p.waitForTimeout(800);
 const n=id=>p.locator(`${L}.react-flow__node[data-id="${id}"]`);

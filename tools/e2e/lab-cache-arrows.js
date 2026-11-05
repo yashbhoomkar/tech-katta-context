@@ -3,7 +3,7 @@
 // warms up. Then arrows: click to select (✕ on the arrow, "Arrow" panel), remove with ✕, with the
 // panel button, and with the Delete key.
 const{chromium}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const p=await (await br.newContext({viewport:{width:1440,height:900}})).newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const N=(id,type,x,y,config={})=>({id,type,x,y,config});
 const d={id:"k",name:"Cache crash",updated:Date.now(),credit:{spent:0,hours:0},nodes:[N("c","client",0,0,{rps:16000}),N("s","server",240,0,{size:"c5.2xlarge",count:8,queriesPerRequest:2}),N("k","cache",480,0,{hitPct:80,writePct:50,writePolicy:"back"}),N("db","database",720,0,{size:"db.r5.2xlarge"})],
