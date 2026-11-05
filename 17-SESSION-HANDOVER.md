@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#168). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `fc3727f`** (PR #168). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `66c1660`** (PR #169). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -54,6 +54,11 @@ the owner · **Historical** = true once, not any more.
   on a stale chunk after a deploy, 15 s timeout on account calls. `tools/e2e/csp.js` opens every page
   type under the policy and lists violations (0 on production). `npm audit`: 0 in both apps.
   **When adding a third-party script, font, image host or API, add it to the CSP in `vercel.json`.**
+- **Chaos testing (owner 11-05, #169):** `tools/chaos` (README there). Backend experiments run on a
+  local copy with fault proxies in front of MongoDB and the Google key server; browser experiments are
+  safe on production. Found and fixed: MongoDB black hole made sign-ins wait ~40 s (now ~10 s via
+  `connectTimeoutMS`/`socketTimeoutMS`), Google keys unreachable hung sign-in 70 s+ (now 5 s). Results
+  20/20 backend, 11/11 browser. Re-run both after changes to the API, accounts or loading code.
 - **Concepts articles in progress** (owner 11-05: "More concepts"). Subsections
   (`dashboard.groups.concepts`) and the plan, one article per PR:
   - **Basics**: 1 APIs ✅ (grouped here in #163, body and narration unchanged), 9 Back-of-the-envelope numbers.
@@ -664,6 +669,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #169 | Chaos-test fixes: MongoDB socket timeouts, Google key timeout, fail-fast events |
 | #168 | Frontend hardening: CSP, HSTS, COOP; stale-chunk reload; account call timeouts |
 | #167 | Backend hardening: timeouts, body limits, limiter, shutdown, restart policy, JSON CSP |
 | #166 | Content review: three claims and one Quick Notes figure fixed |
