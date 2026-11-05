@@ -23,9 +23,14 @@ the owner · **Historical** = true once, not any more.
    (see `tools/e2e/README.md`). Both should end with `errors: []`.
 4. Sync your working branch from `main` in each repo (§3).
 5. Ask the owner nothing that §4 already decides. If the owner gives a task, do it end to end (§3).
-6. **Scheduled agents** (from 2026-11-05): one run every 2 hours, where two agents (Learner and Builder)
-   review production, debate, and one of them ships the top item; their to-do list and rules are in `18-TODO.md`.
-   A human-led session should check that file before starting work, so it doesn't collide with them.
+6. **Agents** (from 2026-11-05): a long-running worker session, "Tech Katta worker (Learner + Builder)",
+   runs cycles back to back: review production, the Learner and Builder debate, one of them ships the
+   top item, both check it live, then the next cycle starts ~2 minutes later. A scheduled task
+   ("Tech Katta worker: backup restart", every 2 hours) restarts the chain after a stop (usage limit,
+   empty queue, repeated failure). The worker has push access to tech-katta only: its to-do list and
+   rules are in **tech-katta/`agents/TODO.md`**; it lists handover rows under "Context repo pending" for
+   a human-led session to copy here. The ledger is filled automatically on merge. A human-led session
+   should read `agents/TODO.md` before starting work, so it doesn't collide with the worker.
 
 ---
 
@@ -643,6 +648,10 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #174 | Worker cycle 3: Q02 Design file storage and sync (Zotato Drive); figures sync-flow, file-chunks |
+| #173 | Worker cycle 2: Lab Import dialog keyboard fixes (focus trap, Escape, focus back on close) |
+| #172 | Worker cycle 1: URL shortener fixes (aliases vs counter codes; no cached 404s from replicas) |
+| #171 | Agents' to-do list moved into the site repo (`agents/TODO.md`); back-to-back cycles |
 | #170 | Interview Questions section: How to answer (Q00) and URL shortener (Q01); figs/questions.jsx; section groups |
 | #102–#106 | Landing rebuild: animated figures, tap-to-zoom, cards, Numbers section (earlier days) |
 | #107–#108 | Site made private, then reverted at the owner's request |
