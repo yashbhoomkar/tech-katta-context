@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#160). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#161). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `3afc6c5`** (PR #160). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `7aab864`** (PR #161). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -37,7 +37,7 @@ the owner · **Historical** = true once, not any more.
   (`site.json` `dashboard.groups`) and the plan, one article per PR, in this order:
   - **Edge**: 1 Load balancers ✅ (#142), 2 CDNs ✅ (#143), 3 API gateways and rate limiting ✅ (#144).
   - **Compute**: 4 App servers and autoscaling ✅ (#145).
-  - **Storage**: 5 Caches (Redis) ✅ (#146), 6 Databases ✅ (#147; owner asked to think the content through first: outline in the plan, scope excludes CAP lectures, storage engines, normal forms), 7 Sharding and partitioning ✅ (#160; figures `shard-key`, `hot-shard`), 8 Object storage.
+  - **Storage**: 5 Caches (Redis) ✅ (#146), 6 Databases ✅ (#147; owner asked to think the content through first: outline in the plan, scope excludes CAP lectures, storage engines, normal forms), 7 Sharding and partitioning ✅ (#160; figures `shard-key`, `hot-shard`), 8 Object storage ✅ (#161; figures `obj-upload`, `obj-tiers`).
   - **Messaging**: 9 Queues vs event streams (Kafka).
 
   Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
@@ -645,6 +645,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #161 | Components article COMPONENT // 08 Object storage (figures `obj-upload`, `obj-tiers`) |
 | #160 | Components article COMPONENT // 07 Sharding and partitioning (figures `shard-key`, `hot-shard`) |
 | #159 | Dashboard tabs locked while signed out; admin = owner's verified email (hash in code) |
 | #158 | Analytics dashboard (`/analytics/`, admin-only summary + Meta CSV API) for analytics.katta.cc |
