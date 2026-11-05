@@ -23,6 +23,9 @@ the owner · **Historical** = true once, not any more.
    (see `tools/e2e/README.md`). Both should end with `errors: []`.
 4. Sync your working branch from `main` in each repo (§3).
 5. Ask the owner nothing that §4 already decides. If the owner gives a task, do it end to end (§3).
+6. **Scheduled agents** (from 2026-11-05): a planner run (two debating agents) and an executor run
+   alternate every hour on a 2-hour cycle; their shared to-do list and rules are in `18-TODO.md`.
+   A human-led session should check that file before starting work, so it doesn't collide with them.
 
 ---
 
@@ -640,6 +643,7 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #170 | Interview Questions section: How to answer (Q00) and URL shortener (Q01); figs/questions.jsx; section groups |
 | #102–#106 | Landing rebuild: animated figures, tap-to-zoom, cards, Numbers section (earlier days) |
 | #107–#108 | Site made private, then reverted at the owner's request |
 | #109 | Dashboard page (from the owner's Stitch mock) |
