@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#165). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#168). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `eb85331`** (PR #165). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `fc3727f`** (PR #168). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -43,6 +43,17 @@ the owner · **Historical** = true once, not any more.
   Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
   figures (`frontend/src/figs/components.jsx`, ids also in `validate.js` `FIGS`), `type` cards for the
   choices, costs and failure modes, In an interview, and a `lab` card. No narration until the owner says the content is final.
+- **Review and hardening (owner 11-05: "validate the content, make the frontend and backend strong"),
+  #166–#168.** Content: every number and product claim re-checked; fixed the API-gateway monthly cost
+  (~$6,800 with volume tiers), two cache claims that presented the Lab's numbers as real limits, and
+  the Quick Notes round trip (now Mumbai ↔ US East ~200 ms). Backend: request/header timeouts checked
+  every 2 s (Node's default 30 s check let stalled clients linger), 64 KB bodies except the Lab sync,
+  a rate limiter that never forgets counted keys under a flood (`makeLimiter`), graceful shutdown,
+  exit on uncaught errors with systemd `Restart=always`, CSP on JSON. Frontend: CSP / HSTS / COOP in
+  `vercel.json` (no inline scripts; Google sign-in allowed via `accounts.google.com/gsi`), reload once
+  on a stale chunk after a deploy, 15 s timeout on account calls. `tools/e2e/csp.js` opens every page
+  type under the policy and lists violations (0 on production). `npm audit`: 0 in both apps.
+  **When adding a third-party script, font, image host or API, add it to the CSP in `vercel.json`.**
 - **Concepts articles in progress** (owner 11-05: "More concepts"). Subsections
   (`dashboard.groups.concepts`) and the plan, one article per PR:
   - **Basics**: 1 APIs ✅ (grouped here in #163, body and narration unchanged), 9 Back-of-the-envelope numbers.
@@ -653,6 +664,9 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #168 | Frontend hardening: CSP, HSTS, COOP; stale-chunk reload; account call timeouts |
+| #167 | Backend hardening: timeouts, body limits, limiter, shutdown, restart policy, JSON CSP |
+| #166 | Content review: three claims and one Quick Notes figure fixed |
 | #165 | CONCEPT // 04 CAP and PACELC in practice (figures `cap-split`, `pacelc`) |
 | #164 | CONCEPT // 03 Consistency models (figures `consistency-timeline`, `double-accept`) |
 | #163 | Concepts subsections; CONCEPT // 02 Replication (figures `repl-sync`, `repl-failover`) |
