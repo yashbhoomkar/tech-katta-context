@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-05** (sign-in session: #148–#156). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-05** (sign-in session: #148–#157). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -28,7 +28,7 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand (Known, 2026-11-04)
 
-- **tech-katta `main` = `e061309`** (PR #156). Production: `https://tech.katta.cc` (Vercel), API
+- **tech-katta `main` = `e816752`** (PR #157). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
   `20261104T155446Z-b659aa1` (release names end with the deployed commit; this one is a manual
   re-deploy of the same commit to load the sign-in secrets).
@@ -82,18 +82,19 @@ the owner · **Historical** = true once, not any more.
   e2e: `tools/e2e/landing-lock.js` (local stack); `landing-lab.js`/`landing-phone.js` answer
   `/v1/auth/config` with "off" so they can still drive the Lab on production.
 
-  **Box wording (Decided, owner 11-04, #155 — follow it exactly):** the opt-in box reads only
-  "I agree to the [Terms and conditions]" with a [Privacy policy] link under it. The Facebook/Instagram
-  sentences live in the Terms page (`/dashboard/#terms`, `site.json` `terms`, section "Updates on
-  Facebook and Instagram") and a short Privacy section. Don't put the Meta wording back on the box.
-  Consent version `2026-11-04.2`.
+  **Sign-in box (Decided, owner 11-05, option A, #157 — supersedes #155):** the box reads "I agree to
+  the [Terms and conditions] and the [Privacy policy]." It is unticked and **required**: the Google
+  button is greyed/blocked until ticked, and the API refuses a sign-in without `termsAccepted: true`
+  (`400 terms_required`); `users.terms {at, version}` records it. The Meta ads opt-in is **not** part
+  of sign-in: only the account menu switch, off until turned on (Claude declined making Meta sharing a
+  condition of sign-in; the owner chose A). The landing header shows a "Sign in" link to the card.
 
   **Backend hardening (#156, after an owner-requested review):** `lab.rev` optimistic concurrency
   (`accounts.updateLab` re-merges on a clash; docs without `rev` count as 0); sign-in retries the
   `googleSub` duplicate-key race; `users.adsConsentLog` (every change, last 50); delete removes the
   user before its sessions; usage events pause over 400 MB (`EVENTS_MAX_MB`, free cluster is 512 MB),
-  `/health` `storage: {mb, eventsPaused}`; indexes created at startup. Leftovers awaiting the owner's
-  OK to delete: the first sign-in's docs in the old `techkatta` db (users/sessions/lab with a
+  `/health` `storage: {mb, eventsPaused}`; indexes created at startup. Leftovers the owner OK'd to delete (11-05) but the Atlas MCP delete needs an in-app approval that
+  timed out twice, so they are still there: the first sign-in's docs in the old `techkatta` db (users/sessions/lab with a
   `googleSub`), and 3 test events (visitor `hm3xs4xrh7tzr504wyfiq8ok`).
   Start page: Library cards no longer sit inside a white panel.
 
@@ -623,6 +624,7 @@ monetisation, publishing policy or references.
 | #138 | QA fixes — keyboard connections, Back keeps your place, tour/menu focus, site basics |
 | #139 | Learn tab (Beginner / Intermediate / Advanced) removed; dashboard opened on Concepts |
 | #140 | Dashboard start page: no tab selected, the Library cards (moved from the landing page) |
+| #157 | Sign-in requires the Terms box (API too); Meta ads only from the account menu switch |
 | #156 | Backend hardening (lab rev, sign-in race, consent log, delete order, events storage cap, startup indexes); start page cards without panel |
 | #155 | Terms and conditions page; box reads "I agree to the Terms and conditions" |
 | #154 | Landing Lab locked until sign-in; opt-in for Meta ads; first/last name, country; Meta audience export |
