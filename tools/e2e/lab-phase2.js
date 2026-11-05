@@ -1,5 +1,5 @@
 const{chromium}=require('playwright');const B=process.argv[2];
-(async()=>{const br=await chromium.launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const ctx=await br.newContext({viewport:{width:1440,height:900}});const p=await ctx.newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const N=(id,type,x,y,config={})=>({id,type,x,y,config});
 const d={id:"p2",name:"Phase 2",updated:Date.now(),credit:{spent:0,hours:0},nodes:[N("c","client",0,100,{rps:500}),N("lb","lb",220,100),N("api","server",440,100,{size:"m5.large",count:2,queriesPerRequest:2}),N("k","cache",660,0,{hitPct:80,writePct:10}),N("db","database",880,0,{size:"db.t3.medium"}),N("q","queue",660,220),N("w","server",880,220,{size:"t3.medium",count:1,queriesPerRequest:1})],

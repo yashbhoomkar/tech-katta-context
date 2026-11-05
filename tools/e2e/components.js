@@ -1,7 +1,7 @@
 // Components section: subsections (dashboard.groups), sidebar subs, every Components article opens,
 // its figures fit at 320 px and open full screen, the "Try it in the Lab" card opens its challenge.
 // Usage: node components.js <site>
-const{chromium,devices}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await chromium.launch();const errors=[];
+const{chromium,devices}=require('playwright');(async()=>{const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const b=await require('./open-site.js')(chromium).launch();const errors=[];
 const page=async(opt)=>{const ctx=await b.newContext({deviceScaleFactor:1,...opt});await ctx.addInitScript(()=>{try{localStorage.setItem('tk-progress-v1',JSON.stringify({steps:{'tour:dashboard':true,'tour:lab':true}}))}catch{}});const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});return p};
 const p=await page({viewport:{width:1440,height:900}});
 await p.goto(B+'/dashboard/#components');await p.waitForSelector('.d-group');

@@ -1,4 +1,4 @@
-const {chromium}=require('playwright');(async()=>{const b=await chromium.launch();const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>m.type()==='error'&&errs.push(m.text()));
+const {chromium}=require('playwright');(async()=>{const b=await require('./open-site.js')(chromium).launch();const p=await b.newPage({viewport:{width:1440,height:900}});const errs=[];p.on('pageerror',e=>errs.push(e.message));p.on('console',m=>m.type()==='error'&&errs.push(m.text()));
 const B=(process.argv[2]||'https://tech.katta.cc').replace(/\/$/,'');const status=async()=>(await p.innerText('.lab-status')).replace(/\n/g,' | ');const credit=async()=>(await p.innerText('.lab-budget')).replace(/\n/g,' | ');
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab .react-flow__node');await p.evaluate(()=>localStorage.removeItem('tk-lab-v1'));await p.reload();await p.waitForSelector('.lab .react-flow__node');await p.waitForTimeout(600);
 for(let i=0;i<3;i++){await p.locator('.lab-item',{hasText:'Clients'}).click();await p.waitForTimeout(250)}

@@ -5,7 +5,7 @@ const{chromium,devices}=require('playwright');const B=process.argv[2]||'https://
 // The landing Lab is locked until sign-in (#154; tested by landing-lock.js). Here the API's sign-in
 // config is answered with "off", which opens the Lab exactly as when sign-in is disabled.
 const signInOff=c=>c.route('**/v1/auth/config',r=>r.fulfill({contentType:'application/json',body:'{"enabled":false}',headers:{'access-control-allow-origin':new URL(B).origin,'access-control-allow-credentials':'true'}}));
-(async()=>{const br=await chromium.launch();const ctx=await br.newContext(devices['iPhone 13']);await signInOff(ctx);const p=await ctx.newPage();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const ctx=await br.newContext(devices['iPhone 13']);await signInOff(ctx);const p=await ctx.newPage();const errors=[];
 p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 await p.goto(B+'/');await p.waitForSelector('#ind-vs-pak');await p.evaluate(()=>document.querySelector('#ind-vs-pak').scrollIntoView());await p.waitForSelector('.ll-flow',{timeout:20000});
 console.log('phone version:',await p.locator('.ll').count(),'| canvas:',await p.locator('#ind-vs-pak .react-flow').count());

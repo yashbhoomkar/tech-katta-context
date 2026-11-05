@@ -3,7 +3,7 @@
 // the section's first article (or the section while it has none). The landing page no longer has
 // the cards. Desktop and iPhone 13, no overflow.
 const{chromium,devices}=require('playwright');const B=process.argv[2]||'https://tech.katta.cc';
-(async()=>{const br=await chromium.launch();const errors=[];
+(async()=>{const br=await require('./open-site.js')(chromium).launch();const errors=[];
 for(const [n,o] of [["desktop",{viewport:{width:1440,height:900}}],["phone",devices['iPhone 13']]]){const p=await (await br.newContext(o)).newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 await p.goto(B+'/dashboard/');await p.waitForSelector('.d-start .card');await p.waitForTimeout(400);
 console.log(n,'| tab selected:',await p.locator('.tabs a.active').count(),'| h1:',await p.innerText('.d-start h1'),'| cards:',(await p.$$eval('.d-start .card h3',a=>a.map(x=>x.textContent))).join(', '),'| diagrams:',await p.locator('.d-start .mini svg').count(),'| overflow:',await p.evaluate(()=>document.documentElement.scrollWidth-document.documentElement.clientWidth));
