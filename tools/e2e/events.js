@@ -9,6 +9,8 @@ const ctx=await br.newContext({viewport:{width:390,height:844},isMobile:true,has
 await ctx.route('https://accounts.google.com/gsi/client',r=>r.fulfill({contentType:'text/javascript',body:'window.google={accounts:{id:{initialize(){},renderButton(){},disableAutoSelect(){}}}}'}));
 // the site sends nothing from automated browsers; pretend not to be one for this test
 await ctx.addInitScript(()=>Object.defineProperty(navigator,'webdriver',{get:()=>false}));
+// the landing Lab is locked until sign-in (#154); answer the sign-in config with "off" to open it
+await ctx.route('**/v1/auth/config',r=>r.fulfill({contentType:'application/json',body:'{"enabled":false}',headers:{'access-control-allow-origin':new URL(B).origin,'access-control-allow-credentials':'true'}}));
 const p=await ctx.newPage();p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>{if(m.type()==='error')errors.push(m.text())});
 const mongo=await MongoClient.connect(URI);const events=mongo.db(DB).collection('events');const start=new Date();
 await p.goto(B+'/');await p.waitForSelector('#ind-vs-pak');await p.locator('#ind-vs-pak').scrollIntoViewIfNeeded();await p.waitForSelector('.ll-score');
@@ -16,8 +18,8 @@ await p.check('.ll-check input');for(let i=0;i<6;i++)await p.click('.ll-step but
 await p.goto(B+'/dashboard/#concepts/api-types');await p.waitForSelector('article, .d-panel h1');await p.waitForTimeout(6000);
 await p.evaluate(()=>scrollTo(0,document.documentElement.scrollHeight));await p.waitForTimeout(800);
 await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab-name');await p.waitForTimeout(500);
-await p.click('.lab-item:has-text("Cache")');await p.waitForTimeout(300);
-const run=p.locator('.lab-btn.run');if(await run.isEnabled())await run.click();await p.waitForTimeout(500);
+await p.locator('.lab-item:has-text("Cache")').evaluate(b=>b.click());await p.waitForTimeout(300);
+const run=p.locator('.lab-btn.run');if(await run.isEnabled())await run.evaluate(b=>b.click());await p.waitForTimeout(500);
 await p.evaluate(()=>{Object.defineProperty(document,'visibilityState',{value:'hidden',configurable:true});document.dispatchEvent(new Event('visibilitychange'))});
 await p.waitForTimeout(2000);
 const got=await events.find({at:{$gte:new Date(start-60000)}}).sort({at:1}).toArray();
