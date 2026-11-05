@@ -93,11 +93,13 @@ the owner · **Historical** = true once, not any more.
   `https://tech.katta.cc/analytics/`; meant for `https://analytics.katta.cc` (vercel.json redirects
   `/` there to `/analytics/`). Data from `GET /v1/admin/summary?days=` and `/v1/admin/audience.csv`,
   only for `users.role: "admin"`; `ANALYTICS_ORIGIN` gets read-only CORS. The dashboard uses the
-  session from signing in on tech.katta.cc (same site). **Pending:** (1) the owner approves Vercel team
-  access so Claude can add the domain to project `tech-katta` (prj_7GIELC6DNWbKJSaluZwo373Pn8ZF);
-  (2) DNS `analytics` CNAME `cname.vercel-dns.com` (DNS only) in Cloudflare; (3) admin = the owner's Google-verified
-  address (#159: only its SHA-256 is in the code, `ADMIN_EMAIL_SHA256`; also `ADMIN_EMAILS` env or
-  `role: "admin"`), so the owner just signs in again (they deleted their account on 11-05 02:23 UTC). Automated browsers send no events, so e2e runs don't show up.
+  session from signing in on tech.katta.cc (same site). **Live (11-05):** `analytics.katta.cc` is attached to Vercel project
+  `tech-katta` and the Cloudflare DNS record exists (CNAME `analytics` → `fd6163fe67632484.vercel-dns-017.com`,
+  DNS only), created by Claude through the owner's **Cloudflare API** connector (mcp.cloudflare.com/mcp;
+  zone katta.cc `728eeeb7602aed996f47e1c4210e6491`). Vercel team access was approved by the owner
+  (the 10-minute limit is only on the approval link). Admin = the owner's Google-verified address
+  (#159: only its SHA-256 is in the code, `ADMIN_EMAIL_SHA256`; also `ADMIN_EMAILS` env or
+  `role: "admin"`); the owner just needs to sign in again (they deleted their account on 11-05). Automated browsers send no events, so e2e runs don't show up.
   e2e: `tools/e2e/analytics.js`; `events.js` now opens the locked landing Lab and clicks Lab buttons
   directly (the phone Lab palette sits under the sticky bar for Playwright).
 
