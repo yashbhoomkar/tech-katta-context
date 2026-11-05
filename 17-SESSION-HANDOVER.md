@@ -23,8 +23,8 @@ the owner · **Historical** = true once, not any more.
    (see `tools/e2e/README.md`). Both should end with `errors: []`.
 4. Sync your working branch from `main` in each repo (§3).
 5. Ask the owner nothing that §4 already decides. If the owner gives a task, do it end to end (§3).
-6. **Scheduled agents** (from 2026-11-05): a planner run (two debating agents) and an executor run
-   alternate every hour on a 2-hour cycle; their shared to-do list and rules are in `18-TODO.md`.
+6. **Scheduled agents** (from 2026-11-05): one run every 2 hours, where two agents (Learner and Builder)
+   review production, debate, and one of them ships the top item; their to-do list and rules are in `18-TODO.md`.
    A human-led session should check that file before starting work, so it doesn't collide with them.
 
 ---

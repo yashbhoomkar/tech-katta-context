@@ -1,14 +1,20 @@
 # 18 — The to-do list (run by the agents)
 
-Three scheduled agents improve tech.katta.cc every 2 hours. This file is how they talk to each other.
-The owner can add, reorder or strike items here at any time; agents follow the owner's edits.
+One scheduled run every 2 hours improves tech.katta.cc. In each run two agents work together: the
+*Learner* and the *Builder*. This file is how runs talk to each other. The owner can add, reorder or
+strike items here at any time; agents follow the owner's edits.
 
-## How a cycle works
+## How a run works (every 2 hours)
 
-| When (IST) | Who | What |
-|---|---|---|
-| Odd hours, :07 (1:07, 3:07 …) | **Planner** run: two agents, the *Learner* and the *Builder* | 1. Review production (what the executor shipped last, plus a fresh look at the site on phone and desktop). 2. Debate: each proposes up to 3 items, then critiques the other's; they agree a ranked list. 3. Update **Queue** and **Review notes** below. PR to this repo, merged. |
-| Even hours, :07 (2:07, 4:07 …) | **Executor** | Takes the top `ready` item, builds it, checks it, ships it to production, checks it live, records it. Marks it `done` (or `blocked` with the reason). |
+1. **Review production.** Both agents look at the site on phone (390 px) and desktop (1280 px): what
+   the last run shipped, plus a fresh look anywhere. Anything broken goes to the top of the Queue.
+2. **Debate.** Each proposes up to 3 items, then critiques the other's list. They agree a ranked
+   Queue and write their findings under Review notes.
+3. **Execute.** The agent whose lane the top `ready` item is in builds it (Learner: `content`,
+   Builder: `build`); the other reviews the change before it ships. Check, ship to production
+   (rule 4), check it live, record it.
+4. **Review together.** Both agents check the change in production. Fix or revert if it's wrong.
+5. Update this file (Queue status, Review notes, Done log) by PR to this repo, merged.
 
 - **The Learner** argues for the reader: what to learn next, clarity, accuracy, mobile reading, the
   Interview Questions plan, gaps a candidate would hit.
@@ -32,8 +38,8 @@ The owner can add, reorder or strike items here at any time; agents follow the o
    for the owner, marked `waiting for owner` here.
 5. No payments, pricing pages or paid accounts. No new paid services. Backend chaos tests never
    target production (frontend chaos tests are safe: they fault the test browser only).
-6. One item per executor run, kept small enough to finish and verify in about 45 minutes. If an
-   earlier executor PR is still open and unfinished, finish or close that first.
+6. One item per run, kept small enough to finish and verify within the run. If an earlier run's PR
+   is still open and unfinished, finish or close that first (unless it's `waiting for owner`).
 7. If production is broken after a deploy, revert that PR (a revert PR, merged) before anything else,
    and note it in Review notes.
 8. Copy is human and short. Mobile first. Check screenshots at 390 px and 1280 px before shipping.
@@ -76,6 +82,6 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - 2026-11-05 — Interview Questions started: How to answer + URL shortener live, checked on phone and
   desktop (PR #170).
 
-## Done log (executor writes here, newest first)
+## Done log (newest first)
 
 - 2026-11-05 — PR #170: Q00 How to answer, Q01 URL shortener.
