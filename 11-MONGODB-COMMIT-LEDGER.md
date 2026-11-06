@@ -692,3 +692,12 @@ Once checked, replace this heading's "NOT verified, pending" with the result and
 | #220 | merge | `c9563216957ed0235606416a920ef06cfea2aced` | Merge PR #220: every Interview Question in a LeetCode-style workspace (2026-11-06) |
 
 #220 touches frontend, backend (validate.js, test) and content: record it in both collections.
+
+### PRs #221–#223 (2026-11-07, 03:00 IST): NOT recorded, pending (Atlas unreachable from this session)
+
+Source commits new in each PR, then the squash merge. #221 and #223 touch frontend, backend and content
+(both collections); #222 content and tools (backend collection).
+
+- #221: `9c86df52f678eac92f7a36e43ffd6da4b9695462` (merge main into branch), `24c50c779853f4f150b27772e32528a316916846` (judge, WIP Q01), `f13beb6aacdd5efbdfa21501a47f9b61b68bf036` (suites for 22 questions, LB health checks), `3efd9bfedfe65dee3d2ddcd7b94493f81b48e520` (API without calibration designs; to-do), `d53c955a4d341c25cad22c90f0495c7047b3af5b` (reset, prev/next, timer), `3cecbdc016629c54a6464ae32473fa86a3d86e60` (redundancy label); merge `996dbd13db41293c629d3175213da5beb05715da`
+- #222: `5c2a56e3e5256175a91317be2cd3cb336c336163` (merge main into branch), `5f8a6674392d005cc98015149f3b213a42a7fabe` (tools/practice), `a7d4eaf33049a2c162740f754707f3dc650d8298` (landing copy); merge `18fa7a720fad7423f1d395a875da7e919aee9d99`
+- #223: `222fda3239154a0248d21db0a97ed261a77cdd0a` (merge main into branch), `ea1b2d56fe02859be64a08de0b8bf5e27061b60f` (server-side judging); merge `1b0e213af92b6c29b6a328f70f57d1d06fc70982`
