@@ -702,3 +702,4 @@ Source commits new in each PR, then the squash merge. #221 and #223 touch fronte
 - #222: `5c2a56e3e5256175a91317be2cd3cb336c336163` (merge main into branch), `5f8a6674392d005cc98015149f3b213a42a7fabe` (tools/practice), `a7d4eaf33049a2c162740f754707f3dc650d8298` (landing copy); merge `18fa7a720fad7423f1d395a875da7e919aee9d99`
 - #223: `222fda3239154a0248d21db0a97ed261a77cdd0a` (merge main into branch), `ea1b2d56fe02859be64a08de0b8bf5e27061b60f` (server-side judging); merge `1b0e213af92b6c29b6a328f70f57d1d06fc70982`
 - #224: `5f5e4a43fc838b2cdfc3f6b02b23b640594f1c4a` (merge main into branch), `f5edde277decd7ddc6f821192bc66b2bd67e5164` (review fixes, analytics, Pick one, badge); merge `974113ce99f79c391a1aa13a9adab5deb3ed5c0f` (frontend + backend + content)
+- #225: `5de81b5d960520341d03bd25e36f84bf48e2c933` (merge main into branch), `1e1afbf7b8827aadf185ec7021d57c583b6b8d26` (results panel); merge `af15e49ea179ab8a0b60d234dd2dda2b9cb2a2ae` (frontend)
