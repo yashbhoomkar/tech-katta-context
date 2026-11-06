@@ -637,3 +637,12 @@ collections. No existing rows were modified or deleted. Legacy `git_commits` was
 
 From here, record each new PR's source and merge SHAs right after it merges (same rules).
 
+
+### PRs #176–#195 ledger reconciliation (2026-11-06)
+
+`frontend_git_commits` stopped at PR #175: a note in `agents/TODO.md` wrongly said the ledger now
+fills itself on merge. Both canonical collections were checked for the source and merge SHAs of PRs
+#176–#195 (taken from the GitHub API); none was present. 51 records were inserted into
+`frontend_git_commits` (31 source commits and 20 merge commits, values `<commit subject> (PR #n, date)`
+and `Merge PR #n: <title> (date)`). Current count: 445. Record each new PR's SHAs right after merging.
+

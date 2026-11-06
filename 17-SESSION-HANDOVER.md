@@ -34,7 +34,29 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
-## 1. Where things stand (Known, 2026-11-04)
+## 1. Where things stand
+
+**Update 2026-11-06** (the 11-04 notes below are kept for history):
+
+- **tech-katta `main` = `d2bd5e3`** (PR #195). Content release on the VPS `20261106T050506Z-0626da4`
+  (#194). Production frontend on Vercel is at `352cf3f` (#192): Vercel's Hobby limit of 100
+  deployments a day was hit again at about 03:30 UTC, so #193 (CSS only) is merged but not deployed.
+  Content-only changes still go live through the backend deploy. Every push builds previews for both
+  Vercel projects; `tech-katta-status` now has an Ignored Build Step (`git diff --quiet HEAD^ HEAD -- .`).
+- **Site**: Concepts (5 articles), Components (9), Interview Questions Q00–Q07, Quick Notes, Did you
+  know, the Lab (9 challenges), Practice mode (45-minute clock with step budgets and checklists).
+- **status.katta.cc** had no DNS record; a CNAME to Vercel was added in Cloudflare on 11-06 and it serves.
+- **Vercel Web Analytics** is on (#191).
+- **Agents**: the worker runs cycles from `agents/TODO.md` in the site repo, chained with a 2-minute
+  `send_later`, with a 2-hour backup schedule. Owner-approved rules (#192): re-plan every 5th cycle,
+  one reviewer, push each PR once, at most 8 cycles a day, stop when nothing valuable is left.
+- **Ledger**: it does not fill itself. #176–#195 were missing and were added on 11-06 (51 records);
+  `frontend_git_commits` holds 445. Record each PR's SHAs after merging.
+- **Open with the owner**: positioning as "LeetCode for system design" (a Problems page listing every
+  question and challenge with stars, more gradable challenges, volume before using the label;
+  don't use another company's brand in the site's name or ads); public previews; the paywall.
+
+### 2026-11-04 notes
 
 - **tech-katta `main` = `66c1660`** (PR #169). Production: `https://tech.katta.cc` (Vercel), API
   `https://tech-api.katta.cc` (VPS behind Cloudflare). Content release on the VPS:
@@ -619,6 +641,7 @@ Safari, Firefox, screen readers, load.
     challenges; more articles; accounts (phase 5) for progress across devices; testing on real
     phones / iOS Safari; the four QA items left for the owner (§8).
 6. ~~MongoDB ledger for PRs #107–#140~~ done 11-04: all 504 commits on main are in the ledger (141 inserted). Record each new PR's SHAs after merging.
+   11-06: PRs #176–#195 had been missed (a note wrongly said the ledger filled itself on merge); 51 records added.
 7. CodeRabbit never reviewed PRs #122–#126 or #128 (rate-limited) — request a review on a later PR
    touching `frontend/src/lab/` (#127 was reviewed; 5 findings fixed).
 8. **Owner action**: add GitHub secrets `VPS_HOST`, `VPS_USER` and `VPS_FINGERPRINT`
@@ -648,6 +671,27 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #195 | To-do list: per-question Lab challenges settled (Q03/Q04/Q07 would repeat; fair Q05 waiting room needs the engine to forbid splitting the database); Q08 next |
+| #194 | Lab: `monday-sync` (Q02), the first queue challenge; "Monday 10 am" traffic pattern |
+| #193 | Landing page focus outline on links and buttons (merged; waits for Vercel to deploy) |
+| #192 | To-do list: owner-approved plan and leaner cycles (re-plan every 5th cycle, one reviewer, push once, 8 cycles a day) |
+| #191 | Vercel Web Analytics on landing and dashboard (owner's request; skipped for GPC/DNT/automated browsers; privacy page updated) |
+| #190 | To-do list: Vercel deployment limit hit (100/day on Hobby), chain stopped |
+| #189 | Q07 Design a news feed; figures feed-fanout, feed-hybrid |
+| #188 | Practice mode v2: summary lists the checks not ticked |
+| #187 | Q06 Design photo sharing |
+| #186 | Library cards: footers line up at every width (container query) |
+| #185 | Q05 Design match ticket booking (waiting room, seat holds) |
+| #184 | Practice mode v1: answer an Interview Question against the 45-minute clock |
+| #183 | Concept 05: timeouts, retries and circuit breakers |
+| #182 | Library cards: meta and footer text up to 11px |
+| #181 | Q04 Design 10-minute grocery delivery |
+| #180 | Lab challenge `sms-link` (URL shortener) |
+| #179 | Dashboard: no brief overflow crossing the 900 px breakpoint |
+| #178 | Unknown figure ids draw nothing (no wrong figure while Vercel lags the API) |
+| #177 | Q03 Design restaurants near me |
+| #176 | To-do list: business plan for the paid launch (₹99/month, ₹249/year) |
+| #175 | Skip-to-content link and visible keyboard focus |
 | #174 | Worker cycle 3: Q02 Design file storage and sync (Zotato Drive); figures sync-flow, file-chunks |
 | #173 | Worker cycle 2: Lab Import dialog keyboard fixes (focus trap, Escape, focus back on close) |
 | #172 | Worker cycle 1: URL shortener fixes (aliases vs counter codes; no cached 404s from replicas) |
@@ -739,6 +783,14 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
 - Mistakes to avoid: replying on a PR thread with a commit SHA before the commit existed (post a
   correction if it happens); typing SHAs from memory; force-push attempts; pkill killing its own
   shell; testing new content against the production API by forgetting `VITE_API_BASE`.
+
+- **11-05/11-06**: worker cycles #175–#195 (Interview Questions Q03–Q07, Practice mode, Concept 05,
+  Lab `sms-link` and `monday-sync`). Vercel's daily deployment limit stopped deploys twice (#189 and
+  #193). status.katta.cc fixed by adding its missing DNS record. Owner approved leaner cycles (#192).
+- Mistakes to avoid: assuming the MongoDB ledger fills itself on merge (it didn't, 20 PRs were
+  missed); building a Lab challenge before checking that the simulator rewards the article's lesson
+  (the Q05 waiting room lost to two big databases); pushing many small PRs in a day (each push costs
+  two Vercel deployments).
 
 ---
 
