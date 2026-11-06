@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-06, 17:00 IST** (ledger and docs through #213). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-06, 17:40 IST** (ledger and docs through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -36,19 +36,21 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
-**Update 2026-11-06, 17:00 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+**Update 2026-11-06, 17:40 IST** (newest; the earlier updates and the 11-04 notes are kept below):
 
-- **tech-katta `main` = `a04a3ca`** (PR #213); content release `20261106T091819Z-a04a3ca` on the VPS
-  (36 articles). Vercel's daily limit still blocks frontend deploys: production frontend is at `426cba2`
-  (#198). Merged but not yet live on Vercel: #199–#213 (their figures and the landing "What's inside"
-  block). Their text is live through the API; unknown figure ids are skipped. Live-check them on the next deploy.
-- **Since 13:35 IST**: Concept 07 transactions across services (#204, completes Concepts › Agreeing) and
-  Interview Questions Q11–Q19 (#205–#213): notification service, search autocomplete, payment system, job
+- **tech-katta `main` = `a7e4093`** (PR #215); content release `20261106T120325Z-a7e4093` on the VPS
+  (37 articles). **Vercel deploys again**: the limit cleared and #199–#214 went live at 17:26 IST;
+  production frontend is now `a7e4093` (#215). The figures for Q08–Q20 and Concepts 06–07 and the landing
+  "What's inside" block are live.
+- **Since 13:35 IST**: Concept 07 transactions across services (#204, completes Concepts › Agreeing),
+  Interview Questions Q11–Q20 (#205–#214): notification service, search autocomplete, payment system, job
   scheduler, web crawler, live leaderboard, ad click counting, distributed key-value store, shared document
-  editor. Each with two figures and a reviewer pass whose fixes landed before merging.
-- **Site**: Interview Questions Q00–Q19, Concepts 7, Components 9, Lab 9 challenges, Practice mode, Problems page.
-- **Ledger**: complete through #213. Checked on 11-06: all 31 SHAs of #204–#213 (21 source commits and 10
-  squash merges) are in `frontend_git_commits` (496 rows); the worker recorded them after each merge.
+  editor, rider assignment for food delivery. Each with two figures and a reviewer pass whose fixes landed
+  before merging. #215: the landing hero button "Start practising" opens Problems; Problems in the landing nav.
+- **Site**: Interview Questions Q00–Q20, Concepts 7, Components 9, Lab 9 challenges, Practice mode, Problems page.
+- **Ledger**: complete through #215. Checked on 11-06 against the PR heads and `main`: all 36 SHAs of
+  #204–#215 (24 source commits, 12 squash merges) are in `frontend_git_commits` (501 rows); the worker
+  recorded them after each merge.
 
 **Update 2026-11-06, 13:35 IST**:
 
@@ -700,6 +702,8 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #215 | Landing: hero "Start practising" opens Problems; Problems in the landing nav (`site.json`) |
+| #214 | Q20 Design rider assignment for food delivery; figures dispatch, offer-states |
 | #213 | Q19 Design a shared document editor; figures doc-flow, transform |
 | #212 | Q18 Design a distributed key-value store; figures ring, quorum |
 | #211 | Q17 Design ad click counting; figures click-flow, windows |
@@ -838,9 +842,10 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
   "What's inside" (#202), Concept 06 consensus (#203). Each content PR had a reviewer agent; each review
   found real holes (a resent swipe making a second match; tests leaking into the judge's sandbox;
   duplicate chat sequence numbers; an overstated election rule), all fixed before merging.
-- **11-06 evening (IST)**: Concept 07 transactions across services (#204) and Q11–Q19 (#205–#213), one
-  per cycle, all merged while Vercel stayed rate-limited (text live via the API, figures wait for the
-  next frontend deploy). Reviews again caught real errors (UPI retry needing a second approval, schedulers
+- **11-06 evening (IST)**: Concept 07 transactions across services (#204) and Q11–Q20 (#205–#214), one
+  per cycle, merged while Vercel was rate-limited (text live via the API); the limit cleared and
+  #199–#214 deployed at 17:26 IST, then #215 pointed the landing page at Problems.
+  Reviews again caught real errors (UPI retry needing a second approval, schedulers
   missing expired leases, late clicks needing rewritten rows, tie-breaks that lose writes).
 - Mistakes to avoid: assuming the MongoDB ledger fills itself on merge (it didn't, 20 PRs were
   missed); building a Lab challenge before checking that the simulator rewards the article's lesson

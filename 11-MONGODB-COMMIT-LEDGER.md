@@ -652,7 +652,7 @@ Recorded right after each merge (source commits and the squash merge), in `front
 A check on 11-06 found all 8 merge records present (#196–#203).
 
 
-### PRs #204–#213 (2026-11-06)
+### PRs #204–#215 (2026-11-06)
 
 Recorded by the worker right after each merge, in `frontend_git_commits`. A check on 11-06 against the
-PR heads and `main` found all 31 SHAs present (21 source commits, 10 squash merges). Count: 496.
+PR heads and `main` found all 36 SHAs present (24 source commits, 12 squash merges). Count: 501.
