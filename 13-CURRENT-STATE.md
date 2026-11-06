@@ -1453,3 +1453,11 @@ Dated sections for #148–#215 were not written here; `17-SESSION-HANDOVER.md` �
 - Vercel production frontend: `a7e4093` (#215); #216 and #218 not built (daily limit). Q21/Q22 render
   without their figures until the next deploy.
 - Ledger for #216–#218 unverified (Atlas unreachable from this session); see 11-MONGODB-COMMIT-LEDGER.md.
+
+## Production snapshot — 2026-11-07, 03:00 IST (after PR #223)
+
+- `main` = `1b0e213af92b6c29b6a328f70f57d1d06fc70982`; release `20261106T212513Z-1b0e213`; Vercel at #223.
+- Problems are judged: 22 test suites, Run/Submit, graded written answers, hints, submissions, server-side
+  re-judging with acceptance rates. Details in `17-SESSION-HANDOVER.md` §1 (03:00 IST).
+- `/v1/problems/stats` live (empty until signed-in submissions arrive); `POST /v1/me/submissions` 401 when
+  signed out. A real signed-in submission has not been tried yet.

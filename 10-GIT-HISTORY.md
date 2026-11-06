@@ -882,3 +882,6 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #218: Q22 Design menu search; merge `863069bb65220b07f749a9a322dd67af4daa7300`, content release `20261106T122632Z-863069b`; frontend figures wait for Vercel.
 - PR #219: contents column beside articles; merge `af9d7b4d7ba3bdd017557e815514141489d28635`.
 - PR #220: LeetCode-style workspace for every Interview Question; merge `c9563216957ed0235606416a920ef06cfea2aced`.
+- PR #221: the judge and test suites for all 22 problems; merge `996dbd13db41293c629d3175213da5beb05715da`.
+- PR #222: landing copy, tools/practice; merge `18fa7a720fad7423f1d395a875da7e919aee9d99`.
+- PR #223: server-side judging, acceptance rates; merge `1b0e213af92b6c29b6a328f70f57d1d06fc70982`.

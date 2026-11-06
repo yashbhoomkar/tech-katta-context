@@ -341,3 +341,13 @@ This is not optional when the change is part of the application commit synchroni
 - Saved Lab data goes through `frontend/src/lab/store.js` (`readStore`); never read
   `localStorage` directly in the Lab. Bump `STORE_VERSION` and add a migration if the shape changes.
 - Lab colours: red only **above** 100% (`u > 1`); exactly 100% (a worker draining a backlog) is amber.
+
+## Problems are judged (Decided, owner 2026-11-07)
+
+- Every Interview Question (except "Start here") ships with its `practice` test suite: tests, rubric,
+  hints, a starting design, a reference that passes every test, wrong designs that each fail one test.
+  `cd tech-katta/frontend && npm test` checks the calibration; use `tech-katta/tools/practice/` to write it.
+- Tests judge behaviour on the visitor's design (traffic, failures, cost), never similarity to an answer.
+- Changing the Lab engine (`lab/engine.js`) can change verdicts: run the frontend tests (calibration of all
+  22 suites) and the Lab e2e scripts before merging.
+- The API never serves `practice.reference` or `practice.wrong`; submissions store results only.

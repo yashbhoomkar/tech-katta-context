@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 02:00 IST** (docs through #220; ledger for #216–#220 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 03:00 IST** (docs through #223; ledger for #216–#223 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -36,7 +36,44 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
-**Update 2026-11-07, 02:00 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+**Update 2026-11-07, 03:00 IST** (newest; overnight work the owner asked for at 02:10 IST: "make this the best
+system design practice experience with real evaluation… LeetCode for system design"):
+
+- **tech-katta `main` = `1b0e213`** (PR #223); release `20261106T212513Z-1b0e213`, `accounts: ok`; Vercel
+  live with #223. Checked on production: `tools/e2e/problems.js` (Q01 full flow), `problems-medium.js`
+  (payments, rider dispatch), `problems-server.js` (stubbed account API), site-sweep, lab-crash: errors [].
+- **#221 The judge** (`frontend/src/judge/judge.js`): every Interview Question has a test suite (article
+  `practice`, format in `tech-katta/content/README.md`). Tests are scenarios played on the visitor's own
+  design by the Lab engine: traffic at an hour and rate, injected failures (server group dies, database
+  fails over, cache crashes), checks: availability (with windows), **p99** (≈ base + 4.6 × (mean − base)),
+  monthly cost, no crash, no lost writes, requires, **redundant (cut-vertex test: no single server group
+  every request depends on)**, multiAz, has. Messages say what happened ("At 20:05 the Database was
+  overloaded and failed over…"). Written steps graded: functional requirements by rubric keywords, NFR
+  ranges, estimates within 3× (working shown), APIs by method + path regex. Score /100: requirements 20,
+  estimates 15, API 15, design tests 50; hints −3 each (max −15).
+- **Workspace** (`solve.jsx`): tabs Description (example tests) · Your answer · Hints · Solution ·
+  Submissions; Run (examples) / Submit (all + answer); results console; Reset to the starting design;
+  previous/next; a timer; divider; phones: Run/Submit bar fixed at the bottom. Tables on both tabs: ✓ Solved
+  / ◐ Attempted, Acceptance, Best score, Lab stars. Storage: `tk-answers-v1`, `tk-hints-v1`, `tk-subs-v1`
+  (`practice.js`); `solved:`/`practice:` progress flags now sync with the account (routes.js `storable`).
+- **All 22 suites calibrated** (6–7 tests, 2 samples, rubric, 6–7 hints, start design, a reference that
+  passes, 3–5 wrong designs each failing one test). `cd frontend && npm test` runs the calibration
+  (225 tests, < 5 s); `frontend.yml` now also runs on `content/**`. Scripts: `tech-katta/tools/practice/`.
+  The API serves practice **without** `reference`/`wrong` (no passing design one request away).
+- **Engine change**: load balancers and API gateways health-check targets (a crashed group gets no traffic
+  while another is up). All Lab challenge tests and e2e still pass. Known limit: two queues feeding the same
+  workers each hand them full capacity; suites keep one queue per worker pool.
+- **#223 Server-side judging**: `POST /v1/me/submissions` re-runs the judge on the API for signed-in users and
+  stores the result only in `techkatta_app.submissions` {userId, slug, at, verdict, passed, total, score,
+  cost, p99, hints} (not the design or answer); reply has acceptance and "cheaper than N% of accepted
+  designs". `GET /v1/problems/stats` (public, cached 60 s). 30 per 10 min per IP, 256 KB. Delete my account
+  deletes submissions. Privacy page section "Problems you submit". **Not yet tried with a real signed-in
+  account** (needs Google sign-in; the owner can do it: Submit any problem and look for "Checked on our
+  server").
+- #222: landing hero and "What's inside" describe judged problems (no other company's brand on the site).
+- Ledger: #216–#223 SHAs listed in `11-MONGODB-COMMIT-LEDGER.md` and `agents/TODO.md` (Atlas refused here).
+
+**Update 2026-11-07, 02:00 IST**:
 
 - **tech-katta `main` = `c956321`** (PR #220). Owner, 11-07: "the end goal of Problems, Interview Questions
   and the Lab is to make LeetCode for system design; Concepts, Components and the other tabs are the
@@ -410,6 +447,7 @@ content can ship in one PR.
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
+| 11-07 | Overnight (owner: "real evaluation", "do everything"): Claude decided hints cost 3 points each (max 15); estimates within 3×; tests are scenarios on the visitor's design, never a comparison with a model answer; server-side judging stores results only; scoring weights 20/15/15/50 |
 | 11-07 | **LeetCode for system design**: Problems, Interview Questions and the Lab are the practice product; Concepts, Components and the rest the content platform; sold together, as cheap as possible. Every question opens in a workspace (#220). Agents paused until the owner says so |
 | 11-03 | **Learn tab removed** (#139). **Dashboard start page: no tab selected** ("Trust me and do this"), showing the **Library cards moved from the landing page**; a card opens its tab and first article (#140) |
 | 11-03 | **Sign in with Google; user data in MongoDB Atlas** (owner: "Use mongodb and complete the task"; asked about Firebase twice, then "Stay with MongoDB and finish it"). Database `techkatta_app` on the existing Cluster0, separate DB user for the API. Saved per account: Lab designs, challenge stars, tour flags. Signed out = browser only, as before |
@@ -753,6 +791,9 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
+| #222 | Landing copy for judged problems; `tools/practice/` |
+| #221 | The judge: test suites for all 22 questions, Run/Submit, graded answers, hints, submissions, reset/timer; LB health checks |
 | #220 | Every Interview Question in a LeetCode-style workspace (Description / Worked answer + Lab canvas, own design `q-<slug>`); question tables on Interview Questions and Problems |
 | #219 | Articles: sticky "On this page" column beside the article from 1240 px; `agents/TODO.md` ledger pending for #216–#218 |
 | #218 | Q22 Design menu search; figures search-flow, inverted (frontend waits for Vercel) |
