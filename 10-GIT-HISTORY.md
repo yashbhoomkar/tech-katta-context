@@ -873,3 +873,10 @@ Commits after the PR #100 merge (`30e8d10`), all recorded in the MongoDB ledger 
 - PR #147: `9ec3c96deeb1270cdd585843102e3b3b914805bb` (Components: Databases article); merge `b659aa1d8e5ea639eb631c0559e00621d34770df`, deployed (release `20261104T140224Z-b659aa1`), verified.
 
 All commits on main up to `b659aa1` (PR #147) were recorded in the MongoDB ledger on 2026-11-04 (see 11-MONGODB-COMMIT-LEDGER.md).
+
+## PRs #148–#218 (2026-11-04 to 2026-11-06)
+
+The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept current there). Latest:
+- PR #216: Q21 Design video streaming; merge `05be25dd2a22bc96152981fe604bfe5bd2361890`, content release `20261106T121657Z-05be25d`; frontend figures wait for Vercel.
+- PR #217: to-do list, ledger and handover checked through #215; merge `b718f8616cc01af3b0c5a86be7786586fc944b20` (no deploy needed).
+- PR #218: Q22 Design menu search; merge `863069bb65220b07f749a9a322dd67af4daa7300`, content release `20261106T122632Z-863069b`; frontend figures wait for Vercel.

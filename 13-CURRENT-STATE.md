@@ -1443,3 +1443,13 @@ Agent: Claude Code (cloud session). Workflow agreed with the user for UI changes
 All 504 commits on main are in `techkatta_history` (141 were missing: 99 after PR #106 and 42 older
 ones). Counts now: frontend 345, backend 344; zero duplicate keys. Details in 11-MONGODB-COMMIT-LEDGER.md.
 
+
+## Production snapshot — 2026-11-07, 01:15 IST (after PR #218)
+
+Dated sections for #148–#215 were not written here; `17-SESSION-HANDOVER.md` §1 and §12 cover them.
+- `main` = `863069bb65220b07f749a9a322dd67af4daa7300` (#218). API `/health`: release
+  `20261106T122632Z-863069b`, 39 articles, `auth: on`, `accounts: ok`.
+- Content: Concepts 7, Components 9, Interview Questions Q00–Q22, Lab 9 challenges.
+- Vercel production frontend: `a7e4093` (#215); #216 and #218 not built (daily limit). Q21/Q22 render
+  without their figures until the next deploy.
+- Ledger for #216–#218 unverified (Atlas unreachable from this session); see 11-MONGODB-COMMIT-LEDGER.md.

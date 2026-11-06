@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-06, 17:40 IST** (ledger and docs through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 01:15 IST** (docs through #218; ledger for #216–#218 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -36,7 +36,28 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
-**Update 2026-11-06, 17:40 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+**Update 2026-11-07, 01:15 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+
+- **tech-katta `main` = `863069b`** (PR #218); content release `20261106T122632Z-863069b` on the VPS
+  (39 articles, `auth: on`, `accounts: ok`). Since 17:40 IST: #216 Q21 Design video streaming (figures
+  `video-pipe`, `abr`), #217 to-do list (ledger and handover checked through #215), #218 Q22 Design menu
+  search (figures `search-flow`, `inverted`).
+- **Vercel is rate-limited again (Known, checked 01:10 IST):** its last build was the #218 PR preview at
+  17:53 IST; production frontend is still `a7e4093` (#215). The live bundle has no `video-pipe` /
+  `search-flow`, so Q21/Q22 show their text (served by the API) without their two figures each (unknown
+  figure ids are skipped since #178). Live-check both questions' figures on the next Vercel deploy.
+- **Ledger: #216–#218 NOT verified.** This session could not connect to Atlas (`remote-atlas-connect`
+  refused by the session's safety check, twice, even with the owner's go-ahead). Their 10 SHAs are listed
+  in `11-MONGODB-COMMIT-LEDGER.md` and under "Ledger pending" in `tech-katta/agents/TODO.md`, for the
+  worker (which has the MongoDB tool) to check and insert.
+- **CI/CD and secrets (Known, from the #218 deploy log):** set: `VPS_SSH_KEY`, `GOOGLE_CLIENT_ID`,
+  `MONGODB_URI` (shape check all "yes"), `SESSION_SECRET`. **Not set: `VPS_HOST`, `VPS_USER`,
+  `VPS_FINGERPRINT`** (the log shows the hardcoded host/user and an empty fingerprint, so the SSH host key
+  is not checked). No repository variables are used by any workflow. Secret/variable listing APIs are
+  blocked by the session proxy; read the deploy log instead. GitHub still lists two workflows whose files
+  are gone (`repair-api-tls.yml`, `frontend-ci.yml`, from the old site); they cannot run.
+
+**Update 2026-11-06, 17:40 IST**:
 
 - **tech-katta `main` = `a7e4093`** (PR #215); content release `20261106T120325Z-a7e4093` on the VPS
   (37 articles). **Vercel deploys again**: the limit cleared and #199–#214 went live at 17:26 IST;
@@ -650,6 +671,13 @@ Safari, Firefox, screen readers, load.
 - Firefox won't start HTML5 drag from `<button>`; touch screens don't do HTML5 drag.
 - `cp -a` keeps the source folder's mtime: never prune "newest" by mtime after copying.
 - Long `sleep` chains are blocked; use until-loops or background commands.
+- GitHub secrets and variables can't be listed from the session (the proxy refuses `actions/secrets`,
+  `actions/variables`, `environments`). Which secrets are set shows in the "Deploy Tech Katta Backend" log
+  (`INPUT_HOST`, `INPUT_FINGERPRINT`, the `MONGODB_URI check` line); read it with GitHub MCP `get_job_logs`.
+- Vercel deployments can be read with the Vercel MCP `list_deployments` (slug `yashbhoomkars-projects`,
+  app `tech-katta`): a gap after a merge on `main` means the daily limit was hit.
+- `remote-atlas-connect` can be refused by the session's safety check (11-07, twice). Then list the SHAs
+  under "Ledger pending" in `agents/TODO.md` for the worker; never claim the ledger was checked.
 - A local API reloads **content** on `SIGHUP`, not code: after changing `validate.js` (e.g. a new figure id), restart it, or the reload fails with "unknown figure" and keeps the old content.
 
 ---
@@ -702,6 +730,9 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #218 | Q22 Design menu search; figures search-flow, inverted (frontend waits for Vercel) |
+| #217 | To-do list: ledger and handover checked through #215 |
+| #216 | Q21 Design video streaming; figures video-pipe, abr (frontend waits for Vercel) |
 | #215 | Landing: hero "Start practising" opens Problems; Problems in the landing nav (`site.json`) |
 | #214 | Q20 Design rider assignment for food delivery; figures dispatch, offer-states |
 | #213 | Q19 Design a shared document editor; figures doc-flow, transform |
@@ -847,6 +878,10 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
   #199–#214 deployed at 17:26 IST, then #215 pointed the landing page at Problems.
   Reviews again caught real errors (UPI retry needing a second approval, schedulers
   missing expired leases, late clicks needing rewritten rows, tie-breaks that lose writes).
+- **11-06 late evening (IST)**: Q21 video streaming (#216) and Q22 menu search (#218); Vercel hit its daily
+  limit again after the #218 preview, so both wait for a frontend deploy (text live via the API). The
+  worker's PRs only added Done-log lines, not "Context repo pending" rows; a human-led session (11-07
+  01:15 IST) brought the docs up but could not reach Atlas, so the ledger check for #216–#218 is pending.
 - Mistakes to avoid: assuming the MongoDB ledger fills itself on merge (it didn't, 20 PRs were
   missed); building a Lab challenge before checking that the simulator rewards the article's lesson
   (the Q05 waiting room lost to two big databases); pushing many small PRs in a day (each push costs

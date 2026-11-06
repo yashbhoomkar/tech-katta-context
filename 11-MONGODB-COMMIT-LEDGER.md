@@ -656,3 +656,25 @@ A check on 11-06 found all 8 merge records present (#196–#203).
 
 Recorded by the worker right after each merge, in `frontend_git_commits`. A check on 11-06 against the
 PR heads and `main` found all 36 SHAs present (24 source commits, 12 squash merges). Count: 501.
+
+### PRs #216–#218 (2026-11-07, 01:15 IST): NOT verified, pending
+
+This session could not connect to Atlas (`remote-atlas-connect` refused by the session's safety check,
+twice). Whether the worker recorded these after merging is unknown. Check both canonical collections for
+each key and insert only the missing ones in `frontend_git_commits` (same rules as above). SHAs from the
+GitHub API (PR commits and `merge_commit_sha`):
+
+| PR | Kind | SHA | Value |
+|---|---|---|---|
+| #216 | source | `4c78226232b3dbbd210a24d77b45b5567c7bc790` | Interview Questions: Q21 Design video streaming (PR #216, 2026-11-06) |
+| #216 | source | `680fa62609ff0234dfd208e8003e13625ef63cf6` | Q21 review fixes: keyframes aligned across sizes, a signed address per part (PR #216, 2026-11-06) |
+| #216 | merge | `05be25dd2a22bc96152981fe604bfe5bd2361890` | Merge PR #216: Interview Questions: Q21 Design video streaming (2026-11-06) |
+| #217 | source | `cfcf4d0c9ccb9ce144419ee1fa2ea239c8886488` | To-do list: ledger and handover checked through #213 (PR #217, 2026-11-06) |
+| #217 | source | `3442440f29c0b26e5dedf45be1ac99ef4684161c` | Merge origin/main into the PR #217 branch (2026-11-06) |
+| #217 | source | `2527493434df786bbbe168c7999d979b7f530dc6` | To-do list: ledger and handover checked through #215 (PR #217, 2026-11-06) |
+| #217 | merge | `b718f8616cc01af3b0c5a86be7786586fc944b20` | Merge PR #217: To-do list: ledger and handover checked through #215 (2026-11-06) |
+| #218 | source | `cc7986651024342e4e9bce8db59c6dfa31cfb6c8` | Interview Questions: Q22 Design menu search (PR #218, 2026-11-06) |
+| #218 | source | `1378cee746b4a050a954b4bb189ec0e282b1ca3b` | Q22 review fixes: full pages despite sold-out dishes, open-and-delivers as a filter (PR #218, 2026-11-06) |
+| #218 | merge | `863069bb65220b07f749a9a322dd67af4daa7300` | Merge PR #218: Interview Questions: Q22 Design menu search (2026-11-06) |
+
+Once checked, replace this heading's "NOT verified, pending" with the result and the new row count.
