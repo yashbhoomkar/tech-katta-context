@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 01:15 IST** (docs through #218; ledger for #216–#218 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 02:00 IST** (docs through #220; ledger for #216–#220 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -36,7 +36,29 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
-**Update 2026-11-07, 01:15 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+**Update 2026-11-07, 02:00 IST** (newest; the earlier updates and the 11-04 notes are kept below):
+
+- **tech-katta `main` = `c956321`** (PR #220). Owner, 11-07: "the end goal of Problems, Interview Questions
+  and the Lab is to make LeetCode for system design; Concepts, Components and the other tabs are the
+  system design content platform; we sell the combination as cheap as possible" (**Decided**: positioning).
+- **#219** (owner's screenshot: empty space beside articles on desktop): from 1240 px an article has a sticky
+  right column ("On this page" with the section being read marked, "Try it in the Lab" card); article and
+  column centred; top gap 48 → 28 px. Section pages are centred too (#220).
+- **#220** (owner: "the tabs Interview Questions and Problems literally have the LeetCode style UI for any
+  problem"): every Interview Question except "Start here" opens in a **workspace** (`frontend/src/solve.jsx`):
+  left pane with tabs Description (the article's "1." and "2." sections) and Worked answer (the whole
+  article); right, the Lab canvas with every component on the question's own design (`q-<slug>`, field
+  `problem` on saved designs, kept by `store.js` and the account sync). `#problems/<slug>` opens on
+  Description, `#interview-questions/<slug>` on the answer; the divider drags (width in `tk-solve-w`,
+  capped so the canvas keeps 880 px); below 900 px one pane at a time with a third tab, Canvas. Both tabs
+  list questions as a LeetCode-style table (status practised/designed, #, problem, difficulty, Lab stars,
+  difficulty filters). Copy: `site.json` `problems.solve` (validated). **Not scored per question yet**:
+  each question still links to a shared Lab challenge; per-question challenges are the next step offered.
+- **Agents paused** (owner, 11-07: "don't trigger the auto agents cycle for now"). No scheduled tasks exist on
+  the account; don't start a worker cycle until the owner says so.
+- Vercel deploys again (the limit cleared about 01:30 IST).
+
+**Update 2026-11-07, 01:15 IST**:
 
 - **tech-katta `main` = `863069b`** (PR #218); content release `20261106T122632Z-863069b` on the VPS
   (39 articles, `auth: on`, `accounts: ok`). Since 17:40 IST: #216 Q21 Design video streaming (figures
@@ -388,6 +410,7 @@ content can ship in one PR.
 | 11-01 | **Arrows can be removed** (✕ on a selected arrow, Arrow panel button, Delete) |
 | 11-02 | **UI/UX meeting minutes** — see §4a |
 | 11-02 | Owner: remove Did you know from the landing page → its own dashboard tab (sidebar + top bar); **the actual Lab on the landing page for IND vs PAK**; hero button back to **Dashboard** (#134). Built the CDN (with "live content") and the `ind-vs-pak` Lab challenge for it |
+| 11-07 | **LeetCode for system design**: Problems, Interview Questions and the Lab are the practice product; Concepts, Components and the rest the content platform; sold together, as cheap as possible. Every question opens in a workspace (#220). Agents paused until the owner says so |
 | 11-03 | **Learn tab removed** (#139). **Dashboard start page: no tab selected** ("Trust me and do this"), showing the **Library cards moved from the landing page**; a card opens its tab and first article (#140) |
 | 11-03 | **Sign in with Google; user data in MongoDB Atlas** (owner: "Use mongodb and complete the task"; asked about Firebase twice, then "Stay with MongoDB and finish it"). Database `techkatta_app` on the existing Cluster0, separate DB user for the API. Saved per account: Lab designs, challenge stars, tour flags. Signed out = browser only, as before |
 | 11-02 | Owner: "Invoke another agent … in depth" → independent QA run (§8); "Continue" → all four fix groups built (scoring, saving, phones, the rest), incl. **phones get a three-control version of the landing IND vs PAK** |
@@ -730,6 +753,8 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #220 | Every Interview Question in a LeetCode-style workspace (Description / Worked answer + Lab canvas, own design `q-<slug>`); question tables on Interview Questions and Problems |
+| #219 | Articles: sticky "On this page" column beside the article from 1240 px; `agents/TODO.md` ledger pending for #216–#218 |
 | #218 | Q22 Design menu search; figures search-flow, inverted (frontend waits for Vercel) |
 | #217 | To-do list: ledger and handover checked through #215 |
 | #216 | Q21 Design video streaming; figures video-pipe, abr (frontend waits for Vercel) |

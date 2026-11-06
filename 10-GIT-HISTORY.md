@@ -880,3 +880,5 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #216: Q21 Design video streaming; merge `05be25dd2a22bc96152981fe604bfe5bd2361890`, content release `20261106T121657Z-05be25d`; frontend figures wait for Vercel.
 - PR #217: to-do list, ledger and handover checked through #215; merge `b718f8616cc01af3b0c5a86be7786586fc944b20` (no deploy needed).
 - PR #218: Q22 Design menu search; merge `863069bb65220b07f749a9a322dd67af4daa7300`, content release `20261106T122632Z-863069b`; frontend figures wait for Vercel.
+- PR #219: contents column beside articles; merge `af9d7b4d7ba3bdd017557e815514141489d28635`.
+- PR #220: LeetCode-style workspace for every Interview Question; merge `c9563216957ed0235606416a920ef06cfea2aced`.

@@ -678,3 +678,17 @@ GitHub API (PR commits and `merge_commit_sha`):
 | #218 | merge | `863069bb65220b07f749a9a322dd67af4daa7300` | Merge PR #218: Interview Questions: Q22 Design menu search (2026-11-06) |
 
 Once checked, replace this heading's "NOT verified, pending" with the result and the new row count.
+
+### PRs #219–#220 (2026-11-07, 02:00 IST): NOT recorded, pending (Atlas unreachable from this session)
+
+| PR | Kind | SHA | Value |
+|---|---|---|---|
+| #219 | source | `007e38d2d25e96505d4ac0d3bdeede1192d0d9f5` | To-do list: #216–#218 under Ledger pending; Vercel limit note (PR #219, 2026-11-06) |
+| #219 | source | `1ea2115146681a3e2d8e19fc340f145f42ff8775` | Articles: a contents column beside the article on wide screens (PR #219, 2026-11-06) |
+| #219 | merge | `af9d7b4d7ba3bdd017557e815514141489d28635` | Merge PR #219: Articles: contents column beside the article on wide screens (2026-11-06) |
+| #220 | source | `b735e6760ea9ba91a9c4aae9acfd7429b8c48164` | Merge origin/main into the PR #220 branch (2026-11-06) |
+| #220 | source | `e8b7e8fd368f5a6554f2dca17badefe1dd6aa38a` | Problems: open a question as a problem to design on the Lab canvas (PR #220, 2026-11-06) |
+| #220 | source | `053816a2dcce4e13f6862ac8feab39b6346caecd` | Interview Questions and Problems: every question in a LeetCode-style workspace (PR #220, 2026-11-06) |
+| #220 | merge | `c9563216957ed0235606416a920ef06cfea2aced` | Merge PR #220: every Interview Question in a LeetCode-style workspace (2026-11-06) |
+
+#220 touches frontend, backend (validate.js, test) and content: record it in both collections.
