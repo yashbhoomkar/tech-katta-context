@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 03:05 IST** (docs through #224; ledger for #216–#224 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 03:20 IST** (docs through #225; ledger for #216–#225 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -39,8 +39,10 @@ the owner · **Historical** = true once, not any more.
 **Update 2026-11-07, 03:00 IST** (newest; overnight work the owner asked for at 02:10 IST: "make this the best
 system design practice experience with real evaluation… LeetCode for system design"):
 
-- **tech-katta `main` = `974113c`** (PR #224); release `20261106T213304Z-974113c`, `accounts: ok`; Vercel
-  live with #224. #224: API rubric methods may list alternatives ("PUT|POST"), two test wordings fixed,
+- **tech-katta `main` = `af15e49`** (PR #225, the results panel folds and takes ≤42% of the canvas). **Vercel's
+  daily limit was hit again after #224**: production frontend is `974113c` (#224); #225 goes live on the next
+  Vercel deploy (live-check: the ▾ button on the results panel). Release `20261106T213304Z-974113c` on the VPS
+  (#225 is frontend only), `accounts: ok`. Before #225: #224: API rubric methods may list alternatives ("PUT|POST"), two test wordings fixed,
   "Problems submitted" on analytics.katta.cc, "Pick one" (random unsolved), a ✓ Solved badge. Checked on production: `tools/e2e/problems.js` (Q01 full flow), `problems-medium.js`
   (payments, rider dispatch), `problems-server.js` (stubbed account API), site-sweep, lab-crash: errors [].
 - **#221 The judge** (`frontend/src/judge/judge.js`): every Interview Question has a test suite (article
@@ -792,6 +794,7 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line (waits for Vercel's daily limit) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
