@@ -36,6 +36,21 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-06, 13:35 IST** (newest; the earlier update and the 11-04 notes are kept below):
+
+- **tech-katta `main` = `dc0c225`** (PR #203); content release `20261106T08…-dc0c225` on the VPS.
+  Vercel's daily limit blocks frontend deploys again: production frontend is at `426cba2` (#198). Merged
+  but not yet live on Vercel: #199–#203 (figures for Q08–Q10 and Concept 06, the landing "What's inside"
+  block). Their text is live; unknown figure ids are skipped, so nothing shows wrongly. Live-check them on
+  the next deploy.
+- **Site**: Interview Questions Q00–Q10, Concepts 6, Components 9, Lab 9 challenges, Practice mode, a
+  **Problems** page (every question and challenge with progress), landing "What's inside" with counts.
+- **Positioning** (owner, 11-06): practise system design like interview problems, with scores
+  ("LeetCode for system design" as a guide only; not used in the site's name or ads).
+- **Owner rules added 11-06**: don't wait for Vercel (keep merging, live-check on the next deploy); no
+  daily cap on cycles ("We need to rapidly build"); give the owner times in IST.
+- **Ledger**: complete through #203 (`frontend_git_commits`). Record each PR right after merging.
+
 **Update 2026-11-06** (the 11-04 notes below are kept for history):
 
 - **tech-katta `main` = `d2bd5e3`** (PR #195). Content release on the VPS `20261106T050506Z-0626da4`
@@ -671,6 +686,14 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
+| #203 | Concept 06: consensus and leader election (Agreeing); figures quorum-split, election |
+| #202 | Landing page "What's inside" with live counts (`/v1/site` `counts`); hero reworded; no daily cap on cycles |
+| #201 | Q10 Design a chat app; figures chat-flow, chat-sync |
+| #200 | Q09 Design a coding judge; figures judge-flow, sandbox; owner times in IST |
+| #199 | Q08 Design dating app swipes; figures swipe-flow, pair-row; rule: don't wait for Vercel |
+| #198 | Problems: each question's Lab challenge (`lab` in `/v1/articles`), "Next problem" at the end of each question |
+| #197 | Problems page: every question and Lab challenge with progress and a "Not done yet" filter |
+| #196 | To-do list: ledger and handover caught up; "ledger fills itself" corrected |
 | #195 | To-do list: per-question Lab challenges settled (Q03/Q04/Q07 would repeat; fair Q05 waiting room needs the engine to forbid splitting the database); Q08 next |
 | #194 | Lab: `monday-sync` (Q02), the first queue challenge; "Monday 10 am" traffic pattern |
 | #193 | Landing page focus outline on links and buttons (merged; waits for Vercel to deploy) |
@@ -787,6 +810,10 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
 - **11-05/11-06**: worker cycles #175–#195 (Interview Questions Q03–Q07, Practice mode, Concept 05,
   Lab `sms-link` and `monday-sync`). Vercel's daily deployment limit stopped deploys twice (#189 and
   #193). status.katta.cc fixed by adding its missing DNS record. Owner approved leaner cycles (#192).
+- **11-06 afternoon (IST)**: Problems page and follow-ups (#197–#198), Q08–Q10 (#199–#201), landing
+  "What's inside" (#202), Concept 06 consensus (#203). Each content PR had a reviewer agent; each review
+  found real holes (a resent swipe making a second match; tests leaking into the judge's sandbox;
+  duplicate chat sequence numbers; an overstated election rule), all fixed before merging.
 - Mistakes to avoid: assuming the MongoDB ledger fills itself on merge (it didn't, 20 PRs were
   missed); building a Lab challenge before checking that the simulator rewards the article's lesson
   (the Q05 waiting room lost to two big databases); pushing many small PRs in a day (each push costs

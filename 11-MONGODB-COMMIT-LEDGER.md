@@ -646,3 +646,8 @@ fills itself on merge. Both canonical collections were checked for the source an
 `frontend_git_commits` (31 source commits and 20 merge commits, values `<commit subject> (PR #n, date)`
 and `Merge PR #n: <title> (date)`). Current count: 445. Record each new PR's SHAs right after merging.
 
+### PRs #196–#203 (2026-11-06)
+
+Recorded right after each merge (source commits and the squash merge), in `frontend_git_commits`.
+A check on 11-06 found all 8 merge records present (#196–#203).
+
