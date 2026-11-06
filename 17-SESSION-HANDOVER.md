@@ -38,7 +38,7 @@ the owner · **Historical** = true once, not any more.
 
 **Update 2026-11-06, 13:35 IST** (newest; the earlier update and the 11-04 notes are kept below):
 
-- **tech-katta `main` = `dc0c225`** (PR #203); content release `20261106T08…-dc0c225` on the VPS.
+- **tech-katta `main` = `dc0c225`** (PR #203); content release `20261106T080114Z-dc0c225` on the VPS.
   Vercel's daily limit blocks frontend deploys again: production frontend is at `426cba2` (#198). Merged
   but not yet live on Vercel: #199–#203 (figures for Q08–Q10 and Concept 06, the landing "What's inside"
   block). Their text is live; unknown figure ids are skipped, so nothing shows wrongly. Live-check them on
