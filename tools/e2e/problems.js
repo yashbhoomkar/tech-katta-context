@@ -31,6 +31,8 @@ await p.fill('.sv-ans textarea','Create a short link for a long URL, with an opt
 const ins=await p.$$('.sv-ans .sv-in input');const vals=['99.9','100','100','1000','300000','40'];for(let k=0;k<ins.length;k++)await ins[k].fill(vals[k]||'1');
 await p.selectOption('.sv-ans select:not([aria-label])','eventual').catch(async()=>{const sel=await p.$$('.sv-ans .sv-in select');await sel[0].selectOption('eventual')});
 await p.fill('.sv-row input','/{code}');await p.click('.sv-add');const rows=await p.$$('.sv-row');await (await rows[1].$('select')).selectOption('POST');await (await rows[1].$('input')).fill('/v1/links');
+// key decisions (tech-katta #227): pick the right option of each, from the tech-katta checkout next to this repo
+{const dec=JSON.parse(fs.readFileSync(require('path').join(__dirname,'../../../tech-katta/content/articles/interview-questions/url-shortener.json'),'utf8')).practice.rubric.decisions||[];const boxes=await p.$$('.sv-dec');for(let k=0;k<boxes.length&&k<dec.length;k++)await (await boxes[k].$$('input[type=radio]'))[dec[k].answer].check();console.log('decisions answered',boxes.length)}
 await p.screenshot({path:S+'j-answer.png'});
 // a hint
 await p.click('.sv-tabs button:nth-of-type(2)');await p.click('.sv-hints button');console.log('hint open:',await p.$eval('.sv-hints li.open p',e=>e.textContent.slice(0,60)));
