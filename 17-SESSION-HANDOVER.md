@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 17:30 IST** (docs through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 18:00 IST** (docs through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,16 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 18:00 IST.** **#235** (owner: "why do we have that mcq stuff, we don't need it"):
+Practice mode, the timed self-ticked checklist, is removed (`practice.jsx`, its CSS, site.json `practice`);
+the problem workspace does that job with real grading. The `practice:<slug>` progress flag stays (Submit
+sets it). **#236** (owner: "upgrade the tour"): three tours in site.json `tour`. The dashboard tour leads with
+Problems and ends on "Try the first problem →". A new problem-workspace tour starts on the first visit to a
+problem: tabs, example tests, building, each part's settings (it selects a part to show them), Run and
+Watch, Submit and the score, Your answer, Hints, Solution and Copy, Timer and Reset. The Lab tour gains a
+settings step. Steps can `click` to open what they show and end on a `cta` link. `tour.version` 2 shows the
+new tours once to people who saw the old ones. Checks: `tools/e2e/tour.js`; `tour-import.js` updated.
 
 **Update 2026-11-07, 17:30 IST** (owner: "a Solutions tab with the solution system design and a button to
 copy it to the user's canvas; very important, do it neatly"). **#234**: the Solution tab now opens with the
@@ -875,6 +885,8 @@ monetisation, publishing policy or references.
 | #232 | To-do list: ledger pending for #221–#231 (docs only) |
 | #233 | Fixes from re-checking #228–#231: phones judge the saved design, Watch on phones, Cassandra `IF` updates, how-to copy |
 | #234 | Problems: the Solution tab shows the solution design, with Copy to my canvas and Undo |
+| #235 | Removed Practice mode (the timed self-ticked checklist) |
+| #236 | Guided tours: a problem workspace tour, a dashboard tour that leads to Problems, a Lab settings step |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
