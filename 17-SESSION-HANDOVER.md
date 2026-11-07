@@ -36,6 +36,15 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-07, 15:50 IST** (owner: "check this again, this is a very important change"; and
+**Decided: the worker records the ledger** for #216–#231 from `agents/TODO.md` "Ledger pending", since
+this session's Atlas connection is refused by its permission check). Re-check of #228–#231:
+`tools/e2e/problems-all.js` on production: all 22 problems Accepted with every request test passing, every
+starting design failing; the older production checks all `errors: []`. Found and fixed in **#233**: on a phone,
+Run/Submit judged the starting design until the Canvas tab was opened (now the saved design); Watch on phones
+scrolled sideways and centred hops off-screen (now wraps, one step at a time, centred in the visible canvas);
+Cassandra conditional updates (`UPDATE … IF`) were wrongly refused. New check: `tools/e2e/phone-new-lab.js`.
+
 **Update 2026-11-07, 11:40 IST** (owner, four "huge tasks, do them properly, be careful": test that a design
 turns the request JSON into the expected response and show it as an animation; all types of databases;
 users decide database schemas; rename components). Shipped as four PRs, each checked on production:

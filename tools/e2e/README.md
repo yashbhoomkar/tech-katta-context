@@ -44,6 +44,8 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | `lab-rename-check.js` | Rename a Server to "Orders API": canvas, panel title, a reload keeps it, clearing brings back "Server" (#228). `node lab-rename-check.js <site>` |
 | `lab-engines-check.js` | Database engines: the picker's 8 families, DynamoDB (no size, three-zone note, "Good at", "DynamoDB · on demand"), MongoDB (its sizes, Multi-AZ, replicas), the design runs (#229) |
 | `lab-schema-check.js` | Schema editor: a table with a location (warning: no geo index), a geo index (warning gone), DynamoDB (error with the geohash advice, Partition/Sort key words), node line, reload, phone (#230) |
+| `problems-all.js` | Every problem: the starting design fails Run; the reference (schemas, engines) is Accepted on Submit with every request test passing; one line each, `all 22 problems OK` at the end. `node problems-all.js <site> [slug …]` |
+| `phone-new-lab.js` | iPhone 13: rename + DynamoDB + the schema dialog in the Lab, then Run and ▶ Watch in a problem (the hop stays on screen, no sideways scroll) |
 | `lab-requests-check.js` | Request tests on a problem (default restaurants-near-me; `node lab-requests-check.js <site> <slug>`): Description shows request + expected response; the reference without a schema fails with the reason; with it Run passes; ▶ Watch steps through every hop with the highlighted component and the moving dot; Esc closes; phone (#231) |
 | `lab-crash.js` | Crash policy: 3 servers @1,600 req/s → database crashes and fails over (Multi-AZ); example @2,400 req/s → server crash loop; availability, run log |
 
