@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 23:35 IST** (docs through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 00:25 IST** (docs through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,11 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-08, 00:25 IST.** **#242**: the owner's analytics counts signed-in users per day (accounts that
+did something that day) and shows a "Signed-in users a day" tile, the 7-day average against 50: the owner ends the
+free period at 50 (videos are never free; sign-in is already required everywhere but the home, privacy and terms
+pages). The paid switch still waits on the employer clearance and Razorpay. Business numbers: private repo.
 
 **Update 2026-11-07, 23:35 IST** (owner planning launch: subscriptions, videos, ads). Decided: videos on Bunny
 Stream, on the site only; a free/paid split (see `12-OPERATING-RULES.md`, "Video hosting and free vs paid").
@@ -924,6 +929,7 @@ monetisation, publishing policy or references.
 | #239 | Worked answers read line by line: contradictions with the problems fixed, missing pipelines added |
 | #240 | Requirement keywords matched on word starts and rewritten for all 22 problems; readable figures in the Solution pane |
 | #241 | Every article marked free or paid (`access`; data only) |
+| #242 | Analytics: signed-in users per day, 7-day average against the goal of 50 |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
