@@ -1,0 +1,74 @@
+// The guided tours (site.json `tour`, frontend/src/tour.jsx): the dashboard tour (ends on "Try the first
+// problem", which opens it), the problem workspace tour (the settings step selects a part first), the
+// Lab tour, the first-visit start with webdriver hidden (once per tour version), and a phone.
+// Screenshots of every step go to /tmp/shots/tour-*.png. Usage: node tour.js <site>
+const { chromium: raw, devices } = require('playwright');
+const chromium = require('./open-site.js')(raw);
+const fs = require('fs');
+const B = process.argv[2] || 'https://tech.katta.cc', O = '/tmp/shots/'; fs.mkdirSync(O, { recursive: true });
+const ok = (c, m) => { console.log((c ? 'ok   ' : 'FAIL ') + m); if (!c) process.exitCode = 1; };
+const errors = [];
+async function walk(p, name, shots = true) {
+  await p.waitForSelector('.tour-card', { timeout: 15000 });
+  const seen = [];
+  for (let k = 0; k < 20; k++) {
+    await p.waitForTimeout(450);
+    const t = await p.locator('.tour-card b').innerText(), n = await p.locator('.tour-card small').innerText();
+    const fits = await p.evaluate(() => { const r = document.querySelector('.tour-card').getBoundingClientRect(); return r.left >= 0 && r.right <= innerWidth + 1 && r.top >= 0 && r.bottom <= innerHeight + 1; });
+    seen.push(`${n} ${t}${fits ? '' : ' (card off screen!)'}`);
+    if (/settings/i.test(t)) seen.push('    (settings panel shown: ' + await p.locator('.lab-ins[aria-label="Component settings"]').isVisible() + ')');
+    if (shots) await p.screenshot({ path: `${O}tour-${name}-${k + 1}.png` });
+    const next = p.locator('.tour-card .tour-next');
+    if (await next.evaluate((e) => e.tagName) === 'A' || (await next.innerText()) === 'Done') return { seen, last: next };
+    await next.click();
+  }
+  return { seen, last: null };
+}
+(async () => {
+  const br = await chromium.launch();
+  const ctx = await br.newContext({ viewport: { width: 1440, height: 950 } });
+  const p = await ctx.newPage(); p.on('pageerror', (e) => errors.push(e.message));
+  // dashboard
+  await p.goto(B + '/dashboard/'); await p.waitForSelector('.tabs'); await p.click('.d-tour');
+  let r = await walk(p, 'dashboard');
+  console.log('dashboard:\n  ' + r.seen.join('\n  '));
+  ok(r.seen.length >= 5 && /Problems/.test(r.seen.join()) && !r.seen.some((s) => /off screen/.test(s)), 'dashboard tour: Problems step, every card on screen');
+  ok(await r.last.evaluate((e) => e.tagName) === 'A', 'ends on a link: ' + (await r.last.innerText()));
+  await r.last.click(); await p.waitForSelector('.sv-tabs', { timeout: 20000 });
+  ok(/#problems\/url-shortener/.test(p.url()) && !(await p.locator('.tour-card').count()), 'it opens the first problem and the tour closes');
+  // problem workspace
+  await p.waitForSelector('.sv-lab .react-flow__node', { timeout: 30000 }); await p.waitForTimeout(500);
+  await p.click('.d-tour'); r = await walk(p, 'problem');
+  console.log('problem:\n  ' + r.seen.join('\n  '));
+  ok(r.seen.filter((s) => /^\d/.test(s)).length === 10 && new Set(r.seen).size === r.seen.length && !r.seen.some((s) => /off screen/.test(s)), `problem tour: ${r.seen.filter((s) => /^\d/.test(s)).length} steps, each once, every card on screen`);
+  ok(r.seen.some((s) => /settings/.test(s)) && r.seen.some((s) => /Solution/.test(s)) && r.seen.some((s) => /Submit/.test(s)), 'it covers settings, Run/Submit and Solution');
+  await r.last.click(); ok(!(await p.locator('.tour-card').count()), 'Done closes it');
+  // Esc and arrows
+  await p.click('.d-tour'); await p.waitForSelector('.tour-card'); await p.keyboard.press('ArrowRight'); await p.waitForTimeout(500);
+  const two = await p.locator('.tour-card small').innerText(); await p.keyboard.press('ArrowLeft'); await p.waitForTimeout(400);
+  const one = await p.locator('.tour-card small').innerText(); await p.keyboard.press('Escape'); await p.waitForTimeout(200);
+  ok(/^2 /.test(two) && /^1 /.test(one) && !(await p.locator('.tour-card').count()), `→ ${two}, ← ${one}, Esc closes`);
+  // Lab
+  await p.goto(B + '/dashboard/#lab'); await p.waitForSelector('.lab-pal', { timeout: 30000 }); await p.waitForTimeout(600);
+  await p.click('.d-tour'); r = await walk(p, 'lab', false);
+  console.log('lab:\n  ' + r.seen.join('\n  '));
+  ok(r.seen.length >= 6 && r.seen.some((s) => /Settings/.test(s)), 'Lab tour with the settings step');
+  await r.last.click();
+  await ctx.close();
+  // first visit: starts by itself once (webdriver hidden)
+  const c2 = await br.newContext({ viewport: { width: 1440, height: 950 } });
+  await c2.addInitScript(() => Object.defineProperty(navigator, 'webdriver', { get: () => false }));
+  const q = await c2.newPage(); q.on('pageerror', (e) => errors.push(e.message));
+  await q.goto(B + '/dashboard/#problems/restaurants-near-me');
+  const auto = await q.waitForSelector('.tour-card', { timeout: 20000 }).then(() => true, () => false);
+  ok(auto, 'a first visit to a problem starts its tour');
+  if (auto) { await q.keyboard.press('Escape'); await q.reload(); await q.waitForSelector('.sv-lab .react-flow__node', { timeout: 30000 }); await q.waitForTimeout(3000); ok(!(await q.locator('.tour-card').count()), 'not again after a reload'); }
+  await c2.close();
+  // phone
+  const c3 = await br.newContext({ ...devices['iPhone 13'] }); const m = await c3.newPage(); m.on('pageerror', (e) => errors.push(e.message));
+  await m.goto(B + '/dashboard/#problems/url-shortener'); await m.waitForSelector('.sv-tabs', { timeout: 30000 }); await m.waitForTimeout(800);
+  const tb = m.locator('.d-tour'); if (await tb.isVisible()) { await tb.tap(); r = await walk(m, 'phone'); console.log('phone:\n  ' + r.seen.join('\n  ')); ok(r.seen.length >= 3 && !r.seen.some((s) => /off screen/.test(s)), 'phone: the tour skips what is hidden, cards on screen'); }
+  else console.log('phone: no Tour button on this screen');
+  console.log('errors:', JSON.stringify(errors));
+  await br.close();
+})();
