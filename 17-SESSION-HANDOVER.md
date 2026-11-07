@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 10:15 IST** (docs through #226; ledger for #216–#226 pending, see §1). Before that 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 10:45 IST** (docs through #227; ledger for #216–#227 pending, see §1). Before that 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,25 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 10:45 IST** (owner: "the Lab has no components for problem-specific ideas … do it";
+"Key decisions … do it"; **Decided: no AI review of designs — it would eat the margins**):
+**#227** merged (`ffe2911`).
+- **Parts with a job (roles):** Server, Database, Cache and Queue have a "What it does" picker (27 roles in
+  `content/lab.json`, e.g. Geo index, Search index, Prefix index, Object storage, Ledger, Time-series,
+  Wide-column, Key-value, Job store, Operation log, WebSocket gateway, Matching service, Sandboxed
+  runners, Scheduler, Delivery workers, Event log, URL frontier, Sorted set, Holds with expiry). Roles
+  don't change the simulation. Judge check `role {role, any?, behind?, min?}`; every problem's `normal`
+  test (a sample) checks the parts it turns on, labelled by the job, not the role's name. Each problem has
+  a "Right sizes, general parts" wrong design that must fail. `tools/practice/roles.mjs` writes all of it.
+- **Key decisions:** 3–4 multiple-choice per problem (67), graded exactly, reason shown after Submit;
+  right answers spread over positions (23/19/25).
+- **Score now:** requirements 15 (10 + 5), estimates 10, API 10, key decisions 15, design 50; hints −3
+  each (max −15). The server re-judges with the same weights.
+- **AI evaluator (asked about, not built):** costed per evaluation (~6,500 tokens in, ~1,500 out):
+  Claude Haiku 5.5 ≈ ₹0.1–0.16, Sonnet 5.5 ≈ ₹2–3, Opus 5.5 ≈ ₹7–10. Recommended Haiku 5.5 as a third
+  "AI evaluator" tab beside Run and Submit, signed in, rate-limited, feedback only (score stays
+  deterministic). **Pending:** the owner's go-ahead and an Anthropic API key on the VPS.
 
 **Update 2026-11-07, 10:15 IST** (owner said "Proceed" to the offered next steps): **#226 read replicas**
 merged (`3719625`), finishing Lab phase 2. A database takes 0–5 read replicas and a writes %; the judge's
@@ -802,6 +821,7 @@ monetisation, publishing policy or references.
 |---|---|
 | #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line |
 | #226 | Lab: read replicas on the database (finishes Lab phase 2) |
+| #227 | Problems: parts with a job (27 roles, `role` check, a "general parts" wrong design per problem) and key decisions (67); new score weights |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

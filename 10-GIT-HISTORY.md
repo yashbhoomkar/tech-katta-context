@@ -888,3 +888,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #224: review fixes, problems in the owner's analytics, Pick one; merge `974113ce99f79c391a1aa13a9adab5deb3ed5c0f`.
 - PR #225: results panel folds; merge `af15e49ea179ab8a0b60d234dd2dda2b9cb2a2ae`.
 - PR #226: read replicas on the database (Lab phase 2 complete); merge `3719625c46cc84119acd6a3682ddd1e9eb8b677c`.
+- PR #227: parts with a job (roles) and key decisions; merge `ffe2911275da62abd1fba9ccdad8794e6ff0e649`.
