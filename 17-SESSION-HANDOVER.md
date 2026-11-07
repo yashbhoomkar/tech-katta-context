@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 03:20 IST** (docs through #225; ledger for #216–#225 pending, see §1). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 10:15 IST** (docs through #226; ledger for #216–#226 pending, see §1). Before that 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,13 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 10:15 IST** (owner said "Proceed" to the offered next steps): **#226 read replicas**
+merged (`3719625`), finishing Lab phase 2. A database takes 0–5 read replicas and a writes %; the judge's
+crash message says reads kept working when the crashed database had replicas. No problem's tests changed
+(replicas default to 0; all 22 calibrations still pass). Vercel's limit had reset by 10:00 IST, so the
+#226 production deploy also carries #225. AI grading of written answers was **not** started: it needs an
+API key and the owner's decision. Ledger for #216–#226 still pending (Atlas not reachable from this session).
 
 **Update 2026-11-07, 03:00 IST** (newest; overnight work the owner asked for at 02:10 IST: "make this the best
 system design practice experience with real evaluation… LeetCode for system design"):
@@ -683,7 +690,7 @@ labels on arrows; rename components; connection hints while dragging an arrow; c
 | Autoscaling: server groups add/remove instances with load (min/max, 4 min warm-up, 15 min scale-in) | ✅ Done (#129) |
 | Cache behaviour: warm-up after restart, down → database/fail, write-through/write-back | ✅ Done (#130) |
 | CDN (hit % at the edge, per-request price, live content) | ✅ Done (#134) |
-| Read replicas (database reads spread over replicas, writes to the primary) | Not started |
+| Read replicas (database reads spread over replicas, writes to the primary) | ✅ Done (#226): 0–5 replicas + writes %; capacity qps/(w+(1−w)/(1+n)); each replica billed like the primary; primary down → replicas answer reads, writes fail; no replication lag |
 
 Suggested by the external review, **not yet the owner's decision** (offer, don't assume): read/write
 mix set on Clients; p95/p99 latency; data-transfer and storage costs.
@@ -748,9 +755,8 @@ Safari, Firefox, screen readers, load.
 
 ## 10. Open items (Pending / backlog)
 
-1. **Lab**: phase 2 is in progress (§7 "Lab phases"): traffic patterns and autoscaling done (#129);
-   cache behaviour and arrow removal done (#130); next CDN (reuse the cache's hit/warm-up model),
-   then read replicas. Phase-1 refinement ideas (§7) are still offered, not picked.
+1. **Lab**: phase 2 is complete (§7 "Lab phases"): traffic patterns and autoscaling (#129), cache
+   behaviour (#130), CDN (#134), read replicas (#226). Phase-1 refinement ideas (§7) are still offered, not picked.
 2. **Before any monetisation** (the planned ₹99 course): owner-side clearance is pending — see the
    private note (§11). Don't build payments, pricing pages or paid accounts until the owner confirms.
    Both public repos are public; this repo's history still contains a removed paid reference file
@@ -760,7 +766,7 @@ Safari, Firefox, screen readers, load.
    `content/media/` served by the API; delete `kafka-architecture.svg`) — offered, not decided.
 5. **Narration**: re-record (`tools/tts`) whenever the API article changes; record new articles.
 10. **After the MoM and the QA run**: all 10 items shipped (#131–#134) and the QA findings fixed
-    (#135–#138, see §8). Follow-ups worth offering: read replicas (last part of phase 2); more
+    (#135–#138, see §8). Follow-ups worth offering: more
     challenges; more articles; accounts (phase 5) for progress across devices; testing on real
     phones / iOS Safari; the four QA items left for the owner (§8).
 6. ~~MongoDB ledger for PRs #107–#140~~ done 11-04: all 504 commits on main are in the ledger (141 inserted). Record each new PR's SHAs after merging.
@@ -794,7 +800,8 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
-| #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line (waits for Vercel's daily limit) |
+| #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line |
+| #226 | Lab: read replicas on the database (finishes Lab phase 2) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
