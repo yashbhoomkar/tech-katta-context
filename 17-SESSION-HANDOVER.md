@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 19:30 IST** (docs through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 22:30 IST** (docs through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,16 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 22:30 IST** (owner: "did you read every paragraph…", then "check the figures and the grading keywords").
+**#239 worked answers read line by line**: fixed contradictions between articles and their problems and added
+missing pipelines in 7 problems. **#240 grading keywords and figures**: written requirements are now matched on
+word starts (`startsWord` in `judge.js`; "tie" no longer matches "cities"), and all 101 requirement keyword lists
+were rewritten. A vague answer used to earn 20 of 101 ticks and now earns 3. `judge.test.js` checks that each
+requirement is earned by its label and by a plain phrasing (`frontend/src/judge/fr-paraphrases.json`, in rubric order;
+**add one when you add a requirement**) and that a vague answer earns at most one per problem. Figures: all 45
+were checked against their captions and articles (accurate, no overlaps); in the desktop Solution pane they now keep
+a 600px minimum width and scroll sideways (labels ~9.4px, were 4–6px).
 
 **Update 2026-11-07, 19:30 IST** (owner: "check the content for every tab in every problem; that's a weakness").
 **#238 content audit.** Every tab of all 22 problems was cross-checked (automated: test text vs settings, labels vs
@@ -906,6 +916,8 @@ monetisation, publishing policy or references.
 | #236 | Guided tours: a problem workspace tour, a dashboard tour that leads to Problems, a Lab settings step |
 | #237 | Tours open only from the Tour button (no first-visit start) |
 | #238 | Content audit of every problem's tabs: contradictions, cab terms, giveaway decisions, times, API paths, facts |
+| #239 | Worked answers read line by line: contradictions with the problems fixed, missing pipelines added |
+| #240 | Requirement keywords matched on word starts and rewritten for all 22 problems; readable figures in the Solution pane |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
