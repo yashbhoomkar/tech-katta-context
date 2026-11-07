@@ -75,3 +75,7 @@ Tips
 - Stop servers with `pkill -f "vite prev[i]ew"` / `pkill -f "src/server[.]js"` as a **separate
   command** — if the same command line also contains "vite preview", pkill kills its own shell.
 - Freeze SVG animation: `svg.pauseAnimations(); svg.setCurrentTime(t)`.
+
+Content audit (not a browser check): `python3 tools/audit/content-audit.py` cross-checks every problem's tests,
+rubric, hints and key decisions (numbers in test text vs settings, labels vs checks, estimates vs the worked
+answer, API paths vs the rubric, giveaway decisions, text slips). Written for the #238 audit.

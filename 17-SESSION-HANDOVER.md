@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 18:15 IST** (docs through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 19:30 IST** (docs through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,21 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 19:30 IST** (owner: "check the content for every tab in every problem; that's a weakness").
+**#238 content audit.** Every tab of all 22 problems was cross-checked (automated: test text vs settings, labels vs
+checks, rubric numbers vs the worked answer, API paths vs the rubric; then a per-problem digest read in full).
+Fixed: all 67 key decisions rewritten (the right answer had been by far the longest option in 54; joke
+distractors; now similar lengths, positions spread, ids renamed `-2`, a test guards it); **dating-swipes** taught
+the worked answer's broken "store then check" (now one row per pair, atomic, the swipe replies with the match,
+alerts via a queue); **payments** changed balances in place and had no ledger (now pending payment + webhook adds
+two balancing ledger entries); **rider-dispatch** was written about cabs (now riders/orders/offers);
+**photo-sharing** uploaded bytes through the API (now details + signed link; a details DB, also in video);
+job-scheduler (9 pm) and ticket-booking (noon) tests ran at 8 pm (new Clients patterns `rush9`, `noon`);
+leaderboard quiz framing; scale notes where tests send a slice of the load; coding-judge `practice.referenceNote`;
+rubric API paths; facts (menu index 10 GB, file-sync → question 19, chat duplicate FR). Calibration and
+`problems-all.js` all pass. **Known:** the article bodies (long text) were not re-read line by line; the digest
+covered their summaries, API blocks and numbers. `tools/practice/*.mjs write` must not be re-run (it would undo this).
 
 **Update 2026-11-07, 18:15 IST.** **Decided (owner):** tours open **only from the Tour button**, never by
 themselves (#237 removed the first-visit start, its seen flags and `tour.version`).
@@ -890,6 +905,7 @@ monetisation, publishing policy or references.
 | #235 | Removed Practice mode (the timed self-ticked checklist) |
 | #236 | Guided tours: a problem workspace tour, a dashboard tour that leads to Problems, a Lab settings step |
 | #237 | Tours open only from the Tour button (no first-visit start) |
+| #238 | Content audit of every problem's tabs: contradictions, cab terms, giveaway decisions, times, API paths, facts |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
