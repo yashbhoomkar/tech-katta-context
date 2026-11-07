@@ -1,6 +1,6 @@
 // The guided tours (site.json `tour`, frontend/src/tour.jsx): the dashboard tour (ends on "Try the first
 // problem", which opens it), the problem workspace tour (the settings step selects a part first), the
-// Lab tour, the first-visit start with webdriver hidden (once per tour version), and a phone.
+// Lab tour, no tour by itself on a first visit (only from the Tour button), and a phone.
 // Screenshots of every step go to /tmp/shots/tour-*.png. Usage: node tour.js <site>
 const { chromium: raw, devices } = require('playwright');
 const chromium = require('./open-site.js')(raw);
@@ -55,14 +55,15 @@ async function walk(p, name, shots = true) {
   ok(r.seen.length >= 6 && r.seen.some((s) => /Settings/.test(s)), 'Lab tour with the settings step');
   await r.last.click();
   await ctx.close();
-  // first visit: starts by itself once (webdriver hidden)
+  // first visit: no tour opens by itself (webdriver hidden, as for a person), only from the Tour button
   const c2 = await br.newContext({ viewport: { width: 1440, height: 950 } });
   await c2.addInitScript(() => Object.defineProperty(navigator, 'webdriver', { get: () => false }));
   const q = await c2.newPage(); q.on('pageerror', (e) => errors.push(e.message));
-  await q.goto(B + '/dashboard/#problems/restaurants-near-me');
-  const auto = await q.waitForSelector('.tour-card', { timeout: 20000 }).then(() => true, () => false);
-  ok(auto, 'a first visit to a problem starts its tour');
-  if (auto) { await q.keyboard.press('Escape'); await q.reload(); await q.waitForSelector('.sv-lab .react-flow__node', { timeout: 30000 }); await q.waitForTimeout(3000); ok(!(await q.locator('.tour-card').count()), 'not again after a reload'); }
+  for (const path of ['/dashboard/', '/dashboard/#problems/restaurants-near-me', '/dashboard/#lab']) {
+    await q.goto(B + path); await q.waitForSelector(path.includes('lab') ? '.lab-pal' : path.includes('problems') ? '.sv-lab .react-flow__node' : '.tabs', { timeout: 30000 }); await q.waitForTimeout(3500);
+    ok(!(await q.locator('.tour-card').count()), `first visit to ${path}: no tour by itself`);
+  }
+  await q.click('.d-tour'); ok(await q.waitForSelector('.tour-card', { timeout: 5000 }).then(() => true, () => false), 'the Tour button opens it');
   await c2.close();
   // phone
   const c3 = await br.newContext({ ...devices['iPhone 13'] }); const m = await c3.newPage(); m.on('pageerror', (e) => errors.push(e.message));
