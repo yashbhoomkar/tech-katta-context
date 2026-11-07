@@ -1,5 +1,5 @@
-// Website tour and "import your own architecture". The tour starts by itself on the first visit
-// (simulated by hiding navigator.webdriver), steps forward and back, closes on its last step (whose
+// Website tour and "import your own architecture". The tour never starts by itself, even on a first
+// visit (simulated by hiding navigator.webdriver); the Tour button opens it; it steps forward and back, closes on its last step (whose
 // button links to the first problem; tour.js follows it) and with Esc, and
 // doesn't come back; the Tour button replays it, in the Lab too. Import: typed text becomes a laid-out
 // design that runs, mistakes are shown by line and block Create, Export downloads JSON that imports back.
@@ -8,12 +8,12 @@ const{chromium}=require('playwright');const fs=require('fs');const B=process.arg
 await ctx.addInitScript(()=>{Object.defineProperty(Navigator.prototype,'webdriver',{get:()=>false})});
 const p=await ctx.newPage();const errors=[];p.on('pageerror',e=>errors.push(e.message));p.on('console',m=>m.type()==='error'&&errors.push(m.text()));
 const card=async()=>(await p.innerText('.tour-card')).split('\n').slice(0,2).join(' ');
-await p.goto(B+'/dashboard/');await p.waitForSelector('.tour-card',{timeout:10000});console.log('auto tour:',await card());
+await p.goto(B+'/dashboard/');await p.waitForSelector('.tabs');await p.waitForTimeout(3000);console.log('no tour by itself:',await p.locator('.tour').count()===0);await p.click('.d-tour');await p.waitForSelector('.tour-card');console.log('Tour button:',await card());
 await p.click('.tour-next');await p.waitForTimeout(250);console.log('next:',await card());await p.click('.tour-act >> text=Back');await p.waitForTimeout(250);console.log('back:',await card());
 for(let i=0;i<12&&await p.locator('.tour-card').count();i++){if(await p.locator('.tour-card a.tour-next').count()){await p.click('.tour-skip')}else await p.click('.tour-next');await p.waitForTimeout(350)}console.log('closed on the last step:',await p.locator('.tour').count()===0);
-await p.reload();await p.waitForSelector('.tabs');await p.waitForTimeout(1500);console.log('no auto tour on return:',await p.locator('.tour').count()===0);
+await p.reload();await p.waitForSelector('.tabs');await p.waitForTimeout(1500);console.log('still none on return:',await p.locator('.tour').count()===0);
 await p.click('.d-tour');await p.waitForSelector('.tour-card');await p.keyboard.press('Escape');await p.waitForTimeout(200);console.log('Esc closes:',await p.locator('.tour').count()===0);
-await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.tour-card',{timeout:10000});const n=(await card()).match(/\/ (\d+)/)[1];console.log('lab auto tour:',await card(),'| steps',n);
+await p.goto(B+'/dashboard/#lab');await p.waitForSelector('.lab-pal');await p.waitForTimeout(3000);console.log('lab: no tour by itself:',await p.locator('.tour').count()===0);await p.click('.d-tour');await p.waitForSelector('.tour-card');const n=(await card()).match(/\/ (\d+)/)[1];console.log('lab tour:',await card(),'| steps',n);
 await p.click('.tour-next');await p.click('.tour-next');await p.waitForTimeout(250);await p.screenshot({path:'/tmp/shots/tour-lab.png'});await p.click('.tour-skip');
 // import
 await p.click('text=Designs ▾');await p.click('text=Import…');await p.waitForSelector('.lab-import textarea');

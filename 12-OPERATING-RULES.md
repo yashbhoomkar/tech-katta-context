@@ -350,6 +350,7 @@ This is not optional when the change is part of the application commit synchroni
 - Tests judge behaviour on the visitor's design (traffic, failures, cost), never similarity to an answer.
 - Changing the Lab engine (`lab/engine.js`) can change verdicts: run the frontend tests (calibration of all
   22 suites) and the Lab e2e scripts before merging.
+- Guided tours open only when the visitor presses the Tour button, never by themselves (owner, 2026-11-07).
 - The API never serves `practice.wrong`, and serves `practice.reference` only on its own, for the Solution tab
   (`GET /v1/articles/<slug>/solution`, since #234, the owner's request). A copied solution submitted unchanged
   is never counted as solved or in the public stats. Submissions store results only.
