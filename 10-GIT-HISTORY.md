@@ -889,3 +889,7 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #225: results panel folds; merge `af15e49ea179ab8a0b60d234dd2dda2b9cb2a2ae`.
 - PR #226: read replicas on the database (Lab phase 2 complete); merge `3719625c46cc84119acd6a3682ddd1e9eb8b677c`.
 - PR #227: parts with a job (roles) and key decisions; merge `ffe2911275da62abd1fba9ccdad8794e6ff0e649`.
+- PR #228: rename components; merge `2bc1f0730ad906dd4c8734185f8861e57313ab3d`.
+- PR #229: database engines; merge `f88ae4ed4c67892d14a6dfbf4111d6ec5ce2944f`.
+- PR #230: database schemas with an editor; merge `d677a8dd39e57b1e408af2e2db6f54a3fea3c95a`.
+- PR #231: request tests that follow an API call through the design, with ▶ Watch; merge `77d5be75330e45fb6161c143137fdc155c50e659`.
