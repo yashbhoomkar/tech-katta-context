@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 10:45 IST** (docs through #227; ledger for #216–#227 pending, see §1). Before that 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 11:40 IST** (docs through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,31 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 11:40 IST** (owner, four "huge tasks, do them properly, be careful": test that a design
+turns the request JSON into the expected response and show it as an animation; all types of databases;
+users decide database schemas; rename components). Shipped as four PRs, each checked on production:
+- **#228 rename** (`2bc1f07`): a Name field on every component (≤40 chars); canvas, run log, menus and
+  judge messages use it; import `Server:OrdersAPI` names it.
+- **#229 database engines** (`f88ae4e`): `database.engines` in `lab.json` (PostgreSQL, MySQL, DynamoDB,
+  MongoDB, Cassandra/Keyspaces, OpenSearch, S3, InfluxDB, Neptune). Instance engines: own sizes, per hour,
+  crash, Multi-AZ option. Per-request engines (DynamoDB, Keyspaces, S3): throughput limit, per-million
+  prices, spread over 3 zones (count as standby; chaos can't crash them), throttle instead of crashing.
+  Each lists features ("Good at"). Old designs = PostgreSQL, unchanged.
+- **#230 schemas** (`d677a8d`): `config.schema.tables` (fields + types, key, sort key, indexes, TTL),
+  `frontend/src/lab/schema.js` (clean, issues in plain words, summary), engine wording and rules from
+  `engines[].schema`, an editor dialog from the database's settings.
+- **#231 request tests + ▶ Watch** (`77d5be7`): `frontend/src/judge/requests.js`. A test is request → data steps →
+  response; expected = steps on `practice.data` samples; the design's response = the steps run through the
+  design (path, sync vs behind a queue, table match by field names, access path by engine + schema, query in
+  the engine's language, sample data), with every hop traced. Workspace shows Request / Expected / Your
+  response and plays the trace on the canvas (highlight, moving dot, camera follows). All 22 problems have
+  data, 1–3 request tests, reference schemas (S3 for photos, video segments, file chunks; engines imply
+  roles) and a wrong design whose schema fails one (`tools/practice/requests.mjs`).
+- **Known limits:** most "async" problems' references only reach their databases through a queue, so
+  their request tests are writes (202); reads aren't tested there. Two databases of different engines behind
+  one server still share its queries in the simulator (grouped by component type). Saved designs from before
+  #231 fail request tests until they add a schema (the message says what to add).
 
 **Update 2026-11-07, 10:45 IST** (owner: "the Lab has no components for problem-specific ideas … do it";
 "Key decisions … do it"; **Decided: no AI review of designs — it would eat the margins**):
@@ -822,6 +847,10 @@ monetisation, publishing policy or references.
 | #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line |
 | #226 | Lab: read replicas on the database (finishes Lab phase 2) |
 | #227 | Problems: parts with a job (27 roles, `role` check, a "general parts" wrong design per problem) and key decisions (67); new score weights |
+| #228 | Lab: rename components |
+| #229 | Lab: database engines (9 engines in 8 families; per-request engines throttle and are zone-spread) |
+| #230 | Lab: database schemas with an editor, in each engine's terms |
+| #231 | Problems: request tests that follow an API call through the design, with ▶ Watch |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
