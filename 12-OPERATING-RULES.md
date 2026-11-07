@@ -277,6 +277,18 @@ This is not optional when the change is part of the application commit synchroni
 - `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
 - Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.
 
+## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
+
+- **Videos:** the owner's teaching videos live on tech.katta.cc only (not YouTube), hosted on **Bunny Stream**
+  (Standard network: Indian PoPs, signed URLs, basic DRM, free encoding). Keep the master recordings in our own
+  storage too, so the host can be changed. Not AWS or Cloudflare Stream for video: at 30 hours a month per
+  subscriber they cost about 3.5 times more.
+- **Free vs paid:** every article has `access: "free" | "paid"` (tech-katta #241). Free: How to answer, APIs, CAP
+  and PACELC, Load balancers, Caches. Paid: everything else, including every problem (the validator refuses a
+  free problem), the Lab and the videos. The field is data only: nothing locks or shows it until the owner
+  confirms the employer clearance.
+- Prices, costs and business notes are in the private repo (`tech-katta-private/notes/business-plan.md`), not here.
+
 ## Article rules (Decided by user, 2026-10-31)
 
 1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.

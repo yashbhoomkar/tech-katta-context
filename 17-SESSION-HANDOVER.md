@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 22:30 IST** (docs through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 23:35 IST** (docs through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,11 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 23:35 IST** (owner planning launch: subscriptions, videos, ads). Decided: videos on Bunny
+Stream, on the site only; a free/paid split (see `12-OPERATING-RULES.md`, "Video hosting and free vs paid").
+**#241** adds `access` to every article (data only, nothing locked). Business notes are in the private repo.
+Still blocked on the employer clearance: payments, pricing pages, locking content, ads.
 
 **Update 2026-11-07, 22:30 IST** (owner: "did you read every paragraph…", then "check the figures and the grading keywords").
 **#239 worked answers read line by line**: fixed contradictions between articles and their problems and added
@@ -918,6 +923,7 @@ monetisation, publishing policy or references.
 | #238 | Content audit of every problem's tabs: contradictions, cab terms, giveaway decisions, times, API paths, facts |
 | #239 | Worked answers read line by line: contradictions with the problems fixed, missing pipelines added |
 | #240 | Requirement keywords matched on word starts and rewritten for all 22 problems; readable figures in the Solution pane |
+| #241 | Every article marked free or paid (`access`; data only) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
