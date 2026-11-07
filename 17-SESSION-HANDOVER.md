@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-07, 11:40 IST** (docs through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-07, 17:30 IST** (docs through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,17 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-07, 17:30 IST** (owner: "a Solutions tab with the solution system design and a button to
+copy it to the user's canvas; very important, do it neatly"). **#234**: the Solution tab now opens with the
+solution design (the problem's `practice.reference`) drawn as on the canvas, ⤢ Full size, "What each part
+does" (settings, jobs, tables, keys, indexes), **Copy to my canvas** (phones switch to the canvas) and **Undo**.
+**Decided (owner's request) and changed rule:** the reference design is now served on its own,
+`GET /v1/articles/<slug>/solution`, only when the Solution tab is opened; the article still leaves it out and
+the wrong designs are never served. A copied solution submitted **unchanged** (`judge.js sameDesign`: same
+components, settings, arrows) is judged but not marked solved, sets no best score, and is stored with
+`copied: true` and kept out of the public stats; the owner's analytics have a Copied column. Checks:
+`tools/e2e/solution-tab.js` (all ok, `errors: []`); all 22 problems Copy → Run pass.
 
 **Update 2026-11-07, 15:50 IST** (owner: "check this again, this is a very important change"; and
 **Decided: the worker records the ledger** for #216–#231 from `agents/TODO.md` "Ledger pending", since
@@ -122,7 +133,8 @@ system design practice experience with real evaluation… LeetCode for system de
 - **All 22 suites calibrated** (6–7 tests, 2 samples, rubric, 6–7 hints, start design, a reference that
   passes, 3–5 wrong designs each failing one test). `cd frontend && npm test` runs the calibration
   (225 tests, < 5 s); `frontend.yml` now also runs on `content/**`. Scripts: `tech-katta/tools/practice/`.
-  The API serves practice **without** `reference`/`wrong` (no passing design one request away).
+  The API serves practice **without** `reference`/`wrong`. **Since #234** the reference is served on its own for the
+  Solution tab (`/v1/articles/<slug>/solution`); the wrong designs never are.
 - **Engine change**: load balancers and API gateways health-check targets (a crashed group gets no traffic
   while another is up). All Lab challenge tests and e2e still pass. Known limit: two queues feeding the same
   workers each hand them full capacity; suites keep one queue per worker pool.
@@ -860,6 +872,9 @@ monetisation, publishing policy or references.
 | #229 | Lab: database engines (9 engines in 8 families; per-request engines throttle and are zone-spread) |
 | #230 | Lab: database schemas with an editor, in each engine's terms |
 | #231 | Problems: request tests that follow an API call through the design, with ▶ Watch |
+| #232 | To-do list: ledger pending for #221–#231 (docs only) |
+| #233 | Fixes from re-checking #228–#231: phones judge the saved design, Watch on phones, Cassandra `IF` updates, how-to copy |
+| #234 | Problems: the Solution tab shows the solution design, with Copy to my canvas and Undo |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
