@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-08, 13:35 IST** (docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 17:25 IST** (docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,19 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-08, 17:25 IST.** **Article URLs (#254, #255)**, the first "what to add" step for search (owner:
+"start adding the separate URLs"; merged on the owner's word). Every article, section, privacy and terms page has
+its own address, `/dashboard/<section>/<slug>/` (89 pages). `frontend/seo.js` (a Vite plugin) writes one small
+HTML page per address after the build, with its own title, meta description, Open Graph tags and canonical link,
+plus `sitemap.xml` (91 addresses). It reads `content/` when the build can see it, else `/v1/site` and
+`/v1/articles`; only titles and one-line summaries, already public through the API, so the sign-in gate is
+unchanged and "Public previews" (readable text for signed-out readers) still waits for the owner. The app
+(`src/routes.js`) reads the path, keeps every old `#section/slug` link working, and rewrites the address bar to the
+path form; Back/Forward and scroll restore follow it. Landing and `site.json` links use the paths. `vercel.json`
+rewrites `/dashboard/(.*)` to the dashboard (#255: `:path+` missed trailing slashes, so problem and Lab addresses
+404'd for about 30 minutes). Verified live 17:21 IST. Vercel hit its 100-deploys-a-day limit again today: every push
+to the branch makes a preview, so batch pushes. Ledger: #253-#255 recorded. Agents stay paused (owner, again today).
 
 **Update 2026-11-08, 13:35 IST.** **Ledger complete through #252** (owner: "update ledgers and docs first").
 Atlas was reachable this session. #216–#218 were already present; all 111 SHAs of #219–#252 (source, branch-sync
@@ -988,6 +1001,8 @@ monetisation, publishing policy or references.
 | #251 | Components: Tools by name group (10 articles, 20 figures), second pass with numbers, code and comparisons |
 | #252 | Concepts: Specialised data group (5 articles, 10 figures); audit fixes |
 | #253 | To-do list: ledger filled through #252, "Ledger pending" cleared (docs only; also redeploys #252's front end) |
+| #254 | Article URLs: /dashboard/<section>/<slug>/ for every article, per-page title, preview and canonical, sitemap of 89 pages |
+| #255 | Dashboard rewrite matches addresses ending in a slash (fixes reloads of problem and Lab addresses) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

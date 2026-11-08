@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-08 13:30 IST): `frontend_git_commits` 608, `backend_git_commits` 486.
+Latest count (2026-11-08 17:25 IST): `frontend_git_commits` 618, `backend_git_commits` 490.
 
 Current live counts checked 2026-10-12:
 
@@ -787,3 +787,18 @@ docs-only PRs (`agents/`) → `frontend_git_commits`. 97 frontend rows (count no
 | #252 | backend + frontend | `8b5ae1c602a6818fb63309706dd01735c9a0de44` | Merge origin/main into the PR #252 branch (2026-11-08) |
 | #252 | backend + frontend | `4af6c705379116bf10a750c982fb90d1238f93aa` | Concepts: Specialised data group (5 articles, 10 figures); audit fixes (PR #252, 2026-11-08) |
 | #252 | backend + frontend | `78ab5b0684dc8991e14cf1d9a3b09ec5f0f980c6` | Merge PR #252: Concepts: Specialised data group (5 articles, 10 figures); audit fixes (2026-11-08) |
+
+### PRs #253–#255 (2026-11-08): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #253 | frontend | `e0c0951ecdea50d41dde7030e2ba2657155e9c32` | Merge origin/main into the PR #253 branch (2026-11-08) |
+| #253 | frontend | `f3f805c9f3a60161fef8d742016d85f37d6548b1` | To-do list: ledger checked and filled through #252; Ledger pending cleared (PR #253, 2026-11-08) |
+| #253 | frontend | `d43c83da422043040af797378f1170cd1d89f250` | Merge PR #253: To-do list: ledger filled through #252 (2026-11-08) |
+| #254 | backend + frontend | `73d2bd269ecffd7aacd9cbaf19c0e8ab89293393` | Merge origin/main into the PR #254 branch (2026-11-08) |
+| #254 | backend + frontend | `0e2e2d0096189ef1facbedefa1d30a106e5ef883` | Article URLs: every article and section at its own address, with its own title, preview and sitemap entry (PR #254, 2026-11-08) |
+| #254 | backend + frontend | `e8b72040b7770f7bcc43c074c5b191fff593cf2a` | Article pages: read the live API when the build cannot see the content folder (PR #254, 2026-11-08) |
+| #254 | backend + frontend | `ba6908522c79249d1a65e3c2b091e0ba902326d2` | Merge PR #254: Article URLs: a real address, title and preview for every article (2026-11-08) |
+| #255 | frontend | `49d1e4d7e131818a58377b67cad2df4a8e2bbe55` | Merge origin/main into the PR #255 branch (2026-11-08) |
+| #255 | frontend | `569ad04faa0f5af54be802295811eee9e9446f51` | Dashboard rewrite: also match addresses ending in a slash (PR #255, 2026-11-08) |
+| #255 | frontend | `75bdeb77eff995146c31e1118799258886a24524` | Merge PR #255: Dashboard rewrite: match addresses ending in a slash (2026-11-08) |
