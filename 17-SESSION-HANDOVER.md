@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-08, 08:30 IST** (docs through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 09:00 IST** (docs through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -35,6 +35,11 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-08, 09:00 IST.** Research Papers filled out: **#244** GFS, MapReduce, Dynamo, Raft and the
+Must know / Worth reading groups; **#245** Bigtable, Kafka, Scaling Memcache; **#246** Bloom filters, Chubby,
+Haystack, Spanner, The Tail at Scale. 13 papers, 26 animated figures (`figs/papers.jsx`), each checked in a
+browser (desktop, phone, still and two animation frames). All marked paid (data only).
 
 **Update 2026-11-08, 08:30 IST.** **#243**: Research Papers tab replaces Did you know (owner); first paper: Lamport
 clocks (1978) with two animated figures. Rule and the open brand question in `12-OPERATING-RULES.md`.
@@ -934,6 +939,9 @@ monetisation, publishing policy or references.
 | #241 | Every article marked free or paid (`access`; data only) |
 | #242 | Analytics: signed-in users per day, 7-day average against the goal of 50 |
 | #243 | Research Papers tab replaces Did you know; first paper: Lamport clocks |
+| #244 | Research Papers: GFS, MapReduce, Dynamo, Raft; Must know and Worth reading groups |
+| #245 | Research Papers: Bigtable, Kafka, Scaling Memcache |
+| #246 | Research Papers: Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

@@ -284,9 +284,13 @@ This is not optional when the change is part of the application commit synchroni
   venue, year), the problem, the idea, how it works, what it promises, where you see it today, how to use it in
   an interview, and "Go deeper".
 - Our own words and our own figures only; never copy a paper's text or diagrams.
-- Open question for the owner: many classic papers come from companies and carry the company in the title. The
-  site's rule is no other company's brand in its name, ads or copy; until the owner decides, write about papers
-  that don't (Lamport clocks first) and name a company only in the citation line.
+- Company names appear only in each paper's citation line (the paper's own title and authors), never in
+  headings, deks or ads; open-source project names (HDFS, Cassandra, etcd) may be named, as elsewhere on the
+  site. The owner said to proceed without asking (11-08), so this is the working rule.
+- The set (owner: "decide which papers are interesting, and which the user should really know"): Must know,
+  01-08: Lamport clocks, GFS, MapReduce, Bigtable, Dynamo, Kafka, Scaling Memcache, Raft. Worth reading, 09-13:
+  Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale. Two animated figures each; numbers taken from
+  the papers and checked; anything that can't be checked is left out.
 
 ## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
 
