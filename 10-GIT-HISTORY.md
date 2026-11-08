@@ -893,3 +893,33 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #229: database engines; merge `f88ae4ed4c67892d14a6dfbf4111d6ec5ce2944f`.
 - PR #230: database schemas with an editor; merge `d677a8dd39e57b1e408af2e2db6f54a3fea3c95a`.
 - PR #231: request tests that follow an API call through the design, with ▶ Watch; merge `77d5be75330e45fb6161c143137fdc155c50e659`.
+- PR #232: To-do list: ledger pending for #221–#231; merge `e7721bf2f7fd718af1693c016abc40e40e3a8465`.
+- PR #233: Fixes from re-checking the four Lab changes: phones, Cassandra holds, how-to; merge `db57244ad9c7e61943cd52042d98fb2fdc338e30`.
+- PR #234: Solution tab: the solution design, with Copy to my canvas; merge `50abf2d830f2e604a0fae86219b7c4e4f76c7e4b`.
+- PR #235: Remove the timed "Practise before you read" checklist; merge `3c32de32f08ecb48e7ee13a971997f8ae413ea8a`.
+- PR #236: Upgrade the guided tours: a problem workspace tour, a dashboard tour that leads to Problems; merge `30c16ce1714a6d70a60e1400fd1b2d87e7c9bc23`.
+- PR #237: Tours open only from the Tour button, never by themselves; merge `b8d2b8504d25fbb1ace84c2d6277764fee3085cf`.
+- PR #238: Content audit of every problem's tabs: fix contradictions, wrong terms, giveaway decisions; merge `1cc5a1e4bd8c054c98ca08c18bcf48519e115fa3`.
+- PR #239: Worked answers read line by line: fix contradictions with the problems, add missing pipelines; merge `351fc87fbddd0e11b9cd41352c91b7aefc46c9fb`.
+- PR #240: Grade written requirements on whole words, sharpen every keyword list, readable figures in the Solution pane; merge `6a627ff30b955b279dec441895be3c2a62a2c3e1`.
+- PR #241: Mark every article free or paid (data only; nothing is locked yet); merge `d3016fd52222a560c86c4513889f54639a9362e4`.
+- PR #242: Analytics: signed-in users per day, 7-day average against the goal of 50; merge `6cfc46bca3c3d5176bf5ffdd06e2d2531fc4fba6`.
+- PR #243: Research Papers tab replaces Did you know; first paper: Lamport clocks; merge `81e79964801a1668b1e4fc6ecb026dafc4fd09a9`.
+- PR #244: Research Papers batch 1: GFS, MapReduce, Dynamo, Raft and paper groups; merge `6e1c957ff05ec159db213e5f51f7d00b4e5afb31`.
+- PR #245: Research Papers batch 2: Bigtable, Kafka, Scaling Memcache; merge `6a72217d3d41692044865c0c9e661833072dd049`.
+- PR #246: Research Papers batch 3 (Worth reading): Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale; merge `95c5f9c866b7428c38c8a99cb1c392108f9f9d39`.
+- PR #247: Concepts: networking, API shape and estimation, with six animated figures; merge `6e7bf550aff8ce869116aa143db872a31ffc6389`.
+- PR #248: Concepts: data modelling, indexes and hash rings, with six animated figures; merge `09d7cc6d2e3e4c532a614c8858f0f3d4d9382b28`.
+- PR #249: Concepts: Recurring patterns group (7 articles, 14 figures); Lamport clocks free; merge `91aac74da12be93482e05967f4e11fca292648ed`.
+- PR #250: Content audit: fixes across Concepts and Components; merge `7791ce8ce1c3ccb49491c619b3bbc4b5f13e98e8`.
+- PR #251: Components: Tools by name group (10 articles, 20 figures); merge `89628e6eec65981e58affcefad386345ff9fc46d`.
+- PR #252: Concepts: Specialised data group (5 articles, 10 figures); audit fixes; merge `78ab5b0684dc8991e14cf1d9a3b09ec5f0f980c6`.
+- PR #253: To-do list: ledger filled through #252; merge `d43c83da422043040af797378f1170cd1d89f250`.
+- PR #254: Article URLs: a real address, title and preview for every article; merge `ba6908522c79249d1a65e3c2b091e0ba902326d2`.
+- PR #255: Dashboard rewrite: match addresses ending in a slash; merge `75bdeb77eff995146c31e1118799258886a24524`.
+- PR #256: Remove the automatic agents workflow; merge `cd1654b0eb7863a071eac1fc259f1eb54482a5de`.
+- PR #257: Networking tab: 11 articles and 25 animated figures; merge `2e959e656f6bcc0339b59e7dc5b9807642230094`.
+- PR #258: Networking essentials: a group in Concepts, not a separate tab; merge `952d99c45b69a976c47a4359ff5ce507821bd83a`.
+- PR #259: Networking essentials completed; API design group in Concepts; merge `6b26d1b254eac42e6ae9a943f427d96db8a03901`.
+- PR #260: Paragraph-level check of Networking essentials and API design; merge `5ba1da5f808af86926fcb62fa8e4ae6914cb7d5e`.
+- PR #261: Data modelling: a new group in Concepts, five articles and nine figures; merge `f3e96f3181eab959771673f67de8635e419a641b`.
