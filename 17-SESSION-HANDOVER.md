@@ -959,7 +959,6 @@ monetisation, publishing policy or references.
 
 | PR | What |
 |---|---|
-| #253 | To-do list: ledger filled through #252, "Ledger pending" cleared (docs only; also redeploys #252's front end) |
 | #225 | Workspace results panel: at most 42% of the canvas, folds to its verdict line |
 | #226 | Lab: read replicas on the database (finishes Lab phase 2) |
 | #227 | Problems: parts with a job (27 roles, `role` check, a "general parts" wrong design per problem) and key decisions (67); new score weights |
@@ -988,6 +987,7 @@ monetisation, publishing policy or references.
 | #250 | Content audit: renumbered Concepts, cross-links, one contradiction fixed, Consensus Lab link |
 | #251 | Components: Tools by name group (10 articles, 20 figures), second pass with numbers, code and comparisons |
 | #252 | Concepts: Specialised data group (5 articles, 10 figures); audit fixes |
+| #253 | To-do list: ledger filled through #252, "Ledger pending" cleared (docs only; also redeploys #252's front end) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
