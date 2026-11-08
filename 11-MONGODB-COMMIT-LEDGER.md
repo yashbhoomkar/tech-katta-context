@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-08 19:05 IST): `frontend_git_commits` 636, `backend_git_commits` 505.
+Latest count (2026-11-08 19:25 IST): `frontend_git_commits` 640, `backend_git_commits` 509.
 
 Current live counts checked 2026-10-12:
 
@@ -835,3 +835,12 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #260 | `0b83961acbfa6298ffa62099b5653b139035454f` | API design: paragraph-level check; two points and two figures added |
 | #260 | `34752ebc4728963894cacde554f7d0a44f933a3b` | Networking essentials: paragraph-level check; nine points and two figures added |
 | #260 | `5ba1da5f808af86926fcb62fa8e4ae6914cb7d5e` | Merge PR #260: Paragraph-level check of Networking essentials and API design |
+
+### PR #261 (2026-11-08): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #261 | `419acabcdc5745be7b732d8b49a94e22e294776f` | Merge origin/main into the PR #261 branch |
+| #261 | `ca9b947c97231d230680044ec4acb286625d618d` | Data modelling: a new group in Concepts, five articles and nine figures |
+| #261 | `3d97fbf6a7e86043013731f8669ab7371cba4a92` | content README: note the API design and Data modelling groups |
+| #261 | `f3e96f3181eab959771673f67de8635e419a641b` | Merge PR #261: Data modelling: a new group in Concepts, five articles and nine figures |

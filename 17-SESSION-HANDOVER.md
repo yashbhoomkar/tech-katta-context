@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-08, 19:05 IST** (paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 19:25 IST** (Data modelling group, #261; ledger through #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -31,6 +31,18 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-08, 19:25 IST.** **Data modelling** (#261; owner: "Next is the data modelling tab"). A new group
+in Concepts (`data-modelling`, CONCEPT // 44-48), not a tab: data-step, choosing-database, keys-and-relationships,
+indexes-and-normalising, sharding-the-model. Nine new figures in `frontend/src/figs/datamodel.jsx` (`DM_FIGS`:
+dm-whiteboard, dm-kv-cache, dm-wide, dm-graph, dm-relations, dm-constraints, dm-endpoint-index, dm-anomaly,
+dm-cross-shard), registered in dashboard.jsx, validate.js and the content test; reuses model-shapes, model-copy,
+shard-key and hot-shard. Checked paragraph by paragraph against the reference page (108 items, all covered; its
+six figures each have a counterpart). **Deployment check:** the API is live with #261 (release
+`20261108T134954Z-f3e96f3`, 103 articles). The Vercel front end is still on #257's build: the free plan's 100
+deploys a day are used up (merge and preview deploys fail; a direct deploy returned 402). #258-#261's figures, page
+titles and redirect go live with the next deploy once the limit frees (about 08:00 IST tomorrow); nothing to change
+in code. Ledger through #261 (frontend 640, backend 509).
 
 **Update 2026-11-08, 19:05 IST.** **Paragraph-level check** of both reference-led groups (#260; owner: "paragraph by
 paragraph cross checking"). Each reference page was mapped one item per paragraph, list item, code block and figure,
@@ -1043,6 +1055,7 @@ monetisation, publishing policy or references.
 | #258 | Networking essentials moved into Concepts as a group (CONCEPT // 26–36), tab removed, old URLs redirect; ten missing points added |
 | #259 | Networking essentials completed (two points, `nw-lb-choose`); API design group in Concepts: 7 articles, 9 figures (`figs/apidesign.jsx`) |
 | #260 | Paragraph-level check of Networking essentials (337 items) and API design (143): 11 points and 4 figure placements added |
+| #261 | Data modelling group in Concepts: 5 articles (CONCEPT // 44-48), 9 new figures; 108-item paragraph check |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

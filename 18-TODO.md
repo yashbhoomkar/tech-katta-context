@@ -11,6 +11,8 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
+| — | ops | Vercel front end behind: today's 100 free deploys used up; #258–#261 reach the site with the next deploy (about 08:00 IST 2026-11-09). Check tech.katta.cc then | waiting | nothing to change in code; don't touch billing |
+| — | content | Next reference-led Concepts groups (done: Networking essentials, API design, Data modelling) | waiting for owner | owner names the next one; same method: paragraph map, our own words via Zotato, our figures |
 | 1 | content | Q23–Q36, one per run (pick common questions not yet covered and not already taught elsewhere on the site: e.g. a file-sharing link service, a distributed message queue as a question, a reviews and ratings system, …) | ready | |
 | — | build | Lab: a way to model "one database that can't be split" (e.g. a challenge setting that allows one database only) | idea | would make a fair ticket-booking waiting-room challenge (Q05); without it, two big databases beat a queue for a short sale. Not worth it alone |
 | — | build | Practice analytics: a `practice_done` event (slug, minutes per step) | waiting for owner | needs a new event in `backend/src/auth/events.js` (what the events collection stores), which counts as the data model under rule 4 |
