@@ -306,6 +306,12 @@ This is not optional when the change is part of the application commit synchroni
   called patterns", and "even if our existing topics cover them, still add them as separate articles"): a
   **Recurring patterns** group inside Concepts, CONCEPT // 14-20: `live-updates`, `contention`, `workflows`,
   `scaling-reads`, `scaling-writes`, `big-files`, `long-jobs`. Two animated figures each.
+- Key technologies (owner, 11-08: "do the same, don't add a separate tab, change the headings and titles, add
+  content"): a **Tools by name** group inside Components, COMPONENT // 10-19: `redis`, `elasticsearch`,
+  `kafka-in-practice`, `temporal`, `gateway-products`, `cassandra`, `dynamodb`, `postgresql`, `flink`, `zookeeper`.
+  Figures live in `frontend/src/figs/tools.jsx` (`TOOL_FIGS`). After the owner asked to "rethink the content", each
+  page got a "Numbers worth remembering" table, a Zotato example in code, "this or something else" guidance and
+  pointers to the problems that use the tool; keep that shape for any new tool page.
 - Concept numbers follow the order the sidebar shows them, group by group (Basics 01-04, Data 05-10, Staying up 11,
   Agreeing 12-13, Recurring patterns 14-20), and `index.json` lists them in that order. Renumber when an article
   is added in the middle of a group; slugs never change. Older pages point to the deeper concept by name
