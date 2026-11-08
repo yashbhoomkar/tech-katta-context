@@ -548,8 +548,8 @@ system design practice experience with real evaluation… LeetCode for system de
    merge when CodeQL and the frontend CI are green. If it reviews anyway, fix every valid finding
    and reply on each thread. (Supersedes the earlier "request it, don't wait when rate-limited".)
 4. **Keep this repository current** after every change, and keep this handover up to date.
-5. Copy must read as written by a person — plain, specific, never AI-sounding. Never copy text from
-   reference sites; use them as guidance only.
+5. Copy must read as written by a person — plain, specific, never AI-sounding. Reference sites decide
+   what to cover (the "nothing copied from the reference site" rule was removed by the owner on 11-08).
 
 ---
 
