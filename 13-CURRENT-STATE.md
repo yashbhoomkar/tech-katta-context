@@ -1461,3 +1461,20 @@ Dated sections for #148–#215 were not written here; `17-SESSION-HANDOVER.md` �
   re-judging with acceptance rates. Details in `17-SESSION-HANDOVER.md` §1 (03:00 IST).
 - `/v1/problems/stats` live (empty until signed-in submissions arrive); `POST /v1/me/submissions` 401 when
   signed out. A real signed-in submission has not been tried yet.
+
+## Production snapshot — 2026-11-08, 19:30 IST (after PR #261)
+
+Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` §1 and §12 cover them, and
+`10-GIT-HISTORY.md` lists every merge.
+- `main` = `f3e96f3181eab959771673f67de8635e419a641b` (#261). API `/health`: release
+  `20261108T134954Z-f3e96f3`, 103 articles, `auth: on`, `accounts: ok`.
+- Content: Concepts 48 (groups: basics, data, reliability, coordination, patterns, specialised, networking,
+  api-design, data-modelling), Components 19, Interview Questions Q00–Q22 (23), Research Papers 13.
+- Every article has its own address, `/dashboard/<section>/<slug>/`, with its own title and preview (#254, #255).
+- Figures: one file per family in `frontend/src/figs/` (components, concepts, questions, papers, tools, network,
+  apidesign, datamodel), each registered in `dashboard.jsx`, `backend/src/content/validate.js` and the content test.
+- Vercel production front end: still the #257 build. The free plan's 100 deploys a day are used up, so #258–#261
+  (Networking essentials as a Concepts group, API design, Data modelling figures, page titles, the old-link
+  redirect) reach the site with the next deploy, about 08:00 IST on 2026-11-09.
+- Automatic agents workflow removed (#256); no worker sessions or scheduled tasks.
+- Ledger: complete through #261 (frontend 640, backend 509).
