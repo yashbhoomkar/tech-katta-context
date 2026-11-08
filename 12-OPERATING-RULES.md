@@ -292,6 +292,17 @@ This is not optional when the change is part of the application commit synchroni
   Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale. Two animated figures each; numbers taken from
   the papers and checked; anything that can't be checked is left out.
 
+## Core concept topics, in our own words (Decided by the owner, 2026-11-08)
+
+- The owner shared another interview-prep site's Core Concepts list and asked us to cover the same topics, "but
+  just have different headings and titles". Topics are not owned by anyone; their words are. Our titles, slugs,
+  section headings, examples, numbers and figures are our own, and nothing is copied or paraphrased from that
+  site. Don't name that site anywhere on ours.
+- Coverage (11-08): networking (`concepts/tap-to-server`), API design (`concepts/shaping-apis`), data modelling
+  (`concepts/modelling-data`), caching (`components/caches`), sharding (`components/sharding`), consistent
+  hashing (`concepts/hash-rings`), CAP (`concepts/cap-pacelc`), database indexing (`concepts/indexes`), numbers
+  to know (`concepts/estimates`).
+
 ## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
 
 - **Videos:** the owner's teaching videos live on tech.katta.cc only (not YouTube), hosted on **Bunny Stream**
