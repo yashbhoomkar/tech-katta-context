@@ -29,6 +29,8 @@ History database:
 
 ## Current observed collections
 
+Latest count (2026-11-08 13:30 IST): `frontend_git_commits` 608, `backend_git_commits` 486.
+
 Current live counts checked 2026-10-12:
 
 - `frontend_git_commits` — 168 documents
@@ -657,7 +659,7 @@ A check on 11-06 found all 8 merge records present (#196–#203).
 Recorded by the worker right after each merge, in `frontend_git_commits`. A check on 11-06 against the
 PR heads and `main` found all 36 SHAs present (24 source commits, 12 squash merges). Count: 501.
 
-### PRs #216–#218 (2026-11-07, 01:15 IST): NOT verified, pending
+### PRs #216–#218 (2026-11-07, 01:15 IST): checked 2026-11-08, all 10 already present
 
 This session could not connect to Atlas (`remote-atlas-connect` refused by the session's safety check,
 twice). Whether the worker recorded these after merging is unknown. Check both canonical collections for
@@ -679,7 +681,7 @@ GitHub API (PR commits and `merge_commit_sha`):
 
 Once checked, replace this heading's "NOT verified, pending" with the result and the new row count.
 
-### PRs #219–#220 (2026-11-07, 02:00 IST): NOT recorded, pending (Atlas unreachable from this session)
+### PRs #219–#220 (2026-11-07, 02:00 IST): recorded 2026-11-08 13:30 IST
 
 | PR | Kind | SHA | Value |
 |---|---|---|---|
@@ -693,7 +695,7 @@ Once checked, replace this heading's "NOT verified, pending" with the result and
 
 #220 touches frontend, backend (validate.js, test) and content: record it in both collections.
 
-### PRs #221–#223 (2026-11-07, 03:00 IST): NOT recorded, pending (Atlas unreachable from this session)
+### PRs #221–#231 (2026-11-07, 03:00 IST): recorded 2026-11-08 13:30 IST
 
 Source commits new in each PR, then the squash merge. #221 and #223 touch frontend, backend and content
 (both collections); #222 content and tools (backend collection).
@@ -709,3 +711,79 @@ Source commits new in each PR, then the squash merge. #221 and #223 touch fronte
 - #229: `ed5da42adf965716b7a8e5e1d7a5c728b471aeac` (merge main into branch), `b7c91503241bc0cc7df5a522c37c8e73f725e244` (engines); merge `f88ae4ed4c67892d14a6dfbf4111d6ec5ce2944f` (frontend + backend + content)
 - #230: `47a328eaebce6befaae37167ccb8ccc465742953` (merge main into branch), `f9760ae72ad5dba28515d8664426f4b257e38814` (schemas); merge `d677a8dd39e57b1e408af2e2db6f54a3fea3c95a` (frontend + backend + content)
 - #231: `d107647b9571cd0e128a3d03a7a5fe40256f5503` (merge main into branch), `b063c9e33475acf04f3139b875bf696d608f3381` (request tests, Watch, content); merge `77d5be75330e45fb6161c143137fdc155c50e659` (frontend + backend + content + tools)
+
+### PRs #232–#252 (2026-11-07 and 11-08): recorded 2026-11-08 13:30 IST
+
+Atlas was reachable from the 11-08 session. All SHAs of #219–#252 (111) were checked in both canonical
+collections, none were present, and each was inserted into the collection(s) for the folders its PR
+touched: `frontend/` → `frontend_git_commits`; `backend/`, `content/`, `tools/` → `backend_git_commits`;
+docs-only PRs (`agents/`) → `frontend_git_commits`. 97 frontend rows (count now 608) and 101 backend rows
+(count now 486). Source commits include the branch-sync merges ("Merge origin/main into the PR #N branch").
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #232 | frontend | `8dee8b72cd72e960d55c982fe41719e6dcb0a313` | Merge origin/main into the PR #232 branch (2026-11-07) |
+| #232 | frontend | `d9e307adaff2ab0aa98e644e06f847dd8669f1a5` | To-do list: ledger pending for #221-#231; handover checked through #231 (PR #232, 2026-11-07) |
+| #232 | frontend | `e7721bf2f7fd718af1693c016abc40e40e3a8465` | Merge PR #232: To-do list: ledger pending for #221–#231 (2026-11-07) |
+| #233 | backend + frontend | `50b2238b684f8871b5552f7b6bdef8f1161ae3ca` | Merge origin/main into the PR #233 branch (2026-11-07) |
+| #233 | backend + frontend | `a0d16f7ff4801ce604d86d72d32f0443cb7f940e` | Fixes from re-checking the four Lab changes: phones, Cassandra holds, how-to (PR #233, 2026-11-07) |
+| #233 | backend + frontend | `db57244ad9c7e61943cd52042d98fb2fdc338e30` | Merge PR #233: Fixes from re-checking the four Lab changes: phones, Cassandra holds, how-to (2026-11-07) |
+| #234 | backend + frontend | `d21a2dce6a775bcefa5b776c0b2845e080d946d9` | Solution tab: the solution design, with Copy to my canvas (PR #234, 2026-11-07) |
+| #234 | backend + frontend | `50abf2d830f2e604a0fae86219b7c4e4f76c7e4b` | Merge PR #234: Solution tab: the solution design, with Copy to my canvas (2026-11-07) |
+| #235 | backend + frontend | `4d0901bc5d7c58f197400b3f6ced658fdcdfd2e1` | Merge origin/main into the PR #235 branch (2026-11-07) |
+| #235 | backend + frontend | `30f43ed49e019f1491a774abd013df8a2d4a7b09` | Remove the timed "Practise before you read" checklist (PR #235, 2026-11-07) |
+| #235 | backend + frontend | `3c32de32f08ecb48e7ee13a971997f8ae413ea8a` | Merge PR #235: Remove the timed "Practise before you read" checklist (2026-11-07) |
+| #236 | backend + frontend | `272d8fb297f60942bcdfb86243a2f979eb3899a1` | Merge origin/main into the PR #236 branch (2026-11-07) |
+| #236 | backend + frontend | `d0bd0aa7ee72be2bff4d2ef0ccebeb69c5bbd71f` | Upgrade the guided tours: a problem workspace tour, a dashboard tour that leads to Problems (PR #236, 2026-11-07) |
+| #236 | backend + frontend | `30c16ce1714a6d70a60e1400fd1b2d87e7c9bc23` | Merge PR #236: Upgrade the guided tours: a problem workspace tour, a dashboard tour that leads to Problems (2026-11-07) |
+| #237 | backend + frontend | `aa01b2611845fc8a3021d77ac29dcf8f3dd1fea9` | Merge origin/main into the PR #237 branch (2026-11-07) |
+| #237 | backend + frontend | `583ddaf739a5bab4e9359ab781ed9709e1fb1e4c` | Tours open only from the Tour button, never by themselves (PR #237, 2026-11-07) |
+| #237 | backend + frontend | `b8d2b8504d25fbb1ace84c2d6277764fee3085cf` | Merge PR #237: Tours open only from the Tour button, never by themselves (2026-11-07) |
+| #238 | backend + frontend | `5e1707b497c214adf0ebc5ce6a88d298192f9471` | Merge origin/main into the PR #238 branch (2026-11-07) |
+| #238 | backend + frontend | `6a03fc826dc48c5ad4bf5fdd5aa1697a59722e4b` | Content audit of every problem's tabs: fix contradictions, wrong terms, giveaway decisions (PR #238, 2026-11-07) |
+| #238 | backend + frontend | `1cc5a1e4bd8c054c98ca08c18bcf48519e115fa3` | Merge PR #238: Content audit of every problem's tabs: fix contradictions, wrong terms, giveaway decisions (2026-11-07) |
+| #239 | backend | `88345014a4b73bf4236ca523225b0bedc536b434` | Merge origin/main into the PR #239 branch (2026-11-07) |
+| #239 | backend | `1ecbe6d87ab99bd9d668fa44ef30108d6f13beea` | Worked answers read line by line: fix contradictions with the problems, add missing pipelines (PR #239, 2026-11-07) |
+| #239 | backend | `351fc87fbddd0e11b9cd41352c91b7aefc46c9fb` | Merge PR #239: Worked answers read line by line: fix contradictions with the problems, add missing pipelines (2026-11-07) |
+| #240 | backend + frontend | `463d6de9c528a21d1509d9527476835afb9bbb04` | Merge origin/main into the PR #240 branch (2026-11-07) |
+| #240 | backend + frontend | `2cb82cdde1130b7984fbd760d96144df7118c557` | Grade written requirements on whole words, sharpen every keyword list, make figures readable in the Solution pane (PR #240, 2026-11-07) |
+| #240 | backend + frontend | `6a627ff30b955b279dec441895be3c2a62a2c3e1` | Merge PR #240: Grade written requirements on whole words, sharpen every keyword list, readable figures in the Solution pane (2026-11-07) |
+| #241 | backend | `1308fd053b809984eae99d98f34b02017790a308` | Merge origin/main into the PR #241 branch (2026-11-07) |
+| #241 | backend | `e071331bfa0d78124b86d586527a1cb59b321e66` | Mark every article free or paid (data only; nothing is locked yet) (PR #241, 2026-11-07) |
+| #241 | backend | `d3016fd52222a560c86c4513889f54639a9362e4` | Merge PR #241: Mark every article free or paid (data only; nothing is locked yet) (2026-11-07) |
+| #242 | backend + frontend | `41e9b7fda76cb0881e8eafed292174c1da157a08` | Merge origin/main into the PR #242 branch (2026-11-07) |
+| #242 | backend + frontend | `38825e5a9f9beb9dbeb1b25eaad8785c5deb1d31` | Analytics: signed-in users per day, and a 7-day average tile with the goal of 50 (PR #242, 2026-11-07) |
+| #242 | backend + frontend | `6cfc46bca3c3d5176bf5ffdd06e2d2531fc4fba6` | Merge PR #242: Analytics: signed-in users per day, 7-day average against the goal of 50 (2026-11-08) |
+| #243 | backend + frontend | `67c7c304b051dd44fb319d056b5f5e2851073492` | Merge origin/main into the PR #243 branch (2026-11-07) |
+| #243 | backend + frontend | `78dfb8fd6a1b5cc4523d10d43341d134643bf645` | Research Papers tab replaces Did you know; first paper: Lamport clocks, with two animated figures (PR #243, 2026-11-08) |
+| #243 | backend + frontend | `81e79964801a1668b1e4fc6ecb026dafc4fd09a9` | Merge PR #243: Research Papers tab replaces Did you know; first paper: Lamport clocks (2026-11-08) |
+| #244 | backend + frontend | `a8ee295b9a23cd5c9208841524bea8b0081ed200` | Merge origin/main into the PR #244 branch (2026-11-08) |
+| #244 | backend + frontend | `94019ee8db78332c40cff319425953affc440bd7` | Research Papers: Must know and Worth reading groups; GFS, MapReduce, Dynamo and Raft with eight animated figures (PR #244, 2026-11-08) |
+| #244 | backend + frontend | `6e1c957ff05ec159db213e5f51f7d00b4e5afb31` | Merge PR #244: Research Papers batch 1: GFS, MapReduce, Dynamo, Raft and paper groups (2026-11-08) |
+| #245 | backend + frontend | `2c97ccbec4d79d96ef2168a4c3ba684e0bbd927f` | Merge origin/main into the PR #245 branch (2026-11-08) |
+| #245 | backend + frontend | `fe2772ab61e7981a86766c1b96d2df0824940f0e` | Research Papers batch 2: Bigtable, Kafka and Scaling Memcache, with six animated figures (PR #245, 2026-11-08) |
+| #245 | backend + frontend | `6a72217d3d41692044865c0c9e661833072dd049` | Merge PR #245: Research Papers batch 2: Bigtable, Kafka, Scaling Memcache (2026-11-08) |
+| #246 | backend + frontend | `a8956ab660faf64320e8033305faeb2a9084b118` | Merge origin/main into the PR #246 branch (2026-11-08) |
+| #246 | backend + frontend | `72b49ca2deb886ac1519a23fd0499cb6a26f542c` | Research Papers batch 3 (Worth reading): Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale (PR #246, 2026-11-08) |
+| #246 | backend + frontend | `95c5f9c866b7428c38c8a99cb1c392108f9f9d39` | Merge PR #246: Research Papers batch 3 (Worth reading): Bloom filters, Chubby, Haystack, Spanner, The Tail at Scale (2026-11-08) |
+| #247 | backend + frontend | `06272b5fce62b4cfb02bc03e8de2a30f7390b8ba` | Merge origin/main into the PR #247 branch (2026-11-08) |
+| #247 | backend + frontend | `f0f785640a653586a73b34c000d250515f62113d` | Concepts: networking, API shape and estimation, with six animated figures (PR #247, 2026-11-08) |
+| #247 | backend + frontend | `6e7bf550aff8ce869116aa143db872a31ffc6389` | Merge PR #247: Concepts: networking, API shape and estimation, with six animated figures (2026-11-08) |
+| #248 | backend + frontend | `c413dfbad2edcd68f82853e6ec8b73c8d9168c31` | Merge origin/main into the PR #248 branch (2026-11-08) |
+| #248 | backend + frontend | `45b33fabe7b672364f6cd5cc2ef2029796f1a046` | Concepts: data modelling, indexes and hash rings, with six animated figures (PR #248, 2026-11-08) |
+| #248 | backend + frontend | `4a6408e43b6649d72fa00a36d229fdee5b857fb0` | Merge origin/main into the PR #248 branch (2026-11-08) |
+| #248 | backend + frontend | `5e7988c71094b7ba8ebadaa00b8231d01e4e0742` | Indexes article: prefix searches can use a B-tree, not always (PR #248, 2026-11-08) |
+| #248 | backend + frontend | `09d7cc6d2e3e4c532a614c8858f0f3d4d9382b28` | Merge PR #248: Concepts: data modelling, indexes and hash rings, with six animated figures (2026-11-08) |
+| #249 | backend + frontend | `a549e32e28802b6be03177d5437015fcc15829e7` | Merge origin/main into the PR #249 branch (2026-11-08) |
+| #249 | backend + frontend | `2709b4d6d794f7aa35448b663b0c65d7ae97ad97` | Concepts: Recurring patterns group (7 articles, 14 figures); Lamport clocks free (PR #249, 2026-11-08) |
+| #249 | backend + frontend | `91aac74da12be93482e05967f4e11fca292648ed` | Merge PR #249: Concepts: Recurring patterns group (7 articles, 14 figures); Lamport clocks free (2026-11-08) |
+| #250 | backend | `2d9f8c5da355b8b1eab90274e596c8a67cc62cd0` | Merge origin/main into the PR #250 branch (2026-11-08) |
+| #250 | backend | `b5b28d56617e2a92d9c5d4b4babdb8c809cecbf0` | Content audit: fixes across Concepts and Components (PR #250, 2026-11-08) |
+| #250 | backend | `7791ce8ce1c3ccb49491c619b3bbc4b5f13e98e8` | Merge PR #250: Content audit: fixes across Concepts and Components (2026-11-08) |
+| #251 | backend + frontend | `3b26cc3161bbd1ee594c4e6cb0fb84dffb4a9fc9` | Merge origin/main into the PR #251 branch (2026-11-08) |
+| #251 | backend + frontend | `3c756c14214f0636fba1dd4aefd7f42c5bdd03e6` | Components: Tools by name group (10 articles, 20 figures), plus cross-links (PR #251, 2026-11-08) |
+| #251 | backend + frontend | `77865e5f68f2b174ae43bc17eb7945db71a0f21d` | Tools by name: second pass on the ten articles (PR #251, 2026-11-08) |
+| #251 | backend + frontend | `89628e6eec65981e58affcefad386345ff9fc46d` | Merge PR #251: Components: Tools by name group (10 articles, 20 figures) (2026-11-08) |
+| #252 | backend + frontend | `8b5ae1c602a6818fb63309706dd01735c9a0de44` | Merge origin/main into the PR #252 branch (2026-11-08) |
+| #252 | backend + frontend | `4af6c705379116bf10a750c982fb90d1238f93aa` | Concepts: Specialised data group (5 articles, 10 figures); audit fixes (PR #252, 2026-11-08) |
+| #252 | backend + frontend | `78ab5b0684dc8991e14cf1d9a3b09ec5f0f980c6` | Merge PR #252: Concepts: Specialised data group (5 articles, 10 figures); audit fixes (2026-11-08) |
