@@ -295,9 +295,11 @@ This is not optional when the change is part of the application commit synchroni
 ## Core concept topics, in our own words (Decided by the owner, 2026-11-08)
 
 - The owner shared another interview-prep site's Core Concepts list and asked us to cover the same topics, "but
-  just have different headings and titles". Topics are not owned by anyone; their words are. Our titles, slugs,
-  section headings, examples, numbers and figures are our own, and nothing is copied or paraphrased from that
-  site. Don't name that site anywhere on ours.
+  just have different headings and titles". Topics and knowledge are general; our titles, slugs, section
+  headings, examples, numbers and figures are our own. Don't name that site anywhere on ours.
+- Owner, 2026-11-08 (evening): the rule "nothing on Tech Katta is copied from the reference site" is removed.
+  Networking essentials is general knowledge; a reference page may be used to decide what to cover, point by
+  point. A later pass will refine the wording so nothing reads as taken directly from it.
 - Coverage (11-08): networking (`concepts/tap-to-server`), API design (`concepts/shaping-apis`), data modelling
   (`concepts/modelling-data`), caching (`components/caches`), sharding (`components/sharding`), consistent
   hashing (`concepts/hash-rings`), CAP (`concepts/cap-pacelc`), database indexing (`concepts/indexes`), numbers
@@ -339,7 +341,7 @@ This is not optional when the change is part of the application commit synchroni
 1. **Read aloud on every article.** Built into the dashboard (`Reader` / `useReader` in `frontend/src/dashboard.jsx`, Web Speech API). New block types must be added to `chunks()` so they are spoken.
 2. **Every figure is animated where possible**, on a loop, in the Swiss palette, with a static version for `prefers-reduced-motion` (`useStill()`). Animation must show the concept happening (a request travelling, an event waiting in a queue), not decoration.
 3. **Explain through one example system where it fits: Zotato**, a made-up food delivery app (`example` in `frontend/src/articles.js`): customer, restaurant and rider apps; Orders, Payments, Dispatch, Notifications, Invoices services; an outside payment provider and restaurants' own billing systems. Each article says that *it* uses Zotato (not "every concept on the site"); each idea gets an "In Zotato" explanation where it fits; figures use Zotato's parts. Extend Zotato (add a service, a constraint) rather than inventing a new system. Do not use real company names for it.
-4. Copy stays plain and human; no copying from reference sites (they are guidance only).
+4. Copy stays plain and human; reference sites decide what to cover (owner, 11-08).
 
 ## Audience: mobile first (Decided by user, 2026-10-31)
 
