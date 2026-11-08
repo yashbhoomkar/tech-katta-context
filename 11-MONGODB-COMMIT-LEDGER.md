@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 02:50 IST): `frontend_git_commits` 661, `backend_git_commits` 527.
+Latest count (2026-11-09 02:55 IST): `frontend_git_commits` 665, `backend_git_commits` 531.
 
 Current live counts checked 2026-10-12:
 
@@ -900,6 +900,15 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #268 | `638f77863a568eb258541788811e29185a4a5712` | Merge origin/main into the PR #268 branch |
 | #268 | `baa5aad8f501d0b011cecc254e376a62725522d6` | Audit of the new groups: one story for Zotato's shard key, softer write-limit claim, DynamoDB placement wording |
 | #268 | `2ab636a6a5ab7f05667222a46948efdf01b34183` | Merge PR #268 |
+
+### PR #269 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #269 | `ec7ee4c7d8fbf71ef28c8c3175befab08028c860` | Merge origin/main into the PR #269 branch |
+| #269 | `7c2c5cc9bfaf97df6754a1be623bf19ac2862225` | Surprise: an interactive hash ring you can change |
+| #269 | `aeb26b57abf775301086cbc6fcba1ef0e8d9cb2f` | content README: note the Sharding, Consistent hashing and CAP groups |
+| #269 | `195a16381ad776524935ecd7913e8ff732ed55ee` | Merge PR #269: An interactive hash ring you can change |
 
 Note (2026-11-09): twice a placeholder row with a short key (`6ab3c5c`, `2880cd5`) was inserted by mistake. Atlas asks the
 owner to confirm deletes, so each row was corrected in place (update-many) to the full SHA and the right value above; no

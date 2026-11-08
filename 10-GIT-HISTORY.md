@@ -930,3 +930,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #266: Consistent hashing group in Concepts; merge `9b5ea1ffc0495e292cf7b21525935a0c62164f3b`.
 - PR #267: CAP theorem group in Concepts; merge `76cbe9a675197854546776bc6b7f124b3a12b8d2`.
 - PR #268: Second-pass audit of the new groups; merge `2ab636a6a5ab7f05667222a46948efdf01b34183`.
+- PR #269: An interactive hash ring you can change; merge `195a16381ad776524935ecd7913e8ff732ed55ee`.
