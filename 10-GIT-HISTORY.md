@@ -923,3 +923,5 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #259: Networking essentials completed; API design group in Concepts; merge `6b26d1b254eac42e6ae9a943f427d96db8a03901`.
 - PR #260: Paragraph-level check of Networking essentials and API design; merge `5ba1da5f808af86926fcb62fa8e4ae6914cb7d5e`.
 - PR #261: Data modelling: a new group in Concepts, five articles and nine figures; merge `f3e96f3181eab959771673f67de8635e419a641b`.
+- PR #262: Caching: a new group in Concepts, five articles and thirteen figures; merge `1d6180fd7f700b399800723627ad4894a07b0586`.
+- PR #263: Redirect old Networking links that end in a slash; merge `73f0b38114cfce9507d6aa2c7bd68041aa7fb42f`.

@@ -1478,3 +1478,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   redirect) reach the site with the next deploy, about 08:00 IST on 2026-11-09.
 - Automatic agents workflow removed (#256); no worker sessions or scheduled tasks.
 - Ledger: complete through #261 (frontend 640, backend 509).
+
+## Production snapshot — 2026-11-09, 00:10 IST (after PR #263)
+
+- `main` = `73f0b38114cfce9507d6aa2c7bd68041aa7fb42f` (#263). API `/health`: release
+  `20261108T182951Z-1d6180f` (#262; #263 changes only the front end), 108 articles.
+- Content: Concepts 53 (groups: basics, data, reliability, coordination, patterns, specialised, networking,
+  api-design, data-modelling, caching), Components 19, Interview Questions 23, Research Papers 13.
+- Vercel production front end is current (#263). Old `/dashboard/networking/...` links redirect (308) to
+  `/dashboard/concepts/...`, with or without a trailing slash.
+- Ledger: complete through #263 (frontend 646, backend 512).

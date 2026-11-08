@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-08 19:25 IST): `frontend_git_commits` 640, `backend_git_commits` 509.
+Latest count (2026-11-09 00:10 IST): `frontend_git_commits` 646, `backend_git_commits` 512.
 
 Current live counts checked 2026-10-12:
 
@@ -844,3 +844,19 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #261 | `ca9b947c97231d230680044ec4acb286625d618d` | Data modelling: a new group in Concepts, five articles and nine figures |
 | #261 | `3d97fbf6a7e86043013731f8669ab7371cba4a92` | content README: note the API design and Data modelling groups |
 | #261 | `f3e96f3181eab959771673f67de8635e419a641b` | Merge PR #261: Data modelling: a new group in Concepts, five articles and nine figures |
+
+### PR #262 (2026-11-08): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #262 | `c7ce448b68c946c5104af36eb262bef86ea8a929` | Merge origin/main into the PR #262 branch |
+| #262 | `aa4a7b7da1fefcfd76790d9e6d0e5d51793bb924` | Caching: a new group in Concepts, five articles and thirteen figures |
+| #262 | `1d6180fd7f700b399800723627ad4894a07b0586` | Merge PR #262: Caching: a new group in Concepts, five articles and thirteen figures |
+
+### PR #263 (2026-11-09): recorded (frontend only; it changes only `frontend/vercel.json`)
+
+| PR | SHA | Value |
+|---|---|---|
+| #263 | `871c1ab3481cccb858f017605a4f395c602f9ae4` | Merge origin/main into the PR #263 branch |
+| #263 | `87fc56b585c8b4162fb55091d4f94780514eb26c` | Redirect old Networking links that end in a slash |
+| #263 | `73f0b38114cfce9507d6aa2c7bd68041aa7fb42f` | Merge PR #263: Redirect old Networking links that end in a slash |
