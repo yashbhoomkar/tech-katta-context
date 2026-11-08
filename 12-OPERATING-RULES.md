@@ -302,6 +302,14 @@ This is not optional when the change is part of the application commit synchroni
   (`concepts/modelling-data`), caching (`components/caches`), sharding (`components/sharding`), consistent
   hashing (`concepts/hash-rings`), CAP (`concepts/cap-pacelc`), database indexing (`concepts/indexes`), numbers
   to know (`concepts/estimates`).
+- Patterns (owner, 11-08: "add these patterns into one of the tabs that we have; don't create a separate tab
+  called patterns", and "even if our existing topics cover them, still add them as separate articles"): a
+  **Recurring patterns** group inside Concepts, CONCEPT // 14-20: `live-updates`, `contention`, `workflows`,
+  `scaling-reads`, `scaling-writes`, `big-files`, `long-jobs`. Two animated figures each.
+- Concept numbers follow the order the sidebar shows them, group by group (Basics 01-04, Data 05-10, Staying up 11,
+  Agreeing 12-13, Recurring patterns 14-20), and `index.json` lists them in that order. Renumber when an article
+  is added in the middle of a group; slugs never change. Older pages point to the deeper concept by name
+  ("the Hash rings concept") when one exists.
 
 ## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
 
@@ -310,7 +318,7 @@ This is not optional when the change is part of the application commit synchroni
   storage too, so the host can be changed. Not AWS or Cloudflare Stream for video: at 30 hours a month per
   subscriber they cost about 3.5 times more.
 - **Free vs paid:** every article has `access: "free" | "paid"` (tech-katta #241). Free: How to answer, APIs, CAP
-  and PACELC, Load balancers, Caches. Paid: everything else, including every problem (the validator refuses a
+  and PACELC, Load balancers, Caches, and the Lamport clocks paper (owner, 11-08). Paid: everything else, including every problem (the validator refuses a
   free problem), the Lab and the videos. The field is data only: nothing locks or shows it until the owner
   confirms the employer clearance.
 - Prices, costs and business notes are in the private repo (`tech-katta-private/notes/business-plan.md`), not here.
