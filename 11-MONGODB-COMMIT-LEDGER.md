@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-08 18:50 IST): `frontend_git_commits` 632, `backend_git_commits` 501.
+Latest count (2026-11-08 19:05 IST): `frontend_git_commits` 636, `backend_git_commits` 505.
 
 Current live counts checked 2026-10-12:
 
@@ -826,3 +826,12 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #259 | both | `3f4d35c45ed3a36e99a80dbec38bb1cfce2b807d` | Networking essentials: last two points and nw-lb-choose (PR #259) |
 | #259 | both | `6d8733bddfb6081ff8feda6d4e4292c85378713f` | Concepts: API design group, 7 articles and 9 new figures (PR #259) |
 | #259 | both | `6b26d1b254eac42e6ae9a943f427d96db8a03901` | Merge PR #259: Networking essentials completed; API design group |
+
+### PR #260 (2026-11-08): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #260 | `ec604628f8a35783b56575296c3f062a7bdf6c54` | Merge origin/main into the PR #260 branch |
+| #260 | `0b83961acbfa6298ffa62099b5653b139035454f` | API design: paragraph-level check; two points and two figures added |
+| #260 | `34752ebc4728963894cacde554f7d0a44f933a3b` | Networking essentials: paragraph-level check; nine points and two figures added |
+| #260 | `5ba1da5f808af86926fcb62fa8e4ae6914cb7d5e` | Merge PR #260: Paragraph-level check of Networking essentials and API design |
