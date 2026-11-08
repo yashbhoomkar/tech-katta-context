@@ -312,6 +312,11 @@ This is not optional when the change is part of the application commit synchroni
   Figures live in `frontend/src/figs/tools.jsx` (`TOOL_FIGS`). After the owner asked to "rethink the content", each
   page got a "Numbers worth remembering" table, a Zotato example in code, "this or something else" guidance and
   pointers to the problems that use the tool; keep that shape for any new tool page.
+- Advanced topics (owner, 11-08: "add these topics, similar to what we did before, no new tab"): a **Specialised
+  data** group inside Concepts, CONCEPT // 21-25: `nearby-search`, `vector-search`, `time-series`, `sketches`,
+  `change-capture`, in the same shape as the tool pages (numbers, code, comparisons, problem pointers).
+- Site conventions to keep consistent across articles: riders ping every 4 seconds; Indian units (lakh, crore)
+  except in quoted paper figures and per-million prices.
 - Concept numbers follow the order the sidebar shows them, group by group (Basics 01-04, Data 05-10, Staying up 11,
   Agreeing 12-13, Recurring patterns 14-20), and `index.json` lists them in that order. Renumber when an article
   is added in the middle of a group; slugs never change. Older pages point to the deeper concept by name
