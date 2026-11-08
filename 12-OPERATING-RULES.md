@@ -277,6 +277,17 @@ This is not optional when the change is part of the application commit synchroni
 - `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
 - Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.
 
+## Research Papers replace Did you know (Decided by the owner, 2026-11-08)
+
+- A "Research Papers" tab (`content/articles/papers/`) takes the place of "Did you know": one classic paper per
+  article, in plain words with animated figures (`frontend/src/figs/papers.jsx`). Shape: the paper (title, author,
+  venue, year), the problem, the idea, how it works, what it promises, where you see it today, how to use it in
+  an interview, and "Go deeper".
+- Our own words and our own figures only; never copy a paper's text or diagrams.
+- Open question for the owner: many classic papers come from companies and carry the company in the title. The
+  site's rule is no other company's brand in its name, ads or copy; until the owner decides, write about papers
+  that don't (Lamport clocks first) and name a company only in the citation line.
+
 ## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
 
 - **Videos:** the owner's teaching videos live on tech.katta.cc only (not YouTube), hosted on **Bunny Stream**
