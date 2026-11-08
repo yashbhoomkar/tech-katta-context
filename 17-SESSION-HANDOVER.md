@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-08, 17:25 IST** (docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 17:45 IST** (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -23,18 +23,20 @@ the owner · **Historical** = true once, not any more.
    (see `tools/e2e/README.md`). Both should end with `errors: []`.
 4. Sync your working branch from `main` in each repo (§3).
 5. Ask the owner nothing that §4 already decides. If the owner gives a task, do it end to end (§3).
-6. **Agents** (from 2026-11-05): a long-running worker session, "Tech Katta worker (Learner + Builder)",
-   runs cycles back to back: review production, the Learner and Builder debate, one of them ships the
-   top item, both check it live, then the next cycle starts ~2 minutes later. A scheduled task
-   ("Tech Katta worker: backup restart", every 2 hours) restarts the chain after a stop (usage limit,
-   empty queue, repeated failure). The worker has push access to tech-katta only: its to-do list and
-   rules are in **tech-katta/`agents/TODO.md`**; it lists handover rows under "Context repo pending" for
-   a human-led session to copy here. The ledger is filled automatically on merge. A human-led session
-   should read `agents/TODO.md` before starting work, so it doesn't collide with the worker.
+6. **Agents: removed (owner, 2026-11-08).** The automatic worker ("Learner + Builder" cycles chained with
+   `send_later`, a 2-hour backup schedule, `tech-katta/agents/TODO.md`) is gone: the file was deleted (#256),
+   no worker session or scheduled task exists, and none may be created. Do the work in the owner's session;
+   the open items are in `18-TODO.md` here.
 
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-08, 17:45 IST.** **The automatic agents workflow is removed** (owner: "Remove that automatic
+website development with agents workflow"). **#256** deletes `agents/TODO.md` (the worker's instructions, queue
+and run notes). No worker session or scheduled task was left on the account (checked). The open items and the
+owner-only list moved to `18-TODO.md` here; the pricing notes were dropped from the public repos (the private
+business plan has them).
 
 **Update 2026-11-08, 17:25 IST.** **Article URLs (#254, #255)**, the first "what to add" step for search (owner:
 "start adding the separate URLs"; merged on the owner's word). Every article, section, privacy and terms page has
@@ -340,7 +342,7 @@ system design practice experience with real evaluation… LeetCode for system de
   know, the Lab (9 challenges), Practice mode (45-minute clock with step budgets and checklists).
 - **status.katta.cc** had no DNS record; a CNAME to Vercel was added in Cloudflare on 11-06 and it serves.
 - **Vercel Web Analytics** is on (#191).
-- **Agents**: the worker runs cycles from `agents/TODO.md` in the site repo, chained with a 2-minute
+- **Agents** (removed 2026-11-08, see §0 item 6; this note is history): the worker ran cycles from `agents/TODO.md` in the site repo, chained with a 2-minute
   `send_later`, with a 2-hour backup schedule. Owner-approved rules (#192): re-plan every 5th cycle,
   one reviewer, push each PR once, at most 8 cycles a day, stop when nothing valuable is left.
 - **Ledger**: it does not fill itself. #176–#195 were missing and were added on 11-06 (51 records);
