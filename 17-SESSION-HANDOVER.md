@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-08, 17:15 IST** (docs through #252; before that 16:15 IST, through #251; before that 15:00 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-08, 13:35 IST** (docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -36,18 +36,29 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
-**Update 2026-11-08, 17:15 IST.** **#252**: a **Specialised data** group in Concepts (no new tab, owner) with five
+**Update 2026-11-08, 13:35 IST.** **Ledger complete through #252** (owner: "update ledgers and docs first").
+Atlas was reachable this session. #216–#218 were already present; all 111 SHAs of #219–#252 (source, branch-sync
+and squash-merge commits) were missing from both collections and are now in: 97 in `frontend_git_commits` (608
+rows), 101 in `backend_git_commits` (486 rows), by the folders each PR touched; the rows are listed in
+`11-MONGODB-COMMIT-LEDGER.md`. **#253** clears "Ledger pending" in `agents/TODO.md`. **Vercel built nothing for
+#252** (daily limit again; the last production build is #251), so the live front end lacked #252's ten figures
+(the API already served the five articles, release `78ab5b0`); #253's merge redeploys main. Earlier handover
+times for #250–#252 (15:00, 16:15, 17:15 IST) were wrong and are corrected to the merge times. The owner also
+asked when the business reaches ₹1 crore profit and what to add for it; answered in chat, with the numbers kept
+in the private repo's business plan only (rule: business numbers stay private).
+
+**Update 2026-11-08, 13:20 IST.** **#252**: a **Specialised data** group in Concepts (no new tab, owner) with five
 articles and 10 figures: nearby search, vector search, time series, sketches, change data capture. Audit fixes:
 rider pings at 4 s everywhere, Indian units, Ad clicks' HyperLogLog size, cross-links, Concepts description. 80
 articles in all.
 
-**Update 2026-11-08, 16:15 IST.** **#251**: a **Tools by name** group in Components (no new tab, owner) with ten
+**Update 2026-11-08, 13:05 IST.** **#251**: a **Tools by name** group in Components (no new tab, owner) with ten
 articles and 20 animated figures: Redis, Elasticsearch, Kafka in practice, Temporal, Gateways in practice,
 Cassandra, DynamoDB, PostgreSQL, Flink, ZooKeeper. Second pass on the owner's "rethink the content": numbers worth
 remembering, Zotato code examples, comparisons, problem pointers, and "DynamoDB is not the Dynamo paper". Older
 pages point to the new ones. 75 articles in all.
 
-**Update 2026-11-08, 15:00 IST.** **#249**: the Lamport clocks paper is free (owner); a **Recurring patterns**
+**Update 2026-11-08, 12:30 IST.** **#249**: the Lamport clocks paper is free (owner); a **Recurring patterns**
 group in Concepts (no new tab, owner) with seven articles and 14 animated figures: live updates, contention,
 multi-step processes, scaling reads, scaling writes, big files, long-running jobs. **#250**: a deep content audit:
 every Concept, Component and Research Paper read in full and checked against sources and the Lab; the 23 problems
@@ -263,7 +274,7 @@ system design practice experience with real evaluation… LeetCode for system de
   17:53 IST; production frontend is still `a7e4093` (#215). The live bundle has no `video-pipe` /
   `search-flow`, so Q21/Q22 show their text (served by the API) without their two figures each (unknown
   figure ids are skipped since #178). Live-check both questions' figures on the next Vercel deploy.
-- **Ledger: #216–#218 NOT verified.** This session could not connect to Atlas (`remote-atlas-connect`
+- **Ledger: #216–#218 NOT verified** (resolved 2026-11-08: present; ledger complete through #252). This session could not connect to Atlas (`remote-atlas-connect`
   refused by the session's safety check, twice, even with the owner's go-ahead). Their 10 SHAs are listed
   in `11-MONGODB-COMMIT-LEDGER.md` and under "Ledger pending" in `tech-katta/agents/TODO.md`, for the
   worker (which has the MongoDB tool) to check and insert.
@@ -976,6 +987,7 @@ monetisation, publishing policy or references.
 | #250 | Content audit: renumbered Concepts, cross-links, one contradiction fixed, Consensus Lab link |
 | #251 | Components: Tools by name group (10 articles, 20 figures), second pass with numbers, code and comparisons |
 | #252 | Concepts: Specialised data group (5 articles, 10 figures); audit fixes |
+| #253 | To-do list: ledger filled through #252, "Ledger pending" cleared (docs only; also redeploys #252's front end) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
