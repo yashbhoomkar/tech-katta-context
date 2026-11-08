@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-09, 00:10 IST** (Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-09, 02:50 IST** (overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #268; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -31,6 +31,35 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-09, 02:40 IST (overnight session, owner asleep).** Owner's tasks: audit Caching against the reference;
+build Sharding, Consistent hashing and CAP theorem as Concepts groups the same way; audit those in depth; "a good surprise".
+- **#264 Caching audit:** latency numbers made consistent with the Caches component (5–50×), the delete-on-write race
+  (Go deeper), Redis's default `noeviction`. Full line-by-line table in `19-REFERENCE-AUDITS.md`.
+- **#265 Sharding** (`sharding`, CONCEPT // 54-57): shard-step, partition-and-shard, shard-strategies, shard-problems;
+  `SHARD_FIGS` in `figs/sharding.jsx` (sh-ceiling, sh-partition, sh-vertical, sh-shards, sh-range, sh-hash-mod,
+  sh-directory, sh-scatter, sh-transfer); reuses shard-key, hot-shard. 143/143 reference lines covered.
+- **#266 Consistent hashing** (`consistent-hashing`, 58-60): hashing-step, hash-ring, ring-in-practice; `HASH_FIGS` in
+  `figs/hashing.jsx` (ch-shard-events, ch-modulo, ch-mod-change, ch-ring, ch-ring-add, ch-ring-remove, ch-vnodes-fail,
+  ch-salt, ch-replicas); reuses hash-move, hash-vnodes, redis-slots. The figure wrapper there has a `top` layer so ring
+  nodes draw above arcs. 116/116 covered.
+- **#267 CAP theorem** (`cap`, 61-63): cap-step, cap-designs, cap-per-feature; `CAP_FIGS` in `figs/cap.jsx`
+  (cp-replicate, cp-partition, cp-choose, cp-designs, cp-per-feature); reuses cap-split, double-accept, quorum-split,
+  consistency-timeline. 83/83 covered.
+- **#268 second-pass audit:** Zotato's order shard key now told one way across articles (city for live operations in
+  "When one database isn't enough", customer_id for history in the Sharding group and component; both linked);
+  softened the 50k-writes claim; DynamoDB placement described consistently (internal partitions; the ring is Dynamo's).
+- **#269 the surprise:** `ch-playground`, an interactive hash ring in "The hash ring" → "Try it": add/remove servers,
+  S2 fails, virtual nodes on/off, reset; moved keys ringed in red, a live comparison with hash % N, bars per server.
+  Deterministic placement (seed 1700) chosen so each lesson shows. Keyboard, touch and screen-reader friendly.
+  It is the first figure with state; figures are plain React components, so no renderer change was needed.
+- **Method this time:** the owner turned down the fetch agent, so the four reference pages were read with curl and a small
+  extractor; the text stays in the session scratchpad only.
+- **Ledger slip (fixed):** twice a placeholder row with a short key was inserted by mistake (`6ab3c5c`, `2880cd5`).
+  Deleting needs the owner's confirmation in Atlas, so each was corrected in place with update-many to the full SHA and
+  the right description. No bad rows remain. Rule kept in mind: `git rev-parse` first, full SHAs only.
+- Vercel's daily limit was hit again at about 00:40 IST ("retry in 24 hours"): the front end is live through #266; #267–#269's
+  front-end parts (CAP figures, the playground) deploy with the next merge after the limit resets. The API is current.
 
 **Update 2026-11-09, 00:10 IST.** **Caching** (#262; owner: "Next is the caching tab"). A new group in Concepts
 (`caching`, CONCEPT // 49-53), not a tab: cache-step, where-to-cache, cache-patterns, cache-eviction,
@@ -1074,6 +1103,12 @@ monetisation, publishing policy or references.
 | #261 | Data modelling group in Concepts: 5 articles (CONCEPT // 44-48), 9 new figures; 108-item paragraph check |
 | #262 | Caching group in Concepts: 5 articles (CONCEPT // 49-53), 13 new figures; 164-line paragraph check |
 | #263 | Redirect old Networking links that end in a slash (`/dashboard/networking/(.*)`) |
+| #264 | Caching audit fixes: latency numbers, the delete-on-write race, Redis's default eviction policy |
+| #265 | Sharding group in Concepts: 4 articles (CONCEPT // 54-57), 9 new figures |
+| #266 | Consistent hashing group: 3 articles (58-60), 9 new figures; figure wrapper `top` layer |
+| #267 | CAP theorem group: 3 articles (61-63), 5 new figures |
+| #268 | Second-pass audit: one story for Zotato's shard key; two accuracy fixes |
+| #269 | Interactive hash ring (`ch-playground`) in "The hash ring"; content README groups |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
@@ -1241,6 +1276,7 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
 
 ## 14. Reading order
 
-1. This file. 2. `12-OPERATING-RULES.md`. 3. `13-CURRENT-STATE.md` (last five sections).
+1. This file. 2. `12-OPERATING-RULES.md`. 3. `13-CURRENT-STATE.md` (last five sections). `19-REFERENCE-AUDITS.md` for the
+line-by-line audits of the reference-led Concepts groups.
 4. `tech-katta/content/README.md`. 5. `tools/e2e/README.md`. 6. The code on `main`.
 Older numbered files (01–09, 14–16) are partly **Historical**; trust the code and this file.

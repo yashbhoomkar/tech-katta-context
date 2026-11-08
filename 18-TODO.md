@@ -11,7 +11,9 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
-| — | content | Next reference-led Concepts groups (done: Networking essentials, API design, Data modelling, Caching) | waiting for owner | owner names the next one; same method: paragraph map, our own words via Zotato, our figures |
+| — | content | Next reference-led Concepts groups (done: Networking essentials, API design, Data modelling, Caching, Sharding, Consistent hashing, CAP theorem) | waiting for owner | owner names the next one; same method: paragraph map, our own words via Zotato, our figures |
+| — | ops | Vercel daily limit hit 2026-11-09 ~00:40 IST: front end live through #266; #267–#269 front-end parts deploy with the next merge after it resets. Check tech.katta.cc/dashboard/concepts/cap-step/ shows its own title | waiting | nothing to change in code |
+| — | build | More interactive figures like `ch-playground` (e.g. a cache with LRU/LFU you can feed reads, a quorum you can partition) | idea | the playground shows figures can hold state with no renderer change |
 | 1 | content | Q23–Q36, one per run (pick common questions not yet covered and not already taught elsewhere on the site: e.g. a file-sharing link service, a distributed message queue as a question, a reviews and ratings system, …) | ready | |
 | — | build | Lab: a way to model "one database that can't be split" (e.g. a challenge setting that allows one database only) | idea | would make a fair ticket-booking waiting-room challenge (Q05); without it, two big databases beat a queue for a short sale. Not worth it alone |
 | — | build | Practice analytics: a `practice_done` event (slug, minutes per step) | waiting for owner | needs a new event in `backend/src/auth/events.js` (what the events collection stores), which counts as the data model under rule 4 |

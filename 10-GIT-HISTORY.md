@@ -925,3 +925,8 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #261: Data modelling: a new group in Concepts, five articles and nine figures; merge `f3e96f3181eab959771673f67de8635e419a641b`.
 - PR #262: Caching: a new group in Concepts, five articles and thirteen figures; merge `1d6180fd7f700b399800723627ad4894a07b0586`.
 - PR #263: Redirect old Networking links that end in a slash; merge `73f0b38114cfce9507d6aa2c7bd68041aa7fb42f`.
+- PR #264: Caching audit fixes; merge `97a7223bd59dfa1e114132b9786c077274b4f607`.
+- PR #265: Sharding group in Concepts; merge `915bb9e13515a341b264fd155e6fd7c9ef1bc097`.
+- PR #266: Consistent hashing group in Concepts; merge `9b5ea1ffc0495e292cf7b21525935a0c62164f3b`.
+- PR #267: CAP theorem group in Concepts; merge `76cbe9a675197854546776bc6b7f124b3a12b8d2`.
+- PR #268: Second-pass audit of the new groups; merge `2ab636a6a5ab7f05667222a46948efdf01b34183`.

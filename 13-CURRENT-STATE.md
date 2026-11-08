@@ -1488,3 +1488,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Vercel production front end is current (#263). Old `/dashboard/networking/...` links redirect (308) to
   `/dashboard/concepts/...`, with or without a trailing slash.
 - Ledger: complete through #263 (frontend 646, backend 512).
+
+## Production snapshot — 2026-11-09, 02:50 IST (after PR #268)
+
+- `main` = `2ab636a6a5ab7f05667222a46948efdf01b34183` (#268); API release `20261108T191537Z-2ab636a`, 118 articles.
+- Content: Concepts 63 (groups: basics, data, reliability, coordination, patterns, specialised, networking, api-design,
+  data-modelling, caching, sharding, consistent-hashing, cap), Components 19, Interview Questions 23, Research Papers 13.
+- Vercel front end: live through #266 (Sharding and Consistent hashing figures). Daily deploy limit hit again ~00:40 IST;
+  CAP figures (#267) and the interactive ring (#269, open at the time of writing) deploy after it resets. CAP articles
+  read fine meanwhile; their new figures are skipped by the old build.
+- Ledger: complete through #268 (frontend 661, backend 527).

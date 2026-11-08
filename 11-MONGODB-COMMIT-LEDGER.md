@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 00:10 IST): `frontend_git_commits` 646, `backend_git_commits` 512.
+Latest count (2026-11-09 02:50 IST): `frontend_git_commits` 661, `backend_git_commits` 527.
 
 Current live counts checked 2026-10-12:
 
@@ -860,3 +860,47 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #263 | `871c1ab3481cccb858f017605a4f395c602f9ae4` | Merge origin/main into the PR #263 branch |
 | #263 | `87fc56b585c8b4162fb55091d4f94780514eb26c` | Redirect old Networking links that end in a slash |
 | #263 | `73f0b38114cfce9507d6aa2c7bd68041aa7fb42f` | Merge PR #263: Redirect old Networking links that end in a slash |
+
+### PR #264 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #264 | `6ab3c5cfee5916b82b2035a522a0d2c24cdc0cee` | Merge origin/main into the PR #264 branch |
+| #264 | `77ccf9ce710a417637c2875160de64d6bd7befa3` | Caching audit: consistent latency numbers, the delete-on-write race, Redis's default eviction policy |
+| #264 | `97a7223bd59dfa1e114132b9786c077274b4f607` | Merge PR #264 |
+
+### PR #265 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #265 | `2880cd5c9ce7cf875e8f7d9f5a299a68bd4b5c5f` | Merge origin/main into the PR #265 branch |
+| #265 | `da445950da485ec3c4f309160da33cf1836a7207` | Sharding: a new group in Concepts, four articles and nine figures |
+| #265 | `915bb9e13515a341b264fd155e6fd7c9ef1bc097` | Merge PR #265 |
+
+### PR #266 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #266 | `490432863a52d276c5ce6c172ece15d5ab9f9fde` | Merge origin/main into the PR #266 branch |
+| #266 | `ee0ee1092d25e29c6925ce1b1f0129b11e9b95cd` | Consistent hashing: a new group in Concepts, three articles and nine figures |
+| #266 | `9b5ea1ffc0495e292cf7b21525935a0c62164f3b` | Merge PR #266 |
+
+### PR #267 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #267 | `8f9565bf606e258f2670967fdf99378c1613259a` | Merge origin/main into the PR #267 branch |
+| #267 | `63ae6a8eeadeeb50ca82a8eb6bd84ea2ff7ef409` | CAP theorem: a new group in Concepts, three articles and five figures |
+| #267 | `76cbe9a675197854546776bc6b7f124b3a12b8d2` | Merge PR #267 |
+
+### PR #268 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #268 | `638f77863a568eb258541788811e29185a4a5712` | Merge origin/main into the PR #268 branch |
+| #268 | `baa5aad8f501d0b011cecc254e376a62725522d6` | Audit of the new groups: one story for Zotato's shard key, softer write-limit claim, DynamoDB placement wording |
+| #268 | `2ab636a6a5ab7f05667222a46948efdf01b34183` | Merge PR #268 |
+
+Note (2026-11-09): twice a placeholder row with a short key (`6ab3c5c`, `2880cd5`) was inserted by mistake. Atlas asks the
+owner to confirm deletes, so each row was corrected in place (update-many) to the full SHA and the right value above; no
+placeholder rows remain.
