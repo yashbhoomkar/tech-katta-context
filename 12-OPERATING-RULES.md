@@ -297,6 +297,10 @@ This is not optional when the change is part of the application commit synchroni
 - The owner shared another interview-prep site's Core Concepts list and asked us to cover the same topics, "but
   just have different headings and titles". Topics and knowledge are general; our titles, slugs, section
   headings, examples, numbers and figures are our own. Don't name that site anywhere on ours.
+- Concepts groups built from a reference page (owner, 11-08): Networking essentials (CONCEPT // 26-36) and API design
+  (CONCEPT // 37-43). Method: outline the reference page, write our own articles and figures through Zotato,
+  then check every point is covered (132 and 101 points) and fill gaps. No new tabs: such topics are groups in
+  Concepts.
 - Owner, 2026-11-08 (evening): the rule "nothing on Tech Katta is copied from the reference site" is removed.
   Networking essentials is general knowledge; a reference page may be used to decide what to cover, point by
   point. A later pass will refine the wording so nothing reads as taken directly from it.

@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-08 17:25 IST): `frontend_git_commits` 618, `backend_git_commits` 490.
+Latest count (2026-11-08 18:50 IST): `frontend_git_commits` 632, `backend_git_commits` 501.
 
 Current live counts checked 2026-10-12:
 
@@ -802,3 +802,27 @@ docs-only PRs (`agents/`) → `frontend_git_commits`. 97 frontend rows (count no
 | #255 | frontend | `49d1e4d7e131818a58377b67cad2df4a8e2bbe55` | Merge origin/main into the PR #255 branch (2026-11-08) |
 | #255 | frontend | `569ad04faa0f5af54be802295811eee9e9446f51` | Dashboard rewrite: also match addresses ending in a slash (PR #255, 2026-11-08) |
 | #255 | frontend | `75bdeb77eff995146c31e1118799258886a24524` | Merge PR #255: Dashboard rewrite: match addresses ending in a slash (2026-11-08) |
+
+### PRs #256–#259 (2026-11-08): recorded
+
+#256 was recorded in `frontend_git_commits` at 17:45 IST. #257's frontend rows went in at 18:08 (the owner
+stopped that write midway; checked afterwards: the frontend rows were complete, the backend ones missing).
+At 18:50 every remaining key was checked in both collections and only the missing ones inserted:
+8 frontend, 11 backend. #257–#259 touch frontend and content, so they are in both collections.
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #256 | frontend | `a06089e2a5b304577af02e9c525974c64dedb02f` | Merge origin/main into the PR #256 branch |
+| #256 | frontend | `f7e39a55e728b4fe4317bf04e64c5c7d3d547b96` | Remove the automatic agents workflow (PR #256) |
+| #256 | frontend | `cd1654b0eb7863a071eac1fc259f1eb54482a5de` | Merge PR #256: Remove the automatic agents workflow |
+| #257 | both | `a37af5b1847eba18dad2ac31ad2af4d70c08c076` | Merge origin/main into the PR #257 branch |
+| #257 | both | `aca4a6b94f4abf078e834e552e44dfb4b078eee9` | Networking tab: 11 articles and 25 animated figures (PR #257) |
+| #257 | both | `2e959e656f6bcc0339b59e7dc5b9807642230094` | Merge PR #257: Networking tab |
+| #258 | both | `d01c3912254a00c1795ef0fe7e7088d9976ef105` | Merge origin/main into the PR #258 branch |
+| #258 | both | `d028e4d52f3221771bb6bc9937d221e750ea3e00` | Networking essentials: a group in Concepts, not a separate tab (PR #258) |
+| #258 | both | `340f03a87e5dbdb5a7b86efb5c06ffe392444388` | Networking essentials: cover every point of the reference page (PR #258) |
+| #258 | both | `952d99c45b69a976c47a4359ff5ce507821bd83a` | Merge PR #258: Networking essentials into Concepts |
+| #259 | both | `54dc6ec1b14fc340f10850802112dcbd97b4b034` | Merge origin/main into the PR #259 branch |
+| #259 | both | `3f4d35c45ed3a36e99a80dbec38bb1cfce2b807d` | Networking essentials: last two points and nw-lb-choose (PR #259) |
+| #259 | both | `6d8733bddfb6081ff8feda6d4e4292c85378713f` | Concepts: API design group, 7 articles and 9 new figures (PR #259) |
+| #259 | both | `6b26d1b254eac42e6ae9a943f427d96db8a03901` | Merge PR #259: Networking essentials completed; API design group |
