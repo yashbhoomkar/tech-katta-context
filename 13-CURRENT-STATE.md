@@ -1498,3 +1498,10 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   CAP figures (#267) and the interactive ring (#269, merged `195a163`) deploy after it resets. CAP articles
   read fine meanwhile; their new figures are skipped by the old build.
 - Ledger: complete through #269 (frontend 665, backend 531).
+
+## Production snapshot — 2026-11-09, 08:00 IST (after PR #270)
+
+- `main` = `d440752036996cd94d469808a592669730f54928` (#270); API release `20261109T022317Z-d440752`, 122 articles.
+- Concepts 67 (groups add `indexing` after `cap`), Components 19, Interview Questions 23, Research Papers 13.
+- Vercel front end current (#270): CAP figures, the interactive ring and the indexing figures are live.
+- Ledger: complete through #270 (frontend 668, backend 534).
