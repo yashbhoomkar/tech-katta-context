@@ -1558,7 +1558,7 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   system-design-interviews, how-to-prepare, how-to-answer, core-concepts-guide, technologies-guide,
   patterns-guide, questions-guide; the 21 problems are QUESTION // 01–21. Checked live: all six new guide pages
   and API responses 200, page titles right, sitemap 69 addresses.
-- **#284 open (draft), not live:** a Real systems tab (`real-systems`, group `case-studies`, before Lab) with six
+- **#284 open (draft), not live** (https://github.com/yashbhoomkar/tech-katta/pull/284, head `fb94cb5e`; full detail in `17-SESSION-HANDOVER.md`, "Open PR: #284"): a Real systems tab (`real-systems`, group `case-studies`, before Lab) with six
   case studies, CASE // 01–06, each retold from the company's public engineering post and naming it, one step figure
   each (`frontend/src/figs/real-systems/case-studies.jsx`). Sections without a library card take their header from
   `site.json` `dashboard.heads[id]` (validated; the `papers` header and `papers?` key are gone). CI green; tests
