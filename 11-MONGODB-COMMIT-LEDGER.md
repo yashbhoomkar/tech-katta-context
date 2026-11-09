@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 08:25 IST): `frontend_git_commits` 674, `backend_git_commits` 540.
+Latest count (2026-11-09 09:30 IST): `frontend_git_commits` 680, `backend_git_commits` 548.
 
 Current live counts checked 2026-10-12:
 
@@ -925,6 +925,19 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `31045494f7170927679b75582a342dc6ad80c1be` | Merge origin/main into the PR #271 branch |
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
+
+### PRs #273–#275 (2026-11-09): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #273 | both | `c49eeb66c5e3ad93f66e7d449c829191ae420977` | Tidy the frontend and backend structure, no behaviour change |
+| #273 | both | `c39f37ba0000d8ee0345a35970264c12b41f28d4` | Merge PR #273 |
+| #274 | both | `f2259a643bc1ec3f426f1f2b141198efb1899e45` | One figure module per sub-tab, in the frontend and the backend |
+| #274 | both | `7db4203d8f1fdc916f72b3b647da89dd5cd24d34` | Merge PR #274 |
+| #275 | both | `8fbff71ce3e2b2d45e33251e8ccdd16f90c52679` | Pre-launch audit: fixes for two ways the API could go down, and figure failures |
+| #275 | backend | `887516a4a3024376decaf85db16c2c614cc04b45` | Run the backend tests on every PR, not only after merge |
+| #275 | backend | `ed95fbaa3ca38e19c74a7b91393d27792d604271` | Log a failed request with a fixed format string |
+| #275 | both | `cfa8a550136fae55f33e6b7b9e8da2861cc466b6` | Merge PR #275 |
 
 ### PR #272 (2026-11-09): recorded (both collections)
 

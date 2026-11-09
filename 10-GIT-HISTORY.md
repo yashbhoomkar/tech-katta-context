@@ -934,3 +934,6 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #270: Database indexing group in Concepts; merge `d440752036996cd94d469808a592669730f54928`.
 - PR #271: Numbers to know group in Concepts; merge `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26`.
 - PR #272: Real-time updates group in Concepts; merge `ee51a0f67bf2cf3f3aaf2b81eab5917d7fe510b2`.
+- PR #273: Tidy the frontend and backend structure (shared figure kit, figure registry out of dashboard.jsx, account paths beside their handlers); merge `c39f37ba0000d8ee0345a35970264c12b41f28d4`.
+- PR #274: One figure module per sub-tab, in the frontend and the backend; merge `7db4203d8f1fdc916f72b3b647da89dd5cd24d34`.
+- PR #275: Pre-launch audit: request safety net, judging on worker threads, per-figure error boundaries, backend tests on PRs; merge `cfa8a550136fae55f33e6b7b9e8da2861cc466b6`.
