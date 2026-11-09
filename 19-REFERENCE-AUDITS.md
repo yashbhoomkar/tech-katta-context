@@ -139,3 +139,20 @@ Facts checked and kept: Aurora's 256 TiB limit; Cassandra Murmur3 + vnodes (defa
 chunks over the hash with a balancer; Vitess resharding is operator-driven; Redis Cluster 16,384 slots via CRC16;
 Cassandra QUORUM reads + writes see the latest write; DynamoDB eventually consistent reads cost half;
 Spanner's synchronised clocks and consensus.
+
+## Database indexing (CONCEPT // 64–67, PR #270)
+
+Reference: the page is public only up to the start of its LSM section (lines 2–58: intro, how indexes work, cost,
+B-trees). Everything after (LSM trees, hash, geospatial, inverted, composite, covering) is behind the reference site's
+paid wall; only headings are visible. Those topics were written from general knowledge; the paid text was not accessed.
+
+| Reference section (public) | Lines | Where it is on Tech Katta | Result |
+|---|---|---|---|
+| Intro: scanning millions of rows, library analogy, why indexes, interview depth by level/role | 2–7 | index-step: "Why indexes matter" | covered (phone login over 5 crore users) |
+| Heap file, pages, disk → memory, scan vs index path, prefetch/caching, SSD random vs sequential | 8–16 | index-step: "How data sits on disk", ix-scan | covered |
+| Cost: space, writes, when indexes hurt (logs, tiny tables), memory overblown, monitor usage | 17–21 | index-step: "What an index costs", ix-cost | covered |
+| Types intro; B-tree structure, 4 rules, 8 KB pages, id 350 in 2–3 reads | 22–35 | btree-index, btree-path, ix-btree-find | covered (+ splits, ix-btree-split) |
+| Real-world: PostgreSQL PK + UNIQUE create two B-trees, DynamoDB sort key/LSM, MongoDB B+ tree | 36–48 | btree-index: "Where you'll meet them", code block | covered (+ InnoDB clustered index) |
+| Why B-trees are the default (5 reasons), safe bet | 49–56 | btree-index: "Why B-trees are the default" | covered |
+| LSM motivation: millions of metrics a second | 57–58 | lsm-and-hash: "When writes pour in" | covered |
+| Paid sections (headings only) | — | lsm-and-hash, special-indexes | written from general knowledge |

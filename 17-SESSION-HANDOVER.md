@@ -32,6 +32,17 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 08:00 IST.** **Database indexing** (#270; owner: "Next is the database indexing tab"). A new group in
+Concepts (`indexing`, CONCEPT // 64-67): index-step, btree-index, lsm-and-hash, special-indexes. Nine new figures in
+`frontend/src/figs/indexing.jsx` (`INDEX_FIGS`: ix-scan, ix-cost, ix-btree-find, ix-btree-split, ix-lsm-write, ix-lsm-read,
+ix-hash, ix-geo-band, ix-covering); reuses btree-path, index-order, prox-quadtree, es-inverted. **The reference page is
+public only up to the start of its LSM section; the rest is behind the reference site's paid wall and was not accessed.**
+The public part (lines 2–58) is covered paragraph by paragraph; the paid topics (LSM, hash, geospatial, inverted,
+composite, covering) were written from general knowledge (table in `19-REFERENCE-AUDITS.md`). **Vercel recovered:** the
+limit reset by ~07:50 IST, and #270's merge deployed everything held back (CAP figures, the interactive ring, indexing);
+checked live: cap-step, index-step, special-indexes and hash-ring show their own titles. API release
+`20261109T022317Z-d440752`, 122 articles. Ledger through #270 (frontend 668, backend 534).
+
 **Update 2026-11-09, 07:40 IST.** Checked on the owner's "update docs and ledgers": no merges since #269; ledger complete
 through #269 (frontend 665, backend 531). The Vercel front end is still the #266 build (cap-step shows the generic title), so
 the CAP figures and the ring playground are not live yet; the API is current (release `20261108T191817Z-195a163`, 118
@@ -1114,6 +1125,7 @@ monetisation, publishing policy or references.
 | #267 | CAP theorem group: 3 articles (61-63), 5 new figures |
 | #268 | Second-pass audit: one story for Zotato's shard key; two accuracy fixes |
 | #269 | Interactive hash ring (`ch-playground`) in "The hash ring"; content README groups |
+| #270 | Database indexing group in Concepts: 4 articles (CONCEPT // 64-67), 9 new figures; reference public part only |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
