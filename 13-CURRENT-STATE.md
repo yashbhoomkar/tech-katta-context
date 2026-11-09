@@ -1505,3 +1505,8 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Concepts 67 (groups add `indexing` after `cap`), Components 19, Interview Questions 23, Research Papers 13.
 - Vercel front end current (#270): CAP figures, the interactive ring and the indexing figures are live.
 - Ledger: complete through #270 (frontend 668, backend 534).
+
+## Production snapshot — 2026-11-09, 08:15 IST (after PR #271)
+
+- `main` = `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` (#271); API release `20261109T023925Z-7a6b219`, 125 articles.
+- Concepts 70 (groups now end with `indexing`, `numbers`); front end current. Ledger through #271 (frontend 671, backend 537).
