@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-09, 23:55 IST** (§2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-09, 23:59 IST** (§12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -1357,6 +1357,13 @@ monetisation, publishing policy or references.
 | #275 | Pre-launch audit: request safety net (crash fix), judging on worker threads, per-figure error boundaries, backend CI |
 | #276 | Portable hosting: routes.json → vercel.json / Cloudflare files, VITE_HOST_ANALYTICS, API container + settings, HOSTING.md; /health fix |
 | #277 | Review fixes: figure error leak, one judging per account, Cloudflare build analytics off, judge_failed, robust pool test |
+| #278 | Faster first load (sign-in check at boot, API preconnect and preloads, self-hosted fonts); stale-article race fixed; accessibility fixes |
+| #279 | Figures load per article (build-time figure map, on-demand modules; dashboard script 655 KB to 62 KB) |
+| #280 | Stage A: 13 older Concepts articles removed; groups in the reference's order |
+| #281 | Stage B: 9 general components, 13 papers and autocomplete removed; Research Papers tab gone; 116 to 93 articles |
+| #282 | Stage C: Concepts as one article per reference topic (21), new `h3` block; 53 articles; 178 redirects |
+| #283 | Stage D1: seven guides in Interview Questions › Start here (GUIDE // 01–07); 59 articles |
+| #284 | **Open draft:** Stage D2, Real systems tab with six case studies; `dashboard.heads` (see "Open PR: #284" at the top) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
@@ -1515,6 +1522,18 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
   limit again after the #218 preview, so both wait for a frontend deploy (text live via the API). The
   worker's PRs only added Done-log lines, not "Context repo pending" rows; a human-led session (11-07
   01:15 IST) brought the docs up but could not reach Atlas, so the ledger check for #216–#218 is pending.
+- **11-07 to 11-08**: problem workspace (Solution tab, request tests, tours only from the Tour button, the timed
+  checklist removed), free/paid marks, Research Papers (later removed), Concepts groups written against a reference
+  site paragraph by paragraph, the automatic agents workflow discarded (#256).
+- **11-09**: refactor into per-sub-tab modules (#273/#274), pre-launch audit (#275), portable hosting (#276),
+  two independent code reviews (#277, #278), per-article figure loading (#279); then the owner's "only the
+  reference site's articles, no more no less": stages A–C (#280–#282), D1 guides (#283), D2 case studies (#284,
+  open). Evening: answered the IND vs PAK question (no Lab challenge has a solution), docs and ledger brought up to
+  date (context #123–#131), no new coding at the owner's request.
+- Mistakes to avoid (11-09): a sync merge after a squash merge that committed conflict markers (use
+  `merge -s ours`); a merge refused because a SHA was typed from memory; a ledger row written with a guessed SHA
+  (read every SHA from git); a squash merge whose body listed every branch commit (pass `commit_message`); docs
+  sections left describing an old workflow (recheck §2, §3, §5 and §8 when the workflow changes).
 - Mistakes to avoid: assuming the MongoDB ledger fills itself on merge (it didn't, 20 PRs were
   missed); building a Lab challenge before checking that the simulator rewards the article's lesson
   (the Q05 waiting room lost to two big databases); pushing many small PRs in a day (each push costs
