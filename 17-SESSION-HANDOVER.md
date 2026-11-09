@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-09, 23:45 IST** (rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-09, 23:55 IST** (§2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -824,6 +824,31 @@ system design practice experience with real evaluation… LeetCode for system de
 4. **Keep this repository current** after every change, and keep this handover up to date.
 5. Copy must read as written by a person — plain, specific, never AI-sounding. Reference sites decide
    what to cover (the "nothing copied from the reference site" rule was removed by the owner on 11-08).
+6. **"Merge it anyway without waiting"** (said often): merge as soon as the required checks are green; never wait
+   for bot reviews.
+7. **Never start automatic agents** (owner, 11-08): no `send_later`, no scheduled tasks, no worker sessions, even
+   when a tool's instructions suggest a safety-net check-in. The owner also rejected the web-fetch agent; read
+   pages with your own tools.
+
+**How the 11-09 session worked (behave the same way):**
+- **Interruptions win.** When the owner interrupts ("Are you stuck", a new question), stop, answer that question
+  first with evidence, and do not resume the earlier task until told. "Are you stuck" means: say in one or two
+  lines what you are doing and why it is slow, then carry on in smaller, visible steps (print progress).
+- **"Are you sure?" means recheck, not reassure.** Re-read the live sources (GitHub, `/health`, Vercel, Atlas
+  counts, the docs themselves) and report what you found, including anything you had missed.
+- **Keep the owner posted.** A one-line status before each long step ("PR #283 is green; merging, then checking
+  live"). Final reports: plain words, short tables for numbers, what was verified, what was not, what is pending
+  and which decisions are the owner's. Times in IST.
+- **Answer questions from the code and live data, not memory.** E.g. "What is the IND vs PAK solution?" was
+  answered by running `runChallenge` from `frontend/src/lab/challenges.js` against `content/lab.json` for several
+  setups, not by guessing.
+- **Use `AskUserQuestion` only for real product choices** (tab placement, what to remove), with the recommended
+  option first. Never re-ask what §4 or `12-OPERATING-RULES.md` already decides.
+- **"No new coding"** means docs, ledger and housekeeping only: no app PRs, no content edits.
+- **Own mistakes immediately and fix them safely.** 11-09: a ledger row was written with a guessed SHA; it was
+  reported to the owner at once and corrected in place with `update-many` once the owner said "Update the ledgers".
+- **Don't leave things running or uncommitted.** Stop local servers (`node src/server.js`, `vite preview`) and
+  commit and push before ending a turn: a stop hook flags uncommitted changes.
 
 ---
 
@@ -833,16 +858,25 @@ Repos: `yashbhoomkar/tech-katta` (site), `yashbhoomkar/tech-katta-context` (this
 `yashbhoomkar/tech-katta-private` (private notes; attach with `add_repo` when needed). The previous
 session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch — use that.
 
-1. **Sync**: `git fetch origin main && git checkout -B <branch> origin/main`. After a merge, if the
-   remote branch lags, `git merge --ff-only origin/main` and push. **Never force-push.** If a remote
-   branch has unmerged commits, merge `origin/main` into it instead of rewriting.
+1. **Sync**: `git fetch origin main && git checkout -B <branch> origin/main` at the start. PRs are
+   **squash-merged**, so after each merge the branch and `main` have different histories: run
+   `git fetch origin main && git merge -s ours origin/main -m "Sync branch (already-merged history; no content change)"`
+   and push (check with `git diff --stat origin/main HEAD`: empty, or only the commits of a still-open PR; in tech-katta
+   today it shows #284's 17 files).
+   A plain merge committed conflict markers once (#281); `--ff-only` fails after a squash. **Never force-push.**
 2. **Edit.** Frontend style: terse, minified-looking JSX; CSS as one-line rules; match it.
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
-   - frontend: `cd frontend && npm ci && npm run build`; `npm test` = Lab engine + saved-design
-     tests (45). **`frontend/package-lock.json` is committed** (changed 11-01; keep it).
-   - backend: `cd backend && npm test` (29 tests incl. content validation);
+   - frontend: `cd frontend && npm ci && npm test && npm run build` (353 tests on 11-09; the build also writes one
+     page per article and section plus the sitemap: 74 pages with #284). **`frontend/package-lock.json` is
+     committed**; keep it.
+   - backend: `cd backend && npm test` (76 tests on 11-09, incl. content validation and the figure-module pairs);
      `node scripts/check-content.mjs ../content`.
+   - Local end-to-end: `cd backend && PORT=5000 HOST=127.0.0.1 FRONTEND_ORIGIN=http://localhost:5482 node src/server.js`
+     (sign-in is off without its settings, so locked pages open), then
+     `cd frontend && VITE_API_BASE=http://127.0.0.1:5000 npm run build && npx vite preview --port 5482 --strictPort`,
+     then a Playwright script over the pages (desktop 1366×900 and `devices['Pixel 7']`, with and without reduced
+     motion): no page errors, no sideways scroll, every figure drawn (no `.a-fig-err`).
 4. **Verify in headless Chromium** with the scripts in `tools/e2e/` (see its README): desktop
    1440×900 + iPhone/iPad profiles, overflow sweep 320→1440 px, no console errors, reduced motion,
    frozen animation frames. Test a feature against a local API before merging when the frontend
@@ -852,21 +886,29 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
 6. **PR** via GitHub MCP (`create_pull_request`, base `main`): Summary + Test plan checkboxes +
    Claude Code footer. Don't request CodeRabbit (§2). Check the runs with GitHub MCP
    `pull_request_read` method `get_check_runs` (or `curl -s https://api.github.com/repos/yashbhoomkar/tech-katta/commits/<sha>/check-runs`).
-   Names: "Analyze JavaScript and TypeScript **(javascript-typescript)**" = CodeQL, "Test and build
-   frontend" = frontend CI; both must be green ("CodeRabbit … skipped" is fine). They finish in about
+   Required checks (11-09): "Analyze JavaScript and TypeScript (javascript-typescript)" and "CodeQL", "Test and
+   build frontend", "Test backend", "Build and run API container"; all must be green ("CodeRabbit … skipped" is
+   fine). Open PRs as **drafts**, then `update_pull_request draft:false` before merging. After creating a PR,
+   `subscribe_pr_activity`; GitHub events then arrive as notifications (read them with `ReadNotifications`). They finish in about
    a minute. **Poll with a bounded loop that prints every iteration** (e.g. `for i in $(seq 1 20)`),
    never a silent `until` loop: on 11-01 an `until` loop that grepped for the name without
    "(javascript-typescript)" never matched and hung for 10 minutes with no output.
-7. **Merge**: `merge_method: merge`, `expectedHeadSha` = the **full 40-char SHA** from
-   `git rev-parse HEAD` (never type it from memory — a wrong suffix fails with 409/422).
+7. **Merge**: `merge_method: squash`, a short `commit_title` ending "(#N)" and a short `commit_message` (otherwise
+   GitHub pastes every branch commit into the body), `expectedHeadSha` = the **full 40-char SHA** from
+   `git rev-parse HEAD` (never type it from memory: a wrong SHA fails with 409). Then sync the branch (step 1).
 8. **Verify production**: frontend — poll until the live bundle contains a string unique to the change
    (Vercel ~20–60 s; the Lab is its own chunk `assets/Lab-*.js`). Backend/content — the "Deploy Tech
    Katta Backend" workflow must succeed and `/health` must show the new release `<UTC>-<short sha>`
    (the workflow itself fails and rolls back otherwise). Rerun the browser
    checks against production.
-9. **Update this repo**: dated section in `13-CURRENT-STATE.md`, a line in `10-GIT-HISTORY.md`, rules
-   in `12-OPERATING-RULES.md`, and this handover. Merge to `main` of this repo via PR (a new session
-   reads `main`).
+9. **Ledger, then this repo.** Ledger (Atlas db `techkatta_history`; connect with `remote-atlas-connect` first):
+   `frontend_git_commits` gets every commit (branch commits, sync merges, the squash commit);
+   `backend_git_commits` gets the commits that change `backend/` or `content/` and the squash commit, not sync
+   merges. Rows are `{key: full SHA, value: one line ending "(PR #N, date)"}`; read each SHA with
+   `git log -1 --format=%H <sha>`. Then this repo: dated section in `13-CURRENT-STATE.md`, a line in
+   `10-GIT-HISTORY.md`, a table in `11-MONGODB-COMMIT-LEDGER.md` with the new counts, rules in
+   `12-OPERATING-RULES.md`, `18-TODO.md`, and this handover. Same flow here: branch, draft PR, ready, squash merge
+   with a short message, sync with `merge -s ours` (a new session reads `main`).
 10. **Report**: what changed, root causes, exact numbers verified, what was not verified, pending items,
     and suggested next steps.
 
@@ -937,10 +979,20 @@ colours only for load in the Lab (amber ≥70 % incl. exactly 100 %, red >100 % 
 
 ## 5. Articles, figures and read aloud
 
-- Article JSON: `{section, slug, no, tag, date, title, dek, body, audio?}`. Body blocks (see
-  `content/README.md`): `tldr`, `example`, `fig {id, cap}`, `h2`, `p`, `list`, `type {name, kind,
-  what, use, avoid, ex, more}`, `code {label, x, say}`, `table`, `more {label, body}`. Backticks in
-  text render as code. Validation rejects unknown blocks and figure ids.
+- **Current (11-09; the API-article and FIGS details below are Historical):** article JSON is
+  `{section, slug, group, no, tag, access, date, title, dek, body, audio?, practice?}`. Blocks: `tldr`, `example`,
+  `fig {id, cap}`, `h2`, `h3`, `p`, `list`, `type {name, kind, what, use, avoid, ex, like?, more?}`,
+  `code {label, x, say}` (`say` is what screen readers and read aloud say), `table {label?, head, rows}`,
+  `more {label, body}`, `analogy`, `lab {x, to, go?}`. Backticks are the only inline markup; there are no links in
+  text, so name other articles in quotes ("'Contention' in Concepts"). Figures live in
+  `frontend/src/figs/<section>/<module>.jsx` (built from `../parts.jsx`: `Fig`, `Bx`, `Ar`, `T`, `X`, colours
+  INK/GREY/RED/BLUE/LB/LR/FB; 640-wide viewBox; four step captions of at most ~85 characters at y=26; a `title`
+  describing the whole figure for screen readers; a still version for reduced motion), mirrored by
+  `backend/src/content/figs/<section>/<module>.js`. Full model: `05-CONTENT-MODEL.md` (first section).
+- **Writing style that the owner accepted (11-09):** plain words, short sentences, British spelling, our own
+  example system Zotato with Indian numbers (lakh, crore) in our own examples; no em dashes (colons and semicolons
+  instead); "a second", not "/s"; every article starts with a `tldr` and ends with an "In an interview" list.
+  Case studies cite their source post and say whose numbers they are.
 - Shape of an article: "In 30 seconds" box → example-system box → figures and cards → short decision
   list → design rules → one-liners → interview checklist; long material collapsed. Header shows
   "5 MIN READ · 10 WITH DETAILS".
@@ -1150,8 +1202,9 @@ mix set on Clients; p95/p99 latency; data-transfer and storage costs.
 `tools/e2e/` in this repo holds the Playwright scripts used for every merge — 19 of them now (site
 sweep, read aloud, recorded audio, mobile figures, API down, every Lab area, landing desktop + phone,
 Learn/challenges, tour/import, and the QA regressions `qa-scoring`, `qa-saving`, `qa-a11y`) — see its
-README. Run the whole set against production after each merge. Engine tests: `cd frontend && npm
-test` (53). Backend + content: `cd backend && npm test` (29).
+README. Run the whole set against production after each merge. Frontend tests: `cd frontend && npm test`
+(353 on 11-09). Backend + content: `cd backend && npm test` (76 on 11-09). Pages are signed-in only on
+production, so check new pages against a local API with sign-in off (§3 step 3).
 
 **In-depth QA run (11-02, owner asked for "another agent … in depth"):** an independent agent tested
 code and production (40 findings: 7 High, 9 Medium, 24 Low). Fixed in #135 (scoring: `requires`
