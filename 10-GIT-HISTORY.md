@@ -933,3 +933,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #269: An interactive hash ring you can change; merge `195a16381ad776524935ecd7913e8ff732ed55ee`.
 - PR #270: Database indexing group in Concepts; merge `d440752036996cd94d469808a592669730f54928`.
 - PR #271: Numbers to know group in Concepts; merge `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26`.
+- PR #272: Real-time updates group in Concepts; merge `ee51a0f67bf2cf3f3aaf2b81eab5917d7fe510b2`.

@@ -1510,3 +1510,8 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 
 - `main` = `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` (#271); API release `20261109T023925Z-7a6b219`, 125 articles.
 - Concepts 70 (groups now end with `indexing`, `numbers`); front end current. Ledger through #271 (frontend 671, backend 537).
+
+## Production snapshot — 2026-11-09, 08:25 IST (after PR #272)
+
+- `main` = `ee51a0f67bf2cf3f3aaf2b81eab5917d7fe510b2` (#272); 129 articles; front end current.
+- Concepts 74; groups now end with `indexing`, `numbers`, `realtime`. Ledger through #272 (frontend 674, backend 540).
