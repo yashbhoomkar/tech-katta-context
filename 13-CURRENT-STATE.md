@@ -1471,8 +1471,8 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Content: Concepts 48 (groups: basics, data, reliability, coordination, patterns, specialised, networking,
   api-design, data-modelling), Components 19, Interview Questions Q00–Q22 (23), Research Papers 13.
 - Every article has its own address, `/dashboard/<section>/<slug>/`, with its own title and preview (#254, #255).
-- Figures: one file per family in `frontend/src/figs/` (components, concepts, questions, papers, tools, network,
-  apidesign, datamodel), each registered in `dashboard.jsx`, `backend/src/content/validate.js` and the content test.
+- Figures (since #274): one module per sub-tab, `frontend/src/figs/<tab>/<sub-tab>.jsx` (26 modules), mirrored by
+  `backend/src/content/figs/<tab>/<sub-tab>.js` (the ids); see `12-OPERATING-RULES.md`. (Before #274: one file per family.)
 - Vercel production front end: still the #257 build. The free plan's 100 deploys a day are used up, so #258–#261
   (Networking essentials as a Concepts group, API design, Data modelling figures, page titles, the old-link
   redirect) reach the site with the next deploy, about 08:00 IST on 2026-11-09.
@@ -1515,3 +1515,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 
 - `main` = `ee51a0f67bf2cf3f3aaf2b81eab5917d7fe510b2` (#272); 129 articles; front end current.
 - Concepts 74; groups now end with `indexing`, `numbers`, `realtime`. Ledger through #272 (frontend 674, backend 540).
+
+## Production snapshot — 2026-11-09, 09:30 IST (after PRs #273–#275)
+
+- `main` = `cfa8a550136fae55f33e6b7b9e8da2861cc466b6` (#275); API release `20261109T035941Z-cfa8a55`, 129 articles; front end current.
+- #273 structure tidy, #274 one figure module per sub-tab (frontend and backend), #275 pre-launch audit fixes.
+- Backend: submissions judged on worker threads (`backend/src/auth/judge-pool.js`, 2 workers, 10 s limit, queue 20);
+  every request runs in a safety net (`route()` + `failed()` in `server.js`: a malformed address → 400, a throw → 500).
+- Frontend: each figure has its own error boundary (`Part` in `status.jsx`): a figure that fails shows a note only.
+- CI: new `.github/workflows/backend.yml` runs the backend tests and the content check on every PR.
+- Ledger through #275 (frontend 680, backend 548).

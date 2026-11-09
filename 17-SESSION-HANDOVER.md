@@ -32,6 +32,27 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 09:30 IST.** Three code PRs, no content change.
+- **#273 structure tidy** (owner: "check the folder structure … refactor without breaking anything"): the colours and
+  step-figure helpers copied into ~15 figure files moved to `figs/parts.jsx`; the API types figures and the figure registry
+  left `dashboard.jsx`; `ACCOUNT_PATHS` moved beside the handlers in `auth/routes.js` (test checks they match); stray
+  screenshots and `.gitkeep`s removed; a figure caption typo fixed (ch-modulo). All 262 figures rendered byte-identical.
+- **#274 one figure module per sub-tab** (owner: "every sub tab should have its own code files in /frontend and /backend"):
+  `frontend/src/figs/<tab>/<sub-tab>.jsx` (26 modules) + `backend/src/content/figs/<tab>/<sub-tab>.js` (same ids); a figure
+  lives in the sub-tab it was made for, others still use it by id. Split by a script, byte-identical renders, all 129
+  articles checked in a browser. Content files stay per tab (offered to move per sub-tab; not asked yet).
+- **#275 pre-launch audit** (owner: "extensive code review and audit … launch soon … don't want it to crash"). Found and
+  fixed: (1) critical — a malformed request line (`GET http://x:99999/`) crashed the API process (uncaught `new URL`); now
+  400, and every request runs in a safety net (500, process keeps running). (2) high — judging a Submit on the API thread
+  took ~0.5 s for real designs and 10 s for a 200-component chain, freezing everyone; now worker threads (2, 10 s limit,
+  queue 20, 503 past either; the page shows its own result). (3) medium — one failing figure replaced the whole dashboard;
+  now a per-figure error boundary. (4) backend tests now run on PRs (`backend.yml`). CodeQL flagged a format string in the
+  new error log (fixed in ed95fba). Checked sound: fuzzing (21 shapes), load (3,000 requests, ~3,300/s, 0 failures),
+  npm audit 0, storage blocked / API down / phone browser runs, 22 workspaces Submit, production headers and pages.
+  Known low items left: browser-side judge can pause the visitor's own tab on huge designs; stats header stray
+  `Allow-Credentials`; admin summary visitor arrays (16 MB cap at scale); unknown routes answer 200.
+- Live: API release `20261109T035941Z-cfa8a55`; front end current. Ledger through #275 (frontend 680, backend 548).
+
 **Update 2026-11-09, 08:25 IST.** **Real-time updates** (#272; owner: "in the hellointerview patterns tab … real time
 updates"). The first group from the reference's Patterns tab, added as a Concepts group (`realtime`, CONCEPT // 71-74):
 realtime-step, realtime-first-hop, realtime-second-hop, realtime-deep-dives. Six figures in
@@ -1146,6 +1167,9 @@ monetisation, publishing policy or references.
 | #270 | Database indexing group in Concepts: 4 articles (CONCEPT // 64-67), 9 new figures; reference public part only |
 | #271 | Numbers to know group in Concepts: 3 articles (68-70), 5 figures; estimates table aligned; reference public part only |
 | #272 | Real-time updates group in Concepts (from the reference's Patterns tab): 4 articles (71-74), 6 figures |
+| #273 | Structure tidy: shared figure kit in parts.jsx, figure registry out of dashboard.jsx, account paths beside handlers |
+| #274 | One figure module per sub-tab (26) in frontend/src/figs/<tab>/ and backend/src/content/figs/<tab>/ |
+| #275 | Pre-launch audit: request safety net (crash fix), judging on worker threads, per-figure error boundaries, backend CI |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

@@ -374,12 +374,12 @@ This is not optional when the change is part of the application commit synchroni
 ## Example system renamed to Zotato (Decided by user, 2026-10-31)
 
 - The example system is **Zotato** (formerly Dabba): same food delivery app, same parts. Note: the name is close to the real company Zomato; the owner chose it knowingly.
-- Figures: add one wherever a picture explains more than text (decision ladders, end-to-end sequences, before/after timelines). Register new figures in `FIGS` in `frontend/src/dashboard.jsx`; keep every element inside the 640-wide viewBox; animate with `Dot`/`Glow`/`Show`; static under reduced motion.
+- Figures: add one wherever a picture explains more than text (decision ladders, end-to-end sequences, before/after timelines). Register a new figure in its sub-tab's module, `frontend/src/figs/<tab>/<sub-tab>.jsx` (`export const FIGS`), and its id in `backend/src/content/figs/<tab>/<sub-tab>.js`; a new sub-tab adds both files and one line in each `figs/index.js` (a backend test checks the folders, both indexes and every pair of id lists match). Shared drawing parts (`T`, `Steps`, `Fig`, `Bx`, `Ar`, colours…) are in `figs/parts.jsx`; keep every element inside the 640-wide viewBox; animate with `Dot`/`Glow`/`Show`; static under reduced motion.
 
 ## Content lives in the backend (Decided by user, 2026-10-31)
 
 - All site copy is JSON in `tech-katta/content/` (deployed to the VPS at `/var/lib/tech-katta/content/current`, see `content/README.md`) and served by `tech-api.katta.cc` (`/v1/site`, `/v1/articles`, `/v1/articles/:slug`). The frontend must not hardcode content; it only renders what the API returns (UI strings like "Loading…" are fine).
-- Content PRs touch `content/` only and are deployed by the backend workflow; run `npm test` (content validation) before opening the PR. New block types or figures need a frontend change too (renderer / `FIGS`) — ship the frontend first only if it ignores unknown blocks safely, otherwise backend first.
+- Content PRs touch `content/` only and are deployed by the backend workflow; run `npm test` (content validation) before opening the PR. New block types or figures need a frontend change too (renderer / the sub-tab's figure module) — ship the frontend first only if it ignores unknown blocks safely, otherwise backend first.
 - Ship order for API changes the frontend depends on: backend PR → deploy → verify live → frontend PR.
 
 ## Where data lives (Decided by user, 2026-10-31)
