@@ -1,5 +1,31 @@
 # Content Model and Authoring
 
+## Current model (2026-11-09) — read this first
+
+Everything below the next heading describes the **MongoDB era (Oct 2026) and is Historical**. Today:
+
+- Content is JSON in the app repo's `content/` folder: `site.json` (landing page, dashboard chrome, sections,
+  groups, section headers), `lab.json` (the Lab catalogue and its 9 challenges), `examples/zotato.json`,
+  `articles/index.json` (site order) and `articles/<section>/<slug>.json`. The API (`backend/`) validates it
+  (`backend/src/content/validate.js`) and serves it; the frontend only renders. Deploys copy it to the VPS as a
+  dated release.
+- Article fields: `section, slug, group, no, tag, access ("free"|"paid"), date, title, dek, body`; problems also
+  have `practice` (tests, rubric, hints, Lab design; never served: the wrong designs).
+- Blocks: `tldr, example, fig, h2, h3, p, list, type, code, table, more, analogy, lab`. `h3` is a section inside an
+  h2 part (#282). `fig` needs a known id and a `cap`. Inline `` `code` `` is the only inline markup; there are no
+  links in text, so articles name other articles in quotes ("'Contention' in Concepts").
+- Sections (`site.json` `dashboard.sections`, `[id, label, card|null]`): concepts, components,
+  interview-questions, quick-notes, lab, and `real-systems` once #284 merges. Groups per section in
+  `dashboard.groups[section]` as `[id, label, desc]`. A section without a library card takes its header from
+  `dashboard.heads[section]` = {eyebrow, desc} (#284; replaced the old `papers` block).
+- Figures: one module per sub-tab or long article, `frontend/src/figs/<section>/<name>.jsx` exporting `FIGS`
+  (one `"id":{C:…}` per line), mirrored by `backend/src/content/figs/<section>/<name>.js`; a backend test checks
+  each pair. Modules load per article (`frontend/figs-manifest.js`).
+- Counts: 59 articles live (Concepts 21, Components 10, Interview Questions 28: 7 guides + 21 problems); 65 after
+  #284 (Real systems 6). Authoring rules: `12-OPERATING-RULES.md` and the app's `content/README.md` (parts of the
+  latter are stale, see `18-TODO.md`).
+
+
 ## Canonical article model
 
 The backend documents articles in MongoDB.
