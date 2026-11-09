@@ -32,6 +32,24 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 14:00 IST.** Hosting research and #276.
+- Owner asked about moving hosts: Lightsail (incl. its add-ons), Node-only app hosts with India regions, and Cloudflare
+  Pages vs Vercel. Findings given in chat (no money figures here: business numbers belong in tech-katta-private):
+  Vercel's free plan bans commercial use and we deploy 40-50 times on busy days (Pages' 500 builds/month is too few;
+  build in GitHub Actions and deploy to Cloudflare Workers static assets instead); for the API, DigitalOcean App Platform
+  (Bangalore) was suggested as the simplest Node-only host in India; AWS App Runner is closed to new customers.
+  Owner's decision: keep everything as it is now, switch before launch; make the repo portable first.
+- **#276 portable hosting** (owner: "modular and extensible … move away from either bluehost or vercel … don't break
+  anything"): `frontend/hosting/` (routes.json, adapters for Vercel and Cloudflare, emit.mjs, wrangler.jsonc, tests),
+  `src/hostanalytics.jsx` (VITE_HOST_ANALYTICS), API settings CLIENT_IP_HEADERS and JUDGE_WORKERS, `backend/.env.example`,
+  `backend/Dockerfile` + CI container job, `HOSTING.md`. Cloudflare output checked in Cloudflare's runtime (`wrangler dev`):
+  two traps handled (redirect rules apply over files → dashboard/404.html fallback; /health → /health.html loops → no rule).
+  Also fixed /health (CSP blocked its inline script). Production verified identical (12/12 routes) after merge.
+  A first commit accidentally included wrangler's local .wrangler/ cache (empty SQLite files); removed in the next commit,
+  now ignored; not on main (squash merge).
+- Open at switch time (HOSTING.md): Safari read-aloud on Cloudflare (no 206 range responses), analytics.katta.cc
+  Redirect Rule, privacy sentence about Vercel Web Analytics, Atlas network access for the new API host.
+
 **Update 2026-11-09, 09:30 IST.** Three code PRs, no content change.
 - **#273 structure tidy** (owner: "check the folder structure … refactor without breaking anything"): the colours and
   step-figure helpers copied into ~15 figure files moved to `figs/parts.jsx`; the API types figures and the figure registry
@@ -1170,6 +1188,7 @@ monetisation, publishing policy or references.
 | #273 | Structure tidy: shared figure kit in parts.jsx, figure registry out of dashboard.jsx, account paths beside handlers |
 | #274 | One figure module per sub-tab (26) in frontend/src/figs/<tab>/ and backend/src/content/figs/<tab>/ |
 | #275 | Pre-launch audit: request safety net (crash fix), judging on worker threads, per-figure error boundaries, backend CI |
+| #276 | Portable hosting: routes.json → vercel.json / Cloudflare files, VITE_HOST_ANALYTICS, API container + settings, HOSTING.md; /health fix |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

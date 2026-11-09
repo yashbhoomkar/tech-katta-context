@@ -1525,3 +1525,19 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Frontend: each figure has its own error boundary (`Part` in `status.jsx`): a figure that fails shows a note only.
 - CI: new `.github/workflows/backend.yml` runs the backend tests and the content check on every PR.
 - Ledger through #275 (frontend 680, backend 548).
+
+## Production snapshot — 2026-11-09, 14:00 IST (after PR #276)
+
+- `main` = `14293b44385403d0fe7378f4a92d0bca11952626` (#276); API release `20261109T082537Z-14293b4`, 129 articles; front end current.
+- Hosts unchanged (Vercel website, Bluehost VPS API, Atlas, Cloudflare); the owner plans to move before launch. `HOSTING.md`
+  in the app repo is the runbook: every place a host touches the code and step-by-step moves (website → Cloudflare Workers
+  static assets; API → another VPS or a container platform).
+- Website routing/headers: `frontend/hosting/routes.json` → `vercel.json` (generated, byte-identical) or Cloudflare files
+  (`npm run build:cloudflare`, checked with `wrangler dev`). Vercel Web Analytics behind `VITE_HOST_ANALYTICS`.
+- API: `CLIENT_IP_HEADERS`, `JUDGE_WORKERS` (defaults = old behaviour), `backend/.env.example`, `backend/Dockerfile` (CI job
+  "Build and run API container" on backend PRs).
+- Fixed: the /health page never ran its checks (CSP blocked its inline script); now /health.js, verified live ("All checked
+  services are healthy").
+- Production routing verified identical to the pre-change baseline (12/12 routes, analytics.katta.cc 307).
+- Ledger through #276 (frontend 683, backend 551).
+

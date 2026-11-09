@@ -8,6 +8,10 @@ Frontend:
 Backend:
 `https://tech-api.katta.cc`
 
+## Portability (2026-11-09, #276)
+
+The app repo's `HOSTING.md` lists every place Vercel or the VPS touches the code and how to move each part. Routing and headers are generated from `frontend/hosting/routes.json`; the API has a container image (`backend/Dockerfile`) and host settings (`CLIENT_IP_HEADERS`, `JUDGE_WORKERS`, `backend/.env.example`). Production hosts unchanged.
+
 ## Vercel
 
 Project:

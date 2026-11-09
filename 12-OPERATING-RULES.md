@@ -374,6 +374,7 @@ This is not optional when the change is part of the application commit synchroni
 ## Example system renamed to Zotato (Decided by user, 2026-10-31)
 
 - The example system is **Zotato** (formerly Dabba): same food delivery app, same parts. Note: the name is close to the real company Zomato; the owner chose it knowingly.
+- Hosting (#276, `HOSTING.md`): the site's rewrites, redirects and headers live in `frontend/hosting/routes.json`. Never hand-edit `frontend/vercel.json`: change `routes.json`, run `npm run hosting:vercel` in `frontend/`, commit both (a test fails if they differ). A new API setting goes in `backend/.env.example` too (a test checks every `process.env` name is listed). Keep host-specific code behind these seams (`hosting/adapters.js`, `src/hostanalytics.jsx`, env settings) so moving hosts stays a configuration change.
 - Figures: add one wherever a picture explains more than text (decision ladders, end-to-end sequences, before/after timelines). Register a new figure in its sub-tab's module, `frontend/src/figs/<tab>/<sub-tab>.jsx` (`export const FIGS`), and its id in `backend/src/content/figs/<tab>/<sub-tab>.js`; a new sub-tab adds both files and one line in each `figs/index.js` (a backend test checks the folders, both indexes and every pair of id lists match). Shared drawing parts (`T`, `Steps`, `Fig`, `Bx`, `Ar`, colours…) are in `figs/parts.jsx`; keep every element inside the 640-wide viewBox; animate with `Dot`/`Glow`/`Show`; static under reduced motion.
 
 ## Content lives in the backend (Decided by user, 2026-10-31)
