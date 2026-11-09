@@ -1541,3 +1541,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Production routing verified identical to the pre-change baseline (12/12 routes, analytics.katta.cc 307).
 - Ledger through #276 (frontend 683, backend 551).
 
+## Production snapshot — 2026-11-09, 14:25 IST (after PR #277)
+
+- `main` = `87e2aa95a4e75cdf54c130ce6c7087bf0955aba4` (#277); API release `20261109T084804Z-87e2aa9`, 129 articles; Vercel
+  production deployment for 87e2aa9 READY.
+- #277 (in-depth review of #273–#276): per-figure error boundary keyed by figure id (no leak into the next article);
+  one design judged at a time per account (429 judge_in_progress); build:cloudflare builds without Vercel Analytics;
+  judge exceptions reported as judge_failed with the reason; judge-pool timing test made robust (reproduced under CPU load).
+- Production routing still identical to the baseline; 16 production page loads clean. Ledger through #277 (frontend 686,
+  backend 554).
+

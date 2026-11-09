@@ -32,6 +32,17 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 14:25 IST.** #277: in-depth review of #273–#276 (owner: "Do the indepth code review, don't be biased
+because it's your code"). Each suspicion was tested by running it. Real and fixed: (1) a failing figure's error note leaked
+into the next article (blocks are reused by position, ArticlePage/Article have no key; reproduced in a browser) → boundary
+keyed by figure id; (2) one account could fill the judge queue (2 workers + 20 queued, per-IP limit) and block everyone's
+submission records for ~2 min (reproduced with the pool) → one judging per account, 429 judge_in_progress, test;
+(3) build:cloudflare kept Vercel Analytics → now VITE_HOST_ANALYTICS=none; (4) judge exceptions were labelled
+accounts_unavailable → judge_failed with detail; (5) CI exposed a timing-fragile #275 test (200 ms limit included a fresh
+worker's start-up; failed 3/3 locally under CPU load) → 2 s, passes under load. Checked fine: /analytics has a noindex meta;
+CLIENT_IP_HEADERS/JUDGE_WORKERS edge cases; request safety net; Dockerfile. Left: theoretical dead idle worker; unpinned
+container base image (pin when production uses it).
+
 **Update 2026-11-09, 14:00 IST.** Hosting research and #276.
 - Owner asked about moving hosts: Lightsail (incl. its add-ons), Node-only app hosts with India regions, and Cloudflare
   Pages vs Vercel. Findings given in chat (no money figures here: business numbers belong in tech-katta-private):
@@ -1189,6 +1200,7 @@ monetisation, publishing policy or references.
 | #274 | One figure module per sub-tab (26) in frontend/src/figs/<tab>/ and backend/src/content/figs/<tab>/ |
 | #275 | Pre-launch audit: request safety net (crash fix), judging on worker threads, per-figure error boundaries, backend CI |
 | #276 | Portable hosting: routes.json → vercel.json / Cloudflare files, VITE_HOST_ANALYTICS, API container + settings, HOSTING.md; /health fix |
+| #277 | Review fixes: figure error leak, one judging per account, Cloudflare build analytics off, judge_failed, robust pool test |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
