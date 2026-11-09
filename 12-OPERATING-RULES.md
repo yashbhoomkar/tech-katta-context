@@ -277,7 +277,11 @@ This is not optional when the change is part of the application commit synchroni
 - `.coderabbit.yaml` (PR #110) holds review settings: chill profile, no poem, path instructions for frontend / backend / workflows.
 - Free review apps the owner can install (Claude cannot install GitHub Apps): **Gemini Code Assist for GitHub** (`/gemini review`, auto-review on PR open) and **Qodo Merge** (free for open-source repos). All free tiers depend on the repo staying **public**; making it private changes eligibility.
 
-## Research Papers replace Did you know (Decided by the owner, 2026-11-08)
+## Research Papers replace Did you know (Decided by the owner, 2026-11-08) — **Historical**
+
+*Removed 2026-11-09 (#281) by the owner's "only the reference site's articles" decision below; its slot is now the
+Real systems tab. Kept for the record.*
+
 
 - A "Research Papers" tab (`content/articles/papers/`) takes the place of "Did you know": one classic paper per
   article, in plain words with animated figures (`frontend/src/figs/papers.jsx`). Shape: the paper (title, author,
@@ -437,6 +441,13 @@ This is not optional when the change is part of the application commit synchroni
 - Removing or merging an article: move the figures other articles reuse, rewrite every pointer to it (search
   titles in quotes and "the X concept/component/article"), and redirect its address to the matching article in
   `frontend/hosting/routes.json` (then `npm run hosting:vercel`); re-point older redirects so there are no chains.
+- Case studies (Real systems › Case studies, #284): each retells one company's public engineering post in our own
+  words with our own figure. The company is named (the article is about it), the post is cited in the last paragraph
+  (title, month, year), the numbers are the company's and say so; nothing is copied. Order follows the reference:
+  Shopify, Discord, Slack, Figma, Spotify, Meta. A tab without a library card gets its header from `site.json`
+  `dashboard.heads[<section>]` ({eyebrow, desc}).
+- Ledger: read every full SHA from git (`git log -1 --format=%H`) before inserting it; never type or guess one.
+  When squash-merging, pass a short `commit_message`, or GitHub fills the body with every branch commit.
 - Syncing the working branch after a squash merge: `git merge -s ours origin/<branch>` (records the merge,
   keeps our files). A plain merge committed conflict markers once (#281, undone in the next commit).
 
