@@ -816,8 +816,8 @@ system design practice experience with real evaluation… LeetCode for system de
 **Standing instructions (Decided):**
 1. **Never ask for permission — the answer is always "allow".** Still ask about genuine product or
    business decisions you cannot reasonably decide, with your recommendation.
-2. **Every code change goes through a PR**: open → CodeQL + frontend CI green → merge → verify
-   production → update this repo → report.
+2. **Every code change goes through a PR**: open (draft) → the required checks (CodeQL, "Test and build frontend", "Test backend", "Build and run API container") green → squash merge
+   → verify production → ledger → update this repo → report (details in §3).
 3. **CodeRabbit is skipped** (owner, 11-01: "You may skip it"): don't request it or wait for it;
    merge when CodeQL and the frontend CI are green. If it reviews anyway, fix every valid finding
    and reply on each thread. (Supersedes the earlier "request it, don't wait when rate-limited".)

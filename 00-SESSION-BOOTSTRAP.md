@@ -1,6 +1,6 @@
 # Session Bootstrap — Read This First
 
-> **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes current production, the PR → CodeQL + frontend CI → merge → verify → context workflow (CodeRabbit is skipped by the owner's decision), the System Design Lab and pending work. Where this bootstrap disagrees with the handover, the handover wins.
+> **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes current production, the PR → the required checks (CodeQL, "Test and build frontend", "Test backend", "Build and run API container") green → squash merge → verify → ledger → context workflow (CodeRabbit is skipped by the owner's decision), the System Design Lab and pending work. Where this bootstrap disagrees with the handover, the handover wins.
 
 > **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 

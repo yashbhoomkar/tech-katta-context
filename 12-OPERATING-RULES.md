@@ -271,7 +271,7 @@ This is not optional when the change is part of the application commit synchroni
 
 ## Code review on every PR (Historical — superseded 2026-11-01)
 
-> **Current rule (Decided by the owner, 2026-11-01: "You may skip it"):** do not request CodeRabbit or Copilot reviews and do not wait for them. Merge when CodeQL and the frontend CI ("Test and build frontend") are green. If CodeRabbit reviews anyway, fix every valid finding and reply on each thread. The text below records the earlier rule.
+> **Current rule (Decided by the owner, 2026-11-01: "You may skip it"):** do not request CodeRabbit or Copilot reviews and do not wait for them. Merge when the required checks (CodeQL, "Test and build frontend", "Test backend", "Build and run API container") are green (the backend and container checks were added in #275/#276); squash-merge with a short message. If CodeRabbit reviews anyway, fix every valid finding and reply on each thread. The text below records the earlier rule.
 
 - (Earlier rule) Request code review on every PR in `yashbhoomkar/tech-katta`, right after opening it:
   1. Comment `@coderabbitai review` (plus the Claude Code footer). CodeRabbit is on the free open-source tier (shows "Plan: Advanced"), but **skips auto-review because the repo has fewer than 10 stars**, so the manual trigger is required. Limits refill hourly; if rate-limited, say so and wait or proceed on CodeQL for small/urgent fixes.
