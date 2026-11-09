@@ -32,6 +32,15 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 08:25 IST.** **Real-time updates** (#272; owner: "in the hellointerview patterns tab … real time
+updates"). The first group from the reference's Patterns tab, added as a Concepts group (`realtime`, CONCEPT // 71-74):
+realtime-step, realtime-first-hop, realtime-second-hop, realtime-deep-dives. Six figures in
+`frontend/src/figs/realtime.jsx` (`RT_FIGS`: rt-two-hops, rt-polling, rt-hash-route, rt-pubsub, rt-celebrity,
+rt-ordering); reuses nw-journey, nw-sse, nw-ws, nw-webrtc, live-fanout, live-resume (captions matched). It builds on the
+older "Live updates at scale" (Recurring patterns) and "Pushing updates" (Networking) articles and links to them.
+Reference public only up to its networking recap (covered); the rest is behind the paid wall and was written from
+general knowledge. Live: API release with `ee51a0f`, 129 articles. Ledger through #272 (frontend 674, backend 540).
+
 **Update 2026-11-09, 08:15 IST.** **Numbers to know** (#271; owner: "Next hellointerview tab is numbers need to know"). A
 new group in Concepts (`numbers`, CONCEPT // 68-70): numbers-step, numbers-components, numbers-mistakes. Five figures in
 `frontend/src/figs/numbers.jsx` (`NUM_FIGS`: nm-machine, nm-latency, nm-capacity, nm-shard-math, nm-writes; the last four
@@ -1136,6 +1145,7 @@ monetisation, publishing policy or references.
 | #269 | Interactive hash ring (`ch-playground`) in "The hash ring"; content README groups |
 | #270 | Database indexing group in Concepts: 4 articles (CONCEPT // 64-67), 9 new figures; reference public part only |
 | #271 | Numbers to know group in Concepts: 3 articles (68-70), 5 figures; estimates table aligned; reference public part only |
+| #272 | Real-time updates group in Concepts (from the reference's Patterns tab): 4 articles (71-74), 6 figures |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

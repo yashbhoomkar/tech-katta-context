@@ -175,3 +175,23 @@ Those were written from general knowledge; the paid text was not accessed.
 
 Consistency fix: "Back-of-envelope maths" (estimates) now says writes are several thousand a second on a mid-sized
 database and around 10,000 on a large one, and memory reaches terabytes on memory-optimised machines, matching this group.
+
+## Real-time updates (Patterns; CONCEPT // 71–74, PR #272)
+
+Reference: public up to its networking recap (intro, the problem, the specialist-team note, the list of problems that use
+the pattern, the two hops and their figure, the client–server protocols intro, networking layers, request lifecycle and
+its figure). The rest (polling, long polling, SSE, WebSockets, WebRTC, overview; server-side pull, consistent hashing,
+pub/sub; when to use and when not; deep dives on reconnection, millions of followers and ordering) is behind the paid
+wall; headings only. Those were written from general knowledge, building on our existing "Live updates at scale" and
+"Pushing updates" articles; the paid text was not accessed.
+
+| Reference section (public) | Where it is on Tech Katta | Result |
+|---|---|---|
+| Intro: immediate updates, chat, dashboards | realtime-step dek, "Where it comes up" | covered |
+| The problem: collaborative editor, polling every few ms, HTTP request–response | realtime-step: "The problem" | covered |
+| Often solved once by a specialist team | realtime-step | covered |
+| Problems that use the pattern (tickets, ride hailing, chat, trading, docs, …) | realtime-step: "Where it comes up" | covered (our own list) |
+| Two hops, figure | realtime-step: "Two hops", rt-two-hops | covered |
+| Client–server protocols intro; networking layers L3/L4/L7 (IP, TCP, UDP, DNS/HTTP/WS/WebRTC) | realtime-first-hop: "A short networking refresher" | covered |
+| Request lifecycle (DNS, then connection, request, response), figure | realtime-first-hop, nw-journey | covered |
+| Paid sections (headings only) | realtime-first-hop, realtime-second-hop, realtime-deep-dives | written from general knowledge |
