@@ -56,6 +56,13 @@ the owner · **Historical** = true once, not any more.
   - Tests: `backend/test/content.test.js` (bad heads rejected), `frontend/src/seo.test.js` (a case-study page and
     the section description), `frontend/src/routes.test.js` ('papers' example → 'real-systems').
 - **Checked:** backend 76/76, frontend 353/353, content validation, build (74 pages incl. 6 articles + section page).
+- **Sources** (public engineering posts the case studies retell; re-read them to check a fact, the session's copies
+  are not kept): https://shopify.engineering/scaling-inventory-reservations ·
+  https://discord.com/blog/how-discord-stores-trillions-of-messages ·
+  https://slack.engineering/scaling-slacks-job-queue/ ·
+  https://www.figma.com/blog/how-figmas-multiplayer-technology-works/ ·
+  https://engineering.atspotify.com/2026/7/indexing-the-data-lake-for-online-point-queries ·
+  https://engineering.fb.com/2026/09/03/core-infra/zgateway-proxy-zippydb-meta/
 - **Not checked yet:** the browser check (the owner interrupted it). Steps to finish are in §1 "Session closed".
 - **After merge:** API `/health` should show 65 articles; ledger the squash commit (both) and the sync merge
   (frontend); history (10), ledger (11), state (13), to-do (18).
