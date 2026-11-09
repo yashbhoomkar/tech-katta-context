@@ -32,6 +32,11 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 07:40 IST.** Checked on the owner's "update docs and ledgers": no merges since #269; ledger complete
+through #269 (frontend 665, backend 531). The Vercel front end is still the #266 build (cap-step shows the generic title), so
+the CAP figures and the ring playground are not live yet; the API is current (release `20261108T191817Z-195a163`, 118
+articles). A merge to main after Vercel's limit resets triggers the deploy; nothing to change in code.
+
 **Update 2026-11-09, 02:40 IST (overnight session, owner asleep).** Owner's tasks: audit Caching against the reference;
 build Sharding, Consistent hashing and CAP theorem as Concepts groups the same way; audit those in depth; "a good surprise".
 - **#264 Caching audit:** latency numbers made consistent with the Caches component (5–50×), the delete-on-write race
