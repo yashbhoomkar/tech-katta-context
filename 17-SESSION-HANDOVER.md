@@ -60,6 +60,15 @@ the owner · **Historical** = true once, not any more.
   reference design (`/v1/articles/<slug>/solution`). **Pending:** the owner's call on adding Lab solutions (proposal:
   a solution design per challenge, a "Show solution" after the first scored attempt, copied solutions don't count).
 - **Next after #284:** stage E (11 problems), then the free set and Quick Notes decisions.
+- **Session closed 2026-11-09, 23:55 IST (owner: no new coding).** All three repos clean and pushed on
+  `ccr-26f78085-ymb3p0`; local API and preview servers stopped; scratch files under `/tmp` (case-study sources,
+  check scripts) are not kept. To finish #284 a new session: sync the branch, build with
+  `VITE_API_BASE=http://127.0.0.1:5000`, run the API locally with sign-in off, open
+  `/dashboard/real-systems/` and the six articles on desktop and a phone size with reduced motion and with motion,
+  and check: one figure each with no figure error, no console errors, no sideways scroll, the section header and
+  sidebar group show. Then mark #284 ready, squash merge with a short message, check `/health` reports 65
+  articles and the six pages load live, and ledger the merge commit (both collections) and the sync merge
+  (frontend). Owner decisions open: Lab solutions, free articles, Quick Notes.
 
 **Update 2026-11-09, 20:05 IST.** Five PRs, all live and verified (ledger: frontend 704, backend 563).
 - **#278** (owner: "Redo the in depth code review… we need the website to be the best"): a late answer for an article
