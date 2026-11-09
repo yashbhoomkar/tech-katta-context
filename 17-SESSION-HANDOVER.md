@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-09, 20:05 IST** (#278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-09, 23:30 IST** (#283 guides live; #284 Real systems open as a draft; one bad ledger row awaiting the owner, see §1; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -31,6 +31,36 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-09, 23:30 IST.** Stage D.
+- **#283 merged and live** (squash f11f4cb; API release 20261109T173844Z-f11f4cb, 59 articles; Vercel READY on
+  f11f4cb): Interview Questions › Start here holds the reference's seven guides in our own words, GUIDE // 01–07
+  (system-design-interviews, how-to-prepare, how-to-answer, core-concepts-guide, technologies-guide,
+  patterns-guide, questions-guide); problems renumbered QUESTION // 01–21; the judge test treats the whole Start
+  here group as guides. Ledger: frontend +4 (1f0ecae, 3fa907b, f11f4cb, sync 1b03fb0), backend +2 (1f0ecae, f11f4cb).
+  Note: the squash body defaulted to every branch commit message; pass `commit_message` next time.
+- **#284 open as a DRAFT, not merged** (head fb94cb5e35f2b6b2df86b8b534ea221fa80933ab, CI all green): a new
+  "Real systems" tab (section `real-systems`, group `case-studies`, in the old Research Papers slot, before Lab) with
+  six case studies, CASE // 01–06, each retold from the company's public post and naming it, one step figure each
+  (`frontend/src/figs/real-systems/case-studies.jsx` + backend list): shopify-reservations, discord-messages,
+  slack-job-queue, figma-multiplayer, spotify-data-lake, meta-zgateway. A section without a library card now takes
+  its header from `site.json` `dashboard.heads[id]` (validated; also the section page's SEO description); the
+  `papers` header branch and `papers?` site key are gone; new tab icon; tour text mentions the tab. Tests: backend 76,
+  frontend 353; build 74 pages. **Still to do before ready:** the browser check of the six pages (desktop + phone,
+  figures, no errors, no sideways scroll) was interrupted by the owner; script at `/tmp/claude-0/lh/cases.cjs`
+  (session scratch, gone in a new container). Then mark ready, squash merge, verify (API 65 articles), ledger.
+- **Ledger fault, waiting on the owner:** while recording #284 a row was inserted into `frontend_git_commits` with a
+  wrong, guessed key `fb94cb5bfb0fe2e7ed3ef3f8f71cc2f62386e5d6` and value `"PLACEHOLDER"`. The delete needs the
+  owner's approval in the MongoDB tool (the first attempt timed out unanswered). Once approved: delete
+  `{value: "PLACEHOLDER"}`, then record the real fb94cb5e… in both collections. Never insert a SHA before reading it
+  from git.
+- **Owner asked (11-09):** the IND vs PAK landing Lab's solution, and why the Lab has none. Answer given: CDN on, at
+  least 35 c5.2xlarge servers (35 × 2,500 = 87,500 a second after the CDN's 99%), all started before the toss
+  (autoscaling from 5 misses the toss even at 100); 30 servers or autoscaling score 2 stars, no CDN 0. Lab challenges
+  in `content/lab.json` have only brief, hint and stars, no solution field; only Interview Questions problems have a
+  reference design (`/v1/articles/<slug>/solution`). **Pending:** the owner's call on adding Lab solutions (proposal:
+  a solution design per challenge, a "Show solution" after the first scored attempt, copied solutions don't count).
+- **Next after #284:** stage E (11 problems), then the free set and Quick Notes decisions.
 
 **Update 2026-11-09, 20:05 IST.** Five PRs, all live and verified (ledger: frontend 704, backend 563).
 - **#278** (owner: "Redo the in depth code review… we need the website to be the best"): a late answer for an article
