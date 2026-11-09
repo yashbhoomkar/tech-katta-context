@@ -30,6 +30,36 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
+## Open PR: #284, the Real systems tab (read before starting work)
+
+- **Link:** https://github.com/yashbhoomkar/tech-katta/pull/284 · branch `ccr-26f78085-ymb3p0` → `main` · **draft**,
+  not merged, not live. Head `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab` (one commit: "Real systems: a new tab with
+  six case studies, in our own words"). CI all green on that head: Test and build frontend, Test backend, Build and
+  run API container, CodeQL. Vercel preview READY. Ledger: the branch commit is recorded in both collections; the
+  merge commit is not yet.
+- **What it adds (17 files, +1,063/−8):**
+  - `content/articles/real-systems/`: six articles, group `case-studies`, CASE // 01–06, all paid, each citing its
+    source post in the last paragraph: `shopify-reservations` (Shopify, May 2026), `discord-messages` (Discord,
+    March 2023), `slack-job-queue` (Slack, December 2017), `figma-multiplayer` (Figma, October 2019),
+    `spotify-data-lake` (Spotify, July 2026), `meta-zgateway` (Meta, September 2026). Added to the end of
+    `content/articles/index.json`.
+  - `content/site.json`: section `["real-systems", "Real systems", null]` before Lab; group `case-studies`;
+    `dashboard.heads["real-systems"]` (eyebrow "REAL SYSTEMS" and the section description); the dashboard tour's
+    first step mentions the tab.
+  - Figures: `frontend/src/figs/real-systems/case-studies.jsx` (6 step figures: `shopify-skip-locked`,
+    `discord-coalesce`, `slack-kafka-buffer`, `figma-lww`, `spotify-rap`, `meta-zgateway`) and the matching list
+    `backend/src/content/figs/real-systems/case-studies.js`, registered in `backend/src/content/figs/index.js`.
+  - Code: `frontend/src/dashboard.jsx` (section header from `d.heads[id]` instead of the papers branch; a
+    `real-systems` icon replaces the papers icon); `backend/src/content/validate.js` (`papers?` removed;
+    `dashboard.heads` checked: an object, keys must be sections, each {eyebrow, desc}); `frontend/seo.js` (the
+    section page's description falls back to `dashboard.heads`).
+  - Tests: `backend/test/content.test.js` (bad heads rejected), `frontend/src/seo.test.js` (a case-study page and
+    the section description), `frontend/src/routes.test.js` ('papers' example → 'real-systems').
+- **Checked:** backend 76/76, frontend 353/353, content validation, build (74 pages incl. 6 articles + section page).
+- **Not checked yet:** the browser check (the owner interrupted it). Steps to finish are in §1 "Session closed".
+- **After merge:** API `/health` should show 65 articles; ledger the squash commit (both) and the sync merge
+  (frontend); history (10), ledger (11), state (13), to-do (18).
+
 ## 1. Where things stand
 
 **Update 2026-11-09, 23:30 IST.** Stage D.
