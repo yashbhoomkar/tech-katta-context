@@ -938,3 +938,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #274: One figure module per sub-tab, in the frontend and the backend; merge `7db4203d8f1fdc916f72b3b647da89dd5cd24d34`.
 - PR #275: Pre-launch audit: request safety net, judging on worker threads, per-figure error boundaries, backend tests on PRs; merge `cfa8a550136fae55f33e6b7b9e8da2861cc466b6`.
 - PR #276: Hosting made portable (one routing file for any host, API container image, HOSTING.md runbook; /health page fix); merge `14293b44385403d0fe7378f4a92d0bca11952626`.
+- PR #277: Review fixes for #275/#276 (figure error leak across articles, one judging per account, Cloudflare build without Vercel Analytics, judge_failed label, timing-robust pool test); merge `87e2aa95a4e75cdf54c130ce6c7087bf0955aba4`.

@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 14:00 IST): `frontend_git_commits` 683, `backend_git_commits` 551.
+Latest count (2026-11-09 14:25 IST): `frontend_git_commits` 686, `backend_git_commits` 554.
 
 Current live counts checked 2026-10-12:
 
@@ -925,6 +925,14 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `31045494f7170927679b75582a342dc6ad80c1be` | Merge origin/main into the PR #271 branch |
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
+
+### PR #277 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #277 | `bca654e43be3f4e424c5682e82241b727032dfd1` | Review fixes for #275 and #276: figure error leak, judging fairness, Cloudflare build, judge errors |
+| #277 | `f829ecfde63a157b7797e7203dbffdc97f21c3a2` | Judge pool test: give the follow-up job room to start a fresh worker |
+| #277 | `87e2aa95a4e75cdf54c130ce6c7087bf0955aba4` | Merge PR #277 |
 
 ### PR #276 (2026-11-09): recorded (both collections)
 
