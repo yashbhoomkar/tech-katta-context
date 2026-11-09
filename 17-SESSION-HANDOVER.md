@@ -32,6 +32,15 @@ the owner · **Historical** = true once, not any more.
 
 ## 1. Where things stand
 
+**Update 2026-11-09, 08:15 IST.** **Numbers to know** (#271; owner: "Next hellointerview tab is numbers need to know"). A
+new group in Concepts (`numbers`, CONCEPT // 68-70): numbers-step, numbers-components, numbers-mistakes. Five figures in
+`frontend/src/figs/numbers.jsx` (`NUM_FIGS`: nm-machine, nm-latency, nm-capacity, nm-shard-math, nm-writes; the last four
+are log-scale bar charts). The older "Back-of-envelope maths" table now matches (database writes several thousand a
+second mid-sized, ~10,000 large; memory to terabytes). Reference page public only for its intro and hardware limits
+(10 paragraphs, all covered); the rest (components, cheat sheet, mistakes, costs) is behind the paid wall and was
+written from general knowledge. Live: API release `20261109T023925Z-7a6b219`, 125 articles; numbers-step shows its title.
+Ledger through #271 (frontend 671, backend 537).
+
 **Update 2026-11-09, 08:00 IST.** **Database indexing** (#270; owner: "Next is the database indexing tab"). A new group in
 Concepts (`indexing`, CONCEPT // 64-67): index-step, btree-index, lsm-and-hash, special-indexes. Nine new figures in
 `frontend/src/figs/indexing.jsx` (`INDEX_FIGS`: ix-scan, ix-cost, ix-btree-find, ix-btree-split, ix-lsm-write, ix-lsm-read,
@@ -1126,6 +1135,7 @@ monetisation, publishing policy or references.
 | #268 | Second-pass audit: one story for Zotato's shard key; two accuracy fixes |
 | #269 | Interactive hash ring (`ch-playground`) in "The hash ring"; content README groups |
 | #270 | Database indexing group in Concepts: 4 articles (CONCEPT // 64-67), 9 new figures; reference public part only |
+| #271 | Numbers to know group in Concepts: 3 articles (68-70), 5 figures; estimates table aligned; reference public part only |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |

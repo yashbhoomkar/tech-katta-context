@@ -156,3 +156,22 @@ paid wall; only headings are visible. Those topics were written from general kno
 | Why B-trees are the default (5 reasons), safe bet | 49–56 | btree-index: "Why B-trees are the default" | covered |
 | LSM motivation: millions of metrics a second | 57–58 | lsm-and-hash: "When writes pour in" | covered |
 | Paid sections (headings only) | — | lsm-and-hash, special-indexes | written from general knowledge |
+
+## Numbers to know (CONCEPT // 68–70, PR #271)
+
+Reference: public only for its introduction and "Modern hardware limits" (10 paragraphs). The sections on caching,
+databases, application servers, message queues, the cheat sheet, common mistakes (premature sharding, overestimating
+latency, over-engineering for writes) and costs are behind the reference site's paid wall; only headings are visible.
+Those were written from general knowledge; the paid text was not accessed.
+
+| Reference section (public) | Where it is on Tech Katta | Result |
+|---|---|---|
+| Hardware moves fast; textbooks quote old limits; book knowledge shows; decisions depend on current numbers | numbers-step: "Why the numbers you learned may be wrong" | covered |
+| Compute and memory: m6i.32xlarge 128 vCPU/512 GiB, x1e.32xlarge ~4 TB, u-24tb1.metal 24 TB | numbers-step, nm-machine | covered |
+| Storage: i3en.24xlarge 60 TB SSD, d3en.12xlarge 336 TB HDD, S3 unlimited | numbers-step, nm-machine | covered |
+| Network: 25 Gbps, 50–100+, cross-AZ bandwidth, latency <1 ms / 1–2 ms / 50–150 ms | numbers-step, nm-latency | covered (+ India–US ~200 ms) |
+| Step change; "split at 100 GB", "avoid large objects in memory" are outdated | numbers-step | covered |
+| Paid sections (headings only) | numbers-components, numbers-mistakes, nm-capacity, nm-shard-math, nm-writes | written from general knowledge |
+
+Consistency fix: "Back-of-envelope maths" (estimates) now says writes are several thousand a second on a mid-sized
+database and around 10,000 on a large one, and memory reaches terabytes on memory-optimised machines, matching this group.

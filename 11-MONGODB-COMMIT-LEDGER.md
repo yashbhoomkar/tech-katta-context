@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 08:00 IST): `frontend_git_commits` 668, `backend_git_commits` 534.
+Latest count (2026-11-09 08:15 IST): `frontend_git_commits` 671, `backend_git_commits` 537.
 
 Current live counts checked 2026-10-12:
 
@@ -917,6 +917,14 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #270 | `fc7afdc82af963307731f2db40b99f0e91414e67` | Merge origin/main into the PR #270 branch |
 | #270 | `63b8c4127fbb0059b766f9e37cb8f5bc36db0a76` | Database indexing: a new group in Concepts, four articles and nine figures |
 | #270 | `d440752036996cd94d469808a592669730f54928` | Merge PR #270: Database indexing |
+
+### PR #271 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #271 | `31045494f7170927679b75582a342dc6ad80c1be` | Merge origin/main into the PR #271 branch |
+| #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
+| #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
 
 Note (2026-11-09): twice a placeholder row with a short key (`6ab3c5c`, `2880cd5`) was inserted by mistake. Atlas asks the
 owner to confirm deletes, so each row was corrected in place (update-many) to the full SHA and the right value above; no
