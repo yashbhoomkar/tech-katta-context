@@ -944,4 +944,6 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #280: Concepts trimmed to the reference site's topics (13 older articles removed, groups in its order); merge `08542ebed60d12d356dc8d9006c940b530143847`.
 - PR #281: General components, Research Papers and autocomplete removed; API gateway pages merged; Kafka opens with queue, stream or pub/sub; merge `aff688baa31de88acf18e2b7bb0d58655665ca35`.
 - PR #282: Concepts as one article per reference topic (21), `h3` block; merge `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b`.
+- PR #283: Interview Questions › Start here: the reference site's seven guides (GUIDE // 01–07), problems renumbered QUESTION // 01–21; merge `f11f4cb2b63ccafd37a1de965168cc5f17465dbe`.
+- PR #284 (open, draft): Real systems tab with six case studies (Shopify, Discord, Slack, Figma, Spotify, Meta ZGateway), `dashboard.heads` section headers; head `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab`.
 
