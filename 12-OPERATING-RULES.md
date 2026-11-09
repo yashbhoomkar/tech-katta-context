@@ -418,3 +418,25 @@ This is not optional when the change is part of the application commit synchroni
 - The API never serves `practice.wrong`, and serves `practice.reference` only on its own, for the Solution tab
   (`GET /v1/articles/<slug>/solution`, since #234, the owner's request). A copied solution submitted unchanged
   is never counted as solved or in the public stats. Submissions store results only.
+
+## Technical content = the reference site's system design articles (Decided by the owner, 2026-11-09)
+
+- Owner: "For the technical content, only have those articles that hellointerview system design has. No more no
+  less." Its public navigation lists 9 core concepts, 7 patterns, 15 deep dives (10 technologies, 5 advanced
+  topics), 32 problem breakdowns, 7 guides and 6 case studies. Titles only were read; paid pages are not
+  accessed. Don't name that site on ours; our titles, examples, numbers and figures stay our own.
+- Concepts: one article per topic, 21 (Core concepts 9, Recurring patterns 7 with Real-time updates first,
+  Specialised data 5). A topic with several parts keeps them as h2 parts with h3 sections (block `h3`).
+- Components: only the 10 named technologies (Tools by name). Research Papers: removed.
+- Interview Questions: the reference's 32 problems (autocomplete removed; 11 to add, each with tests, rubric,
+  hints and a Lab design, calibrated like the others). Its 7 guides go in Interview Questions › Start here
+  ("How to answer" is the delivery guide). Its 6 case studies go in a "Real systems" tab (the slot Research
+  Papers used; owner's choice).
+- Free articles: only "How to answer" until the owner picks more.
+- Figure modules are named after a sub-tab or, for a long article, the article's slug (the backend test checks it).
+- Removing or merging an article: move the figures other articles reuse, rewrite every pointer to it (search
+  titles in quotes and "the X concept/component/article"), and redirect its address to the matching article in
+  `frontend/hosting/routes.json` (then `npm run hosting:vercel`); re-point older redirects so there are no chains.
+- Syncing the working branch after a squash merge: `git merge -s ours origin/<branch>` (records the merge,
+  keeps our files). A plain merge committed conflict markers once (#281, undone in the next commit).
+

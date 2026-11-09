@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-09, 02:50 IST** (overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-09, 20:05 IST** (#278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -31,6 +31,31 @@ the owner · **Historical** = true once, not any more.
 ---
 
 ## 1. Where things stand
+
+**Update 2026-11-09, 20:05 IST.** Five PRs, all live and verified (ledger: frontend 704, backend 563).
+- **#278** (owner: "Redo the in depth code review… we need the website to be the best"): a late answer for an article
+  or problem the visitor had already left replaced the one on screen (reproduced) → dropped; sign-in check
+  (`/v1/auth/config` + `/v1/me`) now starts at boot in parallel (`prefetchAccount`), the built pages preconnect to
+  the API and preload `/v1/site` (+ `/v1/articles`); fonts self-hosted (same files and family names as Google
+  Fonts, 22 pages pixel-identical); axe fixes (heading order, landmark names, focusable Lab panel, `<main>` on
+  /health); two figure key warnings. Production mobile Lighthouse: home 71 → 94–96, dashboard 71 → 89–92,
+  article 67 → 87–91; a11y, best practices, SEO 100.
+- **#279**: figures load per article (`frontend/figs-manifest.js` builds id → module at build time,
+  `figs/index.js` loads modules with `import.meta.glob`); dashboard script 655 KB → 62 KB. A figure module
+  that fails makes "Try again" reload the page (the browser won't refetch a failed module).
+- **Owner, 11-09: "Only have those articles that hellointerview system design has. No more no less."** Chosen
+  in this session (rules in `12-OPERATING-RULES.md`): Concepts one article per topic (21); Components only the
+  10 named technologies; Interview Questions to match its 32 problems; Research Papers removed; its 7 guides
+  go in Interview Questions › Start here and its 6 case studies in a new "Real systems" tab.
+- **#280** (stage A): 13 older Concepts articles removed; groups in the reference's order. **#281** (stage B):
+  9 general components, 13 papers and autocomplete removed; the two API gateway pages merged; Kafka opens with
+  queue, stream or pub/sub. **#282** (stage C): ten topics merged into one article each (every part an h2, its
+  sections a new `h3` block); Concepts = Core concepts 9, Recurring patterns 7, Specialised data 5. 53 articles.
+  Every old address redirects (308) to the matching article, no chains (178 rules in `hosting/routes.json`).
+- **Next:** stage D (7 guides, 6 case studies, Real systems tab), stage E (11 problems: assistant chat,
+  rate limiter, live comments, flash sale, news aggregator, metrics monitoring, auction, chess, stock trading,
+  fitness tracking, price tracker), each calibrated like the other 22. Then the free set (only "How to answer"
+  is free now) and Quick Notes (no counterpart on the reference) need the owner's call.
 
 **Update 2026-11-09, 14:25 IST.** #277: in-depth review of #273–#276 (owner: "Do the indepth code review, don't be biased
 because it's your code"). Each suspicion was tested by running it. Real and fixed: (1) a failing figure's error note leaked

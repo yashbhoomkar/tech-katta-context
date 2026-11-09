@@ -939,3 +939,9 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #275: Pre-launch audit: request safety net, judging on worker threads, per-figure error boundaries, backend tests on PRs; merge `cfa8a550136fae55f33e6b7b9e8da2861cc466b6`.
 - PR #276: Hosting made portable (one routing file for any host, API container image, HOSTING.md runbook; /health page fix); merge `14293b44385403d0fe7378f4a92d0bca11952626`.
 - PR #277: Review fixes for #275/#276 (figure error leak across articles, one judging per account, Cloudflare build without Vercel Analytics, judge_failed label, timing-robust pool test); merge `87e2aa95a4e75cdf54c130ce6c7087bf0955aba4`.
+- PR #278: Faster first load (sign-in check in parallel, API preconnect and preloads, self-hosted fonts), stale-article race fixed, accessibility fixes, figure key warnings; merge `4355c31fdab84cf1eb40223eedb91484f1feec70`.
+- PR #279: Figures load per article (build-time figure map, on-demand modules; dashboard script 655 KB to 62 KB); merge `225d5e0fff07b32d868ea8948608758b4b3a1373`.
+- PR #280: Concepts trimmed to the reference site's topics (13 older articles removed, groups in its order); merge `08542ebed60d12d356dc8d9006c940b530143847`.
+- PR #281: General components, Research Papers and autocomplete removed; API gateway pages merged; Kafka opens with queue, stream or pub/sub; merge `aff688baa31de88acf18e2b7bb0d58655665ca35`.
+- PR #282: Concepts as one article per reference topic (21), `h3` block; merge `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b`.
+
