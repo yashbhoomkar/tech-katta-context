@@ -926,6 +926,49 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
 
+### PR #282 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #282 | `bd69001cc83eb51088adf5814166494e7f4f5a0a` | Concepts: one article per reference topic (21) |
+| #282 | `763cf781b6f014b20ad512d5371f21e61d196cb5` | Sync branch (merge -s ours, no content change; frontend only) |
+| #282 | `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b` | Merge PR #282 |
+
+### PR #281 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #281 | `d6598d404fc2af1f0c675471e7eb9a2b14487a3b` | Only the reference site's articles: general components, papers and autocomplete removed |
+| #281 | `15ba32c280f8823fc9f14550f89aeab7399641a3` | Sync branch (committed conflict markers; frontend only) |
+| #281 | `5e146e628776e03da2c5a7412a783ce4abd42dca` | Undo the sync merge's side effects |
+| #281 | `8f420cb91bd97195683e7b4469a7b725e1bbed07` | Five more pointers to removed articles (frontend only) |
+| #281 | `aff688baa31de88acf18e2b7bb0d58655665ca35` | Merge PR #281 |
+
+### PR #280 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #280 | `29069162b13a07b4ad597c4fb19bf6617256c366` | Concepts: only the reference site's topics, in its order |
+| #280 | `de2f0efcf741691403225635b9d8bf5d25f9163f` | Sync branch (frontend only) |
+| #280 | `08542ebed60d12d356dc8d9006c940b530143847` | Merge PR #280 |
+
+### PR #279 (2026-11-09): recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #279 | `11e5bafccb9f8d4279a291b3c87e14b1e9b7cab9` | Load each sub-tab's figures when an article needs them |
+| #279 | `2399d62ed6a36b1ce363de111007aa406c85a7b8` | Sync branch (frontend only) |
+| #279 | `27304d6065891557486fe9474f4606b8a096bf8b` | Figures that fail to download: Try again reloads the page (frontend only) |
+| #279 | `225d5e0fff07b32d868ea8948608758b4b3a1373` | Merge PR #279 |
+
+### PR #278 (2026-11-09): recorded (frontend only)
+
+| PR | SHA | Value |
+|---|---|---|
+| #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
+| #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
+| #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
 ### PR #277 (2026-11-09): recorded (both collections)
 
 | PR | SHA | Value |

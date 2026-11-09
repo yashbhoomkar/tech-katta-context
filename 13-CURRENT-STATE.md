@@ -1551,3 +1551,20 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Production routing still identical to the baseline; 16 production page loads clean. Ledger through #277 (frontend 686,
   backend 554).
 
+## Production snapshot — 2026-11-09, 20:05 IST (after PR #282)
+
+- `main` = `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b` (#282); API release `20261109T142529Z-43665ab`, **53 articles**:
+  Concepts 21 (Core concepts 9: networking-essentials, api-design, data-modelling, caching, sharding,
+  consistent-hashing, cap-theorem, database-indexing, numbers-to-know; Recurring patterns 7: real-time-updates,
+  contention, workflows, scaling-reads, scaling-writes, big-files, long-jobs; Specialised data 5), Components 10
+  (redis, elasticsearch, kafka-in-practice, temporal, api-gateways, cassandra, dynamodb, postgresql, flink,
+  zookeeper), Interview Questions 22 (how-to-answer + 21 problems). Tabs: Concepts, Components, Interview
+  Questions, Problems, Quick Notes, Lab (Research Papers removed). Free: how-to-answer only.
+- #278 speed/review fixes (production mobile Lighthouse home 94–96, dashboard 89–92, article 87–91; a11y, best
+  practices, SEO 100), #279 per-article figure loading (dashboard script 62 KB), #280–#282 the cut to the
+  reference site's articles (74 → 21 Concepts, 19 → 10 Components, 13 → 0 papers, autocomplete removed).
+- Article blocks now include `h3` (a section inside an h2 part); figure modules for the topics are named after
+  the article; 178 redirects in `frontend/hosting/routes.json` keep every removed address working.
+- Checked live: old addresses 308 to the matching article, pages load with a clean console and each API call
+  once. Ledger: frontend 704, backend 563.
+
