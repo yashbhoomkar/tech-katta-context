@@ -1551,6 +1551,25 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Production routing still identical to the baseline; 16 production page loads clean. Ledger through #277 (frontend 686,
   backend 554).
 
+## Production snapshot — 2026-11-09, 23:45 IST (after PR #283; #284 open)
+
+- `main` = `f11f4cb2b63ccafd37a1de965168cc5f17465dbe` (#283); API release `20261109T173844Z-f11f4cb`, **59 articles**;
+  Vercel production READY on f11f4cb. Interview Questions › Start here now holds seven guides, GUIDE // 01–07:
+  system-design-interviews, how-to-prepare, how-to-answer, core-concepts-guide, technologies-guide,
+  patterns-guide, questions-guide; the 21 problems are QUESTION // 01–21. Checked live: all six new guide pages
+  and API responses 200, page titles right, sitemap 69 addresses.
+- **#284 open (draft), not live:** a Real systems tab (`real-systems`, group `case-studies`, before Lab) with six
+  case studies, CASE // 01–06, each retold from the company's public engineering post and naming it, one step figure
+  each (`frontend/src/figs/real-systems/case-studies.jsx`). Sections without a library card take their header from
+  `site.json` `dashboard.heads[id]` (validated; the `papers` header and `papers?` key are gone). CI green; tests
+  backend 76, frontend 353; build 74 pages. Browser check of the six pages still to do before merging; after merge
+  the API should report 65 articles.
+- Lab challenges (`content/lab.json`, 9) have a brief, a hint and stars but no solution; only the 21 problems have a
+  reference design (`/v1/articles/<slug>/solution`). IND vs PAK's cheapest three-star answer: CDN on, at least 35
+  c5.2xlarge servers, all started before the toss (checked with the challenge's own scoring). Whether to add Lab
+  solutions is the owner's call.
+- Ledger: frontend 709, backend 566.
+
 ## Production snapshot — 2026-11-09, 20:05 IST (after PR #282)
 
 - `main` = `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b` (#282); API release `20261109T142529Z-43665ab`, **53 articles**:

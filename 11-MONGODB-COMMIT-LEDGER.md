@@ -926,6 +926,27 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
 
+### PR #284 (2026-11-09, open): branch commit recorded (both collections)
+
+| PR | SHA | Value |
+|---|---|---|
+| #284 | `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab` | Real systems: a new tab with six case studies (PR open; the merge commit is recorded when it merges) |
+
+A row with a guessed key (`fb94cb5bfb0f…`, value "PLACEHOLDER") was inserted by mistake while recording this and
+corrected in place to the real SHA and value the same evening; no row with the guessed key remains. Rule: read the
+full SHA from git before any insert.
+
+### PR #283 (2026-11-09): recorded
+
+| PR | SHA | Value |
+|---|---|---|
+| #283 | `1f0ecae245b1ff7f61cf75d9031e0a6e94868c13` | Interview Questions › Start here: six new guides (both) |
+| #283 | `3fa907be0d669e03b33a1f9bcc650ff9bb703711` | Sync branch (merge -s ours, no content change; frontend only) |
+| #283 | `f11f4cb2b63ccafd37a1de965168cc5f17465dbe` | Merge PR #283; API release 20261109T173844Z-f11f4cb, 59 articles (both) |
+| — | `1b03fb0637dd31290a823cd8337daa8f40e8fddf` | Sync branch after #283 (frontend only) |
+
+Counts after these: frontend 709, backend 566.
+
 ### PR #282 (2026-11-09): recorded (both collections)
 
 | PR | SHA | Value |
