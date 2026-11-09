@@ -2,6 +2,10 @@
 
 This file is intentionally imperative. A new AI session should follow these rules.
 
+## Rule 0 — The automatic AI website development workflow is discarded (Decided by the owner, 2026-11-08)
+
+**The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
+
 ## Rule 1 — Inspect before changing
 
 Never modify a file based solely on remembered context.
