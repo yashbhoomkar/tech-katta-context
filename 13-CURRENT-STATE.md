@@ -1551,7 +1551,7 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Production routing still identical to the baseline; 16 production page loads clean. Ledger through #277 (frontend 686,
   backend 554).
 
-## Production snapshot — 2026-11-09, 23:45 IST (after PR #283; #284 open)
+## Production snapshot — 2026-11-09, 23:30 IST, rechecked 23:45 IST (after PR #283; #284 open)
 
 - `main` = `f11f4cb2b63ccafd37a1de965168cc5f17465dbe` (#283); API release `20261109T173844Z-f11f4cb`, **59 articles**;
   Vercel production READY on f11f4cb. Interview Questions › Start here now holds seven guides, GUIDE // 01–07:
