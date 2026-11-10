@@ -1553,7 +1553,7 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 
 ## Production snapshot — 2026-11-10, 09:45 IST (after PR #284)
 
-- `main` = `951cf68051c5c9dc82dedb672605883fe01fe3b0` (#284, merged by the owner); API release
+- `main` = `951cf68051c5c9dc82dedb672605883fe01fe3b0` (#284, merged by session 01Jmp3n5 at 09:32 IST); API release
   `20261110T040300Z-951cf68`, **65 articles**: Concepts 21, Components 10, Interview Questions 28 (7 guides + 21
   problems), Real systems 6 (Shopify, Discord, Slack, Figma, Spotify, Meta ZGateway). Tabs: Concepts, Components,
   Interview Questions, Problems, Quick Notes, Real systems, Lab. Vercel production READY on 951cf68.
