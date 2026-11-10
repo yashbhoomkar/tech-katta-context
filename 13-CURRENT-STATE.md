@@ -1608,3 +1608,4 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Landing: the IND vs PAK problem on the canvas (laptop) or three controls (phone), judged by its two example traffic
   tests. Old `/dashboard/lab…` addresses 308 to Problems, the problem or the challenge, with or without a slash (#286).
 - Checked on production: `tools/e2e/no-lab.js` 33 checks, `errors: []`; redirects. Ledger: frontend 717, backend 569.
+- Ledger, 10:45 IST: full reconciliation of main since 11-04; 49 missing rows recorded; frontend 722, backend 613.
