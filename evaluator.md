@@ -2068,8 +2068,10 @@ Written for the learner in each problem's `referenceNote` or the Description whe
 8. No AI in the evaluator (the owner's decision of 2026-11-07 stands).
 
 ### For the owner to decide (ask before the phase that needs it)
-- Phase 3: whether the first converted problem goes live for everyone at once or behind a "new evaluator" switch.
-- Phase 3: Replay replaces "Run traffic" inside problems. (The challenges keep "Run traffic" on v1.)
+- ~~Phase 3: whether the first converted problem goes live for everyone at once or behind a "new evaluator" switch.~~
+  **Decided by the owner, 2026-11-10: for everyone at once** (no switch).
+- ~~Phase 3: Replay replaces "Run traffic" inside problems.~~ **Decided by the owner, 2026-11-10: yes**, Replay
+  replaces "Run traffic" in v2 problems; the challenges and v1 problems keep "Run traffic".
 - Phase 7: what happens to the 8 challenges.
 - Whether findings should also show for an **accepted** design (recommended: yes, `warn` and `info` only).
 
