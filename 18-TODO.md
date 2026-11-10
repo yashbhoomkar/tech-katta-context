@@ -11,7 +11,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
-| 1 | content | Stage D: ~~7 guides~~ done (#283, live). Six case studies + Real systems tab: PR #284 (https://github.com/yashbhoomkar/tech-katta/pull/284, branch `ccr-26f78085-ymb3p0`, head `fb94cb5e`) open as a draft, CI green, details in the handover's "Open PR: #284"; left: browser check of the six pages (desktop + phone), mark ready, merge, verify (API 65 articles), ledger the merge | ready | owner decided placement 11-09 |
+| ~~1~~ | content | ~~Stage D: 7 guides (#283) and 6 case studies in a Real systems tab (#284)~~ | done | both live; #284 merged by the owner 11-10 |
 | 2 | content | Stage E: 11 interview problems to match the reference's 32 (assistant chat, rate limiter, live comments, flash sale, news aggregator, metrics monitoring, online auction, online chess, stock trading, fitness tracking, price tracker), two or three per PR, each with tests, rubric, hints, Lab design, calibrated | ready | several days |
 | — | content | Free articles: only How to answer is free since #280/#281 removed the other five | waiting for owner | owner said "I'll choose later" |
 | — | content | Quick Notes tab has no counterpart on the reference site: keep or remove? | waiting for owner | not touched |
