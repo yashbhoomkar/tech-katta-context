@@ -2,7 +2,7 @@
 
 The automatic agents workflow (a worker session running Learner + Builder cycles from
 `tech-katta/agents/TODO.md`, with a backup schedule) was **removed on 2026-11-08 at the owner's request**.
-No worker session or scheduled task exists, and none should be created. Work happens only in sessions the
+No worker session or scheduled task exists (the last leftover, the worker's 2-hour backup schedule, was disabled on 2026-11-10 at 06:05 IST), and none should be created. Work happens only in sessions the
 owner starts; after each merge, that session records the ledger and updates the handover itself.
 
 ## Open items
