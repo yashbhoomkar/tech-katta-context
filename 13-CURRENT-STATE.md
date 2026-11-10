@@ -1599,6 +1599,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-10, 21:35 IST (after PR #288)
+
+- `main` = `e11950ab90feefe45fd56f87c1ccfe2a5b648a4e` (#288, evaluator v2 phase 1: access paths, compile, trace;
+  front end only). API release unchanged (`20261110T153637Z-8eacbe8`), `/health` ok, site 200.
+- Evaluator v2 progress (`evaluator.md` §15): phases 0 and 1 done; phase 2 (simulate, analyse, judge) next.
+- Ledger: frontend 729, backend 615.
+
 ## Production snapshot — 2026-11-10, 21:10 IST (after PR #287)
 
 - `main` = `8eacbe83e8957a998ad4e0d10fc47b43da21791f` (#287, evaluator v2 phase 0); API release
