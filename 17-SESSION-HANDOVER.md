@@ -71,6 +71,8 @@ page**; finish #284 first.
   rate-limiter`, `fb-live-comments`, `flash-sale`, `google-news`, `metrics-monitoring`, `online-auction`,
   `online-chess`, `robinhood` stock trading, `strava` fitness). The reference list was re-read on 11-10 from its
   navigation (32 problem-breakdown pages); ours map 21:21 to the rest.
+- **Who does stage E (owner, 10:30 IST):** the 11-09 session (branch `ccr-26f78085-ymb3p0`), not session `01Jmp3n5…`
+  (`ccr-1134d701-c4cvan`), which stopped after #286 and these docs. Another session should not start it.
 
 ## PR #284, the Real systems tab: **merged and live** (2026-11-10)
 
