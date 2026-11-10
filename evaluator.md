@@ -2089,6 +2089,26 @@ Phase 0 (2026-11-10, tech-katta #287):
 - A cache's memory per size is `sizeExtras.<size>.memoryGb` in eval.json (lab.json sizes stay unchanged).
 - The transfer price is the top-level `egressPerGb` (0.09), with `egressPerGb` on the CDN component (0.08).
 
+Phase 1 (2026-11-10, tech-katta #288; the tests named are in `frontend/src/eval/phase1.test.js`):
+- Binding a step needs only the fields **that step** uses. A reading step may bind to a table that has the lookup
+  fields but lacks some returned fields: the trace returns those fields empty and the test fails on them, as in v1
+  ("trace: each wrong design…"). `holds()` (for copies and feeds) is: the table's name is the entity's (or its
+  singular), or it has every field of some reading step on the entity ("access: which tables hold an entity").
+- A `get` may use an index whose first fields are the lookup fields in any order (v1's rule; §7.4 said "exactly").
+- Extra plan codes: `E_NO_DATABASE`, `E_NO_SCHEMA` and `E_NO_STORE` split §7.5's `E_NO_STORE` by cause;
+  `E_NO_PATH` carries the access path's `why`; `E_MISSING_FIELDS` is for a write to a table that lacks a written
+  field; `E_NO_TX` is for a transaction on an engine without `tx`; `E_NOT_YET` is for `call` and `publish` until
+  phase 4 ("compile: graph errors…", "compile: transactions…").
+- A plan has `roots` (one `source` hop per Clients node, `share: {kind: "split", group: "sources"}` when several)
+  and `root = roots[0]`. Several targets under a CDN get `share: {kind: "split", …, cdnMiss: true}`.
+- A write whose only path to its store passes a cache goes through it (a `cache` hop of `work.put`, write-through).
+  Other look-aside caches in front of the store get `invalidate` hops ("compile: reads go through a look-aside…").
+- A `consume` hop's work is `work.consume + work.handle` (the worker runs the message); deferred `compute` adds to it.
+- `E_UNFED` is not raised for an entity whose writing operation itself failed to plan (one mistake, one error).
+  `W_UNUSED` is reported only when every operation was planned (a failed route makes every node look unused).
+- `runTrace(compiled, practice, test, lab)` takes `lab` (for names in the trace). Trace entries keep v1's
+  `{n, at, from, title, json}` and add `kind`, `back`, `after`, `query`, `table`.
+
 ---
 
 ## Appendix A. Codes
