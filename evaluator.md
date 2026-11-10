@@ -2149,6 +2149,21 @@ Phase 3 (2026-11-10, tech-katta #290, #291):
 - The URL shortener (converted per §16) has a `click` operation with share 0 (v1's request-only test), and its
   `promo` and failure checks set `p99Ms` 1000–2000 (a surge or a failover may slow calls, not break them).
 
+Phase 4a (2026-11-10, tech-katta #292, #293; tests in `frontend/src/eval/phase4.test.js`):
+- New types that lab.json does not have are `"v2only": true` in eval.json and carry their own `name`, `desc`,
+  `latencyMs`, numbers and `sizes`; v1's Lab never sees them. `"palette": false` keeps a type off the palette: an
+  `external` service is placed (and `locked`) by a problem; `realtime`, `stream`, `pubsub` stay off until 4b.
+- An external service's own arrows (webhooks) are not flow edges: a call out and a webhook back are not a loop.
+  Webhook operations (`source: "external"`, optional `preset`) start at the external services and get their `share`
+  of the test's traffic, like the Clients' calls; `schedule` sources still get none (phase 6).
+- A transaction's parts each write their own table in one store; none is a copy (it was reported as a dual write).
+- Deferred calls count for `completes` like deferred writes. When workers can take nothing in a tick (the provider
+  is down), the oldest message's wait grows by one tick per tick (§8.7 said "the test's length"). Messages one more
+  tick of the workers would clear (retries of a few failed calls) are in flight, not "left undone".
+- `F_DOUBLE` treats a transaction as repeat-safe when one of its writes has a condition or `unique`.
+- Payments (converted per §16) has three calls (pay with a deferred `call`, the app's retry, the provider's webhook
+  in a conditional transaction), the provider locked in the start design, and a `provider-down` test.
+
 ---
 
 ## Appendix A. Codes
