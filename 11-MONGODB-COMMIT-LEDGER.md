@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-10 10:15 IST): `frontend_git_commits` 717, `backend_git_commits` 569.
+Latest count (2026-11-10 10:45 IST, after the full reconciliation): `frontend_git_commits` 722, `backend_git_commits` 613.
 
 Current live counts checked 2026-10-12:
 
@@ -925,6 +925,23 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `31045494f7170927679b75582a342dc6ad80c1be` | Merge origin/main into the PR #271 branch |
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
+
+### Full reconciliation of main since 11-04 (2026-11-10, 10:45 IST)
+
+Every commit on `main` after the 11-04 reconciliation point (`66c1660`, 153 commits) was checked against both
+collections (Atlas `$setDifference`; history unshallowed first). Rule: frontend gets every commit; backend gets
+every commit that touches `backend/` or `content/`.
+- **Frontend: 5 were missing**, now recorded: `7791ce8` (#250), `d3016fd` (#241), `351fc87` (#239), `18fa7a7`
+  (#222), `c70d656` (VPS audit workflow, #176).
+- **Backend: 44 were missing**, now recorded: every content/API commit of #170–#218 (11-05 to 11-06: the
+  Interview Questions Q01–Q22 articles and their review fixes, Concepts 05–07, Practice mode, the Problems page,
+  Lab challenges `sms-link` and `monday-sync`, Vercel Analytics, the landing "What's inside"). Before the 11-08
+  reconciliation only the frontend collection was kept for those PRs.
+- Rows carry "(PR #N, date; recorded 2026-11-10 in a full reconciliation)"; each PR number was read from the
+  commit or the merge that brought it into `main`.
+
+Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
+`main` (old worker branches) were not checked.
 
 ### PRs #285 and #286 (2026-11-10): recorded
 
