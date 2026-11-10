@@ -944,7 +944,7 @@ Counts after these (read from Atlas): frontend 717, backend 569. No duplicate ke
 | PR | SHA | Value |
 |---|---|---|
 | #284 | `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab` | Real systems: a new tab with six case studies (both; recorded 11-09) |
-| #284 | `951cf68051c5c9dc82dedb672605883fe01fe3b0` | Squash merge (both; recorded at merge time by the owner's other session) |
+| #284 | `951cf68051c5c9dc82dedb672605883fe01fe3b0` | Squash merge (both; recorded at merge time by session 01Jmp3n5, which merged it) |
 | — | `acdfda723f15cec01cc66dc7298f936472919d6a` | Sync branch after #284 (frontend only) |
 
 Counts after these: frontend 711, backend 567.

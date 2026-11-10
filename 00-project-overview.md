@@ -1,6 +1,7 @@
 # 00 — Project Overview
 
-Rewritten 2026-11-04 to match what is live. The detailed, always-current record is
+Rewritten 2026-11-04 to match what is live then; **parts are Historical** (since 2026-11-10 there is no Lab tab, IND vs
+PAK is an Interview Question, and the site has 66 articles). The detailed, always-current record is
 `17-SESSION-HANDOVER.md`; read that next. Older numbered files describe earlier versions of the
 project and are kept for history.
 
