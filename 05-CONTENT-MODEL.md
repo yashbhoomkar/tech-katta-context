@@ -15,15 +15,16 @@ Everything below the next heading describes the **MongoDB era (Oct 2026) and is 
   h2 part (#282). `fig` needs a known id and a `cap`. Inline `` `code` `` is the only inline markup; there are no
   links in text, so articles name other articles in quotes ("'Contention' in Concepts").
 - Sections (`site.json` `dashboard.sections`, `[id, label, card|null]`): concepts, components,
-  interview-questions, quick-notes, lab, and `real-systems` once #284 merges. Groups per section in
-  `dashboard.groups[section]` as `[id, label, desc]`. A section without a library card takes its header from
-  `dashboard.heads[section]` = {eyebrow, desc} (#284; replaced the old `papers` block).
+  interview-questions, quick-notes, real-systems (no `lab` since #285; the frontend adds Problems from `site.json
+  problems`). Groups per section in `dashboard.groups[section]` as `[id, label, desc]`. A section without a library
+  card takes its header from `dashboard.heads[section]` = {eyebrow, desc}.
+- Cards (`lab` block): `to` is `problems/<problem slug>` or `problems/challenge/<challenge id>` (#285; validated).
+  `site.json landingLab.problem` names the problem the landing page runs (IND vs PAK).
 - Figures: one module per sub-tab or long article, `frontend/src/figs/<section>/<name>.jsx` exporting `FIGS`
   (one `"id":{C:…}` per line), mirrored by `backend/src/content/figs/<section>/<name>.js`; a backend test checks
   each pair. Modules load per article (`frontend/figs-manifest.js`).
-- Counts: 59 articles live (Concepts 21, Components 10, Interview Questions 28: 7 guides + 21 problems); 65 after
-  #284 (Real systems 6). Authoring rules: `12-OPERATING-RULES.md` and the app's `content/README.md` (parts of the
-  latter are stale, see `18-TODO.md`).
+- Counts (2026-11-10, after #285): 66 articles: Concepts 21, Components 10, Interview Questions 29 (7 guides + 22
+  problems: the reference's 21 so far and IND vs PAK), Real systems 6. Stage E adds the reference's other 11 problems. Authoring rules: `12-OPERATING-RULES.md` and the app's `content/README.md` (refreshed in #285).
 
 
 ## Canonical article model

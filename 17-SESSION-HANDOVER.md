@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-10, 09:45 IST** (#284 merged by the owner and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-10, 10:20 IST** (#285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 717 / backend 569; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -30,9 +30,52 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
+## No Lab tab; IND vs PAK is a problem (#285, #286, merged and live 2026-11-10)
+
+Owner, 2026-11-10: "Move the IND vs PAK from being a lab to an interview question", "We don't want any separate
+'lab' as a tab. Remove that", "All the questions in the hellointerview question breakdown should be in our interview
+questions. No more no less (just include the ind vs pak question)". Choices the owner made in the session
+(AskUserQuestion): **keep the other 8 challenges, on Problems**; **keep a playable IND vs PAK canvas on the landing
+page**; finish #284 first.
+- **#285** (squash `da8d5b4a7dac108b5e47d83ff3898d9dbddfe0d8`; API release `20261110T043014Z-da8d5b4`, **66 articles**):
+  - `interview-questions/ind-vs-pak`, **QUESTION // 22**, group `hard` (the first Hard problem), paid. Worked answer
+    (3.5 crore players, 87.5 lakh requests a second, ~50 Tbps, 87,500 at the origin; live pipeline, the toss, live vs
+    recorded, degrading, counting viewers) and two figures in `frontend/src/figs/interview-questions/hard.jsx`
+    (`live-pipe`, `toss-rush`; backend list `hard.js`). Suite: `toss`, `last-over` (samples; match pattern, CDN 99%
+    live fixed), `whole-match` (role `objects`), `origin-dies`, `budget` (a day without a match, 5,000 a second, $30,000;
+    reference $22,104), `api-segment` (sample), `api-playlist`. Reference: Viewers → CDN → LB → 2 × 20 c5.2xlarge →
+    2 caches → S3 (`segments`, `playlists`). Seven wrong designs, each failing its test. The `ind-vs-pak` challenge is
+    gone from `lab.json`; **8 challenges remain**.
+  - **No Lab tab**: section, nav, footer, dashboard tour step gone; copy says "canvas" and "challenges". A challenge
+    opens from Problems at **`/dashboard/problems/challenge/<id>/`** (Lab embedded with a "← All problems" link, Score,
+    Next challenge; tour `site.json tour.lab`, now optional and without the Designs/Challenges steps). Old addresses:
+    `/dashboard/lab` → Problems, `/dashboard/lab/ind-vs-pak` → the problem, `/dashboard/lab/<id>` → the challenge
+    (308, `routes.json`); old `#lab…` links via `routes.js fromLab`.
+  - The canvas has **no Designs, Import or Challenges menus** (they would be a sandbox inside every workspace);
+    out of credit there is a "Start again with a fresh $200,000" button. `importer.js`, its test and `lab.json import`
+    are deleted. `lab.example` stays (validated, unused by the UI).
+  - Article cards (`lab` block) now route to `problems/<slug>` or `problems/challenge/<id>` (validated); "TRY IT ON
+    THE CANVAS". The five cards that opened the IND vs PAK challenge open the problem.
+  - **Landing**: `site.json landingLab.problem` = `ind-vs-pak` (no `challenge`). Laptops: the canvas in problem mode
+    (design `q-ind-vs-pak`, shared with the workspace) with "▶ Run the tests" for the example **traffic** tests
+    (`landingTests`: sample tests without `request`). Phones: the three controls (`lablite.jsx`), judged the same way
+    (no CDN 0/2, 30 servers or autoscaling 1/2, 35+ before the toss 2/2). Analytics keeps the `score` event
+    (`challenge` = the slug, `stars` = tests passed) so the owner's funnel still works.
+- **#286** (squash `599c366a1bbb4873be1f30ce0eccbaa0f801580e`, front end only): found live after #285 — Vercel's exact
+  rules don't match a trailing slash, so `/dashboard/lab/ind-vs-pak/` fell to the wildcard. Both forms now have rules
+  (as every other redirect does); `fromLab` also opens `problems/challenge/<problem slug>` as the problem.
+- **Checked:** backend 76, frontend 358, build 74 pages; browser `tools/e2e/no-lab.js` (33 checks, desktop and iPhone 13)
+  locally and **on production: `errors: []`, no failed requests**; all six old Lab addresses redirect correctly live.
+- **Interview Questions now:** 21 reference problems + IND vs PAK = 22. **Still to add (stage E, task 3 of the
+  owner's 11-10 list):** the reference's 11 others (`camelcamelcamel` price tracker, `chatgpt` AI chat, `distributed-
+  rate-limiter`, `fb-live-comments`, `flash-sale`, `google-news`, `metrics-monitoring`, `online-auction`,
+  `online-chess`, `robinhood` stock trading, `strava` fitness). The reference list was re-read on 11-10 from its
+  navigation (32 problem-breakdown pages); ours map 21:21 to the rest.
+
 ## PR #284, the Real systems tab: **merged and live** (2026-11-10)
 
-- **Merged by the owner** on 2026-11-10 at 09:32 IST: squash `951cf68051c5c9dc82dedb672605883fe01fe3b0`. API release
+- **Merged** on 2026-11-10 at 09:32 IST by session `01Jmp3n5…` (branch `ccr-1134d701-c4cvan`) after its own browser check of
+  the six pages (correction: context #135, written meanwhile by a session not in the cloud session list, said the owner merged it): squash `951cf68051c5c9dc82dedb672605883fe01fe3b0`. API release
   `20261110T040300Z-951cf68`, **65 articles**; Vercel production READY on 951cf68. Live checks: the section page and
   the six articles answer 200, their API responses 200, title "Real systems | Tech Katta", sitemap 76 addresses.
 - **Browser check (done after the merge, against a local API with sign-in off and the merged code):** all six pages
@@ -75,6 +118,13 @@ the owner · **Historical** = true once, not any more.
   (frontend); history (10), ledger (11), state (13), to-do (18).
 
 ## 1. Where things stand
+
+**Update 2026-11-10, 10:20 IST.** **#285 and #286 merged and live** (see "No Lab tab; IND vs PAK is a problem" at the
+top): IND vs PAK is QUESTION // 22, the Lab tab is gone, 8 challenges open from Problems, the landing canvas runs
+the problem's example tests; 66 articles; ledger frontend 717, backend 569. **Two sessions worked at once this
+morning:** context #135 (09:35 IST) came from a session not in the cloud session list (not the old worker, whose
+last activity was 06:06 IST and whose schedule is disabled). Before editing docs or starting stage E, fetch `main`
+in all three repos and check for new commits. **Next:** stage E, the 11 problems.
 
 **Update 2026-11-10, 09:45 IST.** **Stage D is done.** The owner merged #284 (squash 951cf68): Real systems is live
 with six case studies; API 65 articles; Vercel READY. The deferred browser check passed after the merge (see "PR #284"
@@ -880,8 +930,8 @@ session's branch was `ccr-8814343d-wtj931`; a new session is told its own branch
 2. **Edit.** Frontend style: terse, minified-looking JSX; CSS as one-line rules; match it.
    Watch CSS order: a later rule with equal specificity wins (caused a phone overflow once).
 3. **Build/test**:
-   - frontend: `cd frontend && npm ci && npm test && npm run build` (353 tests on 11-09; the build also writes one
-     page per article and section plus the sitemap: 74 pages with #284). **`frontend/package-lock.json` is
+   - frontend: `cd frontend && npm ci && npm test && npm run build` (358 tests on 11-10; the build also writes one
+     page per article and section plus the sitemap: 74 pages, no Lab page since #285). **`frontend/package-lock.json` is
      committed**; keep it.
    - backend: `cd backend && npm test` (76 tests on 11-09, incl. content validation and the figure-module pairs);
      `node scripts/check-content.mjs ../content`.
@@ -966,6 +1016,11 @@ content can ship in one PR.
 | 11-03 | **Sign in with Google; user data in MongoDB Atlas** (owner: "Use mongodb and complete the task"; asked about Firebase twice, then "Stay with MongoDB and finish it"). Database `techkatta_app` on the existing Cluster0, separate DB user for the API. Saved per account: Lab designs, challenge stars, tour flags. Signed out = browser only, as before |
 | 11-02 | Owner: "Invoke another agent … in depth" → independent QA run (§8); "Continue" → all four fix groups built (scoring, saving, phones, the rest), incl. **phones get a three-control version of the landing IND vs PAK** |
 | 11-02 | Items 2, 3, 5, 9, 10: "You decide and build". Decided: analogies as an article block + `like` on type cards and Lab components (Indian everyday examples); gamification = Lab challenges with 1–3 stars (availability first, then cost / no crash / no lost writes), the challenge owns the traffic, chaos crashes on purpose; levels = Learn tab with 3 paths, the dashboard opens on it; import = text chains with aliases + JSON, Export JSON; tour = custom highlight cards, auto once per area, never for automated browsers |
+| 11-10 | **IND vs PAK is an Interview Question** (QUESTION // 22, #285), not a Lab challenge |
+| 11-10 | **No Lab tab** (#285). The canvas opens only inside a problem, a challenge (from Problems) or the landing page; no free-play designs, no Import/Export |
+| 11-10 | **The other 8 challenges stay, on Problems** (`/dashboard/problems/challenge/<id>/`) — owner chose this over removing them |
+| 11-10 | **Landing keeps a playable IND vs PAK canvas**, judged by the problem's example tests (owner chose this over a teaser) |
+| 11-10 | Interview Questions = the reference's 32 problem breakdowns + IND vs PAK, no more, no less |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
 ### 4a. UI/UX meeting minutes (owner, 11-02) and what happened to each
@@ -1096,6 +1151,11 @@ copies made on two devices merge into one and any real edit wins (it used to dup
 ---
 
 ## 7. System Design Lab
+
+> **Since 2026-11-10 (#285) there is no Lab tab.** Everything below about the canvas, engine and challenges still
+> holds, but the canvas opens only inside a problem's workspace, a challenge opened from Problems
+> (`/dashboard/problems/challenge/<id>/`) or the landing page's IND vs PAK (now a problem). The Designs menu, Import/Export
+> and the Challenges menu are gone; IND vs PAK is no longer a challenge (8 remain).
 
 **Vision (owner):** users design a system on a Miro-like canvas (components in the left sidebar),
 get **$200,000 virtual AWS credit**, run virtual traffic, see load on every component, then chaos-test
@@ -1377,6 +1437,8 @@ monetisation, publishing policy or references.
 | #282 | Stage C: Concepts as one article per reference topic (21), new `h3` block; 53 articles; 178 redirects |
 | #283 | Stage D1: seven guides in Interview Questions › Start here (GUIDE // 01–07); 59 articles |
 | #284 | Stage D2: Real systems tab with six case studies; `dashboard.heads`; 65 articles (merged 11-10) |
+| #285 | IND vs PAK becomes QUESTION // 22 (two figures, calibrated suite); the Lab tab is removed: challenges on Problems, old Lab redirects, canvas menus and importer gone, landing canvas judged by the problem |
+| #286 | Old Lab addresses ending in a slash reach Problems and IND vs PAK |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
@@ -1547,6 +1609,11 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
   created 11-05) still enabled and firing into it, despite the 11-08 removal; it had queued 44 stale "next cycle"
   prompts. It was **disabled** (not deleted), no cycle was run, and no code was changed. Now no Tech Katta
   scheduled task is enabled. When removing a workflow, also list and disable its scheduled tasks.
+- **11-10 morning**: #284 merged after its browser check; owner's three tasks: IND vs PAK as a problem, no Lab tab, Interview
+  Questions = the reference's 32 + IND vs PAK. #285 (problem + tab removal) and #286 (trailing-slash redirects, found live)
+  merged. Mistakes caught: two `json.dumps` rewrites reformatted `lab.json` and `routes.json` (reverted; edit those
+  as text); a JSX fragment missing (the unit tests don't import `Lab.jsx`, only the build does: always build); a
+  redirect written without its trailing-slash twin (the established pattern has both).
 - Mistakes to avoid (11-09): a sync merge after a squash merge that committed conflict markers (use
   `merge -s ours`); a merge refused because a SHA was typed from memory; a ledger row written with a guessed SHA
   (read every SHA from git); a squash merge whose body listed every branch commit (pass `commit_message`); docs

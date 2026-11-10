@@ -14,8 +14,14 @@ node /path/to/tools/e2e/site-sweep.js http://localhost:5199        # a local `vi
 Every script takes the site's base URL as its only argument (default `https://tech.katta.cc`) and
 prints a few result lines ending with `errors: [...]` (page errors and console errors; must be empty).
 
+> **Since tech-katta #285 (2026-11-10) there is no Lab tab.** Scripts that open `#lab`, use the canvas's Designs menu,
+> Import or the Challenges menu, or score the landing page's IND vs PAK with stars were written for the old site and are
+> not up to date (see `18-TODO.md`). Old `#lab/<id>` links still open the challenge (now at
+> `/dashboard/problems/challenge/<id>/`). `no-lab.js` checks the new flows.
+
 | Script | What it checks |
 |---|---|
+| `no-lab.js` | **IND vs PAK is a problem, there is no Lab tab** (#285/#286): tabs and sidebar, Problems lists IND vs PAK and 8 challenges, a challenge's own page (back link, Score, tour), old `#lab` links, the IND vs PAK workspace (Run fails on the start) and article (2 figures), repointed cards, the landing canvas and phone controls (0/2 → 2/2 with a CDN and 40 servers), no sideways scroll on phone pages. 33 checks; uses `open-site.js` |
 | `site-sweep.js` | Footer date, no GitHub links, Concepts list, article opens, breadcrumb back, bad slug / malformed hash fall back, **overflow sweep 320→1440 px** on the article, Concepts, Quick Notes and `/` |
 | `read-aloud.js` | Read aloud with a **stubbed speech engine** (forces a device voice): highlight moves, pause/resume/stop, reads to the end, stops on navigation, figure animation packets, reduced motion → 0 packets |
 | `mobile-figures.js` | iPhone 13: voice ranking order, figure fits the column, full-screen dialog (focus on Close, `#root` inert, Escape returns focus) |

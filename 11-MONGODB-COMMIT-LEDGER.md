@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-09 14:25 IST): `frontend_git_commits` 686, `backend_git_commits` 554.
+Latest count (2026-11-10 10:15 IST): `frontend_git_commits` 717, `backend_git_commits` 569.
 
 Current live counts checked 2026-10-12:
 
@@ -925,6 +925,19 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `31045494f7170927679b75582a342dc6ad80c1be` | Merge origin/main into the PR #271 branch |
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
+
+### PRs #285 and #286 (2026-11-10): recorded
+
+| PR | SHA | Collections |
+|---|---|---|
+| #285 | `e2ebdfc56f65dd2a2311b59f5d1655522773112f` | branch commit (frontend, backend) |
+| #285 | `da8d5b4a7dac108b5e47d83ff3898d9dbddfe0d8` | squash merge (frontend, backend) |
+| — | `1bf6f9296bcb1cfb783855857316df24f5d98882` | sync branch (frontend) |
+| #286 | `3b34149be7b12c7fae1c9125e4cff4b4cfbb1c1e` | branch commit (frontend) |
+| #286 | `599c366a1bbb4873be1f30ce0eccbaa0f801580e` | squash merge (frontend) |
+| — | `9c03ab4c00025f3ae5556fa97ff24b1363b26bb0` | sync branch (frontend) |
+
+Counts after these (read from Atlas): frontend 717, backend 569. No duplicate keys (checked with a group-by).
 
 ### PR #284 (2026-11-10): recorded
 
