@@ -442,6 +442,16 @@ Real systems tab. Kept for the record.*
   other form; #286).
 - Interview Questions = the reference's 32 problem breakdowns + IND vs PAK, no more, no less.
 
+## The evaluator is built from `evaluator.md` (Decided by the owner, 2026-11-10)
+
+- `evaluator.md` in this repository is the specification of the next evaluator ("v2"). Whoever implements it reads
+  its §0 first, builds in the order of its §15, and keeps the file true: a deviation is written into it (its §18,
+  "Decisions made during implementation") in the same change, with a test.
+- v2 is built beside v1 (`frontend/src/eval/`, `content/eval.json`, `practice.v: 2`). v1's engine, judge and request
+  tests keep their exact behaviour until no problem or challenge uses them.
+- No labels that earn points, no hidden fixed numbers, no AI calls in the evaluator; every number lives in the
+  catalogue or the problem, not in code.
+
 ## Technical content = the reference site's system design articles (Decided by the owner, 2026-11-09)
 
 - Owner: "For the technical content, only have those articles that hellointerview system design has. No more no

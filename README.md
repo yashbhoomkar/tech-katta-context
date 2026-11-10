@@ -37,6 +37,12 @@ This repository is **context**, not the application itself.
 16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
 17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
 
+## The evaluator specification
+
+`evaluator.md` — the design and implementation specification of the next evaluator engine ("v2": compile a design
+into per-operation plans, simulate, analyse with rules, judge). Written 2026-11-10; nothing in it is built yet. The
+session that implements it reads its §0 first and builds in the order of its §15.
+
 ## Critical rule
 
 Before making a change, an AI session should:
