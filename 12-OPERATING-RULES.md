@@ -427,6 +427,21 @@ Real systems tab. Kept for the record.*
   (`GET /v1/articles/<slug>/solution`, since #234, the owner's request). A copied solution submitted unchanged
   is never counted as solved or in the public stats. Submissions store results only.
 
+## No Lab tab; IND vs PAK is a problem (Decided by the owner, 2026-11-10)
+
+- There is **no Lab tab** and no free-play canvas. The canvas (`frontend/src/lab/Lab.jsx`) opens only inside a problem's
+  workspace, a challenge opened from Problems (`/dashboard/problems/challenge/<id>/`), or the landing page's IND vs PAK.
+  Don't bring back a Designs menu, Import/Export or a Challenges menu inside the canvas.
+- The 8 remaining challenges (`lab.json challenges`) stay, listed on Problems. Article cards (`lab` block) link to
+  `problems/<problem slug>` or `problems/challenge/<challenge id>`; the validator checks both.
+- IND vs PAK is `interview-questions/ind-vs-pak` (QUESTION // 22, group `hard`). The landing page runs its example
+  **traffic** tests only (`landingTests`), so the phone's three controls can pass them; keep at least two sample
+  traffic tests that a design without storage can pass, or change `lablite.jsx` with them.
+- User-facing copy says "canvas", "problems" and "challenges", never "the Lab" as a place.
+- Every old address gets two redirect rules, with and without the trailing slash (Vercel's exact rules don't match the
+  other form; #286).
+- Interview Questions = the reference's 32 problem breakdowns + IND vs PAK, no more, no less.
+
 ## Technical content = the reference site's system design articles (Decided by the owner, 2026-11-09)
 
 - Owner: "For the technical content, only have those articles that hellointerview system design has. No more no

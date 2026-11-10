@@ -1598,3 +1598,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Checked live: old addresses 308 to the matching article, pages load with a clean console and each API call
   once. Ledger: frontend 704, backend 563.
 
+
+## Production snapshot — 2026-11-10, 10:20 IST (after PRs #284–#286)
+
+- `main` = `599c366a1bbb4873be1f30ce0eccbaa0f801580e` (#286); API release `20261110T043014Z-da8d5b4` (#285; #286 is front
+  end only), **66 articles**: Concepts 21, Components 10, Interview Questions 29 (7 guides + 22 problems, IND vs PAK
+  QUESTION // 22 in Hard), Real systems 6. Tabs: Concepts, Components, Interview Questions, Problems, Quick Notes, Real
+  systems. **No Lab tab** (#285). 8 challenges on Problems at `/dashboard/problems/challenge/<id>/`.
+- Landing: the IND vs PAK problem on the canvas (laptop) or three controls (phone), judged by its two example traffic
+  tests. Old `/dashboard/lab…` addresses 308 to Problems, the problem or the challenge, with or without a slash (#286).
+- Checked on production: `tools/e2e/no-lab.js` 33 checks, `errors: []`; redirects. Ledger: frontend 717, backend 569.

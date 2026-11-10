@@ -946,4 +946,5 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #282: Concepts as one article per reference topic (21), `h3` block; merge `43665ab9d1a03ff6a8bd110d2a7b76ad9824413b`.
 - PR #283: Interview Questions › Start here: the reference site's seven guides (GUIDE // 01–07), problems renumbered QUESTION // 01–21; merge `f11f4cb2b63ccafd37a1de965168cc5f17465dbe`.
 - PR #284: Real systems tab with six case studies (Shopify, Discord, Slack, Figma, Spotify, Meta ZGateway), `dashboard.heads` section headers; merge `951cf68051c5c9dc82dedb672605883fe01fe3b0` (2026-11-10, by the owner).
-
+- PR #285: IND vs PAK becomes Interview Question 22 (two figures, calibrated suite); the Lab tab is removed (challenges on Problems, old Lab redirects, canvas menus and importer gone, landing canvas judged by the problem); merge `da8d5b4a7dac108b5e47d83ff3898d9dbddfe0d8`.
+- PR #286: Old Lab addresses ending in a slash reach Problems and IND vs PAK; merge `599c366a1bbb4873be1f30ce0eccbaa0f801580e`.
