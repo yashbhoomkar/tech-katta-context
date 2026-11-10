@@ -1599,6 +1599,14 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #295)
+
+- `main` = `7c20fc1dcdca22c2792c5a03faa1da400d49600a` (#295); API release `20261110T230831Z-7c20fc1`, `/health` ok.
+- **Four problems are judged by the v2 evaluator: the URL shortener, payments, notifications and the chat app.**
+  The other 18 problems and the 8 challenges are on v1, unchanged.
+- Checked on production: `tools/e2e/eval-problem.js` (chat-app, notifications, payments, url-shortener), `errors: []`.
+- Ledger: frontend 754, backend 632.
+
 ## Production snapshot — 2026-11-11 (after PR #294)
 
 - `main` = `c38f4e180e59fb54c2e7bd98ec7b8888ebab6d6b` (#294); API release `20261110T225451Z-c38f4e1`, `/health` ok.

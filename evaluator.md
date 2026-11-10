@@ -2181,6 +2181,16 @@ Phase 4b (2026-11-11, tech-katta #294; tests in `frontend/src/eval/phase4b.test.
 - Notifications (converted per §16): OTPs and pushes are separate calls with separate deferred `call` steps, so a
   promotion test can require OTPs within 60 s; the push provider's limit (8,000/s) makes a queue necessary.
 
+Chat app (2026-11-11, tech-katta #295, converted per §16):
+- Calls: `connect` (sessionSec 600), `send` (a deferred put within 30 s, then `publish` to 2 people, 60% online;
+  durable, ordered by `chat_id`), `history` (a query by chat, newest 50 of 20,000, so the sort key matters).
+- The Diwali test runs at 25,000/s, more writes than the store takes at once: without the stream and the save
+  workers it fails, which kills the remove-stream, remove-workers and cut-arrow mutants. `zone` checks `completes`.
+- Budget rule refined: when a fixed cost the design cannot change dominates the bill (here 150 TB of message history,
+  37,500 of the reference's 66,356), the 1.6 headroom applies to the part the design controls only:
+  fixed + 1.6 × the rest (85,000 here). 1.6 × the whole bill would let a design three times too big pass.
+- Allowed mutants: no load balancer, DynamoDB instead of Cassandra.
+
 ---
 
 ## Appendix A. Codes
