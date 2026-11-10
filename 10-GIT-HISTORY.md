@@ -948,3 +948,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #284: Real systems tab with six case studies (Shopify, Discord, Slack, Figma, Spotify, Meta ZGateway), `dashboard.heads` section headers; merge `951cf68051c5c9dc82dedb672605883fe01fe3b0` (2026-11-10, by the owner).
 - PR #285: IND vs PAK becomes Interview Question 22 (two figures, calibrated suite); the Lab tab is removed (challenges on Problems, old Lab redirects, canvas menus and importer gone, landing canvas judged by the problem); merge `da8d5b4a7dac108b5e47d83ff3898d9dbddfe0d8`.
 - PR #286: Old Lab addresses ending in a slash reach Problems and IND vs PAK; merge `599c366a1bbb4873be1f30ce0eccbaa0f801580e`.
+- PR #287: Evaluator v2, phase 0 (`content/eval.json` served in `/v1/lab` as `eval`; `frontend/src/eval/` design, graph, latency, hits; `v === 2` dispatch in judge.js; no problem uses it yet); merge `8eacbe83e8957a998ad4e0d10fc47b43da21791f` (2026-11-10).
