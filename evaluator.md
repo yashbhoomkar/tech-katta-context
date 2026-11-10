@@ -2076,6 +2076,19 @@ Written for the learner in each problem's `referenceNote` or the Description whe
 ### Decisions made during implementation
 *(The implementing session adds one line per decision here, with the date and the test that pins it.)*
 
+Phase 0 (2026-11-10, tech-katta #287):
+- Setting kinds are `number`, `choice`, `bool`, `size`, `fields`, `engine`, `schema`, `structures` (the last three
+  are the database engine, the database schema and the cache's structures). Pinned by `backend/test/content.test.js`.
+- `cleanDesign2` never fills in defaults (a clean design comes out unchanged); `configOf(node, lab)` applies them.
+  This replaces §7.1 step 2's "else the default". Pinned by `eval/phase0.test.js`.
+- The `graph` engine has the `tx` capability (lab.json lists `transactions` for it; §5.3's table omits it).
+  Pinned by the features-agree test in `eval/phase0.test.js`.
+- `to` in eval.json lists only types that exist in it (the 8 of phase 0); new types add themselves to `to` when
+  they arrive. `toIf` holds conditions on the target's settings (Clients and CDN may point at a database only when
+  its engine is `s3`); `toCdc: true` marks the database's arrows as change data capture (needs `cdc`).
+- A cache's memory per size is `sizeExtras.<size>.memoryGb` in eval.json (lab.json sizes stay unchanged).
+- The transfer price is the top-level `egressPerGb` (0.09), with `egressPerGb` on the CDN component (0.08).
+
 ---
 
 ## Appendix A. Codes
