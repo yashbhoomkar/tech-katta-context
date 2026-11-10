@@ -926,7 +926,17 @@ At 18:50 every remaining key was checked in both collections and only the missin
 | #271 | `498fa39b5c2a9e0a30399bbb1438fa5abd88428c` | Numbers to know: a new group in Concepts, three articles and five figures |
 | #271 | `7a6b219dbd06eb8dcbf7cc98b2171396573f7c26` | Merge PR #271: Numbers to know |
 
-### PR #284 (2026-11-09, open): branch commit recorded (both collections)
+### PR #284 (2026-11-10): recorded
+
+| PR | SHA | Value |
+|---|---|---|
+| #284 | `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab` | Real systems: a new tab with six case studies (both; recorded 11-09) |
+| #284 | `951cf68051c5c9dc82dedb672605883fe01fe3b0` | Squash merge (both; recorded at merge time by the owner's other session) |
+| — | `acdfda723f15cec01cc66dc7298f936472919d6a` | Sync branch after #284 (frontend only) |
+
+Counts after these: frontend 711, backend 567.
+
+### PR #284 (2026-11-09, open): branch commit recorded (both collections) — Historical
 
 | PR | SHA | Value |
 |---|---|---|

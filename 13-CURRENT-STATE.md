@@ -1551,6 +1551,17 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
 - Production routing still identical to the baseline; 16 production page loads clean. Ledger through #277 (frontend 686,
   backend 554).
 
+## Production snapshot — 2026-11-10, 09:45 IST (after PR #284)
+
+- `main` = `951cf68051c5c9dc82dedb672605883fe01fe3b0` (#284, merged by the owner); API release
+  `20261110T040300Z-951cf68`, **65 articles**: Concepts 21, Components 10, Interview Questions 28 (7 guides + 21
+  problems), Real systems 6 (Shopify, Discord, Slack, Figma, Spotify, Meta ZGateway). Tabs: Concepts, Components,
+  Interview Questions, Problems, Quick Notes, Real systems, Lab. Vercel production READY on 951cf68.
+- Checked live: `/dashboard/real-systems/` and the six articles 200, API 200, sitemap 76 addresses. Browser check of
+  the six pages (desktop and phone, against the merged code locally): figures drawn, no sideways scroll, no errors
+  apart from the two local-only ones (`/v1/me` 503 with sign-in off, Vercel analytics 404 under preview).
+- Stage D done. Next: stage E (11 problems). Ledger: frontend 711, backend 567.
+
 ## Production snapshot — 2026-11-09, 23:30 IST, rechecked 23:45 IST (after PR #283; #284 open)
 
 - `main` = `f11f4cb2b63ccafd37a1de965168cc5f17465dbe` (#283); API release `20261109T173844Z-f11f4cb`, **59 articles**;

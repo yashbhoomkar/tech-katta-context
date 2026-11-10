@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-10, 06:10 IST** (leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-10, 09:45 IST** (#284 merged by the owner and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -30,13 +30,20 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
-## Open PR: #284, the Real systems tab (read before starting work)
+## PR #284, the Real systems tab: **merged and live** (2026-11-10)
 
-- **Link:** https://github.com/yashbhoomkar/tech-katta/pull/284 · branch `ccr-26f78085-ymb3p0` → `main` · **draft**,
-  not merged, not live. Head `fb94cb5e35f2b6b2df86b8b534ea221fa80933ab` (one commit: "Real systems: a new tab with
-  six case studies, in our own words"). CI all green on that head: Test and build frontend, Test backend, Build and
-  run API container, CodeQL. Vercel preview READY. Ledger: the branch commit is recorded in both collections; the
-  merge commit is not yet.
+- **Merged by the owner** on 2026-11-10 at 09:32 IST: squash `951cf68051c5c9dc82dedb672605883fe01fe3b0`. API release
+  `20261110T040300Z-951cf68`, **65 articles**; Vercel production READY on 951cf68. Live checks: the section page and
+  the six articles answer 200, their API responses 200, title "Real systems | Tech Katta", sitemap 76 addresses.
+- **Browser check (done after the merge, against a local API with sign-in off and the merged code):** all six pages
+  on desktop 1366×900 and Pixel 7 with reduced motion: one figure each, no figure error, no sideways scroll, h1 and
+  h2s present; the section page shows its header, 6 pages and the Case studies group; the sidebar lists Real systems
+  › Case studies › Shopify … Meta ZGateway. The only console errors were `/v1/me` 503 (sign-in off locally) and
+  `/_vercel/insights/script.js` 404 (no Vercel analytics under `vite preview`); an older page (Caching) shows the
+  same two, so neither comes from #284.
+- Ledger: the branch commit fb94cb5e and the squash commit 951cf68 are in both collections (the squash rows were
+  written at merge time by the owner's other session); the sync merge `acdfda72` is in the frontend collection.
+- Link: https://github.com/yashbhoomkar/tech-katta/pull/284 (history kept below for reference).
 - **What it adds (17 files, +1,063/−8):**
   - `content/articles/real-systems/`: six articles, group `case-studies`, CASE // 01–06, all paid, each citing its
     source post in the last paragraph: `shopify-reservations` (Shopify, May 2026), `discord-messages` (Discord,
@@ -68,6 +75,12 @@ the owner · **Historical** = true once, not any more.
   (frontend); history (10), ledger (11), state (13), to-do (18).
 
 ## 1. Where things stand
+
+**Update 2026-11-10, 09:45 IST.** **Stage D is done.** The owner merged #284 (squash 951cf68): Real systems is live
+with six case studies; API 65 articles; Vercel READY. The deferred browser check passed after the merge (see "PR #284"
+at the top). Ledger: frontend 711, backend 567. **Next:** stage E (11 problems), then the owner's calls on Lab
+solutions, the free set and Quick Notes. The app repo's `content/README.md` refresh (18-TODO) can ride the first
+stage E PR.
 
 **Update 2026-11-09, 23:30 IST.** Stage D.
 - **#283 merged and live** (squash f11f4cb; API release 20261109T173844Z-f11f4cb, 59 articles; Vercel READY on
@@ -1363,7 +1376,7 @@ monetisation, publishing policy or references.
 | #281 | Stage B: 9 general components, 13 papers and autocomplete removed; Research Papers tab gone; 116 to 93 articles |
 | #282 | Stage C: Concepts as one article per reference topic (21), new `h3` block; 53 articles; 178 redirects |
 | #283 | Stage D1: seven guides in Interview Questions › Start here (GUIDE // 01–07); 59 articles |
-| #284 | **Open draft:** Stage D2, Real systems tab with six case studies; `dashboard.heads` (see "Open PR: #284" at the top) |
+| #284 | Stage D2: Real systems tab with six case studies; `dashboard.heads`; 65 articles (merged 11-10) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
