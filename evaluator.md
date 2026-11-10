@@ -403,7 +403,7 @@ Allowed arrows are listed as "→ may point at". Anything not listed is refused 
 - Settings: `rateLimit` (choice: `off` default, `perClient`; with `perClientRps` number 1–10,000 default 100),
   `auth` (bool, default false; adds 2 ms).
 - Capacity `limitRps` 10,000 (as v1), latency 10 ms, `pricePerMillion` 3.50. Managed.
-- → may point at: `lb`, `server`, `realtime`, `queue`, `stream`.
+- → may point at: `lb`, `server`, `realtime`.
 - With `rateLimit: perClient`, the `abuse` fault's extra traffic is refused at the gateway (cost 1 unit each) and
   goes no further.
 
@@ -424,7 +424,7 @@ Allowed arrows are listed as "→ may point at". Anything not listed is refused 
 - Faults: overload crash as v1 (`crash: {above: 1.5, minutes: 10, downMinutes: 5}`); `instanceCrash` (one instance
   gone for 5 minutes); `zoneDown` (loses `1/zones` of its instances for the fault's duration: all of them when
   `zones` is 1); `groupDown` (the whole node, as a bad deploy: down 5 minutes).
-- → may point at: `server`, `cache`, `database`, `queue`, `stream`, `pubsub`, `realtime`, `external`, `coord`, `lb`.
+- → may point at: `server`, `cache`, `database`, `queue`, `stream`, `pubsub`, `realtime`, `external`, `coord`.
 - It is a worker pool for every `queue` or `stream` that points at it.
 
 #### `realtime` Real-time gateway *(phase 4)*
@@ -561,6 +561,7 @@ go away; `entities` and `operations` arrive; `tests` have two clear kinds.
     "rows": 5000000000,            // how many exist at the problem's scale
     "rowBytes": 500,               // average size of one
     "growthPerDay": 100000000,     // optional, for storage findings
+    "expires": false,              // optional: true = it must not be kept for ever (holds, sessions, counters; §10.8)
     "fields": { "code": "string", "long_url": "string", "user_id": "string",
                 "created_at": "time", "expires_at": "time", "clicks": "int" },
     "sample": [ { "code": "ab12x", "long_url": "https://zotato.in/menu/123", "user_id": "u7",
@@ -583,7 +584,9 @@ Field types are those of `lab/schema.js` `TYPES` (string, text, int, float, bool
   "request": { "method": "GET", "path": "/ab12x" },
   "share": 0.99,                          // its rate = the test's rps × this
   "bytesIn": 200, "bytesOut": 500,        // average request and response size (defaults 1000, 1000)
-  "keys": { "entity": "links", "skew": "zipf" },   // which items it touches and how popular they are: "zipf" | "uniform"
+  "keys": { "entity": "links", "skew": "zipf",     // which items it touches and how popular they are: "zipf" | "uniform"
+            "active": 50000000,                    // optional: how many different items get traffic (default: the entity's rows)
+            "hot": 0 },                            // optional: share of calls that go to one single item (§8.11)
   "cacheable": { "ttlSec": 3600 },        // optional: a CDN may answer it for this long
   "live": false,                          // optional: true = old copies are useless (live video)
   "steps": [
@@ -596,6 +599,7 @@ Field types are those of `lab/schema.js` `TYPES` (string, text, int, float, bool
   "idempotencyField": "request_id",       // optional: the field that carries the caller's unique id for this call
   "durable": true,                        // optional, writes: once acknowledged it must never be lost
   "ordered": { "by": "conversation_id" }, // optional: effects for the same value must be applied in order
+  "sessionSec": 600,                      // only for kind "connect": how long a connection stays open (§9.3)
   "sample": true                          // optional: its trace test is an example test
 }
 ```
@@ -627,7 +631,7 @@ with `withinSec` (default 60: how soon it must be done). Reading steps are alway
 | `rank` | `entity`, `order: {field, desc?}`, `limit` or `of: {field: value}` | `zset`, or `range`/`index` on the order field |
 | `compute` | `cpuMs`, `isolated?: true`, `label` | A Service or workers (`isolated` needs `sandbox: true`) |
 | `publish` | `audience: {avg, max?}`, `online?` (share online, default 1), `bytes?` | A path to a `realtime` node (§9.3) |
-| `call` | `preset` (which external service), `label` | An arrow to an `external` node with that preset |
+| `call` | `preset` (which external service), `label`, `idempotent?: true` (the third party ignores a repeated call; §10.4) | An arrow to an `external` node with that preset |
 
 Values written as `"$s1.field"`, `"$s1"` or `"{$s1.code}"` inside text refer to earlier steps' results, exactly as
 in v1 request tests.
@@ -927,6 +931,7 @@ Plan = {
   steps: { [stepId]: { node, table, how, work, rows, query, feed, sync } }
 }
 Hop = {
+  id: string,                 // "<operation id>#<number in pre-order>": stable, used as a key for state
   node: string,               // design node id
   kind: "source" | "pass" | "handle" | "cache" | "store" | "invalidate" | "enqueue" | "consume" | "call" | "deliver",
   step?: string,              // the step this hop does, if any
@@ -995,7 +1000,8 @@ instances[node] → instances running now           (autoscaling, instance and z
 pending[node]   → [{at, n}] instances booting
 low[node]       → minutes below the autoscaling target
 cold[node]      → minute a cache came back empty  (it warms up over warmupMinutes)
-backlog[queue or stream][consumer node] → messages waiting
+backlog[hop id]  → messages waiting. For a `queue`: one number per enqueue hop (its consumers share it).
+                   For a `stream`: one number per consume hop (each consumer group has its own position)
 cdcRate[database]  → write calls delivered last tick
 hold[server]    → mean time a call held a worker last tick (phase 5)
 failed[parent hop → child] → child failure share last tick (circuit breakers, phase 5)
@@ -1029,12 +1035,15 @@ external operations have `factor = 1`.
 ### 8.4 The flow pass
 
 Precompute once per test: `hopsAt[node]` = every hop of every plan that sits on that node.
+First fill in every **source hop**: `in = out = rate[plan.op] × (its part of the sources)`, `phi = 1`, no work
+(a source costs its node nothing; this also covers change-data-capture plans, whose source is a database).
 Then, for each node in `topo` order (parents of a hop always come earlier, because hops follow arrows):
 
 ```
-for each hop at this node:
-  source hop            : hop.in = rate[plan.op] × (its part of the sources)
-  consume hop (!sync)   : hop.in = hop.parent.out × p + backlog[parent.node][this node] / (60 × Δ)
+for each hop at this node (source hops are already done):
+  consume hop (!sync)   : behind a queue : hop.in = (parent.out + backlog[parent.id] / (60 × Δ)) × weight
+                              weight = this consumer's capacityNow ÷ the sum over the queue's consumers (equal parts if the sum is 0)
+                          behind a stream: hop.in = parent.out + backlog[hop.id] / (60 × Δ)
                           // everything that arrived plus everything waiting, as a rate
   any other hop         : hop.in = hop.parent.out × p × hop.per
   where p = shareNow(hop)                                                  (below)
@@ -1070,8 +1079,8 @@ capacity `q × n`. A hop's `phi` is `φwrite` when `hop.write` else `φread`.
 **A cache that is down**: its `cache` hops have `phi = 1` and cost nothing when `onDown` is `database` (the caller
 goes straight on to the database); `phi = 0` when `onDown` is `fail`.
 
-**Failed work behind a queue goes back to the queue**: a consume hop's `done = hop.out × S(hop)` where `S` is the
-success of its subtree (§8.10). The backlog grows by `(arrived − done)` (§8.7), so a database that refuses the
+**Failed work behind a queue goes back to the queue**: a consume hop's `done = hop.out × Sbelow(hop)`, where
+`Sbelow` is the success of its sync children (§8.10, the product without the hop's own `phi`). The backlog grows by `(arrived − done)` (§8.7), so a database that refuses the
 workers' writes makes messages pile up; nothing is silently lost.
 
 Test vector (the simplest design): Clients 1,000 calls/s → Load Balancer → Service 2 × m5.large (600 each) →
@@ -1148,15 +1157,16 @@ operation, not only the misses (as v1's "live content").
 
 ### 8.7 Queues and streams
 
-Per queue or stream `Q` and each consumer node `c` it points at:
+After the flow pass, for every enqueue hop `e` (one per operation per queue or stream):
 
 ```
-arrived = Σ out of the enqueue hops on Q this tick                       (messages a second)
-          queue : all consumers share one backlog; give each consumer arrived × (its spare capacity share)
-          stream: every consumer node gets all of `arrived` (its own consumer group)
-done    = Σ (consume hop.out × S(consume hop)) for c
-backlog[Q][c] = max(0, backlog[Q][c] + (arrived_c − done_c) × 60 × Δ)
-waitSec[Q][c] = done_c > 0 ? backlog[Q][c] / done_c : (backlog[Q][c] > 0 ? test length in seconds : 0)
+queue :  done       = Σ over its consume children of (child.out × Sbelow(child))
+         backlog[e] = max(0, backlog[e] + (e.out − done) × 60 × Δ)
+         waitSec[e] = done > 0 ? backlog[e] / done : (backlog[e] > 0 ? the test's length in seconds : 0)
+stream:  for each consume child c (each consumer node is its own group and gets every message):
+         done       = c.out × Sbelow(c)
+         backlog[c] = max(0, backlog[c] + (e.out − done) × 60 × Δ)
+         waitSec[c] = done > 0 ? backlog[c] / done : (backlog[c] > 0 ? the test's length in seconds : 0)
 ```
 
 - **Completion delay** of a deferred step = the sum of `waitSec` of the queues on its path + 1 s per queue.
@@ -1274,6 +1284,7 @@ S(hop) = hop.phi × Π over its sync children, in order:
             plain child        :  S(c) ^ c.per
             miss / cdnMiss     :  1 − p + p × S(c) ^ c.per          (p = shareNow)
             a split group      :  Σ weight_i × S(c_i)
+Sbelow(hop)          = the same product without hop.phi           (used for work behind queues, §8.4)
 attempt success s[op] = S(root) × (1 − slow(eval.clientTimeoutMs))
 user success          = 1 − (1 − s)^(retries + 1)                    (client-sourced operations)
 ```
@@ -1410,4 +1421,687 @@ A `publish` step delivers an event to its audience over open connections. Bindin
    Delivery delay is tracked like a deferred step and checked by `completes`.
 5. A `pubsub` loses the events of a gateway that is down. If the operation is `durable`, the analyser requires the
    event to be stored as well (a `put` in the same operation), so that a reconnecting client can catch up (§10.2).
+
+---
+
+## 10. Stage 4: analyse (rules over the plans → findings)
+
+Module `eval/analyse.js`: `analyse(compiled, practice, lab, sims?) → Finding[]`.
+
+The simulator answers "how much, how fast, how often". It cannot answer "can this charge a card twice?", because a
+fluid model has no single request to go wrong. Those questions are answered by **rules over the structure of the
+plans**: who answers before what is safe, what is retried, what is copied where, in what order. Each rule that
+fires produces a finding with a concrete story, so the learner sees *how* it goes wrong, not just that it does.
+
+The rules read only what the learner can set (P3): arrows, engines, schemas (keys, unique indexes, TTL), and node
+settings. Nothing is inferred from names.
+
+### 10.1 A finding
+
+```ts
+Finding = {
+  code: string,                 // e.g. "F_DOUBLE"
+  severity: "fail" | "warn" | "info",
+  op?: string, nodes: string[], // what it is about (for highlighting on the canvas)
+  title: string,                // one line, plain words
+  story: string,                // two to four sentences: the concrete sequence of events, with this design's names and numbers
+  fix: string,                  // one thing to try
+  concept?: string              // slug of the Concepts or Components article that teaches it, e.g. "contention"
+}
+```
+
+`fail` findings make the matching check fail (§11.1). `warn` and `info` are shown and cost nothing.
+Sort: `fail` first, then `warn`, then `info`; inside a group by operation order then code. At most 12 are shown.
+
+All text is plain, short, British spelling, no em dashes, component names as the learner sees them (`names()` of v1).
+
+### 10.2 Durability: is an acknowledged write safe?
+
+For every writing step of an operation with `durable: true`, look at where the plan has put the data **at the
+moment the operation answers**:
+
+| Situation in the plan | Finding |
+|---|---|
+| The step's primary store has `durable` and the hop is sync | none |
+| The step is deferred, and its `enqueue` hop is on a `queue` or `stream` (durable) | none: the message is safe |
+| The step is deferred through a `pubsub` only | `F_NOT_DURABLE` fail: "{operation} answers 'done' after publishing to {pubsub}, which keeps nothing. If {consumer} is down for a moment the {entity} is gone for good." Fix: "Put a queue or an event stream there, or write to the database before answering." |
+| The primary store is a cache without `persistence: "aof"` | `F_NOT_DURABLE` fail: "{entity} lives only in {cache}'s memory. When it restarts, every {entity} acknowledged since is lost." Fix: "Write it to a database too (the cache can still serve reads)." |
+| A look-aside cache on the path has `writePolicy: "back"` | `F_WRITE_BACK` fail: "{cache} acknowledges writes and saves them later. A crash loses the last {flushSeconds} seconds of {entity}: about {n} at this test's rate." |
+| Database single-zone, operation durable | `F_SINGLE_ZONE` warn: "{database} has no standby. It keeps its data through a crash, but nothing can be written for {downMinutes} minutes." |
+| A `publish` step in a `durable` operation with no writing step for the same event | `F_NO_CATCH_UP` fail: "A message pushed while {user}'s phone is offline is never seen: nothing stores it for when they reconnect." |
+
+The simulator's `lost` count (writes lost by a write-back cache that went down) is reported next to these.
+
+### 10.3 Freshness: how stale can a read be?
+
+For every reading step, the plan knows the store it reads and that copy's **feed** (§7.6). Its staleness in seconds:
+
+```
+feed primary                       → 0
+feed dual                          → 0
+feed lookAside                     → 1 when the writers of the entity invalidate this cache, else the cache's ttlSec
+feed async or cdc                  → worst waitSec of the queues / streams on the feed path during the test + 1
+                                     (+ the engine's refreshSec, e.g. 1 for OpenSearch)
+reading from replicas (readFrom: "replicas") with replication "async" → + the engine's replicaLagSec
+through a CDN (cacheable)          → + cacheable.ttlSec, unless the operation is `live`
+```
+
+An operation's `staleSecWorst` is the largest over its reading steps and over the test's ticks.
+
+Requirement: `consistency: "strong"` means at most 1 second **and** no `lookAside` copy without invalidation, no
+async replica read, no `async` / `cdc` copy. `consistency: {maxStalenessSec: n}` means `staleSecWorst ≤ n`.
+
+Finding `F_STALE` (fail when the requirement is broken): "{operation} must be {requirement}, but it reads
+{entity} from {store}, which is {how it is fed}: up to {seconds} behind." With the fix that fits the feed:
+"Shorten {cache}'s TTL or delete the item when it is written" / "Read from the primary" / "Add workers behind
+{queue}: at the peak it was {wait} behind".
+
+Always add, as `info`, one line per reading operation that has no requirement: "{operation} can show data up to
+{seconds} old." (So learners see the consequence of a TTL even when the problem does not test it.)
+
+### 10.4 Doing something twice: retries, redelivery, replays
+
+For every operation with `effect: "once"`, find every way its writing steps can run twice:
+
+1. **Client retries.** Clients retry failed and timed-out calls (`eval.retries`). A sync writing step can run twice
+   unless the store refuses the second one: the table it is bound to has a **`unique` index (or key) on the
+   operation's `idempotencyField`** (matched by name and aliases), or the step itself has `unique` / `cond` that
+   makes a repeat a no-op.
+2. **At-least-once delivery.** A deferred step behind a `queue` or `stream` can be delivered twice (a worker that
+   crashes after doing the work but before acknowledging; a `visibilitySec` shorter than the work takes: compare
+   with the consume hop's `b + w` at its worst tick). Safe under the same condition as 1, checked on the store the
+   worker writes. A `fifo` queue removes duplicates only within 5 minutes: still a finding, severity `warn`.
+3. **Replays.** A `processor` restarts from its last checkpoint: up to `checkpointSec` of events are processed
+   again. Safe when its sink step is an upsert by key (`put` with the key equal to the table's key) and not an
+   `incr` or `add`.
+4. **Scheduler.** `count: 2` with `lock: "none"`: every job fires twice.
+5. **External calls.** A `call` step in a retried operation calls the third party again. Safe only when the same
+   operation records the call's id first (a `put` with `unique` before the `call`) or the problem marks the
+   external preset as idempotent (`"idempotent": true` on the `call` step).
+
+Finding `F_DOUBLE` (fail), with a story built from the first unsafe way found, for example:
+"A customer taps Pay. {Service} charges the card through {external}, but the answer is slow and the app retries
+after {clientTimeoutMs/1000} seconds. Nothing remembers the first attempt, so the card is charged again. At this
+test's rate about {n} calls are retried."  (`n` = Σ over ticks of calls × (factor − 1), rounded.)
+Fix: "Give every request an id from the client and make the store refuse a second row with the same id (a unique
+index on `{idempotencyField}`)."
+
+### 10.5 Two stores, no transaction
+
+- A `tx` step that could not be bound to one store is already a plan error (`E_TX_SPLIT`).
+- An entity with a `dual` copy (the same Service writes two stores one after the other): `F_DUAL_WRITE`, `warn` by
+  default, `fail` when the operation is `durable` or `effect: "once"`: "{Service} writes {entity} to {a}, then to
+  {b}. If it crashes between the two, {b} never hears about it, and nothing repairs it." Fix: "Write once, to
+  {a}, and let {b} follow it: change data capture into a stream, or an outbox table read by a worker."
+- A sync `call` to an external service **inside** the same operation as a database write with no record written
+  before the call: `F_CALL_THEN_WRITE` warn ("If {Service} crashes after {external} answers, the payment happened
+  but the order does not know.").
+
+### 10.6 Order
+
+For every operation with `ordered: {by: f}`: follow its deferred writing and `publish` steps.
+
+| Path of the deferred step | Verdict |
+|---|---|
+| No queue or stream (all sync, one store) | in order |
+| A `stream` whose `keyField` matches `f` (by name or alias), and each consumer writes with a key or condition | in order |
+| A `stream` with another or no `keyField` | `F_ORDER` fail: "Events for one {f} land in different partitions; two workers apply them in whichever order they finish." |
+| A `queue` of kind `fifo` | in order (per group); note the 3,000 a second limit |
+| A `queue` of kind `standard` | `F_ORDER` fail: "{queue} hands messages to whichever worker is free. Two messages for the same {f} can be applied the wrong way round." |
+| A `pubsub` | `F_ORDER` warn: order usually holds, nothing guarantees it |
+
+Fix text: "Use an event stream keyed by `{f}`, or number the events and let the store refuse one that is out of
+turn (a condition on the sequence number)."  A writing step with `cond` on a sequence field makes any path "in order".
+
+### 10.7 Single points of failure (explains what the fault tests show)
+
+Finding `F_SPOF` (`warn`): every node that the `zoneDown` or `crash` faults would take out for some operation, found on
+the plans: a node whose loss makes `S(root) = 0` for an operation. Compute by setting that node's `phi` to 0 on the
+compiled plans (no simulation) for: every Service and real-time gateway with `zones: 1`, every database without a
+standby, every cache whose `onDown` is `fail`, every `scheduler` with `count: 1`.
+"If {node} is lost, every {operation} fails: nothing else can take its calls." This replaces v1's `redundant` and
+`multiAz` checks: the fault tests fail the design; this finding tells the learner why.
+
+### 10.8 Things that grow without limit
+
+- `F_BACKLOG` (warn; fail through the `completes` check): a backlog larger at the end of a test than at any earlier
+  tick, and growing in the last 10 ticks: "{queue} was still filling when the test ended: {consumer} takes
+  {x} a second, {y} arrive."
+- `F_STORAGE`, `F_CACHE_FULL`, `F_RETENTION`: from §8.
+- `F_NO_TTL` (warn): an entity the problem marks `"expires": true` (holds, sessions, rate-limit counters) kept in a
+  table or structure without a TTL on an engine that has `ttl`, or on an engine without it and no operation that
+  deletes it: "{entity} is never removed from {store}."
+- `F_OVERSIZED` (info): a node whose `rhoMax` is below 0.15 in every load test and whose cost is more than 15% of
+  the bill: "{node} never went above {pct}% load: a smaller one would do."
+- `W_UNUSED` (warn): from §7.2.
+
+### 10.9 Hot spots
+
+From the simulator's `hotPart` events: `F_HOT` (fail through `slo` when calls were lost; else warn): "One {item}
+gets {share}% of {operation}. All of it lands on one {shard | partition | cache node} of {node}, which reached
+{pct}% while the others sat idle." Fix by kind: "Put a cache in front of it" / "Add a suffix to the key so the hot
+item spreads over several partitions" / "Choose a shard key that does not put a whole celebrity in one place".
+
+### 10.10 Scheduling
+
+- `F_SCHED_SPOF` warn: a `scheduler` with `count: 1` ("While it restarts, jobs due in that minute are not started.").
+- `F_SCHED_TWICE` fail (through `noDuplicates`): `count: 2`, `lock: "none"`.
+- `F_SCHED_NO_LOCK` fail: `lock: "lease"` but no arrow to a `coord`, a `cache`, or a database whose engine has `cas`.
+
+---
+
+## 11. Stage 5: judge (everything → verdict, score, feedback)
+
+Module `eval/judge.js`: `evaluate(design, lab, practice, { sample = false } = {}) → Result`.
+
+```
+compiled = compile(design, lab, practice)
+tests    = practice.tests filtered to `sample` ones when sample is true
+for each trace test:  result = runTrace(compiled, practice, test)
+for each load test :  sim = simulateTest(compiled, lab, practice, test)
+findings = analyse(compiled, practice, lab, sims)          // once; the dynamic parts read every test's sim
+for each load test :  result = check(test, sim, findings)
+```
+
+`analyse` runs once per evaluation. Its findings that depend on a simulation (`F_STALE` numbers, `F_BACKLOG`,
+`F_HOT`) use the worst value over the load tests that were run.
+
+### 11.1 Checks
+
+A trace test has one implicit check: the response equals the expected one.
+
+Load-test checks. `op` is optional everywhere: without it the check applies to **every** operation it makes sense
+for, and passes only when it passes for all of them. `from` / `to` (minutes of the test, multiples of the tick)
+limit a check to a window.
+
+| `kind` | Fields | Passes when |
+|---|---|---|
+| `slo` | `op?`, `availability?`, `p99Ms?`, `from?`, `to?` | For each operation: user-level availability over the test (or window) ≥ `availability` (default: the operation's `slo.availability`) **and** the share of its calls slower than `p99Ms` (default: `slo.p99Ms`) ≤ 1%. An operation without the value is skipped for that half |
+| `completes` | `op?`, `withinSec?` | Every deferred step's `worstDelaySec` ≤ its `withinSec` (or the check's) and nothing was left undone at the end |
+| `fresh` | `op?` | No `F_STALE` fail for the operation (§10.3), using this test's simulation |
+| `noCrash` | `type?` | No node (of that type) crashed from overload. Crashes caused by a fault do not count |
+| `noLostWrites` | — | The simulator's `lost` is 0, no `eventsLost`, and no fail finding from §10.2 |
+| `noDuplicates` | `op?` | No `F_DOUBLE` and no `F_SCHED_TWICE` for the operation |
+| `ordered` | `op?` | No `F_ORDER` fail |
+| `atomic` | `op?` | No `E_TX_SPLIT` and no `F_DUAL_WRITE` fail |
+| `fits` | — | No `F_STORAGE`, `F_CACHE_FULL`, `F_RETENTION` |
+| `cost` | `max` | The test's monthly bill ≤ `max` dollars |
+| `has` | `type` | The design has a node of that type that some plan uses. (Kept for teaching tests such as "the video goes out through a CDN"; prefer a fault or an SLO that needs it) |
+
+Not available in v2 (the validator refuses them when `v` is 2): `availability`, `p99` (use `slo`), `requires`,
+`redundant`, `multiAz` (use faults; §10.7 explains), `role` (use operations).
+
+Each check result: `{ ...check, ok, value, detail }` where `value` is the number shown ("99.2%", "$41,300",
+"p99 480 ms") and `detail` names the operation, node and minute it is about.
+
+### 11.2 Verdict
+
+- A test is `ok` when it has no error and all its checks are ok.
+- `verdict`: `"error"` when compiling failed (`compiled.ok` false); else `"accepted"` when every test run is ok;
+  else `"failed"`.
+- A plan error fails the trace test of that operation, and every load-test check that concerns that operation
+  (its calls count as failed: availability 0 for it).
+
+### 11.3 Score
+
+The mark out of 100 keeps v1's parts and weights (`WEIGHTS` in `judge/judge.js`): requirements 15 (functional 10,
+non-functional 5), estimates 10, API 10, key decisions 15, design 50, minus 3 per hint (at most 15).
+Only the **design 50** is computed differently for a v2 problem, so that the number of tests in one area does not
+decide the mark:
+
+| Area | Points | Its checks |
+|---|---|---|
+| Function | 15 | trace tests |
+| Scale and speed | 15 | `slo`, `completes`, `noCrash`, `fits`, `has` in load tests **without** faults |
+| Resilience | 10 | every check in load tests **with** faults, except those in the next two rows |
+| Correctness | 5 | `noLostWrites`, `noDuplicates`, `ordered`, `atomic`, `fresh` (in any test) |
+| Cost | 5 | `cost` |
+
+Points for an area = its points × (checks passed ÷ checks in the area). An area with no checks gives its points to
+the others in proportion. `design = Σ areas`, not rounded; the total is rounded once, as v1.
+`evaluate()` returns `designPoints` (0–50); `score()` in `judge/judge.js` uses it when present, else v1's
+`50 × passed / total`.
+
+### 11.4 Feedback: why a check failed
+
+Every failed check gets one or two sentences in `why`, built from the simulation, never generic. For `slo`:
+
+```
+1. In the check's window, find the operation's worst tick tw: lowest ok share (availability half failed), or highest slow share (p99 half failed).
+2. On the operation's plan at tw, pick the culprit node: a node that is down; else one with rho ≥ 1; else the one with the highest rho.
+3. Find the trigger: the latest event at the culprit or a fault, at most 15 minutes before tw
+   (zoneDown, crash, cold, cacheFlush, spike, hotPart, scaledOut pending, backlog).
+4. Write:  "At {clock of tw} {culprit} {state}; {x}% of {operation} calls {failed | took longer than {p99Ms} ms} (the test allows {y}%)."
+           + (trigger ? " It began when {trigger in words}." : "")
+           + " " + advice(culprit type, state, plan)
+```
+
+`state` in words: "was down", "was at {pct}% of what it can take", "was the slowest step ({ms} ms of {total})".
+
+`advice`:
+
+| Culprit and state | Advice |
+|---|---|
+| Service over capacity | "Add instances or a larger size. New instances take {warmupMinutes} minutes, so a sudden rush needs them started beforehand." |
+| Service down, `zones: 1`, during `zoneDown` | "Spread it over two or three zones." |
+| Database over capacity, mostly reads | "{step} costs {work} units through {how}. Put a cache in front, add read replicas, or give it a key or index." (name the costliest reading step on that node) |
+| Database over capacity, mostly writes | "Replicas don't help writes. A larger size, shards, or a queue in front to smooth the burst." |
+| Database down without a standby | "Give it a standby in another zone (Multi-AZ): it is back in {failoverMinutes} minutes instead of {downMinutes}." |
+| Cache over capacity | "A larger size or more nodes." |
+| Cache cold | "While it refills, its misses land on {database}. Size the database for that, or keep a replica so the cache survives." |
+| Load balancer, API Gateway or queue at its limit | "It refuses what is over {limit} a second. Put a CDN in front for what can be cached, or split the traffic over two." |
+| External service slow or down | "Don't make the customer wait for {external}: answer, then do it from a queue with retries." |
+| Latency with no node over 70% | "The time is the path itself: {n} calls one after another ({list}). Cut a step, cache a read, or defer what can wait." |
+| Backlog (`completes`) | "{consumer} takes {x} a second and {y} arrive: more workers, or cheaper work per message." |
+
+Other checks: `cost` names the three most expensive nodes with their monthly cost; `noCrash` names the node and
+minute; correctness checks use the finding's `title` + `fix`.
+
+Trace tests reuse the plan error or the field that differs ("The response has no `long_url`: the table
+{table} in {store} has no such field.").
+
+### 11.5 The result object
+
+Keep v1's shape so the workspace and the server keep working, and add to it:
+
+```ts
+Result = {
+  verdict: "accepted" | "failed" | "error",
+  passed: number, total: number,
+  results: [ { test, id, ok, error?, checks: [...], why: [string],
+               metrics?: { availability, p99, avgMonthly },      // worst operation's numbers; avgMonthly = the test's bill
+               ops?: { [opId]: OpTotals }, timeline?: Timeline, events?: [Event],     // load tests
+               request?, expected?, got?, trace? } ],                                // trace tests (v1 field names)
+  first: firstFailedResult | null,
+  metrics: { availability, p99, avgMonthly } | null,           // as v1: worst over the load tests
+  designPoints: number,                                         // §11.3
+  findings: Finding[],
+  plans: { [opId]: { ok, error?, steps } }                      // for the "How your design was read" panel (§12.1)
+}
+```
+
+`timeline` is large: the server's worker must not send it back to the API thread (it already returns only
+`verdict`, `passed`, `total`, `metrics`; add `designPoints`).
+
+---
+
+## 12. Fitting it into the app
+
+### 12.1 Frontend
+
+All in `tech-katta/frontend/src/`. The existing frontend style is terse; **the new `eval/` modules are engine code:
+write them as readable ES modules with comments, like `lab/engine.js` and `judge/judge.js`, not like the JSX files.**
+
+1. **Dispatch.** In `judge/judge.js`, at the top of `judge()` and `runTest()`:
+   `if (problem.v === 2) return evaluate(design, lab, problem, opts);` (for `runTest`: evaluate with only that
+   test and return its result). Nothing else in that file changes, except `score()` reading `designPoints` (§11.3).
+   `sameDesign` works for v2 designs unchanged.
+2. **The canvas** (`lab/Lab.jsx`). In problem mode with a v2 problem:
+   - The palette lists `lab.eval.components` (grouped by `group`), with the database presets of §5.2.
+   - The settings panel is generated from each type's `settings` list (one generic renderer for `number`, `choice`,
+     `bool`, `size`, `fields`), plus the existing schema editor for `database` (and for `cache` `structures`).
+     Do not write a hand-made panel per new type.
+   - A selected arrow shows "Carries: everything / only reads / only writes / choose operations" (`carries`).
+   - Connection rules come from §5.6's "may point at" lists: put them in `eval.json` per type as `"to": [types]`
+     (with the `s3`-only and `cdc`-only conditions as `"toIf"`), and have both the canvas and `cleanDesign2` read them.
+   - **"Run traffic" is replaced by "Replay"** for v2 problems: after Run or Submit, a load test's row has a
+     "▶ Replay" button. Replay shows that test's `timeline` on the canvas: a scrubber over the test's minutes; at
+     the chosen minute each node shows its load bar (`rho`, amber from 70%, red above 100%, as today), "DOWN" when
+     not up, instances, backlog; operations' rates and success are shown in the status line. No live simulation
+     runs in the browser outside `evaluate()`.
+   - The $200,000 credit meter is hidden for v2 problems (the `cost` check carries that lesson).
+3. **The workspace** (`solve.jsx`).
+   - Description tab: under the statement, a table "What the system must do": one row per operation with its
+     request, its share of traffic, and its targets ("99.9% · p99 200 ms", "never twice", "at most 60 s old").
+     Then the example tests (trace and load).
+   - Results: per test as today. For a load test, one line per operation: availability, p50, p99, and for deferred
+     work the worst delay. Then **Findings** (title; story and fix when opened; selecting one highlights its nodes).
+   - A panel "How your design was read": per operation, its hops in order ("Clients → Load Balancer → Service →
+     Cache (hit 86%) → on a miss Database: key lookup on `links.code`"). This is the plan; it is what makes the
+     evaluator's reading visible (P6, P7). "▶ Watch" plays the same hops with the sample data (§9.2).
+   - Phones: the same lists stacked; Replay is available in the Canvas tab.
+4. **The landing page** (`landingproblem.jsx`, `lablite.jsx`) runs IND vs PAK's example load tests. When that
+   problem is converted, `landingTests` selects `sample` load tests (tests without `op`), and the phone's three
+   controls must still be able to pass them: keep at least two sample load tests a design without storage can pass
+   (rule already in `12-OPERATING-RULES.md`).
+5. **Saved designs.** `lab/store.js` `cleanDesign(d, lab, id)` is used when reading saved designs and by the server.
+   Extend it: when a node's type exists only in `lab.eval`, or the design belongs to a v2 problem, clean with
+   `cleanDesign2`. Keep `STORE_VERSION` 1: v2 designs are valid v1 containers (`{nodes, edges}`), old designs have
+   no v2 keys. Old saved designs of a problem that becomes v2 stay; their v1-only settings are ignored.
+6. **Copy.** Every user-facing string of the evaluator that is not a computed sentence goes in `content/site.json`
+   under `problems.solve` (validated), as the rest of the workspace. Computed sentences (§11.4, findings) are built
+   in code from templates kept together in `eval/words.js`.
+
+### 12.2 Backend and content
+
+All in `tech-katta/backend/src/` and `tech-katta/content/`.
+
+1. `content/eval.json` is loaded in `content/store.js` `loadContent` (after `lab.json`), validated, and served as
+   part of the Lab catalogue: `bodies.lab = { ...lab, eval }`. No new endpoint. The frontend and the judge worker
+   both receive it as `lab.eval`.
+2. `content/validate.js`:
+   - `validateEval(evalCat, lab, problems)`: every field of §5.4 and §5.6 (types unique, numbers finite and of the
+     right sign, every engine id exists in `lab.json`, every `caps` entry is a known capability, `settings` shapes,
+     `to` lists name known types).
+   - `validatePractice` dispatches on `v`. `validatePractice2` checks everything in §6: entities (fields, at least
+     2 sample rows whose fields exist), operations (ids unique, client shares add to 1, steps reference known
+     entities and fields, `kind: "read"` has no writing step), tests (every operation has a trace test, a sample
+     of each kind, faults and checks are known kinds with valid fields, minutes are multiples of the tick and
+     inside the test), `start` / `reference` / `wrong` designs pass `cleanDesign2` unchanged (cleaning them changes
+     nothing) and reference schemas have no errors, `locked` ids exist in `start`.
+   - Add a negative test in `backend/test/content.test.js` for every rule (the file's existing style).
+3. `store.js` `buildBodies`: `summary`'s `tests` count is unchanged. The article is still served without
+   `reference` and `wrong`; `mutantsAllowed` is also removed.
+4. The judge worker (`auth/judge-worker.js`) already calls `judge(design, lab, practice)`: it needs no change
+   beyond returning `designPoints`. `routes.js` passes it to `score`. The stored submission gets `engine: 2`.
+   The 256 KB body limit, the per-account lock and the 10 s time limit stay.
+5. `backend/.env.example`: no new setting.
+6. Update `content/README.md` (format of v2 problems, `eval.json`) in the same PR as each format change.
+
+### 12.3 Rules that protect v1 while both exist
+
+- `lab/engine.js`, `judge/requests.js`, `lab/challenges.js`, `lab/schema.js`: **no behaviour change**. You may
+  export a helper that already exists there, nothing more. The 8 challenges and every v1 problem keep their exact
+  verdicts (their calibration tests in `judge/judge.test.js` must stay green in every PR).
+- A problem is v1 or v2, never both. Converting one is a content PR of its own (§16).
+- Another session may be adding v1 problems while you work (the 11 problems of "stage E", see `18-TODO.md`).
+  Fetch `main` before each PR and do not edit their files.
+
+---
+
+## 13. Files and module interfaces
+
+```
+tech-katta/
+  content/eval.json                       the v2 catalogue (§5.4)
+  frontend/src/eval/
+    index.js        export { evaluate } and the pieces the UI needs
+    design.js       cleanDesign2(design, lab) ; allowedEdge(fromNode, toNode, lab) ; settingsOf(type, lab) ; configOf(node, lab)
+    graph.js        buildGraph(design) → { byId, out, inn, flowEdges, cdcEdges, topo, errors }
+    access.js       holds(table, entity, practice) ; accessPath(node, table, step, practice, lab) ; capsOf(node, lab)
+    compile.js      compile(design, lab, practice) → Compiled (§7)
+    trace.js        expected(practice, op) ; runTrace(compiled, practice, test) (§9)
+    latency.js      gammaQ, gammaTail, phi, hopTimes(hop, rho), moments(plan, state) (§8.8)
+    hits.js         cacheHit(...), cdnHit(...) (§8.6)
+    simulate.js     simulateTest(compiled, lab, practice, test) (§8)
+    faults.js       startFault / endFault per kind (§8.13)
+    analyse.js      analyse(compiled, practice, lab, sims) → Finding[] (§10)
+    judge.js        evaluate(design, lab, practice, opts) → Result ; check(test, sim, findings) (§11)
+    words.js        every sentence template: errors, why, findings
+    *.test.js       one test file per module (node --test), listed in frontend/package.json "test"
+  frontend/src/judge/judge.js             + dispatch (§12.1)
+  backend/src/content/validate.js         + validateEval, validatePractice2
+  backend/src/content/store.js            + load eval.json
+  tools/eval/
+    calibrate.mjs   run a problem's calibration and mutation score (§14)
+    convert.mjs     helper that prints a v1 problem as a v2 skeleton (§16)
+    README.md
+tech-katta-context/
+  evaluator.md                            this file: keep it true (update it in the same change as any deviation)
+  tools/e2e/eval-*.js                     browser checks for the v2 workspace
+```
+
+Rules for the `eval/` modules:
+- Pure functions. No `Math.random`, no `Date`, no globals, no DOM, no imports outside `eval/`, `lab/schema.js`
+  and `lab/engine.js` helpers that are pure (`trafficAt`, `sizeOf`, `engineOf`, `monthlyCost` for the v1 types).
+  They must run in the browser, in `node --test`, and in the backend worker thread.
+- Iterate nodes, edges, operations, steps and tests in the order given. Never iterate a `Set` or object whose
+  insertion order depends on anything else.
+- Compare floats with a tolerance of `1e-9`. Round only when building text or the `timeline`.
+- Never throw for bad input: return an error result. (The worker turns a throw into `judge_failed`.)
+- Per-node maps use `Object.create(null)` (ids are the learner's text; `__proto__` must be an ordinary key).
+
+---
+
+## 14. Tests and calibration
+
+### 14.1 Unit tests (write them with each module, before using it from another)
+
+| Module | Must test |
+|---|---|
+| `latency.js` | Every vector of §8.8. `gammaQ` grows with `p`; `gammaTail(M, V, gammaQ(M, V, 0.99))` is 0.01 ± 0.002 for `k` from 0.2 to 50 |
+| `hits.js` | Every vector of §8.6. Hit rate never falls when memory or TTL grows; always inside [0, 0.999] |
+| `graph.js` | Loop detection; change-data-capture arrows do not count as loops; order is stable when node order is |
+| `access.js` | One case per row of §7.4, pass and fail, on each engine that differs |
+| `compile.js` | Routing preference; several handlers; a microservice design (two Services behind a gateway, each reaching different stores); look-aside vs direct; deferred steps; copies and every feed of §7.6; `E_UNFED`; each error code |
+| `simulate.js` | The vectors of §8.4, §8.7, §8.10; a crash and recovery; autoscaling too late for a jump; a zone lost with `zones` 1, 2, 3; a cache flush; each fault kind |
+| `analyse.js` | For each finding: one design that triggers it and the nearest design that does not |
+| `judge.js` | Check kinds; the area scoring with an empty area; `sample` filtering; result shape |
+
+### 14.2 Calibration of every v2 problem (in `eval/calibration.test.js`, as v1 does in `judge/judge.test.js`)
+
+For each article with `practice.v === 2`:
+1. the reference is `accepted`;
+2. each `wrong` design fails the test it names (`fails`);
+3. the starting design is not accepted, and fails at least one **sample** test;
+4. at least one wrong design fails a trace test, one fails a load test without faults, one fails a load test with
+   a fault, and (when the problem has correctness checks) one fails a correctness check;
+5. the rubric's own answers grade fully (v1's test, unchanged);
+6. the reference has no `fail` findings and at most 3 `warn` findings (each one listed in the test with a reason);
+7. the mutation score of §14.3 is 100% of the mutants not listed in `mutantsAllowed`.
+
+### 14.3 Mutation testing: is the test suite strong enough?
+
+A suite is strong when breaking the reference in any one way makes some test fail. `tools/eval/calibrate.mjs`
+(and the calibration test) generate these **mutants** of the reference, one change each:
+
+| Mutant id | Change |
+|---|---|
+| `remove:<node>` | Delete the node; arrows into it are joined to what it pointed at (for every pair that §5.6 allows) |
+| `half:<node>` | Halve `count`, `nodes`, `partitions`, `parallelism` or `shards` (rounding down, at least 1); skipped when already 1 |
+| `smaller:<node>` | The next smaller `size` |
+| `onezone:<node>` | `zones: 1`; `multiAz: false`; `replica: false` |
+| `noindex:<node>:<table>:<i>` | Remove one index, or the sort key |
+| `engine:<node>:<id>` | Change a database's engine to each other family once |
+| `ttl:<node>` | Cache `ttlSec` × 100 |
+| `standard:<node>` | A `fifo` queue or a `stream` becomes a `standard` queue |
+| `nodlq:<node>` | `dlq: false` |
+| `cut:<from>-<to>` | Remove one arrow |
+
+Each mutant must be **killed** (not accepted). A mutant that is rightly still accepted (the reference has spare
+room on purpose, or two equal ways) is listed in `practice.mutantsAllowed` and must be few: more than a fifth of
+all mutants allowed means the suite is weak or the reference is oversized; fix the tests or the reference.
+The tool prints the surviving mutants so the author can add a test or a wrong design for each.
+
+Also check the opposite direction: **the reference with every `count` doubled must still be accepted except for
+the `cost` check** (more capacity never breaks function).
+
+### 14.4 Properties that must always hold (`eval/properties.test.js`)
+
+Run these over every v2 reference, start and wrong design, and over 50 designs generated by applying 1–3 random
+mutants with a fixed seed list written in the test (a tiny seeded generator in the test file; never `Math.random`):
+
+1. **Deterministic**: evaluating twice gives deeply equal results.
+2. **Order does not matter**: shuffling `nodes` and `edges` and renaming ids gives the same verdict, the same
+   check results and the same numbers within 1e-6.
+3. **More capacity never hurts**: raising one node's `count` (or size) never lowers any operation's availability,
+   never raises any p99 by more than 1e-6, and never raises `rhoMax` elsewhere… except downstream of it (a faster
+   front sends more to the back: allowed), so assert it only for availability of the whole operation **when the
+   downstream nodes were below 100%**.
+4. **Less traffic never hurts**: halving a test's `rps` never lowers availability or raises p99.
+5. **Names do not matter**: changing every `name` changes nothing but text.
+6. **Bounds**: every availability in [0, 100], every share in [0, 1], no `NaN` or `Infinity` in any result.
+7. **Cost adds up**: the bill equals the sum of the nodes' costs plus storage and transfer.
+
+### 14.5 Speed
+
+Budget, measured in `eval/perf.test.js` on the largest reference design: one load test of 4 hours under 60 ms,
+a whole Submit (all tests) under 600 ms on the CI machine. The server allows 10 s; the browser must feel instant.
+If a budget is missed: precompute per-test constants outside the tick loop, reuse arrays, and avoid allocating
+inside the flow pass, before changing any formula.
+
+### 14.6 Browser checks
+
+For each UI phase add a script under `tech-katta-context/tools/e2e/` (see `no-lab.js` for the pattern: it wraps
+Chromium with `open-site.js` so production pages open without signing in). Check on desktop 1440 × 900 and iPhone 13:
+the palette groups, a generated settings panel, Run on the starting design fails with a reason, the reference
+(read from the content folder) is Accepted, a finding highlights its nodes, Replay moves the bars, "How your design
+was read" lists the hops, no sideways scroll, `errors: []`.
+
+---
+
+## 15. Building it: phases
+
+Each phase is one or a few PRs in `tech-katta`, then the docs and ledger update in this repository (the normal
+workflow). **A phase is done only when its acceptance list is true on `main` and in production.**
+Do not start a phase before the previous one is done.
+
+### Phase 0 — scaffolding (no visible change)
+- `content/eval.json` with the 8 existing types only (§5.6 for `client`, `cdn`, `apigw`, `lb`, `server`, `database`,
+  `cache`, `queue`), `work`, `limits`, `engines`. Loaded, validated (`validateEval`), served as `lab.eval`.
+- `frontend/src/eval/` with `design.js`, `graph.js`, `latency.js`, `hits.js` and their tests.
+- The dispatch in `judge.js` (`v === 2` → `evaluate`), with `evaluate` returning `verdict: "error"`,
+  "This problem needs a newer version of the site." No article has `v: 2` yet.
+- **Accept:** all existing tests green and unchanged; `/v1/lab` contains `eval`; new unit tests green; production
+  identical for users.
+
+### Phase 1 — compile and trace
+- `access.js`, `compile.js` (§7 for the 8 types; no `publish`, `call`, change data capture yet), `trace.js`.
+- A **fixture problem**: `frontend/src/eval/fixtures/url-shortener.v2.json` (§6.6 completed with a reference and
+  wrong designs). It is a test fixture, not content.
+- **Accept:** unit tests of §14.1 for these modules; on the fixture, the trace tests pass for the reference and fail
+  with the right message for: no store, `code` not the key, a read behind a queue, a table missing a field.
+
+### Phase 2 — simulate, analyse (first rules), judge
+- `simulate.js`, `faults.js` (`crash`, `zoneDown`, `instanceCrash`, `groupDown`, `spike`, `cacheFlush`, `slow`),
+  `analyse.js` with §10.2, §10.3, §10.7, §10.8, `judge.js`, `words.js`. Not yet: §8.9.
+- `tools/eval/calibrate.mjs` with mutation testing; `calibration.test.js`, `properties.test.js`, `perf.test.js`.
+- **Accept:** the fixture problem passes all of §14.2 including a mutation score of 100% (with allowed mutants
+  listed); §14.4 and §14.5 green.
+
+### Phase 3 — the workspace for a v2 problem, and the first live conversion
+- UI of §12.1 (palette from the catalogue, generated settings, arrow "Carries", per-operation results, findings,
+  "How your design was read", Replay, Watch from the plan).
+- Convert **one** live problem: the URL shortener (§16). Its old saved designs keep working (§12.1 point 5).
+- Browser checks (§14.6). Tell the owner it is live and ask them to try it before converting more.
+- **Accept:** the converted problem is Accepted with its reference on production, on desktop and phone; a signed-in
+  Submit is judged on the server with the same verdict; every other problem is unchanged.
+
+### Phase 4 — messaging and real time
+- New types: `stream`, `pubsub`, `realtime`, `external`; change data capture arrows; direct object storage; steps
+  `publish`, `call`; faults `externalDown`, `poison`, `hotKey`; analyser §10.4 (ways 1, 2, 5), §10.5, §10.6, §10.9.
+- Convert the problems that need them (chat app, notifications, news feed, video streaming, IND vs PAK, photo
+  sharing, payments), two or three per PR, each calibrated.
+- **Accept:** each converted problem meets §14.2; the landing page's IND vs PAK still works on laptop and phone.
+
+### Phase 5 — timeouts and cascading failure
+- §8.9 (concurrency, timeouts, call retries, circuit breakers), `abuse` fault and gateway rate limits.
+- Add a "slow dependency" test to the converted problems where it teaches something (payments, notifications).
+- **Accept:** a unit test shows the cascade: with a 20× `slow` fault on the database and `timeoutMs` 30,000 the
+  Service's capacity collapses and unrelated operations fail; with `timeoutMs` 300 they do not.
+
+### Phase 6 — scheduling, stream processing, coordination, shards
+- Types `scheduler`, `processor`, `coord`; `shards` and `shardKey`; step `rank`, `incr` on all engines; analyser
+  §10.4 (ways 3, 4), §10.10.
+- Convert the remaining problems (job scheduler, ad clicks, leaderboard, key-value store, web crawler, ticket
+  booking, and the rest). Then the 11 added in stage E.
+- **Accept:** every problem is v2 and meets §14.2.
+
+### Phase 7 — after everything is v2
+- Decide with the owner: convert the 8 challenges to v2 load tests with stars, or leave them on v1.
+- If nothing uses v1 any more: remove `judge/requests.js`, the v1 branches of `judge/judge.js`, `practice.fixed`
+  and `roles` from `lab.json`, and their tests, in one PR, after checking no saved design or content needs them.
+- `workflow` type only if a problem needs it.
+
+---
+
+## 16. Converting a v1 problem to v2 (recipe)
+
+Do one problem per commit. `tools/eval/convert.mjs <slug>` prints a skeleton; finish it by hand.
+
+| v1 (`practice`) | v2 |
+|---|---|
+| `data.entities` (`rows`, `sample`), `data.fields`, `data.aliases` | `entities` (add `rowBytes`, `fields` with types taken from the reference schema), `aliases` |
+| Each request test (`request`, `steps`, `respond`, `async`) | One **operation** (`request`, `steps`, `respond`) + one trace test `{op}`. `async: true` → the writing steps get `timing: "defer"` and the response status stays 202 |
+| `fixed.writePct`, the mix described in `brief` | `share` of each operation (reads vs writes as the article's "numbers that matter" give them) |
+| `fixed.queriesPerRequest` | The number of steps in the operations (if the article says "4 queries per menu view", the operation has 4 reading steps or one with `times: 4`) |
+| `fixed.hitPct` | `keys: {entity, skew, active}` on the reading operations. Choose `active` so that the reference's cache reaches about the old hit % (use the vectors of §8.6); say in `brief` how popular items are |
+| `fixed.cdnHitPct`, `fixed.cdnLive` | `cacheable: {ttlSec}` and `keys` on the operation; `live: true` |
+| `tests[].traffic`, `hours`, `startHour` | The same, in a load test |
+| `tests[].chaos: [{minute, type}]` | `faults: [{minute, kind: "crash", type}]`; prefer `zoneDown` where the old test meant "a group dies" |
+| Checks `availability`, `p99` | `slo` (put the targets on the operations; override in the check only when a test is deliberately looser) |
+| Checks `redundant`, `multiAz` | A `zoneDown` (or `crash` of `database`) test with an `slo` check |
+| Check `role` (and each role in the reference) | Nothing: make sure an **operation** needs what the role stood for (a `near` query for "geo index", a `rank` step for "sorted set", a `compute` step with `isolated` for "sandboxed runners", a `publish` step for "WebSocket gateway", an `ordered` operation for "operation log") |
+| Check `has cdn` | Keep as `has`, or better an operation that cannot meet its SLO without one |
+| The wrong design "Right sizes, general parts" | Delete it: a design without the needed capability now fails a trace test by itself. Keep one wrong design per area (§14.2 point 4) |
+| `rubric`, `hints`, `referenceNote` | Unchanged. Reword a hint that names a role or a fixed percentage |
+| Key decisions about idempotency, ordering, staleness, durability | Keep them, **and** set the matching operation field (`effect: "once"` + `idempotencyField`, `ordered`, `consistency`, `durable`) with a check (`noDuplicates`, `ordered`, `fresh`, `noLostWrites`) so the design itself is tested on it |
+
+Then:
+1. Rebuild the reference on the v2 canvas rules (same shape; settings that now matter: `zones`, cache size and
+   TTL, indexes, queue kind). Keep it laid out neatly, left to right, about 240 apart.
+2. Set `cost` from the reference's bill: `max = round(reference bill × 1.6)` to a tidy number (v1's rule).
+3. Run `node tools/eval/calibrate.mjs <slug>`; add tests or wrong designs until every mutant is killed or allowed.
+4. Update the article's text only where it names the Lab's old numbers. Check the Description tab reads well.
+5. `cd frontend && npm test && npm run build`; `cd backend && npm test`; browser check of the problem (start fails,
+   reference accepted, phone).
+
+---
+
+## 17. What the model leaves out (tell the truth about it)
+
+Written for the learner in each problem's `referenceNote` or the Description where it matters.
+
+- **It is a fluid model.** Averages and fitted distributions, not single requests. Rare interleavings are covered
+  by the rules of §10, not by simulation; a rule that does not exist yet finds nothing.
+- **One region.** No multi-region replication, geo-routing or cross-region partitions. (A later addition: a
+  `region` setting per node and a `regionDown` fault.)
+- **Networks are perfect inside a zone**: no packet loss, no partitions between two live nodes.
+- **Zones are worst-case**: every single-zone thing is assumed to be in the zone that fails.
+- **Memory and disk of Services** are not modelled; only work units and connections.
+- **Security** (authentication, encryption, abuse beyond the `abuse` fault) is not judged.
+- **Prices and capacities are rules of thumb** in one currency and one region; good for comparing designs, not for
+  budgeting.
+- **Written answers** are graded by keywords, ranges and exact choices (v1, unchanged). No AI reads them.
+- **Deploys, schema migrations, backfills, monitoring** are outside the canvas.
+
+## 18. Decisions
+
+### Decided in this document (2026-11-10)
+1. The evaluator is a compiler (plans), a fluid simulator, a rule-based analyser and a judge, sharing one plan per operation.
+2. v2 is built beside v1; a problem opts in with `practice.v: 2`; v1 is removed only when nothing uses it.
+3. Roles and `fixed` settings do not exist in v2. Hit rates, the read/write mix and query costs are derived.
+4. The palette grows from 8 to 16 types (§5.2); databases keep one type with presets.
+5. A p99 target is judged as an SLO: at most 1% of calls slower, weighted by traffic.
+6. Design points are split by area (function 15, scale 15, resilience 10, correctness 5, cost 5).
+7. Test strength is measured by mutation testing; a problem ships only at 100% of non-allowed mutants killed.
+8. No AI in the evaluator (the owner's decision of 2026-11-07 stands).
+
+### For the owner to decide (ask before the phase that needs it)
+- Phase 3: whether the first converted problem goes live for everyone at once or behind a "new evaluator" switch.
+- Phase 3: Replay replaces "Run traffic" inside problems. (The challenges keep "Run traffic" on v1.)
+- Phase 7: what happens to the 8 challenges.
+- Whether findings should also show for an **accepted** design (recommended: yes, `warn` and `info` only).
+
+### Decisions made during implementation
+*(The implementing session adds one line per decision here, with the date and the test that pins it.)*
+
+---
+
+## Appendix A. Codes
+
+| Code | Kind | Section |
+|---|---|---|
+| `E_NO_CLIENTS`, `E_CLIENTS_ALONE`, `E_LOOP`, `E_CDC` | design error | §7.2 |
+| `E_NO_SOURCE`, `E_NO_HANDLER` | plan error | §7.3 |
+| `E_NO_STORE`, `E_NO_ACCESS` (the `why` of `accessPath`), `E_UNFED`, `E_READ_BEHIND_QUEUE`, `E_SYNC_BEHIND_QUEUE`, `E_TX_SPLIT`, `E_NO_SANDBOX`, `E_NO_EXTERNAL`, `E_NO_CONNECTION`, `E_TOO_TANGLED` | plan error | §7.5, §7.7, §9.3 |
+| `W_UNUSED` | warning | §7.2 |
+| `F_NOT_DURABLE`, `F_WRITE_BACK`, `F_SINGLE_ZONE`, `F_NO_CATCH_UP` | finding | §10.2 |
+| `F_STALE` | finding | §10.3 |
+| `F_DOUBLE` | finding | §10.4 |
+| `F_DUAL_WRITE`, `F_CALL_THEN_WRITE` | finding | §10.5 |
+| `F_ORDER` | finding | §10.6 |
+| `F_SPOF` | finding | §10.7 |
+| `F_BACKLOG`, `F_STORAGE`, `F_CACHE_FULL`, `F_RETENTION`, `F_NO_TTL`, `F_OVERSIZED` | finding | §8.6, §8.7, §8.12, §10.8 |
+| `F_HOT` | finding | §10.9 |
+| `F_SCHED_SPOF`, `F_SCHED_TWICE`, `F_SCHED_NO_LOCK` | finding | §10.10 |
+
+## Appendix B. Where every number lives
+
+| Number | Where |
+|---|---|
+| Sizes, hourly prices, limits, base latencies, crash policy, autoscaling, cache warm-up of the 8 v1 types; engines' sizes, prices and schema vocabulary; traffic patterns | `content/lab.json` (unchanged) |
+| Tick lengths, retries, client timeout, limits, work units, scan and sort limits, engines' capabilities and storage, the new types and every new setting, allowed arrows | `content/eval.json` |
+| Entities, operations, targets, tests, faults, checks | each problem's `practice` |
+| Formulas and their constants that are mathematics, not tuning (`Z`, `0.5772`, the normal CDF coefficients, the 0.95 cap on `rho`, the ×19 at saturation, the 1.3 cache overhead, 50 points of presence) | code, with a comment pointing at the section of this file |
 
