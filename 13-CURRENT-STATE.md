@@ -1599,6 +1599,16 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-10, 21:55 IST (after PR #289)
+
+- `main` = `63070765396a61ac31b8a41454862e420937b1d5` (#289, evaluator v2 phase 2: simulate, faults, analyse,
+  judge, calibration). API release `20261110T161928Z-6307076`, `/health` ok, site 200. No problem has
+  `practice.v: 2` yet, so nothing changes for visitors.
+- Evaluator v2 progress (`evaluator.md` §15): phases 0, 1 and 2 done (the fixture is calibrated: reference
+  accepted, 7 wrong designs, mutation score 100% with 5 allowed). Phase 3 (the workspace for a v2 problem and the
+  first live conversion) is next; it needs the owner's two phase 3 decisions in `evaluator.md` §18.
+- Ledger: frontend 732, backend 617.
+
 ## Production snapshot — 2026-11-10, 21:35 IST (after PR #288)
 
 - `main` = `e11950ab90feefe45fd56f87c1ccfe2a5b648a4e` (#288, evaluator v2 phase 1: access paths, compile, trace;

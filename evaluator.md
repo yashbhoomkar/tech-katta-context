@@ -2109,6 +2109,27 @@ Phase 1 (2026-11-10, tech-katta #288; the tests named are in `frontend/src/eval/
 - `runTrace(compiled, practice, test, lab)` takes `lab` (for names in the trace). Trace entries keep v1's
   `{n, at, from, title, json}` and add `kind`, `back`, `after`, `query`, `table`.
 
+Phase 2 (2026-11-10, tech-katta #289; tests in `frontend/src/eval/phase2.test.js`, `calibration.test.js`,
+`properties.test.js`, `perf.test.js`):
+- The simulator keeps each tick's latency moments per operation (`ticks[op].F/M/V`), so an `slo` check with its
+  own `p99Ms` is judged against that limit, not the operation's ("judge: check kinds on the fixture").
+- §14.4 properties 3 and 4 are asserted only where every node other than the Services stayed below 100% load:
+  once a node is overloaded its crash timers make outcomes non-monotone. The p99 half of property 4 is asserted
+  only on healthy runs (no overload crash, availability ≥ 99%) and allows a rise of 2% + 1 ms: fewer reads can
+  lower a derived hit rate (items expire before they are asked for again).
+- A write that passes through a cache (write-through) counts as clearing it: that cache's staleness is 1 second.
+- The info line of §10.3 has the code `F_STALE_INFO` and is added only when the staleness is above 0.
+- `F_OVERSIZED` is not reported for managed components. `evaluate()` returns at most 12 findings plus
+  `allFindings` (the full count).
+- Mutants also halve a database's `replicas` (`half:<node>:replicas`). Mutant generation lives in
+  `eval/mutants.js` and the calibration checks in `eval/calibrate.js`, shared by the tool and the test.
+  A problem may explain each allowed mutant in `mutantsAllowedWhy: {id: reason}`.
+- Not yet: hot keys (§8.11), shard routing of steps without the shard key, the `live` CDN rule beyond success,
+  timeouts and breakers (§8.9, phase 5), change data capture plans.
+- The fixture was calibrated: the reference is 24 × c5.2xlarge over 3 zones, a cache.m5.large with a replica,
+  and a Multi-AZ db.r5.2xlarge with 2 read replicas; the zone test checks each operation with p99Ms 2000 (a
+  failover makes calls slower for a minute or two). The backend's judging worker passes `designPoints` back.
+
 ---
 
 ## Appendix A. Codes
