@@ -1599,6 +1599,19 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PRs #292, #293)
+
+- `main` = `85e5b344014e593bc5545cdc77b557d42d0104b6` (#293); API release `20261110T172540Z-85e5b34`, `/health` ok.
+- **Two problems are judged by the v2 evaluator: the URL shortener and payments.** Payments has the payment provider
+  placed and locked on the canvas, webhooks, charges made after answering, and a test where the provider goes down.
+  The other 20 problems and the 8 challenges are on v1, unchanged.
+- `/v1/lab`'s `eval` lists 12 types (the 8 plus external, realtime, stream, pubsub; the last three are not simulated
+  yet and are off the palette).
+- Checked on production: `tools/e2e/eval-v2.js` and `tools/e2e/eval-payments.js`, `errors: []`.
+- Evaluator v2 progress: phases 0–3 and 4a done; 4b (stream, pub/sub, real-time gateway, publish, change data
+  capture) next, then chat, notifications, news feed, video streaming, IND vs PAK, photo sharing.
+- Ledger: frontend 746, backend 626.
+
 ## Production snapshot — 2026-11-10, 22:40 IST (after PRs #290, #291)
 
 - `main` = `9dc0ceee744944ce721bf2ae91f473f3cc01ec88` (#291, merged by the owner); API release

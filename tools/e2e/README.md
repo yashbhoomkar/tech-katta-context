@@ -22,6 +22,7 @@ prints a few result lines ending with `errors: [...]` (page errors and console e
 | Script | What it checks |
 |---|---|
 | `eval-v2.js` | **The v2 evaluator on the URL shortener** (#291): calls table, start fails with its plan error, the solution accepted on Run and Submit (10/10), per-call results, How your design was read, ▶ Replay on the canvas, ▶ Watch, generated settings, arrow Carries, no credit meter; iPhone 13 too |
+| `eval-payments.js` | **Payments on the v2 evaluator** (#293): calls table, the payment provider on the canvas and locked (its panel, Delete), start fails, the solution Accepted 10/10, webhooks and charges made after answering in the results |
 | `no-lab.js` | **IND vs PAK is a problem, there is no Lab tab** (#285/#286): tabs and sidebar, Problems lists IND vs PAK and 8 challenges, a challenge's own page (back link, Score, tour), old `#lab` links, the IND vs PAK workspace (Run fails on the start) and article (2 figures), repointed cards, the landing canvas and phone controls (0/2 → 2/2 with a CDN and 40 servers), no sideways scroll on phone pages. 33 checks; uses `open-site.js` |
 | `site-sweep.js` | Footer date, no GitHub links, Concepts list, article opens, breadcrumb back, bad slug / malformed hash fall back, **overflow sweep 320→1440 px** on the article, Concepts, Quick Notes and `/` |
 | `read-aloud.js` | Read aloud with a **stubbed speech engine** (forces a device voice): highlight moves, pause/resume/stop, reads to the end, stops on navigation, figure animation packets, reduced motion → 0 packets |
