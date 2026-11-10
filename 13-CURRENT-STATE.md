@@ -1599,6 +1599,18 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-10, 22:40 IST (after PRs #290, #291)
+
+- `main` = `9dc0ceee744944ce721bf2ae91f473f3cc01ec88` (#291, merged by the owner); API release
+  `20261110T165707Z-9dc0cee`, 66 articles, `/health` ok.
+- **The URL shortener (QUESTION // 01) is judged by the v2 evaluator, live for everyone** (owner's choice: no switch).
+  Its workspace shows "What the system must do", per-call results, Findings, "How your design was read", ▶ Replay of
+  a load test on the canvas and ▶ Watch; the canvas has generated settings and arrow Carries, no credit meter, no
+  Run traffic. Every other problem and the 8 challenges are on v1, unchanged.
+- Checked on production: `tools/e2e/eval-v2.js` (desktop and iPhone 13) every step ok, `errors: []`.
+- Evaluator v2 progress: phases 0–3 done; phase 4 (messaging and real time) next.
+- Ledger: frontend 738, backend 621.
+
 ## Production snapshot — 2026-11-10, 21:55 IST (after PR #289)
 
 - `main` = `63070765396a61ac31b8a41454862e420937b1d5` (#289, evaluator v2 phase 2: simulate, faults, analyse,

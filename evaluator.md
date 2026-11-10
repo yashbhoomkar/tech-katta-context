@@ -2068,8 +2068,10 @@ Written for the learner in each problem's `referenceNote` or the Description whe
 8. No AI in the evaluator (the owner's decision of 2026-11-07 stands).
 
 ### For the owner to decide (ask before the phase that needs it)
-- Phase 3: whether the first converted problem goes live for everyone at once or behind a "new evaluator" switch.
-- Phase 3: Replay replaces "Run traffic" inside problems. (The challenges keep "Run traffic" on v1.)
+- ~~Phase 3: whether the first converted problem goes live for everyone at once or behind a "new evaluator" switch.~~
+  **Decided by the owner, 2026-11-10: for everyone at once** (no switch).
+- ~~Phase 3: Replay replaces "Run traffic" inside problems.~~ **Decided by the owner, 2026-11-10: yes**, Replay
+  replaces "Run traffic" in v2 problems; the challenges and v1 problems keep "Run traffic".
 - Phase 7: what happens to the 8 challenges.
 - Whether findings should also show for an **accepted** design (recommended: yes, `warn` and `info` only).
 
@@ -2129,6 +2131,23 @@ Phase 2 (2026-11-10, tech-katta #289; tests in `frontend/src/eval/phase2.test.js
 - The fixture was calibrated: the reference is 24 × c5.2xlarge over 3 zones, a cache.m5.large with a replica,
   and a Multi-AZ db.r5.2xlarge with 2 read replicas; the zone test checks each operation with p99Ms 2000 (a
   failover makes calls slower for a minute or two). The backend's judging worker passes `designPoints` back.
+
+Phase 3 (2026-11-10, tech-katta #290, #291):
+- A call the tests send (a Clients operation with a share above 0) that the design can't run at all fails every check
+  of every load test. Without it, a design that runs nothing scored about 17 of 50 from its bill and durability.
+  Pinned by `backend/test/auth.test.js` (the start design scores 0).
+- `evaluate()` with a catalogue that has no `eval` answers `verdict: "error"` with "This problem needs a newer
+  version of the site." instead of throwing.
+- The result's `plans[op].hops` lists each call's hops (first member of each split group) for "How your design was
+  read"; load-test checks get `label` from `checkLabel()` in `words.js`.
+- Saved designs of a v2 problem carry `v: 2`; `lab/store.js` `cleanDesign` cleans those with `cleanDesign2`, keeping
+  any well-formed operation id in an arrow's `carries` (the store doesn't know the problem). The API marks a
+  submission to a v2 problem `v: 2` before cleaning it, so its v2 settings reach the judge.
+- `validatePractice2` compares designs with `cleanDesign2` ignoring object key order.
+- The v2 instructions are `site.json` `problems.solve.howV2`. The canvas palette and settings come from
+  `lab/LabV2.jsx`; Lab.jsx only switches to it for `problem.v === 2`.
+- The URL shortener (converted per §16) has a `click` operation with share 0 (v1's request-only test), and its
+  `promo` and failure checks set `p99Ms` 1000–2000 (a surge or a failover may slow calls, not break them).
 
 ---
 
