@@ -1599,6 +1599,15 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #294)
+
+- `main` = `c38f4e180e59fb54c2e7bd98ec7b8888ebab6d6b` (#294); API release `20261110T225451Z-c38f4e1`, `/health` ok.
+- **Three problems are judged by the v2 evaluator: the URL shortener, payments and notifications.** The other 19
+  problems and the 8 challenges are on v1, unchanged.
+- Event streams, pub/sub and the real-time gateway are simulated and on the v2 palette (phase 4b).
+- Checked on production: `tools/e2e/eval-problem.js` (notifications, payments, url-shortener), `errors: []`.
+- Ledger: frontend 751, backend 630.
+
 ## Production snapshot — 2026-11-11 (after PRs #292, #293)
 
 - `main` = `85e5b344014e593bc5545cdc77b557d42d0104b6` (#293); API release `20261110T172540Z-85e5b34`, `/health` ok.

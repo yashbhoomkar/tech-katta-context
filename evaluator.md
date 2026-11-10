@@ -2164,6 +2164,23 @@ Phase 4a (2026-11-10, tech-katta #292, #293; tests in `frontend/src/eval/phase4.
 - Payments (converted per §16) has three calls (pay with a deferred `call`, the app's retry, the provider's webhook
   in a conditional transaction), the provider locked in the start design, and a `provider-down` test.
 
+Phase 4b (2026-11-11, tech-katta #294; tests in `frontend/src/eval/phase4b.test.js`):
+- A deferred step may go through a `stream` like a queue; a stream's message is enqueued once with one consume hop
+  per consuming Service (each consumer group reads every message, with its own backlog; the stream reports the
+  slowest group). The partition limit on consumer instances is not modelled yet.
+- `publish` binds from the handler: through a `pubsub` or `stream` to a `realtime` gateway, or straight to one, and
+  the gateway must handle a `connect` operation (plans are built connect-first, then listed in the problem's order).
+  Its hops: an `enqueue` on the channel (sync) and a `deliver` hop on the gateway (`sync: false`, `per` = times ×
+  audience.avg × online). Deliveries lost (over the gateway's message limit or while it is down) add to the publish
+  step's `notDone`, so `completes` catches them.
+- The gateway's load is the larger of connections (connect calls a second × `sessionSec`, default 600) over
+  `connections × instances` and messages a second over `messagesPerSec × instances`. The reconnect storm after a
+  lost instance is not modelled yet. Change-data-capture plans, hot keys and poison messages are left for 4c.
+- New codes: `E_NO_PUBLISH`, `E_NO_CONNECTION`, `F_NO_CATCH_UP`, `F_RETENTION`; `F_ORDER` over a stream whose
+  `keyField` is not the ordering field (fail) or over pub/sub (warn).
+- Notifications (converted per §16): OTPs and pushes are separate calls with separate deferred `call` steps, so a
+  promotion test can require OTPs within 60 s; the push provider's limit (8,000/s) makes a queue necessary.
+
 ---
 
 ## Appendix A. Codes
