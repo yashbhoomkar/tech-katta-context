@@ -1599,6 +1599,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #302)
+
+- `main` = `156d2d40b4a758d22f9559050a40ad12d39ef163` (#302); API release `20261111T104357Z-156d2d4`, `/health` ok.
+- v2 only, and lab.json no longer carries the v1 component settings.
+- Checked on production: `eval-problem.js` for all 22 (88 ok), `no-lab.js`, `challenges-v2.js`, `solution-tab.js`: all
+  `errors: []`. Ledger: frontend 789, backend 660.
+
 ## Production snapshot — 2026-11-11 (after PR #301)
 
 - `main` = `d8ac1e1c2cd1516e992158f2ddfe9b0e10a18415` (#301); API release `20261111T094224Z-d8ac1e1`, `/health` ok.
