@@ -1997,8 +1997,8 @@ Do not start a phase before the previous one is done.
   booking, and the rest). Then the 11 added in stage E.
 - **Accept:** every problem is v2 and meets §14.2.
 
-### Phase 7 — after everything is v2
-- Decide with the owner: convert the 8 challenges to v2 load tests with stars, or leave them on v1.
+### Phase 7 — after everything is v2 (done 2026-11-11, #300 and #301; see §18)
+- Decided by the owner, 2026-11-11: move everything to v2. The 8 challenges are v2 problems with stars (#300).
 - If nothing uses v1 any more: remove `judge/requests.js`, the v1 branches of `judge/judge.js`, `practice.fixed`
   and `roles` from `lab.json`, and their tests, in one PR, after checking no saved design or content needs them.
 - `workflow` type only if a problem needs it.
@@ -2072,7 +2072,7 @@ Written for the learner in each problem's `referenceNote` or the Description whe
   **Decided by the owner, 2026-11-10: for everyone at once** (no switch).
 - ~~Phase 3: Replay replaces "Run traffic" inside problems.~~ **Decided by the owner, 2026-11-10: yes**, Replay
   replaces "Run traffic" in v2 problems; the challenges and v1 problems keep "Run traffic".
-- Phase 7: what happens to the 8 challenges.
+- ~~Phase 7: what happens to the 8 challenges.~~ **Decided by the owner, 2026-11-11: move everything to v2** (#300, #301).
 - Whether findings should also show for an **accepted** design (recommended: yes, `warn` and `info` only).
 
 ### Decisions made during implementation
@@ -2239,6 +2239,30 @@ Phase 5 (2026-11-11, tech-katta #297; tests in `frontend/src/eval/phase5.test.js
 - Problems: payments gains "the payment provider slows down" and "a card-testing bot" (reference with an API
   gateway, per-client limit; wrong design "No limit per client"); notifications gains "the SMS provider slows down"
   (OTP workers: 20 m5.large, 3 s timeout); IND vs PAK's origins use a 300 ms timeout, with a hint.
+
+Phase 7 (2026-11-11, tech-katta #300 and #301): **v2 only.** The owner decided: move everything to v2.
+- #300, the eight Lab challenges on v2. A challenge (`content/lab.json`, `v: 2`) is a small v2 problem with its own
+  `entities` and `operations`, one scenario (`hours`, `startHour`, `traffic`, `faults`) and up to three `stars`, which
+  are the scenario test's checks (`availability {min}` → slo, `cost {max}`, `noCrash {type?}`, `noLostWrites`,
+  `completes {withinSec}`); the first must be met for any to count. `frontend/src/eval/challenge.js` runs one
+  (stars, values, the first reason a star was missed, or why a call can't be carried). The canvas scores it with
+  v2; an old v1 design saved for a challenge is kept but a fresh v2 start opens instead (id `ch2-<id>`). Validation:
+  `validatePractice2(..., { challenge: true })` (one scenario test and a start; no trace tests, reference, wrong
+  designs or rubric). Reference designs are a test fixture (`frontend/src/eval/fixtures/challenge-references.json`),
+  not content, since `lab.json` is served to everyone. Every start scores 0 (first star failed), every reference
+  every star (`frontend/src/lab/challenges.test.js`). Stars raised where the v2 bill is more complete: flash sale
+  $4,000, SMS link $5,000, Monday sync $2,000 (its stars: files accepted, every file processed by 9 pm, cost).
+- Engine: a cache that crashes with a replica in another zone fails over in a minute and keeps its data, as when a
+  zone is lost (`faults.js`).
+- #301, v1 removed: the steady-load simulator (`lab/engine.js` keeps only the catalogue helpers: sizes, engines,
+  prices, traffic patterns, names and a v2 one-line `summary`), `lab/challenges.js`, `judge/requests.js`, the v1
+  `runTest` (`judge()` is the v2 evaluate), the v1 canvas (Run traffic, credit, speed, v1 inspector), the credit in
+  saved designs, v1 practice and challenge validation (both must be `v: 2`), and lab.json's v1 keys (`budget`,
+  `retries`, the v1 notes; refused now). Left for a follow-up: the inert v1 per-component settings in lab.json
+  (`queriesPerRequest`, `hitPct`, `writePct`, `roles`), which the store still repairs and nothing simulates with.
+- Browser check for challenges: `tools/e2e/challenges-v2.js` (all eight start at 0/3; one-server fixed in the
+  inspector earns 3/3). The v1 Lab scripts in `tools/e2e` (lab-basics, lab-credits, lab-phase2, lab-traffic,
+  learn-challenges) test what was removed.
 
 Phase 6 conversions (2026-11-11, tech-katta #299): **every Interview Question is judged by v2** (22 of 22). The
 last eleven: leaderboard, grocery delivery, dating swipes, job scheduler, ad clicks, ticket booking, web crawler,

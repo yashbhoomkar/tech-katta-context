@@ -1599,6 +1599,15 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #301)
+
+- `main` = `d8ac1e1c2cd1516e992158f2ddfe9b0e10a18415` (#301); API release `20261111T094224Z-d8ac1e1`, `/health` ok.
+- **v2 only**: all 22 Interview Questions and all 8 Lab challenges are judged by the v2 evaluator; the v1 simulator,
+  judge and canvas run are removed (#300, #301).
+- Checked on production: `eval-problem.js` for all 22 (88 ok, `errors: []`), `no-lab.js` (`errors: []`, no failed
+  responses), `challenges-v2.js` (all eight start at 0/3, one-server fixed scores 3/3, `errors: []`). Ledger: frontend
+  786, backend 658.
+
 ## Production snapshot — 2026-11-11 (after PR #299)
 
 - `main` = `b256dcd30322618634f4032d13a1feceec050158` (#299); API release `20261111T044711Z-b256dcd`, `/health` ok.
