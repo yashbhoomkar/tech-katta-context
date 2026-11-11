@@ -2240,6 +2240,23 @@ Phase 5 (2026-11-11, tech-katta #297; tests in `frontend/src/eval/phase5.test.js
   gateway, per-client limit; wrong design "No limit per client"); notifications gains "the SMS provider slows down"
   (OTP workers: 20 m5.large, 3 s timeout); IND vs PAK's origins use a 300 ms timeout, with a hint.
 
+Phase 6 conversions (2026-11-11, tech-katta #299): **every Interview Question is judged by v2** (22 of 22). The
+last eleven: leaderboard, grocery delivery, dating swipes, job scheduler, ad clicks, ticket booking, web crawler,
+coding judge, file sync, rider dispatch, shared editor. Engine changes found while converting:
+- Stream processors: a processor's deferred write is not thinned by `times`; new step field `batch: n` (a deferred
+  write): a processor keeps a running total and writes once every n events (anything else writes every event).
+- Step order: a deferred step that follows a step done behind a queue is bound behind the queue too (it uses that
+  step's result: a page is saved after it is fetched). A deferred read is done behind the queue when a worker
+  reaches the store.
+- Access: a relational store's composite primary key works as a B-tree index on its first fields; a sort key is part
+  of a store's unique key (partition + clustering key); a put by the full key is safe to repeat after redelivery.
+- Scheduled operations follow the traffic pattern and count in the default SLO.
+- Backend tests keep a v1 problem as a fixture (`backend/test/fixtures/v1-problem.json`, file sync before its
+  conversion) for the v1 rules and the judge pool's slow design, until v1 is removed (phase 7).
+- Budgets by the fixed + 1.6 × rest rule, where fixed includes storage, transfer and per-request managed parts
+  (CDN, object storage). Lessons: gate a commit on the content check without piping it through `tail`
+  (`set -o pipefail`), since a pipe hides the failure.
+
 Phase 6 engine (2026-11-11, tech-katta #298; tests in `frontend/src/eval/phase6.test.js`):
 - `scheduler`, `processor`, `coord` as §5.6, in `eval.json` (v2 only). Coordination node counts are the choice ids
   `three` / `five` (choice ids must be words). Processor sizes: m5.large 10,000 events a second, c5.2xlarge 20,000.

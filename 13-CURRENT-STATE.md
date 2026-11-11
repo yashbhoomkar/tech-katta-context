@@ -1599,6 +1599,13 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #299)
+
+- `main` = `b256dcd30322618634f4032d13a1feceec050158` (#299); API release `20261111T044711Z-b256dcd`, `/health` ok.
+- **All 22 Interview Questions on v2.** The 8 challenges are still on v1 (phase 7 asks the owner what to do with them).
+- Checked on production: `eval-problem.js` for all 22 (88 checks ok, `errors: []`) and `no-lab.js` (`errors: []`).
+  Ledger: frontend 780, backend 654.
+
 ## Production snapshot — 2026-11-11 (after PR #298)
 
 - `main` = `6161225e7a051429517342ef856221cbe3f9b9bd` (#298); API release `20261111T035555Z-6161225`, `/health` ok.
