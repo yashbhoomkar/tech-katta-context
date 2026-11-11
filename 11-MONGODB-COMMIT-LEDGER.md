@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-11, after #298): `frontend_git_commits` 767, `backend_git_commits` 642.
+Latest count (2026-11-11, after #299): `frontend_git_commits` 780, `backend_git_commits` 654.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,26 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PR #299 (2026-11-11): recorded
+
+| PR | SHA | Collections |
+|---|---|---|
+| #299 | `7701fd0d806a4ca0ecac8d39849d27e4fa16e01f` | branch commit (frontend, backend) |
+| #299 | `b9dacc794fe07ab91003c3818e95ccab0cd77f44` | branch commit (frontend, backend) |
+| #299 | `7d50d5aa691eafc4479296ecd444a424e777181a` | branch commit (frontend, backend) |
+| #299 | `816b6c2d1263c68b9b5dd5099832acd77f1e22a1` | branch commit (frontend, backend) |
+| #299 | `4ede4fb81fd3ce616774ff0e28ded8b9e78298fb` | branch commit (frontend, backend) |
+| #299 | `031d153c6a8dc4644bffa038ac23d6309ba4ec41` | branch commit (frontend, backend) |
+| #299 | `0c664ea05ba72a2ce2fd5bb8ce0e17df2168d1f8` | branch commit (frontend, backend) |
+| #299 | `69e9c8dd58c47eb16ba4fc3b2052de9fe2197872` | branch commit (frontend, backend) |
+| #299 | `dcfa32942fa3f1e6ae6afd91e52c4a7cc16b0304` | branch commit (frontend, backend) |
+| #299 | `57126b54c9f76c84b0a0ed96f411b15086ef1c61` | branch commit (frontend, backend) |
+| #299 | `43a024b0e490c51df03e422973d7541dee282c77` | branch commit (frontend, backend) |
+| #299 | `b256dcd30322618634f4032d13a1feceec050158` | squash merge (frontend, backend) |
+| — | `b3df5e9a976b88457ccac0a3a8722f374f62e589` | sync branch (frontend) |
+
+Counts after these: frontend 780, backend 654.
 
 ### PR #298 (2026-11-11): recorded
 
