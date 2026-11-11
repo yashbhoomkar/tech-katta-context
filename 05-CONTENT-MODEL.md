@@ -5,7 +5,8 @@
 Everything below the next heading describes the **MongoDB era (Oct 2026) and is Historical**. Today:
 
 - Content is JSON in the app repo's `content/` folder: `site.json` (landing page, dashboard chrome, sections,
-  groups, section headers), `lab.json` (the Lab catalogue and its 9 challenges), `examples/zotato.json`,
+  groups, section headers), `lab.json` (the component catalogue and its 8 challenges, each a small v2 problem since #300: entities, operations, one
+  scenario and up to three stars; see evaluator.md §18), `eval.json` (the v2 evaluator's catalogue), `examples/zotato.json`,
   `articles/index.json` (site order) and `articles/<section>/<slug>.json`. The API (`backend/`) validates it
   (`backend/src/content/validate.js`) and serves it; the frontend only renders. Deploys copy it to the VPS as a
   dated release.

@@ -1599,6 +1599,12 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #303)
+
+- `main` = `b205951b88ad56654c5c1c98aaff467992729e1a` (#303, docs only); API release `20261111T110248Z-b205951`,
+  `/health` ok. `content/README.md` documents the v2 formats only; `tools/practice` (v1) is gone, `tools/eval` writes
+  and calibrates problems. Ledger: frontend 792, backend 662.
+
 ## Production snapshot — 2026-11-11 (after PR #302)
 
 - `main` = `156d2d40b4a758d22f9559050a40ad12d39ef163` (#302); API release `20261111T104357Z-156d2d4`, `/health` ok.
