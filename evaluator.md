@@ -2191,6 +2191,36 @@ Chat app (2026-11-11, tech-katta #295, converted per §16):
   fixed + 1.6 × the rest (85,000 here). 1.6 × the whole bill would let a design three times too big pass.
 - Allowed mutants: no load balancer, DynamoDB instead of Cassandra.
 
+Phase 4c and the rest of phase 4 (2026-11-11, tech-katta #296; tests in `frontend/src/eval/phase4c.test.js`):
+- Change data capture: one system plan per database and entity it stores (`cdc:<db>:<entity>`, a deviation from
+  one plan per database: the entities' change rates differ). Its calls each tick are the writes the database took
+  the tick before; hops: the queue or stream, each consumer, every copy the consumer reaches (writing back into the
+  same database is left out). Those copies are fed `cdc`, and the handler no longer writes them itself.
+- Poison (`share`, `minutes`) and hot keys (`hotKey` fault or `keys.hot`) as §8.7 and §8.11; findings `F_POISON`
+  (new code, warn: no dead-letter queue, or a FIFO queue / stream blocked) and `F_HOT`.
+- Found while calibrating, and fixed: a step done N times makes N calls on the first hop of its path (a cache in
+  front saw one before); a write behind a queue clears look-aside caches only from the worker; a deferred compute
+  step whose worker reaches no store goes through the queue and is tracked by `completes`; a worker's reported
+  load counts the messages it pulls.
+- **Consumers back off** (not in §8.7 before): one throttle per worker group and queue, rescaled each tick so the
+  busiest store or cache below it is at about 80% (when it is above 85% or below 70%); an external provider is not
+  counted (its limit refuses the excess at once). Without it, draining a backlog after an outage knocked the
+  database over in a loop. While consumers back off, the queue's wait ages with the clock.
+- **A queue several calls share is one line**: every message in it waits as long (before, each call had its own
+  backlog, so OTPs never waited behind a promotion in the same queue).
+- **Budget rule** (refines §16 step 2): when a fixed part dominates the bill (storage, data transfer, CDN, object
+  storage requests), `max = fixed + 1.6 × the rest of the reference's bill`, rounded. News feed 30,000; photo
+  sharing 75,000; video streaming 852,000 (mostly CDN egress and stored segments); IND vs PAK 271,000.
+- Conversions: news feed (fan-out on write to 200 feeds behind a queue, posts through a cache, a blogger's spike
+  with a hot post), photo sharing (views straight from the CDN and S3, pages through a cache, thumbnails by
+  workers), video streaming (segments the same way, a chef's videos, publishing refuses a repeat and is transcoded
+  behind a queue), IND vs PAK (live segments, each checks the match is live so it goes through the origin; two
+  origin groups of 27 over three zones; the zone test is in the last overs and allows 95%: the cache's one-minute
+  failover is a stutter).
+- The landing page runs IND vs PAK on v2: its example tests are the load tests; the phone design takes the cache
+  and segment store from the starting design (the solution is not served). Its lessons hold: no CDN fails both,
+  30 servers only the toss, autoscaling from 5 only the last over, a CDN and 40 servers before the toss pass both.
+
 ---
 
 ## Appendix A. Codes

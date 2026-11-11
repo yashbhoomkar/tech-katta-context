@@ -1599,6 +1599,17 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #296)
+
+- `main` = `419f71b5c4fb20054115b47581126e1b2cad8be3` (#296); API release `20261110T235858Z-419f71b`, `/health` ok.
+- **Eight problems are judged by the v2 evaluator**: URL shortener, payments, notifications, chat app, news feed,
+  photo sharing, video streaming, IND vs PAK. The other 14 problems and the 8 challenges are on v1, unchanged.
+- Phase 4 is done: change data capture, poison messages and hot keys are simulated.
+- The landing page's IND vs PAK runs on v2 (laptop canvas and phone controls).
+- Checked on production: `tools/e2e/eval-problem.js` for all eight, `tools/e2e/no-lab.js` (33 checks, landing on
+  laptop and phone), `errors: []`.
+- Ledger: frontend 760, backend 637.
+
 ## Production snapshot — 2026-11-11 (after PR #295)
 
 - `main` = `7c20fc1dcdca22c2792c5a03faa1da400d49600a` (#295); API release `20261110T230831Z-7c20fc1`, `/health` ok.
