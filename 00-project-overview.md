@@ -27,6 +27,15 @@ phones from Instagram and LinkedIn, so everything is mobile-first.
 | Database | MongoDB Atlas, project `tech-katta`, Cluster0 (free tier, AWS Mumbai). `techkatta_history` = the Git commit ledger (key = full SHA, value = what changed). `techkatta_app` = user accounts for sign-in. |
 | DNS / proxy | Cloudflare. |
 
+## Today (2026-11-11)
+
+- The Lab tab is gone (#285); the canvas opens inside each problem, inside a challenge from Problems, and on the
+  landing page's IND vs PAK.
+- **Every problem and challenge is judged by the v2 evaluator** (`tech-katta-context/evaluator.md`; #287–#302):
+  22 Interview Questions with LeetCode-style tests (Run, Submit, Replay a load test on the canvas) and 8 Lab
+  challenges scored with 1–3 stars. The v1 simulator, its live "Run traffic" clock and the $200,000 credit were
+  removed (#301). The section below is the 2026-11-04 snapshot.
+
 ## What is on the site (2026-11-04)
 
 - **Landing**: hero ("System design, explained.") with the animated Kafka figure, buttons to the

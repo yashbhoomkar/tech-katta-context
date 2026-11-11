@@ -420,8 +420,10 @@ Real systems tab. Kept for the record.*
   hints, a starting design, a reference that passes every test, wrong designs that each fail one test.
   `cd tech-katta/frontend && npm test` checks the calibration; use `tech-katta/tools/practice/` to write it.
 - Tests judge behaviour on the visitor's design (traffic, failures, cost), never similarity to an answer.
-- Changing the Lab engine (`lab/engine.js`) can change verdicts: run the frontend tests (calibration of all
-  22 suites) and the Lab e2e scripts before merging.
+- Changing the evaluator (`frontend/src/eval/`), the catalogue helpers (`lab/engine.js`) or `content/eval.json` can
+  change verdicts: run the frontend tests (calibration of all 22 problems and the 8 challenges) and the browser
+  checks `tools/e2e/eval-problem.js` and `tools/e2e/challenges-v2.js` before merging. Every practice and challenge
+  is `v: 2`; there is no v1 judge any more (#301).
 - Guided tours open only when the visitor presses the Tour button, never by themselves (owner, 2026-11-07).
 - The API never serves `practice.wrong`, and serves `practice.reference` only on its own, for the Solution tab
   (`GET /v1/articles/<slug>/solution`, since #234, the owner's request). A copied solution submitted unchanged

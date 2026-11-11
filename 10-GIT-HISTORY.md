@@ -964,3 +964,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #300: Evaluator v2 phase 7, the eight Lab challenges judged by v2; merge `f485ca75d7ea4753aec4f0e5ddc263604e71af54` (2026-11-11), release `20261111T093025Z-f485ca7`.
 - PR #301: Evaluator v2 phase 7, v1 removed (simulator, v1 judge, challenge runner, request tests, the v1 canvas run and credit); merge `d8ac1e1c2cd1516e992158f2ddfe9b0e10a18415` (2026-11-11), release `20261111T094224Z-d8ac1e1`.
 - PR #302: the inert v1 component settings removed from lab.json (queries per request, hit and write %, the CDN's live, roles); merge `156d2d40b4a758d22f9559050a40ad12d39ef163` (2026-11-11), release `20261111T104357Z-156d2d4`.
+- PR #303: docs, `content/README.md` for v2 only (practice format, challenges, catalogue); `tools/practice` (v1 authoring, broken since #301) removed; merge `b205951b88ad56654c5c1c98aaff467992729e1a` (2026-11-11), release `20261111T110248Z-b205951`.
