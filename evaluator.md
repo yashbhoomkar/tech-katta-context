@@ -2240,6 +2240,24 @@ Phase 5 (2026-11-11, tech-katta #297; tests in `frontend/src/eval/phase5.test.js
   gateway, per-client limit; wrong design "No limit per client"); notifications gains "the SMS provider slows down"
   (OTP workers: 20 m5.large, 3 s timeout); IND vs PAK's origins use a 300 ms timeout, with a hint.
 
+Phase 6 engine (2026-11-11, tech-katta #298; tests in `frontend/src/eval/phase6.test.js`):
+- `scheduler`, `processor`, `coord` as §5.6, in `eval.json` (v2 only). Coordination node counts are the choice ids
+  `three` / `five` (choice ids must be words). Processor sizes: m5.large 10,000 events a second, c5.2xlarge 20,000.
+- Scheduled operations fire at `perSec` (a new optional operation field; else their share of the test's rate),
+  ×2 when two schedulers fire without a lock, and count as failed while every scheduler is down. A scheduler may
+  point at a queue: for scheduled operations the queue is a pass-through to its workers (no backlog modelled).
+  Webhooks and scheduled jobs get no client retries (§8.3, now applied).
+- §10.10 as written; `F_SCHED_NO_LOCK` also fails `noDuplicates`. §10.4 way 3: a processor's deferred write that
+  is not an upsert by the table's key is `F_DOUBLE` (story "starts again from its last checkpoint").
+- Shards: the default shard key is the **first key field** (the partition key), not the whole key; a transaction is
+  routed by its first part. Payments' retry lookup by idempotency key now asks every shard (it still passes).
+- A writer clears the cached copy of one item it writes (`get`); a cached query result waits for its TTL (a geo or
+  text search result holds many rows, which one write can't clear).
+- `incr` works on a cache `zset` (ZINCRBY).
+- Conversions: key-value store (two API groups and two load balancers for the sale), restaurants near me (a closed
+  restaurant gone within a minute: `consistency.maxStalenessSec` 60 and a `fresh` check), menu search (OpenSearch
+  sharded by city, `shardKey: ["city"]`), budgets by the fixed + 1.6 × rest rule.
+
 ---
 
 ## Appendix A. Codes

@@ -1599,6 +1599,16 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #298)
+
+- `main` = `6161225e7a051429517342ef856221cbe3f9b9bd` (#298); API release `20261111T035555Z-6161225`, `/health` ok.
+- **Eleven problems on v2**: URL shortener, payments, notifications, chat app, news feed, photo sharing, video
+  streaming, IND vs PAK, key-value store, restaurants near me, menu search. Eleven problems and the 8 challenges
+  are on v1.
+- Phase 6 engine live: schedulers, stream processors, coordination service, shard keys.
+- Checked on production: `eval-problem.js` for all eleven and `no-lab.js`, `errors: []`. Ledger: frontend 767,
+  backend 642.
+
 ## Production snapshot — 2026-11-11 (after PR #297)
 
 - `main` = `f123d41ee1742b8d74685eccc1c77ebe7204431b` (#297); API release `20261111T033308Z-f123d41`, `/health` ok.
