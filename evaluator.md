@@ -2258,8 +2258,11 @@ Phase 7 (2026-11-11, tech-katta #300 and #301): **v2 only.** The owner decided: 
   prices, traffic patterns, names and a v2 one-line `summary`), `lab/challenges.js`, `judge/requests.js`, the v1
   `runTest` (`judge()` is the v2 evaluate), the v1 canvas (Run traffic, credit, speed, v1 inspector), the credit in
   saved designs, v1 practice and challenge validation (both must be `v: 2`), and lab.json's v1 keys (`budget`,
-  `retries`, the v1 notes; refused now). Left for a follow-up: the inert v1 per-component settings in lab.json
-  (`queriesPerRequest`, `hitPct`, `writePct`, `roles`), which the store still repairs and nothing simulates with.
+  `retries`, the v1 notes; refused now).
+- #302, the inert v1 per-component settings removed: server `queriesPerRequest`, cache and CDN `hitPct`, cache and
+  database `writePct`, the CDN's v1 `live` and component `roles` (lab.json and its example design). Validation refuses
+  them on a component or in a design's settings; saved designs drop them; `roleOf` is gone. A request-priced database
+  is still billed at 20% writes (the old default).
 - Browser check for challenges: `tools/e2e/challenges-v2.js` (all eight start at 0/3; one-server fixed in the
   inspector earns 3/3). The v1 Lab scripts in `tools/e2e` (lab-basics, lab-credits, lab-phase2, lab-traffic,
   learn-challenges) test what was removed.

@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-11, after #301): `frontend_git_commits` 786, `backend_git_commits` 658.
+Latest count (2026-11-11, after #302): `frontend_git_commits` 789, `backend_git_commits` 660.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,16 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PR #302 (2026-11-11): recorded
+
+| PR | SHA | Collections |
+|---|---|---|
+| #302 | `2cf33d601511741e2d4f106d7572ed679f236829` | branch commit (frontend, backend) |
+| #302 | `156d2d40b4a758d22f9559050a40ad12d39ef163` | squash merge (frontend, backend) |
+| — | `063ba927c15d36bd3bce2d6d92efcb18a4b7b5d6` | sync branch (frontend) |
+
+Counts after these: frontend 789, backend 660.
 
 ### PRs #300 and #301 (2026-11-11): recorded
 
