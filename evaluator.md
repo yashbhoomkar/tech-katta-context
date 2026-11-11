@@ -2221,6 +2221,25 @@ Phase 4c and the rest of phase 4 (2026-11-11, tech-katta #296; tests in `fronten
   and segment store from the starting design (the solution is not served). Its lessons hold: no CDN fails both,
   30 servers only the toss, autoscaling from 5 only the last over, a CDN and 40 servers before the toss pass both.
 
+Phase 5 (2026-11-11, tech-katta #297; tests in `frontend/src/eval/phase5.test.js`):
+- §8.9 as written, with these choices: `concurrency` 256 on the server type in `eval.json`; the hold excludes the
+  Service's own queueing (counting it made an overloaded Service stay overloaded) and is smoothed over two ticks
+  (a one-tick lag made load swing every other minute); the calls-in-progress capacity is converted to work units
+  with last tick's units per call.
+- Realism that the timeouts made necessary: a node that is down refuses calls at once (callers do not wait); an
+  external provider answers at its usual speed up to its limit; a managed service or per-request store throttles
+  (its latency is computed at no more than 70% load; the excess is refused, not queued).
+- The acceptance test uses a 100× slow-down (a 5 ms database → 500 ms) at 8,000 calls a second: 20× (100 ms) is
+  absorbed by 256 calls in progress per instance at that traffic.
+- `abuse` as §8.13: the extra calls flow through the plans and are not counted as the calls' own; an API gateway
+  with `rateLimit: perClient` refuses them. The `slow` fault may name an external by `preset`.
+- Feedback (§11.4): when a Service was limited by calls in progress (then or in the 15 minutes before it crashed),
+  "Its calls were waiting on what they call: each held it about N ms … Give its calls a shorter timeout or a
+  circuit breaker".
+- Problems: payments gains "the payment provider slows down" and "a card-testing bot" (reference with an API
+  gateway, per-client limit; wrong design "No limit per client"); notifications gains "the SMS provider slows down"
+  (OTP workers: 20 m5.large, 3 s timeout); IND vs PAK's origins use a 300 ms timeout, with a hint.
+
 ---
 
 ## Appendix A. Codes
