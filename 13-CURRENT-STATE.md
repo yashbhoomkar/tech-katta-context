@@ -1599,6 +1599,15 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-11 (after PR #297)
+
+- `main` = `f123d41ee1742b8d74685eccc1c77ebe7204431b` (#297); API release `20261111T033308Z-f123d41`, `/health` ok.
+- Phase 5 is live: calls in progress, timeouts, retries, circuit breakers, the abuse fault and gateway rate limits.
+- Eight problems on v2 (unchanged list); payments and notifications have slow-provider tests, payments a
+  card-testing bot.
+- Checked on production: `eval-problem.js` for all eight and `no-lab.js`, `errors: []`.
+- Ledger: frontend 763, backend 639.
+
 ## Production snapshot — 2026-11-11 (after PR #296)
 
 - `main` = `419f71b5c4fb20054115b47581126e1b2cad8be3` (#296); API release `20261110T235858Z-419f71b`, `/health` ok.
