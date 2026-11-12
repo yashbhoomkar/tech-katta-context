@@ -55,7 +55,7 @@ shown in an editorial, or restored from a submission as easily; and experienced 
 builder gives all of that for free.
 
 **What this changes in the rest of this file:** only the order of building. The Builder and the phone layout are no
-longer step 6; they ship together with the problem page (section 16, steps 5a and 5b), and the five-friends test
+longer step 6; they ship together with the problem page (section 16, steps 5a and 5b; the Builder is specified in full in section 20, the engine's internals in section 21), and the five-friends test
 (section 17) must be passed **on a phone, in the Builder**.
 
 ---
@@ -427,6 +427,7 @@ Folder `content/problems2/`. One JSON file per problem, `NNN-slug.json`, plus `i
       "says": "Open a short link: return the long URL for a code." },
     { "name": "CREATE_LINK", "mode": "write", "table": "links", "key": "code", "durable": true, "unique_id": true,
       "says": "Create a short link for a long URL. Codes must never repeat." } ],
+  "tables_hint": [ { "name": "links", "columns": ["code", "url", "created_at"], "pk": "code" } ],
   "template": "lb  = lb()\napi = server(count=1, size=small)\n\n# add your parts, tables and routes\nread  GET_LINK:    client > lb > api > \nwrite CREATE_LINK: client > lb > api > \n",
   "tests": [
     { "id": "t01-quiet-afternoon", "title": "A quiet afternoon", "hidden": false,
@@ -584,7 +585,7 @@ Until the owner sets up payment, treat every signed-in user as paid, behind one 
 | Step | Build | Files | Done when |
 |---|---|---|---|
 | 1 | Parser and compiler | `frontend/src/tkd/parse.js`, `compile.js`, `catalogue.js`, `tkd.test.js` | A test per error code E001–E043 and W001–W002; section 3.3 compiles to the object of section 5 |
-| 2 | Judge | `frontend/src/tkd/judge.js`, `judge.test.js` | Section 7.10 passes; one unit test per rule of 7.2–7.7 and per verdict |
+| 2 | Judge, built in the layers of section 21.2 | `frontend/src/tkd/` (`kinds/`, `checks.js`, `solve.js`, `promises.js`, `verdict.js`, `judge.js`), `judge.test.js`, `golden/` | Section 7.10 passes; one unit test per rule of 7.2–7.7 and per verdict |
 | 3 | Problem 1 and the problem checker | `content/problems2/001-url-shortener.json`, `index.json`, `frontend/src/tkd/problems2.test.js` | Reference Accepted; each wrong design gets its verdict |
 | 4 | Backend | `backend/src/practice/` (load problems, routes of section 10, Mongo), `backend/test/practice.test.js`; the `tkd/` modules are shared with the backend **the same way the existing judge is shared** (see how `backend/test/judge-pool.test.js` reaches judge code) | Endpoint tests: hidden data never returned; submit judges on the server; rate limit; owner-only access |
 | 5a | Formatter and Builder | `frontend/src/tkd/format.js`, `frontend/src/practice/form.jsx` | Text → Builder → Text keeps the design (a round-trip test on every reference and wrong design); every part kind and every route operator can be made with taps alone |
@@ -624,3 +625,318 @@ Until then both exist; nothing links the new pages from the old ones.
 4. The first ten problems (section 9).
 5. Whether shared Solutions show the author's name.
 6. When to retire the old canvas experience.
+
+---
+
+## 20. The Builder in detail
+
+Section 11.4 introduced the Builder ("Form view"). This section is its full specification. It replaces the short
+description there wherever the two differ. Files: `frontend/src/practice/form.jsx` (plus small components beside it)
+and `frontend/src/tkd/format.js`.
+
+### 20.1 The one rule: text is the truth
+
+The Builder never keeps its own copy of the design. On every change it does: **current text → lenient parse →
+change the parsed object → `format()` → new text → save**. The page holds one string. This is what makes the Builder
+and the Text editor interchangeable, makes undo trivial (a stack of strings), and means a submission, a shared
+solution or the reference design can be opened in either.
+
+**Lenient parse** (`parseLenient(text)` in `parse.js`): parse line by line; a line that is not a valid statement is
+kept as `{raw:"…", line:n}` instead of stopping. The Builder shows such lines in a card titled
+`Lines the Builder can't read` with the text, the error message, and two buttons: `Edit as text` (switches to the
+Text editor with the cursor on that line) and `Delete line`. Raw lines are written back unchanged, in place, by `format()`.
+
+### 20.2 `format()`: the canonical text
+
+`format(parsed) → string`. Rules, so that the same design always produces the same text:
+
+1. Leading comment lines (before the first statement) are kept. Other comments are dropped (the page warns once: `Comments are removed when you edit in the Builder.`).
+2. Order: parts in the order they were declared; one blank line; tables in declaration order; one blank line; routes in the order of the problem's `requests`. Raw lines stay next to the statement they followed.
+3. A part is written `name = kind(arg=value, …)` with **every** argument of that kind, in the catalogue's order, including defaults (learners see what exists). Part names are padded with spaces so the `=` signs line up; route request names likewise up to the `:`.
+4. Routes: `read  NAME: client > a > b | c` — single spaces around operators; `[replica]` directly after the name; `then invalidate x` at the end.
+5. Ends with one newline. `format(parseLenient(format(x))) === format(x)` for every `x` (test this on every fixture).
+
+### 20.3 Screen layout
+
+One scrolling column (max width 720 px on desktop, full width on phones), in this order:
+
+```
+┌──────────────────────────────────────────────┐
+│ ↶ ↷        ₹ 63,000 / month     ● 2 issues  │  sticky bar
+├──────────────────────────────────────────────┤
+│ PARTS                                  + Add │
+│ [lb]  [api ×4 medium]  [cache 2×1 GB] …     │  part cards
+├──────────────────────────────────────────────┤
+│ TABLES                                 + Add │
+│ db.links  (code ★, url, created_at)          │
+├──────────────────────────────────────────────┤
+│ REQUESTS                                     │
+│ GET_LINK   read   "Open a short link…"       │
+│ (client)→(lb)→(api)→(cache)⇢(db)   ✓        │
+│ CREATE_LINK write "Create a short link…"     │
+│ (client)→(lb)→(api)→(ids)→(db)  ⟲cache  ✓   │
+├──────────────────────────────────────────────┤
+│ ▸ Show picture                               │
+└──────────────────────────────────────────────┘
+```
+
+**Sticky bar:** Undo, Redo (disabled when empty; history of the last 50 texts, shared with the Text editor);
+running cost (or `—` when the design does not compile); an issues pill (`● 2 issues` red, `● 1 note` orange for
+warnings only, `✓ Ready` green). Tapping the pill opens the issues list; tapping an issue scrolls to its card and
+flashes its border.
+
+### 20.4 Parts
+
+**Part card** (one per part; min height 64 px): an icon for the kind; the **name** (tap to rename inline: a text
+field that accepts only valid names, shows E003/E004 text under it, Enter or blur saves, Escape cancels; renaming
+updates every route and table that uses the name); the kind in mono capitals; its settings (below); its monthly
+price; `Used in: GET_LINK, CREATE_LINK` or `Not used yet` (orange); a `⋯` menu: Duplicate, Delete.
+
+**Controls per setting** (never a free text field unless stated):
+
+| Setting | Control |
+|---|---|
+| `count`, `nodes`, `replicas`, `rf`, `w`, `r` | Stepper `− 4 +`: 44 px buttons; press and hold repeats (first after 400 ms, then every 80 ms); tapping the number opens a number keypad field; values clamp to the allowed range; `−` is disabled at the minimum |
+| `size` | Three-way segmented control: Small · Medium · Large, each with its capacity under it (`500/s`, `1,000/s`, `2,000/s`) |
+| `memory_gb` | Preset chips: 1, 2, 4, 8, 16, 32, 64, 128, 256 |
+| `ttl_s` | Preset chips: 10 s, 1 min, 5 min, 1 hour, 1 day, Custom (number + unit select). Shown in words, stored in seconds |
+| `sync` | Switch labelled `Wait for replicas on every write` with the note `Safer, but writes take twice as long` |
+| `kind` (idgen) | Four radio rows, each with one line: Counter (`never repeats; needs one coordinator`), Snowflake (`time + machine + sequence`), Random (`can repeat if too few bits`), Hash (`same input, same id; can collide`) |
+| `bits` | Shown only for Random and Hash. Chips: 32, 48, 64, 96, 128 |
+
+Under each settings group, one grey line states the consequence in the judge's own numbers, recomputed live, e.g.
+for `server`: `4 × 1,000 = 4,000 requests a second · ₹24,000`; for `cache`: `Holds about 40 lakh links of 500 bytes`;
+for `sql`: `1 primary + 1 replica · reads 3,000/s each · writes 1,000/s`. These lines are the main teaching device of
+the Builder: the learner sees capacity before the judge has to say "Overloaded".
+
+**Add part** (`+ Add`): a bottom sheet on phones (a popover on desktop) listing kinds in groups, each row with the
+icon, a name, one line and the starting price:
+
+| Group | Rows |
+|---|---|
+| Edge | Load balancer `Spreads calls over servers` · CDN `Serves copies from nearby` |
+| Compute | Server `Runs your application` · Worker `Does background jobs from a queue` |
+| Data | Cache `Fast memory for hot data` · SQL database `Tables, one primary, replicas` · NoSQL store `Many nodes, tunable consistency` · Object store `Large files` |
+| Async | Queue `Hold work for later` |
+| Helpers | ID generator `Makes unique ids` |
+
+Tapping a row adds the part with default settings and a generated name, closes the sheet, scrolls to the new card
+and opens its settings. **Generated names:** lb → `lb`, cdn → `cdn`, server → `api`, worker → `worker`, cache →
+`cache`, sql → `db`, nosql → `kv`, queue → `queue`, objectstore → `files`, idgen → `ids`; if taken, add 2, 3, ….
+
+**Delete part:** if it is used in routes, first ask `"api" is used in 2 requests. Remove it from them too?`
+(Remove / Cancel). Removing a part from a route joins its neighbours with `>`; if that makes the route invalid the
+issue appears as usual. After a delete, a bar at the bottom offers `Deleted "api". Undo` for 6 seconds.
+
+### 20.5 Tables
+
+A problem may give `"tables_hint": [{"name":"links","columns":["code","url","created_at"],"pk":"code"}]`. When a
+`sql` or `nosql` part exists and a hinted table is missing, the Tables section shows a one-tap suggestion:
+`Add table "links" to db`. A table card shows `part.name`, its columns as chips (a star on the primary key), and
+`Indexes: none`. Editing opens a sheet: store select; column list (add, rename, delete); a radio for the primary
+key; a checkbox per other column for "indexed". Under the card, per request that uses this table, a live line:
+`GET_LINK looks up by "code" — primary key, fast` (green) or `… by "url" — not indexed: the database reads every row` (red).
+
+### 20.6 Requests (building a route)
+
+One card per request of the problem, in the problem's order; cards cannot be added or removed. Each shows the name,
+a `read`/`write` pill, the request's `says` sentence, its limits as small chips (`may be 1 hour old`, `ids must be
+unique`, `must not be lost`, `must show own writes`), and the **chain**.
+
+**The chain** is a horizontally scrolling row of chips: `client` (fixed, grey) then one chip per hop, with a
+connector drawn before each chip: a solid arrow for `>`, a dashed arrow labelled `miss` for `|`, a dotted arrow
+labelled `later` for `~>`. Background hops (after `~>`) are dimmed with the caption `happens after the user gets an answer`.
+A write route with `then invalidate` ends with a `⟲ cache` chip. The row ends with a round `+` button.
+
+**`+` (add the next hop)** opens a sheet titled `What happens next?`. It lists **only parts that are allowed
+here**, each with its kind, in this order: parts not yet in this route that the rules of section 3.4 permit after
+the current last hop. For each candidate the sheet decides the connector:
+
+| Last hop is… | Candidate is… | Offered as |
+|---|---|---|
+| anything | a `queue` | one row: `Hand over to queue — don't wait` (`~>`) |
+| a `queue` | a `worker` | `Worker picks it up` (`>`); nothing else is offered |
+| a `cache` or `cdn` | a store or compute part | two rows: `On a miss, ask db` (`\|`) and `Then always call db` (`>`); the first is marked "usual" |
+| anything else | anything else | one row: `Call api` (`>`) |
+
+If the candidate is a `sql` with replicas and the route is a read, the row has a switch `Read from replicas`
+(`[replica]`). If no part is allowed, the sheet says why and offers the fix, e.g. `Nothing can come after db: it is
+where the data lives.` or `There is no place to store data yet.` with a button `Add a database` that opens the Add
+part sheet. At the bottom of the sheet: `+ Add a new part…`.
+
+**Tapping a chip** opens a sheet for that hop: `Change to…` (same filtered list), the connector choice where two are
+valid, the replica switch, `Remove from this request`, and `Remove this and everything after`.
+
+**Write routes** show, under the chain, a select `After saving, clear:` listing caches and CDNs in the design plus
+`Nothing`. It appears only when the design has a cache or CDN. Beside it, when a read of the same table goes through
+that cache and it is set to Nothing: `Readers may see old data for up to 1 hour.` (orange, the cache's TTL in words).
+
+**Completeness mark** at the right of each card: green `✓` when the route satisfies section 3.4; otherwise orange
+with the first error's message in plain words (the E029/E030 texts).
+
+### 20.7 Template, empty and first-time states
+
+The Builder opens on the problem's `template`, so `lb` and `api` cards exist and each route already shows
+`client → lb → api → +`. A first-time visitor (local storage key `tk-practice-coach` unset) gets three coach marks,
+one at a time, each a small card with `Next` and `Skip`: on the first `+` (`Tap + to say what happens next in this
+request.`), on `+ Add` (`Need a cache or a database? Add parts here.`), on Run (`Run tries your design on the
+examples. Submit judges it on hidden tests.`).
+
+### 20.8 Behaviour rules
+
+- Every tap that changes the design updates the text, the cost, the issues, the consequence lines and the picture within 100 ms.
+- No change is ever blocked for being "wrong": the Builder prevents only **syntactically impossible** things (a second route for a request, a hop the grammar forbids). A design that is merely bad (one server, no replica) is allowed; the judge teaches that.
+- Undo and redo work across both editors and survive switching between them; they do not survive a page reload.
+- The Builder must be fully usable with a keyboard (Tab order follows the screen; sheets trap focus; Escape closes; steppers respond to arrow keys) and a screen reader (each chip reads `step 3 of 4: cache, on a miss asks db`).
+- All touch targets are at least 44 × 44 px. Sheets take at most 70 % of the screen height and scroll inside.
+- Nothing in the Builder reveals hidden tests or the reference design.
+
+### 20.9 Tests for the Builder
+
+Round-trip (`format` idempotent on every fixture); lenient parse keeps raw lines in place; rename updates all uses;
+delete-with-uses produces the expected text; the candidate filter offers exactly the parts section 3.4 allows (a
+table-driven test over every pair of kinds); generated names; an end-to-end script on a Pixel 7 profile that builds
+the reference design of problem 1 from the template **using taps only** and gets Accepted.
+
+---
+
+## 21. The evaluator engine: how it works inside
+
+Sections 6 to 8 say **what** the judge computes. This section says **how the engine is built**, so that it stays
+correct, fast and easy to extend. Everything lives in `frontend/src/tkd/` and is shared with the backend.
+
+### 21.1 Principles
+
+1. **Pure.** `judge(design, problem, test)` reads only its arguments. No clock, no randomness, no I/O.
+2. **Deterministic.** Parts and routes are visited in a fixed order (declaration order for parts, the problem's order for requests). Numbers are rounded only at the comparison and display step (7), never in between.
+3. **Explainable by construction.** The engine does not compute a verdict and then look for a reason. Every check produces a **finding** that already carries its request, phase, part, numbers and message. The verdict is chosen from the findings.
+4. **One pass.** A route never visits a part twice and a cache's hit ratio depends only on the catalogue and the problem, so load is computed in a single left-to-right walk per route. There is no iteration to a fixed point. Cost: O(phases × routes × hops).
+5. **Data, not code, for physics.** Every number is in `catalogue.js`. Every part kind is one object with the same six functions.
+6. **Same engine everywhere.** Browser (Run), server (Submit), tests and the authoring tool all import the same files.
+
+### 21.2 Layers and files
+
+| Layer | File | In → out | May fail with |
+|---|---|---|---|
+| 1 Parse | `parse.js` | text → statements (`parse`, `parseLenient`) | E001–E005 |
+| 2 Compile | `compile.js` | statements + problem → **design** (section 5) | E010–E043, W001–W002 |
+| 3 Kinds | `kinds/*.js`, `catalogue.js` | one object per part kind | — |
+| 4 Static checks | `checks.js` | design + problem → findings that do not depend on load (stale reads, read-your-writes, ids) | — |
+| 5 Phase solver | `solve.js` | design + state + phase → per-part load, rho; per-request p99, outage, drops, lost writes | — |
+| 6 Promises | `promises.js` | solver output over all phases + test promises → findings | — |
+| 7 Verdict and explanation | `verdict.js` | findings → verdict, `failed` object, trace, message | — |
+| 8 Runner | `judge.js` | `judge(design, problem, test)`, `judgeAll(source, problem, {hidden})` | — |
+| 9 Format | `format.js` | design → text | — |
+
+A layer imports only layers above it in this table. `judge.js` is the only file the page and the server call.
+
+### 21.3 A part kind (the plug-in shape)
+
+```js
+// kinds/server.js
+export default {
+  kind: "server", managed: false, role: "compute",
+  args: { count:{type:"int",min:1,max:200,default:1}, size:{type:"enum",values:["small","medium","large"],default:"small"} },
+  initState: (p) => ({ alive: p.count }),
+  cost:      (p) => PRICE.server[p.size] * p.count,
+  capacity:  (p, s, mode) => CAP.server[p.size] * s.alive,          // mode: "read" | "write"
+  baseP99:   (p, mode) => 20,
+  onEvent:   (p, s, ev) => ev.type==="kill" ? { state:{alive:Math.max(0,s.alive-1)}, outage_s:0, lost_writes:0 } : null,
+  isDown:    (p, s) => s.alive === 0,
+};
+```
+
+`sql` and `nosql` return richer state and outage/lost-writes from `onEvent` (section 7.2); `cache` and `cdn` add
+`hitRatio(p, s, request)` (section 7.3). **Adding a new kind** (say `search`) = one file here, its numbers in the
+catalogue, its row in the Builder's Add sheet, its rule in the compiler's route table, and tests. Nothing else in the engine changes.
+
+### 21.4 The phase solver, step by step
+
+```
+solvePhase(design, state, phase):
+  1. for each event in phase.events: expand kill_role/flush_role to part names (declaration order);
+     call kind.onEvent; store new state; record outage_s and lost_writes per part; mark faultSeen = true
+  2. load = {}                                   # per part: read, write, readReplica
+     for each request R in problem order with rate q = phase.rates[R] (0 if absent):
+        x = q; background = false
+        for each hop h in route(R):
+           if h.op == "~>": background = true
+           add x to load[h.part] (read or write by route mode; readReplica if h.replica)
+           if next hop's op == "|": x = x * (1 - hitRatio(h.part, R))
+        if route has invalidate C: add q to load[C].write
+        remember for R: the list of (part, x, background, hit) = its trace skeleton
+  3. for each part: rho = kind-specific (section 7.4); if rho > 1: drop = 1 - 1/rho else 0
+  4. for each request R:
+        p99 = Σ foreground hops base / (1 - min(rho, 0.95)), applying the "|" threshold rule, sync doubling, scan factor
+        outage = max over foreground parts of (their outage_s; whole phase if isDown)   # a bypassable cache counts 0
+        dropFraction = max over ALL parts on the route of drop
+        failed = q*outage + q*dropFraction*(phase.seconds - outage)
+        lost = Σ lost_writes on parts this write reaches, if R.durable
+  5. return { perPart, perRequest, faultSeen, state }
+```
+
+`judge()` folds `solvePhase` over the phases, carrying `state` and `faultSeen`, and keeps per request: max p99,
+total and failed calls, lost writes, and for each the phase and part where the worst value occurred (for blame).
+
+### 21.5 Findings and the verdict
+
+A finding: `{ type, request, phase, part, line, expected, actual, numbers:{…} }` with `type` one of `stale`, `ryw`,
+`no_id`, `collision`, `lost`, `unavailable`, `overloaded`, `p99`, `budget`. Layers 4 and 6 emit **all** findings for
+the test; layer 7 sorts them by the precedence of section 7.7 (ties: problem's request order, then phase) and takes
+the first. The others are returned in `also` (max 3) and shown collapsed under `Other things that went wrong in this
+test`, so a learner fixing one problem is not surprised by the next.
+
+**Blame** (which part the message and the red box point at):
+
+| Finding | Blamed part |
+|---|---|
+| `p99` | The foreground hop with the largest `p99_hop − base` in the worst phase; if every hop is within 20 % of its base, the hop with the largest base (the route is simply too long or the store too slow) |
+| `overloaded` | The part with the highest rho |
+| `unavailable` | The part that was down or had the outage; if the cause was drops after a kill, the part with the highest rho |
+| `lost` | The store that lost the writes |
+| `stale`, `ryw` | The cache with the largest TTL contribution, else the replica-read store |
+| `no_id`, `collision` | The `idgen`, or the route's store when there is none |
+| `budget` | The most expensive part |
+
+**Next-step tip** (one line under the explanation, from a fixed table keyed by finding type and blamed kind; never
+the answer, never a number): e.g. `overloaded` + `server` → `More servers, bigger servers, or fewer calls reaching
+them.`; `overloaded` + `sql` on a read → `Could most of these reads be answered before they reach the database?`;
+`p99` + `sql` with a scan → `The lookup column has no index.`; `unavailable` + `sql` → `What takes over when the
+primary is gone?`; `lost` → `Were the writes anywhere else when the primary died?`; `stale` → `Shorter TTL, or clear
+the cache when the data changes.`; `budget` → `Which part are you paying for but barely using?` (the engine adds
+the part with the lowest rho among those costing over 10 % of the total).
+
+### 21.6 Margins (so verdicts are never knife-edge)
+
+For every promise the engine also returns a **margin**: `(limit − actual) / limit` for "at most" promises (p99,
+budget) and `(actual − limit) / (1 − limit)` for availability. Uses:
+
+- **Authoring rule, enforced by `problems2.test.js`:** the reference design passes every promise with margin ≥ 0.10; each wrong design fails its target promise with margin ≤ −0.10. This keeps a tiny future change in a formula from flipping verdicts.
+- **In the page:** on a failed latency or budget promise within 10 % show `Close: only {x} % over.`; on Accepted, the smallest margin is shown as `Tightest promise: GET_LINK p99, 12 % to spare.`
+
+### 21.7 Running it on the server
+
+- The server loads problems once at start and keeps them in memory; a content reload follows the existing content code.
+- **Submit pipeline:** validate size → `key = sha256(judge_version + problem_id + source)` → look in an in-memory LRU of 5,000 results (same input, same output, so duplicates cost nothing) → else `judgeAll` → strip hidden detail → store the submission → update stats → respond.
+- Judging is CPU work of a few milliseconds. Run it through the **existing judge pool** if `backend/test/judge-pool.test.js` shows a worker pool that fits (read it first); otherwise inline. Either way enforce a **250 ms time limit** per submission. On timeout or an exception inside the engine: respond HTTP 200 with verdict `Judge Error`, message `The judge had a problem with this design. It has been reported; try again later.`, do **not** count it in stats, and log problem id, judge version and a hash of the source (never the user's identity beside the source in logs).
+- `judge_version` is a constant in `judge.js`. Raise it whenever a formula, a catalogue number, a rule or a message that depends on numbers changes. On raise: the result cache is cleared automatically (the key includes the version); stored submissions keep their old verdict and are labelled.
+
+### 21.8 Proving the engine
+
+| Test | What it proves |
+|---|---|
+| Unit test per kind function and per rule of 7.2–7.7 | Each formula is implemented as written |
+| The worked example of 7.10 | The pieces fit together |
+| **Golden files**: for every problem's reference and wrong designs, the full result JSON is stored in `tkd/golden/` and compared exactly | Nothing changes by accident; a deliberate change shows up as a reviewed diff plus a `judge_version` bump |
+| Property tests (seeded, 500 random valid designs per problem) | Monotonicity: more instances, bigger sizes, more memory or more replicas never make latency, availability or overload **worse**; cost never goes down; a looser promise never turns a pass into a fail |
+| Determinism: 100 runs deep-equal; Node and browser equal | Trust |
+| Fuzz the parser with 10,000 random strings (seeded) | It never throws and never takes more than 5 ms |
+| Timing: `judgeAll` on the largest design and 20 tests under 20 ms | Speed |
+
+### 21.9 What version 2 of the engine would add (not now)
+
+The interface `judge(design, problem, test)` stays; only layer 5 changes. Candidates, in order of teaching value:
+a time-stepped solver for queues (backlog grows when workers are slower than arrivals, drains later); autoscaling
+with a delay; retries and back-pressure (a retry storm after a failure); cache warm-up curves instead of an instant
+hit ratio; multi-zone placement and zone loss; per-key hot spots for partitioned stores. Each arrives as new
+problems that need it, never as a change to the verdict of an existing accepted design without a version bump.
