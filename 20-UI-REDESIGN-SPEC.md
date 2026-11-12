@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026.
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day, twice: the old blue in figures and the canvas replaced by teal after the owner's review of the first pictures; then a motion layer added (section 4.5, WP8, Appendix D).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
@@ -17,7 +17,7 @@ Look at them before you start, and compare your build against them when you fini
 | `04-section.png` | A section page (Concepts) |
 | `05-article.png`, `10-article-body.png` | An article: top, and three pieces of the body (light, dark, light) |
 | `06-problems.png` | Problems list |
-| `07-workspace.png` | Problem workspace with the canvas |
+| `07-workspace.png`, `11-workspace-result.png` | Problem workspace: a component selected on the canvas; the result sheet after Run |
 | `08-phones.png` | Pixel 7: landing, section, problems, article (light), article and landing (dark) |
 | `09-dark.png` | Dark mode: landing, problems, workspace |
 
@@ -29,8 +29,8 @@ Look at them before you start, and compare your build against them when you fini
 2. **Copy the code blocks exactly.** The CSS in Appendix C was built and looked at in a real build of the site
    (commit `01adfbe` of `tech-katta`, the state after PR #308). Do not "improve" values. If something looks wrong,
    first check that you pasted the block at the **end** of the right file.
-3. **Do not change any JSX, content, route, test or backend file** except the five small edits listed in section 8
-   (WP1 and WP2). The redesign is almost entirely CSS.
+3. **Do not change any JSX, content, route, test or backend file** except the small edits listed in section 8
+   (WP1, WP2 and WP8). The redesign is almost entirely CSS.
 4. **No colour codes outside `frontend/src/theme/`.** `theme.test.js` fails the build if you write `#abc`, `rgb(…)`
    or a colour keyword in any other stylesheet or script. Use `var(--name)`.
 5. **Every change must look right in light and dark, on a desktop and on a phone.** About three quarters of visitors
@@ -160,7 +160,7 @@ personality, never corporate and never a toy.
 | Headings | **Fraunces** (a serif), weight 600 | Warm and confident, like Brilliant and samwho; every competitor uses a plain sans, so this alone makes the site recognisable. Tested against seven other typefaces in a specimen |
 | Body and controls | **Inter** (already on the site) | The most readable choice at small sizes; no new download for body text |
 | Labels | **IBM Plex Mono** (already on the site), only for eyebrows, table heads and figure captions | Keeps the engineering flavour, in small doses |
-| Blue | Kept, but only for links, focus rings and "the path that works" in figures | The figures were drawn with blue = works, red = trouble. That meaning stays |
+| **Second colour** | **Peacock teal `#0f6b66`** replaces the old blue everywhere: links, focus rings, hover outlines, "the path that works" in every figure, and the handles, arrows and labels on the canvas | The old blue (`#2855d9`) is cold and fought with the warm paper; the owner pointed this out on the first build. `--accent` is read 228 times in the stylesheets and by every figure through `palette.js`, so changing the token recolours all of them at once. Teal sits beside marigold and paper, and still reads clearly against red (trouble) |
 | Warning colour | Moved from amber to orange | So a warning never looks like the brand |
 | One dark card | The "practise this" call-out inside an article is ink-coloured with marigold text | One strong invitation per article; used nowhere else |
 
@@ -169,12 +169,12 @@ personality, never corporate and never a toy.
 - No pixel, dot-matrix or bitmap lettering. No pastel wash cards in several colours. No buttons with a thick dark
   bottom edge. No tilted cards. (These are another site's signatures.)
 - No gradients except the highlighter stroke. No glow, no glass cards, no neon.
-- No second brand colour. If something needs to stand out and is not the main action, use weight or size.
+- No third colour. Marigold is the brand; teal is the working colour for links, figures and the canvas. Nothing else. **No blue anywhere**: if you see the old blue (`#2855d9`) or any blue in the build, a token was missed.
 - No capital mono text for anything a person taps (buttons, tabs, nav).
 - No more than **one** marigold button visible in any one region of a screen (header, page body, toolbar).
 - No more than **one** highlighter stroke per screen.
 - No emoji in the interface.
-- No animation longer than 0.2 s, and none at all under reduced motion.
+- No hover or press feedback longer than 0.2 s; no entrance longer than 0.6 s; none of either under reduced motion. Section 4.5 lists every place something moves. Do not add others.
 
 ---
 
@@ -202,11 +202,11 @@ All values live in `frontend/src/theme/tokens.css` (Appendix A). This section ex
 | `--brand-tint`, `--brand-line` | `#fff3cf`, `#f0d388` | `#30260f`, `#5f4813` | Tinted boxes and their border; active sidebar row |
 | `--on-brand` | `#1d1b16` | `#1d1b16` | Text on marigold. Always ink, in both themes |
 | `--mark` | `#ffd866` | `#7d5c00` | The highlighter stroke |
-| `--accent` family | `#1d4ed8` … | `#8fb2ff` … | Links, focus rings, figures |
+| `--accent` family (teal) | `#0f6b66`, strong `#0b524e`, mid `#7fc4bd`, line `#b5ddd8`, soft `#d3ece8`, tints `#e4f3f0` `#f0f8f6` | `#5fd0c4`, `#8ae0d6`, `#2f8078`, `#24544f`, `#1b3f3b`, `#17302d` `#132624` | Links, focus rings, hover outlines, figures (works = teal), canvas handles and live arrows |
 | `--danger`, `--success`, `--warn` families | red, green, orange | lighter versions | Status. Difficulty pills: Easy = success, Medium = warn, Hard = danger |
 
 Measured contrast (WCAG needs 4.5:1 for text): ink on page 16.1, body (`--ink-2`) on page 11.1, `--muted` on page
-6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` on page 6.3, `--success` on its
+6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` (teal) on page 5.9, `--success` on its
 tint 5.0, `--warn` on its tint 5.7, `--danger` on its tint 6.1. Dark mode: all of these are 4.7 or higher.
 
 **Rules.** Marigold is a background or a line, **never the colour of text on paper** (it fails contrast); for
@@ -268,12 +268,56 @@ Depth comes from a 1 px border **and** a very soft shadow together. Never a hard
 | **Difficulty pill** | Tinted pill: Easy green, Medium orange, Hard red | `.pb-tag.easy/.medium/.hard` |
 | **Problems table** | One white card; mono capital head on `--surface-2`; rows split by hairlines; row hover `--surface-2`. On phones each row becomes its own card | `.qt-table` |
 | **"In 30 seconds"** | `--surface` well, no border | `.a-tldr` |
-| **Worked example** | `--accent-tint` box with `--accent-line` border, mono label in `--accent` | `.a-example` |
+| **Worked example** | `--accent-tint` (pale teal) box with `--accent-line` border, mono label in `--accent` | `.a-example` |
 | **Analogy** | `--brand-tint` with a 3 px marigold bar on the left | `.a-analogy` |
 | **Practise call-out** | The one dark card: `--inverse` fill, Fraunces sentence in `--on-inverse`, label and arrow in marigold | `.a-lab` |
 | **Figure** | White card, 14 px corners, mono caption strip on `--surface-2` | `.a-fig`, `.figure` |
 | **Header** | 64 px (dashboard 68 px), see-through page colour with a 14 px blur, 1 px line below | `.header`, `.d-head` |
-| **Focus ring** | 2 px `--accent`, 2 px offset, on every link and button | global |
+| **Focus ring** | 2 px `--accent` (teal), 2 px offset, on every link and button | global |
+
+### 4.5 Motion: where things move, and where they do not
+
+The site already has motion where it teaches: every article figure plays a loop, and the canvas replays a load test.
+That stays untouched. This redesign adds a thin layer of **interface** motion so the site feels alive and finished.
+It is one stylesheet, `frontend/src/theme/motion.css` (Appendix D), CSS only, no library and no JavaScript.
+
+The rules were checked against a public set of UI guidelines the owner pointed to
+([ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), MIT; it is a guideline dataset with
+GSAP snippets, not a component library, so nothing from it is installed). What we take from it: animate only
+`transform` and `opacity`; one or two key elements per view; entrances 300 to 400 ms moving 8 to 16 px; hover
+feedback 150 to 200 ms; stagger at most about eight items; looping motion only for loading; a shimmer sweep, not a
+pulse, for skeletons; no parallax on text and no scroll-jacking; honour reduced motion by showing the final state.
+
+| # | Where | What happens | Why here | Length |
+|---|---|---|---|---|
+| 1 | Landing hero | Eyebrow, headline, paragraph and buttons rise 10 px one after another; the figure follows; then **the highlighter is drawn under the last word, left to right** | First impression; the drawn stroke is the brand's signature moment | 0.36 s each, 0.06 s apart; stroke 0.6 s |
+| 2 | Every dashboard page | The page content rises once when you arrive (also on moving between pages) | Makes navigation feel like a response, not a jump | 0.36 s |
+| 3 | Card grids (sections, start page, problems groups) | The first eight cards rise in turn | Shows the grid as a set; capped so long lists never wait | 0.04 s apart |
+| 4 | Article contents column | Fades in just after the article | Keeps attention on the title first | 0.4 s |
+| 5 | Cards with an arrow ("Read →", "Explore …") | The arrow slides 4 px on hover, with the existing 2 px card lift | Says "this goes somewhere" | 0.2 s |
+| 6 | "Show more" boxes and hints | The revealed content rises in | Confirms the tap did something | 0.24 s |
+| 7 | Account menu, canvas menus, tour card, sign-in card | Pop in from 96 % size | They appear over the page; a pop reads as "on top" | 0.16 s |
+| 8 | Phone sidebar | The dark backdrop fades in (the drawer itself already slides) | Matches the drawer | 0.2 s |
+| 9 | **Result sheet after Run or Submit**, and the score sheet | Slides up 24 px; the first six test rows follow in turn | The most important moment in the product: you get your verdict | 0.26 s; rows 0.05 s apart |
+| 10 | Phone problem result | Pops in | Same moment, phone version | 0.22 s |
+| 11 | Loading skeleton lines | A light sweep runs across them | Tells the visitor the page is working | 1.4 s loop (the only new loop) |
+| 12 | Landing sections below the hero | Cards and the IND vs PAK problem rise as they scroll into view | Rewards scrolling; shows there is more | Tied to scrolling |
+| 13 | **Article reading progress** | A 2 px teal line under the header fills as you read | Long articles (20 minutes and more): shows how far you are | Tied to scrolling |
+
+Items 12 and 13 use CSS scroll timelines. Browsers that do not have them (older Safari and Firefox) simply show the
+content with no effect and no progress line. That is intended; do not add a JavaScript fallback.
+
+**Where nothing moves, on purpose:** body text and headings inside an article; tables and their rows; figures (they
+have their own loops); nodes and arrows on the canvas (React Flow positions them with `transform`; animating that
+breaks dragging); the header and sidebar; anything while the visitor is typing. No parallax, no scroll-jacking, no
+auto-rotating carousel, no bouncing or elastic easing, no animated background, no confetti.
+
+**Reduced motion:** all of items 1 to 12 are inside `@media(prefers-reduced-motion:no-preference)`, so a visitor who
+asked for less motion gets the finished page at once. Item 13 stays, because it only follows the reader's own scrolling.
+
+**Technical rule that matters:** entrance animations use `backwards`, not `both` or `forwards`. An animation that
+stays applied to `transform` after it ends can trap `position:fixed` children (the full-screen figure view on phones).
+Do not change this.
 
 ---
 
@@ -326,10 +370,11 @@ Each page: what changes for the visitor. The CSS that does it is in Appendix C; 
 
 ### 5.6 Workspace and canvas (`solve/*`, `solve.css`, `lab/lab.css`, `lablite.css`) — picture 07
 - Left pane tabs: plain text, current one white with a 3 px marigold line below.
-- Problem title Fraunces 30 px. The "how this works" note is an accent-tint box with a blue bar.
+- Problem title Fraunces 30 px. The "how this works" note is a `--surface` box with a marigold bar on the left (not a coloured tint).
 - Toolbar: Timer, Reset, Run are second buttons; **Submit is the only marigold button**.
 - Palette items: white rows with a border. Selected node on the canvas: 3 px marigold ring.
-- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.**
+- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.** Node labels, handles and live arrows turn teal by themselves because they read `--accent` (CSS) or `BLUE` from `palette.js` (which is `--accent`).
+- **Figures are not edited.** All 232 article figures and the landing diagram take their colours from `palette.js`: the short name `BLUE` is `--accent`, `LB` is `--accent-tint`, `FB` is `--accent-soft`, `GREY` is `--line-strong`. They become teal on warm paper as soon as WP1 is done. Leave the names as they are (renaming them is a separate clean-up).
 - Hints: white cards; an opened hint turns marigold tint.
 
 ### 5.7 Sign-in card, account menu, tour, status (`account.css`, `tour.css`, `status.css`)
@@ -353,6 +398,7 @@ frontend/
     palette.js                  the same colours for JavaScript (figures, canvas); TOKENS must equal tokens.css
     fonts.js, fonts.css         self-hosted fonts
     base.css, mode.js, ThemeToggle.jsx, toggle.css
+    motion.css                  NEW in this redesign: every entrance and feedback animation (Appendix D)
     theme.test.js               the rules (part of npm test)
   src/styles.css                landing
   src/library.css               library cards (start page, landing)
@@ -418,7 +464,7 @@ One pull request for all of them is fine. Commit after each package.
 
    (If you skip this, the dark landing page shows the old navy background. That is the sign you missed it.)
 
-**Check:** `npm test` prints `fail 0`. Build and open `/`: colours are warm but the layout is still the old one. That is expected.
+**Check:** `npm test` prints `fail 0`. Build and open `/` and an article: colours are warm, every figure is teal instead of blue, but the layout is still the old one and old buttons are teal. That is expected; the next packages fix them.
 
 ### WP2 — The highlighter on the landing headline
 
@@ -472,15 +518,29 @@ Append **account** to `src/account.css`, **tour** to `src/tour.css`, **status** 
 **Check:** press Tour in the dashboard header and step through it. Open `/health`. The sign-in card only shows on
 production (sign-in is off locally); check it on the preview deployment of the pull request.
 
-### WP8 — Words and docs in the app repo
+### WP8 — Motion
 
-1. `frontend/src/theme/README.md`: replace the first paragraph (the one that points to `Design.md`) with:
+1. Create the file `frontend/src/theme/motion.css` with the content of Appendix D.
+2. In `frontend/src/theme/index.js` there is one line of imports. In it, replace `import"./base.css";` with
+   `import"./base.css";import"./motion.css";`.
+   (`tokens.css` from Appendix A already has the `--dur-enter` token this file reads.)
+
+**Check** (with your browser's reduced-motion setting **off**): reload `/`: the hero text steps in and the marigold
+stroke is drawn under the last word about half a second later. Scroll down: the four cards rise as they enter.
+Open `/dashboard/concepts/`: the cards rise in turn. Open an article and scroll: a thin teal line grows under the
+header (Chrome, Edge or Android). In a problem press Run: the result sheet slides up. On a phone open an article and
+tap a figure's full-screen button: it must still fill the screen. Then turn reduced motion **on** and reload: nothing
+animates, everything is in its final place, and the progress line still works.
+
+### WP9 — Words and docs in the app repo
+
+1. `frontend/src/theme/README.md`: add a row to its table: `motion.css` — every entrance and feedback animation — change it to: slow down, speed up or remove an animation. Also replace the first paragraph (the one that points to `Design.md`) with:
    `The look is "Katta Paper": warm paper, ink, one brand colour (marigold), Fraunces headings. The spec is tech-katta-context/20-UI-REDESIGN-SPEC.md.`
    In its table, add `--brand…`, `--page`, `--font-display` to the examples for `tokens.css`, and say Fraunces is loaded in `fonts.js`.
    Replace the "New accent colour" bullet with: `**New brand colour**: --brand, --brand-strong, --brand-edge, --brand-ink, --brand-line, --brand-tint, --on-brand, --mark in tokens.css (light and dark) and the same keys in palette.js TOKENS.`
 2. Top of `Design.md` (repo root): add one line: `> Superseded by tech-katta-context/20-UI-REDESIGN-SPEC.md. Kept as a record of observations only.`
 
-### WP9 — Final checks, then ship
+### WP10 — Final checks, then ship
 
 Run the acceptance list in section 9. Then follow the usual repo flow: draft pull request, checks green, ready,
 squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTORY.md`, `11-MONGODB-COMMIT-LEDGER.md`,
@@ -495,18 +555,21 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 - [ ] The end-to-end scripts the repo already has still pass (`no-lab.js`, `challenges-v2.js`, `eval-problem.js`,
       `solution-tab.js`; `08-TESTING-VALIDATION.md` and the handover say how to run them). They do not depend on colours.
 - [ ] Every page in section 7, desktop and phone, light and dark: matches the pictures; no text cut off; no
-      sideways scrolling on the phone; no old blue buttons; no grid paper; no navy background.
+      sideways scrolling on the phone; no blue anywhere (buttons, figures, canvas handles, note boxes); no grid paper; no navy background.
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
-- [ ] Keyboard: Tab through the landing header and an article; every stop shows the blue focus ring.
-- [ ] Reduced motion (browser setting): nothing moves on hover.
+- [ ] Keyboard: Tab through the landing header and an article; every stop shows the teal focus ring.
+- [ ] Reduced motion on (browser setting): no entrance animations, nothing moves on hover, pages are complete at once.
+- [ ] Reduced motion off: the thirteen motions in section 4.5 happen, each once; nothing loops except loading lines and the figures.
+- [ ] Phone: a figure's full-screen view still covers the whole screen (this breaks if an animation is changed to `both`).
 - [ ] No console errors on any page.
 - [ ] `git diff --stat` shows only: `package.json`, `package-lock.json`, three `index.html` files, `main.jsx`,
-      files in `src/theme/`, the 16 stylesheets, `Design.md`. **No content, backend or test files.**
+      files in `src/theme/` (one of them new: `motion.css`), the 16 stylesheets, `Design.md`. **No content, backend or test files.**
 
 **What was verified while writing this spec, and what was not.** Built on commit `01adfbe` with exactly the code in
 the appendices: unit tests pass (235), the build succeeds, and these were looked at in a browser — landing, start,
-Concepts, the caching article (whole page), Problems, the URL-shortener workspace, on desktop and Pixel 7, light and
-dark. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit, hints, the phone
+Concepts, the caching article (whole page), Problems, the URL-shortener workspace (with a component selected, and the result sheet after Run), on desktop and Pixel 7, light and
+dark. The motion layer was run with motion on: hero and highlighter, card stagger, scroll reveals, reading progress, the
+result sheet, and the phone full-screen figure afterwards. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit (Run was checked), hints, the phone
 (simplified) problem view, Quick Notes, Privacy, `/health`, `/analytics/`; and the end-to-end scripts were not run.
 Their CSS follows the same patterns, but you must look at each one. If one looks wrong, fix it inside its appended
 block using tokens only, and say so in the pull request.
@@ -519,7 +582,6 @@ These came out of the research and would help, but they need new behaviour or da
 
 | Idea | Seen on | What it needs |
 |---|---|---|
-| Reading progress line under the header | Josh Comeau, many blogs | A scroll listener in `article.jsx` |
 | "Mark as read" and a progress count on section cards | NeetCode, Khan | Storing read state per account (backend) |
 | Bottom tab bar on phones (Read, Practise, Account) | Most learning apps | New component in `shell.jsx`, route changes |
 | Search with a keyboard shortcut | Stripe, react.dev, Vercel | A search index (see `16-SEARCH-SEMANTICS-PERFORMANCE.md`) |
@@ -535,9 +597,11 @@ Friends will react to this. Most reactions map to one token:
 
 | "I wish…" | Change |
 |---|---|
+| …the teal in figures and links were another colour | The nine `--accent…` tokens (light and dark) and the same keys in `palette.js` |
 | …the yellow were another colour | The eight `--brand…` tokens and `--mark`, light and dark, and the same keys in `palette.js` |
 | …the background were plain white | `--page` (and the three `index.html` inline styles, and `theme-color`) |
 | …the headings were not serif | `--font-display` (set it to `var(--font)`), and remove the Fraunces import |
+| …it moved less, or not at all | `--dur-enter` in `tokens.css` for speed; delete a numbered group in `motion.css` to remove one effect; remove the `motion.css` import in `theme/index.js` to remove all of it |
 | …corners were sharper or rounder | `--radius`, `--r-md`, `--r-lg`, `--r-xl` |
 | …the text were bigger | `.d-article>p,.d-article>ul` in the article block |
 
@@ -553,7 +617,7 @@ Friends will react to this. Most reactions map to one token:
    one with the theme button (<html data-theme="light|dark">, set before the page draws by public/theme-boot.js; theme/mode.js keeps it up to date).
    Rules for colour names: name the role, not the hue (--brand, not --yellow), so a new brand colour still reads right.
    The look ("Katta Paper"): warm paper page, white cards, ink text, one brand colour (marigold) for the main button,
-   the highlighter mark and "you are here"; blue only for links and the path that works in figures. */
+   the highlighter mark and "you are here"; one working colour (peacock teal) for links, focus, figures and the canvas. */
 :root{
   color-scheme:light;
   /* Surfaces */
@@ -586,14 +650,14 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#fff3cf;   /* brand-tinted boxes, active sidebar row */
   --on-brand:#1d1b16;
   --mark:#ffd866;         /* the highlighter stroke under a headline word */
-  /* Accent (links, focus rings, the path that works in figures) */
-  --accent:#1d4ed8;
-  --accent-strong:#1a3fae;
-  --accent-mid:#93aef0;
-  --accent-line:#bfcff8;
-  --accent-soft:#dbe5fc;
-  --accent-tint-2:#e9f0fe;
-  --accent-tint:#f3f7ff;
+  /* Accent (peacock teal): links, focus rings, hover outlines, the path that works in figures, canvas handles */
+  --accent:#0f6b66;
+  --accent-strong:#0b524e;
+  --accent-mid:#7fc4bd;
+  --accent-line:#b5ddd8;
+  --accent-soft:#d3ece8;
+  --accent-tint-2:#e4f3f0;
+  --accent-tint:#f0f8f6;
   --on-accent:#fff;
   /* Status */
   --danger:#b3261e;
@@ -620,7 +684,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:29 27 22;
   --bg-rgb:255 255 255;
   --page-rgb:250 247 240;
-  --accent-rgb:29 78 216;
+  --accent-rgb:15 107 102;
   /* Shadows and backdrops */
   --shadow-1:0 1px 2px rgb(var(--ink-rgb) / .06);
   --shadow-2:0 2px 4px rgb(var(--ink-rgb) / .05),0 10px 24px rgb(var(--ink-rgb) / .09);
@@ -641,6 +705,7 @@ Friends will react to this. Most reactions map to one token:
   /* Motion: every transition uses these, and reduced motion sets them to 0 (theme/base.css) */
   --dur-fast:.12s;
   --dur:.2s;
+  --dur-enter:.36s;       /* things arriving on the page (theme/motion.css) */
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 /* Dark: the same roles. Keep contrast: --ink on --bg and --muted on --surface both at least 4.5:1. */
@@ -672,14 +737,14 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#30260f;
   --on-brand:#1d1b16;
   --mark:#7d5c00;
-  --accent:#8fb2ff;
-  --accent-strong:#b0c9ff;
-  --accent-mid:#4a66b5;
-  --accent-line:#33498a;
-  --accent-soft:#223262;
-  --accent-tint-2:#1d2947;
-  --accent-tint:#181f36;
-  --on-accent:#0b1020;
+  --accent:#5fd0c4;
+  --accent-strong:#8ae0d6;
+  --accent-mid:#2f8078;
+  --accent-line:#24544f;
+  --accent-soft:#1b3f3b;
+  --accent-tint-2:#17302d;
+  --accent-tint:#132624;
+  --on-accent:#06201d;
   --danger:#ff8a80;
   --red:#ff7b72;
   --danger-line:#6b2c28;
@@ -702,7 +767,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:0 0 0;
   --bg-rgb:30 28 22;
   --page-rgb:21 20 15;
-  --accent-rgb:143 178 255;
+  --accent-rgb:95 208 196;
   --shadow-1:0 1px 2px rgb(0 0 0 / .4);
   --shadow-2:0 2px 4px rgb(0 0 0 / .35),0 10px 24px rgb(0 0 0 / .35);
   --shadow-3:0 4px 8px rgb(0 0 0 / .4),0 18px 44px rgb(0 0 0 / .55);
@@ -714,7 +779,7 @@ Friends will react to this. Most reactions map to one token:
 ## Appendix B — `TOKENS` in `frontend/src/theme/palette.js` (one line)
 
 ```js
-export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#1d4ed8","accent-strong":"#1a3fae","accent-mid":"#93aef0","accent-line":"#bfcff8","accent-soft":"#dbe5fc","accent-tint-2":"#e9f0fe","accent-tint":"#f3f7ff","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
+export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#0f6b66","accent-strong":"#0b524e","accent-mid":"#7fc4bd","accent-line":"#b5ddd8","accent-soft":"#d3ece8","accent-tint-2":"#e4f3f0","accent-tint":"#f0f8f6","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
 ```
 
 ## Appendix C — blocks to append
@@ -1054,7 +1119,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .sv-q>label,.sd-head label{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
 .sv-q h1{font:600 30px/1.15 var(--font-display);letter-spacing:-.015em}
 .sv-split:hover,.sv-split:focus-visible{background:var(--brand-strong)}
-.sv-how{border-left:3px solid var(--accent);border-radius:0 var(--r-md) var(--r-md) 0;background:var(--accent-tint);padding:14px 16px;color:var(--ink-2)}
+.sv-how{border-left:3px solid var(--brand-strong);border-radius:0 var(--r-md) var(--r-md) 0;background:var(--surface);padding:14px 16px;color:var(--ink-2)}
 .sv-links a{border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);padding:12px 14px;color:var(--ink)}
 .sv-links a:hover{border-color:var(--line-strong);background:var(--surface-2)}
 .sv-links .sv-answer{background:var(--brand-tint);border-color:var(--brand-line)}
@@ -1123,6 +1188,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .ln.sel{box-shadow:0 0 0 3px var(--brand),var(--shadow-2)}
 .lab .react-flow__controls{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-1)}
 @media(prefers-reduced-motion:reduce){.lab-btn,.lab-item{transition:none}}
+.lab-stars{color:var(--star)}
 ```
 
 ### C · lablite → `frontend/src/lablite.css` (WP6)
@@ -1183,4 +1249,67 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 /* ===== Katta Paper skin ===== */
 .st i{border-radius:2px;background:var(--brand)}
 .st-err button{height:44px;padding:0 20px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 15px var(--font)}
+```
+
+## Appendix D — `frontend/src/theme/motion.css` (new file, WP8)
+
+```css
+/* Motion: every entrance and feedback animation on the site, in one file. CSS only, no library.
+   Rules: only transform and opacity move (never width, height or margins); nothing loops except loading marks and
+   the figures' own loops; at most one or two things animate into a screen; everything here is inside
+   prefers-reduced-motion:no-preference, so visitors who asked for less motion get the finished state at once.
+   Speeds come from tokens.css (--dur-enter, --ease). To switch all of it off, remove this file's import in index.js. */
+@keyframes tk-rise{from{opacity:0;transform:translateY(10px)}}
+@keyframes tk-fade{from{opacity:0}}
+@keyframes tk-pop{from{opacity:0;transform:scale(.96)}}
+@keyframes tk-sheet{from{opacity:0;transform:translateY(24px)}}
+@keyframes tk-mark{from{background-size:0 100%}to{background-size:100% 100%}}
+@keyframes tk-shimmer{to{background-position:-200% 0}}
+@keyframes tk-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:no-preference){
+  /* 1. Landing hero: the text steps in, then the figure, then the highlighter is drawn under the last word */
+  .hero>div>*{animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  .hero>div>:nth-child(2){animation-delay:.06s}
+  .hero>div>:nth-child(3){animation-delay:.12s}
+  .hero>div>:nth-child(4){animation-delay:.18s}
+  .hero>.figure{animation:tk-rise .5s var(--ease) .16s backwards}
+  h1 .tk-mark{background-repeat:no-repeat;animation:tk-mark .6s var(--ease) .5s backwards}
+  /* 2. Dashboard pages: the page rises once when you arrive; cards follow one after another (first eight only) */
+  .d-body>.d-panel,.d-read>.d-article{animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  .d-read>.d-rail{animation:tk-fade .4s var(--ease) .15s backwards}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(-n+8){animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(2){animation-delay:.04s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(3){animation-delay:.08s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(4){animation-delay:.12s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(5){animation-delay:.16s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(6){animation-delay:.2s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(7){animation-delay:.24s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(8){animation-delay:.28s}
+  /* 3. Small feedback: the arrow on a card leans forward; opened details and hints fade in */
+  .d-list em,.inside-grid em,.card-go,.a-lab em,.a-next b{transition:transform var(--dur) var(--ease)}
+  .d-list a:hover em,.inside-grid a:hover em,.card:hover .card-go,.a-lab:hover em{transform:translateX(4px)}
+  .a-more[open]>:not(summary),.sv-hints li.open>:not(button){animation:tk-rise .24s var(--ease) backwards}
+  /* 4. Things that open over the page: menus pop, the phone drawer's backdrop fades, sheets slide up */
+  .acct-menu,.lab-menu,.tour-card,.lock-card{animation:tk-pop .16s var(--ease) backwards}
+  .scrim{animation:tk-fade var(--dur) var(--ease) backwards}
+  .sv-console,.lab-score{animation:tk-sheet .26s var(--ease) backwards}
+  .sv-test:nth-child(-n+6){animation:tk-rise .24s var(--ease) backwards}
+  .sv-test:nth-child(2){animation-delay:.05s}
+  .sv-test:nth-child(3){animation-delay:.1s}
+  .sv-test:nth-child(4){animation-delay:.15s}
+  .sv-test:nth-child(5){animation-delay:.2s}
+  .sv-test:nth-child(6){animation-delay:.25s}
+  .ll-res{animation:tk-pop .22s var(--ease) backwards}
+  /* 5. Waiting: the grey lines of a loading page shimmer (a sweep, not a pulse) */
+  .lock-skel i{background-image:linear-gradient(90deg,transparent 0,rgb(var(--bg-rgb) / .7) 50%,transparent 100%);background-size:200% 100%;background-position:200% 0;animation:tk-shimmer 1.4s ease-in-out infinite}
+  /* 6. Landing sections below the fold rise as they scroll into view. Browsers without scroll timelines just show them. */
+  @supports (animation-timeline:view()){
+    .inside-grid li,.lp-lab,.lp .ch-title,.lp .ch-desc{animation:tk-rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  }
+}
+/* 7. Reading progress: a thin teal line under the header fills as you scroll an article. It follows the reader's own
+   scrolling, so it stays on under reduced motion. Browsers without scroll timelines show nothing. */
+@supports (animation-timeline:scroll()){
+  .dash:has(.d-read) .d-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:2px;background:var(--accent);transform-origin:0 50%;animation:tk-progress linear both;animation-timeline:scroll(root)}
+}
 ```
