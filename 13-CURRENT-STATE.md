@@ -1599,6 +1599,11 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PR #316)
+
+- `main` = `6699bbfe647165acdb4debf34c318ab23c5c6fca` (#316, docs only: tours in `content/README.md`, figure speed and
+  phone figures in `theme/README.md`). Production unchanged since #315. Ledger: frontend 853, backend 673.
+
 ## Production snapshot — 2026-11-12 (after PR #315)
 
 - `main` = `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2` (#315). API release `20261112T125123Z-4251e7a`, 66 articles.

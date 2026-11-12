@@ -295,8 +295,7 @@ Since #308, all merged and live in one session (`ccr-829d4266-kyaqbl`), the owne
 review: the "Katta Paper" look (#309) and its follow-ups (#310: Dashboard button, Sign in dialog, narrow phone header);
 figure motion for all 232 figures (#311) and every animation faster through one setting (#312); figures readable on
 phones and a tour per page (#313), the general tour for signed-out visitors (#314); the "In 30 seconds" box removed from
-every article (#315); app docs for tours and figure speed (#316, docs only). Ledger frontend 850, backend 671 (the #316
-rows are pending: see `18-TODO.md`). Details in the sections at the top ("Katta Paper is live",
+every article (#315); app docs for tours and figure speed (#316, docs only). Ledger frontend 853, backend 673 (complete through #316). Details in the sections at the top ("Katta Paper is live",
 "Figure motion", "Phone figures, tours"); rules 19–21 in `12-OPERATING-RULES.md`.
 
 **Update 2026-11-12.** #304 (theme tokens, dark mode), #305 (frontend split into parts, two latent canvas bugs),

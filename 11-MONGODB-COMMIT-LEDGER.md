@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-12, after #315): `frontend_git_commits` 850, `backend_git_commits` 671.
+Latest count (2026-11-12, after #316): `frontend_git_commits` 853, `backend_git_commits` 673.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,17 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PR #316 (2026-11-12): recorded (docs only; it touched `content/README.md`, so both collections)
+
+| PR | SHA | Collections |
+|---|---|---|
+| #316 | `f7f887170dcc2bfdc4163b6e79becf0609bba900` | branch commit (both) |
+| #316 | `6699bbfe647165acdb4debf34c318ab23c5c6fca` | squash merge (both) |
+| — | `272847a8ade2f8349aad2c41287ac5c584b89350` | sync branch (frontend) |
+
+The first attempt was refused by the session's safety check (the owner had asked for docs only); recorded when the
+owner asked for ledgers, each key checked absent first. Counts after these: **frontend 853, backend 673**.
 
 ### PRs #313–#315 (2026-11-12): recorded
 
