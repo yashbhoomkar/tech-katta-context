@@ -37,6 +37,7 @@ This repository is **context**, not the application itself.
 16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
 17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
 - `20-UI-REDESIGN-SPEC.md` — the "Katta Paper" look, **built and live** since tech-katta #309 (2026-11-12): research across the best technical-content sites, the design system, the work packages and CSS. Later changes are in the handover (figure motion #311–#312, phone figures and tours #313–#314, no "In 30 seconds" box #315). Pictures in `ui-redesign/`.
+- `21-PROBLEM-EXPERIENCE-LEETCODE-STYLE.md` — the next problem-solving experience, LeetCode-style (owner, 2026-11-12): a full design specification, **not built yet**; written to be built beside the current canvas and judge.
 
 ## The evaluator specification
 
