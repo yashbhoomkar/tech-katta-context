@@ -12,8 +12,9 @@ Everything below the next heading describes the **MongoDB era (Oct 2026) and is 
   dated release.
 - Article fields: `section, slug, group, no, tag, access ("free"|"paid"), date, title, dek, body`; problems also
   have `practice` (tests, rubric, hints, Lab design; never served: the wrong designs).
-- Blocks: `tldr, example, fig, h2, h3, p, list, type, code, table, more, analogy, lab`. `h3` is a section inside an
-  h2 part (#282). `fig` needs a known id and a `cap`. Inline `` `code` `` is the only inline markup; there are no
+- Blocks: `example, fig, h2, h3, p, list, type, code, table, more, analogy, lab`. `h3` is a section inside an
+  h2 part (#282). `tldr` (the "In 30 seconds" box) is no longer a block: removed from every article and refused by
+  the validator since #315 (owner, 2026-11-12: it added no value). `fig` needs a known id and a `cap`. Inline `` `code` `` is the only inline markup; there are no
   links in text, so articles name other articles in quotes ("'Contention' in Concepts").
 - Sections (`site.json` `dashboard.sections`, `[id, label, card|null]`): concepts, components,
   interview-questions, quick-notes, real-systems (no `lab` since #285; the frontend adds Problems from `site.json

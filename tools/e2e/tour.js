@@ -1,5 +1,6 @@
-// The guided tours (site.json `tour`, frontend/src/tour.jsx): the dashboard tour (ends on "Try the first
-// problem", which opens it), the problem workspace tour (the settings step selects a part first), the
+// The guided tours (site.json `tour`, frontend/src/tour.jsx): the dashboard tour (ends on "Start with Networking
+// essentials", which opens it), each section's own tour and the Problems list tour (each ends on a link, since
+// tech-katta #313), the problem workspace tour (the settings step selects a part first), the
 // Lab tour, no tour by itself on a first visit (only from the Tour button), and a phone.
 // Screenshots of every step go to /tmp/shots/tour-*.png. Usage: node tour.js <site>
 const { chromium: raw, devices } = require('playwright');
@@ -32,10 +33,18 @@ async function walk(p, name, shots = true) {
   await p.goto(B + '/dashboard/'); await p.waitForSelector('.tabs'); await p.click('.d-tour');
   let r = await walk(p, 'dashboard');
   console.log('dashboard:\n  ' + r.seen.join('\n  '));
-  ok(r.seen.length >= 5 && /Problems/.test(r.seen.join()) && !r.seen.some((s) => /off screen/.test(s)), 'dashboard tour: Problems step, every card on screen');
+  ok(r.seen.length >= 4 && /practise/i.test(r.seen.join()) && !r.seen.some((s) => /off screen/.test(s)), 'dashboard tour: Concepts and practise steps, every card on screen');
   ok(await r.last.evaluate((e) => e.tagName) === 'A', 'ends on a link: ' + (await r.last.innerText()));
-  await r.last.click(); await p.waitForSelector('.sv-tabs', { timeout: 20000 });
-  ok(/#problems\/url-shortener/.test(p.url()) && !(await p.locator('.tour-card').count()), 'it opens the first problem and the tour closes');
+  await r.last.click(); await p.waitForSelector('.d-article h1', { timeout: 20000 });
+  ok(/networking-essentials/.test(p.url()) && !(await p.locator('.tour-card').count()), 'it opens Networking essentials and the tour closes');
+  // each reading section and the Problems list have their own tour, ending on a link to a first step
+  for (const [sec, to] of [['concepts', /networking-essentials/], ['components', /redis/], ['interview-questions', /system-design-interviews/], ['real-systems', /shopify-reservations/], ['problems', /url-shortener/]]) {
+    await p.goto(B + '/dashboard/' + sec + '/'); await p.waitForSelector('.tabs'); await p.waitForTimeout(400); await p.click('.d-tour');
+    const s = await walk(p, sec, false); const link = s.last && await s.last.evaluate((e) => e.tagName) === 'A';
+    if (link) { await s.last.click(); await p.waitForTimeout(1500); }
+    ok(s.seen.length >= 3 && link && to.test(p.url()) && !s.seen.some((x) => /off screen/.test(x)), `${sec} tour: ${s.seen.length} steps, ends on a link that opens ${p.url().split('/dashboard/')[1]}`);
+  }
+  await p.goto(B + '/dashboard/problems/#problems/url-shortener'); await p.waitForSelector('.sv-tabs', { timeout: 20000 });
   // problem workspace
   await p.waitForSelector('.sv-lab .react-flow__node', { timeout: 30000 }); await p.waitForTimeout(500);
   await p.click('.d-tour'); r = await walk(p, 'problem');
