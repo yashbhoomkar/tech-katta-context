@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day (the old blue in figures and the canvas replaced by teal, after the owner's review of the first pictures).
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day, twice: the old blue in figures and the canvas replaced by teal after the owner's review of the first pictures; then a motion layer added (section 4.5, WP8, Appendix D).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
@@ -29,8 +29,8 @@ Look at them before you start, and compare your build against them when you fini
 2. **Copy the code blocks exactly.** The CSS in Appendix C was built and looked at in a real build of the site
    (commit `01adfbe` of `tech-katta`, the state after PR #308). Do not "improve" values. If something looks wrong,
    first check that you pasted the block at the **end** of the right file.
-3. **Do not change any JSX, content, route, test or backend file** except the five small edits listed in section 8
-   (WP1 and WP2). The redesign is almost entirely CSS.
+3. **Do not change any JSX, content, route, test or backend file** except the small edits listed in section 8
+   (WP1, WP2 and WP8). The redesign is almost entirely CSS.
 4. **No colour codes outside `frontend/src/theme/`.** `theme.test.js` fails the build if you write `#abc`, `rgb(…)`
    or a colour keyword in any other stylesheet or script. Use `var(--name)`.
 5. **Every change must look right in light and dark, on a desktop and on a phone.** About three quarters of visitors
@@ -174,7 +174,7 @@ personality, never corporate and never a toy.
 - No more than **one** marigold button visible in any one region of a screen (header, page body, toolbar).
 - No more than **one** highlighter stroke per screen.
 - No emoji in the interface.
-- No animation longer than 0.2 s, and none at all under reduced motion.
+- No hover or press feedback longer than 0.2 s; no entrance longer than 0.6 s; none of either under reduced motion. Section 4.5 lists every place something moves. Do not add others.
 
 ---
 
@@ -275,6 +275,50 @@ Depth comes from a 1 px border **and** a very soft shadow together. Never a hard
 | **Header** | 64 px (dashboard 68 px), see-through page colour with a 14 px blur, 1 px line below | `.header`, `.d-head` |
 | **Focus ring** | 2 px `--accent` (teal), 2 px offset, on every link and button | global |
 
+### 4.5 Motion: where things move, and where they do not
+
+The site already has motion where it teaches: every article figure plays a loop, and the canvas replays a load test.
+That stays untouched. This redesign adds a thin layer of **interface** motion so the site feels alive and finished.
+It is one stylesheet, `frontend/src/theme/motion.css` (Appendix D), CSS only, no library and no JavaScript.
+
+The rules were checked against a public set of UI guidelines the owner pointed to
+([ui-ux-pro-max-skill](https://github.com/nextlevelbuilder/ui-ux-pro-max-skill), MIT; it is a guideline dataset with
+GSAP snippets, not a component library, so nothing from it is installed). What we take from it: animate only
+`transform` and `opacity`; one or two key elements per view; entrances 300 to 400 ms moving 8 to 16 px; hover
+feedback 150 to 200 ms; stagger at most about eight items; looping motion only for loading; a shimmer sweep, not a
+pulse, for skeletons; no parallax on text and no scroll-jacking; honour reduced motion by showing the final state.
+
+| # | Where | What happens | Why here | Length |
+|---|---|---|---|---|
+| 1 | Landing hero | Eyebrow, headline, paragraph and buttons rise 10 px one after another; the figure follows; then **the highlighter is drawn under the last word, left to right** | First impression; the drawn stroke is the brand's signature moment | 0.36 s each, 0.06 s apart; stroke 0.6 s |
+| 2 | Every dashboard page | The page content rises once when you arrive (also on moving between pages) | Makes navigation feel like a response, not a jump | 0.36 s |
+| 3 | Card grids (sections, start page, problems groups) | The first eight cards rise in turn | Shows the grid as a set; capped so long lists never wait | 0.04 s apart |
+| 4 | Article contents column | Fades in just after the article | Keeps attention on the title first | 0.4 s |
+| 5 | Cards with an arrow ("Read →", "Explore …") | The arrow slides 4 px on hover, with the existing 2 px card lift | Says "this goes somewhere" | 0.2 s |
+| 6 | "Show more" boxes and hints | The revealed content rises in | Confirms the tap did something | 0.24 s |
+| 7 | Account menu, canvas menus, tour card, sign-in card | Pop in from 96 % size | They appear over the page; a pop reads as "on top" | 0.16 s |
+| 8 | Phone sidebar | The dark backdrop fades in (the drawer itself already slides) | Matches the drawer | 0.2 s |
+| 9 | **Result sheet after Run or Submit**, and the score sheet | Slides up 24 px; the first six test rows follow in turn | The most important moment in the product: you get your verdict | 0.26 s; rows 0.05 s apart |
+| 10 | Phone problem result | Pops in | Same moment, phone version | 0.22 s |
+| 11 | Loading skeleton lines | A light sweep runs across them | Tells the visitor the page is working | 1.4 s loop (the only new loop) |
+| 12 | Landing sections below the hero | Cards and the IND vs PAK problem rise as they scroll into view | Rewards scrolling; shows there is more | Tied to scrolling |
+| 13 | **Article reading progress** | A 2 px teal line under the header fills as you read | Long articles (20 minutes and more): shows how far you are | Tied to scrolling |
+
+Items 12 and 13 use CSS scroll timelines. Browsers that do not have them (older Safari and Firefox) simply show the
+content with no effect and no progress line. That is intended; do not add a JavaScript fallback.
+
+**Where nothing moves, on purpose:** body text and headings inside an article; tables and their rows; figures (they
+have their own loops); nodes and arrows on the canvas (React Flow positions them with `transform`; animating that
+breaks dragging); the header and sidebar; anything while the visitor is typing. No parallax, no scroll-jacking, no
+auto-rotating carousel, no bouncing or elastic easing, no animated background, no confetti.
+
+**Reduced motion:** all of items 1 to 12 are inside `@media(prefers-reduced-motion:no-preference)`, so a visitor who
+asked for less motion gets the finished page at once. Item 13 stays, because it only follows the reader's own scrolling.
+
+**Technical rule that matters:** entrance animations use `backwards`, not `both` or `forwards`. An animation that
+stays applied to `transform` after it ends can trap `position:fixed` children (the full-screen figure view on phones).
+Do not change this.
+
 ---
 
 ## 5. Page by page
@@ -354,6 +398,7 @@ frontend/
     palette.js                  the same colours for JavaScript (figures, canvas); TOKENS must equal tokens.css
     fonts.js, fonts.css         self-hosted fonts
     base.css, mode.js, ThemeToggle.jsx, toggle.css
+    motion.css                  NEW in this redesign: every entrance and feedback animation (Appendix D)
     theme.test.js               the rules (part of npm test)
   src/styles.css                landing
   src/library.css               library cards (start page, landing)
@@ -473,15 +518,29 @@ Append **account** to `src/account.css`, **tour** to `src/tour.css`, **status** 
 **Check:** press Tour in the dashboard header and step through it. Open `/health`. The sign-in card only shows on
 production (sign-in is off locally); check it on the preview deployment of the pull request.
 
-### WP8 — Words and docs in the app repo
+### WP8 — Motion
 
-1. `frontend/src/theme/README.md`: replace the first paragraph (the one that points to `Design.md`) with:
+1. Create the file `frontend/src/theme/motion.css` with the content of Appendix D.
+2. In `frontend/src/theme/index.js` there is one line of imports. In it, replace `import"./base.css";` with
+   `import"./base.css";import"./motion.css";`.
+   (`tokens.css` from Appendix A already has the `--dur-enter` token this file reads.)
+
+**Check** (with your browser's reduced-motion setting **off**): reload `/`: the hero text steps in and the marigold
+stroke is drawn under the last word about half a second later. Scroll down: the four cards rise as they enter.
+Open `/dashboard/concepts/`: the cards rise in turn. Open an article and scroll: a thin teal line grows under the
+header (Chrome, Edge or Android). In a problem press Run: the result sheet slides up. On a phone open an article and
+tap a figure's full-screen button: it must still fill the screen. Then turn reduced motion **on** and reload: nothing
+animates, everything is in its final place, and the progress line still works.
+
+### WP9 — Words and docs in the app repo
+
+1. `frontend/src/theme/README.md`: add a row to its table: `motion.css` — every entrance and feedback animation — change it to: slow down, speed up or remove an animation. Also replace the first paragraph (the one that points to `Design.md`) with:
    `The look is "Katta Paper": warm paper, ink, one brand colour (marigold), Fraunces headings. The spec is tech-katta-context/20-UI-REDESIGN-SPEC.md.`
    In its table, add `--brand…`, `--page`, `--font-display` to the examples for `tokens.css`, and say Fraunces is loaded in `fonts.js`.
    Replace the "New accent colour" bullet with: `**New brand colour**: --brand, --brand-strong, --brand-edge, --brand-ink, --brand-line, --brand-tint, --on-brand, --mark in tokens.css (light and dark) and the same keys in palette.js TOKENS.`
 2. Top of `Design.md` (repo root): add one line: `> Superseded by tech-katta-context/20-UI-REDESIGN-SPEC.md. Kept as a record of observations only.`
 
-### WP9 — Final checks, then ship
+### WP10 — Final checks, then ship
 
 Run the acceptance list in section 9. Then follow the usual repo flow: draft pull request, checks green, ready,
 squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTORY.md`, `11-MONGODB-COMMIT-LEDGER.md`,
@@ -499,15 +558,18 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
       sideways scrolling on the phone; no blue anywhere (buttons, figures, canvas handles, note boxes); no grid paper; no navy background.
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
 - [ ] Keyboard: Tab through the landing header and an article; every stop shows the teal focus ring.
-- [ ] Reduced motion (browser setting): nothing moves on hover.
+- [ ] Reduced motion on (browser setting): no entrance animations, nothing moves on hover, pages are complete at once.
+- [ ] Reduced motion off: the thirteen motions in section 4.5 happen, each once; nothing loops except loading lines and the figures.
+- [ ] Phone: a figure's full-screen view still covers the whole screen (this breaks if an animation is changed to `both`).
 - [ ] No console errors on any page.
 - [ ] `git diff --stat` shows only: `package.json`, `package-lock.json`, three `index.html` files, `main.jsx`,
-      files in `src/theme/`, the 16 stylesheets, `Design.md`. **No content, backend or test files.**
+      files in `src/theme/` (one of them new: `motion.css`), the 16 stylesheets, `Design.md`. **No content, backend or test files.**
 
 **What was verified while writing this spec, and what was not.** Built on commit `01adfbe` with exactly the code in
 the appendices: unit tests pass (235), the build succeeds, and these were looked at in a browser — landing, start,
 Concepts, the caching article (whole page), Problems, the URL-shortener workspace (with a component selected, and the result sheet after Run), on desktop and Pixel 7, light and
-dark. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit (Run was checked), hints, the phone
+dark. The motion layer was run with motion on: hero and highlighter, card stagger, scroll reveals, reading progress, the
+result sheet, and the phone full-screen figure afterwards. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit (Run was checked), hints, the phone
 (simplified) problem view, Quick Notes, Privacy, `/health`, `/analytics/`; and the end-to-end scripts were not run.
 Their CSS follows the same patterns, but you must look at each one. If one looks wrong, fix it inside its appended
 block using tokens only, and say so in the pull request.
@@ -520,7 +582,6 @@ These came out of the research and would help, but they need new behaviour or da
 
 | Idea | Seen on | What it needs |
 |---|---|---|
-| Reading progress line under the header | Josh Comeau, many blogs | A scroll listener in `article.jsx` |
 | "Mark as read" and a progress count on section cards | NeetCode, Khan | Storing read state per account (backend) |
 | Bottom tab bar on phones (Read, Practise, Account) | Most learning apps | New component in `shell.jsx`, route changes |
 | Search with a keyboard shortcut | Stripe, react.dev, Vercel | A search index (see `16-SEARCH-SEMANTICS-PERFORMANCE.md`) |
@@ -540,6 +601,7 @@ Friends will react to this. Most reactions map to one token:
 | …the yellow were another colour | The eight `--brand…` tokens and `--mark`, light and dark, and the same keys in `palette.js` |
 | …the background were plain white | `--page` (and the three `index.html` inline styles, and `theme-color`) |
 | …the headings were not serif | `--font-display` (set it to `var(--font)`), and remove the Fraunces import |
+| …it moved less, or not at all | `--dur-enter` in `tokens.css` for speed; delete a numbered group in `motion.css` to remove one effect; remove the `motion.css` import in `theme/index.js` to remove all of it |
 | …corners were sharper or rounder | `--radius`, `--r-md`, `--r-lg`, `--r-xl` |
 | …the text were bigger | `.d-article>p,.d-article>ul` in the article block |
 
@@ -643,6 +705,7 @@ Friends will react to this. Most reactions map to one token:
   /* Motion: every transition uses these, and reduced motion sets them to 0 (theme/base.css) */
   --dur-fast:.12s;
   --dur:.2s;
+  --dur-enter:.36s;       /* things arriving on the page (theme/motion.css) */
   --ease:cubic-bezier(.2,.7,.2,1);
 }
 /* Dark: the same roles. Keep contrast: --ink on --bg and --muted on --surface both at least 4.5:1. */
@@ -1186,4 +1249,67 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 /* ===== Katta Paper skin ===== */
 .st i{border-radius:2px;background:var(--brand)}
 .st-err button{height:44px;padding:0 20px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 15px var(--font)}
+```
+
+## Appendix D — `frontend/src/theme/motion.css` (new file, WP8)
+
+```css
+/* Motion: every entrance and feedback animation on the site, in one file. CSS only, no library.
+   Rules: only transform and opacity move (never width, height or margins); nothing loops except loading marks and
+   the figures' own loops; at most one or two things animate into a screen; everything here is inside
+   prefers-reduced-motion:no-preference, so visitors who asked for less motion get the finished state at once.
+   Speeds come from tokens.css (--dur-enter, --ease). To switch all of it off, remove this file's import in index.js. */
+@keyframes tk-rise{from{opacity:0;transform:translateY(10px)}}
+@keyframes tk-fade{from{opacity:0}}
+@keyframes tk-pop{from{opacity:0;transform:scale(.96)}}
+@keyframes tk-sheet{from{opacity:0;transform:translateY(24px)}}
+@keyframes tk-mark{from{background-size:0 100%}to{background-size:100% 100%}}
+@keyframes tk-shimmer{to{background-position:-200% 0}}
+@keyframes tk-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@media(prefers-reduced-motion:no-preference){
+  /* 1. Landing hero: the text steps in, then the figure, then the highlighter is drawn under the last word */
+  .hero>div>*{animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  .hero>div>:nth-child(2){animation-delay:.06s}
+  .hero>div>:nth-child(3){animation-delay:.12s}
+  .hero>div>:nth-child(4){animation-delay:.18s}
+  .hero>.figure{animation:tk-rise .5s var(--ease) .16s backwards}
+  h1 .tk-mark{background-repeat:no-repeat;animation:tk-mark .6s var(--ease) .5s backwards}
+  /* 2. Dashboard pages: the page rises once when you arrive; cards follow one after another (first eight only) */
+  .d-body>.d-panel,.d-read>.d-article{animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  .d-read>.d-rail{animation:tk-fade .4s var(--ease) .15s backwards}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(-n+8){animation:tk-rise var(--dur-enter) var(--ease) backwards}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(2){animation-delay:.04s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(3){animation-delay:.08s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(4){animation-delay:.12s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(5){animation-delay:.16s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(6){animation-delay:.2s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(7){animation-delay:.24s}
+  :is(.d-list,.cards,.pb-group) :is(li,.card):nth-child(8){animation-delay:.28s}
+  /* 3. Small feedback: the arrow on a card leans forward; opened details and hints fade in */
+  .d-list em,.inside-grid em,.card-go,.a-lab em,.a-next b{transition:transform var(--dur) var(--ease)}
+  .d-list a:hover em,.inside-grid a:hover em,.card:hover .card-go,.a-lab:hover em{transform:translateX(4px)}
+  .a-more[open]>:not(summary),.sv-hints li.open>:not(button){animation:tk-rise .24s var(--ease) backwards}
+  /* 4. Things that open over the page: menus pop, the phone drawer's backdrop fades, sheets slide up */
+  .acct-menu,.lab-menu,.tour-card,.lock-card{animation:tk-pop .16s var(--ease) backwards}
+  .scrim{animation:tk-fade var(--dur) var(--ease) backwards}
+  .sv-console,.lab-score{animation:tk-sheet .26s var(--ease) backwards}
+  .sv-test:nth-child(-n+6){animation:tk-rise .24s var(--ease) backwards}
+  .sv-test:nth-child(2){animation-delay:.05s}
+  .sv-test:nth-child(3){animation-delay:.1s}
+  .sv-test:nth-child(4){animation-delay:.15s}
+  .sv-test:nth-child(5){animation-delay:.2s}
+  .sv-test:nth-child(6){animation-delay:.25s}
+  .ll-res{animation:tk-pop .22s var(--ease) backwards}
+  /* 5. Waiting: the grey lines of a loading page shimmer (a sweep, not a pulse) */
+  .lock-skel i{background-image:linear-gradient(90deg,transparent 0,rgb(var(--bg-rgb) / .7) 50%,transparent 100%);background-size:200% 100%;background-position:200% 0;animation:tk-shimmer 1.4s ease-in-out infinite}
+  /* 6. Landing sections below the fold rise as they scroll into view. Browsers without scroll timelines just show them. */
+  @supports (animation-timeline:view()){
+    .inside-grid li,.lp-lab,.lp .ch-title,.lp .ch-desc{animation:tk-rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
+  }
+}
+/* 7. Reading progress: a thin teal line under the header fills as you scroll an article. It follows the reader's own
+   scrolling, so it stays on under reduced motion. Browsers without scroll timelines show nothing. */
+@supports (animation-timeline:scroll()){
+  .dash:has(.d-read) .d-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:2px;background:var(--accent);transform-origin:0 50%;animation:tk-progress linear both;animation-timeline:scroll(root)}
+}
 ```
