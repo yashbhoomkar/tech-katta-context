@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-12, after #310): `frontend_git_commits` 832, `backend_git_commits` 665.
+Latest count (2026-11-12, after #312): `frontend_git_commits` 839, `backend_git_commits` 665.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,21 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PRs #311 and #312 (2026-11-12): recorded (frontend only; neither touched `backend/` or `content/`)
+
+| PR | SHA | Collections |
+|---|---|---|
+| #311 | `f03a8a4b4b0540d3e78490f92c1739db04bdabfc` | branch commit, motion grammar (frontend) |
+| #311 | `a8497725c01643b100c89d3c96fb2e35928744f2` | branch commit, loops start when seen (frontend) |
+| #311 | `e84092b008c8f32e64313b6fa501e04fa0135e32` | squash merge (frontend) |
+| — | `25a5b8403dc01513a8af9c2d5994f6897b20d47f` | sync branch (frontend) |
+| #312 | `e9956135b2b3120f73e66d203a8505cb7ac22c92` | branch commit, faster animations (frontend) |
+| #312 | `63d52fda6e8cf7035d326d58a5c005624d3a18c8` | squash merge (frontend) |
+| — | `57c3a223d66a346c7b3df21d778e90fc0b744c9b` | sync branch (frontend) |
+
+Each key was checked absent before inserting. The #311 rows were refused once by the session's safety check and
+inserted when the owner asked ("update docs and ledgers"). Counts after these: **frontend 839, backend 665**.
 
 ### PRs #309 and #310 (2026-11-12): recorded
 
