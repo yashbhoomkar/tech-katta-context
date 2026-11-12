@@ -36,6 +36,7 @@ This repository is **context**, not the application itself.
 15. `14-OVERFLOW-ARCHITECTURE.md` — VPS-primary / Render-overflow design and its current status.
 16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
 17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
+- `20-UI-REDESIGN-SPEC.md` — the next look ("Katta Paper"): research across the best technical-content sites, the design system, and exact work packages and CSS for the session that builds it. Pictures in `ui-redesign/`.
 
 ## The evaluator specification
 

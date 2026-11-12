@@ -1,0 +1,1186 @@
+# 20 — UI redesign spec: "Katta Paper"
+
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026.
+**Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
+without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
+**What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
+`Design.md` (that file studied one site, fanout.sh; the owner rejected a look that close to it). `Design.md` stays in
+the repo as a record of observations only. **Do not use its Part B.**
+
+Pictures of the finished look (a working build made while writing this file) are in [`ui-redesign/`](ui-redesign/).
+Look at them before you start, and compare your build against them when you finish.
+
+| Picture | Shows |
+|---|---|
+| `01-landing-light.png`, `02-landing-dark.png` | Landing page, 1366 px wide |
+| `03-start.png` | Dashboard start page |
+| `04-section.png` | A section page (Concepts) |
+| `05-article.png`, `10-article-body.png` | An article: top, and three pieces of the body (light, dark, light) |
+| `06-problems.png` | Problems list |
+| `07-workspace.png` | Problem workspace with the canvas |
+| `08-phones.png` | Pixel 7: landing, section, problems, article (light), article and landing (dark) |
+| `09-dark.png` | Dark mode: landing, problems, workspace |
+
+---
+
+## 0. Read this first (rules for the implementing agent)
+
+1. **Do the work packages in section 8 in order.** Each one ends with a check. Do not start the next until the check passes.
+2. **Copy the code blocks exactly.** The CSS in Appendix C was built and looked at in a real build of the site
+   (commit `01adfbe` of `tech-katta`, the state after PR #308). Do not "improve" values. If something looks wrong,
+   first check that you pasted the block at the **end** of the right file.
+3. **Do not change any JSX, content, route, test or backend file** except the five small edits listed in section 8
+   (WP1 and WP2). The redesign is almost entirely CSS.
+4. **No colour codes outside `frontend/src/theme/`.** `theme.test.js` fails the build if you write `#abc`, `rgb(…)`
+   or a colour keyword in any other stylesheet or script. Use `var(--name)`.
+5. **Every change must look right in light and dark, on a desktop and on a phone.** About three quarters of visitors
+   are on phones.
+6. **Never copy another site.** Section 4.4 lists what must not appear. In particular the look must not resemble
+   fanout.sh: no pixel or dot-matrix lettering, no pastel "folder" cards, no buttons with a thick dark bottom edge.
+7. Follow the repo rules in `12-OPERATING-RULES.md` (branch, pull request, ledger, docs). Rule 19 applies: the look
+   goes through `frontend/src/theme/`.
+8. If a step fails and you cannot fix it in two tries, stop and write what happened in the pull request. Do not skip
+   tests, and do not delete a rule from `theme.test.js`.
+
+---
+
+## 1. Why we are doing this
+
+The site was shown to UI/UX reviewers. Their verdict on the current look: it will not sell a subscription. What they
+saw, and what an audit of the live pages confirms:
+
+| Problem on the live site | Where | Effect |
+|---|---|---|
+| Type is too small | Landing hero paragraph 14 px, nav 10 px mono capitals, article body 16 px (15 px on phones) | Hard to read, feels like a wireframe |
+| Everything is a thin grey box with square corners | `--radius:2px`, 1 px `--line` borders on every card, table and button | Looks unfinished, nothing invites a tap |
+| No brand colour | One blue (`#2855d9`) does links, buttons, labels, active states and figures | Nothing is memorable; the main button looks like a link |
+| Grid-paper background behind the dashboard | `.d-body` | Busy, lowers contrast, reads as "engineering tool", not "product" |
+| Capital mono labels everywhere | Nav, buttons, tabs, table heads, group titles | Shouts; the real headings do not stand out |
+| Section pages are one long column of boxes | `.d-list` | No sense of a library; lots of scrolling |
+| The article has a white box inside a grey grid | `.d-panel` | Wastes width on phones (double padding) |
+| Main button and second button look alike | `.btn`, `.sv-run`/`.sv-submit` | No clear next step |
+
+The content, the figures, the canvas and the judge are the product's strength. The redesign does not touch them. It
+changes the frame around them so the site looks like something worth paying for.
+
+**Goals, in order:** (1) reading is comfortable on a phone, (2) one obvious next action on every screen,
+(3) a look people remember and that belongs to Tech Katta, (4) changing the look later stays a one-folder job.
+
+---
+
+## 2. Research: what the best technical-content sites do
+
+Twenty-four sites were opened in a real browser at 1440 px and on a Pixel 7; 22 loaded (LeetCode and GreatFrontEnd
+blocked the visit). Fonts, sizes, colours, radii and layout widths were read from the pages, not guessed.
+
+### 2.1 What was measured
+
+| Site | Kind | Body text | Headings | Layout | One thing it does best |
+|---|---|---|---|---|---|
+| Stripe docs | Documentation | 14/20 system font | 32 px, weight 700 | Three columns: nav, content about 780 px, "On this page" | Explanation next to working code; quiet page, one accent |
+| react.dev | Learning docs | 20/32 | 40 px, weight 700 | Sidebar 336 px, tinted pill on the current item | Large comfortable type; the current place is always clear |
+| Vercel docs | Documentation | 16/27 Geist | Weight 600, tight tracking | Sidebar 300, contents 240, sticky 64 px header | Speed; transitions of 0.1 to 0.15 s |
+| Linear docs | Documentation | 15/24 Inter | 32 px, weight 590 | Sidebar 280 | Restraint: very few colours, very even spacing |
+| Tailwind docs | Documentation | Inter | 30 px, weight 500 | Sidebar 240 | Small mono capitals used only as section eyebrows |
+| MDN | Reference | 16/28 Inter | 40 px | Nav 297 + contents | Plain, readable, trusted |
+| Supabase docs | Documentation | 15/28 Inter | 34 px, a second typeface for headings | Sidebar 325 | A heading typeface with character over a plain body |
+| GitHub docs | Documentation | Mona Sans | — | Sidebar 325 | Clear hierarchy with almost no decoration |
+| Brilliant | Paid learning | 16/24 | Serif display, 54 px | Marketing page | Serif headline + one bright button colour = warm and confident; this is a page that sells |
+| samwho.dev | Visual explainers | 18.7/28, about 80 characters a line | Serif, 48 px | Single column | Warm paper background; the interactive figure is the hero |
+| Josh Comeau | Visual explainers | 18/27, about 76 characters | — | Single column | Personality without clutter |
+| Ciechanowski | Visual explainers | 19/31, about 73 characters | — | Single column | Figures sit between paragraphs at full width |
+| NeetCode | Practice | — | — | Sidebar 280, problem table | Table: status, title, coloured difficulty; pill filters; progress |
+| Hello Interview | System design (competitor) | 14/24.5 | 40 px, weight 600 | Sidebar 256, right "On this page" | Teal brand, premium card in the right column |
+| ByteByteGo | System design (competitor) | — | — | Marketing | Green brand, colourful course cards |
+| Exercism, Khan, Educative, Execute Program, Refactoring.guru, roadmap.sh | Learning | — | — | — | Each owns one colour (purple, blue, indigo, lavender, red) |
+
+### 2.2 Patterns that almost every good site shares
+
+1. **One brand colour on quiet neutrals.** Used for the main button and "you are here". Never for body text.
+2. **Body text 15 to 20 px, line height 1.5 to 1.8, 65 to 80 characters a line.** The explainer sites, which are
+   closest to our articles, sit at 18 to 20 px.
+3. **Headings weight 600 to 700 with slightly tight letter spacing.** The warmest sites use a second typeface for them.
+4. **Three columns for reading on a desktop:** navigation 240 to 336 px, content up to about 780 px, contents list
+   240 to 300 px. One column on a phone.
+5. **Content sits straight on the page.** No box around the article. Boxes are kept for things that are objects: a
+   figure, a code sample, a call-out, a card you can click.
+6. **Sticky header 56 to 64 px**, often see-through with a blur.
+7. **Corners:** 6 to 10 px on controls, 12 to 16 px on cards, full pills for filters and tags.
+8. **Fast, small motion:** 0.1 to 0.2 s. A card lifts 2 to 3 px on hover. Nothing bounces.
+9. **Light and dark.**
+10. **Practice lists are tables:** number, title, coloured difficulty, your progress.
+
+### 2.3 What reviewers and written guides say (secondary sources)
+
+- Stripe's docs are the benchmark, and the three-column layout is widely copied. The lesson is not the layout; it is
+  the discipline of explanation beside something you can run. We already have that (article + canvas), so the frame
+  should get out of its way.
+- Show the real product on the landing page. Ours already does (a live figure and a real problem); keep both large.
+- Reading: 45 to 75 characters a line, 16 px minimum, 18 px comfortable on phones, line height 1.5 to 1.8, and do not
+  shrink text on phones. Avoid wide tables on phones.
+
+Sources: [draft.dev, documentation examples](https://draft.dev/learn/12-documentation-examples-every-developer-tool-can-learn-from) ·
+[Veza Digital, devtool site examples](https://www.vezadigital.com/post/best-devtool-website-design-examples) ·
+[Moesif, Stripe docs teardown](https://www.moesif.com/blog/best-practices/api-product-management/the-stripe-developer-experience-and-docs-teardown/) ·
+[docsio, Stripe API docs teardown](https://docsio.co/blog/stripe-api-docs-teardown) ·
+[Apidog, why Stripe's docs are the benchmark](https://apidog.com/blog/stripe-docs/) ·
+[Blake Crosley, Stripe design](https://blakecrosley.com/guides/design/stripe) ·
+[TJ VanToll, line length in technical blogs](https://www.tjvantoll.com/2015/12/21/technical-blogs-line-length/) ·
+[ConversionWax, mobile article formatting](https://www.conversionwax.com/playbook/mobile-first-article-formatting/) ·
+[Merge, best-designed edtech platforms](https://merge.rocks/blog/7-best-designed-edtech-platforms-weve-seen-so-far)
+
+---
+
+## 3. What suits Tech Katta
+
+### 3.1 The product has three jobs, and each has a different best-in-class model
+
+| Job | Pages | Model to learn from | What we take |
+|---|---|---|---|
+| **Read** | Articles, section pages | Stripe docs, react.dev, samwho, Ciechanowski | Three columns, large type, figure as the star, content on the page not in a box |
+| **Practise** | Problems list, workspace, canvas | NeetCode, LeetCode-style lists | A real table, coloured difficulty pills, one bright Submit button |
+| **Sell** | Landing, sign-in card | Brilliant, Stripe | Big serif headline, one bright button, the real product shown beside it |
+
+### 3.2 Who it is for
+
+Indian engineers preparing for system design interviews, mostly on a phone, often reading in short sessions. The
+examples in the articles are Indian (Zotato, crores and lakhs, IND vs PAK traffic). A *katta* is the spot where
+friends sit and talk. So the site should feel like **a senior friend's well-kept notebook**: warm, clear, a bit of
+personality, never corporate and never a toy.
+
+### 3.3 The identity: "Katta Paper"
+
+| Element | Decision | Why |
+|---|---|---|
+| Background | Warm paper `#faf7f0`, white cards on top | Explainer sites that people love to read use warm backgrounds; it also separates us from the cold white or dark of every competitor |
+| Text | Warm near-black ink `#1d1b16` | 16:1 contrast on paper |
+| **Brand colour** | **Marigold `#ffc233`** with ink text on it | Nobody in this field owns yellow: Stripe is violet-blue, Hello Interview teal, ByteByteGo green, NeetCode violet, Exercism purple, Khan blue. Marigold is also a colour every Indian reader knows. Ink on marigold has 10.7:1 contrast |
+| **Signature** | A **highlighter stroke** under one word of the main headline, and under the sentence being read aloud | It is what a person does in a notebook. It is ours, it is cheap (one CSS gradient), and it works in dark mode |
+| Small mark | An 8 px marigold square before each eyebrow label, and the 28 px marigold square logo | Ties every page to the brand without more colour |
+| Headings | **Fraunces** (a serif), weight 600 | Warm and confident, like Brilliant and samwho; every competitor uses a plain sans, so this alone makes the site recognisable. Tested against seven other typefaces in a specimen |
+| Body and controls | **Inter** (already on the site) | The most readable choice at small sizes; no new download for body text |
+| Labels | **IBM Plex Mono** (already on the site), only for eyebrows, table heads and figure captions | Keeps the engineering flavour, in small doses |
+| Blue | Kept, but only for links, focus rings and "the path that works" in figures | The figures were drawn with blue = works, red = trouble. That meaning stays |
+| Warning colour | Moved from amber to orange | So a warning never looks like the brand |
+| One dark card | The "practise this" call-out inside an article is ink-coloured with marigold text | One strong invitation per article; used nowhere else |
+
+### 3.4 What we deliberately do not do
+
+- No pixel, dot-matrix or bitmap lettering. No pastel wash cards in several colours. No buttons with a thick dark
+  bottom edge. No tilted cards. (These are another site's signatures.)
+- No gradients except the highlighter stroke. No glow, no glass cards, no neon.
+- No second brand colour. If something needs to stand out and is not the main action, use weight or size.
+- No capital mono text for anything a person taps (buttons, tabs, nav).
+- No more than **one** marigold button visible in any one region of a screen (header, page body, toolbar).
+- No more than **one** highlighter stroke per screen.
+- No emoji in the interface.
+- No animation longer than 0.2 s, and none at all under reduced motion.
+
+---
+
+## 4. Design system
+
+All values live in `frontend/src/theme/tokens.css` (Appendix A). This section explains them.
+
+### 4.1 Colour roles (light / dark)
+
+| Token | Light | Dark | Use |
+|---|---|---|---|
+| `--page` | `#faf7f0` | `#15140f` | Page background. **New.** |
+| `--bg` | `#fff` | `#1e1c16` | Cards, inputs, figures. Keeps its old meaning so about 60 existing rules still work |
+| `--surface` | `#f3efe5` | `#28261e` | Wells, the "In 30 seconds" box, inline code |
+| `--surface-2` | `#fcfaf5` | `#191812` | Sidebar, table heads, toolbars |
+| `--hover` | `#efeadd` | `#2e2b22` | Hover on rows. **New.** |
+| `--inverse` / `--on-inverse` | `#1d1b16` / `#faf7f0` | `#f4f1e8` / `#1d1b16` | The dark call-out; the selected filter pill. **New.** |
+| `--ink`, `--ink-2`, `--ink-3` | `#1d1b16`, `#3a372f`, `#4d493f` | `#f4f1e8`, `#dbd7ca`, `#c8c3b4` | Headings; body text; lead paragraphs |
+| `--muted`, `--muted-2`, `--faint` | `#625c4f`, `#6b6557`, `#736d5d` | `#aca695`, `#9f9988`, `#8d8777` | Captions; quieter captions; mono labels |
+| `--line`, `--line-strong`, `--line-soft`, `--grid` | `#e6e0d1`, `#b9b2a0`, `#ddd6c4`, `#f0ebde` | `#322f26`, `#5e594a`, `#3d3a2f`, `#22201a` | Card borders; button borders; tracks; faint lines |
+| `--brand` | `#ffc233` | `#ffc233` | Main button, logo, eyebrow square, active tab line. **New.** |
+| `--brand-strong` | `#f2ac00` | `#ffd466` | Main button hover; active marker lines |
+| `--brand-edge` | `#d79a00` | `#b88400` | Main button border |
+| `--brand-ink` | `#6e4a00` | `#ffd87a` | Brand-coloured text on a tint |
+| `--brand-tint`, `--brand-line` | `#fff3cf`, `#f0d388` | `#30260f`, `#5f4813` | Tinted boxes and their border; active sidebar row |
+| `--on-brand` | `#1d1b16` | `#1d1b16` | Text on marigold. Always ink, in both themes |
+| `--mark` | `#ffd866` | `#7d5c00` | The highlighter stroke |
+| `--accent` family | `#1d4ed8` … | `#8fb2ff` … | Links, focus rings, figures |
+| `--danger`, `--success`, `--warn` families | red, green, orange | lighter versions | Status. Difficulty pills: Easy = success, Medium = warn, Hard = danger |
+
+Measured contrast (WCAG needs 4.5:1 for text): ink on page 16.1, body (`--ink-2`) on page 11.1, `--muted` on page
+6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` on page 6.3, `--success` on its
+tint 5.0, `--warn` on its tint 5.7, `--danger` on its tint 6.1. Dark mode: all of these are 4.7 or higher.
+
+**Rules.** Marigold is a background or a line, **never the colour of text on paper** (it fails contrast); for
+brand-coloured text use `--brand-ink`. Text on marigold is always `--on-brand`.
+
+### 4.2 Type
+
+| Role | Typeface | Size / line height | Weight | Letter spacing | Phone (≤ 680 px) |
+|---|---|---|---|---|---|
+| Landing headline | Fraunces | clamp(40 px, 5.2vw, 66 px) / 1.04 | 600 | −0.025em | 40 px |
+| Page title (section, problems) | Fraunces | 44 / 1.08 | 600 | −0.02em | 32 px |
+| Article title | Fraunces | 42 / 1.1 | 600 | −0.02em | 31 px |
+| Landing section heading | Fraunces | clamp(30 px, 3.6vw, 42 px) / 1.1 | 600 | −0.02em | 30 px |
+| Article `h2` | Fraunces | 28 / 1.2 | 600 | −0.015em | 24 px |
+| Group heading | Fraunces | 26 (24 on Problems) / 1.15 | 600 | −0.015em | 22 px |
+| Card title | Fraunces | 20 to 23 / 1.22 | 600 | −0.01em | same |
+| Article `h3` | Inter | 19 | 650 | −0.01em | same |
+| Lead paragraph (dek) | Inter | 19 / 1.55 | 400 | 0 | 17 px |
+| **Article body** | Inter | **17 / 1.75** | 400 | 0 | **17 px (not smaller)** |
+| Landing paragraph | Inter | 18 / 1.6 | 400 | 0 | 17 px |
+| Card text | Inter | 14.5 / 1.55 | 400 | 0 | same |
+| Button, tab, nav | Inter | 13.5 to 15 | 500 to 600 | 0 | same |
+| Eyebrow, table head, caption label | IBM Plex Mono | 10 to 11 | 600 | 0.08 to 0.12em, capitals | same |
+
+Article text column is at most 680 px wide (about 75 characters at 17 px). Fraunces is used only at 19 px and above.
+Mono capitals are used only at 10 to 11 px and never on anything you can tap.
+
+### 4.3 Shape, depth, motion
+
+| Token | Value | Use |
+|---|---|---|
+| `--r-sm` | 6 px | Inline code, tiny chips |
+| `--radius` | 8 px | Sidebar rows, inputs, small controls (this token already exists; every old rule that reads it gets rounder) |
+| `--r-md` | 10 px | Buttons |
+| `--r-lg` | 14 px | Cards, tables, figures, call-outs |
+| `--r-xl` | 18 px | The landing figure, the sign-in card, the tour card |
+| `--r-full` | 999 px | Pills: filters, difficulty, account button |
+| `--shadow-1` | 1 px soft | Resting cards and buttons |
+| `--shadow-2` | 10 px soft | A card on hover; the landing figure |
+| `--shadow-3` | 18 px | Menus, the sign-in card, the phone drawer |
+| `--dur-fast` / `--dur` | 0.12 s / 0.2 s | Colour and border changes / lift on hover |
+| `--ease` | `cubic-bezier(.2,.7,.2,1)` | Everything |
+
+Depth comes from a 1 px border **and** a very soft shadow together. Never a hard offset shadow.
+
+### 4.4 Components (what each looks like, and the classes that carry it)
+
+| Component | Look | Classes |
+|---|---|---|
+| **Main button** | Marigold fill, ink text weight 600, 1 px `--brand-edge` border, 10 px corners; hover `--brand-strong`; pressed moves down 1 px | `.btn.primary`, `.pr-solve`, `.sv-submit`, `.lab-btn`, `.r-btn.primary`, `.acct-signin-link`, `.tour-next`, `.ll-score`, `.sd-copy`, `.pb-pick`, `.st-err button` |
+| **Second button** | White (`--bg`) fill, ink text, 1 px `--line-strong` border; hover border turns ink | `.btn`, `.d-tour`, `.d-home`, `.sv-run`, `.sv-reset`, `.sv-clock`, `.lab-btn.ghost`, `.r-btn`, `.a-more>summary`, `.fs-btn`, `.zoom-btn`, `.menu` |
+| **Card you can click** | White, 1 px `--line`, 14 px corners, `--shadow-1`; hover: border `--line-strong`, `--shadow-2`, up 2 px | `.d-list a`, `.inside-grid a`, `.card`, `.a-next` link, `.pb-group a` |
+| **Eyebrow** | Mono 11 px capitals, `--muted`, with an 8 px marigold square before it | `.d-panel label`, `.hero label`, `.inside>label`, `.lp-eyebrow` |
+| **Highlighter** | Gradient band from 60 % to 92 % of the line height in `--mark` | `.tk-mark` (landing headline), `.d-article .reading` (read-aloud sentence) |
+| **Top tabs** | Plain text; the current one is ink, weight 600, with a 3 px marigold line under it | `.tab`, `.sv-tabs .on` |
+| **Sidebar row** | 38 px tall, 8 px corners; current: `--brand-tint` fill and a 3 px `--brand-strong` bar on the left | `.side-link` |
+| **Sidebar sub-list and "On this page"** | A thin vertical line; the current item is ink, weight 600, and its piece of the line is `--brand-strong` | `.side-sub a`, `.d-rail li a` |
+| **Filter pills** | White pill with border; selected: ink fill, paper text | `.pb-filter button`, `.qt-levels button` |
+| **Difficulty pill** | Tinted pill: Easy green, Medium orange, Hard red | `.pb-tag.easy/.medium/.hard` |
+| **Problems table** | One white card; mono capital head on `--surface-2`; rows split by hairlines; row hover `--surface-2`. On phones each row becomes its own card | `.qt-table` |
+| **"In 30 seconds"** | `--surface` well, no border | `.a-tldr` |
+| **Worked example** | `--accent-tint` box with `--accent-line` border, mono label in `--accent` | `.a-example` |
+| **Analogy** | `--brand-tint` with a 3 px marigold bar on the left | `.a-analogy` |
+| **Practise call-out** | The one dark card: `--inverse` fill, Fraunces sentence in `--on-inverse`, label and arrow in marigold | `.a-lab` |
+| **Figure** | White card, 14 px corners, mono caption strip on `--surface-2` | `.a-fig`, `.figure` |
+| **Header** | 64 px (dashboard 68 px), see-through page colour with a 14 px blur, 1 px line below | `.header`, `.d-head` |
+| **Focus ring** | 2 px `--accent`, 2 px offset, on every link and button | global |
+
+---
+
+## 5. Page by page
+
+Each page: what changes for the visitor. The CSS that does it is in Appendix C; you do not write new CSS for these.
+
+### 5.1 Landing (`/`, `src/main.jsx`, `src/styles.css`) — pictures 01, 02
+- Header: sticky, 64 px, blurred. Logo: marigold square + "Tech Katta" in Fraunces. Nav links are 14.5 px Inter in
+  `--muted`, ink on hover, no underline, no capitals.
+- Hero: two columns (text 1fr, figure 1.05fr), 76 px above and below. Eyebrow with the marigold square. Headline in
+  Fraunces up to 66 px, **the last word highlighted** (WP2). Paragraph 18 px. Two buttons 48 px tall: marigold
+  "Start practising →" and white "Try IND vs PAK".
+- Figure: white card, 18 px corners, `--shadow-2`, not rotated. Its status chip is a green pill.
+- "What's inside": Fraunces heading; four white cards; the count chip on each is a marigold-tint pill.
+- IND vs PAK problem: same frame as the hero figure (`.lp-lab`).
+- Footer: `--surface-2`, brand name in Fraunces.
+- Below 980 px: one column, text first. Below 680 px: header 60 px, headline 40 px, both buttons share the row and wrap.
+
+### 5.2 Dashboard frame (`src/dashboard/shell.jsx`, `shell.css`) — pictures 03 to 07
+- Sidebar 260 px on `--surface-2`. Logo square and Fraunces name. Section rows as in 4.4. No line under the logo row.
+- Header: tabs on the left as in 4.4; Tour, theme and site buttons on the right as second buttons.
+- Body: plain `--page`. **The grid-paper background is removed.** Padding 40 px 32 px (24 px 16 px on phones).
+- Collapsed sidebar (64 px): icons only; the Privacy and Terms links are hidden there (they wrapped badly).
+- Below 900 px the sidebar is a drawer with `--shadow-3`, as today.
+
+### 5.3 Start page and section pages (`pages.jsx`, `pages.css`, `library.css`) — pictures 03, 04
+- **No white panel.** Title and description sit on the page.
+- Eyebrow, Fraunces 44 px title, 17 px description (max 640 px).
+- Articles are a **two-column grid of cards** (one column below 760 px): mono number line, Fraunces 20 px title,
+  three lines of description at most, "Read →" pinned to the bottom so cards in a row line up.
+- Group headings (Core concepts, Recurring patterns, …) are Fraunces 26 px with no rule above.
+- Start page: three library cards, white, with the mini diagram in a `--surface-2` well.
+
+### 5.4 Article (`article.jsx`, `article.css`, `blocks.css`, `figure.css`, `reader.css`) — pictures 05, 10
+- Three columns from 1240 px: sidebar, article (max 720 px, text max 680 px), "On this page" (260 px, sticky). The
+  gap between article and contents is 56 px.
+- Breadcrumb in mono; eyebrow; Fraunces 42 px title; 19 px dek; the Listen bar as a white card with a marigold
+  Listen button; meta line in mono with a hairline under it.
+- Body 17 px / 1.75. `h2` Fraunces 28 px with 56 px above and no rule. Inline code on `--surface`.
+- Blocks as in 4.4. "On this page" is a plain list on the page, not a box. Under it, the practise link is a
+  marigold-tint card.
+- The sentence being read aloud gets the highlighter.
+- Phones: one column, body stays 17 px, tables become stacked cards (existing behaviour, restyled).
+
+### 5.5 Problems (`problems.jsx`, `problems.css`) — picture 06
+- Title block as in 5.3. Progress line in mono. Filters are pills; "Pick one" is the marigold pill (the page's main action).
+- Each group: Fraunces heading, one-line description, difficulty pills, then the table card.
+- Challenge start card (`.qt-start`): marigold tint with border.
+
+### 5.6 Workspace and canvas (`solve/*`, `solve.css`, `lab/lab.css`, `lablite.css`) — picture 07
+- Left pane tabs: plain text, current one white with a 3 px marigold line below.
+- Problem title Fraunces 30 px. The "how this works" note is an accent-tint box with a blue bar.
+- Toolbar: Timer, Reset, Run are second buttons; **Submit is the only marigold button**.
+- Palette items: white rows with a border. Selected node on the canvas: 3 px marigold ring.
+- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.**
+- Hints: white cards; an opened hint turns marigold tint.
+
+### 5.7 Sign-in card, account menu, tour, status (`account.css`, `tour.css`, `status.css`)
+- Sign-in card: white, 18 px corners, `--shadow-3`, Fraunces 26 px title, marigold sign-in button.
+- Account button: white pill; the initial sits on a marigold disc.
+- Tour: marigold outline on the highlighted element; card as above; Next is marigold.
+
+### 5.8 Analytics page (`admin.jsx`, `admin.css`)
+No specific styling. It reads the same tokens, so it picks up the new colours and radius. Just check it is readable.
+
+---
+
+## 6. How the code is organised (what you need to know)
+
+```
+frontend/
+  index.html, dashboard/index.html, analytics/index.html   three entry pages (each has a tiny inline <style>)
+  public/theme-boot.js          sets <html data-theme> before the page draws; do not edit
+  src/theme/                    THE LOOK
+    tokens.css                  all colours, fonts, radii, shadows, speeds  (light :root, dark :root[data-theme=dark])
+    palette.js                  the same colours for JavaScript (figures, canvas); TOKENS must equal tokens.css
+    fonts.js, fonts.css         self-hosted fonts
+    base.css, mode.js, ThemeToggle.jsx, toggle.css
+    theme.test.js               the rules (part of npm test)
+  src/styles.css                landing
+  src/library.css               library cards (start page, landing)
+  src/dashboard/index.css       imports shell, pages, article, blocks, reader, figure in that order
+  src/dashboard/{shell,pages,article,blocks,figure,reader}.css
+  src/problems.css, solve.css, lab/lab.css, lablite.css, account.css, tour.css, status.css, admin.css
+```
+
+**Method for this redesign:** new tokens, then **one block of new rules appended to the end of each stylesheet**.
+The new rules use the same selectors as the old ones, so being later in the file they win. This keeps the change easy
+to review and easy to undo (delete the block). Do not edit or delete the old rules in this pass. Do not reorder the
+imports in `dashboard/index.css`.
+
+---
+
+## 7. Commands
+
+```bash
+# install (once)
+cd frontend && npm ci
+
+# unit tests, includes theme.test.js — must print "fail 0"
+npm test
+
+# local API, in a second terminal (articles need it; sign-in is off locally)
+cd backend && PORT=5000 HOST=127.0.0.1 FRONTEND_ORIGIN=http://localhost:5482 node src/server.js
+
+# build against the local API
+cd frontend && VITE_API_BASE=http://127.0.0.1:5000 npm run build
+
+# look at it
+npm run preview        # then open the printed address
+```
+
+Pages to open every time you check: `/`, `/dashboard/`, `/dashboard/concepts/`, `/dashboard/concepts/caching/`,
+`/dashboard/problems/`, `/dashboard/problems/url-shortener/`, `/dashboard/quick-notes/`, `/dashboard/privacy/`,
+`/analytics/`. Each one: desktop 1366 × 900 and a Pixel 7 size, light and dark (use the theme button).
+
+---
+
+## 8. Work packages
+
+One pull request for all of them is fine. Commit after each package.
+
+### WP1 — Tokens, palette, font, page colour
+
+1. `cd frontend && npm install @fontsource-variable/fraunces@^5.3.0` (this edits `package.json` and `package-lock.json`; commit both).
+2. Replace the **whole** of `frontend/src/theme/tokens.css` with Appendix A.
+3. In `frontend/src/theme/palette.js`, replace the statement that starts `export const TOKENS={` and ends at the first
+   `};` (six lines) with the single line in Appendix B. Change nothing else in that file.
+4. In `frontend/src/theme/fonts.js`, add this to the end of the last line (the line of imports):
+   ```js
+   import"@fontsource-variable/fraunces/wght.css";
+   ```
+5. In `frontend/src/theme/mode.js` there is exactly one `getPropertyValue("--bg")`. Change it to
+   `getPropertyValue("--page")` (this keeps the phone's browser bar the colour of the page).
+6. In each of `frontend/index.html`, `frontend/dashboard/index.html`, `frontend/analytics/index.html` make two replacements:
+
+   | Find | Replace with |
+   |---|---|
+   | `<meta name="theme-color" content="#fff"/>` | `<meta name="theme-color" content="#faf7f0"/>` |
+   | `<style>html[data-theme=dark]{color-scheme:dark;background:#12171e}</style>` | `<style>html{background:#faf7f0}html[data-theme=dark]{color-scheme:dark;background:#15140f}</style>` |
+
+   (If you skip this, the dark landing page shows the old navy background. That is the sign you missed it.)
+
+**Check:** `npm test` prints `fail 0`. Build and open `/`: colours are warm but the layout is still the old one. That is expected.
+
+### WP2 — The highlighter on the landing headline
+
+In `frontend/src/main.jsx`:
+
+1. Find the line that starts `function App(){`. Insert this line **above** it:
+   ```jsx
+   const mark=t=>{const i=t.lastIndexOf(" ");return i<0?t:<>{t.slice(0,i)} <span className="tk-mark">{t.slice(i+1)}</span></>};
+   ```
+2. In the same file replace `<h1>{c.hero.title}</h1>` with `<h1>{mark(c.hero.title)}</h1>` (it occurs once).
+
+**Check:** `npm test` passes. (The stroke appears after WP3.)
+
+### WP3 — Landing
+
+Append Appendix C block **styles** to the end of `frontend/src/styles.css`, and block **library** to the end of
+`frontend/src/library.css`. Leave one empty line before each block.
+
+**Check:** `/` matches pictures 01 and 02. The last headline word has the marigold stroke.
+
+### WP4 — Dashboard frame and section pages
+
+Append block **shell** to `src/dashboard/shell.css`, **pages** to `src/dashboard/pages.css`, **toggle** to
+`src/theme/toggle.css`.
+
+**Check:** `/dashboard/` and `/dashboard/concepts/` match pictures 03 and 04. No grid paper. Collapse the sidebar
+(the button beside the logo) and expand it again. On a phone, open and close the drawer.
+
+### WP5 — Article
+
+Append **article** to `src/dashboard/article.css`, **blocks** to `src/dashboard/blocks.css`, **figure** to
+`src/dashboard/figure.css`, **reader** to `src/dashboard/reader.css`.
+
+**Check:** `/dashboard/concepts/caching/` matches pictures 05 and 10. Scroll the whole article in light and dark:
+"In 30 seconds", figures, tables, code, the example box, the analogy, the dark practise card, the next-article card.
+Press Listen: the sentence being read is highlighted. On a phone the body text is 17 px and tables are stacked cards.
+
+### WP6 — Problems and workspace
+
+Append **problems** to `src/problems.css`, **solve** to `src/solve.css`, **lab** to `src/lab/lab.css`, **lablite**
+to `src/lablite.css`.
+
+**Check:** `/dashboard/problems/` matches picture 06 and `/dashboard/problems/url-shortener/` matches picture 07.
+In the workspace: click each left tab; press Run, then Submit; open a hint; select a node (marigold ring); drag a
+component from the palette. On a phone, open a problem (the simplified version shows) and check its buttons.
+
+### WP7 — Account, tour, status
+
+Append **account** to `src/account.css`, **tour** to `src/tour.css`, **status** to `src/status.css`.
+
+**Check:** press Tour in the dashboard header and step through it. Open `/health`. The sign-in card only shows on
+production (sign-in is off locally); check it on the preview deployment of the pull request.
+
+### WP8 — Words and docs in the app repo
+
+1. `frontend/src/theme/README.md`: replace the first paragraph (the one that points to `Design.md`) with:
+   `The look is "Katta Paper": warm paper, ink, one brand colour (marigold), Fraunces headings. The spec is tech-katta-context/20-UI-REDESIGN-SPEC.md.`
+   In its table, add `--brand…`, `--page`, `--font-display` to the examples for `tokens.css`, and say Fraunces is loaded in `fonts.js`.
+   Replace the "New accent colour" bullet with: `**New brand colour**: --brand, --brand-strong, --brand-edge, --brand-ink, --brand-line, --brand-tint, --on-brand, --mark in tokens.css (light and dark) and the same keys in palette.js TOKENS.`
+2. Top of `Design.md` (repo root): add one line: `> Superseded by tech-katta-context/20-UI-REDESIGN-SPEC.md. Kept as a record of observations only.`
+
+### WP9 — Final checks, then ship
+
+Run the acceptance list in section 9. Then follow the usual repo flow: draft pull request, checks green, ready,
+squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTORY.md`, `11-MONGODB-COMMIT-LEDGER.md`,
+`13-CURRENT-STATE.md`), and move the item in `18-TODO.md`.
+
+---
+
+## 9. Acceptance list
+
+- [ ] `npm test` in `frontend`: `fail 0` (235 tests at the time of writing).
+- [ ] `npm run build` finishes without errors.
+- [ ] The end-to-end scripts the repo already has still pass (`no-lab.js`, `challenges-v2.js`, `eval-problem.js`,
+      `solution-tab.js`; `08-TESTING-VALIDATION.md` and the handover say how to run them). They do not depend on colours.
+- [ ] Every page in section 7, desktop and phone, light and dark: matches the pictures; no text cut off; no
+      sideways scrolling on the phone; no old blue buttons; no grid paper; no navy background.
+- [ ] Only one marigold button per region; only one highlighter stroke per screen.
+- [ ] Keyboard: Tab through the landing header and an article; every stop shows the blue focus ring.
+- [ ] Reduced motion (browser setting): nothing moves on hover.
+- [ ] No console errors on any page.
+- [ ] `git diff --stat` shows only: `package.json`, `package-lock.json`, three `index.html` files, `main.jsx`,
+      files in `src/theme/`, the 16 stylesheets, `Design.md`. **No content, backend or test files.**
+
+**What was verified while writing this spec, and what was not.** Built on commit `01adfbe` with exactly the code in
+the appendices: unit tests pass (235), the build succeeds, and these were looked at in a browser — landing, start,
+Concepts, the caching article (whole page), Problems, the URL-shortener workspace, on desktop and Pixel 7, light and
+dark. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit, hints, the phone
+(simplified) problem view, Quick Notes, Privacy, `/health`, `/analytics/`; and the end-to-end scripts were not run.
+Their CSS follows the same patterns, but you must look at each one. If one looks wrong, fix it inside its appended
+block using tokens only, and say so in the pull request.
+
+---
+
+## 10. Owner decisions (do not build these without being asked)
+
+These came out of the research and would help, but they need new behaviour or data, so they are choices for the owner.
+
+| Idea | Seen on | What it needs |
+|---|---|---|
+| Reading progress line under the header | Josh Comeau, many blogs | A scroll listener in `article.jsx` |
+| "Mark as read" and a progress count on section cards | NeetCode, Khan | Storing read state per account (backend) |
+| Bottom tab bar on phones (Read, Practise, Account) | Most learning apps | New component in `shell.jsx`, route changes |
+| Search with a keyboard shortcut | Stripe, react.dev, Vercel | A search index (see `16-SEARCH-SEMANTICS-PERFORMANCE.md`) |
+| Pricing / what you get section on the landing page | Brilliant, Hello Interview | Copy and a decision on pricing |
+| Solved ring by difficulty on Problems | NeetCode | Only layout; data exists in progress storage |
+| Merging each appended block into the rules above it | — | A clean-up pass once friends have given feedback on the look |
+
+---
+
+## 11. Changing the look later
+
+Friends will react to this. Most reactions map to one token:
+
+| "I wish…" | Change |
+|---|---|
+| …the yellow were another colour | The eight `--brand…` tokens and `--mark`, light and dark, and the same keys in `palette.js` |
+| …the background were plain white | `--page` (and the three `index.html` inline styles, and `theme-color`) |
+| …the headings were not serif | `--font-display` (set it to `var(--font)`), and remove the Fraunces import |
+| …corners were sharper or rounder | `--radius`, `--r-md`, `--r-lg`, `--r-xl` |
+| …the text were bigger | `.d-article>p,.d-article>ul` in the article block |
+
+---
+
+## Appendix A — `frontend/src/theme/tokens.css` (replace the whole file)
+
+```css
+/* The site's look in one place: every colour, typeface, radius, shadow and animation speed the pages use.
+   Every stylesheet reads these names (var(--brand), var(--line), …) and never a colour code of its own, so a
+   new colour scheme is an edit to this file. Code that needs a colour value (figures, the canvas) reads them through theme/palette.js.
+   Dark mode: the same names with dark values, below. It follows the device's setting unless the visitor picked
+   one with the theme button (<html data-theme="light|dark">, set before the page draws by public/theme-boot.js; theme/mode.js keeps it up to date).
+   Rules for colour names: name the role, not the hue (--brand, not --yellow), so a new brand colour still reads right.
+   The look ("Katta Paper"): warm paper page, white cards, ink text, one brand colour (marigold) for the main button,
+   the highlighter mark and "you are here"; blue only for links and the path that works in figures. */
+:root{
+  color-scheme:light;
+  /* Surfaces */
+  --page:#faf7f0;         /* the page background (paper) */
+  --bg:#fff;              /* cards, inputs, figure boxes */
+  --surface:#f3efe5;      /* wells, quiet panels, inline code */
+  --surface-2:#fcfaf5;    /* sidebar, table heads, very faint panels */
+  --hover:#efeadd;        /* hover on rows and quiet buttons */
+  --inverse:#1d1b16;      /* the one dark card per page (practise call-out), selected chips */
+  --on-inverse:#faf7f0;
+  /* Text */
+  --ink:#1d1b16;
+  --ink-2:#3a372f;
+  --ink-3:#4d493f;
+  --muted:#625c4f;
+  --muted-2:#6b6557;
+  --faint:#736d5d;
+  --disabled:#cdc7b6;
+  /* Lines */
+  --line-strong:#b9b2a0;
+  --line:#e6e0d1;
+  --line-soft:#ddd6c4;
+  --grid:#f0ebde;
+  /* Brand (marigold): main button, highlighter, active marker. Text on it is always --on-brand. */
+  --brand:#ffc233;
+  --brand-strong:#f2ac00; /* hover on the main button, active marker lines */
+  --brand-edge:#d79a00;   /* border of the main button */
+  --brand-ink:#6e4a00;    /* brand-coloured text on light tints */
+  --brand-line:#f0d388;   /* border of brand-tinted boxes */
+  --brand-tint:#fff3cf;   /* brand-tinted boxes, active sidebar row */
+  --on-brand:#1d1b16;
+  --mark:#ffd866;         /* the highlighter stroke under a headline word */
+  /* Accent (links, focus rings, the path that works in figures) */
+  --accent:#1d4ed8;
+  --accent-strong:#1a3fae;
+  --accent-mid:#93aef0;
+  --accent-line:#bfcff8;
+  --accent-soft:#dbe5fc;
+  --accent-tint-2:#e9f0fe;
+  --accent-tint:#f3f7ff;
+  --on-accent:#fff;
+  /* Status */
+  --danger:#b3261e;
+  --red:#d23b30;
+  --danger-line:#f3c6c1;
+  --danger-soft:#fce1de;
+  --danger-tint:#fff4f2;
+  --success:#17794a;
+  --success-line:#b5e0c6;
+  --success-tint:#ecf8f0;
+  --warn:#9c4a00;         /* orange, so a warning never reads as the brand */
+  --warn-strong:#7a3900;
+  --warn-mid:#e8700c;
+  --warn-line:#f5cfa9;
+  --warn-tint:#fff3e6;
+  --star:#e8a308;
+  /* Categories, where a figure needs several colours that mean nothing more than "different" */
+  --cat-green:#1f8a5b;
+  --cat-amber:#b7791f;
+  --cat-violet:#7c3aed;
+  --cat-teal:#0e7490;
+  --cat-pink:#be185d;
+  /* The same colours as r g b triples, for see-through shadows and backdrops */
+  --ink-rgb:29 27 22;
+  --bg-rgb:255 255 255;
+  --page-rgb:250 247 240;
+  --accent-rgb:29 78 216;
+  /* Shadows and backdrops */
+  --shadow-1:0 1px 2px rgb(var(--ink-rgb) / .06);
+  --shadow-2:0 2px 4px rgb(var(--ink-rgb) / .05),0 10px 24px rgb(var(--ink-rgb) / .09);
+  --shadow-3:0 4px 8px rgb(var(--ink-rgb) / .06),0 18px 44px rgb(var(--ink-rgb) / .18);
+  --scrim:rgb(var(--ink-rgb) / .36);
+  --glass:rgb(var(--page-rgb) / .86);
+  /* Type */
+  --font:Inter,Arial,sans-serif;
+  --font-display:"Fraunces Variable",Georgia,"Times New Roman",serif;
+  --mono:"IBM Plex Mono",monospace;
+  /* Shape */
+  --radius:8px;
+  --r-sm:6px;
+  --r-md:10px;
+  --r-lg:14px;
+  --r-xl:18px;
+  --r-full:999px;
+  /* Motion: every transition uses these, and reduced motion sets them to 0 (theme/base.css) */
+  --dur-fast:.12s;
+  --dur:.2s;
+  --ease:cubic-bezier(.2,.7,.2,1);
+}
+/* Dark: the same roles. Keep contrast: --ink on --bg and --muted on --surface both at least 4.5:1. */
+:root[data-theme=dark]{
+  color-scheme:dark;
+  --page:#15140f;
+  --bg:#1e1c16;
+  --surface:#28261e;
+  --surface-2:#191812;
+  --hover:#2e2b22;
+  --inverse:#f4f1e8;
+  --on-inverse:#1d1b16;
+  --ink:#f4f1e8;
+  --ink-2:#dbd7ca;
+  --ink-3:#c8c3b4;
+  --muted:#aca695;
+  --muted-2:#9f9988;
+  --faint:#8d8777;
+  --disabled:#504c40;
+  --line-strong:#5e594a;
+  --line:#322f26;
+  --line-soft:#3d3a2f;
+  --grid:#22201a;
+  --brand:#ffc233;
+  --brand-strong:#ffd466;
+  --brand-edge:#b88400;
+  --brand-ink:#ffd87a;
+  --brand-line:#5f4813;
+  --brand-tint:#30260f;
+  --on-brand:#1d1b16;
+  --mark:#7d5c00;
+  --accent:#8fb2ff;
+  --accent-strong:#b0c9ff;
+  --accent-mid:#4a66b5;
+  --accent-line:#33498a;
+  --accent-soft:#223262;
+  --accent-tint-2:#1d2947;
+  --accent-tint:#181f36;
+  --on-accent:#0b1020;
+  --danger:#ff8a80;
+  --red:#ff7b72;
+  --danger-line:#6b2c28;
+  --danger-soft:#4a2220;
+  --danger-tint:#2b1816;
+  --success:#5fd38a;
+  --success-line:#2c5e3c;
+  --success-tint:#15261b;
+  --warn:#ffab66;
+  --warn-strong:#ffc594;
+  --warn-mid:#e8700c;
+  --warn-line:#693c14;
+  --warn-tint:#2d1d10;
+  --star:#f2b01e;
+  --cat-green:#3fb97a;
+  --cat-amber:#e0a43a;
+  --cat-violet:#a78bfa;
+  --cat-teal:#22b8cf;
+  --cat-pink:#f472b6;
+  --ink-rgb:0 0 0;
+  --bg-rgb:30 28 22;
+  --page-rgb:21 20 15;
+  --accent-rgb:143 178 255;
+  --shadow-1:0 1px 2px rgb(0 0 0 / .4);
+  --shadow-2:0 2px 4px rgb(0 0 0 / .35),0 10px 24px rgb(0 0 0 / .35);
+  --shadow-3:0 4px 8px rgb(0 0 0 / .4),0 18px 44px rgb(0 0 0 / .55);
+  --scrim:rgb(0 0 0 / .6);
+  --glass:rgb(var(--page-rgb) / .86);
+}
+```
+
+## Appendix B — `TOKENS` in `frontend/src/theme/palette.js` (one line)
+
+```js
+export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#1d4ed8","accent-strong":"#1a3fae","accent-mid":"#93aef0","accent-line":"#bfcff8","accent-soft":"#dbe5fc","accent-tint-2":"#e9f0fe","accent-tint":"#f3f7ff","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
+```
+
+## Appendix C — blocks to append
+
+Each block goes at the **end** of the file named in its heading, after one empty line. Copy from the comment line to the last line.
+
+### C · styles → `frontend/src/styles.css` (WP3)
+
+```css
+/* ===== Katta Paper skin ===== */
+:root{background:var(--page)}
+a:focus-visible,button:focus-visible,summary:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.header{position:sticky;top:0;z-index:30;height:64px;background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
+.brand{gap:10px;font:600 20px var(--font-display);letter-spacing:-.015em}
+.brand>i{width:28px;height:28px;border-radius:var(--radius);background:var(--brand)}
+.brand em{display:none}
+.brand span{font:500 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.nav{gap:26px;align-items:center;font:500 14.5px var(--font);letter-spacing:0;color:var(--muted)}
+.nav a{border-bottom:0;transition:color var(--dur-fast) var(--ease)}
+.nav a:hover,.nav a.active{color:var(--ink)}
+.hero{grid-template-columns:1fr 1.05fr;gap:56px;padding-top:76px;padding-bottom:76px}
+.hero>div{max-width:540px}
+.hero label,.section label,.inside>label,.lp-eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font:600 11px var(--mono);letter-spacing:.12em;border:0;background:none;padding:0}
+.hero label::before,.inside>label::before,.lp-eyebrow::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--brand)}
+.hero h1{font:600 clamp(40px,5.2vw,66px)/1.04 var(--font-display);letter-spacing:-.025em;margin:18px 0 20px}
+.tk-mark{background:linear-gradient(transparent 60%,var(--mark) 60%,var(--mark) 92%,transparent 92%);padding:0 .06em;margin:0 -.06em;-webkit-box-decoration-break:clone;box-decoration-break:clone}
+.hero p{font-size:18px;line-height:1.6;color:var(--ink-3)}
+.actions{gap:12px;margin-top:30px;flex-wrap:wrap}
+.btn{height:48px;padding:0 20px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);color:var(--ink);font:600 15px var(--font);letter-spacing:0;box-shadow:var(--shadow-1);transition:background var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
+.btn:hover{border-color:var(--ink);background:var(--bg);color:var(--ink)}
+.btn:active{transform:translateY(1px)}
+.btn.primary{border-color:var(--brand-edge);background:var(--brand);color:var(--on-brand)}
+.btn.primary:hover{background:var(--brand-strong);border-color:var(--brand-edge);color:var(--on-brand)}
+.figure{border:1px solid var(--line);border-radius:var(--r-xl);background:var(--bg);box-shadow:var(--shadow-2);overflow:hidden}
+.fig-head{font:600 10px/1.45 var(--mono);letter-spacing:.08em;color:var(--muted)}
+.brand i,.fig-head i,.trade-title i,.foot i{background:var(--brand)}
+.fig-head>span{border:0;border-radius:var(--r-full);background:var(--success-tint);color:var(--success);padding:4px 10px}
+.figure figcaption{background:var(--surface-2);font:400 13px/1.5 var(--font);color:var(--muted)}
+.inside{padding-top:32px;padding-bottom:64px}
+.inside h2,.ch-title{font:600 clamp(30px,3.6vw,42px)/1.1 var(--font-display);letter-spacing:-.02em;margin:14px 0 10px}
+.inside-desc,.ch-desc{font-size:17px;line-height:1.6;color:var(--ink-3)}
+.inside-grid{gap:14px}
+.inside-grid a{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:22px 20px 18px;gap:10px;box-shadow:var(--shadow-1);min-height:220px;transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.inside-grid a:hover{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow-2)}
+.inside-grid small{align-self:flex-start;font:600 10px var(--mono);letter-spacing:.08em;color:var(--brand-ink);background:var(--brand-tint);border-radius:var(--r-full);padding:4px 10px}
+.inside-grid b{font:600 23px/1.2 var(--font-display);letter-spacing:-.01em}
+.inside-grid p{font-size:14.5px;line-height:1.55;color:var(--muted)}
+.inside-grid em{font:600 13px var(--font);color:var(--ink)}
+.section h2,.notes-box h2{font:600 30px/1.15 var(--font-display);letter-spacing:-.02em}
+.lp-lab{border:1px solid var(--line);border-radius:var(--r-xl);background:var(--bg);box-shadow:var(--shadow-2);overflow:hidden}
+.text-link,.card-foot a{color:var(--ink)}
+.text-link{font:600 14px var(--font)}
+.footer{border-top:1px solid var(--line);background:var(--surface-2)}
+.foot>div>b{font:600 18px var(--font-display)}
+.foot p{font:400 13px/1.6 var(--font);color:var(--muted)}
+.foot nav{font:500 14px var(--font);color:var(--muted)}
+.foot nav a:hover{color:var(--ink)}
+.foot>small{font:500 10px var(--mono);letter-spacing:.06em;color:var(--faint)}
+.menu{border:1px solid var(--line-strong);border-radius:var(--r-md);font:600 13px var(--font);letter-spacing:0;padding:8px 12px}
+.zoom-btn{border:1px solid var(--line-strong);border-radius:var(--r-md);color:var(--ink);font:600 12px var(--font);letter-spacing:0}
+.zoom-box{border-radius:var(--r-xl)}
+@media(max-width:980px){.hero{grid-template-columns:1fr;gap:36px;padding-top:44px;padding-bottom:52px}}
+@media(max-width:680px){.header{height:60px}.nav{top:59px;gap:0;background:var(--bg);box-shadow:var(--shadow-3);font-size:16px}.brand{font-size:19px}.hero h1{font-size:40px}.hero p{font-size:17px}.btn{flex:1 1 auto;justify-content:center}.inside h2,.ch-title{font-size:30px}}
+@media(prefers-reduced-motion:reduce){.btn,.inside-grid a,.nav a{transition:none}.inside-grid a:hover{transform:none}}
+```
+
+### C · library → `frontend/src/library.css` (WP3)
+
+```css
+/* ===== Katta Paper skin ===== */
+.cards{gap:16px}
+.card{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:20px 20px 0;box-shadow:var(--shadow-1);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.card:hover,.card:focus-visible{border-color:var(--line-strong);transform:translateY(-3px);box-shadow:var(--shadow-2)}
+.meta{font:600 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.meta span:first-child{color:var(--brand-ink)}
+.mini{border:1px solid var(--line);border-radius:var(--r-md);background:var(--surface-2);margin-bottom:18px}
+.card h2{font:600 23px/1.2 var(--font-display);letter-spacing:-.01em;margin:0 0 8px}
+.card>p{font-size:14.5px;line-height:1.55;color:var(--muted)}
+.card-foot{border-top:1px solid var(--line);min-height:48px;font:500 10px var(--mono);letter-spacing:.08em;color:var(--faint)}
+.card-go{font:600 13px var(--font);letter-spacing:0;color:var(--ink)}
+.card:hover .card-go,.card:focus-visible .card-go{text-decoration:none}
+@media(prefers-reduced-motion:reduce){.card{transition:none}.card:hover,.card:focus-visible{transform:none}}
+```
+
+### C · shell → `frontend/src/dashboard/shell.css` (WP4)
+
+```css
+/* ===== Katta Paper skin (tech-katta-context/20-UI-REDESIGN-SPEC.md) ===== */
+:root{background:var(--page)}
+a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+.icon-btn{width:34px;height:34px;border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);color:var(--muted);transition:border-color var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.icon-btn:hover{color:var(--ink);background:var(--bg);border-color:var(--line-strong)}
+.side{background:var(--surface-2)}
+.side-head{border-bottom:0}
+.side-brand{gap:10px}
+.side-brand b{display:inline-grid;place-items:center;width:28px;height:28px;flex:none;border-radius:var(--radius);background:var(--brand);color:var(--on-brand);font:700 11px var(--mono);letter-spacing:.02em}
+.side-brand span{font:600 19px var(--font-display);letter-spacing:-.015em}
+.side-label{padding:12px 22px 6px;border-bottom:0;font:600 10px var(--mono);letter-spacing:.12em;color:var(--faint)}
+.side-nav{padding:4px 10px 10px}
+.side-link{height:38px;padding:0 12px;border-left:0;border-radius:var(--radius);font-size:14.5px;font-weight:500;color:var(--ink-3);transition:background var(--dur-fast) var(--ease),color var(--dur-fast) var(--ease)}
+.side-link:hover{background:var(--hover);color:var(--ink)}
+.side-link.active{background:var(--brand-tint);color:var(--ink);font-weight:600;box-shadow:inset 3px 0 0 var(--brand-strong)}
+.side-sub{margin:4px 0 8px 22px;border-left:1px solid var(--line)}
+.side-sub a{padding:6px 12px;font-size:13.5px;color:var(--muted)}
+.side-sub a:hover{color:var(--ink)}
+.side-sub a.active{color:var(--ink);border-left-color:var(--brand-strong);font-weight:600}
+.side-sub .side-group{padding:10px 12px 2px;font:600 9px var(--mono);letter-spacing:.12em;color:var(--faint)}
+.side-foot{color:var(--muted)}
+.side-foot:hover,.side-priv:hover{color:var(--ink)}
+.d-head{background:var(--glass);backdrop-filter:blur(14px);-webkit-backdrop-filter:blur(14px)}
+.tabs{gap:26px}
+.tab{border-bottom-width:3px;font-size:14.5px;font-weight:500;color:var(--muted);transition:color var(--dur-fast) var(--ease)}
+.tab:hover{color:var(--ink)}
+.tab.active{color:var(--ink);font-weight:600;border-color:var(--brand)}
+.d-tour,.d-home{height:34px;display:inline-flex;align-items:center;padding:0 12px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);font:600 13px var(--font);letter-spacing:0;color:var(--ink);transition:border-color var(--dur-fast) var(--ease)}
+.d-home{font-weight:500;color:var(--muted)}
+.d-tour:hover,.d-tour:focus-visible,.d-home:hover{border-color:var(--ink);color:var(--ink)}
+.d-body{padding:40px 32px 88px;background:var(--page);background-image:none}
+.skip{border:2px solid var(--accent);border-radius:var(--r-md)}
+@media(max-width:900px){.open .side{box-shadow:var(--shadow-3)}}
+@media(max-width:680px){.d-body{padding:24px 16px 56px}}
+@media(prefers-reduced-motion:reduce){.icon-btn,.d-tour,.d-home,.side-link,.tab{transition:none}}
+@media(min-width:901px){.collapsed .side-priv{display:none}}
+```
+
+### C · pages → `frontend/src/dashboard/pages.css` (WP4)
+
+```css
+/* ===== Katta Paper skin ===== */
+.d-panel{max-width:880px;background:none;border:0;padding:0}
+.d-panel label{display:inline-flex;align-items:center;gap:8px;color:var(--muted);font:600 11px var(--mono);letter-spacing:.12em;text-transform:uppercase;border:0;background:none;padding:0}
+.d-panel label::before{content:"";width:8px;height:8px;border-radius:2px;background:var(--brand)}
+.d-panel .r-rate::before{content:none}
+.d-panel h1{margin:14px 0 12px;font:600 44px/1.08 var(--font-display);letter-spacing:-.02em}
+.d-desc{max-width:640px;font-size:17px;line-height:1.6;color:var(--ink-3)}
+.d-list{margin-top:32px;border-top:0;padding-top:0}
+.d-list>span,.d-empty span{font:600 10px var(--mono);letter-spacing:.12em;color:var(--faint)}
+.d-list ol{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px}
+.d-list ol li+li{margin-top:0}
+.d-list a{height:100%;display:flex;flex-direction:column;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:20px 20px 18px;box-shadow:var(--shadow-1);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.d-list a:hover{border-color:var(--line-strong);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.d-list small{font:600 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.d-list b{margin:10px 0 6px;font:600 20px/1.22 var(--font-display);letter-spacing:-.01em}
+.d-list p{font-size:14.5px;line-height:1.55;color:var(--muted);display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.d-list em{margin-top:auto;padding-top:16px;font:600 13px var(--font);color:var(--ink)}
+.d-group{margin-top:44px}
+.d-group>h2{padding-top:0;border-top:0;font:600 26px/1.15 var(--font-display);letter-spacing:-.015em;text-transform:none}
+.d-group>p{margin:6px 0 0;font-size:15px}
+.d-group>ol{margin-top:16px}
+.d-group .d-soon{border-radius:var(--r-lg);border-color:var(--line-strong)}
+.d-notes{border-top:0;display:grid;gap:8px}
+.d-notes li{padding:14px 16px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg)}
+.d-notes b{font-size:15px}
+.d-notes em{border:0;border-radius:var(--r-full);background:var(--surface);padding:4px 10px}
+.d-notes em.draft{color:var(--brand-ink);background:var(--brand-tint)}
+.priv h2{font:600 20px var(--font-display)}
+.priv p{font-size:16px;line-height:1.7}
+.d-panel.d-start{max-width:1100px}
+@media(max-width:760px){.d-list ol{grid-template-columns:1fr}}
+@media(max-width:680px){.d-panel{padding:0}.d-panel h1{font-size:32px}.d-desc{font-size:16px}.d-group>h2{font-size:22px}}
+@media(prefers-reduced-motion:reduce){.d-list a{transition:none}.d-list a:hover{transform:none}}
+```
+
+### C · toggle → `frontend/src/theme/toggle.css` (WP4)
+
+```css
+/* ===== Katta Paper skin ===== */
+.theme-btn{border:1px solid var(--line-strong);border-radius:50%;background:var(--bg);transition:border-color var(--dur-fast) var(--ease)}
+.theme-btn:hover,.theme-btn:focus-visible{border-color:var(--ink);color:var(--ink)}
+```
+
+### C · article → `frontend/src/dashboard/article.css` (WP5)
+
+```css
+/* ===== Katta Paper skin ===== */
+.d-read{gap:56px;max-width:1120px}
+.d-article{max-width:720px}
+.crumbs{margin-bottom:20px;font:500 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--faint)}
+.crumbs a{color:var(--muted)}
+.crumbs a:hover{color:var(--ink);text-decoration:none}
+.d-article h1{font:600 42px/1.1 var(--font-display);letter-spacing:-.02em;max-width:none;margin:0 0 14px}
+.d-article>.d-dek{font-size:19px;line-height:1.55;color:var(--ink-3);max-width:none}
+.d-article>.d-meta{margin:20px 0 0;padding-bottom:20px;border-bottom:1px solid var(--line);font:500 11px var(--mono);letter-spacing:.08em;color:var(--faint)}
+.d-article>p,.d-article>ul{font-size:17px;line-height:1.75;color:var(--ink-2);max-width:none}
+.d-article>p{margin:22px 0 0}
+.d-article h2{margin:56px 0 0;padding-top:0;border-top:0;font:600 28px/1.2 var(--font-display);letter-spacing:-.015em}
+.d-article h3{font-size:19px;font-weight:650;letter-spacing:-.01em}
+.d-article code{font:500 .86em var(--mono);background:var(--surface);border:0;padding:2px 6px;border-radius:var(--r-sm)}
+.d-article .reading{background-color:var(--mark);box-shadow:-4px 0 0 var(--mark),4px 0 0 var(--mark);border-radius:2px}
+.a-back{font:600 14px var(--font);color:var(--muted)}
+.a-back:hover{color:var(--ink);text-decoration:none}
+.a-next{margin-top:56px}
+.a-next>a:first-child:not(.a-all){border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:18px 20px;box-shadow:var(--shadow-1);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.a-next>a:first-child:not(.a-all):hover{border-color:var(--line-strong);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.a-next small{font:600 10px var(--mono);letter-spacing:.12em;color:var(--faint)}
+.a-next b{font:600 20px/1.25 var(--font-display)}
+.a-all{font:600 14px var(--font);color:var(--muted)}
+.a-all:hover{color:var(--ink)}
+@media(min-width:1240px){.d-rail{flex-basis:260px;gap:22px}}
+.d-rail nav{background:none;border:0;padding:0}
+.d-rail nav b,.rail-lab b{font:600 10px var(--mono);letter-spacing:.12em;color:var(--faint);padding:0 0 10px}
+.d-rail li a{padding:6px 0 6px 14px;border-left:2px solid var(--line);font-size:14px;color:var(--muted);transition:color var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease)}
+.d-rail li a:hover{color:var(--ink);background:none}
+.d-rail li a.on{border-left-color:var(--brand-strong);color:var(--ink);font-weight:600;background:none}
+.rail-lab{background:var(--brand-tint);border:1px solid var(--brand-line);border-radius:var(--r-lg);padding:16px 18px;transition:border-color var(--dur-fast) var(--ease)}
+.rail-lab b{color:var(--brand-ink);padding:0 0 6px}
+.rail-lab span{padding:0;font-size:15px;line-height:1.4;font-weight:600;color:var(--ink)}
+.rail-lab:hover{background:var(--brand-tint);border-color:var(--brand-edge)}
+.pr-solve{min-height:44px;padding:0 20px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 15px var(--font);box-shadow:var(--shadow-1);transition:background var(--dur-fast) var(--ease),transform var(--dur-fast) var(--ease)}
+.pr-solve:hover{background:var(--brand-strong)}
+.pr-solve:active{transform:translateY(1px)}
+@media(max-width:680px){.d-article h1{font-size:31px}.d-article>.d-dek{font-size:17px}.d-article h2{font-size:24px;margin-top:44px}.d-article>p,.d-article>ul,.a-type>p{font-size:17px}}
+@media(prefers-reduced-motion:reduce){.a-next>a:first-child:not(.a-all),.pr-solve{transition:none}.a-next>a:first-child:not(.a-all):hover{transform:none}}
+```
+
+### C · blocks → `frontend/src/dashboard/blocks.css` (WP5)
+
+```css
+/* ===== Katta Paper skin ===== */
+.a-tldr{border:0;border-radius:var(--r-lg);background:var(--surface);padding:20px 24px}
+.a-tldr>b,.a-ex-head b,.a-analogy b,.a-lab b{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.a-tldr ul{font-size:16px;line-height:1.65;color:var(--ink-2)}
+.a-example{border:1px solid var(--accent-line);border-radius:var(--r-lg);background:var(--accent-tint);padding:20px 24px}
+.a-ex-head b{color:var(--accent)}
+.a-ex-head span{font:600 19px var(--font-display);color:var(--ink)}
+.a-ex-head small{font:500 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.a-example p{font-size:16px;line-height:1.65;color:var(--ink-2)}
+.a-example dl{border-top:1px solid var(--accent-line)}
+.a-example dt,.a-type dt{font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.a-type{margin-top:18px;padding:22px 24px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--shadow-1)}
+.a-type h3{margin:0;font:600 21px/1.25 var(--font-display)}
+.a-type h3 small{font:600 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.a-type>p,.a-more>p{color:var(--ink-2)}
+.a-type dt.ex,.a-type dt.like{color:var(--brand-ink)}
+.a-type dd.ex{border-left:3px solid var(--brand)}
+.a-table{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);overflow:hidden}
+.a-table thead th{font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted);background:var(--surface-2)}
+.a-code{border:1px solid var(--line);border-radius:var(--r-lg);overflow:hidden}
+.a-code figcaption{background:var(--surface-2);font:600 10px var(--mono);letter-spacing:.1em}
+.a-code pre{background:var(--bg)}
+.a-more>summary{min-height:44px;padding:8px 16px;border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);font:600 14px var(--font);letter-spacing:0;color:var(--ink);transition:border-color var(--dur-fast) var(--ease)}
+.a-more>summary:hover{border-color:var(--ink);background:var(--bg)}
+.a-deeper>summary small{font:500 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.a-analogy{border-left:3px solid var(--brand);border-radius:0 var(--r-lg) var(--r-lg) 0;background:var(--brand-tint);padding:16px 22px}
+.a-analogy b{color:var(--brand-ink)}
+.a-analogy p{font-size:16px;line-height:1.65;color:var(--ink-2)}
+.a-lab{border:0;border-radius:var(--r-lg);background:var(--inverse);padding:22px 24px;box-shadow:var(--shadow-2);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease)}
+.a-lab:hover{background:var(--inverse);transform:translateY(-2px);box-shadow:var(--shadow-3)}
+.a-lab b{color:var(--brand)}
+.a-lab p{font:600 20px/1.3 var(--font-display);color:var(--on-inverse)}
+.a-lab em{font:600 14px var(--font);color:var(--brand)}
+:root[data-theme=dark] .a-lab b,:root[data-theme=dark] .a-lab em{color:var(--brand-ink)}
+@media(max-width:680px){.a-table{border:0;background:none;overflow:visible}.a-table tr{border-radius:var(--r-md)}}
+@media(prefers-reduced-motion:reduce){.a-lab,.a-more>summary{transition:none}.a-lab:hover{transform:none}}
+```
+
+### C · figure → `frontend/src/dashboard/figure.css` (WP5)
+
+```css
+/* ===== Katta Paper skin ===== */
+.a-fig{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);box-shadow:var(--shadow-1);overflow:hidden}
+.a-fig-head{border-bottom:1px solid var(--line);background:var(--surface-2);font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.a-fig figcaption{border-top:1px solid var(--line);font-size:14px;color:var(--muted)}
+.fs-btn{border:1px solid var(--line-strong);border-radius:var(--r-md);color:var(--ink)}
+.fs-btn:hover,.fs-btn:focus-visible{border-color:var(--ink)}
+```
+
+### C · reader → `frontend/src/dashboard/reader.css` (WP5)
+
+```css
+/* ===== Katta Paper skin ===== */
+.reader{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:10px 12px}
+.r-btn{height:36px;padding:0 14px;border:1px solid var(--line-strong);border-radius:var(--r-md);font:600 13px var(--font);letter-spacing:0;transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.r-btn:hover{border-color:var(--ink);color:var(--ink)}
+.r-btn.primary{border-color:var(--brand-edge);background:var(--brand);color:var(--on-brand)}
+.r-btn.primary:hover{background:var(--brand-strong);color:var(--on-brand);border-color:var(--brand-edge)}
+.r-rate{font:500 10px var(--mono);letter-spacing:.1em}
+.r-rate select{height:36px;border:1px solid var(--line-strong);border-radius:var(--r-md);font:500 13px var(--font)}
+@media(max-width:680px){.r-btn,.r-rate select{height:44px}}
+@media(prefers-reduced-motion:reduce){.r-btn{transition:none}}
+```
+
+### C · problems → `frontend/src/problems.css` (WP6)
+
+```css
+/* ===== Katta Paper skin ===== */
+.pb-bar{border-top:0;border-bottom:0;padding:0;margin-top:24px}
+.pb-sum{font:600 11px var(--mono);letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.pb-filter,.qt-levels{gap:6px}
+.pb-filter button,.qt-levels button{min-height:34px;padding:0 14px;border:1px solid var(--line-strong);border-radius:var(--r-full);background:var(--bg);color:var(--ink-3);font:500 13.5px var(--font);letter-spacing:0;transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.pb-filter button:hover,.qt-levels button:hover{border-color:var(--ink);color:var(--ink)}
+.pb-filter button.on,.qt-levels button.on{border-color:var(--inverse);background:var(--inverse);color:var(--on-inverse);font-weight:600}
+.pb-pick{min-height:34px;padding:0 14px;border:1px solid var(--brand-edge);border-radius:var(--r-full);background:var(--brand);color:var(--on-brand);font:600 13.5px var(--font);letter-spacing:0}
+.pb-pick:hover{background:var(--brand-strong)}
+.pb-group{margin-top:40px}
+.pb-group>h2{padding-top:0;border-top:0;font:600 24px/1.15 var(--font-display);letter-spacing:-.015em;text-transform:none}
+.pb-group a:not(.pb-lab){border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:18px 20px;box-shadow:var(--shadow-1);transition:transform var(--dur) var(--ease),box-shadow var(--dur) var(--ease),border-color var(--dur) var(--ease)}
+.pb-group a:not(.pb-lab):hover{border-color:var(--line-strong);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.pb-meta small{font:600 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.pb-tag{font:600 11px var(--font);letter-spacing:0;text-transform:none;padding:3px 10px;border:0;border-radius:var(--r-full);background:var(--surface);color:var(--muted)}
+.pb-tag.easy{color:var(--success);background:var(--success-tint)}
+.pb-tag.medium{color:var(--warn);background:var(--warn-tint)}
+.pb-tag.hard{color:var(--danger);background:var(--danger-tint)}
+.pb-group b{font-weight:600}
+.pb-lab{margin-top:6px;border:0;border-radius:var(--radius);background:var(--surface);font:500 13px var(--font)}
+.pb-lab:hover{color:var(--ink);background:var(--hover)}
+.pb-none{border-radius:var(--r-lg)}
+.qt-table{border-collapse:separate;border-spacing:0;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);overflow:hidden;font-size:15px;box-shadow:var(--shadow-1)}
+.qt-table th{padding:12px 16px;font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted);background:var(--surface-2);border-bottom:1px solid var(--line)}
+.qt-table td{padding:16px;border-bottom:1px solid var(--line)}
+.qt-table tbody tr:last-child td{border-bottom:0}
+.qt-table tbody tr:nth-child(even){background:none}
+.qt-table tbody tr:hover{background:var(--surface-2)}
+.qt-table .c1{font:500 12px var(--mono);color:var(--faint)}
+.qt-table .c2 a{font-weight:600}
+.qt-table .c2 a:hover{color:var(--accent)}
+.pb-group .qt-table a,.pb-group .qt-table a:hover{background:none;border:0;box-shadow:none;border-radius:0;transform:none;padding:0}
+.qt-start{border:1px solid var(--brand-line);border-radius:var(--r-lg);background:var(--brand-tint);padding:18px 20px;transition:border-color var(--dur-fast) var(--ease)}
+.qt-start small{font:600 10px var(--mono);letter-spacing:.12em;color:var(--brand-ink)}
+.qt-start b{font:600 20px/1.25 var(--font-display)}
+.qt-start span{color:var(--ink-2)}
+.qt-start:hover{background:var(--brand-tint);border-color:var(--brand-edge)}
+@media(max-width:760px){.qt-table{border:0;background:none;box-shadow:none;overflow:visible}.qt-table tr{margin-bottom:10px;padding:14px;border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg)}.qt-table td{border:0;padding:0}.qt-table tbody tr:nth-child(even){background:var(--bg)}}
+@media(prefers-reduced-motion:reduce){.pb-group a:not(.pb-lab){transition:none}.pb-group a:not(.pb-lab):hover{transform:none}}
+```
+
+### C · solve → `frontend/src/solve.css` (WP6)
+
+```css
+/* ===== Katta Paper skin ===== */
+.solve{background:var(--page)}
+.sv-tabs{background:var(--surface-2)}
+.sv-tabs a,.sv-tabs button{font:500 13.5px var(--font);letter-spacing:0;text-transform:none;color:var(--muted);transition:color var(--dur-fast) var(--ease)}
+.sv-tabs a:hover,.sv-tabs button:hover{color:var(--ink)}
+.sv-tabs .on{color:var(--ink);font-weight:600;background:var(--bg);box-shadow:inset 0 -3px 0 var(--brand)}
+.sv-q{background:var(--bg)}
+.sv-q>label,.sd-head label{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.sv-q h1{font:600 30px/1.15 var(--font-display);letter-spacing:-.015em}
+.sv-split:hover,.sv-split:focus-visible{background:var(--brand-strong)}
+.sv-how{border-left:3px solid var(--accent);border-radius:0 var(--r-md) var(--r-md) 0;background:var(--accent-tint);padding:14px 16px;color:var(--ink-2)}
+.sv-links a{border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);padding:12px 14px;color:var(--ink)}
+.sv-links a:hover{border-color:var(--line-strong);background:var(--surface-2)}
+.sv-links .sv-answer{background:var(--brand-tint);border-color:var(--brand-line)}
+.sv-bar{background:var(--surface-2)}
+.sv-toggle{font:600 12.5px var(--font);letter-spacing:0;color:var(--muted)}
+.sv-toggle:hover{color:var(--ink)}
+.sv-run,.sv-submit,.sv-clock,.sv-reset{border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);color:var(--ink);font:600 13.5px var(--font);letter-spacing:0;transition:border-color var(--dur-fast) var(--ease),background var(--dur-fast) var(--ease)}
+.sv-run:hover,.sv-reset:hover,.sv-clock:hover{background:var(--bg);color:var(--ink);border-color:var(--ink)}
+.sv-clock.on{color:var(--brand-ink);border-color:var(--brand-edge);background:var(--brand-tint)}
+.sv-submit{border-color:var(--brand-edge);background:var(--brand);color:var(--on-brand)}
+.sv-submit:hover{background:var(--brand-strong);color:var(--on-brand)}
+.sv-nav a:hover{border-color:transparent;border-radius:var(--r-sm);background:var(--hover);color:var(--ink)}
+.sv-console{border-top:1px solid var(--line);box-shadow:0 -10px 30px rgb(var(--ink-rgb) / .1)}
+.sv-v b{font:600 22px/1.2 var(--font-display)}
+.sv-linkbtn{color:var(--accent);font:600 13.5px var(--font)}
+.sv-why{border-radius:0 var(--r-md) var(--r-md) 0}
+.sv-tests h2{border-top:0;font:600 21px var(--font-display)}
+.sv-test,.sv-json,.sv-hop{border:1px solid var(--line);border-radius:var(--r-md)}
+.sv-json.bad{border-color:var(--danger-line)}
+.sv-ans textarea,.sv-in input,.sv-in select,.sv-row select,.sv-row input{border:1px solid var(--line-strong);border-radius:var(--radius);background:var(--bg);color:var(--ink)}
+.sv-ans textarea:focus,.sv-ans input:focus,.sv-ans select:focus{outline:2px solid var(--accent);outline-offset:1px}
+.sv-row button,.sv-add,.sv-hints button,.sv-watch{border:1px solid var(--line-strong);border-radius:var(--r-md);background:var(--bg);color:var(--ink);font:600 13px var(--font);letter-spacing:0}
+.sv-row button:hover,.sv-add:hover,.sv-hints button:hover,.sv-watch:hover{border-color:var(--ink);background:var(--bg)}
+.sv-hints li{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg);padding:14px 16px}
+.sv-hints li.open{background:var(--brand-tint);border-color:var(--brand-line)}
+.sv-hints small{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.sv-subs th{font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.sv-dec{border:1px solid var(--line);border-radius:var(--r-lg)}
+.sv-dec label{border-radius:var(--r-sm)}
+.sd-head h2{font:600 24px/1.2 var(--font-display)}
+.sd-copy{border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 13.5px var(--font);letter-spacing:0}
+.sd-copy:hover{background:var(--brand-strong)}
+.sd-fig{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--bg)}
+@media(prefers-reduced-motion:reduce){.sv-run,.sv-submit,.sv-clock,.sv-reset,.sv-tabs a,.sv-tabs button{transition:none}}
+```
+
+### C · lab → `frontend/src/lab/lab.css` (WP6)
+
+```css
+/* ===== Katta Paper skin ===== */
+.lab-name{border-radius:var(--radius);font:600 19px var(--font-display)}
+.lab-name:hover{border-color:var(--line-strong)}
+.lab-name:focus{border-color:var(--accent)}
+.lab-btn{border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 13.5px var(--font);letter-spacing:0;transition:background var(--dur-fast) var(--ease),border-color var(--dur-fast) var(--ease)}
+.lab-btn:hover{background:var(--brand-strong);color:var(--on-brand)}
+.lab-btn:disabled{background:var(--surface);border-color:var(--line);color:var(--faint)}
+.lab-btn.ghost{background:var(--bg);color:var(--ink);border-color:var(--line-strong)}
+.lab-btn.ghost:hover{background:var(--bg);border-color:var(--ink);color:var(--ink)}
+.lab-meter{border-radius:var(--r-full);overflow:hidden}
+.lab-status{background:var(--surface-2);color:var(--ink-2)}
+.lab-pal,.lab-ins{background:var(--surface-2)}
+.lab-h{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.lab-g{font:600 10px var(--mono);letter-spacing:.1em;color:var(--faint)}
+.lab-item{min-height:40px;border:1px solid var(--line);border-radius:var(--radius);background:var(--bg);font:500 14px var(--font);transition:border-color var(--dur-fast) var(--ease),box-shadow var(--dur-fast) var(--ease)}
+.lab-item:hover{color:var(--ink);border-color:var(--line-strong);box-shadow:var(--shadow-1)}
+.lab-ghost{border-radius:var(--radius);box-shadow:var(--shadow-3)}
+.lab-canvas{background:var(--page)}
+.lab-canvas.drop{box-shadow:inset 0 0 0 2px var(--brand)}
+.lab-ins :is(h2,h3,h4){font:600 20px/1.2 var(--font-display)}
+.lab-f>span,.lab-kv dt{font:600 10px var(--mono);letter-spacing:.1em;color:var(--muted)}
+.lab-f input[type=number],.lab-f select,.lab-speed select,.sch input,.sch select{border:1px solid var(--line-strong);border-radius:var(--radius)}
+.lab-f input[type=range],.lab-check input{accent-color:var(--brand-strong)}
+.lab-menu,.lab-score,.sch{border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-3)}
+.lab-menu li.cur{background:var(--brand-tint)}
+.ln{border-radius:var(--r-md);box-shadow:var(--shadow-1)}
+.ln.sel{box-shadow:0 0 0 3px var(--brand),var(--shadow-2)}
+.lab .react-flow__controls{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-1)}
+@media(prefers-reduced-motion:reduce){.lab-btn,.lab-item{transition:none}}
+```
+
+### C · lablite → `frontend/src/lablite.css` (WP6)
+
+```css
+/* ===== Katta Paper skin ===== */
+.ll-flow{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--surface-2)}
+.ll-box{border-radius:var(--radius);box-shadow:var(--shadow-1)}
+.ll-check,.ll-step,.ll-radio{border:1px solid var(--line);border-radius:var(--r-lg);background:var(--bg)}
+.ll-check input,.ll-radio input{accent-color:var(--brand-strong)}
+.ll-step button{border:1px solid var(--line-strong);border-radius:var(--r-md)}
+.ll-radio legend{font:600 10px var(--mono);letter-spacing:.1em}
+.ll-score{height:50px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 15px var(--font)}
+.ll-res{border:1px solid var(--brand-line);border-radius:var(--r-lg);background:var(--brand-tint)}
+.ll-stars{color:var(--star)}
+```
+
+### C · account → `frontend/src/account.css` (WP7)
+
+```css
+/* ===== Katta Paper skin ===== */
+.acct-btn{height:36px;border:1px solid var(--line-strong);border-radius:var(--r-full);background:var(--bg)}
+.acct-btn:hover,.acct-btn:focus-visible,.acct-btn[aria-expanded=true]{border-color:var(--ink)}
+.acct-btn i{background:var(--brand);color:var(--on-brand)}
+.acct-menu{top:46px;border:1px solid var(--line);border-radius:var(--r-lg);box-shadow:var(--shadow-3);padding:16px}
+.acct-menu a:hover,.acct-menu button:hover{color:var(--ink);text-decoration:underline}
+.acct-ads input,.acct-consent input{accent-color:var(--brand-strong)}
+.lock-card{width:min(420px,calc(100% - 32px));border:1px solid var(--line);border-radius:var(--r-xl);box-shadow:var(--shadow-3);padding:28px;gap:12px}
+.lock-card b{font:600 26px/1.15 var(--font-display);letter-spacing:-.015em}
+.lock-card p{font-size:15.5px;line-height:1.55;color:var(--muted)}
+.lock-card em{font:500 11px var(--mono);letter-spacing:.06em;color:var(--muted)}
+.lock-skel{border:1px solid var(--line);border-radius:var(--r-xl)}
+.lock-skel i{border-radius:var(--r-sm)}
+.acct-signin-link{height:36px;padding:0 16px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 13.5px var(--font)}
+.acct-signin-link:hover{background:var(--brand-strong)}
+.header .acct .acct-err{border-radius:var(--r-md)}
+```
+
+### C · tour → `frontend/src/tour.css` (WP7)
+
+```css
+/* ===== Katta Paper skin ===== */
+.tour-hole{border:2px solid var(--brand);border-radius:var(--r-md)}
+.tour-card{border:1px solid var(--line);border-radius:var(--r-xl);padding:20px 22px;box-shadow:var(--shadow-3)}
+.tour-card small{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
+.tour-card b{font:600 21px/1.2 var(--font-display)}
+.tour-act button,.tour-act a{height:38px;padding:0 14px;border:1px solid var(--line-strong);border-radius:var(--r-md);font:600 13.5px var(--font)}
+.tour-act a:hover,.tour-act button:hover,.tour-act button:focus-visible,.tour-act a:focus-visible{border-color:var(--ink);color:var(--ink)}
+.tour-act .tour-next{background:var(--brand);border-color:var(--brand-edge);color:var(--on-brand)}
+.tour-act .tour-next:hover,.tour-act .tour-next:focus-visible{color:var(--on-brand);background:var(--brand-strong);border-color:var(--brand-edge)}
+.tour-act .tour-skip{border-color:transparent}
+.tour-prog i{background:var(--brand-strong)}
+```
+
+### C · status → `frontend/src/status.css` (WP7)
+
+```css
+/* ===== Katta Paper skin ===== */
+.st i{border-radius:2px;background:var(--brand)}
+.st-err button{height:44px;padding:0 20px;border:1px solid var(--brand-edge);border-radius:var(--r-md);background:var(--brand);color:var(--on-brand);font:600 15px var(--font)}
+```
