@@ -492,3 +492,14 @@ The owner changes the site's look often, on production, one look at a time. Keep
 - The dashboard's stylesheets load in the order of `src/dashboard/index.css`; a later rule wins at equal specificity,
   so when moving a rule between those files, check computed styles before and after.
 - Keep new parts in their folder (`src/dashboard/`, `src/solve/`, `lab/`); a file past ~15 KB is a sign to split it.
+
+## Rule 20 — Figures: paper colours, motion in the shared parts, durations through pace() (owner, 2026-11-12)
+
+- Figure colours are the paper look: a white figure on the paper page, ochre lines, marigold highlights (the owner
+  chose it over a forest-green or ink stage). Do not add a figure stage colour without asking.
+- Figure motion lives in `frontend/src/figs/parts.jsx` (Show, Dot, Glow, Ar/Line glint). Change it there, not in
+  figure files, so all 232 figures stay alike. Under reduced motion figures draw their still version.
+- Write every loop length as `pace(N)` (seconds as written), never `"Ns"`: `SPEED` in `theme/motion.js` scales
+  them all (0.7 since #312, owner: "every animation is a bit slow").
+- Every SMIL `keyTimes` starts at 0, rises, and ends at 1 unless `calcMode="discrete"`; otherwise the browser ignores
+  the animation silently (the Flink figure did, until #311).

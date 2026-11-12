@@ -1599,6 +1599,15 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PR #312)
+
+- `main` = `63d52fda6e8cf7035d326d58a5c005624d3a18c8` (#312). Front end only since #310; API release still
+  `20261112T104809Z-0c7151f`, 66 articles.
+- Figures animate through the shared parts (#311): fading steps, easing dots with a trail, a glint on the working
+  path, soft glows, rounded boxes; each loop starts when the figure comes into view. Figure colours: the paper look
+  (owner's choice). Every animation sped up through `SPEED` 0.7 in `theme/motion.js` (#312).
+- Ledger: frontend 839, backend 665.
+
 ## Production snapshot — 2026-11-12 (after PR #310)
 
 - `main` = `0c7151fc8121519d8e8807d6bdef22283d45df3f` (#310). API release `20261112T104809Z-0c7151f`, 66 articles,
