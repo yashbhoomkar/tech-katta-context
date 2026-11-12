@@ -120,7 +120,7 @@ table      = "table" NAME "." NAME "(" column { "," column } ")" [ "index" "(" N
 column     = NAME [ "pk" ] ;
 route      = ( "read" | "write" ) REQUEST ":" "client" hop { hop } [ after ] ;
 hop        = ( ">" | "|" | "~>" ) NAME [ "[" "replica" "]" ] ;
-after      = "then" "invalidate" NAME ;
+after      = "then" ( "invalidate" | "update" ) NAME ;
 REQUEST    = [A-Z][A-Z0-9_]{0,31} ;
 NUMBER     = digit { digit } [ "." digit { digit } ] ;
 ```
@@ -129,7 +129,7 @@ Whitespace between tokens is free. `>` means "calls and waits". `|` means "if th
 ask the part on the right and store the answer on the left" (cache-aside); the part on the left of `|` must be a
 `cache` or `cdn`. `~>` means "hands over and answers the client at once" (asynchronous); the part on the right of
 `~>` must be a `queue`. `[replica]` after a `sql` name means "read from its replicas, not the primary".
-`then invalidate X` is allowed only on `write` routes; `X` must be a `cache` or `cdn`.
+`then invalidate X` (delete the cached copy; not waited for) and `then update X` (write the new value into the cache before answering: "write-through"; `X` must be a `cache`) are allowed only on `write` routes; for `invalidate`, `X` may be a `cache` or `cdn`.
 
 ### 3.3 Example (the reference design of problem 1)
 
@@ -219,7 +219,7 @@ needs the problem's `requests` (section 9) to check rules 3 and 9.
 | E031 | Part twice in a route | `"{name}" appears twice in this route.` |
 | E032 | `idgen` misplaced | `An idgen goes in a write route, after a server or worker and before the store.` |
 | E033 | `[replica]` on non-sql or no replicas | `[replica] needs a sql part with replicas >= 1.` |
-| E034 | `then invalidate` wrong | `"then invalidate" goes at the end of a write route and names a cache or cdn.` |
+| E034 | `then invalidate`/`then update` wrong | `"then invalidate" or "then update" goes at the end of a write route and names a cache (invalidate may also name a cdn).` |
 | E035 | `cdn` on a request not `cdn_ok` | `{REQUEST} can't be served from a CDN in this problem.` |
 | E040 | Table on a non-store | `A table lives in a sql or nosql part; "{name}" is a {kind}.` |
 | E041 | No or two `pk` | `A table needs exactly one pk column.` |
@@ -252,7 +252,7 @@ Teaching values, round on purpose. One file: `tkd/catalogue.js`. `cap` = calls p
 | `idgen` | — | 1,000,000 | 0 | 0 |
 
 Other constants: `REPLICA_LAG_S = 1` (async sql replica, or nosql with `r + w <= rf`); `FAILOVER_S = 30`;
-`SCAN_FACTOR = 100`; `RHO_MAX = 0.95`; `CDN_HIT = 0.95`; `HIT_MAX = 0.99`; `MISS_P99_THRESHOLD = 0.01`.
+`SCAN_FACTOR = 100`; `RHO_MAX = 0.95`; `CDN_HIT = 0.95`; `HIT_MAX = 0.99`; `P50_RATIO = 0.25`; `COLD_S = 60`. (Section 22 revised the model; where sections 7 and 21 differ from section 22, **section 22 wins**. The places it changed are already corrected in 7.3, 7.7 and 7.10.)
 
 **Cost of a design** = sum over declared parts (used or not): `lb` 2,000; `cdn` 3,000; `server`/`worker` price × `count`;
 `cache` 1,500 × `memory_gb` × `nodes`; `sql` price × (1 + `replicas`); `nosql` 10,000 × `nodes`; `queue` 4,000; `objectstore` 2,000.
@@ -286,7 +286,7 @@ Tests use `kill_role`/`flush_role`; `kill`/`flush` by name exist for the Testcas
 For request `R` with `distinct_keys` D, `item_bytes` B, `skew` s (0 ≤ s ≤ 0.95) from the problem:
 
 - `cdn`: `h = CDN_HIT`.
-- `cache`: `items = alive × memory_gb × 1e9 / B`; `c = min(1, items / D)`; `h = min(HIT_MAX, c ^ (1 − s))`. If `cold` or `alive == 0`: `h = 0`.
+- `cache`: `items = alive × memory_gb × 1e9 / B`; `c = min(1, items / D)`; `warm = 1 − exp(−q × ttl_s / D)` (q = this request's rate in the segment); `churn = min(1, w / q)` if a write route on the same table ends with `then invalidate` this cache (w = that write's rate), else 0; `h = min(HIT_MAX, (c × warm)^(1 − s) × (1 − churn))`, rounded to 6 decimals. If `cold`, `alive == 0` or `q == 0`: `h = 0`. (Section 22.2 explains why.)
 
 ### 7.4 Load on every part
 
@@ -329,7 +329,7 @@ Computed once per design (not per phase), then re-checked in phases where state 
 
 **Latency** of a foreground hop: `p99_hop = base_p99 / (1 − min(rho, RHO_MAX))` (`sql`: read or write base; with
 `sync=true` a write's `sql` hop is doubled; full scan multiplies base by `SCAN_FACTOR`). **p99 of a request in a phase**:
-sum of `p99_hop` over foreground hops, where at `A | B`: if `(1 − h_A) > MISS_P99_THRESHOLD` include both `A` and `B`, else only `A`. Background hops are excluded.
+sum of `p99_hop` over **all** foreground hops, including the part after every `|` (at least 1 % of reads miss, so the 99th percentile is always a miss). **p50** of a request: `P50_RATIO ×` the same sum, but the part after `A | B` is included only if `h_A < 0.5`. Each hop value is rounded to 2 decimals before summing. Background hops are excluded.
 The request's test p99 is the **maximum over phases**.
 
 **Availability** of a request = `1 − failed / total`, where over all phases `total = Σ rate × seconds` and
@@ -388,10 +388,10 @@ D = 1,000,000, B = 500, s = 0.8.
 
 - `lb`: load 2,020, rho 0.0404, p99 = 2 / 0.9596 = **2.08**.
 - `api`: cap 3,000, rho 0.6733, p99 = 20 / 0.3267 = **61.2**.
-- `cache`: items = 2 × 1 × 1e9 / 500 = 4,000,000 ≥ D so c = 1, h = min(0.99, 1) = **0.99**; load 2,000 reads + 20 invalidations; rho 0.0202; p99 = **2.04**.
-- `db` primary: reads 2,000 × 0.01 = 20; writes 20; rho = 20/3,000 + 20/1,000 = 0.0267.
-- Miss fraction 0.01 is not greater than 0.01 → GET_LINK p99 = 2.08 + 61.2 + 2.04 = **65.3 ms**.
-- CREATE_LINK: db write hop = 15 / (1 − 0.0267) = 15.41, doubled because `sync=true` = 30.8; `ids` adds 0; p99 = 2.08 + 61.2 + 0 + 30.8 = **94.1 ms**.
+- `cache`: items = 2 × 1 × 1e9 / 500 = 4,000,000 ≥ D so c = 1; warm = 1 − exp(−2,000 × 3,600 / 1,000,000) = 0.999253; churn = 20 / 2,000 = 0.01 (the write route invalidates this cache); h = min(0.99, (1 × 0.999253)^0.2 × 0.99) = **0.989852**; load 2,000 reads + 20 invalidations over 2 nodes: rho 0.0202; p99 = **2.04**.
+- `db` primary: reads 2,000 × (1 − 0.989852) = 20.3; writes 20; rho = 20.3/3,000 + 20/1,000 = 0.0268; read p99 = 10 / 0.9732 = **10.27**; write p99 = 15 / 0.9732 = 15.41.
+- GET_LINK p99 = 2.08 + 61.22 + 2.04 + 10.27 = **75.6 ms** (the miss path always counts). GET_LINK p50 = 0.25 × (2.08 + 61.22 + 2.04) = **16.3 ms** (h ≥ 0.5, so the median read is a hit).
+- CREATE_LINK: db write hop 15.41, doubled because `sync=true` = 30.82; `ids` adds 0; clearing the cache is not waited for; p99 = 2.08 + 61.22 + 0 + 30.82 = **94.1 ms**.
 - Cost: 2,000 + 3 × 6,000 + 1,500 × 1 × 2 + 20,000 × 2 = **₹63,000**.
 
 Assert these to ±0.2 ms and exact rupees. If your numbers differ, your code is wrong, not the example; if you are
@@ -940,3 +940,149 @@ a time-stepped solver for queues (backlog grows when workers are slower than arr
 with a delay; retries and back-pressure (a retry storm after a failure); cache warm-up curves instead of an instant
 hit ratio; multi-zone placement and zone loss; per-key hot spots for partitioned stores. Each arrives as new
 problems that need it, never as a change to the verdict of an existing accepted design without a version bump.
+
+---
+
+## 22. The evaluator engine, second pass
+
+A critical re-read of sections 6, 7 and 21, looking for places where the model would teach the wrong thing, behave
+unfairly, or be awkward to build. Each finding has a decision. **This section overrides earlier ones where they differ.**
+
+### 22.1 What was wrong with the first model
+
+| # | Weakness found | Why it matters | Decision |
+|---|---|---|---|
+| 1 | A cache's TTL had no effect on its hit ratio | The central caching trade-off (fresh data against hit ratio) did not exist: `ttl_s=1` was free | Hit ratio now includes `warm` (22.2) |
+| 2 | Writes did not hurt a cache | A cache in front of write-heavy data looked as good as in front of read-heavy data | `churn` (22.2); and write-through as an alternative (22.3) |
+| 3 | The "miss > 1 %" rule made p99 jump between two values | A cliff: a 0.1 % change in hit ratio moved p99 by a whole database call | Removed. p99 always includes the miss path; the cache's benefit shows in load, in p50 and in cost (22.4) |
+| 4 | A cache restart meant "hit ratio 0 for the whole phase", and a failover was arithmetic on `outage_seconds` | Too harsh, and two special cases inside the solver | **Segments** (22.5): every phase is cut into pieces with constant conditions |
+| 5 | A slow worker behind a queue "dropped" calls | Wrong: a queue's whole purpose is to hold work and drain later | **Backlog** model and a new promise `done_within_s` (22.6) |
+| 6 | `[replica]` reads when no replica is left were undefined; so were zero rates and zero capacity | Crashes or NaN in the engine | Edge rules (22.7) |
+| 7 | `Math.exp` and `Math.pow` may differ in the last digit between browser engines | A design on the edge could pass in Run and fail in Submit | Rounding rule (22.8) |
+| 8 | Tips came from a fixed table and could point at a change that does not help | A wrong tip is worse than none | Tips are **checked by re-running** (22.9) |
+| 9 | Whitespace and comments changed the result-cache key and made identical designs look different in ranking | Wasted work; duplicate "solutions" | Hash and compare the **formatted** design (22.10) |
+| 10 | Nothing told an author whether a problem is too easy (everything passes) or has one single answer | Bad problems ship | **Design-space sweep** tool (22.11) |
+| 11 | Only p99 could be promised | No way to reward "most reads are fast" | `p50_ms` promise (22.4) |
+| 12 | A single point of failure was found only if a test killed it | Learners should hear it earlier | Static note `W003` (22.12) |
+
+### 22.2 Cache hit ratio (final)
+
+`h = min(HIT_MAX, (c × warm)^(1 − s) × (1 − churn))`, where for request R in a segment:
+
+- `c = min(1, items / D)`: the share of distinct keys that fit in memory.
+- `warm = 1 − exp(−q × ttl_s / D)`: the chance that a key was asked for within the last `ttl_s` (so its copy is still there). Long TTL or hot data → near 1. `ttl_s = 1` on a million keys at 2,000/s → 0.002: the cache is almost useless.
+- the exponent `(1 − s)` models skew: when a few keys take most traffic, a small or short-lived cache still answers most reads.
+- `churn = min(1, w / q)` applies when writes to the same table **invalidate** this cache: each write throws away a copy that a later read must fetch again. With `then update` (write-through) `churn = 0`. With neither, `churn = 0` but the copies are stale (section 7.6).
+
+All three are monotone the right way (more memory, longer TTL, fewer writes never lower `h`); the property tests of 21.8 must check this.
+
+### 22.3 Write-through: `then update X`
+
+Effects, compared with `then invalidate X`: the cache gets one write per call **and the write waits for it** (add the
+cache hop's p99 to the write's latency); staleness contributed by `X` for that table is 0; `churn` is 0. Trade-off
+the learner now sees: faster and fresher reads, slower writes, and the cache holds data nobody may read. Builder:
+the select under a write route (20.6) becomes `After saving:` with rows `Do nothing`, `Clear the copy in cache` (invalidate), `Write the new value into cache` (update).
+
+### 22.4 Latency: p99 and p50
+
+- p99 = sum of all foreground hops including every fallback after `|`.
+- p50 = `P50_RATIO ×` the sum of foreground hops, where the fallback after `A | B` counts only if `h_A < 0.5`.
+- New promise `p50_ms` per request. A typical read problem promises both, e.g. `p50 ≤ 20 ms, p99 ≤ 120 ms`: the first needs a good cache, the second needs the miss path to be healthy.
+- Failing either gives **Too Slow**; the message names which (`… took 31.0 ms for the median request; the promise is 20 ms.`).
+- Ranking after Accepted (section 13) uses p99 of the problem's first request.
+
+### 22.5 Segments
+
+Before solving, each phase is cut into **segments**; conditions are constant inside a segment. Cutting rules, applied in this order to a phase of length T that starts with events:
+
+1. If a `sql` primary was killed and a replica is promoted: a first segment of `min(FAILOVER_S, T)` seconds in which that part is **down for writes and for primary reads**.
+2. If a cache was flushed (or a cache node was killed, which loses that node's share): a segment of `min(COLD_S, remaining)` seconds in which that cache has `h = 0` (flush) or `h` computed with the surviving nodes' memory **and** `warm = 0` for the lost share (simplify: treat as `h × alive_after / alive_before`).
+3. The rest of the phase with the new steady state.
+
+Overlapping cuts split further (at most 4 segments per phase). The solver of 21.4 runs **per segment**; step 1 of its
+pseudo-code (events) moves to the cutter. Availability is simply `1 − Σ failed / Σ total` over segments; p99 and p50
+are the maximum over segments **longer than 1 % of the test's total length** (a 30-second failover inside a 20-minute
+test is 2.5 % of the time, so it does count; this is deliberate: a cold cache that makes the service slow for a minute is a real failure of a p99 promise).
+
+### 22.6 Queues and backlog
+
+A `queue` accepts up to its capacity and **never drops** below it. For the first `worker` after a queue, per segment:
+`arrive` = rate into the queue, `serve = min(worker capacity, arrive + backlog / seconds)`; `backlog += (arrive − worker capacity) × seconds`, floored at 0; `delay_s = backlog / worker capacity` at the end of the segment. Parts after the worker receive `serve`, not `arrive` (a queue protects what is behind it from spikes: this is the lesson).
+
+New promise `done_within_s: {REQUEST: n}` for requests whose route has `~>`: the maximum `delay_s` over segments must
+be ≤ n, **and** the backlog must be 0 at the end of the test unless the test sets `"may_end_with_backlog": true`.
+Missing it → **Too Slow**, reason `backlog`, message `{request} was still waiting {delay} after it was accepted; the promise is {n}. {part} can do {cap} a second but {arrive} arrive.` A durable write that is still in the queue at the end is **not** lost.
+
+### 22.7 Edge rules (no NaN, no crash)
+
+- A request with rate 0 in a segment is skipped (its p99 for that segment is not computed).
+- Capacity 0 (`alive == 0`, not bypassable) → the part is down; `rho` is reported as `null` and shown as `down`.
+- `[replica]` reads when `replicasUp == 0` go to the primary.
+- `D == 0` or `B == 0` in a problem file is an authoring error caught by `problems2.test.js`.
+- A killed part that does not exist in the design (the test kills `cache`, the learner has none) is a no-op.
+- `kill_role` on a role with several parts kills **one unit in each**.
+- All division results are checked with `Number.isFinite`; a non-finite number anywhere → `Judge Error` (21.7), never a verdict.
+
+### 22.8 Numbers that match everywhere
+
+Immediately after every `Math.exp` or `Math.pow`, round the result to **6 decimals**. Round each hop latency to
+**2 decimals** before summing, `rho` to **4 decimals** before use in a latency, money to whole rupees. Use a helper
+`round(x, d) = Math.round(x × 10^d) / 10^d` and nothing else. With this, Run in any browser and Submit on the server
+agree to the last displayed digit; the determinism test (21.8) asserts it for Chromium and, if available in CI, WebKit.
+
+### 22.9 Tips that are checked
+
+After choosing the finding and the blamed part, the engine builds up to **6 candidate changes** from a fixed list for
+that finding (examples: double the blamed part's `count`; next `size` up; add one replica; set `sync=true`; halve
+the cache's `ttl_s`; multiply its `memory_gb` by 4; add `[replica]` to the read; add `then invalidate`). It applies
+each to a copy of the design and re-runs **only the failed test**. A tip is shown only if its change makes that
+finding disappear (other findings may remain). If several work, show the first in list order; if none works, show
+no tip and the line `There is more than one thing to fix here.` The tip text never contains the number that worked:
+it says `More capacity in "api" would fix this.`, not `count=6`. Cost: at most 6 extra test runs, a few milliseconds.
+Tips are shown from the **second failed Submit** on a problem onwards (the first failure shows only the explanation), and always on Run.
+
+### 22.10 One design, one identity
+
+`canonical(source) = format(parseLenient(source))` with all comment lines removed. The result cache key (21.7), the
+"same as your last submission" check, and the grouping of shared Solutions all use `sha256(canonical)`. Two
+submissions with the same canonical text are one design: the Solutions tab shows it once with a count (`Used by 14 people`).
+
+### 22.11 Design-space sweep (authoring tool)
+
+`node backend/scripts/sweep-problem.mjs <slug>`: enumerates a grid of plausible designs for the problem (server
+count 1, 2, 3, 4, 6, 8 × three sizes; no cache / cache 1, 4, 16 GB with TTL 1 min, 1 h; sql three sizes × replicas 0,
+1, 2 × sync on/off; id kinds; with and without invalidate/update: a few thousand combinations, built with
+`format()`), judges each against all tests, and prints: how many are Accepted; the cheapest Accepted design and the
+reference's cost rank among them; for each test, how many designs it alone rejects; for each verdict, how many
+designs get it. **A problem ships only if:** 1 % to 20 % of the grid is Accepted; the reference is within 15 % of the
+cheapest Accepted cost; every test rejects at least 2 % of the grid that the other tests accept (otherwise the test
+adds nothing: delete it); and no verdict the problem claims to teach has zero designs. The tool's summary is pasted
+into the pull request that adds the problem.
+
+### 22.12 Static notes (no test needed)
+
+Add warning `W003`: an unmanaged part with one unit (`server`/`worker` `count=1`, `cache` `nodes=1`, `sql`
+`replicas=0`) on a foreground route: `"{name}" has no spare. If it fails, {requests} stop.` Shown in the editor and
+the Builder's issues list like other warnings; it never fails a design (a test that kills the part does).
+
+### 22.13 What the engine deliberately still does not model
+
+Retries and timeouts; connection limits; network time between parts (it is inside each hop's base latency);
+partial failures (a part is up or down); geography; data size on disk and its cost; the time a new replica takes to
+catch up. Each is a candidate for version 2 **only together with a problem that needs it**.
+
+### 22.14 Changes to earlier sections caused by this pass (already applied where marked)
+
+| Where | Change | Applied in place? |
+|---|---|---|
+| Section 6 constants | `MISS_P99_THRESHOLD` removed; `P50_RATIO`, `COLD_S` added | Yes |
+| 7.3 | New hit-ratio formula | Yes |
+| 7.7 | p99 includes every fallback; p50 defined | Yes |
+| 7.10 | Worked example recomputed (GET_LINK p99 75.6 ms, p50 16.3 ms) | Yes |
+| 3.2 grammar, E034 | `then update` | Yes |
+| 7.2, 7.5, 21.4 | Outage arithmetic and "cold for the whole phase" are replaced by segments (22.5); workers behind queues use backlog (22.6) instead of drops | **No: follow 22.5 and 22.6** |
+| 7.7 promises, 9.3 test format | New promises `p50_ms`, `done_within_s`; test flag `may_end_with_backlog` | **No: add them** |
+| 7.9 messages | New reason `backlog`; p50 wording | **No: texts are in 22.4 and 22.6** |
+| 21.5 tips | Fixed table becomes the candidate list of 22.9 | **No: follow 22.9** |
+| 21.7 cache key | Uses `canonical(source)` | **No: follow 22.10** |
+| Section 16 | Step 2 includes segments, backlog, tip checking; step 3 includes the sweep tool and its ship rule | **No: do it in those steps** |
