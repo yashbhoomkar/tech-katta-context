@@ -36,13 +36,14 @@ This repository is **context**, not the application itself.
 15. `14-OVERFLOW-ARCHITECTURE.md` — VPS-primary / Render-overflow design and its current status.
 16. `15-ORIGIN-EXPOSURE-HARDENING.md` — safe phased plan for Cloudflare proxy cutover and origin firewall restriction.
 17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
-- `20-UI-REDESIGN-SPEC.md` — the next look ("Katta Paper"): research across the best technical-content sites, the design system, and exact work packages and CSS for the session that builds it. Pictures in `ui-redesign/`.
+- `20-UI-REDESIGN-SPEC.md` — the "Katta Paper" look, **built and live** since tech-katta #309 (2026-11-12): research across the best technical-content sites, the design system, the work packages and CSS. Later changes are in the handover (figure motion #311–#312, phone figures and tours #313–#314, no "In 30 seconds" box #315). Pictures in `ui-redesign/`.
 
 ## The evaluator specification
 
 `evaluator.md` — the design and implementation specification of the next evaluator engine ("v2": compile a design
-into per-operation plans, simulate, analyse with rules, judge). Written 2026-11-10; nothing in it is built yet. The
-session that implements it reads its §0 first and builds in the order of its §15.
+into per-operation plans, simulate, analyse with rules, judge). Written 2026-11-10 and **built** (tech-katta #287–#302,
+2026-11-10 to 11-11): every problem and Lab challenge is judged by v2 and v1 is removed. Read its §0 before changing the
+evaluator.
 
 ## Critical rule
 

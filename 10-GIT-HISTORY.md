@@ -977,3 +977,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #313: figures readable on phones (600 px wide in a sideways-scrolling frame, step line above it) and a tour per section, the Problems list and articles, each ending on a first step; squash `3309252e61977796d9aaa66ac8fec1095cf2b936` (2026-11-12, front end, content, validator).
 - PR #314: signed out (locked pages), the general tour with a sign-in step instead of an empty page tour; squash `834b1d623e5c9dcc056a3e0299b5834167e31582` (2026-11-12, front end, content).
 - PR #315: the "In 30 seconds" box removed from every article and refused by the validator; squash `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2` (2026-11-12, content, validator, front end).
+- PR #316: docs only: a Tours section in `content/README.md`; figure speed (`SPEED`, `pace()`) and phone figures in `frontend/src/theme/README.md`; squash `6699bbfe647165acdb4debf34c318ab23c5c6fca` (2026-11-12).
