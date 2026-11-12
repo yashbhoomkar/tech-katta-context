@@ -1093,7 +1093,7 @@ catch up. Each is a candidate for version 2 **only together with a problem that 
 
 Owner, 12 Nov 2026: "We want the best system design problem solving platform." Sections 1 to 22 describe a good
 loop and a sound judge. That is necessary, not sufficient. This section says what "best" means in terms that can be
-checked, what is still missing, and the order to pursue it. It is direction for the owner, not build steps.
+checked, what is still missing, and the order to pursue it. It is direction for the owner; the build detail for its features is in section 24.
 
 ### 23.1 Seven things the best platform does, and where this design stands
 
@@ -1151,3 +1151,117 @@ existing `frontend/src/analytics.js`; add them in build step 5b.
 - A judge that is clever but cannot be explained in one page. If a rule cannot be written on the "How the judge works" page in a sentence, it should not be in the engine.
 - Problems written quickly. One calibrated problem with good tests, wrong designs and an editorial is worth five thin ones; the sweep tool's ship rules are not optional.
 - Hiding the model's limits. Say plainly what the judge does not model (22.13); learners forgive limits and do not forgive pretence.
+
+---
+
+## 24. Build detail for the features of section 23
+
+Section 23 named what is missing. This section specifies each piece so it can be built. Build them **after** steps
+1 to 8 of section 16, in the order below (steps 10 to 17). Same rules as section 0. None of this is tested.
+
+### 24.1 Step 10 — "How the judge works" page
+
+Route `/dashboard/practice/judge/`, linked from every result (`How was this judged?`) and from the list page.
+A static page generated **from the engine's own data**, so it can never drift from the code:
+
+- A build script `frontend/scripts/judge-page.mjs` imports `tkd/catalogue.js` and the kinds and writes `content/problems2/judge-page.json`: the parts table (capacity, base latency, price), the constants with one sentence each, the verdict list with meanings in order of precedence, and `judge_version`.
+- The page renders that JSON plus fixed prose, in this order: 1 "What the judge is" (three sentences: a model, not a real system; the same design always gets the same verdict; it checks only the promises a problem states) · 2 The parts and their numbers (table) · 3 How load travels along a request · 4 Caches: the hit-ratio formula in words and symbols, with a small calculator (inputs: memory, TTL, keys, item size, skew, reads/s, writes/s; output: hit ratio, live, using the engine's own function) · 5 How latency grows with load (the formula and a 5-row table at 20, 50, 80, 90, 95 % load) · 6 What happens when something fails (failover 30 s, cold cache 60 s, lost writes) · 7 Queues and backlog · 8 The eight verdicts · 9 What the judge does not model (list of 22.13) · 10 Version and change log (one line per `judge_version`).
+- A unit test fails if `judge-page.json` is older than the catalogue (compare a hash of the catalogue stored inside it).
+
+### 24.2 Step 11 — Report a verdict
+
+- Under every Submit result: `Think this verdict is wrong? Report it`. Opens a small form: a required reason select (`My design should pass` / `The explanation is confusing` / `The problem statement is unclear` / `Something else`) and an optional note (max 500 characters). Button `Send report`. After sending: `Thanks. We read every report.`
+- `POST /v1/practice/submissions/:id/report` body `{reason, note}`; auth required; only the submission's owner; at most 5 reports per user per day (429 `You've sent several reports today. Please try tomorrow.`).
+- Mongo collection `practice_reports` `{_id, submission_id, user_id, problem_id, judge_version, reason, note, status:"open", created_at}`; index `{status:1, created_at:-1}`.
+- The existing analytics page (`/analytics/`, admin only) gets a "Verdict reports" table: time, problem, verdict, reason, note, a link that opens the stored design in the problem page read-only with its result re-judged by the current engine, and buttons `Judge was right` / `Judge was wrong` that set `status`. `Judge was wrong` reports are the bug list.
+- No email, no reply system in the first version; the owner answers through whatever channel they choose.
+
+### 24.3 Step 12 — Findings link to the lesson
+
+- New file `content/problems2/lessons.json`: a map from **finding type + blamed part kind** to an article anchor, e.g. `"overloaded/sql": {"href": "/dashboard/concepts/caching/#when-to-bring-it-up", "label": "When to add a cache"}`, `"unavailable/sql": {"href": "/dashboard/components/postgresql/#replication", …}`, `"stale/cache"`, `"lost/sql"`, `"collision/idgen"`, `"backlog/worker"`, `"budget/*"`. A `*` kind is the fallback for a type.
+- A problem may override or add entries in its own `lessons` field.
+- The result shows one link under the explanation: `Read: When to add a cache →`. Opens in the same tab on phones (the design is saved), a new tab on desktop.
+- A CI test checks that every `href` path and `#anchor` exists in `content/articles/` (read the article JSON for heading ids the same way the article page builds them).
+- Start with an entry for every finding type, even if several point at the same article.
+
+### 24.4 Step 13 — Compare view (after Accepted)
+
+- On an Accepted result and in the Solutions tab: a button `Compare with…` and a select: `the reference design` · `the cheapest shared design` · `the fastest shared design` · `my previous submission`.
+- Shows two columns, **yours** and **theirs**: the formatted text with a line diff (changed lines tinted, added lines marked `+`, removed `−`; a plain longest-common-subsequence diff over lines of `canonical()` text, no library); under each, cost and p99; under both, a table of parts that differ in words: `cache: you 16 GB × 2 nodes · they 1 GB × 2 nodes (₹45,000 less)`; and the two diagrams side by side.
+- On phones the two columns become tabs `Yours` / `Theirs` with the difference table first.
+- Server: `GET /v1/practice/problems/:slug/compare?with=reference|cheapest|fastest` returns `{source, cost_inr, p99_ms}`; allowed only when the caller has an Accepted submission for that problem (403 otherwise: `Solve this problem to compare.`).
+
+### 24.5 Step 14 — Follow-ups
+
+File format: a problem may contain `"followups": [ … ]`, each:
+
+```json
+{ "part": 2, "title": "The sale goes viral", "prompt": "Marketing ran a TV ad. Opens are now 10× and the budget is unchanged.",
+  "changes": { "requests": { "GET_LINK": { "distinct_keys": 5000000 } }, "total_items": 500000000,
+               "add_requests": [], "constraints": ["Opens up to 60,000 a second", "Budget still ₹1,00,000 a month"] },
+  "tests": [ … same shape as section 9 … ],
+  "reference": "…", "wrong": [ … ], "hints": [ … ], "editorial": "…" }
+```
+
+- **Effective problem** for part N = the base problem with the `changes` of parts 2..N applied in order: `requests` entries are shallow-merged by name; `add_requests` appended; `total_items` and `constraints` replaced; `tests`, `reference`, `wrong`, `hints`, `editorial` are the part's own. A function `effectiveProblem(problem, part)` in `tkd/problem.js`, used by the page, the server and the checker.
+- **Ids and routes:** part N of problem 1 is `1.N`; route `/dashboard/practice/url-shortener/2/`; API paths take `?part=2` (default 1). Submissions store `part`. Indexes gain `part`.
+- **Unlocking:** part N opens when the user has an Accepted submission for part N−1 (server-enforced on Submit: 403 `Solve part {n−1} first.`; Run works on any part once its page is open). Not signed in: only part 1.
+- **Carry forward:** opening part N for the first time sets its editor text to the user's latest Accepted source of part N−1 (fetched from submissions), not the template. A bar above the editor: `This is your accepted design from part {n−1}. The situation has changed: see what breaks.` with a `Run` button.
+- **If a new request was added,** the carried design lacks its route; the first compile shows E022 for it, which is the intended first task.
+- **Page:** under the title a stepper `Part 1 ✓ — Part 2 — Part 3 🔒`; the statement shows the base statement collapsed (`Show the original problem`) and the follow-up's `prompt` and changed constraints on top, with changed numbers highlighted (`Opens: 2,000 → 20,000 a second`).
+- **List page:** a problem with follow-ups shows `1 of 3 parts` under its title; its status is `solved` only when every part is.
+- **Ranking, stats, solutions, editorial:** per part.
+- **Checker (`problems2.test.js`):** for every part N: its reference is Accepted on the effective problem N; each wrong design gets its verdict; **the reference of part N−1 is not Accepted on part N**; the sweep rules of 22.11 hold for each part.
+- **First follow-ups to write:** problem 1 (URL shortener): part 2 "10× opens, same budget" (forces a real cache and replicas), part 3 "count every click for an analytics page" (a new write request that must not slow the redirect: queue and worker). Problem 4 and problem 10 as decided by the owner.
+
+### 24.6 Step 15 — Study plans and company lists
+
+- `content/problems2/plans.json`: `[ { "slug": "two-weeks", "title": "Interview in two weeks", "about": "…", "days": [ { "day": 1, "items": [ {"problem": 1}, {"article": "/dashboard/concepts/caching/"} ] }, … ] } ]`. An item is a problem (optionally `"part": 2`) or an article link.
+- Routes `/dashboard/practice/plans/` (cards: title, about, days, progress bar) and `/dashboard/practice/plans/<slug>/` (a day-by-day list with ticks; `Start plan` stores `{slug, started_at}` per user; "today" is computed from the start date in IST; missed days are simply shown as open, no penalty).
+- Progress is derived, never stored: a problem item is done when solved; an article item is done when its page was opened after the plan started (one row per user and article in a small `practice_reads` collection, written by a `POST /v1/practice/read` from the article page only when a plan is active).
+- Three plans to write first: "First steps" (5 easy problems, 5 articles), "Interview in two weeks", "Caching in depth" (one topic).
+- **Company lists:** `companies` on a problem is filled only from questions the owner can source; the list page gets a `Company` filter. Do not invent company tags.
+
+### 24.7 Step 16 — Analytics events and a practice dashboard
+
+Events sent through the existing `frontend/src/analytics.js` (follow its consent and field rules; no design text, no personal data):
+
+| Event | When | Fields |
+|---|---|---|
+| `practice_open` | Problem page shown | problem, part, editor (`builder`/`text`), device (`phone`/`desktop`) |
+| `practice_first_edit` | First change to the design in a visit | problem, part, seconds since open |
+| `practice_run` | Run finishes | problem, part, verdict, seconds since open, editor |
+| `practice_submit` | Submit result arrives | problem, part, verdict, attempt number |
+| `practice_switch_editor` | Builder ↔ Text | from, to |
+| `practice_tip_shown` / `practice_lesson_click` / `practice_compare` / `practice_report` | As named | problem, part, finding type |
+
+The admin analytics page gets a "Practice" tab computing the seven measures of 23.3 per problem and overall for a
+chosen date range, plus a per-problem funnel (opened → edited → ran → submitted → accepted) and the split of
+verdicts on first Submit (this shows which wrong turn is most common, and so which tip and lesson matter most).
+
+### 24.8 Step 17 — India-first details
+
+- One formatting helper `tkd/inr.js`: `inr(63000) → "₹63,000"`, `inr(150000) → "₹1.5 lakh"`, `count(20000000) → "2 crore"`, `rate(2000) → "2,000 a second"`. Indian digit grouping everywhere (`1,00,000`). Used by the page, the Builder's consequence lines, messages and the judge page. Engine results stay plain numbers.
+- Problem statements use named Indian-scale situations and rupee budgets; numbers in statements are written with the helper's style.
+- Language: all learner-facing strings of the practice pages live in one file `frontend/src/practice/strings.js` keyed by id (the exact English texts of this spec). This costs nothing now and makes Hindi and Marathi a later translation task, not a rewrite. Do not add a language switch yet.
+
+### 24.9 Later, and only on the owner's word
+
+"Estimate first", "Explain your trade-off" with AI comments, mock interviews, weekly problem sets, discussion
+threads, reminders, payments. Each needs its own short spec; none should be started from this file.
+
+### 24.10 Updated build order (replaces the last row of section 16's table)
+
+| Step | Build | Depends on |
+|---|---|---|
+| 1–8 | As in section 16 (with the section 22 changes) | — |
+| 9 | Owner review with five friends on phones; fix what they stumble on | 1–8 |
+| 10 | "How the judge works" page | 2 |
+| 11 | Report a verdict | 4, 7 |
+| 12 | Findings link to the lesson | 5b |
+| 13 | Compare view | 7 |
+| 14 | Follow-ups (engine helper, pages, checker, first three follow-ups) | 8 |
+| 15 | Study plans, company filter | 7 |
+| 16 | Analytics events and the practice dashboard (events can ship with 5b; the dashboard here) | 5b |
+| 17 | India-first helper and the strings file (**do the strings file and `inr.js` during step 5b** so nothing is rewritten; this row is the check that every string moved) | 5b |
+| 18 | Link "Practice" from the dashboard tabs and the landing page | owner says go |
