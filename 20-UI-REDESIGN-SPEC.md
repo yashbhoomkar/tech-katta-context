@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day, twice: the old blue in figures and the canvas replaced by teal after the owner's review of the first pictures; then a motion layer added (section 4.5, WP8, Appendix D).
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
@@ -20,6 +20,11 @@ Look at them before you start, and compare your build against them when you fini
 | `07-workspace.png`, `11-workspace-result.png` | Problem workspace: a component selected on the canvas; the result sheet after Run |
 | `08-phones.png` | Pixel 7: landing, section, problems, article (light), article and landing (dark) |
 | `09-dark.png` | Dark mode: landing, problems, workspace |
+| `12-figures-ochre-marigold.png` | **The final figure colours**: landing diagram light and dark, and the canvas with a component selected |
+
+**Colour note on the pictures.** Pictures 01, 02, 05, 07 and 12 show the final colours. Pictures 08 to 11 were taken
+one revision earlier, when figure lines and links were teal: use them for layout, sizes and spacing only. Wherever
+they show teal, the build must show ochre lines and marigold fills as in picture 12.
 
 ---
 
@@ -30,7 +35,7 @@ Look at them before you start, and compare your build against them when you fini
    (commit `01adfbe` of `tech-katta`, the state after PR #308). Do not "improve" values. If something looks wrong,
    first check that you pasted the block at the **end** of the right file.
 3. **Do not change any JSX, content, route, test or backend file** except the small edits listed in section 8
-   (WP1, WP2 and WP8). The redesign is almost entirely CSS.
+   (WP1, WP2 and WP8; WP1 includes one-line edits to `palette.js` and `main.jsx`). The redesign is almost entirely CSS.
 4. **No colour codes outside `frontend/src/theme/`.** `theme.test.js` fails the build if you write `#abc`, `rgb(…)`
    or a colour keyword in any other stylesheet or script. Use `var(--name)`.
 5. **Every change must look right in light and dark, on a desktop and on a phone.** About three quarters of visitors
@@ -160,7 +165,7 @@ personality, never corporate and never a toy.
 | Headings | **Fraunces** (a serif), weight 600 | Warm and confident, like Brilliant and samwho; every competitor uses a plain sans, so this alone makes the site recognisable. Tested against seven other typefaces in a specimen |
 | Body and controls | **Inter** (already on the site) | The most readable choice at small sizes; no new download for body text |
 | Labels | **IBM Plex Mono** (already on the site), only for eyebrows, table heads and figure captions | Keeps the engineering flavour, in small doses |
-| **Second colour** | **Peacock teal `#0f6b66`** replaces the old blue everywhere: links, focus rings, hover outlines, "the path that works" in every figure, and the handles, arrows and labels on the canvas | The old blue (`#2855d9`) is cold and fought with the warm paper; the owner pointed this out on the first build. `--accent` is read 228 times in the stylesheets and by every figure through `palette.js`, so changing the token recolours all of them at once. Teal sits beside marigold and paper, and still reads clearly against red (trouble) |
+| **Working colour** | **Ochre `#94600a`**, the dark end of the marigold family, replaces the old blue as `--accent`: links, focus rings, hover outlines, lines and labels of "the path that works" in every figure, handles and live arrows on the canvas. **Filled boxes in figures are marigold with ink text, never a solid ochre block.** In dark mode `--accent` is marigold itself | The owner rejected, in turn, the old blue (cold), teal (a foreign colour in the middle of the page) and solid ochre boxes (muddy). One colour family keeps the whole site in the yellow scheme. `--accent` is read 228 times in the stylesheets and by every figure through `palette.js`, so the token recolours all of them at once |
 | Warning colour | Moved from amber to orange | So a warning never looks like the brand |
 | One dark card | The "practise this" call-out inside an article is ink-coloured with marigold text | One strong invitation per article; used nowhere else |
 
@@ -169,7 +174,8 @@ personality, never corporate and never a toy.
 - No pixel, dot-matrix or bitmap lettering. No pastel wash cards in several colours. No buttons with a thick dark
   bottom edge. No tilted cards. (These are another site's signatures.)
 - No gradients except the highlighter stroke. No glow, no glass cards, no neon.
-- No third colour. Marigold is the brand; teal is the working colour for links, figures and the canvas. Nothing else. **No blue anywhere**: if you see the old blue (`#2855d9`) or any blue in the build, a token was missed.
+- No second hue. Everything coloured is in the marigold family: marigold for fills, ochre for thin lines and small text. **No blue and no teal anywhere**: if you see the old blue (`#2855d9`) in the build, a token was missed. Red, green and orange appear only as status (trouble, passed, warning).
+- No large solid ochre areas. Ochre is for lines, outlines, icons and text. A filled shape is marigold (with ink text) or a pale tint.
 - No capital mono text for anything a person taps (buttons, tabs, nav).
 - No more than **one** marigold button visible in any one region of a screen (header, page body, toolbar).
 - No more than **one** highlighter stroke per screen.
@@ -202,11 +208,11 @@ All values live in `frontend/src/theme/tokens.css` (Appendix A). This section ex
 | `--brand-tint`, `--brand-line` | `#fff3cf`, `#f0d388` | `#30260f`, `#5f4813` | Tinted boxes and their border; active sidebar row |
 | `--on-brand` | `#1d1b16` | `#1d1b16` | Text on marigold. Always ink, in both themes |
 | `--mark` | `#ffd866` | `#7d5c00` | The highlighter stroke |
-| `--accent` family (teal) | `#0f6b66`, strong `#0b524e`, mid `#7fc4bd`, line `#b5ddd8`, soft `#d3ece8`, tints `#e4f3f0` `#f0f8f6` | `#5fd0c4`, `#8ae0d6`, `#2f8078`, `#24544f`, `#1b3f3b`, `#17302d` `#132624` | Links, focus rings, hover outlines, figures (works = teal), canvas handles and live arrows |
+| `--accent` family (ochre; marigold in dark) | `#94600a`, strong `#754a00`, mid `#e9b949`, line `#f0d388`, soft `#ffe08a`, tints `#ffedb8` `#fff6dc`, `--on-accent` `#fff` | `#ffc233`, `#ffd466`, `#a87a10`, `#5f4813`, `#4a3a12`, `#3a2e10` `#2b230f`, `--on-accent` `#1d1b16` | Links, focus rings, hover outlines, figure lines and labels (works = ochre), tinted figure boxes, canvas handles and live arrows |
 | `--danger`, `--success`, `--warn` families | red, green, orange | lighter versions | Status. Difficulty pills: Easy = success, Medium = warn, Hard = danger |
 
 Measured contrast (WCAG needs 4.5:1 for text): ink on page 16.1, body (`--ink-2`) on page 11.1, `--muted` on page
-6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` (teal) on page 5.9, `--success` on its
+6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` (ochre) on page 5.0 and on white 5.3, `--success` on its
 tint 5.0, `--warn` on its tint 5.7, `--danger` on its tint 6.1. Dark mode: all of these are 4.7 or higher.
 
 **Rules.** Marigold is a background or a line, **never the colour of text on paper** (it fails contrast); for
@@ -268,12 +274,12 @@ Depth comes from a 1 px border **and** a very soft shadow together. Never a hard
 | **Difficulty pill** | Tinted pill: Easy green, Medium orange, Hard red | `.pb-tag.easy/.medium/.hard` |
 | **Problems table** | One white card; mono capital head on `--surface-2`; rows split by hairlines; row hover `--surface-2`. On phones each row becomes its own card | `.qt-table` |
 | **"In 30 seconds"** | `--surface` well, no border | `.a-tldr` |
-| **Worked example** | `--accent-tint` (pale teal) box with `--accent-line` border, mono label in `--accent` | `.a-example` |
+| **Worked example** | `--accent-tint` (pale yellow) box with `--accent-line` border, mono label in `--accent` | `.a-example` |
 | **Analogy** | `--brand-tint` with a 3 px marigold bar on the left | `.a-analogy` |
 | **Practise call-out** | The one dark card: `--inverse` fill, Fraunces sentence in `--on-inverse`, label and arrow in marigold | `.a-lab` |
 | **Figure** | White card, 14 px corners, mono caption strip on `--surface-2` | `.a-fig`, `.figure` |
 | **Header** | 64 px (dashboard 68 px), see-through page colour with a 14 px blur, 1 px line below | `.header`, `.d-head` |
-| **Focus ring** | 2 px `--accent` (teal), 2 px offset, on every link and button | global |
+| **Focus ring** | 2 px `--accent` (ochre), 2 px offset, on every link and button | global |
 
 ### 4.5 Motion: where things move, and where they do not
 
@@ -302,7 +308,7 @@ pulse, for skeletons; no parallax on text and no scroll-jacking; honour reduced 
 | 10 | Phone problem result | Pops in | Same moment, phone version | 0.22 s |
 | 11 | Loading skeleton lines | A light sweep runs across them | Tells the visitor the page is working | 1.4 s loop (the only new loop) |
 | 12 | Landing sections below the hero | Cards and the IND vs PAK problem rise as they scroll into view | Rewards scrolling; shows there is more | Tied to scrolling |
-| 13 | **Article reading progress** | A 2 px teal line under the header fills as you read | Long articles (20 minutes and more): shows how far you are | Tied to scrolling |
+| 13 | **Article reading progress** | A 2 px ochre line under the header fills as you read | Long articles (20 minutes and more): shows how far you are | Tied to scrolling |
 
 Items 12 and 13 use CSS scroll timelines. Browsers that do not have them (older Safari and Firefox) simply show the
 content with no effect and no progress line. That is intended; do not add a JavaScript fallback.
@@ -373,8 +379,8 @@ Each page: what changes for the visitor. The CSS that does it is in Appendix C; 
 - Problem title Fraunces 30 px. The "how this works" note is a `--surface` box with a marigold bar on the left (not a coloured tint).
 - Toolbar: Timer, Reset, Run are second buttons; **Submit is the only marigold button**.
 - Palette items: white rows with a border. Selected node on the canvas: 3 px marigold ring.
-- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.** Node labels, handles and live arrows turn teal by themselves because they read `--accent` (CSS) or `BLUE` from `palette.js` (which is `--accent`).
-- **Figures are not edited.** All 232 article figures and the landing diagram take their colours from `palette.js`: the short name `BLUE` is `--accent`, `LB` is `--accent-tint`, `FB` is `--accent-soft`, `GREY` is `--line-strong`. They become teal on warm paper as soon as WP1 is done. Leave the names as they are (renaming them is a separate clean-up).
+- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.** Node labels, handles and live arrows turn ochre by themselves because they read `--accent` (CSS) or `BLUE` from `palette.js` (which is `--accent`).
+- **Figures are not edited.** All 232 article figures and the landing diagram take their colours from `palette.js`: the short name `BLUE` is `--accent`, `LB` is `--accent-tint`, `FB` is `--accent-soft`, `GREY` is `--line-strong`. They become ochre lines with pale-yellow boxes as soon as WP1 is done. Leave the names as they are (renaming them is a separate clean-up). The one figure with solid filled boxes, the landing diagram, is switched to marigold fills in WP1 step 7.
 - Hints: white cards; an opened hint turns marigold tint.
 
 ### 5.7 Sign-in card, account menu, tour, status (`account.css`, `tour.css`, `status.css`)
@@ -463,8 +469,26 @@ One pull request for all of them is fine. Commit after each package.
    | `<style>html[data-theme=dark]{color-scheme:dark;background:#12171e}</style>` | `<style>html{background:#faf7f0}html[data-theme=dark]{color-scheme:dark;background:#15140f}</style>` |
 
    (If you skip this, the dark landing page shows the old navy background. That is the sign you missed it.)
+7. Marigold fills for the landing diagram (the only figure with solid filled boxes). Four exact replacements:
 
-**Check:** `npm test` prints `fail 0`. Build and open `/` and an article: colours are warm, every figure is teal instead of blue, but the layout is still the old one and old buttons are teal. That is expected; the next packages fix them.
+   In `frontend/src/theme/palette.js`:
+
+   | Find | Replace with |
+   |---|---|
+   | `CAT_TEAL,CAT_PINK;` | `CAT_TEAL,CAT_PINK,BRAND,BRAND_EDGE,ON_BRAND;` |
+   | `"cat-teal":CAT_TEAL,"cat-pink":CAT_PINK}=t)}` | `"cat-teal":CAT_TEAL,"cat-pink":CAT_PINK,brand:BRAND,"brand-edge":BRAND_EDGE,"on-brand":ON_BRAND}=t)}` |
+
+   In `frontend/src/main.jsx`:
+
+   | Find | Replace with |
+   |---|---|
+   | `import{BG,BLUE,FAINT,ON_ACCENT}from"./theme/palette.js"` | `import{BG,BLUE,FAINT,BRAND,BRAND_EDGE,ON_BRAND}from"./theme/palette.js"` |
+   | `C:[BLUE,BLUE,ON_ACCENT]` | `C:[BRAND,BRAND_EDGE,ON_BRAND]` |
+
+   Each "Find" text occurs exactly once. If one is not found, stop and report; do not guess.
+   **Rule for any figure you touch later:** a filled shape uses `BRAND` with `ON_BRAND` text; `BLUE` (ochre) is for strokes and text only.
+
+**Check:** `npm test` prints `fail 0`. Build and open `/` and an article: colours are warm, every figure has ochre lines and pale-yellow boxes instead of blue, the landing diagram's filled boxes are marigold with dark text, but the layout is still the old one and old buttons are ochre. That is expected; the next packages fix them.
 
 ### WP2 — The highlighter on the landing headline
 
@@ -527,7 +551,7 @@ production (sign-in is off locally); check it on the preview deployment of the p
 
 **Check** (with your browser's reduced-motion setting **off**): reload `/`: the hero text steps in and the marigold
 stroke is drawn under the last word about half a second later. Scroll down: the four cards rise as they enter.
-Open `/dashboard/concepts/`: the cards rise in turn. Open an article and scroll: a thin teal line grows under the
+Open `/dashboard/concepts/`: the cards rise in turn. Open an article and scroll: a thin ochre line grows under the
 header (Chrome, Edge or Android). In a problem press Run: the result sheet slides up. On a phone open an article and
 tap a figure's full-screen button: it must still fill the screen. Then turn reduced motion **on** and reload: nothing
 animates, everything is in its final place, and the progress line still works.
@@ -555,9 +579,9 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 - [ ] The end-to-end scripts the repo already has still pass (`no-lab.js`, `challenges-v2.js`, `eval-problem.js`,
       `solution-tab.js`; `08-TESTING-VALIDATION.md` and the handover say how to run them). They do not depend on colours.
 - [ ] Every page in section 7, desktop and phone, light and dark: matches the pictures; no text cut off; no
-      sideways scrolling on the phone; no blue anywhere (buttons, figures, canvas handles, note boxes); no grid paper; no navy background.
+      sideways scrolling on the phone; no blue or teal anywhere (buttons, figures, canvas handles, note boxes); no solid brown boxes in figures; no grid paper; no navy background.
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
-- [ ] Keyboard: Tab through the landing header and an article; every stop shows the teal focus ring.
+- [ ] Keyboard: Tab through the landing header and an article; every stop shows the ochre focus ring.
 - [ ] Reduced motion on (browser setting): no entrance animations, nothing moves on hover, pages are complete at once.
 - [ ] Reduced motion off: the thirteen motions in section 4.5 happen, each once; nothing loops except loading lines and the figures.
 - [ ] Phone: a figure's full-screen view still covers the whole screen (this breaks if an animation is changed to `both`).
@@ -597,7 +621,7 @@ Friends will react to this. Most reactions map to one token:
 
 | "I wish…" | Change |
 |---|---|
-| …the teal in figures and links were another colour | The nine `--accent…` tokens (light and dark) and the same keys in `palette.js` |
+| …the ochre in figures and links were another colour | The nine `--accent…` tokens (light and dark) and the same keys in `palette.js` |
 | …the yellow were another colour | The eight `--brand…` tokens and `--mark`, light and dark, and the same keys in `palette.js` |
 | …the background were plain white | `--page` (and the three `index.html` inline styles, and `theme-color`) |
 | …the headings were not serif | `--font-display` (set it to `var(--font)`), and remove the Fraunces import |
@@ -617,7 +641,7 @@ Friends will react to this. Most reactions map to one token:
    one with the theme button (<html data-theme="light|dark">, set before the page draws by public/theme-boot.js; theme/mode.js keeps it up to date).
    Rules for colour names: name the role, not the hue (--brand, not --yellow), so a new brand colour still reads right.
    The look ("Katta Paper"): warm paper page, white cards, ink text, one brand colour (marigold) for the main button,
-   the highlighter mark and "you are here"; one working colour (peacock teal) for links, focus, figures and the canvas. */
+   the highlighter mark and "you are here"; ochre (the dark end of the same family) for links, focus, and lines in figures and on the canvas. */
 :root{
   color-scheme:light;
   /* Surfaces */
@@ -650,14 +674,15 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#fff3cf;   /* brand-tinted boxes, active sidebar row */
   --on-brand:#1d1b16;
   --mark:#ffd866;         /* the highlighter stroke under a headline word */
-  /* Accent (peacock teal): links, focus rings, hover outlines, the path that works in figures, canvas handles */
-  --accent:#0f6b66;
-  --accent-strong:#0b524e;
-  --accent-mid:#7fc4bd;
-  --accent-line:#b5ddd8;
-  --accent-soft:#d3ece8;
-  --accent-tint-2:#e4f3f0;
-  --accent-tint:#f0f8f6;
+  /* Accent (ochre; marigold in dark): links, focus rings, hover outlines, lines and labels in figures, canvas handles.
+     Use it for lines and text only. A filled shape is --brand with --on-brand text. */
+  --accent:#94600a;
+  --accent-strong:#754a00;
+  --accent-mid:#e9b949;
+  --accent-line:#f0d388;
+  --accent-soft:#ffe08a;
+  --accent-tint-2:#ffedb8;
+  --accent-tint:#fff6dc;
   --on-accent:#fff;
   /* Status */
   --danger:#b3261e;
@@ -684,7 +709,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:29 27 22;
   --bg-rgb:255 255 255;
   --page-rgb:250 247 240;
-  --accent-rgb:15 107 102;
+  --accent-rgb:148 96 10;
   /* Shadows and backdrops */
   --shadow-1:0 1px 2px rgb(var(--ink-rgb) / .06);
   --shadow-2:0 2px 4px rgb(var(--ink-rgb) / .05),0 10px 24px rgb(var(--ink-rgb) / .09);
@@ -737,14 +762,14 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#30260f;
   --on-brand:#1d1b16;
   --mark:#7d5c00;
-  --accent:#5fd0c4;
-  --accent-strong:#8ae0d6;
-  --accent-mid:#2f8078;
-  --accent-line:#24544f;
-  --accent-soft:#1b3f3b;
-  --accent-tint-2:#17302d;
-  --accent-tint:#132624;
-  --on-accent:#06201d;
+  --accent:#ffc233;
+  --accent-strong:#ffd466;
+  --accent-mid:#a87a10;
+  --accent-line:#5f4813;
+  --accent-soft:#4a3a12;
+  --accent-tint-2:#3a2e10;
+  --accent-tint:#2b230f;
+  --on-accent:#1d1b16;
   --danger:#ff8a80;
   --red:#ff7b72;
   --danger-line:#6b2c28;
@@ -767,7 +792,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:0 0 0;
   --bg-rgb:30 28 22;
   --page-rgb:21 20 15;
-  --accent-rgb:95 208 196;
+  --accent-rgb:255 194 51;
   --shadow-1:0 1px 2px rgb(0 0 0 / .4);
   --shadow-2:0 2px 4px rgb(0 0 0 / .35),0 10px 24px rgb(0 0 0 / .35);
   --shadow-3:0 4px 8px rgb(0 0 0 / .4),0 18px 44px rgb(0 0 0 / .55);
@@ -779,7 +804,7 @@ Friends will react to this. Most reactions map to one token:
 ## Appendix B — `TOKENS` in `frontend/src/theme/palette.js` (one line)
 
 ```js
-export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#0f6b66","accent-strong":"#0b524e","accent-mid":"#7fc4bd","accent-line":"#b5ddd8","accent-soft":"#d3ece8","accent-tint-2":"#e4f3f0","accent-tint":"#f0f8f6","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
+export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#94600a","accent-strong":"#754a00","accent-mid":"#e9b949","accent-line":"#f0d388","accent-soft":"#ffe08a","accent-tint-2":"#ffedb8","accent-tint":"#fff6dc","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
 ```
 
 ## Appendix C — blocks to append
@@ -1307,7 +1332,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
     .inside-grid li,.lp-lab,.lp .ch-title,.lp .ch-desc{animation:tk-rise linear both;animation-timeline:view();animation-range:entry 0% entry 55%}
   }
 }
-/* 7. Reading progress: a thin teal line under the header fills as you scroll an article. It follows the reader's own
+/* 7. Reading progress: a thin line under the header fills as you scroll an article. It follows the reader's own
    scrolling, so it stays on under reduced motion. Browsers without scroll timelines show nothing. */
 @supports (animation-timeline:scroll()){
   .dash:has(.d-read) .d-head::after{content:"";position:absolute;left:0;right:0;top:100%;height:2px;background:var(--accent);transform-origin:0 50%;animation:tk-progress linear both;animation-timeline:scroll(root)}
