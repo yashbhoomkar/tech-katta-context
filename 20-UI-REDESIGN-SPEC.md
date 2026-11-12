@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026.
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day (the old blue in figures and the canvas replaced by teal, after the owner's review of the first pictures).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
@@ -17,7 +17,7 @@ Look at them before you start, and compare your build against them when you fini
 | `04-section.png` | A section page (Concepts) |
 | `05-article.png`, `10-article-body.png` | An article: top, and three pieces of the body (light, dark, light) |
 | `06-problems.png` | Problems list |
-| `07-workspace.png` | Problem workspace with the canvas |
+| `07-workspace.png`, `11-workspace-result.png` | Problem workspace: a component selected on the canvas; the result sheet after Run |
 | `08-phones.png` | Pixel 7: landing, section, problems, article (light), article and landing (dark) |
 | `09-dark.png` | Dark mode: landing, problems, workspace |
 
@@ -160,7 +160,7 @@ personality, never corporate and never a toy.
 | Headings | **Fraunces** (a serif), weight 600 | Warm and confident, like Brilliant and samwho; every competitor uses a plain sans, so this alone makes the site recognisable. Tested against seven other typefaces in a specimen |
 | Body and controls | **Inter** (already on the site) | The most readable choice at small sizes; no new download for body text |
 | Labels | **IBM Plex Mono** (already on the site), only for eyebrows, table heads and figure captions | Keeps the engineering flavour, in small doses |
-| Blue | Kept, but only for links, focus rings and "the path that works" in figures | The figures were drawn with blue = works, red = trouble. That meaning stays |
+| **Second colour** | **Peacock teal `#0f6b66`** replaces the old blue everywhere: links, focus rings, hover outlines, "the path that works" in every figure, and the handles, arrows and labels on the canvas | The old blue (`#2855d9`) is cold and fought with the warm paper; the owner pointed this out on the first build. `--accent` is read 228 times in the stylesheets and by every figure through `palette.js`, so changing the token recolours all of them at once. Teal sits beside marigold and paper, and still reads clearly against red (trouble) |
 | Warning colour | Moved from amber to orange | So a warning never looks like the brand |
 | One dark card | The "practise this" call-out inside an article is ink-coloured with marigold text | One strong invitation per article; used nowhere else |
 
@@ -169,7 +169,7 @@ personality, never corporate and never a toy.
 - No pixel, dot-matrix or bitmap lettering. No pastel wash cards in several colours. No buttons with a thick dark
   bottom edge. No tilted cards. (These are another site's signatures.)
 - No gradients except the highlighter stroke. No glow, no glass cards, no neon.
-- No second brand colour. If something needs to stand out and is not the main action, use weight or size.
+- No third colour. Marigold is the brand; teal is the working colour for links, figures and the canvas. Nothing else. **No blue anywhere**: if you see the old blue (`#2855d9`) or any blue in the build, a token was missed.
 - No capital mono text for anything a person taps (buttons, tabs, nav).
 - No more than **one** marigold button visible in any one region of a screen (header, page body, toolbar).
 - No more than **one** highlighter stroke per screen.
@@ -202,11 +202,11 @@ All values live in `frontend/src/theme/tokens.css` (Appendix A). This section ex
 | `--brand-tint`, `--brand-line` | `#fff3cf`, `#f0d388` | `#30260f`, `#5f4813` | Tinted boxes and their border; active sidebar row |
 | `--on-brand` | `#1d1b16` | `#1d1b16` | Text on marigold. Always ink, in both themes |
 | `--mark` | `#ffd866` | `#7d5c00` | The highlighter stroke |
-| `--accent` family | `#1d4ed8` … | `#8fb2ff` … | Links, focus rings, figures |
+| `--accent` family (teal) | `#0f6b66`, strong `#0b524e`, mid `#7fc4bd`, line `#b5ddd8`, soft `#d3ece8`, tints `#e4f3f0` `#f0f8f6` | `#5fd0c4`, `#8ae0d6`, `#2f8078`, `#24544f`, `#1b3f3b`, `#17302d` `#132624` | Links, focus rings, hover outlines, figures (works = teal), canvas handles and live arrows |
 | `--danger`, `--success`, `--warn` families | red, green, orange | lighter versions | Status. Difficulty pills: Easy = success, Medium = warn, Hard = danger |
 
 Measured contrast (WCAG needs 4.5:1 for text): ink on page 16.1, body (`--ink-2`) on page 11.1, `--muted` on page
-6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` on page 6.3, `--success` on its
+6.2 and on `--surface` 5.8, `--faint` on page 4.8, ink on marigold 10.7, `--accent` (teal) on page 5.9, `--success` on its
 tint 5.0, `--warn` on its tint 5.7, `--danger` on its tint 6.1. Dark mode: all of these are 4.7 or higher.
 
 **Rules.** Marigold is a background or a line, **never the colour of text on paper** (it fails contrast); for
@@ -268,12 +268,12 @@ Depth comes from a 1 px border **and** a very soft shadow together. Never a hard
 | **Difficulty pill** | Tinted pill: Easy green, Medium orange, Hard red | `.pb-tag.easy/.medium/.hard` |
 | **Problems table** | One white card; mono capital head on `--surface-2`; rows split by hairlines; row hover `--surface-2`. On phones each row becomes its own card | `.qt-table` |
 | **"In 30 seconds"** | `--surface` well, no border | `.a-tldr` |
-| **Worked example** | `--accent-tint` box with `--accent-line` border, mono label in `--accent` | `.a-example` |
+| **Worked example** | `--accent-tint` (pale teal) box with `--accent-line` border, mono label in `--accent` | `.a-example` |
 | **Analogy** | `--brand-tint` with a 3 px marigold bar on the left | `.a-analogy` |
 | **Practise call-out** | The one dark card: `--inverse` fill, Fraunces sentence in `--on-inverse`, label and arrow in marigold | `.a-lab` |
 | **Figure** | White card, 14 px corners, mono caption strip on `--surface-2` | `.a-fig`, `.figure` |
 | **Header** | 64 px (dashboard 68 px), see-through page colour with a 14 px blur, 1 px line below | `.header`, `.d-head` |
-| **Focus ring** | 2 px `--accent`, 2 px offset, on every link and button | global |
+| **Focus ring** | 2 px `--accent` (teal), 2 px offset, on every link and button | global |
 
 ---
 
@@ -326,10 +326,11 @@ Each page: what changes for the visitor. The CSS that does it is in Appendix C; 
 
 ### 5.6 Workspace and canvas (`solve/*`, `solve.css`, `lab/lab.css`, `lablite.css`) — picture 07
 - Left pane tabs: plain text, current one white with a 3 px marigold line below.
-- Problem title Fraunces 30 px. The "how this works" note is an accent-tint box with a blue bar.
+- Problem title Fraunces 30 px. The "how this works" note is a `--surface` box with a marigold bar on the left (not a coloured tint).
 - Toolbar: Timer, Reset, Run are second buttons; **Submit is the only marigold button**.
 - Palette items: white rows with a border. Selected node on the canvas: 3 px marigold ring.
-- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.**
+- Node states (`.ln.warn`, `.ln.down`, `.ln.sel`) keep their borders and meanings. **Do not restyle node internals.** Node labels, handles and live arrows turn teal by themselves because they read `--accent` (CSS) or `BLUE` from `palette.js` (which is `--accent`).
+- **Figures are not edited.** All 232 article figures and the landing diagram take their colours from `palette.js`: the short name `BLUE` is `--accent`, `LB` is `--accent-tint`, `FB` is `--accent-soft`, `GREY` is `--line-strong`. They become teal on warm paper as soon as WP1 is done. Leave the names as they are (renaming them is a separate clean-up).
 - Hints: white cards; an opened hint turns marigold tint.
 
 ### 5.7 Sign-in card, account menu, tour, status (`account.css`, `tour.css`, `status.css`)
@@ -418,7 +419,7 @@ One pull request for all of them is fine. Commit after each package.
 
    (If you skip this, the dark landing page shows the old navy background. That is the sign you missed it.)
 
-**Check:** `npm test` prints `fail 0`. Build and open `/`: colours are warm but the layout is still the old one. That is expected.
+**Check:** `npm test` prints `fail 0`. Build and open `/` and an article: colours are warm, every figure is teal instead of blue, but the layout is still the old one and old buttons are teal. That is expected; the next packages fix them.
 
 ### WP2 — The highlighter on the landing headline
 
@@ -495,9 +496,9 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 - [ ] The end-to-end scripts the repo already has still pass (`no-lab.js`, `challenges-v2.js`, `eval-problem.js`,
       `solution-tab.js`; `08-TESTING-VALIDATION.md` and the handover say how to run them). They do not depend on colours.
 - [ ] Every page in section 7, desktop and phone, light and dark: matches the pictures; no text cut off; no
-      sideways scrolling on the phone; no old blue buttons; no grid paper; no navy background.
+      sideways scrolling on the phone; no blue anywhere (buttons, figures, canvas handles, note boxes); no grid paper; no navy background.
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
-- [ ] Keyboard: Tab through the landing header and an article; every stop shows the blue focus ring.
+- [ ] Keyboard: Tab through the landing header and an article; every stop shows the teal focus ring.
 - [ ] Reduced motion (browser setting): nothing moves on hover.
 - [ ] No console errors on any page.
 - [ ] `git diff --stat` shows only: `package.json`, `package-lock.json`, three `index.html` files, `main.jsx`,
@@ -505,8 +506,8 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 
 **What was verified while writing this spec, and what was not.** Built on commit `01adfbe` with exactly the code in
 the appendices: unit tests pass (235), the build succeeds, and these were looked at in a browser — landing, start,
-Concepts, the caching article (whole page), Problems, the URL-shortener workspace, on desktop and Pixel 7, light and
-dark. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit, hints, the phone
+Concepts, the caching article (whole page), Problems, the URL-shortener workspace (with a component selected, and the result sheet after Run), on desktop and Pixel 7, light and
+dark. **Not looked at:** the sign-in card, the account menu, the tour, the score sheet after Submit (Run was checked), hints, the phone
 (simplified) problem view, Quick Notes, Privacy, `/health`, `/analytics/`; and the end-to-end scripts were not run.
 Their CSS follows the same patterns, but you must look at each one. If one looks wrong, fix it inside its appended
 block using tokens only, and say so in the pull request.
@@ -535,6 +536,7 @@ Friends will react to this. Most reactions map to one token:
 
 | "I wish…" | Change |
 |---|---|
+| …the teal in figures and links were another colour | The nine `--accent…` tokens (light and dark) and the same keys in `palette.js` |
 | …the yellow were another colour | The eight `--brand…` tokens and `--mark`, light and dark, and the same keys in `palette.js` |
 | …the background were plain white | `--page` (and the three `index.html` inline styles, and `theme-color`) |
 | …the headings were not serif | `--font-display` (set it to `var(--font)`), and remove the Fraunces import |
@@ -553,7 +555,7 @@ Friends will react to this. Most reactions map to one token:
    one with the theme button (<html data-theme="light|dark">, set before the page draws by public/theme-boot.js; theme/mode.js keeps it up to date).
    Rules for colour names: name the role, not the hue (--brand, not --yellow), so a new brand colour still reads right.
    The look ("Katta Paper"): warm paper page, white cards, ink text, one brand colour (marigold) for the main button,
-   the highlighter mark and "you are here"; blue only for links and the path that works in figures. */
+   the highlighter mark and "you are here"; one working colour (peacock teal) for links, focus, figures and the canvas. */
 :root{
   color-scheme:light;
   /* Surfaces */
@@ -586,14 +588,14 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#fff3cf;   /* brand-tinted boxes, active sidebar row */
   --on-brand:#1d1b16;
   --mark:#ffd866;         /* the highlighter stroke under a headline word */
-  /* Accent (links, focus rings, the path that works in figures) */
-  --accent:#1d4ed8;
-  --accent-strong:#1a3fae;
-  --accent-mid:#93aef0;
-  --accent-line:#bfcff8;
-  --accent-soft:#dbe5fc;
-  --accent-tint-2:#e9f0fe;
-  --accent-tint:#f3f7ff;
+  /* Accent (peacock teal): links, focus rings, hover outlines, the path that works in figures, canvas handles */
+  --accent:#0f6b66;
+  --accent-strong:#0b524e;
+  --accent-mid:#7fc4bd;
+  --accent-line:#b5ddd8;
+  --accent-soft:#d3ece8;
+  --accent-tint-2:#e4f3f0;
+  --accent-tint:#f0f8f6;
   --on-accent:#fff;
   /* Status */
   --danger:#b3261e;
@@ -620,7 +622,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:29 27 22;
   --bg-rgb:255 255 255;
   --page-rgb:250 247 240;
-  --accent-rgb:29 78 216;
+  --accent-rgb:15 107 102;
   /* Shadows and backdrops */
   --shadow-1:0 1px 2px rgb(var(--ink-rgb) / .06);
   --shadow-2:0 2px 4px rgb(var(--ink-rgb) / .05),0 10px 24px rgb(var(--ink-rgb) / .09);
@@ -672,14 +674,14 @@ Friends will react to this. Most reactions map to one token:
   --brand-tint:#30260f;
   --on-brand:#1d1b16;
   --mark:#7d5c00;
-  --accent:#8fb2ff;
-  --accent-strong:#b0c9ff;
-  --accent-mid:#4a66b5;
-  --accent-line:#33498a;
-  --accent-soft:#223262;
-  --accent-tint-2:#1d2947;
-  --accent-tint:#181f36;
-  --on-accent:#0b1020;
+  --accent:#5fd0c4;
+  --accent-strong:#8ae0d6;
+  --accent-mid:#2f8078;
+  --accent-line:#24544f;
+  --accent-soft:#1b3f3b;
+  --accent-tint-2:#17302d;
+  --accent-tint:#132624;
+  --on-accent:#06201d;
   --danger:#ff8a80;
   --red:#ff7b72;
   --danger-line:#6b2c28;
@@ -702,7 +704,7 @@ Friends will react to this. Most reactions map to one token:
   --ink-rgb:0 0 0;
   --bg-rgb:30 28 22;
   --page-rgb:21 20 15;
-  --accent-rgb:143 178 255;
+  --accent-rgb:95 208 196;
   --shadow-1:0 1px 2px rgb(0 0 0 / .4);
   --shadow-2:0 2px 4px rgb(0 0 0 / .35),0 10px 24px rgb(0 0 0 / .35);
   --shadow-3:0 4px 8px rgb(0 0 0 / .4),0 18px 44px rgb(0 0 0 / .55);
@@ -714,7 +716,7 @@ Friends will react to this. Most reactions map to one token:
 ## Appendix B — `TOKENS` in `frontend/src/theme/palette.js` (one line)
 
 ```js
-export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#1d4ed8","accent-strong":"#1a3fae","accent-mid":"#93aef0","accent-line":"#bfcff8","accent-soft":"#dbe5fc","accent-tint-2":"#e9f0fe","accent-tint":"#f3f7ff","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
+export const TOKENS={page:"#faf7f0",bg:"#fff",surface:"#f3efe5","surface-2":"#fcfaf5",hover:"#efeadd",inverse:"#1d1b16","on-inverse":"#faf7f0",ink:"#1d1b16","ink-2":"#3a372f","ink-3":"#4d493f",muted:"#625c4f","muted-2":"#6b6557",faint:"#736d5d",disabled:"#cdc7b6","line-strong":"#b9b2a0",line:"#e6e0d1","line-soft":"#ddd6c4",grid:"#f0ebde",brand:"#ffc233","brand-strong":"#f2ac00","brand-edge":"#d79a00","brand-ink":"#6e4a00","brand-line":"#f0d388","brand-tint":"#fff3cf","on-brand":"#1d1b16",mark:"#ffd866",accent:"#0f6b66","accent-strong":"#0b524e","accent-mid":"#7fc4bd","accent-line":"#b5ddd8","accent-soft":"#d3ece8","accent-tint-2":"#e4f3f0","accent-tint":"#f0f8f6","on-accent":"#fff",danger:"#b3261e",red:"#d23b30","danger-line":"#f3c6c1","danger-soft":"#fce1de","danger-tint":"#fff4f2",success:"#17794a","success-line":"#b5e0c6","success-tint":"#ecf8f0",warn:"#9c4a00","warn-strong":"#7a3900","warn-mid":"#e8700c","warn-line":"#f5cfa9","warn-tint":"#fff3e6",star:"#e8a308","cat-green":"#1f8a5b","cat-amber":"#b7791f","cat-violet":"#7c3aed","cat-teal":"#0e7490","cat-pink":"#be185d"};
 ```
 
 ## Appendix C — blocks to append
@@ -1054,7 +1056,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .sv-q>label,.sd-head label{font:600 10px var(--mono);letter-spacing:.12em;color:var(--muted)}
 .sv-q h1{font:600 30px/1.15 var(--font-display);letter-spacing:-.015em}
 .sv-split:hover,.sv-split:focus-visible{background:var(--brand-strong)}
-.sv-how{border-left:3px solid var(--accent);border-radius:0 var(--r-md) var(--r-md) 0;background:var(--accent-tint);padding:14px 16px;color:var(--ink-2)}
+.sv-how{border-left:3px solid var(--brand-strong);border-radius:0 var(--r-md) var(--r-md) 0;background:var(--surface);padding:14px 16px;color:var(--ink-2)}
 .sv-links a{border:1px solid var(--line);border-radius:var(--r-md);background:var(--bg);padding:12px 14px;color:var(--ink)}
 .sv-links a:hover{border-color:var(--line-strong);background:var(--surface-2)}
 .sv-links .sv-answer{background:var(--brand-tint);border-color:var(--brand-line)}
@@ -1123,6 +1125,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .ln.sel{box-shadow:0 0 0 3px var(--brand),var(--shadow-2)}
 .lab .react-flow__controls{border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow-1)}
 @media(prefers-reduced-motion:reduce){.lab-btn,.lab-item{transition:none}}
+.lab-stars{color:var(--star)}
 ```
 
 ### C · lablite → `frontend/src/lablite.css` (WP6)

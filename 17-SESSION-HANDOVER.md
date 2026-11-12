@@ -68,7 +68,7 @@ production** so friends see it and the owner asks them for feedback (no A/B or p
   fanout.sh was rejected ("You are just copying the fanout.sh website UI"); the owner then asked for research across
   the best technical-content sites, a direction that suits Tech Katta, and a spec a less capable agent can build from.
   The spec: 24 sites surveyed (Stripe docs, react.dev, Vercel, Linear, MDN, Brilliant, samwho, NeetCode, competitors),
-  the identity (warm paper `#faf7f0`, ink, one brand colour marigold `#ffc233`, a highlighter stroke as the
+  the identity (warm paper `#faf7f0`, ink, one brand colour marigold `#ffc233`, peacock teal `#0f6b66` as `--accent` in place of the old blue so figures, links and the canvas match (owner, same day: the figures and lab parts "still retain the Swiss publishing colour scheme"), a highlighter stroke as the
   signature, Fraunces headings + Inter + IBM Plex Mono), the full `tokens.css`, a CSS block to append to each of 16
   stylesheets, five small non-CSS edits, nine ordered work packages with checks, and pictures in `ui-redesign/`.
   The code in it was built on `01adfbe` and viewed (tests 235 pass); it lists what was not viewed. **Not built in the
