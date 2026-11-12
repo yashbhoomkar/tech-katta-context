@@ -1599,6 +1599,32 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PR #315)
+
+- `main` = `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2` (#315). API release `20261112T125123Z-4251e7a`, 66 articles.
+- Phones: figures 600 px wide in a sideways-scrolling frame, step line above it (#313). Tours: one per section, the
+  Problems list and articles, ending on a first step; signed out, the general tour with a sign-in step (#313, #314).
+  Articles have no "In 30 seconds" box (#315).
+- Ledger: frontend 850, backend 671.
+
+## Production snapshot — 2026-11-12 (after PR #312)
+
+- `main` = `63d52fda6e8cf7035d326d58a5c005624d3a18c8` (#312). Front end only since #310; API release still
+  `20261112T104809Z-0c7151f`, 66 articles.
+- Figures animate through the shared parts (#311): fading steps, easing dots with a trail, a glint on the working
+  path, soft glows, rounded boxes; each loop starts when the figure comes into view. Figure colours: the paper look
+  (owner's choice). Every animation sped up through `SPEED` 0.7 in `theme/motion.js` (#312).
+- Ledger: frontend 839, backend 665.
+
+## Production snapshot — 2026-11-12 (after PR #310)
+
+- `main` = `0c7151fc8121519d8e8807d6bdef22283d45df3f` (#310). API release `20261112T104809Z-0c7151f`, 66 articles,
+  auth on. The site has the "Katta Paper" look (#309): paper and ink, marigold brand, Fraunces headings, the
+  highlighter under the landing headline, `theme/motion.css`.
+- #310: landing main button Dashboard → `/dashboard/concepts/`; Sign in opens a dialog; Tour is per page (section,
+  article, dashboard, problem, lab); the landing header fits phones from 320 px.
+- Ledger: frontend 832, backend 665.
+
 ## Production snapshot — 2026-11-12 (after PR #308)
 
 - `main` = `01adfbeaca1f8dfe3a00ad1ab80b25fdd587557c` (#308, docs only: `Design.md` in full detail). Production

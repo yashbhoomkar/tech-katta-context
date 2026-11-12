@@ -15,7 +15,7 @@ for(const h of links){await p.goto(B+'/dashboard/'+h);await p.waitForSelector('.
     const ok=sub?await p.evaluate(()=>!!document.querySelector('.react-flow')):true;console.log('  lab card →',p.url().split('#')[1],ok?'(Lab open)':'(Lab NOT open)');await p.goBack();await p.waitForSelector('.d-article h1')}}
 const m=await page({viewport:{width:320,height:640},isMobile:true,hasTouch:true});
 for(const h of links){await m.goto(B+'/dashboard/'+h);await m.waitForSelector('.d-article h1');await m.waitForTimeout(500);
-  const ov=await m.evaluate(()=>document.documentElement.scrollWidth-innerWidth);const wide=await m.$$eval('.a-fig svg',s=>s.filter(x=>x.getBoundingClientRect().right>innerWidth+1).length);
+  const ov=await m.evaluate(()=>document.documentElement.scrollWidth-innerWidth);const wide=await m.$$eval('.a-fig',s=>s.filter(x=>x.getBoundingClientRect().right>innerWidth+1).length);
   const btn=await m.$('.fs-btn');let fs='no figure';if(btn){await btn.click();await m.waitForSelector('.fs');fs='full screen opens';await m.keyboard.press('Escape');await m.waitForSelector('.fs',{state:'detached'})}
-  console.log('320 px',h,'| overflow',ov,'| figures wider than the screen',wide,'|',fs)}
+  console.log('320 px',h,'| overflow',ov,'| figure frames wider than the screen',wide,'|',fs)}
 console.log('errors:',JSON.stringify(errors));await b.close()})();

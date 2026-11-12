@@ -49,7 +49,7 @@ phones from Instagram and LinkedIn, so everything is mobile-first.
   - Lab
 
   There is also a website tour and a Privacy page.
-- **Articles**: In 30 seconds, the Zotato example system (a made-up food delivery app), "In real life"
+- **Articles**: the Zotato example system (a made-up food delivery app), "In real life"
   analogies, animated figures with a still version for reduced motion and a full-screen view on
   phones, "Go deeper" sections, read aloud (recorded Kokoro voice for the API article), and
   "Try it in the Lab" cards.

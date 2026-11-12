@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-11, after #303): `frontend_git_commits` 792, `backend_git_commits` 662.
+Latest count (2026-11-12, after #315): `frontend_git_commits` 850, `backend_git_commits` 671.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,70 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PRs #313–#315 (2026-11-12): recorded
+
+"Both" = frontend and backend collections (the commit touched `backend/` or `content/`); syncs go to frontend only.
+
+| PR | SHA | Collections |
+|---|---|---|
+| #313 | `cc9ec8e3caa564ec0dba6287e035a0d0d6f01544` | branch commit, phone figures (frontend) |
+| #313 | `2e7638f78812a91974e77d7c900dca3641fdb94d` | branch commit, tours (both) |
+| #313 | `48a5a7f25ca2b6d1cc740f5c025e9a376db8d8e0` | branch commit, tour on phones (frontend) |
+| #313 | `3309252e61977796d9aaa66ac8fec1095cf2b936` | squash merge (both) |
+| — | `42ffbe822506badfb160c132049164d200ca049d` | sync branch (frontend) |
+| #314 | `21dfabd15e17832136598fb68f87a23e9f34416a` | branch commit, signed-out tour (both) |
+| #314 | `834b1d623e5c9dcc056a3e0299b5834167e31582` | squash merge (both) |
+| — | `456bb2828330f979a949aff66fd829c91d986340` | sync branch (frontend) |
+| #315 | `1bcff96bc2546206544bf1bd3f555e2badd0a716` | branch commit, remove In 30 seconds (both) |
+| #315 | `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2` | squash merge (both) |
+| — | `12ec878d685c7664756bbabddfd4c6ef5a920fe9` | sync branch (frontend) |
+
+Each key was checked absent in both collections before inserting. Counts after these: **frontend 850, backend 671**.
+
+### PRs #311 and #312 (2026-11-12): recorded (frontend only; neither touched `backend/` or `content/`)
+
+| PR | SHA | Collections |
+|---|---|---|
+| #311 | `f03a8a4b4b0540d3e78490f92c1739db04bdabfc` | branch commit, motion grammar (frontend) |
+| #311 | `a8497725c01643b100c89d3c96fb2e35928744f2` | branch commit, loops start when seen (frontend) |
+| #311 | `e84092b008c8f32e64313b6fa501e04fa0135e32` | squash merge (frontend) |
+| — | `25a5b8403dc01513a8af9c2d5994f6897b20d47f` | sync branch (frontend) |
+| #312 | `e9956135b2b3120f73e66d203a8505cb7ac22c92` | branch commit, faster animations (frontend) |
+| #312 | `63d52fda6e8cf7035d326d58a5c005624d3a18c8` | squash merge (frontend) |
+| — | `57c3a223d66a346c7b3df21d778e90fc0b744c9b` | sync branch (frontend) |
+
+Each key was checked absent before inserting. The #311 rows were refused once by the session's safety check and
+inserted when the owner asked ("update docs and ledgers"). Counts after these: **frontend 839, backend 665**.
+
+### PRs #309 and #310 (2026-11-12): recorded
+
+#309 touched only `frontend/` (and `Design.md`); it was merged as a merge commit, so each branch commit is on `main`.
+
+| PR | SHA | Collections |
+|---|---|---|
+| #309 | `6714109cf3b2629f0ad17209c2f03274dc9b22d7` | branch commit, WP1 (frontend) |
+| #309 | `a26bcf3b4db59c0c0786a077318b173908572fc9` | branch commit, WP2 (frontend) |
+| #309 | `0fbce9bfeea6a7ea78f980670539340e00b6b630` | branch commit, WP3 (frontend) |
+| #309 | `42666051c82c04c173ccac75c065cce8ca45f7ca` | branch commit, WP4 (frontend) |
+| #309 | `868091099f8c0077c1041f3987c118383a983c71` | branch commit, WP5 (frontend) |
+| #309 | `2bf44404c1abf35d572ed8fb5866a93102659b5a` | branch commit, WP6 (frontend) |
+| #309 | `828c69024f4577c8fbb5a9daae5ad47dd8a1e290` | branch commit, WP7 (frontend) |
+| #309 | `7514b87e3c930ad7bd9756895b09dc79a0d545da` | branch commit, WP8 (frontend) |
+| #309 | `c92eb6887d04f9c2da21add12413ea00b4071ea8` | branch commit, WP9 (frontend) |
+| #309 | `d45910f59bb101982f86ed35131cf78231cda944` | branch commit, fixes: Pick one, design name (frontend) |
+| #309 | `f1780783dfe842930b3afad92f70c1b33d57911c` | branch commit, fix: header 681-900px (frontend) |
+| #309 | `d3d7c0aa758592ed3d6c2d8660c1c1868be31b99` | merge commit (frontend) |
+| #310 | `186a3666cb29c5a9fa5166adbefb4f5723bf641e` | branch commit, tours + Dashboard button (both: content, backend) |
+| #310 | `99d07b8ab61891ab1c46d8577b89ea5062b02be4` | branch commit, Sign in dialog (frontend) |
+| #310 | `34cc5ca2970cb3606864eec55005572ac2ee3666` | branch commit, narrow-phone header (frontend) |
+| #310 | `d9c5ee9a40195cc345361dcfc7c45946fc3b0f03` | branch commit, judge-pool test (both: backend) |
+| #310 | `0c7151fc8121519d8e8807d6bdef22283d45df3f` | squash merge (both) |
+| — | `062ec78d59be193b792ed7080dce52b73ccb5177` | sync branch (frontend) |
+
+Each key was checked absent in both collections before inserting. The #309 rows were refused once by the session's
+safety check and inserted after the owner asked ("Update docs and ledgers").
+Counts after these: **frontend 832, backend 665**.
 
 ### PR #308 (2026-11-12): recorded (frontend only, docs)
 

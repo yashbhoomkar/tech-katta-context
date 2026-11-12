@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-12** (`20-UI-REDESIGN-SPEC.md` written: the "Katta Paper" look, to be built by another session; before that: `Design.md` made much more detailed, #308: 12 fanout.sh pages and their states, a full light/dark `tokens.css` draft checked for AA, component and page mapping with our class names, six steps with acceptance checks; ledger frontend 814; before that: `Design.md` added to the app repo, #307: fanout.sh's UI observed and mapped onto our tokens, the plan for the next look; ledger frontend 811; before that: the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-12** (figures readable on phones and a tour per page, #313; the general tour for signed-out visitors, #314; the "In 30 seconds" box removed from every article, #315; ledger frontend 850 / backend 671; see "Phone figures, tours" below; before that: figures animate: one motion grammar for all 232, loops start when seen, #311; then every animation faster through one setting, #312; figure colours stay the paper look (owner chose it over a green or ink stage); ledger frontend 839 / backend 665; see "Figure motion" below; before that: the "Katta Paper" look built from `20-UI-REDESIGN-SPEC.md` and live, #309; then the owner's four follow-ups live, #310: the landing button is Dashboard → Concepts, Sign in opens a dialog, a tour per section and per article, the phone header fits; ledger frontend 832 / backend 665; see "Katta Paper is live" below; before that: `20-UI-REDESIGN-SPEC.md` written: the "Katta Paper" look, to be built by another session; before that: `Design.md` made much more detailed, #308: 12 fanout.sh pages and their states, a full light/dark `tokens.css` draft checked for AA, component and page mapping with our class names, six steps with acceptance checks; ledger frontend 814; before that: `Design.md` added to the app repo, #307: fanout.sh's UI observed and mapped onto our tokens, the plan for the next look; ledger frontend 811; before that: the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -30,6 +30,87 @@ the owner · **Historical** = true once, not any more.
    the open items are in `18-TODO.md` here.
 
 ---
+
+## Phone figures, tours, no "In 30 seconds" (#313–#315, merged and live 2026-11-12)
+
+Owner, 2026-11-12: "make the figures readable on phones"; "The current tour on the concepts or any other tab is not
+at all good. Think on what should be included in the tour first. Then upgrade the tour"; then "The 'IN 30 SECONDS'
+widget for every article, I don't think so it is adding any value".
+- **#313** (squash `3309252e61977796d9aaa66ac8fec1095cf2b936`; API release `20261112T122210Z-3309252`):
+  - **Phone figures.** Measured: all 232 figures are 640 wide, so on a Pixel 7 the smallest labels were 5.7 px and the
+    drawings already use 97% of their width (cropping can't help). On phones (≤680 px) `dashboard/figure.jsx` draws a
+    figure 600 px wide (smallest labels 9.4 px) inside a frame that scrolls sideways; the page never does. The step
+    line (`Caps` tagged `tk-caps` with its loop length, `Cap` tagged `tk-cap`) is hidden in the SVG and shown in a bar
+    above the frame that follows the figure's clock; a fade on the right edge and "⇆ Swipe the figure sideways" until
+    the reader pans. Full screen unchanged.
+  - **Tours.** The old section tour pointed at furniture with the same text on every section. Now a tour says what
+    the page is for, the order to use it in, what is inside, how it links to practice, and ends on one first step
+    (a `cta`), five steps or fewer, working on a phone. Keys: `tour.concepts`, `components`, `interview-questions`,
+    `quick-notes`, `real-systems`, `problems`, `article`, `dashboard` (start page), plus `problem`, `lab`, `section`
+    (fallback). `shell.jsx` picks `tour[route.sec]` on a section list. `tour.jsx` on phones scrolls the target just
+    under the header and puts the card at the top when the target starts low (the fixed Run/Submit bar).
+- **#314** (squash `834b1d623e5c9dcc056a3e0299b5834167e31582`): found on production: signed out, sections and
+  articles are behind the sign-in card, so a page tour found almost no targets (Problems' Tour did nothing). A tour
+  that can show fewer than three steps falls back to `tour.dashboard`, which starts with "Sign in to open everything"
+  (target `.lock-card`). Checked on production signed out, desktop and phone.
+- **#315** (squash `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2`; API release `20261112T125123Z-4251e7a`): the "In 30
+  seconds" box (`tldr`, median 111 words, between the dek and the article) removed from all 66 articles, from the
+  renderer, read aloud, styles and tours; the validator refuses a `tldr` block (test). **Decided:** articles have no
+  summary box; do not add one back without asking.
+- Not checked signed in on production (no account here): the section tours themselves were walked locally.
+
+## Figure motion (#311, #312, merged and live 2026-11-12)
+
+Owner, 2026-11-12, with screenshots of another site's illustrated figures: "Why can't we have that", "check if the
+green colour element will go with the tech katta website", "Our tech katta website lacks animations in the figures.
+You need to rethink on every figure"; then, shown real article pages with figures on paper, a forest-green stage and
+an ink stage: **"Have the figure colour scheme that is boxed in red" = the current paper look (Decided)**; then
+"Every animation is a bit slow".
+- **Findings** (other site visited in a real browser): its figures are about eight marketing scenes; the 3D-looking
+  objects are pre-rendered AVIF pictures; gold SVG paths, pills and cards around them animate with CSS keyframes
+  (panels drop in, cards rise, a stroke-dashoffset "glint" runs along the lines) plus decoration. Ours are 232
+  teaching diagrams in code (`frontend/src/figs/`), so we take the motion ideas, not the pictures. Green on our cream
+  page measured fine (marigold on #12392b 7.9:1) but cream + forest green + gold is that site's own palette.
+- **#311** (squash `e84092b008c8f32e64313b6fa501e04fa0135e32`): the motion lives in the shared parts
+  (`figs/parts.jsx`), so every figure changed at once: steps fade (no blink, no movement: a box's new state is drawn
+  exactly over its old one), request dots ease with a halo and trail, solid BLUE lines carry a marigold glint, Glow
+  is a soft fill plus outline, boxes are rounded. `dashboard/figure.jsx` restarts a figure's loop from step 1 when it
+  first comes into view and pauses it off screen. Fixed the Flink barrier animation (keyTimes did not end at 1).
+- **#312** (squash `63d52fda6e8cf7035d326d58a5c005624d3a18c8`): figure loops run at `SPEED` (0.7) of their written
+  length; figure files write `pace(14)` (from `theme/motion.js` via `parts.jsx`), never `"14s"`. 14 s loops are 9.8 s,
+  the landing diagram 5.6 s; glint 1.6 s, step fades 0.22 s; interface `--dur-enter` 0.28 s and the slower entrances
+  in `theme/motion.css` about a quarter quicker. Each step now shows about 2.5 s: if captions feel rushed, raise SPEED.
+- Checked: all 66 article pages and 232 figures in light and dark, no errors, every SMIL timing valid; reduced
+  motion draws still figures (0 animations). Production bundle checked for both changes (articles need sign-in, so no
+  browser look at a live figure).
+- **Open (owner to decide):** figures are 640 wide, so on a phone their 12 px labels show at about 6–7 px. Fix:
+  phone-first layouts, starting with the first figure of each article (`18-TODO.md`).
+
+## Katta Paper is live (#309, #310, merged and live 2026-11-12)
+
+Owner, 2026-11-12: "Start implementing the new UI … Don't wait for code reviews. Start pushing to the production code";
+then "merge it once the checks pass". Session `ccr-829d4266-kyaqbl`.
+- **#309** (merge commit `d3d7c0aa758592ed3d6c2d8660c1c1868be31b99`, merged by the owner as a merge commit, not a
+  squash: the 11 branch commits are on `main`): `20-UI-REDESIGN-SPEC.md` WP1–WP9 exactly as written (tokens,
+  palette, Fraunces, the highlighter, 16 appended skin blocks, `theme/motion.css`), plus three fixes inside the
+  appended blocks: "Pick one" was white (`.pb-filter button` outranks `.pb-pick`), the canvas design name clipped
+  in its 280 px box in Fraunces, and the landing header scrolled sideways between 681 and ~805 px.
+- **#310** (squash `0c7151fc8121519d8e8807d6bdef22283d45df3f`; API release `20261112T104809Z-0c7151f`, 66 articles),
+  the owner's four items from a phone screenshot: (1) the landing hero's main button is **Dashboard** and opens
+  `/dashboard/concepts/` (`site.json` `hero`); (2) **Tour matches the page**: `shell.jsx` picks `tour.section` on a
+  reading section's list (library, the section's articles, the cards, other sections, theme), `tour.article` on an
+  article (Listen, In 30 seconds, On this page, figures, Go deeper, Share; superseded by #313 and #315, see "Phone
+  figures, tours" above), `dashboard` on Problems and the start
+  page, `problem` in a workspace, `lab` on a challenge; a step whose target is hidden (the sidebar on a phone) is
+  skipped; (3) the landing **Sign in opens a dialog** (`SignInDialog` in `accountui.jsx`, a native `<dialog>` with the
+  Terms box and Google's button; copy `account.signInDialog`) instead of jumping to the IND vs PAK sign-in card;
+  (4) the landing header fits narrow phones (MENU was off screen below 393 px with Sign in shown). Also: the
+  judge-pool time-limit test's slow job is 10x heavier (it failed on CI twice: fast runners finished it in 1.7 s).
+- Verified on production: `/health` release `0c7151f`; at 360 px the hero says Dashboard, MENU is on screen, no
+  sideways scroll; Sign in opens the dialog with Google's button and no scroll; the Concepts tour starts with "The
+  library"; no page errors. **Not looked at by eye:** the five product moments of spec §4.8, DevTools animation
+  timings, 200 % zoom (see `18-TODO.md`).
+- Vercel previews of PRs ask for a Vercel login: check the sign-in card and dialog on production after merging.
 
 ## The UI is built to change (#304–#306, merged and live 2026-11-12)
 
@@ -801,7 +882,7 @@ system design practice experience with real evaluation… LeetCode for system de
   - **Storage**: 5 Caches (Redis) ✅ (#146), 6 Databases ✅ (#147; owner asked to think the content through first: outline in the plan, scope excludes CAP lectures, storage engines, normal forms), 7 Sharding and partitioning ✅ (#160; figures `shard-key`, `hot-shard`), 8 Object storage ✅ (#161; figures `obj-upload`, `obj-tiers`).
   - **Messaging**: 9 Queues vs event streams ✅ (#162; figures `queue-vs-stream`, `consumer-lag`). **The 9-article Components plan is complete.** Next candidates (owner to pick): Interview Questions articles (URL shortener, rate limiter, event pipeline), more Concepts (replication, consistency, CAP in practice), narration once content is final.
 
-  Each article has: In 30 seconds, the Zotato example, an "In real life" analogy, 1–2 animated
+  Each article has (the "In 30 seconds" box was removed in #315): the Zotato example, an "In real life" analogy, 1–2 animated
   figures (`frontend/src/figs/components.jsx`, ids also in `validate.js` `FIGS`), `type` cards for the
   choices, costs and failure modes, In an interview, and a `lab` card. No narration until the owner says the content is final.
 - **Review and hardening (owner 11-05: "validate the content, make the frontend and backend strong"),
@@ -1148,7 +1229,7 @@ colours only for load in the Lab (amber ≥70 % incl. exactly 100 %, red >100 % 
 ## 5. Articles, figures and read aloud
 
 - **Current (11-09; the API-article and FIGS details below are Historical):** article JSON is
-  `{section, slug, group, no, tag, access, date, title, dek, body, audio?, practice?}`. Blocks: `tldr`, `example`,
+  `{section, slug, group, no, tag, access, date, title, dek, body, audio?, practice?}`. Blocks: `example`,
   `fig {id, cap}`, `h2`, `h3`, `p`, `list`, `type {name, kind, what, use, avoid, ex, like?, more?}`,
   `code {label, x, say}` (`say` is what screen readers and read aloud say), `table {label?, head, rows}`,
   `more {label, body}`, `analogy`, `lab {x, to, go?}`. Backticks are the only inline markup; there are no links in
@@ -1159,9 +1240,9 @@ colours only for load in the Lab (amber ≥70 % incl. exactly 100 %, red >100 % 
   `backend/src/content/figs/<section>/<module>.js`. Full model: `05-CONTENT-MODEL.md` (first section).
 - **Writing style that the owner accepted (11-09):** plain words, short sentences, British spelling, our own
   example system Zotato with Indian numbers (lakh, crore) in our own examples; no em dashes (colons and semicolons
-  instead); "a second", not "/s"; every article starts with a `tldr` and ends with an "In an interview" list.
+  instead); "a second", not "/s"; every article ends with an "In an interview" list (it no longer starts with a `tldr`: removed in #315, owner: it added no value).
   Case studies cite their source post and say whose numbers they are.
-- Shape of an article: "In 30 seconds" box → example-system box → figures and cards → short decision
+- Shape of an article: example-system box → figures and cards → short decision
   list → design rules → one-liners → interview checklist; long material collapsed. Header shows
   "5 MIN READ · 10 WITH DETAILS".
 - **The API article** covers REST, GraphQL, gRPC, WebSockets, SSE, webhooks, queues; SOAP note;
