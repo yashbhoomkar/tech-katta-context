@@ -1086,3 +1086,68 @@ catch up. Each is a candidate for version 2 **only together with a problem that 
 | 21.5 tips | Fixed table becomes the candidate list of 22.9 | **No: follow 22.9** |
 | 21.7 cache key | Uses `canonical(source)` | **No: follow 22.10** |
 | Section 16 | Step 2 includes segments, backlog, tip checking; step 3 includes the sweep tool and its ship rule | **No: do it in those steps** |
+
+---
+
+## 23. What "the best system design problem-solving platform" requires
+
+Owner, 12 Nov 2026: "We want the best system design problem solving platform." Sections 1 to 22 describe a good
+loop and a sound judge. That is necessary, not sufficient. This section says what "best" means in terms that can be
+checked, what is still missing, and the order to pursue it. It is direction for the owner, not build steps.
+
+### 23.1 Seven things the best platform does, and where this design stands
+
+| # | The best platform… | In this spec? | What is still needed |
+|---|---|---|---|
+| 1 | **Is never wrong.** One unfair verdict is told to ten friends | Golden files, margins, property tests, sweep tool (21.8, 22.11) | A public page "How the judge works" with every number and rule of sections 6, 7 and 22 in plain words; a `Report this verdict` link on every result that stores the design and the result for the owner; a promise to answer reports |
+| 2 | **Teaches from every failure** | Explanation, trace, blamed part, checked tips (21.5, 22.9) | Each finding links to the exact section of the Concepts article that explains it. After Accepted: **compare** your design with the reference and the cheapest shared one, side by side, differences highlighted |
+| 3 | **Feels like the interview** | Problems are single scenarios | **Follow-ups** (23.2): what an interviewer does after your first answer |
+| 4 | **Covers the talking, not only the drawing** | Editorials only | "Explain your trade-off" with AI comments (decision section, item 6), then timed **mock interviews** built from a problem and its follow-ups |
+| 5 | **Is fast and works on the phone in your hand** | Builder, browser-side Run | Hold the budgets: first verdict in under 2 minutes for a newcomer on a phone; Run under 100 ms; the problem page usable on a slow connection (problem JSON and engine under 100 KB compressed) |
+| 6 | **Brings people back** | Daily problem, streak, list, ranking | Study plans by goal ("interview in 2 weeks"), company lists, a weekly problem set released together, reminders the learner opts into |
+| 7 | **Belongs to its audience** | Rupees, Indian scenarios, phone-first | Numbers in lakh and crore everywhere; problems from Indian-scale systems (UPI, IRCTC Tatkal, IPL streaming, quick commerce); later, explanations in Hindi and Marathi |
+
+### 23.2 Follow-ups: the feature that would set this apart
+
+In a real interview the first design is the start. The interviewer then changes something: "traffic is now 10×",
+"a region goes down", "we need analytics on every click", "legal says delete a user's data in 24 hours". No fixed
+problem can do this; a deterministic judge can.
+
+- A problem may have `followups`: an ordered list, each with a one-paragraph prompt, **changes** to the problem (rates, `total_items`, a new request, a tighter promise, a smaller budget) and its own tests.
+- A follow-up unlocks when the previous part is Accepted. The learner's accepted design is carried forward as the starting text; the first Run usually fails, and the result shows exactly what the change broke.
+- Each part is judged and ranked on its own. The list shows `1.1`, `1.2`, `1.3` under problem 1 with their own status.
+- Authoring: the reference design of part N must fail part N+1 (checked in CI), otherwise the follow-up teaches nothing.
+- Engine impact: none. A follow-up is a problem file that inherits from its parent.
+
+Build this after the first ten problems are live, starting with two follow-ups each for problems 1, 4 and 10.
+
+### 23.3 How we will know (numbers to watch from the first day)
+
+| Measure | Target | If it misses |
+|---|---|---|
+| Time from opening a problem to the first Run, median, phone | under 2 minutes | The Builder or the template is the problem; watch five people |
+| Share of visitors to a problem page who press Run | over 50 % | The statement is too long or the first step is unclear |
+| Share of people who Run who also Submit | over 40 % | Sign-in is in the way, or Run feels sufficient |
+| Accepted rate per problem (accepted ÷ submitting users) | Easy 60–80 %, Medium 35–60 %, Hard 15–35 % | Re-tune the tests with the sweep tool, or move the difficulty label |
+| People who solve a second problem within 7 days | over 30 % | The habit loop (daily problem, next-problem button) is weak |
+| Verdict reports per 1,000 submissions | under 5, and every one answered | A model or problem bug: fix, bump `judge_version` |
+| Engine errors (`Judge Error`) | 0 | A bug: the stored hash and version reproduce it |
+
+These need three analytics events (`practice_run`, `practice_submit` with verdict, `practice_open`) through the
+existing `frontend/src/analytics.js`; add them in build step 5b.
+
+### 23.4 What to do next, in order
+
+1. **Build one problem end to end** (steps 1 to 5b of section 16) and put it in front of five friends on their phones. Until this happens, everything in this file is an untested idea, including the numbers.
+2. Fix what they stumble on. Expect the Builder's "what happens next" sheet and the first failure message to need the most work.
+3. Ship ten problems with the judge page and the report link (23.1 rows 1 and 2).
+4. Follow-ups (23.2).
+5. Plans, company lists, compare view.
+6. The talking part: explanations, then mock interviews.
+
+### 23.5 What would stop it being the best
+
+- **More specification before a prototype.** This file is long enough. Its weakest point is that none of it has run.
+- A judge that is clever but cannot be explained in one page. If a rule cannot be written on the "How the judge works" page in a sentence, it should not be in the engine.
+- Problems written quickly. One calibrated problem with good tests, wrong designs and an editorial is worth five thin ones; the sweep tool's ship rules are not optional.
+- Hiding the model's limits. Say plainly what the judge does not model (22.13); learners forgive limits and do not forgive pretence.
