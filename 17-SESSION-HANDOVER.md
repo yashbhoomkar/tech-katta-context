@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-11** (docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-12** (the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 Earlier sessions ran 2026-10-30 to 2026-11-01.
 This file is meant to let a new session behave exactly like the one that wrote it. Read all of it,
 then `12-OPERATING-RULES.md`, then the newest sections of `13-CURRENT-STATE.md`.
@@ -30,6 +30,44 @@ the owner · **Historical** = true once, not any more.
    the open items are in `18-TODO.md` here.
 
 ---
+
+## The UI is built to change (#304–#306, merged and live 2026-11-12)
+
+Owner, 2026-11-12: "make the code more modular … we are going to rapidly change the UI of the website … test out
+different UI colour schemes, animations and stuff". Asked (AskUserQuestion): **one look at a time, changed straight on
+production** so friends see it and the owner asks them for feedback (no A/B or preview switch); **build a dark theme**;
+**also split the big components**. This session is not for the open items in `18-TODO.md` (owner).
+- **Where the look lives: `frontend/src/theme/`** (read its `README.md`). `tokens.css` holds every colour by role
+  (`--bg`, `--surface`, `--surface-2`, `--ink`/`--ink-2`/`--ink-3`, `--muted`, `--faint`, `--line`, `--accent` and its
+  tints, `--on-accent`, `--danger`, `--red`, `--success`, `--warn`, `--star`, `--cat-*`), fonts (`--font`, `--mono`),
+  `--radius`, shadows, motion (`--dur-fast`, `--dur`, `--ease`), a light set (`:root`) and a dark set
+  (`:root[data-theme=dark]`). `palette.js` has the same colours for code (figures, SMIL values, canvas) as live
+  bindings; `figs/parts.jsx` re-exports the short names INK, GREY, RED, BLUE, LB, LR, FB. `motion.js`: `useStill()`
+  and `LOOP`. `mode.js` + `ThemeToggle.jsx` + `public/theme-boot.js`: light/dark (device setting until the visitor
+  presses the header button; choice in `tk-theme`; set before first paint; `meta theme-color` follows).
+- **Rules, enforced by `theme/theme.test.js` in `npm test`:** no colour code or colour keyword outside `theme/`;
+  `tokens.css` and `palette.js` agree; the dark set covers every colour; every `var(--x)` used is defined.
+- **A new colour scheme** = edit `tokens.css` (and the same keys in `palette.js`). Then check light and dark: the
+  screenshot tools of this session (below) or at least the dashboard, an article with figures, a problem workspace
+  and a challenge on desktop and phone.
+- **Files, after #305:** `src/dashboard.jsx` only boots; the dashboard is `src/dashboard/` (`shell.jsx` frame and
+  routes, `pages.jsx`, `article.jsx`, `blocks.jsx`, `figure.jsx`, `reader.jsx`, `share.jsx`, `icons.jsx`, `text.jsx`,
+  `site.js` API data as live bindings, `storage.js`), each part with its own stylesheet, loaded in cascade order by
+  `dashboard/index.css` (order matters: `.d-article h3` sits at the end of `blocks.css` on purpose). The workspace is
+  `src/solve.jsx` + `src/solve/` (console, player, answer, panes, v2, format). The canvas is `lab/Lab.jsx` (loader) +
+  `Canvas.jsx`, `nodes.jsx`, `Palette.jsx`, `Inspector.jsx`, `Score.jsx`, `shared.jsx`. `solve.css` and `lab/lab.css`
+  are still one file each.
+- **How it was checked (repeat for big UI changes):** full-page screenshots of 83 pages (every article, sections,
+  problems, challenges, privacy, terms, analytics, 404, landing) at 1366×900 and Pixel 7 with reduced motion,
+  pixel-compared against the previous build; every article figure (232) shot one by one in dark; a computed-style diff
+  of every element on 14 pages at both sizes (0 differences for the split); an undefined-name check (ESLint 9
+  `no-undef` + `react/jsx-no-undef`, installed in the session scratchpad, not in the repo) over `frontend/src`.
+  The scripts were session scratch (`shots.cjs`, `cmp.cjs`, `styles.cjs`, `figshots.cjs`); not kept.
+- **Found on the way:** `lab/Lab.jsx` called `setMenu` (gone since #285) when creating a design, and `defaultConfig`
+  (gone since #301) for a problem without a start design; both fixed in #305. The backend test "a design over the
+  time limit is stopped…" (`judge-pool.test.js`) failed once on CI because the slow design finished in under 2 s;
+  a re-run passed (timing-sensitive; not changed). `read-aloud.js`, `mobile-figures.js` and the last step of
+  `tour.js` fail on the pre-#305 build too (outdated scripts, `18-TODO.md`).
 
 ## The next evaluator: `evaluator.md` (specification, 2026-11-10; phases 0–3 built, #287–#291; URL shortener live on v2)
 
@@ -150,6 +188,11 @@ page**; finish #284 first.
   (frontend); history (10), ledger (11), state (13), to-do (18).
 
 ## 1. Where things stand
+
+**Update 2026-11-12.** #304 (theme tokens, dark mode), #305 (frontend split into parts, two latent canvas bugs),
+#306 (Google button in dark) merged and live; checked on production in light and dark (landing, dashboard, privacy,
+lock pages, `no-lab.js` `errors: []`). Ledger frontend 808, backend 662 (none of the three touched backend or content).
+Details in "The UI is built to change" above.
 
 **Update 2026-11-10, 10:45 IST.** Ledger: a full check of every `main` commit since 11-04 found 5 frontend rows
 (#176, #222, #239, #241, #250) and 44 backend rows (content commits of #170–#218) missing; all recorded. Now frontend
@@ -1058,6 +1101,7 @@ content can ship in one PR.
 | 11-10 | **The other 8 challenges stay, on Problems** (`/dashboard/problems/challenge/<id>/`) — owner chose this over removing them |
 | 11-10 | **Landing keeps a playable IND vs PAK canvas**, judged by the problem's example tests (owner chose this over a teaser) |
 | 11-10 | Interview Questions = the reference's 32 problem breakdowns + IND vs PAK, no more, no less |
+| 11-12 | **The UI changes often from now on**: one look at a time, changed on production (friends give feedback; no A/B or preview switch); **dark mode** (device setting + header button); colours only through `frontend/src/theme/` (#304); big files split (#305) |
 | 11-01 | External repo review → "Do everything to fix everything": all engineering findings fixed (#127), Lab phase 2 started with Load Balancer, Cache, Queue (#128) |
 
 ### 4a. UI/UX meeting minutes (owner, 11-02) and what happened to each
@@ -1317,7 +1361,7 @@ mix set on Clients; p95/p99 latency; data-transfer and storage costs.
 sweep, read aloud, recorded audio, mobile figures, API down, every Lab area, landing desktop + phone,
 Learn/challenges, tour/import, and the QA regressions `qa-scoring`, `qa-saving`, `qa-a11y`) — see its
 README. Run the whole set against production after each merge. Frontend tests: `cd frontend && npm test`
-(358 on 11-10). Backend + content: `cd backend && npm test` (76 on 11-10). Pages are signed-in only on
+(235 on 11-12, after the v1 tests went in #301). Backend + content: `cd backend && npm test` (79 on 11-12). Pages are signed-in only on
 production, so check new pages against a local API with sign-in off (§3 step 3). **Since #285 (no Lab tab)** the
 current browser check is `no-lab.js`; the scripts that drive the Lab tab, its menus or removed articles are outdated
 (listed in `18-TODO.md`).
@@ -1482,6 +1526,9 @@ monetisation, publishing policy or references.
 | #284 | Stage D2: Real systems tab with six case studies; `dashboard.heads`; 65 articles (merged 11-10) |
 | #285 | IND vs PAK becomes QUESTION // 22 (two figures, calibrated suite); the Lab tab is removed: challenges on Problems, old Lab redirects, canvas menus and importer gone, landing canvas judged by the problem |
 | #286 | Old Lab addresses ending in a slash reach Problems and IND vs PAK |
+| #304 | Theme: tokens for every colour, font, radius, shadow and motion speed (`frontend/src/theme/`), dark mode and a light/dark button, `theme.test.js` |
+| #305 | `dashboard.jsx`/`dashboard.css`, `solve.jsx` and `lab/Lab.jsx` split into parts; `setMenu`/`defaultConfig` calls removed; Google button dark |
+| #306 | No grey box around the Google button in dark mode (`.acct-g` keeps `color-scheme: light`) |
 | #224 | Review fixes (alternative API methods, two test wordings), Problems submitted in the owner's analytics, Pick one, Solved badge |
 | #223 | Submit judged again on the server; `submissions` collection; acceptance rates; "cheaper than N%"; privacy section |
 | #222 | Landing copy for judged problems; `tools/practice/` |
@@ -1620,6 +1667,9 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
   (all engineering findings real; its "backend missing" remark was a mid-change snapshot). Fixed in
   #127 (CodeRabbit's 5 findings fixed before merge) and #128. The first real run of the new deploy
   succeeded. Found that the `VPS_HOST`/`VPS_USER` secrets were never set (logs print the IP).
+- **11-12**: owner asked for modular UI code for quick look changes; #304–#306 (theme, dark mode, split files). Mistake
+  caught: a line-number-based split went wrong after an earlier edit shifted lines; restored from git and redone with
+  ranges checked by content. Splitting CSS by component changed the cascade; a computed-style diff found it.
 - Mistakes to avoid: replying on a PR thread with a commit SHA before the commit existed (post a
   correction if it happens); typing SHAs from memory; force-push attempts; pkill killing its own
   shell; testing new content against the production API by forgetting `VITE_API_BASE`.

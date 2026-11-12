@@ -1599,6 +1599,16 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PRs #304–#306)
+
+- `main` = `24ef789f2375f04235fd90c5e5fc50cebed3467d` (#306); front end only (API release unchanged,
+  `20261111T110248Z-b205951`, 66 articles).
+- **The look lives in `frontend/src/theme/`** (tokens, palette, motion, light/dark) and **dark mode is live**: it follows
+  the device setting until the visitor presses the header button. The dashboard, workspace and canvas code is split
+  into `src/dashboard/`, `src/solve/` and `lab/*.jsx` parts. See the handover, "The UI is built to change".
+- Checked on production: dark and light landing, dashboard, privacy and sign-in lock pages render with no page errors;
+  the theme button switches and is remembered; `no-lab.js` `errors: []`. Ledger: frontend 808, backend 662.
+
 ## Production snapshot — 2026-11-11 (after PR #303)
 
 - `main` = `b205951b88ad56654c5c1c98aaff467992729e1a` (#303, docs only); API release `20261111T110248Z-b205951`,

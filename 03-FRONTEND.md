@@ -1,5 +1,11 @@
 # Frontend Implementation
 
+> **Current layout (2026-11-12):** most of this file describes an older React 19 / React Router app and is
+> Historical. Today: React 18 + Vite 6, pages `src/main.jsx` (landing), `src/dashboard.jsx` (boots `src/dashboard/`),
+> `src/admin.jsx` (analytics); the look in `src/theme/` (tokens, light/dark, motion; see its README); the workspace in
+> `src/solve.jsx` + `src/solve/`; the canvas in `src/lab/`; figures in `src/figs/<tab>/<sub-tab>.jsx`. See
+> `17-SESSION-HANDOVER.md`, "The UI is built to change".
+
 ## Stack
 
 `frontend/package.json` currently specifies:

@@ -482,3 +482,13 @@ Real systems tab. Kept for the record.*
 - Syncing the working branch after a squash merge: `git merge -s ours origin/<branch>` (records the merge,
   keeps our files). A plain merge committed conflict markers once (#281, undone in the next commit).
 
+## Rule 19 — The look goes through `frontend/src/theme/` (owner, 2026-11-12)
+
+The owner changes the site's look often, on production, one look at a time. Keep it cheap:
+- Colours, fonts, radius, shadows and motion speeds are tokens in `frontend/src/theme/tokens.css` (light and dark) and,
+  for code, `theme/palette.js`. Never write a colour code or colour keyword anywhere else; `theme.test.js` fails if
+  you do. Name tokens by role (`--accent`), not hue.
+- Every UI change is checked in **both light and dark**, on desktop and a phone size.
+- The dashboard's stylesheets load in the order of `src/dashboard/index.css`; a later rule wins at equal specificity,
+  so when moving a rule between those files, check computed styles before and after.
+- Keep new parts in their folder (`src/dashboard/`, `src/solve/`, `lab/`); a file past ~15 KB is a sign to split it.

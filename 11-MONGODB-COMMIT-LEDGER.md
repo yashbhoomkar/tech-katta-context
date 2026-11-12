@@ -943,6 +943,29 @@ every commit that touches `backend/` or `content/`.
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
 
+### PRs #304–#306 (2026-11-12): recorded (frontend only; none touched `backend/` or `content/`)
+
+| PR | SHA | Collections |
+|---|---|---|
+| #304 | `4c2b559d374da68e3ee1c7ef8bd212fd26eb0ae4` | branch commit (frontend) |
+| #304 | `a28dd0dea37717d70a44c693ea186aeff91a533e` | branch commit (frontend) |
+| #304 | `734fceba67c064ad991b85760a1fe2c989b1e652` | branch commit (frontend) |
+| #304 | `d9dd043dacb5bfd8df479277dfb439ce1c062c07` | squash merge (frontend) |
+| — | `9e2eef7f0f14d6ef3f7068fcc34caf4588bddf53` | sync branch (frontend) |
+| #305 | `78b668ef7fe647684a54cb180b3e91afe73e43d9` | branch commit (frontend) |
+| #305 | `e62d72a6b59135a2063982c56eb4f44bbf1f94db` | branch commit (frontend) |
+| #305 | `f0adc9848ef8e011ef45855af2493fc1e8e9695b` | branch commit (frontend) |
+| #305 | `c6e62570871dff2230030f186e1a738ab9c809ad` | branch commit (frontend) |
+| #305 | `5267f380cfa2f10b414bd08f7695e95de9e63838` | branch commit (frontend) |
+| #305 | `c6a719f1378e92440e7bd01bbf3ae5053471489b` | branch commit (frontend) |
+| #305 | `41a5c574e15c807a456aac750685d4ce97851dda` | squash merge (frontend) |
+| — | `48ef623b087c53edb357a17b54044bee47aae66c` | sync branch (frontend) |
+| #306 | `7403846405fb792dc6b770504cf6270879025a34` | branch commit (frontend) |
+| #306 | `24ef789f2375f04235fd90c5e5fc50cebed3467d` | squash merge (frontend) |
+| — | `83bfa6ca6f2065d43906cb42711afa6a4a1e7400` | sync branch (frontend) |
+
+Counts after these: **frontend 808, backend 662** (counted in Atlas after the inserts).
+
 ### PR #303 (2026-11-11): recorded
 
 | PR | SHA | Collections |
