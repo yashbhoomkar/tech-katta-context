@@ -1,6 +1,6 @@
 # 21 — Problems, LeetCode-style: full specification
 
-**Status:** design specification, 12 Nov 2026. **Not built. Not tested.** Unlike `20-UI-REDESIGN-SPEC.md`, none of
+**Status:** design specification, 12 Nov 2026; the approach was then decided (see "Decision" below). **Not built. Not tested.** Unlike `20-UI-REDESIGN-SPEC.md`, none of
 the code or numbers here has been run; section 17 says how to prove each part as you build it.
 **Who reads this:** the agent that will write the code. Follow it top to bottom. Where it says "owner decides", stop and ask.
 **Brief (owner):** "take a step back … think of the evaluator and the entire interview questions and problems
@@ -11,6 +11,54 @@ intelligence llm. Also think in depth. Write every single detail."
 This design was thought out from first principles. It does **not** reuse the current canvas or judge as a starting
 point. It is built **beside** them (new folders, new routes), so nothing live breaks; section 16 says how the old
 experience is retired later, and only on the owner's word.
+
+## Decision: how the problem-solving experience should work
+
+Asked by the owner (12 Nov 2026): "Think about all the approaches and decide." Seven approaches were weighed against
+what matters for this product. Scores are 1 (bad) to 5 (good).
+
+**What matters, and how much.** Three quarters of visitors are on phones, so "works on a phone" counts double. The
+loop must be LeetCode-fast, so "time to first verdict" counts double. The judge must be trusted, so "exact and
+deterministic" is a gate: an approach that fails it is out, whatever else it scores.
+
+| # | Approach | The learner… | Exact and deterministic (gate) | Phone (×2) | Time to first verdict (×2) | Feels like real design | Teaches from a failure | Cost to author a problem | Cost to build | Result |
+|---|---|---|---|---|---|---|---|---|---|---|
+| 1 | Free canvas | drags boxes, draws arrows, opens settings panels | yes | 1 | 2 | 5 | 4 | 3 | 1 (exists, but heavy) | Out: slow loop, unusable on phones |
+| 2 | Text only | writes a short design in a small language | yes | 2 | 4 | 3 | 5 | 4 | 4 | Good on a laptop, weak on phones |
+| 3 | Builder only | taps to add parts and build each request's path from pick-lists | yes | 5 | 4 | 3 | 5 | 4 | 3 | Good on phones, slower for fast typists |
+| 4 | Multiple choice per step | answers questions | yes | 5 | 5 | 1 | 2 | 5 | 5 | Out: a quiz. Guessable; nobody "designs" |
+| 5 | Free text or drawing, graded by an AI | writes prose | **no** | 4 | 2 | 5 | 3 | 5 | 2 | Out as a judge: different verdicts for the same answer, cost per submission, can be argued with |
+| 6 | Guided interview (requirements → estimates → API → data → design → deep dives), each stage checked | fills six stages | yes | 3 | 1 | 5 | 4 | 1 | 1 | Out as the core loop: ten minutes to a verdict, heavy to author. Parts of it return below |
+| 7 | **One exact design, two editors** (builder + text over the same design), diagram drawn as output, judged by scenarios | taps or types, whichever suits the device | yes | 5 | 4–5 | 4 | 5 | 4 | 3 | **Chosen** |
+
+**The decision.**
+
+1. **The answer is one exact design** (parts, their settings, one path per request). It is stored as TKD text (section 3), because text can be saved, compared, shared and judged byte for byte.
+2. **There are two equal ways to edit it, and neither is second-class:**
+   - the **Builder** (called "Form view" in section 11.4): tap to add a part, steppers and pick-lists for settings, build each request's path by choosing the next part. **This is the default on phones and for anyone who has never submitted before.** A newcomer never has to learn syntax to get a first verdict.
+   - the **Text editor**: the default on screens 900 px and wider once the learner has switched to it once (the choice is remembered). This is what makes it feel like LeetCode for people who like to type.
+   Both write the same text; switching loses nothing but comments.
+3. **The diagram is output, never input.** It redraws as the design changes and lights up the part that failed.
+4. **The judge is a deterministic model run against scenarios** (sections 6 to 8), with eight verdict words. No AI decides a verdict.
+5. **No canvas** in the new experience. Dragging is the slowest way to say "four medium servers behind a load balancer".
+6. **What is kept from the rejected approaches, as additions that never change a verdict:**
+   - from the guided interview (6): each problem may start with an optional **"Estimate first"** card: two or three numbers to work out (requests a second, storage in a year), checked within ±20 %, with the working shown after. It warms up interview arithmetic and can be skipped. *Later step; not in the first build.*
+   - from AI grading (5): after **Accepted**, an optional **"Explain your trade-off"** box where an AI gives comments on a short written explanation. It is feedback only, clearly labelled, never a score. *Owner decides if and when; not in the first build.*
+   - from multiple choice (4): nothing in problems. Quizzes, if wanted, belong at the end of Concepts articles.
+
+**Why not simply "text, like LeetCode"?** Because LeetCode's users sit at a keyboard and ours mostly do not. Typing
+`cache = cache(nodes=2, memory_gb=1, ttl_s=3600)` on a phone keyboard is the opposite of a one-minute loop. The
+builder gives phone users the same exactness with taps. Text stays for those it suits.
+
+**Why not simply "builder"?** Because a design that exists only as form state cannot be diffed, pasted into a chat,
+shown in an editorial, or restored from a submission as easily; and experienced users find forms slow. Text under the
+builder gives all of that for free.
+
+**What this changes in the rest of this file:** only the order of building. The Builder and the phone layout are no
+longer step 6; they ship together with the problem page (section 16, steps 5a and 5b), and the five-friends test
+(section 17) must be passed **on a phone, in the Builder**.
+
+---
 
 ## 0. Rules for the implementing agent
 
@@ -487,7 +535,7 @@ Left pane 42 % wide, draggable divider (min 320 px each side). Right pane: edito
 
 ### 11.4 Phone (< 900 px)
 
-Three tabs fixed at the bottom: **Problem · Design · Result**; Run and Submit sit above them on the Design and Result tabs. Design opens in **Form view**: a list of part cards (kind select, steppers and selects for each argument, delete), "Add part"; a "Tables" card; one card per request where the route is built by picking the next part and the link type from selects (`then`, `on a miss`, `hand over`). The form reads and writes the **same text**: it is generated by `tkd/format.js` from the compiled design, so switching Text ↔ Form loses nothing except comments (warn once: `Comments are removed when you edit in Form view.`). Form view is also available on desktop through the toggle. The diagram is collapsed under the form ("Show picture").
+Three tabs fixed at the bottom: **Problem · Design · Result**; Run and Submit sit above them on the Design and Result tabs. Design opens in the **Builder** (Form view; it is also the default on desktop until the learner first switches to Text, and the choice is remembered in local storage key `tk-practice-editor`): a list of part cards (kind select, steppers and selects for each argument, delete), "Add part"; a "Tables" card; one card per request where the route is built by picking the next part and the link type from selects (`then`, `on a miss`, `hand over`). The form reads and writes the **same text**: it is generated by `tkd/format.js` from the compiled design, so switching Text ↔ Form loses nothing except comments (warn once: `Comments are removed when you edit in Form view.`). Form view is also available on desktop through the toggle. The diagram is collapsed under the form ("Show picture").
 
 ### 11.5 States
 
@@ -539,8 +587,9 @@ Until the owner sets up payment, treat every signed-in user as paid, behind one 
 | 2 | Judge | `frontend/src/tkd/judge.js`, `judge.test.js` | Section 7.10 passes; one unit test per rule of 7.2–7.7 and per verdict |
 | 3 | Problem 1 and the problem checker | `content/problems2/001-url-shortener.json`, `index.json`, `frontend/src/tkd/problems2.test.js` | Reference Accepted; each wrong design gets its verdict |
 | 4 | Backend | `backend/src/practice/` (load problems, routes of section 10, Mongo), `backend/test/practice.test.js`; the `tkd/` modules are shared with the backend **the same way the existing judge is shared** (see how `backend/test/judge-pool.test.js` reaches judge code) | Endpoint tests: hidden data never returned; submit judges on the server; rate limit; owner-only access |
-| 5 | Problem page, text view | `frontend/src/practice/` (`page.jsx`, `editor.jsx`, `diagram.jsx`, `console.jsx`, `practice.css`), routes | Full loop on problem 1: template → errors → Run → Submit → Accepted; keyboard only works; light and dark |
-| 6 | Form view, phone layout, formatter | `frontend/src/tkd/format.js`, `practice/form.jsx` | Text → Form → Text keeps the design (a round-trip test on every reference and wrong design) |
+| 5a | Formatter and Builder | `frontend/src/tkd/format.js`, `frontend/src/practice/form.jsx` | Text → Builder → Text keeps the design (a round-trip test on every reference and wrong design); every part kind and every route operator can be made with taps alone |
+| 5b | Problem page: desktop and phone layouts, both editors, diagram, console | `frontend/src/practice/` (`page.jsx`, `editor.jsx`, `diagram.jsx`, `console.jsx`, `practice.css`), routes | Full loop on problem 1 **on a Pixel 7 in the Builder** and on a desktop in the text editor: template → errors → Run → Submit → Accepted; keyboard only works; light and dark |
+| 6 | Editor comforts: autocomplete, shortcuts, draggable dividers | `practice/editor.jsx` | Section 11.3 behaves as written |
 | 7 | List page, daily problem, streak, submissions and solutions tabs, ranking | `practice/list.jsx`, backend additions | Section 12 and 13 behave as written |
 | 8 | Problems 2 to 10 | `content/problems2/` | The checker passes for all ten |
 | 9 | Owner review, then: link "Practice" in the dashboard tabs and landing page | `shell.jsx`, `site.json` | Owner says go |
@@ -558,7 +607,7 @@ Until then both exist; nothing links the new pages from the old ones.
 - A **determinism test**: judge the same input 100 times, deep-equal results; and judge it in Node and (in an end-to-end script) in the browser, equal results.
 - End-to-end (Playwright, as the repo's existing e2e scripts): open problem 1, type the reference design, Run, Submit, see Accepted; then each wrong design and its verdict word.
 - Timing: `judge()` on the largest allowed design and a 20-phase test in under 20 ms in Node.
-- Five-friends test (owner): from opening problem 1 to a first verdict in under two minutes, without help.
+- Five-friends test (owner): **on a phone, in the Builder**, from opening problem 1 to a first verdict in under two minutes, without help. Then the same on a laptop in the text editor.
 
 ## 18. Known limits (say so in the editorial pages, do not hide them)
 
@@ -569,7 +618,7 @@ Until then both exist; nothing links the new pages from the old ones.
 
 ## 19. Owner decisions needed
 
-1. Text + form as the only way to answer (this spec), or keep a canvas as a third view later.
+1. Confirm the decision at the top of this file: one exact design, Builder and Text as equal editors, no canvas. Also whether to add "Estimate first" and "Explain your trade-off" later.
 2. The name of the section ("Practice" here) and whether it replaces "Problems" in the tabs.
 3. Free versus paid lines (section 14) and the paid-card wording.
 4. The first ten problems (section 9).
