@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).
+**Status:** approved direction to build, not yet built. Written 12 Nov 2026; detailed instructions for animation (4.6) and UI features and behaviour (4.7) added; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's
@@ -325,6 +325,158 @@ asked for less motion gets the finished page at once. Item 13 stays, because it 
 stays applied to `transform` after it ends can trap `position:fixed` children (the full-screen figure view on phones).
 Do not change this.
 
+### 4.6 Animation: exact instructions
+
+Section 4.5 says **where** things move. This section says **how each one is built**, so you can check your build
+line by line and so a later change stays consistent. All of it lives in `frontend/src/theme/motion.css` (Appendix D).
+
+**The seven keyframes.** Each has only a `from` (the element animates *to* its normal style), except the two that need an end value.
+
+| Keyframe | From → to | Used for |
+|---|---|---|
+| `tk-rise` | 10 px lower and invisible → in place | Anything arriving in the flow of the page |
+| `tk-fade` | invisible → visible | Things that should not move (contents column, backdrop) |
+| `tk-pop` | 96 % size and invisible → full size | Things that open on top of the page |
+| `tk-sheet` | 24 px lower and invisible → in place | Sheets that slide up from the bottom |
+| `tk-mark` | background 0 wide → full width | The highlighter stroke |
+| `tk-shimmer` | background position sweeps left | Loading lines |
+| `tk-progress` | `scaleX(0)` → `scaleX(1)` | Reading progress |
+
+**Every animation, with its selector and timing.**
+
+| # | Selector | Keyframe | Duration | Delay | Easing | Fill |
+|---|---|---|---|---|---|---|
+| 1a | `.hero>div>*` (eyebrow, h1, p, buttons) | `tk-rise` | `--dur-enter` (0.36 s) | 0, 0.06, 0.12, 0.18 s by child | `--ease` | `backwards` |
+| 1b | `.hero>.figure` | `tk-rise` | 0.5 s | 0.16 s | `--ease` | `backwards` |
+| 1c | `h1 .tk-mark` | `tk-mark` | 0.6 s | 0.5 s | `--ease` | `backwards` |
+| 2 | `.d-body>.d-panel`, `.d-read>.d-article` | `tk-rise` | `--dur-enter` | 0 | `--ease` | `backwards` |
+| 3 | first 8 `li`/`.card` inside `.d-list`, `.cards`, `.pb-group` | `tk-rise` | `--dur-enter` | 0.04 s × (position − 1) | `--ease` | `backwards` |
+| 4 | `.d-read>.d-rail` | `tk-fade` | 0.4 s | 0.15 s | `--ease` | `backwards` |
+| 5 | `em` / `.card-go` inside a hovered card | transition on `transform` to `translateX(4px)` | `--dur` (0.2 s) | 0 | `--ease` | — |
+| 6 | `.a-more[open]>:not(summary)`, `.sv-hints li.open>:not(button)` | `tk-rise` | 0.24 s | 0 | `--ease` | `backwards` |
+| 7 | `.acct-menu`, `.lab-menu`, `.tour-card`, `.lock-card` | `tk-pop` | 0.16 s | 0 | `--ease` | `backwards` |
+| 8 | `.scrim` | `tk-fade` | `--dur` | 0 | `--ease` | `backwards` |
+| 9a | `.sv-console`, `.lab-score` | `tk-sheet` | 0.26 s | 0 | `--ease` | `backwards` |
+| 9b | first 6 `.sv-test` | `tk-rise` | 0.24 s | 0.05 s × (position − 1) | `--ease` | `backwards` |
+| 10 | `.ll-res` | `tk-pop` | 0.22 s | 0 | `--ease` | `backwards` |
+| 11 | `.lock-skel i` | `tk-shimmer` | 1.4 s | 0 | `ease-in-out` | loops |
+| 12 | `.inside-grid li`, `.lp-lab`, `.lp .ch-title`, `.lp .ch-desc` | `tk-rise` | tied to scroll: `animation-timeline:view()`, range `entry 0% entry 55%` | — | `linear` | `both` |
+| 13 | `.dash:has(.d-read) .d-head::after` | `tk-progress` | tied to scroll: `animation-timeline:scroll(root)` | — | `linear` | `both` |
+
+**Rules you must keep when you touch any of this.**
+
+1. **Only `transform` and `opacity` animate** (plus `background-size`/`background-position` for the stroke and the
+   shimmer). Never animate `width`, `height`, `margin`, `padding`, `top` or `left`: they make the page re-lay out and stutter on phones.
+2. **Entrances use `backwards`.** Only the two scroll-tied ones use `both`. A finished animation that stays applied
+   to `transform` traps `position:fixed` children; the phone full-screen figure then no longer covers the screen.
+3. **Entrances are 0.16 to 0.5 s. Hover and press feedback is `--dur-fast` or `--dur` (0.12 or 0.2 s).** Nothing is slower than 0.6 s.
+4. **Movement is small:** 10 px for content, 24 px for sheets, 4 % scale for pops, 2 to 3 px lift on hover. No rotation, no bounce.
+5. **One easing:** `--ease`. Scroll-tied animations use `linear` (the scroll is the easing).
+6. **Stagger is capped:** at most 8 cards, at most 6 test rows, never more than 0.3 s until the last one starts. Items after the cap appear at once.
+7. **Each entrance runs once**, when the element appears. Nothing replays on scroll, on hover or on a timer.
+8. **Nothing loops** except loading marks (`.lock-skel i`, the existing `.st i`) and the figures' own loops.
+9. **Everything decorative is inside `@media(prefers-reduced-motion:no-preference)`.** Do not write an entrance animation outside that block.
+10. **In `animation` shorthand, write `animation-timeline` after it**, on the same rule. The shorthand resets the timeline.
+11. **Do not animate these:** `.react-flow__node` and anything React Flow positions (it uses `transform` itself); the
+    sticky header and sidebar; article paragraphs, headings, tables; SVG figures (they have SMIL loops and a still version via `useStill()`).
+12. **Hover effects must not be the only signal.** Phones have no hover. Every card is already a link with a visible "Read →".
+
+**How to add an animation later** (for the owner's future requests; not part of this build):
+
+1. Decide which of the four entrance keyframes fits (in the flow → `tk-rise`; on top → `tk-pop`; from the bottom → `tk-sheet`; must not move → `tk-fade`). Do not write a new keyframe unless none fits.
+2. Add one rule **inside** the `no-preference` block of `motion.css`, in the numbered group it belongs to:
+   `.your-class{animation:tk-rise var(--dur-enter) var(--ease) backwards}`.
+3. If the element can appear many times in a list, cap it with `:nth-child(-n+8)`.
+4. Add a row to the table in section 4.5 of this file.
+5. Check: motion on (it plays once), motion reduced (final state at once), phone (no stutter, full-screen figure still works).
+
+**How to check animations properly.**
+
+- Chrome → DevTools → ⋮ → More tools → **Animations**: reload the page; each animation appears as a bar. Compare names, lengths and delays with the table above. Use 25 % speed to see order.
+- DevTools → ⋮ → More tools → **Rendering** → "Emulate CSS media feature prefers-reduced-motion": set to *reduce*, reload. Nothing may move; nothing may be invisible.
+- DevTools → **Performance** → record a page load on "4× CPU slowdown": there must be no long purple "Layout" bars during the entrance.
+- Firefox or an older Safari: items 12 and 13 do nothing and everything is visible. That is correct.
+
+**If something looks wrong.**
+
+| Symptom | Cause | Fix |
+|---|---|---|
+| The stroke under the headline flashes fully on, then draws | The `h1 .tk-mark` rule is missing `background-repeat:no-repeat` | Copy the rule from Appendix D again |
+| Cards stay invisible | A rule was written with `opacity:0` outside a keyframe | Remove it; the keyframes supply the start state |
+| Content stays invisible with reduced motion | An entrance rule was placed outside the `no-preference` block | Move it inside |
+| Phone full-screen figure is cut off | Someone changed `backwards` to `both` or `forwards` on `.d-article` | Change it back |
+| Canvas nodes jump or cannot be dragged | An animation was added to `.react-flow__node` | Remove it |
+| Progress line never appears | Browser without scroll timelines, or the page is not an article | Expected |
+| Page content replays its entrance on every state change | The element is re-created by React on each render | Do not animate that element; animate its stable parent |
+
+### 4.7 UI features and behaviour
+
+What each part of the interface must **do**, not only how it looks. All of this already exists in the code unless marked
+**new**; the redesign must not break any of it. Use this as a behaviour checklist after each work package.
+
+**States every interactive element must show.**
+
+| State | Main button | Second button | Card link | Input / select | Tab / sidebar row |
+|---|---|---|---|---|---|
+| Rest | Marigold, `--brand-edge` border | White, `--line-strong` border | White, `--line` border, `--shadow-1` | White, `--line-strong` border | `--muted` text |
+| Hover (mouse only) | `--brand-strong` | Border turns `--ink` | Border `--line-strong`, `--shadow-2`, up 2 px, arrow moves 4 px | — | `--ink` text; sidebar row gets `--hover` fill |
+| Focus (keyboard) | 2 px `--accent` ring, 2 px away | same ring | same ring | 2 px `--accent` outline | same ring |
+| Pressed | Down 1 px | Down 1 px | — | — | — |
+| Selected / current | — | Filter pill: `--inverse` fill, `--on-inverse` text | — | — | Tab: ink, weight 600, 3 px marigold line. Sidebar row: `--brand-tint` fill, 3 px `--brand-strong` bar |
+| Disabled | `--surface` fill, `--line` border, `--faint` text, no hover | same | — | same | — |
+
+Never remove a focus ring. Never signal a state with colour alone: the current tab also changes weight, a failed
+test also shows ✕, difficulty pills also carry the word.
+
+**Features by area.**
+
+| Area | Feature | Required behaviour |
+|---|---|---|
+| Everywhere | **Light and dark** | The theme button (sun/moon) switches at once and remembers the choice (`tk-theme` in local storage); first visit follows the device. Figures redraw in the new colours. No flash of the wrong theme on load (`public/theme-boot.js` + the inline style in each `index.html`) |
+| Everywhere | **Skip link** | First Tab press shows "Skip to content"; it moves focus to the page content |
+| Everywhere | **Sticky header** | Stays at the top, page colour at 86 % with blur; content scrolls under it |
+| Landing | **Phone menu** | Below 680 px the nav becomes a MENU button that opens a panel; Escape or choosing a link closes it |
+| Landing | **Zoom on the figure** | "Tap to zoom" opens the figure in a dialog; Escape, the close button or a tap outside closes it and returns focus |
+| Landing | **Try the problem** | The IND vs PAK problem loads only when scrolled near (keeps the first load light); on phones the simplified version shows |
+| Dashboard | **Collapsible sidebar** | The button beside the logo folds it to 64 px icons and back; below 900 px it is a drawer with a dark backdrop, closed by the backdrop or Escape |
+| Dashboard | **Current place** | The current section row and the current article in the sub-list are marked; top tabs mark the section |
+| Dashboard | **Tour** | "Tour" starts a step-by-step guide: the target gets a marigold outline, a card explains it, Next / Skip, a progress bar |
+| Section pages | **Card grid** | Two columns from 760 px, one below; each card is one link; descriptions cut at three lines |
+| Article | **On this page** | From 1240 px a sticky contents list; the heading in view is marked; clicking scrolls to it with the header's height left clear |
+| Article | **Listen** | Play/pause reads the article with the device's voices; speed select; the sentence being read is highlighted and kept in view |
+| Article | **Reading progress (new)** | Thin ochre line under the header grows with scroll (Chrome, Edge, Android, new Safari) |
+| Article | **Share** | Uses the device's share sheet where there is one, otherwise copies the link |
+| Article | **Figures** | Play in a loop; still under reduced motion; on phones a full-screen button turns the figure sideways to fill the screen |
+| Article | **Tables on phones** | Each row becomes a stacked card with its column names; no sideways scrolling |
+| Article | **Show more / Go deeper** | Tap opens extra content in place; tap again closes |
+| Article | **Next article, practise link** | A card to the next article; the dark practise card and the tinted card in the right column lead to the matching problem |
+| Problems | **Filters** | All / Not done yet; Easy / Medium / Hard; "Pick one" opens a random unsolved problem |
+| Problems | **Progress** | Solved count and stars come from the visitor's saved progress; status column shows done problems |
+| Workspace | **Split view** | Problem on the left, canvas on the right; the divider drags; "Hide the problem" gives the canvas the full width |
+| Workspace | **Tabs** | Description, Your answer, Hints, Solution, Submissions; the row scrolls sideways if it does not fit |
+| Workspace | **Run / Submit** | Run tries the example tests, Submit runs all; the result sheet slides up with a verdict, per-test rows, expected and actual; it can be collapsed or closed |
+| Workspace | **Timer, Reset** | Timer shows elapsed time (tinted when on); Reset asks nothing and restores the starting design |
+| Canvas | **Build** | Drag a component from the left list (or tap it on touch); join with arrows from the handles; select to edit settings on the right; selected node has a marigold ring |
+| Canvas | **Replay** | After a test, replay the load minute by minute; nodes show warning (orange) and down (red) states |
+| Phone problem view | **Simplified problem** | Checkboxes, steppers and radios instead of the canvas; one marigold "Play" button; a result card with stars |
+| Account | **Sign in** | On production, articles need Google sign-in: a card over a blurred skeleton; the account pill opens a small menu (privacy, sign out) |
+| Status | **Loading and errors** | A loading mark while a page loads; an error page with one marigold "Try again" button |
+
+**Sizes that are features, not decoration.**
+
+- Anything tappable is at least **44 × 44 px on phones** (buttons 44 to 50 px tall there; filter pills 34 px tall with 6 px gaps are the one accepted exception, as on the live site).
+- Article text column never exceeds **680 px**; body text never goes below **17 px**.
+- Breakpoints, as in the code: **1240 px** (contents column appears), **980 px** (landing hero stacks), **900 px** (sidebar becomes a drawer; workspace stacks), **760 px** (card grids and the problems table go to one column / cards), **680 px** (phone type sizes and paddings).
+- No page scrolls sideways at 360 px wide.
+
+**Accessibility that must survive the redesign.**
+
+- Text contrast at least 4.5:1 (figures in section 4.1); lines and icons at least 3:1.
+- Every control reachable and usable with the keyboard, in visual order; dialogs trap focus and return it on close.
+- `aria-current`, `aria-expanded` and labels already in the JSX stay as they are (you are not editing JSX).
+- Reduced motion respected everywhere (section 4.6 rule 9, and the figures' still versions).
+- Works with the browser zoomed to 200 %: nothing overlaps or is cut off.
+
 ---
 
 ## 5. Page by page
@@ -583,6 +735,9 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
 - [ ] Keyboard: Tab through the landing header and an article; every stop shows the ochre focus ring.
 - [ ] Reduced motion on (browser setting): no entrance animations, nothing moves on hover, pages are complete at once.
+- [ ] Animations match the table in section 4.6 (names, lengths, delays), checked in DevTools → Animations.
+- [ ] Every row of the feature table in section 4.7 still works; every state in its state table is visible.
+- [ ] No sideways scroll at 360 px; usable at 200 % zoom.
 - [ ] Reduced motion off: the thirteen motions in section 4.5 happen, each once; nothing loops except loading lines and the figures.
 - [ ] Phone: a figure's full-screen view still covers the whole screen (this breaks if an animation is changed to `both`).
 - [ ] No console errors on any page.
