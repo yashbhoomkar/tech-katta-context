@@ -1,6 +1,6 @@
 # 20 — UI redesign spec: "Katta Paper"
 
-**Status:** approved direction to build, not yet built. Written 12 Nov 2026; detailed instructions for animation (4.6) and UI features and behaviour (4.7) added; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).
+**Status:** **built and live** (tech-katta #309, 2026-11-12; three fixes inside the appended blocks are listed in the PR and in `17-SESSION-HANDOVER.md`; follow-ups #310). Originally: approved direction to build. Written 12 Nov 2026; detailed instructions for animation (4.6) and UI features and behaviour (4.7) added; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).
 **Who reads this:** the agent that will write the code. It is written so that you can follow it top to bottom
 without making design decisions. Where a decision belongs to the owner, it is listed in section 10 and you leave it alone.
 **What it replaces:** the "Swiss publishing" look that is live on tech.katta.cc, and the direction in the app repo's

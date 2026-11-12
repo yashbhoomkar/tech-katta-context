@@ -1599,6 +1599,15 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PR #310)
+
+- `main` = `0c7151fc8121519d8e8807d6bdef22283d45df3f` (#310). API release `20261112T104809Z-0c7151f`, 66 articles,
+  auth on. The site has the "Katta Paper" look (#309): paper and ink, marigold brand, Fraunces headings, the
+  highlighter under the landing headline, `theme/motion.css`.
+- #310: landing main button Dashboard → `/dashboard/concepts/`; Sign in opens a dialog; Tour is per page (section,
+  article, dashboard, problem, lab); the landing header fits phones from 320 px.
+- Ledger: frontend 832, backend 665.
+
 ## Production snapshot — 2026-11-12 (after PR #308)
 
 - `main` = `01adfbeaca1f8dfe3a00ad1ab80b25fdd587557c` (#308, docs only: `Design.md` in full detail). Production
