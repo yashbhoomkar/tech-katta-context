@@ -477,6 +477,70 @@ test also shows ✕, difficulty pills also carry the word.
 - Reduced motion respected everywhere (section 4.6 rule 9, and the figures' still versions).
 - Works with the browser zoomed to 200 %: nothing overlaps or is cut off.
 
+### 4.8 Animations that belong to Tech Katta
+
+Sections 4.5 and 4.6 cover the polish any good site has (things rise in, menus pop). This section is about motion
+that could only be on **this** site, because it comes from what the product is. Tech Katta is three things: a
+notebook you learn from, a system you watch requests flow through, and a judge that gives a verdict. So there are
+exactly three motion ideas, and every animation must belong to one of them. If a proposed animation fits none, do not add it.
+
+| Idea | What it means | The motion |
+|---|---|---|
+| **The marker** | A person marks what matters in a notebook | A marigold stroke is *drawn*, left to right, in about half a second. Never fades in, never blinks |
+| **The request** | In every figure, things travel from the client towards the data, left to right | Content arrives in reading order; a dot or a line moves along a path; progress fills left to right |
+| **The verdict** | You built something and the judge answers | The answer arrives from below, then is revealed in steps: verdict, then tests, then stars |
+
+#### Built in this redesign (in `motion.css`, group 8, and one line in the `solve` block)
+
+| # | Moment | What the visitor sees | Idea | Code |
+|---|---|---|---|---|
+| 14 | **A design passes** | The verdict title ("Accepted", "All tests passed") is written in ink and **the marker is drawn under it**, 0.3 s after the result sheet arrives. A failed verdict stays plain red text: no stroke, no shake | Marker + verdict | `.sv-v.good b` gets the stroke as a background (Appendix C, `solve`); `motion.css` draws it with `tk-mark .5s`, delay `.3s` |
+| 15 | **Stars are awarded** | On the score sheet and the phone result, the row of stars pops in a moment after the sheet | Verdict | `.lab-score .lab-stars, .ll-res .ll-stars` → `tk-pop .3s`, delay `.25s` |
+| 16 | **A server goes down** | During a replay, a node that crashes gives one short sideways shudder (3 px, 0.32 s) as it turns red and dashed. Once, not looping | Request | `.ln.down` → `tk-shake .32s linear` (on the inner `.ln`, never on React Flow's own wrapper) |
+| 17 | **Load changes** | The thin load bar in the canvas toolbar slides to its new width instead of jumping | Request | `.lab-meter i{transition:width …}`. This is the **one** permitted width transition: the bar is 4 px tall and nothing else is laid out from it |
+| 18 | **A figure is opened** | "Tap to zoom" on the landing figure: the backdrop fades and the figure pops forward | Notebook (you lean in) | `.zoom` → `tk-fade`; `.zoom-box` → `tk-pop .18s` |
+
+Together with the earlier ones, the product's signature moments are: the stroke under the landing headline (item 1c),
+the stroke following the sentence read aloud, the stroke under a passed verdict (14), the reading line under the
+header (13), and the result sheet rising (9). **A visitor should remember the marker.** That is why the stroke is
+used in only these places and always drawn the same way.
+
+These five were added after the main verification pass. The build and the 235 unit tests pass with them, but they
+were **not looked at in a browser**. Check each one by eye (a passing design needs a correct solution: use the
+problem's Solution tab to build one), and if a selector does not match what you see in the page, fix the selector,
+not the idea.
+
+#### Worth building next, but they need JavaScript (owner decides; not in this build)
+
+Each of these fits one of the three ideas and would make the product feel more alive than any amount of fading.
+They are listed in the order of value. None may be built with a library; each is a few lines.
+
+| Moment | What the visitor would see | Idea | How (outline) | Where |
+|---|---|---|---|---|
+| **Score counts up** | "Score 0 … 87 / 100" over 0.8 s, easing out, then stops | Verdict | A small hook that steps a number with `requestAnimationFrame`; under reduced motion show the final number at once | Score sheet in `src/solve/` and `src/lab/Score.jsx` |
+| **Stars fill one at a time** | Each earned star turns from grey to gold 0.15 s apart, each with a small pop | Verdict | Render each star as its own element with an `animation-delay` from its index; today the stars are one text string | Same files; `lablite` result |
+| **Tests tick off like a test run** | Rows appear in order, each showing ✓ or ✕ as it "finishes"; the verdict comes last | Verdict | The results already exist when the sheet opens: reveal them on a timer (60 ms each, capped at 1.5 s in total), verdict after the last | `src/solve/console.jsx` |
+| **Requests visibly flow through your design** | After Run, small dots travel along the arrows of the visitor's own design for a few seconds, the way they do in the article figures; an arrow that drops calls shows red dots stopping | Request | React Flow edges are SVG paths: an `<animateMotion>` dot per live edge, as `figs/parts.jsx` `Dot` does; stop when the replay ends; none under reduced motion | `src/lab/nodes.jsx` (the edge component already draws a circle for live edges) |
+| **Numbers on the landing page count up** | "22 problems", "31 articles" run up from 0 when the cards scroll into view | Request (scale) | One `IntersectionObserver`, the same counting hook | `Inside` in `src/main.jsx` |
+| **The marker moves between contents items** | In "On this page", the ochre piece of the line slides from the old heading to the new one instead of jumping | Marker | One absolutely positioned bar whose `transform` is set from the active item's position | `src/dashboard/article.jsx` |
+| **Solved** | The first time a problem is solved, its status mark in the list is drawn as a tick (stroke drawn over 0.3 s) | Marker | An SVG tick with `stroke-dasharray`; only for a problem solved in this visit | `src/problems.jsx` |
+| **"Copied"** | After Share or Copy, the button's label becomes "Copied ✓" for 1.5 s, then returns | Verdict (confirmation) | Local state and a timeout | `src/dashboard/share.jsx`, the solution's copy button |
+| **Pages cross-fade** | Moving between dashboard pages cross-fades for 0.15 s instead of swapping | Request | `document.startViewTransition` around the route change, where the browser has it | Router in `src/dashboard.jsx` |
+
+#### Considered and rejected for this site
+
+| Idea | Why not |
+|---|---|
+| Confetti or fireworks on passing | A toy effect; the audience is preparing for interviews. The marker and the stars are the celebration |
+| Shaking the whole result sheet on a wrong design | Punishes the learner; a wrong design is the normal path to a right one |
+| Typewriter effect on headlines or article text | Slows reading, which is the product |
+| Animated or drifting background, floating shapes, cursor trails | Decoration with no meaning here; costs battery on phones |
+| Parallax, pinned scroll sections, scroll-jacking | Fights the reader; three quarters of visitors are on phones |
+| Auto-rotating testimonials or carousels | Nothing on the site needs one |
+| Pulsing or glowing buttons to draw attention | The single marigold button per region already does that |
+| Animating canvas nodes when they are added or moved | React Flow moves nodes with `transform`; a second animation on it breaks dragging |
+| Sound | No |
+
 ---
 
 ## 5. Page by page
@@ -701,6 +765,8 @@ production (sign-in is off locally); check it on the preview deployment of the p
    `import"./base.css";import"./motion.css";`.
    (`tokens.css` from Appendix A already has the `--dur-enter` token this file reads.)
 
+`motion.css` also holds the five product moments of section 4.8 (its group 8). They depend on the `solve` block from WP6 being in place.
+
 **Check** (with your browser's reduced-motion setting **off**): reload `/`: the hero text steps in and the marigold
 stroke is drawn under the last word about half a second later. Scroll down: the four cards rise as they enter.
 Open `/dashboard/concepts/`: the cards rise in turn. Open an article and scroll: a thin ochre line grows under the
@@ -735,6 +801,7 @@ squash merge, ledger row, context docs (`17-SESSION-HANDOVER.md`, `10-GIT-HISTOR
 - [ ] Only one marigold button per region; only one highlighter stroke per screen.
 - [ ] Keyboard: Tab through the landing header and an article; every stop shows the ochre focus ring.
 - [ ] Reduced motion on (browser setting): no entrance animations, nothing moves on hover, pages are complete at once.
+- [ ] The five product moments in section 4.8 (items 14 to 18) were each seen working: stroke under a passed verdict, stars pop, a crashed node shudders once, the load bar slides, the zoomed figure pops.
 - [ ] Animations match the table in section 4.6 (names, lengths, delays), checked in DevTools → Animations.
 - [ ] Every row of the feature table in section 4.7 still works; every state in its state table is visible.
 - [ ] No sideways scroll at 360 px; usable at 200 % zoom.
@@ -1334,6 +1401,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 .sd-copy:hover{background:var(--brand-strong)}
 .sd-fig{border:1px solid var(--line);border-radius:var(--r-lg);background-color:var(--bg)}
 @media(prefers-reduced-motion:reduce){.sv-run,.sv-submit,.sv-clock,.sv-reset,.sv-tabs a,.sv-tabs button{transition:none}}
+.sv-v.good b{display:inline-block;color:var(--ink);padding:0 .08em;background:linear-gradient(transparent 62%,var(--mark) 62%,var(--mark) 94%,transparent 94%) no-repeat}
 ```
 
 ### C · lab → `frontend/src/lab/lab.css` (WP6)
@@ -1446,6 +1514,7 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
 @keyframes tk-mark{from{background-size:0 100%}to{background-size:100% 100%}}
 @keyframes tk-shimmer{to{background-position:-200% 0}}
 @keyframes tk-progress{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+@keyframes tk-shake{20%{transform:translateX(-3px)}40%{transform:translateX(3px)}60%{transform:translateX(-2px)}80%{transform:translateX(2px)}}
 @media(prefers-reduced-motion:no-preference){
   /* 1. Landing hero: the text steps in, then the figure, then the highlighter is drawn under the last word */
   .hero>div>*{animation:tk-rise var(--dur-enter) var(--ease) backwards}
@@ -1480,6 +1549,13 @@ a:focus-visible,button:focus-visible{outline:2px solid var(--accent);outline-off
   .sv-test:nth-child(5){animation-delay:.2s}
   .sv-test:nth-child(6){animation-delay:.25s}
   .ll-res{animation:tk-pop .22s var(--ease) backwards}
+  /* 8. Tech Katta's own moments (spec section 4.8): the verdict, the stars, a server going down, a figure opening */
+  .sv-v.good b{animation:tk-mark .5s var(--ease) .3s backwards}
+  .lab-score .lab-stars,.ll-res .ll-stars{display:inline-block;animation:tk-pop .3s var(--ease) .25s backwards}
+  .ln.down{animation:tk-shake .32s linear}
+  .zoom{animation:tk-fade var(--dur) var(--ease) backwards}
+  .zoom-box{animation:tk-pop .18s var(--ease) backwards}
+  .lab-meter i{transition:width var(--dur) var(--ease)}
   /* 5. Waiting: the grey lines of a loading page shimmer (a sweep, not a pulse) */
   .lock-skel i{background-image:linear-gradient(90deg,transparent 0,rgb(var(--bg-rgb) / .7) 50%,transparent 100%);background-size:200% 100%;background-position:200% 0;animation:tk-shimmer 1.4s ease-in-out infinite}
   /* 6. Landing sections below the fold rise as they scroll into view. Browsers without scroll timelines just show them. */
