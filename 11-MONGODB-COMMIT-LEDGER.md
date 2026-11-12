@@ -943,6 +943,16 @@ every commit that touches `backend/` or `content/`.
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
 
+### PR #307 (2026-11-12): recorded (frontend only, docs)
+
+| PR | SHA | Collections |
+|---|---|---|
+| #307 | `ff05a5114a431e58a3e9e75c56353870d2417354` | branch commit (frontend) |
+| #307 | `6eec918527aa1b8f1b62c5d313e5db87631a82ab` | squash merge (frontend) |
+| — | `da7c2527d90a69640881416d6ae61db02af0ddc9` | sync branch (frontend) |
+
+Counts after these: **frontend 811, backend 662**.
+
 ### PRs #304–#306 (2026-11-12): recorded (frontend only; none touched `backend/` or `content/`)
 
 | PR | SHA | Collections |

@@ -1599,6 +1599,11 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-12 (after PR #307)
+
+- `main` = `6eec918527aa1b8f1b62c5d313e5db87631a82ab` (#307, docs only: `Design.md`, the plan for the next look,
+  from fanout.sh). Production unchanged since #306. Ledger: frontend 811, backend 662.
+
 ## Production snapshot — 2026-11-12 (after PRs #304–#306)
 
 - `main` = `24ef789f2375f04235fd90c5e5fc50cebed3467d` (#306); front end only (API release unchanged,
