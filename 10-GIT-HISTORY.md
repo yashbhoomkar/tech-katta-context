@@ -969,3 +969,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #305: `dashboard.jsx`/`dashboard.css` split into `src/dashboard/`, `solve.jsx` parts into `src/solve/`, `lab/Lab.jsx` into Canvas/nodes/Palette/Inspector/Score/shared; two undefined calls in the canvas removed; Google button dark; merge `41a5c574e15c807a456aac750685d4ce97851dda` (2026-11-12, front end only).
 - PR #306: no grey box around the Google button in dark mode; merge `24ef789f2375f04235fd90c5e5fc50cebed3467d` (2026-11-12, front end only).
 - PR #307: `Design.md`, fanout.sh's UI observed and mapped onto our theme tokens (docs only); merge `6eec918527aa1b8f1b62c5d313e5db87631a82ab` (2026-11-12).
+- PR #308: `Design.md` much more detailed (12 fanout.sh pages and states, a light/dark token draft checked for AA, mapping onto our files, acceptance checks; docs only); merge `01adfbeaca1f8dfe3a00ad1ab80b25fdd587557c` (2026-11-12).
