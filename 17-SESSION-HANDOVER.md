@@ -170,7 +170,7 @@ production** so friends see it and the owner asks them for feedback (no A/B or p
   a re-run passed (timing-sensitive; not changed). `read-aloud.js`, `mobile-figures.js` and the last step of
   `tour.js` fail on the pre-#305 build too (outdated scripts, `18-TODO.md`).
 
-## The next evaluator: `evaluator.md` (specification, 2026-11-10; phases 0–3 built, #287–#291; URL shortener live on v2)
+## The evaluator: `evaluator.md` (specification, 2026-11-10; built #287–#302: every problem and challenge on v2, v1 removed; the notes below were written while building it)
 
 Owner, 2026-11-10: "make our evaluator engine the best; take a step back and think how an evaluator engine should
 work; think of the components the canvas should have; write it in a new `evaluator.md`; another session will
@@ -289,6 +289,15 @@ page**; finish #284 first.
   (frontend); history (10), ledger (11), state (13), to-do (18).
 
 ## 1. Where things stand
+
+**Update 2026-11-12, after #315.** Production: `main` `4251e7a`, API release `20261112T125123Z-4251e7a`, 66 articles.
+Since #308, all merged and live in one session (`ccr-829d4266-kyaqbl`), the owner asking to ship without waiting for
+review: the "Katta Paper" look (#309) and its follow-ups (#310: Dashboard button, Sign in dialog, narrow phone header);
+figure motion for all 232 figures (#311) and every animation faster through one setting (#312); figures readable on
+phones and a tour per page (#313), the general tour for signed-out visitors (#314); the "In 30 seconds" box removed from
+every article (#315); app docs for tours and figure speed (#316, docs only). Ledger frontend 850, backend 671 (the #316
+rows are pending: see `18-TODO.md`). Details in the sections at the top ("Katta Paper is live",
+"Figure motion", "Phone figures, tours"); rules 19–21 in `12-OPERATING-RULES.md`.
 
 **Update 2026-11-12.** #304 (theme tokens, dark mode), #305 (frontend split into parts, two latent canvas bugs),
 #306 (Google button in dark) merged and live; checked on production in light and dark (landing, dashboard, privacy,
