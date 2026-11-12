@@ -343,7 +343,7 @@ D = 1,000,000, B = 500, s = 0.8.
 - `cache`: items = 2 × 1 × 1e9 / 500 = 4,000,000 ≥ D so c = 1, h = min(0.99, 1) = **0.99**; load 2,000 reads + 20 invalidations; rho 0.0202; p99 = **2.04**.
 - `db` primary: reads 2,000 × 0.01 = 20; writes 20; rho = 20/3,000 + 20/1,000 = 0.0267.
 - Miss fraction 0.01 is not greater than 0.01 → GET_LINK p99 = 2.08 + 61.2 + 2.04 = **65.3 ms**.
-- CREATE_LINK (sync, doubled): db write hop = 2 × 15 / (1 − 0.0267 − replica term) ≈ 30.8; p99 = 2.08 + 61.2 + 0 + 30.8 ≈ **94.1 ms**.
+- CREATE_LINK: db write hop = 15 / (1 − 0.0267) = 15.41, doubled because `sync=true` = 30.8; `ids` adds 0; p99 = 2.08 + 61.2 + 0 + 30.8 = **94.1 ms**.
 - Cost: 2,000 + 3 × 6,000 + 1,500 × 1 × 2 + 20,000 × 2 = **₹63,000**.
 
 Assert these to ±0.2 ms and exact rupees. If your numbers differ, your code is wrong, not the example; if you are
