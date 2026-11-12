@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-12, after #312): `frontend_git_commits` 839, `backend_git_commits` 665.
+Latest count (2026-11-12, after #315): `frontend_git_commits` 850, `backend_git_commits` 671.
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,26 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PRs #313–#315 (2026-11-12): recorded
+
+"Both" = frontend and backend collections (the commit touched `backend/` or `content/`); syncs go to frontend only.
+
+| PR | SHA | Collections |
+|---|---|---|
+| #313 | `cc9ec8e3caa564ec0dba6287e035a0d0d6f01544` | branch commit, phone figures (frontend) |
+| #313 | `2e7638f78812a91974e77d7c900dca3641fdb94d` | branch commit, tours (both) |
+| #313 | `48a5a7f25ca2b6d1cc740f5c025e9a376db8d8e0` | branch commit, tour on phones (frontend) |
+| #313 | `3309252e61977796d9aaa66ac8fec1095cf2b936` | squash merge (both) |
+| — | `42ffbe822506badfb160c132049164d200ca049d` | sync branch (frontend) |
+| #314 | `21dfabd15e17832136598fb68f87a23e9f34416a` | branch commit, signed-out tour (both) |
+| #314 | `834b1d623e5c9dcc056a3e0299b5834167e31582` | squash merge (both) |
+| — | `456bb2828330f979a949aff66fd829c91d986340` | sync branch (frontend) |
+| #315 | `1bcff96bc2546206544bf1bd3f555e2badd0a716` | branch commit, remove In 30 seconds (both) |
+| #315 | `4251e7a2b50f301f71a3d4c39ee2b16ee57eafe2` | squash merge (both) |
+| — | `12ec878d685c7664756bbabddfd4c6ef5a920fe9` | sync branch (frontend) |
+
+Each key was checked absent in both collections before inserting. Counts after these: **frontend 850, backend 671**.
 
 ### PRs #311 and #312 (2026-11-12): recorded (frontend only; neither touched `backend/` or `content/`)
 

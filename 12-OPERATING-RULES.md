@@ -375,7 +375,7 @@ Real systems tab. Kept for the record.*
 
 ## Article shape (Decided by user, 2026-10-31)
 
-- Articles are **short and structured, with depth on demand**: an "In 30 seconds" box, scannable cards (what / use it for / avoid it for / in Zotato), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
+- Articles are **short and structured, with depth on demand**: no summary box at the top (the "In 30 seconds" box was removed in #315, owner: it added no value; the dek says what the article covers), scannable cards (what / use it for / avoid it for / in Zotato), one-line lists, and anything longer inside collapsed "How it works…" or "Go deeper" sections. Aim for a ~5-minute main read; show both read times.
 - Read aloud covers the main text only. After recording an article with `tools/tts`, set `audio: true` on it.
 - Reference material from paid sites (e.g. Hello Interview) is guidance only; never copy text. Paid reference notes must not live in this public repo. They are kept in the private repo `yashbhoomkar/tech-katta-private` (`references/`); `hello-interview-api-design` moved there on 2026-10-31. Its old copy remains in this repo's git history (commit `a2affb8`) unless this repo is made private or its history rewritten.
 
@@ -503,3 +503,13 @@ The owner changes the site's look often, on production, one look at a time. Keep
   them all (0.7 since #312, owner: "every animation is a bit slow").
 - Every SMIL `keyTimes` starts at 0, rises, and ends at 1 unless `calcMode="discrete"`; otherwise the browser ignores
   the animation silently (the Flink figure did, until #311).
+- On phones a figure scrolls sideways at a readable size (#313): keep the step line in `Caps`/`Cap` (they are tagged
+  `tk-caps`/`tk-cap` so the phone can show it above the frame); a figure with its own caption text stays inside the SVG.
+
+## Rule 21 — Tours explain the page and end on a first step (owner, 2026-11-12)
+
+- A tour (`site.json` `tour.<page>`) says what the page is for, the order to use it in, what is inside and how it
+  links to practice, in five steps or fewer, and its last step carries a `cta` to one first step. Point at content,
+  not furniture (sidebar, theme button). Steps must work on a phone; steps whose target is hidden there are skipped.
+- Signed out, pages are behind the sign-in card; `tour.jsx` falls back to `tour.dashboard` (with its sign-in step)
+  when a page tour can show fewer than three steps. Check a new tour signed out too.
