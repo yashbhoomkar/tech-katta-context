@@ -1,6 +1,29 @@
 # Mobile Swipe Navigation
 
-> **Historical (checked 2026-11-13 against `main` 4bc95cc):** the handler described below lived in the old `frontend/src/App.jsx`, which no longer exists; `frontend/src` has no touch listeners and no swipe navigation today. The current design for gestures is `24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md`, which recommends not bringing the back/forward swipe back. Rewrite this file when any of its S-items are built.
+> **Current (2026-11-13, tech-katta #323, #324): the gestures are those of spec 24** (`24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md`).
+> Everything below the line "Historical" describes the old `App.jsx` handler, which no longer exists.
+
+## Current behaviour (since #323)
+
+One hook, `frontend/src/theme/gesture.js` (`useDrag`, unit-tested in `gesture.test.js`), gives every swipe the same rule:
+touch and pen only; nothing for the first 10 px; then the drag is ours only if |along| > |across| × 1.25 (the 2026-10
+ratio), otherwise it is a scroll; release goes past 35 % of the size or a 0.5 px/ms flick, otherwise it settles back
+(0.14–0.28 s); past a limit the paper gives a third (≤ 32 px) and never commits. A drag never starts within 24 px of
+a screen edge (the phone's own Back), on a form field, on the canvas, or in a sideways scroller that can still scroll
+that way. **There is no site-wide back/forward swipe** (spec 24 §1.2: phones do it from the edge).
+
+| Where | Swipe | Same by button |
+|---|---|---|
+| Phone drawer (< 900 px) | Drag the open drawer left to close it; the backdrop fades with it | Backdrop, ✕, Escape |
+| Figures with steps, phones | Swipe the step line: left = next step, right = previous | ‹ ❚❚ › under the figure head (all sizes); ← → when focused |
+| Full-screen figure | Swipe down to close | Close ✕, Escape |
+| Practice on phones (< 900 px) | Swipe between Problem, Design and Result; each pane keeps its scroll | The three tabs at the bottom; ← → on them |
+
+`touch-action: pan-y` is set on each swiping element and on the scroll containers inside it (spec 24 §10 lesson 1).
+Browser checks: `tools/e2e/swipes-figures.js`, `tools/e2e/swipes-practice.js` (mobile-emulated Chromium with CDP touch
+events, not a physical phone; the real-phone checklist is spec 24 §8 and §11.4).
+
+## Historical (the 2026-10 `App.jsx` handler)
 
 ## Feature intent
 

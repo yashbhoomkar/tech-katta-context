@@ -1613,6 +1613,23 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   scroll. A signed-in Submit and the streak were verified against a local API with sign-in, not on production.
 - Practice is still not in the tabs (step 9). Tests: frontend 361, backend 89. Ledger: frontend 863, backend 679.
 
+
+## Production snapshot — 2026-11-13 (after PRs #323, #324: swipes, figure steps, cross-fades)
+
+- `main` = `41bef78edc063d661c03827d40f927c6f5b49cb9` (#324, squash); #323 squash `a8e1da41db26db0431fc475ec74666e360585a8e`.
+  Front end only; API release unchanged.
+- Built from `24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md` UX1–UX4 (owner: "start implementing in production"):
+  `theme/gesture.js` (one swipe rule, unit-tested); back / pause / next and step dots on every `Caps` figure, and on phones
+  a swipe on the step line; swipe down closes a full-screen figure; drag the phone drawer left to close; Practice on
+  phones swipes between Problem, Design and Result (panes keep their scroll, the tab line slides); page changes and the
+  theme switch cross-fade (view transitions, none under reduced motion); the "On this page" marker slides; earned stars
+  pop one by one.
+- Verified on production: `tools/e2e/swipes-practice.js` 29/29, `errors: []`; the drawer closes on a touch drag;
+  `motion-polish`-style check: one cross-fade per page change and one for the theme, none under reduced motion.
+  Figures (articles need sign-in on production) were checked against a local API: `swipes-figures.js` 25/25,
+  `motion-polish.js` 14/14. Not checked: a real phone; earned stars seen in a browser.
+- Tests: frontend 371. Ledger: frontend 873, backend 680.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,

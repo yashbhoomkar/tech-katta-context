@@ -1,21 +1,35 @@
 # 24 — UI/UX: swipes, animations, graphics
 
 Written **2026-11-13** at the owner's request ("Think on UI UX part of Tech katta. Think about swipes, animations,
-graphics and write a doc"). **Design only, nothing here is built.** Every item is a proposal. Section 9 lists what the
-owner has to decide before anyone builds it.
+graphics and write a doc"). The owner then asked: "Think more on the .md file" and "start implementing in production".
+
+## Status (2026-11-13)
+
+| Built and live | PR | Squash |
+|---|---|---|
+| UX1 gesture hook, S4 drawer drag-to-close, S5 swipe down closes a full-screen figure | #323 | `a8e1da41db26db0431fc475ec74666e360585a8e` |
+| UX2 figure step controls (A1) and the step-line swipe (S2) on every `Caps` figure | #323 | same |
+| UX3 Practice phone panes swipe (S1), each pane keeps its scroll, the tab line slides | #323 | same |
+| UX4 page and theme cross-fade (A2 without the title morph, A10), the contents marker slides (A4), stars fill one by one (A5) | #324 | `41bef78edc063d661c03827d40f927c6f5b49cb9` |
+
+**Not built:** UX5–UX8 (Practice diagram motion, sheet drag, state scenes, phone figures), A3, A6–A8, G1–G6, S6–S7.
+§10 records what building taught us and changed in this spec. §11 is the second pass on what to do next and why.
+Section 9 lists the owner's decisions.
 
 It builds on `20-UI-REDESIGN-SPEC.md` ("Katta Paper", live since #309) and does not replace it. Spec 20's rules still
 apply: §3.4 (what we never do), §4.5–4.6 (where things move and how), §4.8 (the three motion ideas). This file adds
 the parts spec 20 left out: **touch gestures**, the animations still missing after #311–#318, and the **graphics**
 beyond the article figures.
 
-Checked against application `main` at `4bc95cc` (#322). Line references are to that commit.
+First written against application `main` at `4bc95cc` (#322); §10 is against `41bef78` (#324).
 
 ---
 
 ## 0. Summary
 
-1. **Swipes.** Today the site has **no swipe gestures of its own.** The back/forward swipe in `09-MOBILE-SWIPE.md`
+*(As first written, before #323 and #324; see Status above.)*
+
+1. **Swipes.** Before #323 the site had **no swipe gestures of its own.** The back/forward swipe in `09-MOBILE-SWIPE.md`
    came from the old `App.jsx`. That file is gone, and `grep touchstart` finds nothing in `frontend/src`. The only
    touch behaviour left is native: figures scroll sideways in their frame (#313), palette items drag with pointer
    events, and the split dividers. **Do not bring back the swipe for back/forward**: phones already do that at the
@@ -113,7 +127,13 @@ In order of value. "S" numbers are used in the work packages (§7).
 
 ### 2.1 S1 in detail: the Practice pager
 
-Build it with **CSS scroll snap**, not a JavaScript drag. The browser then gives native momentum, the right feel on
+> **As built (#323): not scroll snap.** The phone Practice page scrolls as a whole: a sticky problem bar, sticky tab
+> rows inside the panes, fixed Run/Submit and tab bars. A scroll-snap pager makes each pane its own scroller, which
+> breaks all of that and gives three scroll positions to manage. So S1 uses the shared `useDrag` hook like the other
+> swipes: the pane follows the finger, the next pane slides in from that side (`pr-in-r` / `pr-in-l`, 0.22 s), and
+> each pane's scroll position is remembered and restored. The original plan is kept below for the record.
+
+Original plan: build it with **CSS scroll snap**, not a JavaScript drag. The browser then gives native momentum, the right feel on
 each OS, and correct handling of the scrollers inside a pane.
 
 ```css
@@ -211,7 +231,7 @@ export function decide(d, v, size) { /* pure: ±1 if |d| > .35·size or |v| > .5
 | **A6** | **Streak grows** (Practice list, #319) | The day the streak goes up, the number rises in once and the marker is drawn under it | Marker | `.pl-streak.up b` gets `tk-rise` and the `tk-mark` stroke; `up` is set when the API's streak is larger than the one stored in `localStorage` | `practice/list.jsx` |
 | **A7** | **Landing numbers count up** | The problem and article counts on the landing cards count up from 0 when they scroll into view | Request (scale) | Move `CountUp` from `solve/console.jsx` to `theme/motion.js`; one `IntersectionObserver` | `main.jsx` |
 | **A8** | **"Show me" replay** (spec 22 §10.2) | A segment bar under the diagram; each segment plays for 1.2 s: load bars fill (`scaleX`), a part that goes down turns red and dashed with one shudder, request dots stop at the failing part and turn red; the caption fades per segment. Scrub by dragging the bar (S7) | Request | Reuse A3's diagram motion; the timeline is the judge's native run (no new physics) | Spec 22 phase B |
-| **A9** | **"Copied" in place** | After Share / Copy the button's own label turns "Copied ✓" for 1.5 s (today a separate flash) | Verdict | Local state | `dashboard/share.jsx` |
+| **A9** | **"Copied" in place** | Already exists: Share changes its own label to "Link copied" for 2.5 s (found while building #324) | Verdict | — | `dashboard/share.jsx` |
 | **A10** | **Theme switch** | Light ↔ dark cross-fades 0.2 s instead of snapping | — (polish) | `startViewTransition` around the theme change, where it exists | `theme/mode.js` |
 
 **Not to be added** (in addition to spec 20 §4.8's list): animated page backgrounds behind figures; "typing" of
@@ -281,10 +301,10 @@ when the text next to it already says the same thing.
 
 | WP | Contents | Size | Acceptance |
 |---|---|---|---|
-| **UX1** | `theme/gesture.js` + tests; S4 drawer drag-to-close; S5 swipe down to close full screen | S | `gesture.test.js` passes; e2e: drawer follows a touch drag and closes past 35 %, returns below; a touch starting within 24 px of the edge does nothing; vertical scroll in the drawer unaffected |
-| **UX2** | A1 + S2: figure step controls on all `Caps` figures | M | All 232 figures still draw (the existing figure sweep); a `Caps` figure: ‹ › land on each step's caption; pause holds; off-screen pause still works; reduced motion shows no controls |
-| **UX3** | S1 Practice pager | M | At 360 px: swipe Problem → Design → Result and back; the underline follows; a sideways pan on a table or code block never changes the tab; each pane keeps its scroll; Run on Design lands on Result |
-| **UX4** | A2 view transitions; A4 contents marker; A5 stars; A9 copied; A10 theme fade | S | Chrome: transitions run, no double entrance with `motion.css`; Firefox: nothing changes; reduced motion: none of it |
+| **UX1** ✅ #323 | `theme/gesture.js` + tests; S4 drawer drag-to-close; S5 swipe down to close full screen | S | `gesture.test.js` passes; e2e: drawer follows a touch drag and closes past 35 %, returns below; a touch starting within 24 px of the edge does nothing; vertical scroll in the drawer unaffected |
+| **UX2** ✅ #323 | A1 + S2: figure step controls on all `Caps` figures | M | All 232 figures still draw (the existing figure sweep); a `Caps` figure: ‹ › land on each step's caption; pause holds; off-screen pause still works; reduced motion shows no controls |
+| **UX3** ✅ #323 | S1 Practice pager | M | At 360 px: swipe Problem → Design → Result and back; the underline follows; a sideways pan on a table or code block never changes the tab; each pane keeps its scroll; Run on Design lands on Result |
+| **UX4** ✅ #324 | A2 view transitions (no title morph, §10); A4 contents marker; A5 stars; A9 copied; A10 theme fade | S | Chrome: transitions run, no double entrance with `motion.css`; Firefox: nothing changes; reduced motion: none of it |
 | **UX5** | G2 + A3: Practice diagram in figure parts, with motion | M | Golden designs from `tkd/golden/` draw without overlap; typing doesn't animate; Accepted runs dots for three loops then stops |
 | **UX6** | S3 sheet drag (workspace result sheet) | S | Drag from the handle folds and opens; drag on the body scrolls |
 | **UX7** | G3 state scenes; G4 section marks; A6 streak; A7 landing count-up | S | Each state shows its scene in light and dark; one scene per screen |
@@ -313,13 +333,99 @@ ledger → update this file's status and `09-MOBILE-SWIPE.md`.
 
 ## 9. Owner decisions
 
-1. **Bring back the swipe for back/forward?** Recommended: **no** (§1.2). Phones already do it from the edge.
-2. **Approve the gesture grammar** (§1.3) as a rule next to spec 20's motion rules.
-3. **Order of work:** recommended UX2 (figure steps: the biggest reading win) → UX3 (Practice pager, before the
-   five-friends test) → UX1 → UX5 → UX4 → UX6 → UX7 → UX8.
-4. **`practice_switch_tab` with `via`** as an analytics field (§2.1). It changes what the events collection stores,
-   so operating rule 4 applies.
+1. **Bring back the swipe for back/forward?** Recommended: **no** (§1.2). Phones already do it from the edge. Built
+   that way (#323): no site gesture starts within 24 px of a screen edge. Reversible if the owner disagrees.
+2. **The gesture grammar** (§1.3) is now in the code (`theme/gesture.js`, unit-tested). The owner can change its
+   numbers (35 %, 0.5 px/ms, 1.25, 24 px) in one place.
+3. **Order of work:** UX1–UX4 are built (owner, 2026-11-13: "start implementing in production"). Next, see §11.
+4. **Analytics for swipes and figure steps** (§11.5: `fig_step`, `practice_pane`). Not built: they change what the
+   events collection stores, so operating rule 4 applies.
 5. **G1 phone figures:** worth 66 extra drawings? Recommended: yes, ten articles per PR, free and most-read first.
 6. **G5 link previews:** a build-time SVG-to-PNG dependency.
 7. **G6 share card** for Accepted, and whether it carries a name.
 8. **Header blur on phones** (§4.3): keep, or a solid header below 680 px if the measurement shows dropped frames.
+
+---
+
+## 10. What building UX1–UX4 taught us (2026-11-13)
+
+These are rules now. Each one caused a real bug or a wrong plan while building #323 and #324.
+
+| # | Lesson | What happened | Rule |
+|---|---|---|---|
+| 1 | **`touch-action` must be on every scroll container between the finger and the swipe** | The drawer did not close on a drag. Its link list (`.side-nav`, `overflow-y: auto`) is a scroll container with `touch-action: auto`. Chrome gave it the horizontal pan and sent `pointercancel` after the first move, **although the list cannot scroll sideways** | Give `touch-action: pan-y` to the swiping element **and** to each scroll container inside it that is not meant to pan sideways (`.open .side-nav`; in Practice `.pr-console`, `.pr-editor`, `.pr-left-body`, `.pd`). Leave real sideways scrollers (tables, the request chain) alone: they should keep their pan |
+| 2 | **A drag past its limit never commits** | On the last Practice pane, a long swipe left still read as "go" and opened a pane that doesn't exist (empty page) | `release()` in `gesture.js` returns 0 past `min` / `max`, however far or fast; unit-tested. Callers also check that the target exists |
+| 3 | **Figures load after the article** | Figure modules are separate chunks, so a figure's SVG often appears after the page and after the IntersectionObserver's first answer. Off-screen figures never learned their step count, so their controls would have popped in later and shifted the page | `useSteps` polls every 200 ms until the SVG exists, reads its structure once even off screen, and starts the loop on its first visible tick |
+| 4 | **Reduced motion still needs the caption on phones** | Under reduced motion figures draw their still version with one `Cap`. The phone CSS hides captions inside the SVG, so the step line above must still show it | The step bar renders under reduced motion with the caption only (no buttons) |
+| 5 | **Buttons with SVG icons sit inside the figure** | Tests that asked for `.a-fig svg` got the pause icon, not the figure | Query `.a-fig-body svg` for the figure. Any code that looks for a figure's SVG must do the same |
+| 6 | **The title morph can't work yet** | A card title can't become the article title, because the article JSON loads after the route changes. When the new view is captured, the title isn't there | The cross-fade stays. A morph needs the article prefetched on press (`pointerdown` on a card) and the transition started only once it's in memory. Not worth it now |
+| 7 | **Scroll snap was the wrong tool for Practice** | §2.1: the phone page scrolls as one, with sticky and fixed bars | Same hook as the other swipes; restore each pane's scroll by hand |
+| 8 | **`vite preview` doesn't rewrite `/dashboard/practice/<slug>/`** | Locally it serves the landing page; Vercel rewrites it on production | Local tests use `/dashboard/#practice/<slug>` |
+| 9 | **The 2.5 s step problem was real** | A 20-word caption on a phone could not be read before the next step faded in | Now solved by stepping, not by slowing every figure. Keep `SPEED` at 0.7 |
+
+Browser checks for all of this are in `tools/e2e/`: `swipes-figures.js` (25 checks), `swipes-practice.js` (29) and
+`motion-polish.js` (14). Practice works against production. The article checks need a local API, because articles
+need sign-in on production.
+
+---
+
+## 11. Second pass: what to do next, and why
+
+The first pass ranked work by how visible it is. This pass ranks it by **what a learner on a phone actually meets**, now
+that swipes and figure steps exist.
+
+### 11.1 A gap found while building: phone learners never see their own design
+
+On a phone, the Practice Design pane is the **Builder** (forms). The diagram (`practice/diagram.jsx`) is shown only in
+the desktop split. So the moment the whole product is about, "my design, drawn, with requests flowing through it",
+**does not exist on phones**, where most learners are (§1.1).
+
+**Proposal (new, ranks first):** on phones, show the diagram
+
+- at the top of the **Result** pane after Run or Submit, with the blamed part in red (the diagram already marks it);
+- behind a "See the diagram" button at the top of the **Design** pane. It opens a bottom sheet that scrolls sideways,
+  with the same 24 px edge rule and its own pan (`.pr-diagram` is already excluded from the pane swipe).
+
+That makes G2 + A3 (UX5) worth much more: the motion would be seen by everyone, not only by desktop users.
+
+### 11.2 The new order
+
+| Rank | Work | Why now | Size |
+|---|---|---|---|
+| 1 | **UX5+**: diagram on phones (11.1), drawn with the figure parts (G2), with motion (A3) | The core reward of Practice, missing on the main device. Do it before the five-friends test (Practice step 9), so friends see it | M |
+| 2 | **One figure loop at a time on phones** (§4.3 row 1) | Cheap, and it protects low-end Android from two SMIL loops plus glints at once. Now easy: `useSteps` already knows which figures are visible. Pause all but the most visible | S |
+| 3 | **G3 state scenes** (UX7, first half) | "Couldn't load", "doesn't exist", "No submissions yet" and the judge being busy are moments of friction. A scene in the site's own language softens them, at almost no cost | S |
+| 4 | **G1 phone figures** (UX8), first ten articles | Stepping fixed the timing; panning is the remaining phone pain in articles | L |
+| 5 | A6 streak, A7 count-up (UX7, second half) | Small delights; no friction removed | S |
+| — | **UX6 sheet drag: drop it** unless the canvas stays | The `.sv-console` sheet belongs to the old canvas workspace. Spec 21 §19 asks the owner whether Practice retires the canvas. If it does, this work is wasted | — |
+| — | G5 link previews, G6 share card | Growth. They need owner decisions (§9) | — |
+
+### 11.3 Decided while thinking it through (no owner input needed; reversible)
+
+- **No haptics.** iPhone Safari has no Vibration API, so a tick would only exist on Android. Two behaviours for one
+  gesture is worse than none.
+- **No swipe hints or coach marks.** Every swipe has a visible button or tab (§1.3 rule 6). A swipe is a shortcut for
+  people who try it, never something to teach.
+- **No trackpad swipes on desktop.** A two-finger sideways swipe is the browser's Back on macOS.
+- **No sound**, as in spec 20.
+- **Figure stepping stays per figure.** Stepping one figure doesn't pause the others, and there is no global "pause
+  all figures" switch. Reduced motion already gives still figures to anyone who wants them.
+
+### 11.4 Watch on real phones (add to the five-friends test, §8)
+
+- **iOS Safari:** pointer events with `touch-action: pan-y` inside the drawer and the Practice panes. Does a vertical
+  scroll that starts slightly sideways still scroll? (The 1.25 lock should let it.)
+- **Android Chrome:** does a swipe down on a full-screen figure ever start pull-to-refresh? (`touch-action: pinch-zoom`
+  on the stage should stop it.)
+- **Both:** in Practice, does a quick sideways swipe on the Builder that starts on a select open the select? (Form
+  fields are excluded from starting a drag. A select opens on tap, not on drag, but check.)
+- **Low-end Android:** frame rate while dragging the drawer and a Practice pane (transforms only, so it should hold 60 fps).
+
+### 11.5 How we'll know it works (owner decides; rule 4 applies)
+
+There are no new analytics events in #323 or #324. If the owner wants evidence, two small events would answer the
+two open questions. Each counts as a data-model change, so neither is built without approval:
+
+- `fig_step` `{ article, fig, via: "button" | "swipe" | "key" }`: do readers actually step through figures, or was
+  the timing fine?
+- `practice_pane` `{ problem, to, via: "swipe" | "tap" }`: do phone learners swipe, or only tap?
