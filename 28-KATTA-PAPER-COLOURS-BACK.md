@@ -45,3 +45,19 @@ The dark-first Stage colours are #336 and #337. Reverting this PR's changes to `
 - e2e:
   - `topic-cards` passes 26 of 26;
   - `premium-look`, `marks-tour` and `motion-polish` pass, with their colour checks updated to marigold and ochre.
+
+## Ledger rows still to add
+
+The MongoDB connection failed to connect on 2026-11-13, so these rows wait here. Each row is `{key: branch head SHA, value}`.
+
+- **`techkatta_history.frontend_git_commits`:**
+  - **#337:**
+    - key: `a3eeea1e2666ef7315ec7083b9af5f14ca09344f`
+    - value: "Articles as topic cards (moving pictures, sheet with at most three key points, Cards / Full text); light theme follows the theme (PR #337, 2026-11-13)"
+  - **#338:**
+    - key: `fb3d5a92bf44fcde0531bab20b2b714f3f33873d`
+    - value: "Katta Paper colours back on the Stage layout: warm white default, marigold buttons and TK squares, ochre accent (PR #338, 2026-11-13)"
+- **`techkatta_history.backend_git_commits`:**
+  - **#337:**
+    - key: `a3eeea1e2666ef7315ec7083b9af5f14ca09344f`
+    - value: "Analytics allowlist: article_view {view}, topic_open {n, via} (PR #337, 2026-11-13)"
