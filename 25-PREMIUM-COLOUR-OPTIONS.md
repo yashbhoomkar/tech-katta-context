@@ -189,3 +189,9 @@ Picture: `ui-redesign/palettes/premium-live.png`.
    prefer it.
 2. Shorten section introductions and the Interview Questions guide cards (about 40 words each).
 3. A new link preview image in the new look.
+
+
+## §8 · Superseded by spec 26
+
+The owner still found the warm white page "not premium" and asked for the layout to be rethought. The neutral page and
+difficulty pills drafted for §8 went into 26 (Stage, dark first, #336).

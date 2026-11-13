@@ -6,7 +6,7 @@ for(const theme of ["light","dark"]){const c=await b.newContext({viewport:{width
 await p.addInitScript(t=>{try{localStorage.setItem("tk-theme",t);localStorage.setItem("tk-tour-seen","1");if(!sessionStorage.getItem("once")){sessionStorage.setItem("once","1");localStorage.removeItem("tk-skim")}}catch{}},theme);
 await p.goto(base+"/",{waitUntil:"networkidle"});await p.waitForTimeout(1000);await p.screenshot({path:`/tmp/shots/pr/landing-${theme}.png`});
 if(theme==="light"){const w=await p.evaluate(()=>document.body.innerText.split(/\s+/).length);ok("landing has fewer words (was 666)",w<620,String(w));
-const btn=await p.locator(".hero .btn.primary").evaluate(e=>getComputedStyle(e).backgroundColor);ok("main button is black",btn==="rgb(13, 13, 13)",btn)}
+const btn=await p.locator(".hero .btn.primary").evaluate(e=>getComputedStyle(e).backgroundColor);ok("main button is light on the dark stage (spec 26)",btn==="rgb(250, 250, 250)",btn)}
 await p.goto(base+"/dashboard/concepts/",{waitUntil:"networkidle"});await p.waitForTimeout(600);await p.evaluate(()=>scrollTo(0,400));await p.waitForTimeout(1500);
 const th=await p.evaluate(()=>({cards:document.querySelectorAll(".d-list li").length,thumbs:document.querySelectorAll(".d-thumb").length,drawn:document.querySelectorAll(".d-thumb svg").length}));
 ok(theme+": section cards are picture cards",th.thumbs>=th.cards-2&&th.drawn>=4,JSON.stringify(th));await p.screenshot({path:`/tmp/shots/pr/concepts-${theme}.png`});
