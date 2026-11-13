@@ -987,3 +987,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #327: Practice diagram: one arrow per hop and a key (the owner: "Why such double arrows are present"); squash `f96ff31f7543e1f8d22c51ee9842b821ab64b059` (2026-11-13, front end only).
 - PR #328: scenes for error and empty states (`theme/Scene.jsx`, spec 24 G3); squash `6369efba1b01e96c900e9a0e21ff99153eb78204` (2026-11-13, front end only).
 - PR #329: Practice "Share as image" after Accepted (`practice/card.js`, spec 24 G6); squash `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` (2026-11-13, front end only).
+- PR #330: landing counts count up when seen; Practice streak marker (spec 24 A6, A7); squash `8986c1f9ef921705461b7272c2f2c222c0e2e0ce` (2026-11-13, front end only).
