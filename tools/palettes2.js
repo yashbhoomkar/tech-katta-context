@@ -4,6 +4,9 @@ const BTN = ".btn.primary,.pr-solve,.sv-submit,.lab-btn:not(.ghost),.r-btn.prima
 const inkButtons = (bg, fg, hover) => `:is(${BTN}){background:${bg}!important;color:${fg}!important;border-color:${bg}!important}:is(${BTN}):hover{background:${hover}!important;border-color:${hover}!important}`;
 const lighter = `:is(h1,h2,.d-article h1,.hero h1,.d-panel h1,.pb h1){font-weight:500!important;letter-spacing:-.02em}`;
 const thinMark = `h1 .tk-mark{background-image:linear-gradient(transparent 84%,var(--brand) 84%,var(--brand) 94%,transparent 94%)!important}`;
+// Brilliant-style details: every button a pill; italic serif emphasis instead of the highlighter band
+const PILL = `:is(${BTN},.btn,.r-btn,.pr-run,.sv-run,.d-tour,.a-fig-b,.pb-filter button,.qt-levels button){border-radius:999px!important}`;
+const ITALIC = `h1 .tk-mark{background:none!important;font-style:italic;font-weight:500}`;
 module.exports = {
   current: { name: "Current: Katta Paper" },
   "paper-ink": {
@@ -40,4 +43,18 @@ module.exports = {
       "brand-tint": "#1d1a10", "brand-line": "#4a3d14", "accent-tint": "#17150e", "accent-tint-2": "#1f1b10", "accent-soft": "#2b2512",
       "bg-rgb": "15 16 17", "page-rgb": "8 9 10" },
     extra: { dark: inkButtons("#e6e6e6", "#08090a", "#ffffff") + lighter + thinMark } },
+  "brilliant": {
+    name: "P4 · Brilliant-inspired: warm grey, black type, one marigold pill",
+    light: { page: "#f5f3f1", bg: "#ffffff", surface: "#f8f7f6", "surface-2": "#faf9f8", hover: "#efedea", inverse: "#0d0d0d", "on-inverse": "#ffffff",
+      ink: "#0d0d0d", "ink-2": "#2e2e2e", "ink-3": "#454545", muted: "#666666", "muted-2": "#6b6b6b", faint: "#707070", disabled: "#d6d6d6",
+      "line-strong": "#c4c4c4", line: "#e4e4e4", "line-soft": "#dedede", grid: "#eeeeee",
+      "on-brand": "#0d0d0d", "brand-tint": "#f1efec", "brand-line": "#e4e4e4", mark: "#ffc233",
+      "accent-tint": "#f7f6f4", "accent-tint-2": "#f0eeea", "accent-soft": "#ece9e3",
+      "ink-rgb": "13 13 13", "page-rgb": "245 243 241" },
+    dark: { page: "#121212", bg: "#1b1b1b", surface: "#222222", "surface-2": "#161616", hover: "#272727", inverse: "#f5f5f5", "on-inverse": "#0d0d0d",
+      ink: "#f5f5f5", "ink-2": "#d9d9d9", "ink-3": "#c6c6c6", muted: "#a3a3a3", "muted-2": "#999999", faint: "#8c8c8c", disabled: "#3a3a3a",
+      "line-strong": "#4a4a4a", line: "#2b2b2b", "line-soft": "#333333", grid: "#1c1c1c",
+      "on-brand": "#0d0d0d", "brand-tint": "#262626", "brand-line": "#3a3a3a", "accent-tint": "#1e1e1e", "accent-tint-2": "#262626", "accent-soft": "#2c2c2c",
+      "bg-rgb": "27 27 27", "page-rgb": "18 18 18" },
+    extra: { light: PILL + lighter + ITALIC, dark: PILL + lighter + ITALIC } },
 };
