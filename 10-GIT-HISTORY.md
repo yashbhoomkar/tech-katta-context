@@ -991,3 +991,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #331: section marks; tour card swipe on phones (spec 24 G4, S6); squash `e56c85ab4143072f12994c0b4ee9201a01386362` (2026-11-13, front end only).
 - PR #332: phone figures batch 1, `figs/phone.jsx` and 20 Interview Questions (spec 24 G1); squash `ff6fc8ff24d929273adfc80de9a166127febbe89` (2026-11-13, front end only).
 - PR #333: phone figures batch 2, 13 flows in Concepts, Components, Real systems; squash `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` (2026-11-13, front end only).
+- PR #334: Brilliant-inspired look (spec 25 P4): warm grey page, black ink, pill buttons, headings 500, italic emphasis; squash `fd621c2af1d58f906f52a67677ba52448a5ed28e` (2026-11-13, front end only).

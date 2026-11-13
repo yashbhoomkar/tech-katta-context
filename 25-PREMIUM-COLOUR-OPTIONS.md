@@ -1,5 +1,9 @@
 # 25 — Premium colour options
 
+> **Shipped (2026-11-13): P4, Brilliant-inspired, tech-katta #334** (squash `fd621c2af1d58f906f52a67677ba52448a5ed28e`).
+> The owner repeated "I liked the brilliant.org website", taken as the go-ahead. Pictures of the shipped site:
+> `ui-redesign/palettes/p4-shipped.png`, `p4-shipped-phone.png`.
+
 > **Round 2 and the decision (2026-11-13).** Owner: "More premium options. Look at best UI websites on the net and
 > then think and decide." The research, three new directions and the decision are in §5. **Decided: P1, Paper & Ink
 > with marigold as a signal.** It supersedes the round-1 recommendation (A). **Round 3 (§6): the owner likes
@@ -134,3 +138,13 @@ Build (one PR, as §5.3, with these differences): keep `--brand` marigold on the
 buttons (`--r-btn: 999px`); neutral tints (the `brand-tint` and `accent-tint` family to warm greys); `.tk-mark`
 becomes italic emphasis; headings at 500; then the same checks as §5.3 (contrast, every page in light and dark,
 figures, share card, link preview).
+
+### 6.1 As shipped (#334)
+
+- `tokens.css` / `palette.js`: P4 light and dark values (see §6); `--faint` is `#6b6b6b` (4.81:1 on the page; the
+  rendered `#707070` was 4.47). New `--r-btn: 999px` on the 15 button rules that used `--r-md`.
+- Fraunces headings at 500 (32 rules). `.tk-mark` is italic emphasis; its highlighter animation was removed. The
+  marker colour (`--mark`) stays for read aloud, a passed verdict and a fresh solve.
+- Contrast: all 18 checked text pairs are at least 4.5:1 in light and dark.
+- Not changed yet: the link preview image (`og-2026-11.png`) still shows the old look. The share card follows the
+  tokens.
