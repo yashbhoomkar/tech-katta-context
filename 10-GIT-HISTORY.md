@@ -993,3 +993,8 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #333: phone figures batch 2, 13 flows in Concepts, Components, Real systems; squash `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` (2026-11-13, front end only).
 - PR #334: Brilliant-inspired look (spec 25 P4): warm grey page, black ink, pill buttons, headings 500, italic emphasis; squash `fd621c2af1d58f906f52a67677ba52448a5ed28e` (2026-11-13, front end only).
 - PR #335: premium: black pill buttons and indigo accent (no marigold), picture cards, "Figures only", shorter landing (spec 25 §7); squash `f0706d411926d11d116b316242f1719ecc1ed917` (2026-11-13, front end, backend, content).
+- PR #341: no Facebook/Instagram checkbox in the account menu; the Terms cover it (owner chose "everyone who signs in"); squash `652555cc27fe534af8bb5c6f5fc4a2a266b2488c` (2026-11-13, front end, backend, content).
+- PR #342: "Ask the interviewer" next to Run and Submit on Problems, Interview Questions and Practice; #340's canvas review route on main (replaces #340); squash `253d4bff4c6b9ec006453669248e5a67f7e6b4ed` (2026-11-13, front end, backend).
+- PR #343: premium renovation A: Instrument Sans, Source Serif 4, Geist Mono, matched fallbacks, preloads (spec 30); squash `a819f6f20489b7346bfa9acd90dfa846ca7f601d` (2026-11-14, front end only).
+- PR #344: premium renovation B: motion tokens and `theme/premium.css` (spec 30 §4); squash `678667baf25b408af421416a56c62a31652dd982` (2026-11-14, front end only).
+- PR #345: premium renovation C and D: landing, shell labels, reading view (spec 30 §5); squash `d56cb182738ad6fd824e0c3084f27010eb1d53b6` (2026-11-14, front end only).

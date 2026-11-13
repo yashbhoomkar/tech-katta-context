@@ -1599,6 +1599,26 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-14, early morning IST (after PRs #341–#345: premium renovation, overnight)
+
+- Owner, 13 Nov before sleeping: "fonts and animations ... looks like it is developed by vibe coding ... entire
+  renovation ... write code in production directly". Spec: `30-PREMIUM-RENOVATION.md`. Done by the scheduled overnight
+  session; each part PR → CI green → squash merge → checked live.
+- **#341** (`652555cc27fe534af8bb5c6f5fc4a2a266b2488c`): no Facebook/Instagram checkbox; accepting the Terms covers it.
+- **#342** (`253d4bff4c6b9ec006453669248e5a67f7e6b4ed`): "Ask the interviewer" next to Run and Submit (canvas and
+  Practice); API release `20261113T192052Z-253d4bf`. **Rollback point for the renovation.**
+- **#343** (`a819f6f20489b7346bfa9acd90dfa846ca7f601d`): fonts: Instrument Sans, Source Serif 4, Geist Mono (self-hosted,
+  matched fallbacks, preloads); Inter, Fraunces and IBM Plex Mono removed.
+- **#344** (`678667baf25b408af421416a56c62a31652dd982`): motion tokens (expo-out, spring), `theme/premium.css` (lift,
+  press, glow, focusing headline, scroll arrivals, link underlines), page rise on navigation.
+- **#345** (`d56cb182738ad6fd824e0c3084f27010eb1d53b6`): landing hero and section titles, sans interface labels,
+  reading view (37 em measure, 17.5 px, serif headings).
+- Checked locally on every part: frontend 382 / backend 114 tests, build; 6 pages × desktop light, desktop dark,
+  Pixel 7: no page errors, every figure drawn; sideways scroll 320–1440 px on 6 pages: none; reduced motion: nothing
+  animates. Checked on production after #345: the same 6 pages × 3 setups with no page errors, dark mode by the
+  theme button, the live CSS contains each part. **Not checked:** signed-in pages on production by eye (no account
+  here), Safari and Firefox (Chromium only), real-device frame rate.
+
 ## Production snapshot — 2026-11-13 (after PR #319, Practice steps 6–8)
 
 - `main` = `87772471bbc39e9bd87c80bbc04f8909d62a4898` (#319, squash). API release `20261113T015201Z-8777247`; `/health`
