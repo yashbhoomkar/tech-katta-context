@@ -1,5 +1,9 @@
 # 25 — Premium colour options
 
+> **Current (2026-11-13, tech-katta #335): §7.** The industry expert said marigold isn't premium and there is too much to
+> read. Marigold is out: black pill buttons and an indigo accent. Section cards show pictures, and articles have
+> "Figures only". §6 (P4) is history.
+
 > **Shipped (2026-11-13): P4, Brilliant-inspired, tech-katta #334** (squash `fd621c2af1d58f906f52a67677ba52448a5ed28e`).
 > The owner repeated "I liked the brilliant.org website", taken as the go-ahead. Pictures of the shipped site:
 > `ui-redesign/palettes/p4-shipped.png`, `p4-shipped-phone.png`.
@@ -148,3 +152,40 @@ figures, share card, link preview).
 - Contrast: all 18 checked text pairs are at least 4.5:1 in light and dark.
 - Not changed yet: the link preview image (`og-2026-11.png`) still shows the old look. The share card follows the
   tokens.
+
+## 7. The expert's notes, shipped (#335, squash `f0706d411926d11d116b316242f1719ecc1ed917`)
+
+Owner: "Think. Make changes. Push to production. Make the website premium. Also the suggestions from the industry
+expert: there is a lot to read. The website should be less textual and more graphics, animations. The yellow
+marigold is not looking premium I think."
+
+**Colour (decided):** no marigold anywhere.
+- Main buttons are black pills (white in dark), as on Vercel, Figma, Ramp and Brilliant (§5.1).
+- One accent, indigo `#4f46e5` (dark `#a5a1ff`), as on Linear and Stripe, for links, the active tab, focus, the
+  figures' working path and the step dots. It clashes with no status colour (green, orange, red).
+- The figures' glints, request halos and glows use the accent's mid tone (`figs/parts.jsx` imports `ACCENT_MID` as
+  `GLOW`); the landing figure's highlighted cells are indigo with white text.
+- The marker (read aloud, a passed verdict, a fresh solve) is a soft indigo `#dfe1ff`.
+- Favicon, `theme-color` and the no-flash page colours follow. Every new text pair is at least 4.5:1 (accent on the
+  page 5.7, on white 6.3; dark accent 8.2).
+- Token roles keep their names (`--brand` now means "the main button": black), so nothing else had to move.
+
+**Fewer words, more pictures (decided):**
+- **Picture cards** in every section list: the article's first figure, still and small (`Thumb` in
+  `dashboard/figure.jsx`, loaded when the card nears the screen), the short title (the part before ":") and two lines.
+  The article list carries `fig` (backend `content/store.js`, tested).
+- **"Figures only"** on every article, beside Share: hides the paragraphs, lists, tables, asides and "Go deeper", and
+  keeps the headings, figures and captions. It is remembered (`tk-skim`); event `article_skim {on}`. Caching goes
+  from 23,393 px tall to 8,969.
+- **Landing copy** cut from 217 words to 92 (hero line, "What's inside" cards, IND vs PAK intro).
+
+**Verified on production** (desktop and Pixel 7, light and dark): black/white pill main button, the short hero
+line, picture cards on Concepts, no sideways scroll, no page errors. Locally: `tools/e2e/premium-look.js` 12 and the
+earlier suites (swipes-practice 29, motion-polish 14, swipes-figures 25, state-scenes 8, phone-figures 33 articles).
+Picture: `ui-redesign/palettes/premium-live.png`.
+
+**Next, to go further on "less textual":**
+1. Open phones in "Figures only" the first time and let readers switch to the text, if `article_skim` shows people
+   prefer it.
+2. Shorten section introductions and the Interview Questions guide cards (about 40 words each).
+3. A new link preview image in the new look.

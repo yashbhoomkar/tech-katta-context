@@ -992,3 +992,4 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #332: phone figures batch 1, `figs/phone.jsx` and 20 Interview Questions (spec 24 G1); squash `ff6fc8ff24d929273adfc80de9a166127febbe89` (2026-11-13, front end only).
 - PR #333: phone figures batch 2, 13 flows in Concepts, Components, Real systems; squash `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` (2026-11-13, front end only).
 - PR #334: Brilliant-inspired look (spec 25 P4): warm grey page, black ink, pill buttons, headings 500, italic emphasis; squash `fd621c2af1d58f906f52a67677ba52448a5ed28e` (2026-11-13, front end only).
+- PR #335: premium: black pill buttons and indigo accent (no marigold), picture cards, "Figures only", shorter landing (spec 25 §7); squash `f0706d411926d11d116b316242f1719ecc1ed917` (2026-11-13, front end, backend, content).
