@@ -14,8 +14,10 @@ graphics and write a doc"). The owner then asked: "Think more on the .md file" a
 | §9 decisions in code: one figure loop at a time on phones (§4.3), solid header on phones, events `fig_step` and `practice_pane` (§11.5) | #325 | `26b8e247fbe2746c70c6e1b617af4e16cce51e6b` |
 | §11.1 the learner's diagram on phones (Result pane, "See the diagram" sheet) and its motion (A3) | #326 | `87680d6e384763267cfc430d2258761e8b443b0a` |
 | The diagram's doubled arrows fixed: one arrow per hop, a key (owner's screenshot, §10 lesson 10) | #327 | `f96ff31f7543e1f8d22c51ee9842b821ab64b059` |
+| G3 scenes for error and empty states (`theme/Scene.jsx`: offline, missing, empty, busy, broken) | #328 | `6369efba1b01e96c900e9a0e21ff99153eb78204` |
+| G6 "Share as image" after Accepted: a 1200 × 630 card made in the browser, no names (`practice/card.js`; picture `ui-redesign/13-share-card.png`) | #329 | `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` |
 
-**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G3 state scenes, G4 section marks, G6 share card, A6–A8, S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
+**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G4 section marks, A6–A8, S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
 §10 records what building taught us and changed in this spec. §11 is the second pass on what to do next and why.
 Section 9 lists the owner's decisions.
 
@@ -398,7 +400,7 @@ That makes G2 + A3 (UX5) worth much more: the motion would be seen by everyone, 
 |---|---|---|---|
 | 1 ✅ | **UX5+**: diagram on phones (11.1) ✅ #326, motion (A3) ✅ #326, arrows fixed #327; drawn with the figure parts (G2) still to do | The core reward of Practice, missing on the main device. Do it before the five-friends test (Practice step 9), so friends see it | M |
 | 2 ✅ #325 | **One figure loop at a time on phones** (§4.3 row 1) | Cheap, and it protects low-end Android from two SMIL loops plus glints at once. Now easy: `useSteps` already knows which figures are visible. Pause all but the most visible | S |
-| 3 | **G3 state scenes** (UX7, first half) | "Couldn't load", "doesn't exist", "No submissions yet" and the judge being busy are moments of friction. A scene in the site's own language softens them, at almost no cost | S |
+| 3 ✅ #328 | **G3 state scenes** (UX7, first half) | "Couldn't load", "doesn't exist", "No submissions yet" and the judge being busy are moments of friction. A scene in the site's own language softens them, at almost no cost | S |
 | 4 | **G1 phone figures** (UX8), first ten articles | Stepping fixed the timing; panning is the remaining phone pain in articles | L |
 | 5 | A6 streak, A7 count-up (UX7, second half) | Small delights; no friction removed | S |
 | — | **UX6 sheet drag: drop it** unless the canvas stays | The `.sv-console` sheet belongs to the old canvas workspace. Spec 21 §19 asks the owner whether Practice retires the canvas. If it does, this work is wasted | — |

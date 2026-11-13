@@ -1644,6 +1644,19 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   Not checked: a real phone.
 - Tests: frontend 371, backend 89. Ledger: frontend 882, backend 682.
 
+
+## Production snapshot — 2026-11-13 (after PRs #328, #329: state scenes, share card)
+
+- `main` = `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` (#329). Front end only; API release unchanged (`20261113T070227Z-26b8e24`).
+- #328: scenes for error and empty states (`theme/Scene.jsx`) beside "Couldn't load this page", the error boundary,
+  Practice's "Couldn't reach the judge", a missing problem (404), no submissions and a 429 on Submit.
+- #329: "Share as image" after Accepted in Practice: a 1200 × 630 PNG made on a canvas (problem, Accepted, tests,
+  cost, p99, the design, the link), no learner data; share sheet with a file where supported, else a download.
+- Verified: on production, the 404 scene on a missing problem and "Share as image" in the live Practice code. Locally:
+  `state-scenes.js` 8/8 and `share-card.js` 8/8, no page errors; card image looked at. Not checked: the empty and busy
+  scenes (need sign-in and a 429), the share sheet on a real phone.
+- Ledger: frontend 888, backend 682.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,
