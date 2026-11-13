@@ -1,5 +1,7 @@
 # Mobile Swipe Navigation
 
+> **Historical (checked 2026-11-13 against `main` 4bc95cc):** the handler described below lived in the old `frontend/src/App.jsx`, which no longer exists; `frontend/src` has no touch listeners and no swipe navigation today. The current design for gestures is `24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md`, which recommends not bringing the back/forward swipe back. Rewrite this file when any of its S-items are built.
+
 ## Feature intent
 
 The user wanted Chrome-like left/right swipe navigation on mobile.
