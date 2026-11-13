@@ -38,6 +38,7 @@ This repository is **context**, not the application itself.
 17. `16-SEARCH-SEMANTICS-PERFORMANCE.md` — current search contract, live Atlas query-plan evidence, and safe optimization criteria.
 - `20-UI-REDESIGN-SPEC.md` — the "Katta Paper" look, **built and live** since tech-katta #309 (2026-11-12): research across the best technical-content sites, the design system, the work packages and CSS. Later changes are in the handover (figure motion #311–#312, phone figures and tours #313–#314, no "In 30 seconds" box #315). Pictures in `ui-redesign/`.
 - `21-PROBLEM-EXPERIENCE-LEETCODE-STYLE.md` — the next problem-solving experience, LeetCode-style (owner, 2026-11-12): a full design specification, **not built yet**; written to be built beside the current canvas and judge.
+- `22-EVALUATOR-V3.md` — the next evaluator, "v3" (owner, 2026-11-13: "we need the best evaluator for system design"): a full design specification, **not built yet**. Not a third simulator: an evidence engine that runs what-if probes on the learner's own design, a design report with no AI, questions about the design whose answers the judge already knows, and an AI interviewer that may only choose and word computed facts and mark written answers against authored points. Built on Practice (spec 21) first. Replaces the 2026-11-07 decision "no AI in the evaluator"; the AI never decides a verdict.
 
 ## The evaluator specification
 
