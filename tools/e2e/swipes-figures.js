@@ -13,7 +13,7 @@ async function touchDrag(page, cdp, x0, y0, x1, y1, steps = 12, ms = 16) {
   const b = await chromium.launch();
   // desktop: controls exist on a Caps figure, step through, pause holds
   {
-    const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });const page = await ctx.newPage();
+    const ctx = await b.newContext({ viewport: { width: 1366, height: 900 } });await ctx.addInitScript(()=>{try{localStorage.setItem("tk-view","text")}catch{}});/* figures inline: the Full text view (spec 27) */const page = await ctx.newPage();
     page.on("pageerror", e => errors.push("desktop: " + e.message));
     await page.goto(base + art, { waitUntil: "networkidle" });
     const fig = page.locator(".a-fig").filter({ has: page.locator(".a-fig-ctl") }).first();
@@ -44,7 +44,7 @@ async function touchDrag(page, cdp, x0, y0, x1, y1, steps = 12, ms = 16) {
   }
   // phone
   {
-    const ctx = await b.newContext({ ...devices["Pixel 7"] });const page = await ctx.newPage();const cdp = await ctx.newCDPSession(page);
+    const ctx = await b.newContext({ ...devices["Pixel 7"] });await ctx.addInitScript(()=>{try{localStorage.setItem("tk-view","text")}catch{}});/* figures inline: the Full text view (spec 27) */const page = await ctx.newPage();const cdp = await ctx.newCDPSession(page);
     page.on("pageerror", e => errors.push("phone: " + e.message));
     await page.goto(base + art, { waitUntil: "networkidle" });
     const fig = page.locator(".a-fig").filter({ has: page.locator(".a-fig-ctl") }).first();
@@ -91,7 +91,7 @@ async function touchDrag(page, cdp, x0, y0, x1, y1, steps = 12, ms = 16) {
   }
   // reduced motion: no controls, still figures, phone step line still shows the caption
   {
-    const ctx = await b.newContext({ ...devices["Pixel 7"], reducedMotion: "reduce" });const page = await ctx.newPage();
+    const ctx = await b.newContext({ ...devices["Pixel 7"], reducedMotion: "reduce" });await ctx.addInitScript(()=>{try{localStorage.setItem("tk-view","text")}catch{}});/* figures inline: the Full text view (spec 27) */const page = await ctx.newPage();
     page.on("pageerror", e => errors.push("reduced: " + e.message));
     await page.goto(base + art, { waitUntil: "networkidle" });await page.waitForTimeout(800);
     ok("reduced: no step controls", await page.locator(".a-fig-ctl").count() === 0);
