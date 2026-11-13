@@ -8,7 +8,7 @@ const spy = () => { window.__vt = []; const o = document.startViewTransition?.bi
   const b = await chromium.launch();
   for (const reduced of [false, true]) {
     const tag = reduced ? "reduced: " : "";
-    const ctx = await b.newContext({ viewport: { width: 1366, height: 900 }, reducedMotion: reduced ? "reduce" : "no-preference" });const page = await ctx.newPage();
+    const ctx = await b.newContext({ viewport: { width: 1366, height: 900 }, reducedMotion: reduced ? "reduce" : "no-preference" });await ctx.addInitScript(()=>{try{localStorage.setItem("tk-view","text")}catch{}});/* figures inline: the Full text view (spec 27) */const page = await ctx.newPage();
     page.on("pageerror", e => errors.push(e.message));page.on("console", m => { if (m.type() === "error" && !/Failed to load resource/.test(m.text())) errors.push(m.text()); });
     await page.addInitScript(spy);
     await page.goto(base + "/dashboard/concepts/", { waitUntil: "networkidle" });
