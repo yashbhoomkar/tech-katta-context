@@ -42,7 +42,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | — | build | Lab: a way to model "one database that can't be split" (e.g. a challenge setting that allows one database only) | idea | would make a fair ticket-booking waiting-room challenge (Q05); without it, two big databases beat a queue for a short sale. Not worth it alone |
 | — | build | Practice analytics: a `practice_done` event (slug, minutes per step) | waiting for owner | needs a new event in `backend/src/auth/events.js` (what the events collection stores), which counts as the data model under rule 4 |
 | — | build | Public previews (owner 2026-11-13: "Preview only") | built, PR #320 | see `23-SEARCH-AND-BACKLINKS.md` |
-| — | owner | Search Console + Bing Webmaster, sitemap, backlinks | waiting for owner | steps in `23-SEARCH-AND-BACKLINKS.md` |
+| — | owner | Search Console (paste its TXT value to a session; it adds it in Cloudflare), Bing Webmaster, backlinks from your accounts | waiting for owner | steps in `23-SEARCH-AND-BACKLINKS.md`; IndexNow done (#321) |
 | — | build | Paid plan: paywall, Razorpay (UPI Autopay monthly, one-time yearly), receipts, refund policy | waiting for owner | needs the owner's go-ahead on rule 5, a payment account and GST advice. Builder: gate paid content on the API (never only in the browser), hosted checkout, verified and idempotent webhooks, a short cache of "has paid" plus a chaos test so outages don't lock out payers |
 
 **Historical** (superseded 2026-11-09 by stage E: the questions now match the reference's 32 problems; the
