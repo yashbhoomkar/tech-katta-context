@@ -1630,6 +1630,20 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   `motion-polish.js` 14/14. Not checked: a real phone; earned stars seen in a browser.
 - Tests: frontend 371. Ledger: frontend 873, backend 680.
 
+
+## Production snapshot — 2026-11-13 (after PRs #325–#327: spec 24 decisions, the diagram on phones)
+
+- `main` = `f96ff31f7543e1f8d22c51ee9842b821ab64b059` (#327). API release `20261113T070227Z-26b8e24` (#325: events allowlist).
+- The owner: "Take decisions yourself". The spec 24 §9 decisions are recorded there. #325: one figure loop at a time on
+  phones, a solid header on phones, events `fig_step` and `practice_pane`. #326: the learner's diagram on phones
+  (Result pane after Run/Submit, "See the diagram" sheet), with motion: parts fade in, arrows are drawn, the blamed
+  part shudders, request dots run after Accepted. #327: one arrow per hop and a key (the owner asked why the arrows
+  were doubled).
+- Verified: the API release is live; "See the diagram" and the key are in the live Practice code (production, Pixel 7).
+  Locally: `figure-loops-events.js` 7/7, `practice-diagram-phone.js` 20/20, `swipes-practice.js` 29/29; no page errors.
+  Not checked: a real phone.
+- Tests: frontend 371, backend 89. Ledger: frontend 882, backend 682.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,
