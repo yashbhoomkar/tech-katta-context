@@ -12,6 +12,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
 | 2 | build | **Evaluator v3** (`22-EVALUATOR-V3.md`): phases A to G in its §21. A and B have no AI (evidence pack, design report, probes, "Show me", predict questions); C cards and deep dives; D the interviewer's review; E skills and one question a day; F written answers and the mock interview | waiting for owner | design only, written 2026-11-13. Ten owner decisions in its §23, first among them: confirm the shape, and approve the new collections and events (operating rule 4) before phase A. The pricing and credit numbers are in the private repo |
+| — | build | **Self-hosted model for the interviewer** (`29-SELF-HOSTED-LLM-ON-A-VPS.md`): P0 benchmark on an Oracle free A1 box or one month of Contabo Cloud VPS 10, then the evaluation set on local and hosted candidates; five owner decisions in its §10.3 | waiting for owner | research only, 2026-11-13; speeds in it are estimates until P0 runs |
 | ~~—~~ | ui | ~~**Premium colour scheme**~~ | done | #334: P4 Brilliant-inspired, live 2026-11-13 (`25-PREMIUM-COLOUR-OPTIONS.md` §6) |
 | — | ui | Link preview image (`frontend/public/og-2026-11.png`) in the new look | ready | the share card already follows the tokens |
 | — | ui | Less text, round 2 (spec 25 §7 "Next"): phones open in "Figures only" if `article_skim` shows readers prefer it; shorten section intros and Interview Questions guide cards | ready | after a week of event data |
