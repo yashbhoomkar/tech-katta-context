@@ -58,7 +58,8 @@ async function walk(p, name, shots = true) {
   const one = await p.locator('.tour-card small').innerText(); await p.keyboard.press('Escape'); await p.waitForTimeout(200);
   ok(/^2 /.test(two) && /^1 /.test(one) && !(await p.locator('.tour-card').count()), `→ ${two}, ← ${one}, Esc closes`);
   // Lab
-  await p.goto(B + '/dashboard/#lab'); await p.waitForSelector('.lab-pal', { timeout: 30000 }); await p.waitForTimeout(600);
+  // (the Lab tab is gone since #285: a challenge opens from its link on Problems, as no-lab.js does)
+  await p.goto(B + '/dashboard/problems/'); await p.click('a[href="#problems/challenge/one-server"]'); await p.waitForSelector('.lab-pal', { timeout: 30000 }); await p.waitForTimeout(600);
   await p.click('.d-tour'); r = await walk(p, 'lab', false);
   console.log('lab:\n  ' + r.seen.join('\n  '));
   ok(r.seen.length >= 6 && r.seen.some((s) => /Settings/.test(s)), 'Lab tour with the settings step');
