@@ -988,3 +988,6 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #328: scenes for error and empty states (`theme/Scene.jsx`, spec 24 G3); squash `6369efba1b01e96c900e9a0e21ff99153eb78204` (2026-11-13, front end only).
 - PR #329: Practice "Share as image" after Accepted (`practice/card.js`, spec 24 G6); squash `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` (2026-11-13, front end only).
 - PR #330: landing counts count up when seen; Practice streak marker (spec 24 A6, A7); squash `8986c1f9ef921705461b7272c2f2c222c0e2e0ce` (2026-11-13, front end only).
+- PR #331: section marks; tour card swipe on phones (spec 24 G4, S6); squash `e56c85ab4143072f12994c0b4ee9201a01386362` (2026-11-13, front end only).
+- PR #332: phone figures batch 1, `figs/phone.jsx` and 20 Interview Questions (spec 24 G1); squash `ff6fc8ff24d929273adfc80de9a166127febbe89` (2026-11-13, front end only).
+- PR #333: phone figures batch 2, 13 flows in Concepts, Components, Real systems; squash `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` (2026-11-13, front end only).

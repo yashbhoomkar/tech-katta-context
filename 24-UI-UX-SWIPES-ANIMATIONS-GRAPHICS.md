@@ -17,8 +17,20 @@ graphics and write a doc"). The owner then asked: "Think more on the .md file" a
 | G3 scenes for error and empty states (`theme/Scene.jsx`: offline, missing, empty, busy, broken) | #328 | `6369efba1b01e96c900e9a0e21ff99153eb78204` |
 | G6 "Share as image" after Accepted: a 1200 × 630 card made in the browser, no names (`practice/card.js`; picture `ui-redesign/13-share-card.png`) | #329 | `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` |
 | A7 landing counts count up when seen (`theme/CountUp.jsx`); A6 the Practice streak gets the marker the day it grows | #330 | `8986c1f9ef921705461b7272c2f2c222c0e2e0ce` |
+| G4 section marks (`dashboard/icons.jsx`); S6 the tour card follows a swipe on phones | #331 | `e56c85ab4143072f12994c0b4ee9201a01386362` |
+| G1 phone figures, batch 1: `figs/phone.jsx` (`phoneFlow`), the first figure of 20 Interview Questions in portrait | #332 | `ff6fc8ff24d929273adfc80de9a166127febbe89` |
+| G1 batch 2: 13 more flows in Concepts, Components, Real systems (33 of the 60 articles with figures) | #333 | `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` |
 
-**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G4 section marks, A8 (with spec 22), S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
+**Spec 24 is done (2026-11-13), the owner having said "Do all the pending items".** What is not built, and why
+(decided by the session, reversible):
+- **G2** (the Practice diagram redrawn with the figure parts): dropped. After #326–#327 the diagram follows the
+  figures' rules (one arrow per hop, a key, the same motion), and its names are identifiers the learner typed, so the
+  code-style font is right for them.
+- **G1 for figures that are not flows**: the 27 first figures that are tables, grids, charts, timelines or
+  comparisons keep the sideways frame (#313). A portrait does not make a grid or a chart easier to read. A later
+  phone-first redraw is possible case by case; `phoneFlow` is for flows only.
+- **A8 / S7** ("Show me" motion and its scrubbing): belong to spec 22 phase B, which is not built. Build them with it.
+- **G5** link preview per article: not now (§9). **UX6** sheet drag: dropped (§9). Dropped: UX6 (sheet drag) and, for now, G5 (§9).
 §10 records what building taught us and changed in this spec. §11 is the second pass on what to do next and why.
 Section 9 lists the owner's decisions.
 
