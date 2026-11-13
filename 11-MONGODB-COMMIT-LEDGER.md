@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #321): `frontend_git_commits` 865, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #322): `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 

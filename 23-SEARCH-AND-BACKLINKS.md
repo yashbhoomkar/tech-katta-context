@@ -34,9 +34,17 @@ already has the old preview keeps it.
   undated home, dashboard and section pages; `--all` for every page; or specific URLs.
 - `.github/workflows/indexnow.yml` runs on each push to main that touches `frontend/` or `content/`: it waits for
   Vercel, then submits. It can also be run by hand with "all".
-- First full submission 2026-11-13: 76 URLs, HTTP 202 (accepted, key being verified).
+- First full submission 2026-11-13: 76 URLs, HTTP 202 (accepted, key being verified). The workflow's first
+  automatic run (on the #321 merge) succeeded.
 - Reaches Bing, Yandex, Seznam, Naver and the others that use IndexNow; DuckDuckGo and ChatGPT search use Bing's
   index. **Google does not use IndexNow:** it reads the sitemap and Search Console.
+
+## Done by sessions (2026-11-13)
+
+- #320 public previews and crawlable pages; #321 IndexNow; #322 README links to the main sections (the repo is
+  public, so it is a backlink people can follow).
+- Cloudflare: this session can read the `katta.cc` zone. When the owner pastes the Search Console
+  `google-site-verification=...` TXT value, a session adds it to `katta.cc` and checks it resolves.
 
 ## Steps only the owner can do (in this order)
 
