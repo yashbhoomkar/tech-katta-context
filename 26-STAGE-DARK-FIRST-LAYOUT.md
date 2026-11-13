@@ -87,7 +87,8 @@ great! Continue with it only", meaning the dark hero. So the site is now **dark 
 
 - Unit tests: frontend 371 of 371, backend 89 of 89.
 - Contrast: faint text on the light page is 5.13:1. Dark is unchanged.
-- e2e suites run against a local API and preview. The results are in the PR.
+- e2e (local API and preview): landing-counts, marks-tour, premium-look, motion-polish, swipes-figures, swipes-practice, state-scenes, dashboard-home and site-sweep pass. landing-phone and qa-a11y fail on main too: they open `/dashboard/#lab`, removed on 2026-11-10.
+- Production: Vercel did not start a production deployment for the merge (the free plan allows 100 deployments a day). It was started by hand from `main` (af379f1) and verified in a browser: dark by default, the judge and the numbers strip on the landing page, the new home on the dashboard.
 
 ## 6. Next
 
