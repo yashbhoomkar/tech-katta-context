@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #324): `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #327): `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -1336,6 +1336,20 @@ Counts after these: frontend 709, backend 566.
 | #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
 | #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
 | #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
+### PRs #325–#327 (2026-11-13): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #325 | both | `3d23c6a976419b8d9efd4b47df8050b4fdf528d4` | Spec 24 decisions: one loop on phones, solid header, two events |
+| #325 | frontend | `f6c8c1b05be9e2587b0fd16ba49048ef36b914f4` | Sync branch |
+| #325 | both | `26b8e247fbe2746c70c6e1b617af4e16cce51e6b` | Squash merge #325 |
+| #326 | frontend | `c8b8c142b0d276d000f2b484908331c96cbc5491` | The learner's diagram on phones, with motion |
+| #326 | frontend | `6311a7068ec612c4698485c17558e868b8214e31` | Sync branch |
+| #326 | frontend | `87680d6e384763267cfc430d2258761e8b443b0a` | Squash merge #326 |
+| #327 | frontend | `7dbd9ad17c78fbad9d79d41d30572036625b16b2` | One arrow per hop, a key |
+| #327 | frontend | `3950bc69f2883e670df29cfd41d698a8de2a46e5` | Sync branch |
+| #327 | frontend | `f96ff31f7543e1f8d22c51ee9842b821ab64b059` | Squash merge #327 |
 
 ### PRs #323–#324 (2026-11-13): recorded (frontend only; no backend or content change)
 

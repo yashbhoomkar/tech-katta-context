@@ -11,8 +11,11 @@ graphics and write a doc"). The owner then asked: "Think more on the .md file" a
 | UX2 figure step controls (A1) and the step-line swipe (S2) on every `Caps` figure | #323 | same |
 | UX3 Practice phone panes swipe (S1), each pane keeps its scroll, the tab line slides | #323 | same |
 | UX4 page and theme cross-fade (A2 without the title morph, A10), the contents marker slides (A4), stars fill one by one (A5) | #324 | `41bef78edc063d661c03827d40f927c6f5b49cb9` |
+| §9 decisions in code: one figure loop at a time on phones (§4.3), solid header on phones, events `fig_step` and `practice_pane` (§11.5) | #325 | `26b8e247fbe2746c70c6e1b617af4e16cce51e6b` |
+| §11.1 the learner's diagram on phones (Result pane, "See the diagram" sheet) and its motion (A3) | #326 | `87680d6e384763267cfc430d2258761e8b443b0a` |
+| The diagram's doubled arrows fixed: one arrow per hop, a key (owner's screenshot, §10 lesson 10) | #327 | `f96ff31f7543e1f8d22c51ee9842b821ab64b059` |
 
-**Not built:** UX5–UX8 (Practice diagram motion, sheet drag, state scenes, phone figures), A3, A6–A8, G1–G6, S6–S7.
+**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G3 state scenes, G4 section marks, G6 share card, A6–A8, S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
 §10 records what building taught us and changed in this spec. §11 is the second pass on what to do next and why.
 Section 9 lists the owner's decisions.
 
@@ -331,21 +334,21 @@ ledger → update this file's status and `09-MOBILE-SWIPE.md`.
 
 ---
 
-## 9. Owner decisions
+## 9. Decisions
 
-1. **Bring back the swipe for back/forward?** Recommended: **no** (§1.2). Phones already do it from the edge. Built
-   that way (#323): no site gesture starts within 24 px of a screen edge. Reversible if the owner disagrees.
-2. **The gesture grammar** (§1.3) is now in the code (`theme/gesture.js`, unit-tested). The owner can change its
-   numbers (35 %, 0.5 px/ms, 1.25, 24 px) in one place.
-3. **Order of work:** UX1–UX4 are built (owner, 2026-11-13: "start implementing in production"). Next, see §11.
-4. **Analytics for swipes and figure steps** (§11.5: `fig_step`, `practice_pane`). Not built: they change what the
-   events collection stores, so operating rule 4 applies.
-5. **G1 phone figures:** worth 66 extra drawings? Recommended: yes, ten articles per PR, free and most-read first.
-6. **G5 link previews:** a build-time SVG-to-PNG dependency.
-7. **G6 share card** for Accepted, and whether it carries a name.
-8. **Header blur on phones** (§4.3): keep, or a solid header below 680 px if the measurement shows dropped frames.
+The owner, 2026-11-13: **"Take decisions yourself."** So the session decided each item below. Each one can be reversed.
 
----
+| # | Question | Decision | Why |
+|---|---|---|---|
+| 1 | Bring back the back/forward swipe? | **No** | Phones do it from the edge (§1.2). Built that way in #323 |
+| 2 | The gesture rules (§1.3) | **Keep them as built** | Its numbers live in one file, `theme/gesture.js` |
+| 3 | Order of work | **§11.2**, ranks 1–2 done (#325, #326) | |
+| 4 | Analytics for swipes and figure steps | **Yes**, `fig_step {fig, via}` once per figure per page view; `practice_pane {problem, to, via}` | Fields only, no design text, no personal data, same 13-month retention. They answer §11.5. Built in #325 |
+| 5 | G1 phone figures (66 drawings) | **Yes**, ten articles per PR, free and most-read first | The remaining phone pain in articles |
+| 6 | G5 link preview per article | **Not now** | It needs a native SVG-to-PNG build dependency; the one shared image (#320) is fine until launch |
+| 7 | G6 share card for Accepted | **Yes, without names**, made in the browser | Growth with no personal data |
+| 8 | Header blur on phones | **Solid header below 680 px** | Couldn't measure a cheap phone from here, so take the safe side. Built in #325 |
+| 9 | UX6 sheet drag | **Dropped** | The old canvas workspace is likely to be retired (spec 21 §19) |
 
 ## 10. What building UX1–UX4 taught us (2026-11-13)
 
@@ -362,6 +365,7 @@ These are rules now. Each one caused a real bug or a wrong plan while building #
 | 7 | **Scroll snap was the wrong tool for Practice** | §2.1: the phone page scrolls as one, with sticky and fixed bars | Same hook as the other swipes; restore each pane's scroll by hand |
 | 8 | **`vite preview` doesn't rewrite `/dashboard/practice/<slug>/`** | Locally it serves the landing page; Vercel rewrites it on production | Local tests use `/dashboard/#practice/<slug>` |
 | 9 | **The 2.5 s step problem was real** | A 20-word caption on a phone could not be read before the next step faded in | Now solved by stepping, not by slowing every figure. Keep `SPEED` at 0.7 |
+| 10 | **One line per kind of request looked like doubled arrows** | The owner's screenshot of #326: "Why such double arrows are present". Since #317 the Practice diagram drew a read line and a write line 3 px apart on every hop they shared, with stacked arrowheads and no key | One arrow per hop (#327): ink for reads, ochre for writes, and one ink band with an ochre core for both. A key above the drawing, and fixed-size arrowheads. Rule for every diagram we draw: a hop is one arrow; what uses it is shown by colour and a key, never by drawing it twice |
 
 Browser checks for all of this are in `tools/e2e/`: `swipes-figures.js` (25 checks), `swipes-practice.js` (29) and
 `motion-polish.js` (14). Practice works against production. The article checks need a local API, because articles
@@ -392,8 +396,8 @@ That makes G2 + A3 (UX5) worth much more: the motion would be seen by everyone, 
 
 | Rank | Work | Why now | Size |
 |---|---|---|---|
-| 1 | **UX5+**: diagram on phones (11.1), drawn with the figure parts (G2), with motion (A3) | The core reward of Practice, missing on the main device. Do it before the five-friends test (Practice step 9), so friends see it | M |
-| 2 | **One figure loop at a time on phones** (§4.3 row 1) | Cheap, and it protects low-end Android from two SMIL loops plus glints at once. Now easy: `useSteps` already knows which figures are visible. Pause all but the most visible | S |
+| 1 ✅ | **UX5+**: diagram on phones (11.1) ✅ #326, motion (A3) ✅ #326, arrows fixed #327; drawn with the figure parts (G2) still to do | The core reward of Practice, missing on the main device. Do it before the five-friends test (Practice step 9), so friends see it | M |
+| 2 ✅ #325 | **One figure loop at a time on phones** (§4.3 row 1) | Cheap, and it protects low-end Android from two SMIL loops plus glints at once. Now easy: `useSteps` already knows which figures are visible. Pause all but the most visible | S |
 | 3 | **G3 state scenes** (UX7, first half) | "Couldn't load", "doesn't exist", "No submissions yet" and the judge being busy are moments of friction. A scene in the site's own language softens them, at almost no cost | S |
 | 4 | **G1 phone figures** (UX8), first ten articles | Stepping fixed the timing; panning is the remaining phone pain in articles | L |
 | 5 | A6 streak, A7 count-up (UX7, second half) | Small delights; no friction removed | S |
@@ -421,10 +425,9 @@ That makes G2 + A3 (UX5) worth much more: the motion would be seen by everyone, 
   fields are excluded from starting a drag. A select opens on tap, not on drag, but check.)
 - **Low-end Android:** frame rate while dragging the drawer and a Practice pane (transforms only, so it should hold 60 fps).
 
-### 11.5 How we'll know it works (owner decides; rule 4 applies)
+### 11.5 How we'll know it works
 
-There are no new analytics events in #323 or #324. If the owner wants evidence, two small events would answer the
-two open questions. Each counts as a data-model change, so neither is built without approval:
+Built in #325 (§9 decision 4). They are in `techkatta_app.events`:
 
 - `fig_step` `{ article, fig, via: "button" | "swipe" | "key" }`: do readers actually step through figures, or was
   the timing fine?
