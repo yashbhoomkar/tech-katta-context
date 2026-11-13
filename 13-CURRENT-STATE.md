@@ -1669,6 +1669,12 @@ not flows and keep the sideways frame. Verified locally: `marks-tour.js` 7/7, `p
 desktop and reduced motion; on production the new code is live (bundle). Spec 24 is done; what remains and why is in
 its status section. Ledger: frontend 900, backend 682.
 
+**Update (after #334, the new look):** `main` = `fd621c2af1d58f906f52a67677ba52448a5ed28e`. The owner asked for a more premium
+colour scheme and then said "I liked the brilliant.org website". Spec 25 P4 shipped: warm grey page, black ink,
+neutral tints, pill buttons, headings at 500, italic headline emphasis, marigold as the one vivid button. Verified on
+production (desktop and Pixel 7, light and dark): pill marigold main button, italic emphasis, no sideways scroll, no
+page errors. Ledger: frontend 903, backend 682.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,
