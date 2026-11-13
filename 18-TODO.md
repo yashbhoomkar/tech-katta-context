@@ -12,6 +12,10 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
 | 2 | build | **Evaluator v3** (`22-EVALUATOR-V3.md`): phases A to G in its §21. A and B have no AI (evidence pack, design report, probes, "Show me", predict questions); C cards and deep dives; D the interviewer's review; E skills and one question a day; F written answers and the mock interview | ready | design only, written 2026-11-13; **all decisions taken the same day** (§23, owner: "take decisions yourself, optimise value vs cost"). Build order in §25.5: A, B (no AI), five-friends test, C, D, E; mock interview deferred to a gate; `explain` and the canvas adapter cut. Pricing and credit numbers are in the private repo |
+| ~~—~~ | ui | ~~**Premium colour scheme**~~ | done | #334: P4 Brilliant-inspired, live 2026-11-13 (`25-PREMIUM-COLOUR-OPTIONS.md` §6) |
+| — | ui | Link preview image (`frontend/public/og-2026-11.png`) in the new look | ready | the share card already follows the tokens |
+| — | ui | Less text, round 2 (spec 25 §7 "Next"): phones open in "Figures only" if `article_skim` shows readers prefer it; shorten section intros and Interview Questions guide cards | ready | after a week of event data |
+| ~~—~~ | ui | ~~**Spec 24**~~ (`24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md`) | done | #323–#333 (2026-11-13). What was not built, and why, is in its status section. Left: the real-phone checklist (§8, §11.4) at the five-friends test; A8/S7 with spec 22 phase B |
 | 1 | build | **Practice (spec 21)**: steps 1–8 live (#317, #319; unlinked; 10 problems). Next: step 9, the owner reviews with five friends on phones, then links "Practice" in the tabs; after that steps 10–17 (judge page, report a verdict, lessons, compare, follow-ups, plans, analytics dashboard, India-first check) | waiting for owner | spec 21 §25 lists what was decided while building |
 | — | build | Spec 21 owner decisions (§19): approach, the name "Practice", free/paid lines (`PRACTICE_ALL_PAID = true` now), the first ten problems, names on shared solutions, retiring the canvas | waiting for owner | |
 | — | build | Spec 21 §22.11 ship rule "each test alone rejects ≥ 2 % of the grid" fails for problem 1 (t02 0.6 %, t03 0 %, t05 1.4 %) and looks unsatisfiable with ~1 % Accepted; deleting t03 breaks "3 hidden tests". Owner: relax the rule (e.g. relative to the Accepted count) or accept | waiting for owner | sweep: `node backend/scripts/sweep-problem.mjs url-shortener` |
@@ -30,7 +34,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | — | build | Split `solve.css` (18 KB) and `lab/lab.css` (16 KB) per part, like `src/dashboard/` (keep the cascade order; check computed styles) | idea | the JS was split in #305 |
 | ~~—~~ | ui | ~~Build the new look, "Katta Paper", from `20-UI-REDESIGN-SPEC.md`~~ | done | live 2026-11-12 (#309); follow-ups #310 |
 | ~~—~~ | ui | ~~Figures readable on phones~~ | done | #313: 600 px wide in a sideways-scrolling frame (labels 9.4 px, were 5.7), step line above it. A phone-first redraw of key figures is still possible later |
-| — | ui | Figure step timing after #312: each step shows about 2.5 s; watch whether long step captions feel rushed (raise `SPEED` in `theme/motion.js`) | idea | owner asked for faster animations |
+| ~~—~~ | ui | ~~Figure step timing after #312~~ | done | #323: readers can pause and step through a figure (‹ ❚❚ ›, swipe on phones) instead of slowing every loop; `SPEED` stays 0.7 |
 | — | ui | Katta Paper checks not done by eye: the five product moments (spec §4.8: stroke under a passed verdict, stars pop, a crashed node shudders, the load bar slides, the zoomed figure pops), DevTools animation timings (§4.6), 200 % zoom | ready | the build and e2e scripts pass; these need a person or a scripted look |
 | — | ui | Phone dashboard header: the tabs are cut off ("Interv…") and scroll sideways; the theme button (#304) takes a little more room | idea | it was cut off before #304 too |
 | — | infra | Pin the API container's base image to a digest when production starts using `backend/Dockerfile` (#277 review) | when switching | `node:22-alpine` from public.ecr.aws today |
@@ -41,7 +45,8 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | — | content | ~~Q23–Q36, one per run~~ | superseded | 2026-11-09: questions now match the reference site's 32 problems exactly (stage E above); no others |
 | — | build | Lab: a way to model "one database that can't be split" (e.g. a challenge setting that allows one database only) | idea | would make a fair ticket-booking waiting-room challenge (Q05); without it, two big databases beat a queue for a short sale. Not worth it alone |
 | — | build | Practice analytics: a `practice_done` event (slug, minutes per step) | waiting for owner | needs a new event in `backend/src/auth/events.js` (what the events collection stores), which counts as the data model under rule 4 |
-| — | build | Public previews: title and dek readable without sign-in, so search engines can index articles | waiting for owner | changes the sign-in gate |
+| — | build | Public previews (owner 2026-11-13: "Preview only") | built, PR #320 | see `23-SEARCH-AND-BACKLINKS.md` |
+| — | owner | Search Console (paste its TXT value to a session; it adds it in Cloudflare), Bing Webmaster, backlinks from your accounts | waiting for owner | steps in `23-SEARCH-AND-BACKLINKS.md`; IndexNow done (#321) |
 | — | build | Paid plan: paywall, Razorpay (UPI Autopay monthly, one-time yearly), receipts, refund policy | waiting for owner | needs the owner's go-ahead on rule 5, a payment account and GST advice. Builder: gate paid content on the API (never only in the browser), hosted checkout, verified and idempotent webhooks, a short cache of "has paid" plus a chaos test so outages don't lock out payers |
 
 **Historical** (superseded 2026-11-09 by stage E: the questions now match the reference's 32 problems; the

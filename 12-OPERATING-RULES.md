@@ -338,6 +338,8 @@ Real systems tab. Kept for the record.*
 
 ## Video hosting and free vs paid (Decided by the owner, 2026-11-07)
 
+> **Launch decision (owner, 2026-11-13): "we will anyways launch the website and keep sign in and unlock everything."** At launch, signing in with Google opens every article, problem, Practice and the Lab in full, free. Signed-out visitors see the public preview (PR #320). Do not build a paywall, lock `access: "paid"` articles or change the "free with a Google account" copy unless the owner asks again. The `access` field stays as data only.
+
 - **Videos:** the owner's teaching videos live on tech.katta.cc only (not YouTube), hosted on **Bunny Stream**
   (Standard network: Indian PoPs, signed URLs, basic DRM, free encoding). Keep the master recordings in our own
   storage too, so the host can be changed. Not AWS or Cloudflare Stream for video: at 30 hours a month per

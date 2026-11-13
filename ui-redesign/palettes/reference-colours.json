@@ -1,0 +1,354 @@
+[
+ {
+  "u": "https://linear.app",
+  "page": "rgb(8, 9, 10)",
+  "h1": "rgb(247, 248, 248)",
+  "h1font": "\"Inter Variable\" 510",
+  "body": "rgb(138, 143, 152)",
+  "bodyFont": "\"Inter Variable\"",
+  "btns": [
+   {
+    "t": "Skip to content →",
+    "bg": "rgb(94, 106, 210)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "0px"
+   },
+   {
+    "t": "Sign up",
+    "bg": "rgb(229, 229, 230)",
+    "fg": "rgb(8, 9, 10)",
+    "br": "9999px"
+   }
+  ]
+ },
+ {
+  "u": "https://stripe.com",
+  "page": "none",
+  "h1": "rgb(129, 184, 26)",
+  "h1font": "sohne-var 300",
+  "body": "rgb(255, 255, 255)",
+  "bodyFont": "sohne-var",
+  "btns": [
+   {
+    "t": "Contact sales",
+    "bg": "rgb(83, 58, 253)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "4px"
+   },
+   {
+    "t": "Get started",
+    "bg": "rgb(83, 58, 253)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "4px"
+   },
+   {
+    "t": "Sign up with Google",
+    "bg": "rgba(255, 255, 255, 0.65)",
+    "fg": "rgb(83, 58, 253)",
+    "br": "4px"
+   }
+  ],
+  "link": "rgb(255, 255, 255)"
+ },
+ {
+  "u": "https://vercel.com",
+  "page": "rgb(250, 250, 250)",
+  "h1": "rgb(23, 23, 23)",
+  "h1font": "GeistSans 400",
+  "body": "rgb(77, 77, 77)",
+  "bodyFont": "\"Geist Mono\"",
+  "btns": [
+   {
+    "t": "Get a Demo",
+    "bg": "rgb(255, 255, 255)",
+    "fg": "rgb(23, 23, 23)",
+    "br": "6px"
+   },
+   {
+    "t": "Log In",
+    "bg": "rgb(255, 255, 255)",
+    "fg": "rgb(23, 23, 23)",
+    "br": "6px"
+   },
+   {
+    "t": "Sign Up",
+    "bg": "rgb(23, 23, 23)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "6px"
+   }
+  ]
+ },
+ {
+  "u": "https://www.raycast.com",
+  "page": "rgb(7, 8, 10)",
+  "h1": "rgb(255, 255, 255)",
+  "h1font": "Inter 600",
+  "body": "rgb(255, 255, 255)",
+  "bodyFont": "Inter",
+  "btns": [
+   {
+    "t": "Download",
+    "bg": "rgb(230, 230, 230)",
+    "fg": "rgb(47, 48, 49)",
+    "br": "8px"
+   },
+   {
+    "t": "Download for Mac",
+    "bg": "rgb(230, 230, 230)",
+    "fg": "rgb(47, 48, 49)",
+    "br": "8px"
+   }
+  ],
+  "link": "rgb(156, 156, 157)"
+ },
+ {
+  "u": "https://mercury.com",
+  "page": "none",
+  "h1": "rgb(237, 237, 243)",
+  "h1font": "arcadiaDisplay 480",
+  "body": "rgb(195, 195, 204)",
+  "bodyFont": "arcadia",
+  "btns": [
+   {
+    "t": "Open account",
+    "bg": "rgb(82, 102, 235)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "32px"
+   },
+   {
+    "t": "Open account",
+    "bg": "rgb(82, 102, 235)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "32px"
+   },
+   {
+    "t": "Launch demo",
+    "bg": "rgba(175, 178, 206, 0.2)",
+    "fg": "rgb(237, 237, 243)",
+    "br": "40px"
+   }
+  ],
+  "link": "rgb(195, 195, 204)"
+ },
+ {
+  "u": "https://www.anthropic.com",
+  "page": "rgb(250, 249, 245)",
+  "h1": "rgb(20, 20, 19)",
+  "h1font": "anthropicSerif 400",
+  "body": "rgb(250, 249, 245)",
+  "bodyFont": "anthropicSans",
+  "btns": [],
+  "link": "rgb(94, 93, 89)"
+ },
+ {
+  "u": "https://www.notion.com",
+  "page": "rgb(255, 255, 255)",
+  "h1": "rgba(0, 0, 0, 0.95)",
+  "h1font": "NotionInter 600",
+  "body": "rgba(0, 0, 0, 0.898)",
+  "bodyFont": "NotionInter",
+  "btns": [
+   {
+    "t": "Get Notion free",
+    "bg": "rgb(0, 117, 222)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "8px"
+   },
+   {
+    "t": "Get Notion free",
+    "bg": "rgb(0, 117, 222)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "8px"
+   },
+   {
+    "t": "Request a demo",
+    "bg": "rgb(230, 243, 254)",
+    "fg": "rgb(0, 91, 171)",
+    "br": "8px"
+   }
+  ]
+ },
+ {
+  "u": "https://brilliant.org",
+  "page": "rgb(255, 255, 255)",
+  "h1": "rgb(0, 0, 0)",
+  "h1font": "\"CoFo Robert\" 500",
+  "body": "rgba(0, 0, 0, 0.4)",
+  "bodyFont": "\"CoFo Brilliant\"",
+  "btns": [
+   {
+    "t": "Got It",
+    "bg": "rgb(50, 50, 50)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "60px"
+   }
+  ],
+  "link": "rgb(39, 155, 141)"
+ },
+ {
+  "u": "https://www.framer.com",
+  "page": "rgb(0, 0, 0)",
+  "h1": "rgb(255, 255, 255)",
+  "h1font": "\"GT Walsheim Medium\" 500",
+  "body": "rgba(255, 255, 255, 0.6)",
+  "bodyFont": "\"Inter Variable\"",
+  "btns": [
+   {
+    "t": "Sign up",
+    "bg": "rgb(255, 255, 255)",
+    "fg": "rgb(0, 0, 238)",
+    "br": "8px"
+   },
+   {
+    "t": "Copy logo SVG",
+    "bg": "rgba(255, 255, 255, 0)",
+    "fg": "rgb(0, 0, 0)",
+    "br": "8px"
+   },
+   {
+    "t": "Brand guidelines",
+    "bg": "rgba(255, 255, 255, 0)",
+    "fg": "rgb(0, 0, 238)",
+    "br": "8px"
+   }
+  ],
+  "link": "rgba(255, 255, 255, 0.6)"
+ },
+ {
+  "u": "https://resend.com",
+  "page": "rgb(0, 0, 0)",
+  "h1": "rgb(240, 240, 240)",
+  "h1font": "domaine 400",
+  "body": "rgb(161, 164, 165)",
+  "bodyFont": "\"Inter Website\"",
+  "btns": []
+ },
+ {
+  "u": "https://ramp.com",
+  "page": "lab(100 0 0)",
+  "h1": "lab(2.83994 0.367254 0.969091)",
+  "h1font": "Lausanne 400",
+  "body": "lab(100 0 0)",
+  "bodyFont": "Lausanne",
+  "btns": [
+   {
+    "t": "Sign in",
+    "bg": "rgba(255, 255, 255, 0.05)",
+    "fg": "lab(2.83994 0.367254 0.969091)",
+    "br": "6px"
+   },
+   {
+    "t": "See a demo",
+    "bg": "lab(92.1406 -20.4979 84.7726)",
+    "fg": "lab(2.83994 0.367254 0.969091)",
+    "br": "6px"
+   },
+   {
+    "t": "Get started",
+    "bg": "lab(8.86531 0.515342 0.18619)",
+    "fg": "lab(100 0 0)",
+    "br": "6px"
+   }
+  ],
+  "link": "lab(2.83994 0.367254 0.969091)"
+ },
+ {
+  "u": "https://www.apple.com",
+  "page": "rgb(255, 255, 255)",
+  "h1": "rgb(29, 29, 31)",
+  "h1font": "\"SF Pro Text\" 600",
+  "body": "rgb(29, 29, 31)",
+  "bodyFont": "\"SF Pro Display\"",
+  "btns": [
+   {
+    "t": "Shop gifts",
+    "bg": "rgb(0, 113, 227)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "980px"
+   }
+  ]
+ },
+ {
+  "u": "https://read.cv",
+  "page": "rgb(255, 255, 255)",
+  "h1": "",
+  "h1font": "",
+  "body": "",
+  "bodyFont": "",
+  "btns": []
+ },
+ {
+  "u": "https://arc.net",
+  "page": "rgb(11, 11, 11)",
+  "h1": "rgb(255, 255, 255)",
+  "h1font": "\"Exposure VAR\" 600",
+  "body": "rgb(255, 255, 255)",
+  "bodyFont": "\"ABC Oracle\"",
+  "btns": [
+   {
+    "t": "Read more",
+    "bg": "rgba(255, 255, 255, 0.12)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "60px"
+   },
+   {
+    "t": "Download Dia",
+    "bg": "rgb(11, 11, 11)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "12px"
+   }
+  ],
+  "link": "rgb(255, 255, 255)"
+ },
+ {
+  "u": "https://www.figma.com",
+  "page": "none",
+  "h1": "rgb(0, 0, 0)",
+  "h1font": "figmaSans 400",
+  "body": "rgb(0, 0, 0)",
+  "bodyFont": "figmaSans",
+  "btns": [
+   {
+    "t": "Contact sales",
+    "bg": "oklch(0 0 none / 0)",
+    "fg": "rgb(0, 0, 0)",
+    "br": "8px"
+   },
+   {
+    "t": "Get started for free",
+    "bg": "rgb(0, 0, 0)",
+    "fg": "rgb(255, 255, 255)",
+    "br": "8px"
+   }
+  ]
+ },
+ {
+  "u": "https://posthog.com",
+  "page": "rgb(238, 239, 233)",
+  "h1": "rgb(17, 24, 39)",
+  "h1font": "RoundHog 800",
+  "body": "rgb(55, 65, 81)",
+  "bodyFont": "RoundHog",
+  "btns": [
+   {
+    "t": "Get started – free",
+    "bg": "rgb(205, 132, 7)",
+    "fg": "rgb(35, 37, 29)",
+    "br": "6px"
+   },
+   {
+    "t": "Get started",
+    "bg": "rgb(205, 132, 7)",
+    "fg": "rgb(17, 17, 17)",
+    "br": "8px"
+   },
+   {
+    "t": "Install with AI",
+    "bg": "rgb(235, 157, 42)",
+    "fg": "rgb(17, 17, 17)",
+    "br": "8px"
+   }
+  ],
+  "link": "rgb(17, 24, 39)"
+ }
+]

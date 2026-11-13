@@ -1613,6 +1613,73 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   scroll. A signed-in Submit and the streak were verified against a local API with sign-in, not on production.
 - Practice is still not in the tabs (step 9). Tests: frontend 361, backend 89. Ledger: frontend 863, backend 679.
 
+
+## Production snapshot — 2026-11-13 (after PRs #323, #324: swipes, figure steps, cross-fades)
+
+- `main` = `41bef78edc063d661c03827d40f927c6f5b49cb9` (#324, squash); #323 squash `a8e1da41db26db0431fc475ec74666e360585a8e`.
+  Front end only; API release unchanged.
+- Built from `24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md` UX1–UX4 (owner: "start implementing in production"):
+  `theme/gesture.js` (one swipe rule, unit-tested); back / pause / next and step dots on every `Caps` figure, and on phones
+  a swipe on the step line; swipe down closes a full-screen figure; drag the phone drawer left to close; Practice on
+  phones swipes between Problem, Design and Result (panes keep their scroll, the tab line slides); page changes and the
+  theme switch cross-fade (view transitions, none under reduced motion); the "On this page" marker slides; earned stars
+  pop one by one.
+- Verified on production: `tools/e2e/swipes-practice.js` 29/29, `errors: []`; the drawer closes on a touch drag;
+  `motion-polish`-style check: one cross-fade per page change and one for the theme, none under reduced motion.
+  Figures (articles need sign-in on production) were checked against a local API: `swipes-figures.js` 25/25,
+  `motion-polish.js` 14/14. Not checked: a real phone; earned stars seen in a browser.
+- Tests: frontend 371. Ledger: frontend 873, backend 680.
+
+
+## Production snapshot — 2026-11-13 (after PRs #325–#327: spec 24 decisions, the diagram on phones)
+
+- `main` = `f96ff31f7543e1f8d22c51ee9842b821ab64b059` (#327). API release `20261113T070227Z-26b8e24` (#325: events allowlist).
+- The owner: "Take decisions yourself". The spec 24 §9 decisions are recorded there. #325: one figure loop at a time on
+  phones, a solid header on phones, events `fig_step` and `practice_pane`. #326: the learner's diagram on phones
+  (Result pane after Run/Submit, "See the diagram" sheet), with motion: parts fade in, arrows are drawn, the blamed
+  part shudders, request dots run after Accepted. #327: one arrow per hop and a key (the owner asked why the arrows
+  were doubled).
+- Verified: the API release is live; "See the diagram" and the key are in the live Practice code (production, Pixel 7).
+  Locally: `figure-loops-events.js` 7/7, `practice-diagram-phone.js` 20/20, `swipes-practice.js` 29/29; no page errors.
+  Not checked: a real phone.
+- Tests: frontend 371, backend 89. Ledger: frontend 882, backend 682.
+
+
+## Production snapshot — 2026-11-13 (after PRs #328, #329: state scenes, share card)
+
+- `main` = `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` (#329). Front end only; API release unchanged (`20261113T070227Z-26b8e24`).
+- #328: scenes for error and empty states (`theme/Scene.jsx`) beside "Couldn't load this page", the error boundary,
+  Practice's "Couldn't reach the judge", a missing problem (404), no submissions and a 429 on Submit.
+- #329: "Share as image" after Accepted in Practice: a 1200 × 630 PNG made on a canvas (problem, Accepted, tests,
+  cost, p99, the design, the link), no learner data; share sheet with a file where supported, else a download.
+- Verified: on production, the 404 scene on a missing problem and "Share as image" in the live Practice code. Locally:
+  `state-scenes.js` 8/8 and `share-card.js` 8/8, no page errors; card image looked at. Not checked: the empty and busy
+  scenes (need sign-in and a 429), the share sheet on a real phone.
+- Ledger: frontend 888, backend 682.
+
+**Update (after #330):** `main` = `8986c1f9ef921705461b7272c2f2c222c0e2e0ce`. The landing "What's inside" counts count up
+when seen (`theme/CountUp.jsx`; screen readers get the total; none under reduced motion); the Practice streak gets
+the marker the day it grows. Verified on production: `landing-counts.js` 6/6. The streak marker was not seen in a
+browser (it needs sign-in). Ledger: frontend 891, backend 682.
+
+**Update (after #331–#333; owner: "Do all the pending items"):** `main` = `0a67178c7566cb45dcabe386f36977ccbfd8bcc1`.
+#331: section marks in the sidebar; the tour card follows a swipe on phones. #332, #333: portrait phone versions
+(`figs/phone.jsx`) of the first figure of 33 articles (20 Interview Questions, 13 flows elsewhere); the 27 others are
+not flows and keep the sideways frame. Verified locally: `marks-tour.js` 7/7, `phone-figures.js` 33/33 articles plus
+desktop and reduced motion; on production the new code is live (bundle). Spec 24 is done; what remains and why is in
+its status section. Ledger: frontend 900, backend 682.
+
+**Update (after #334, the new look):** `main` = `fd621c2af1d58f906f52a67677ba52448a5ed28e`. The owner asked for a more premium
+colour scheme and then said "I liked the brilliant.org website". Spec 25 P4 shipped: warm grey page, black ink,
+neutral tints, pill buttons, headings at 500, italic headline emphasis, marigold as the one vivid button. Verified on
+production (desktop and Pixel 7, light and dark): pill marigold main button, italic emphasis, no sideways scroll, no
+page errors. Ledger: frontend 903, backend 682.
+
+**Update (after #335, the expert's notes):** `main` = `f0706d411926d11d116b316242f1719ecc1ed917`, API release
+`20261113T091746Z-f0706d4`. Marigold removed: black pill buttons, indigo accent (figures follow). Picture cards in
+section lists (`fig` in the article list), "Figures only" on articles, landing copy 217 → 92 words. Verified on
+production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 684.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,

@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #319): `frontend_git_commits` 863, `backend_git_commits` 679. (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #335): `frontend_git_commits` 906, `backend_git_commits` 684 (#335: `da4c298542f6934c10035984daa120a8992c9be2` both, sync `22f593f9ea0d767a72f02c5127263120061d0d53` frontend, squash `f0706d411926d11d116b316242f1719ecc1ed917` both). Before that, after #334: `frontend_git_commits` 903, `backend_git_commits` 682 (#334: `a5d77da1819570749e6cfd2b578f3b1b5a73916f`, sync `2cb528078f81c0cef79c638399cee7be297c2839`, squash `fd621c2af1d58f906f52a67677ba52448a5ed28e`, frontend only). Before that, after #333: `frontend_git_commits` 900, `backend_git_commits` 682 (#331–#333: 9 frontend rows; table below). Before that, after #330: `frontend_git_commits` 891, `backend_git_commits` 682 (#330: `d190370c3cd251fac58f214c31257293f3aceb25`, sync `220a7af7a7cc33bdb221ff0f1ae321957a74fcd0`, squash `8986c1f9ef921705461b7272c2f2c222c0e2e0ce`, frontend only). Before that, after #329: `frontend_git_commits` 888, `backend_git_commits` 682 (#328, #329: 6 frontend rows; table below). Before that, after #327: `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -1336,6 +1336,57 @@ Counts after these: frontend 709, backend 566.
 | #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
 | #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
 | #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
+### PRs #331–#333 (2026-11-13): recorded (frontend only)
+
+| PR | SHA | Value |
+|---|---|---|
+| #331 | `bdacd96fc9f347c560de2dbb8534c947c424b346` | Section marks; tour card swipe |
+| #331 | `2871ba9585589098cc991c3717cd375d7c6990e3` | Sync branch |
+| #331 | `e56c85ab4143072f12994c0b4ee9201a01386362` | Squash merge #331 |
+| #332 | `5be8c2508aebd4c1a46cedfcb4cb2c901358f0dc` | Phone figures batch 1 |
+| #332 | `2f707e2f156dbdeb728425a150edb734fab28855` | Sync branch |
+| #332 | `ff6fc8ff24d929273adfc80de9a166127febbe89` | Squash merge #332 |
+| #333 | `833d264c5b3df1d4d7bbba6a6af0c2ba70f9404d` | Phone figures batch 2 |
+| #333 | `97bdb3d25420af69d9c90f6dbbc58b33712edac0` | Sync branch |
+| #333 | `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` | Squash merge #333 |
+
+### PRs #328–#329 (2026-11-13): recorded (frontend only)
+
+| PR | SHA | Value |
+|---|---|---|
+| #328 | `41442369f20bc78dcd246821d9b1e42984a18db3` | Scenes for error and empty states |
+| #328 | `78ace04fbe10f07376de077ae38a8f9ed8fa6660` | Sync branch |
+| #328 | `6369efba1b01e96c900e9a0e21ff99153eb78204` | Squash merge #328 |
+| #329 | `003ea295f2791bdda2f65f931d2a57bb58a93311` | Share as image after Accepted |
+| #329 | `3e45cef07a19bd9cd344409bbe993bd46952c7e9` | Sync branch |
+| #329 | `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` | Squash merge #329 |
+
+### PRs #325–#327 (2026-11-13): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #325 | both | `3d23c6a976419b8d9efd4b47df8050b4fdf528d4` | Spec 24 decisions: one loop on phones, solid header, two events |
+| #325 | frontend | `f6c8c1b05be9e2587b0fd16ba49048ef36b914f4` | Sync branch |
+| #325 | both | `26b8e247fbe2746c70c6e1b617af4e16cce51e6b` | Squash merge #325 |
+| #326 | frontend | `c8b8c142b0d276d000f2b484908331c96cbc5491` | The learner's diagram on phones, with motion |
+| #326 | frontend | `6311a7068ec612c4698485c17558e868b8214e31` | Sync branch |
+| #326 | frontend | `87680d6e384763267cfc430d2258761e8b443b0a` | Squash merge #326 |
+| #327 | frontend | `7dbd9ad17c78fbad9d79d41d30572036625b16b2` | One arrow per hop, a key |
+| #327 | frontend | `3950bc69f2883e670df29cfd41d698a8de2a46e5` | Sync branch |
+| #327 | frontend | `f96ff31f7543e1f8d22c51ee9842b821ab64b059` | Squash merge #327 |
+
+### PRs #323–#324 (2026-11-13): recorded (frontend only; no backend or content change)
+
+| PR | SHA | Value |
+|---|---|---|
+| #323 | `f941277353644c7089d846e98d8361245fc41e22` | Swipes and figure steps: gesture.js, step controls, drawer and full screen follow the finger |
+| #323 | `c68970fa10856a1e6483bb49756746aabf9567ab` | Practice on phones: panes swipe; a drag past its limit never goes |
+| #323 | `6625475c332f9e6e0c43dc03f8a17a887cf3743f` | Sync branch after #323 |
+| #323 | `a8e1da41db26db0431fc475ec74666e360585a8e` | Squash merge #323 |
+| #324 | `fe011d32a8522e50575e0ec77cd95b92505f90ea` | Motion polish: cross-fades, contents marker, stars |
+| #324 | `9ecab8577451a8eb3bc8f8efdb93cc64051d2d33` | Sync branch after #324 |
+| #324 | `41bef78edc063d661c03827d40f927c6f5b49cb9` | Squash merge #324 |
 
 ### PR #277 (2026-11-09): recorded (both collections)
 
