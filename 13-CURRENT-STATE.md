@@ -1657,6 +1657,11 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   scenes (need sign-in and a 429), the share sheet on a real phone.
 - Ledger: frontend 888, backend 682.
 
+**Update (after #330):** `main` = `8986c1f9ef921705461b7272c2f2c222c0e2e0ce`. The landing "What's inside" counts count up
+when seen (`theme/CountUp.jsx`; screen readers get the total; none under reduced motion); the Practice streak gets
+the marker the day it grows. Verified on production: `landing-counts.js` 6/6. The streak marker was not seen in a
+browser (it needs sign-in). Ledger: frontend 891, backend 682.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,

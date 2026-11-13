@@ -16,8 +16,9 @@ graphics and write a doc"). The owner then asked: "Think more on the .md file" a
 | The diagram's doubled arrows fixed: one arrow per hop, a key (owner's screenshot, §10 lesson 10) | #327 | `f96ff31f7543e1f8d22c51ee9842b821ab64b059` |
 | G3 scenes for error and empty states (`theme/Scene.jsx`: offline, missing, empty, busy, broken) | #328 | `6369efba1b01e96c900e9a0e21ff99153eb78204` |
 | G6 "Share as image" after Accepted: a 1200 × 630 card made in the browser, no names (`practice/card.js`; picture `ui-redesign/13-share-card.png`) | #329 | `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` |
+| A7 landing counts count up when seen (`theme/CountUp.jsx`); A6 the Practice streak gets the marker the day it grows | #330 | `8986c1f9ef921705461b7272c2f2c222c0e2e0ce` |
 
-**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G4 section marks, A6–A8, S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
+**Not built:** G2 (the diagram drawn with the figure parts), G1 phone figures, G4 section marks, A8 (with spec 22), S6–S7. Dropped: UX6 (sheet drag) and, for now, G5 (§9).
 §10 records what building taught us and changed in this spec. §11 is the second pass on what to do next and why.
 Section 9 lists the owner's decisions.
 
