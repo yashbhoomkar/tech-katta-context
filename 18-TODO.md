@@ -11,7 +11,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
-| 1 | build | **Practice (spec 21)**: steps 1–5b live (#317, unlinked). Next: step 6 (autocomplete; shortcuts and draggable dividers are in), step 7 (streak, list polish), step 8 (problems 2–10), then step 9: owner review with five friends on phones, then link "Practice" in the tabs | ready | see spec 21 §25 for what was decided while building |
+| 1 | build | **Practice (spec 21)**: steps 1–8 live (#317, #319; unlinked; 10 problems). Next: step 9, the owner reviews with five friends on phones, then links "Practice" in the tabs; after that steps 10–17 (judge page, report a verdict, lessons, compare, follow-ups, plans, analytics dashboard, India-first check) | waiting for owner | spec 21 §25 lists what was decided while building |
 | — | build | Spec 21 owner decisions (§19): approach, the name "Practice", free/paid lines (`PRACTICE_ALL_PAID = true` now), the first ten problems, names on shared solutions, retiring the canvas | waiting for owner | |
 | — | build | Spec 21 §22.11 ship rule "each test alone rejects ≥ 2 % of the grid" fails for problem 1 (t02 0.6 %, t03 0 %, t05 1.4 %) and looks unsatisfiable with ~1 % Accepted; deleting t03 breaks "3 hidden tests". Owner: relax the rule (e.g. relative to the Accepted count) or accept | waiting for owner | sweep: `node backend/scripts/sweep-problem.mjs url-shortener` |
 | — | docs | Ledger rows for #318 (another session's animations PR, merged 22:16 IST after #317) | ready | not recorded by the #317 session |

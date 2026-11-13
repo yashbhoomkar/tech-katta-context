@@ -1,6 +1,6 @@
 # 21 — Problems, LeetCode-style: full specification
 
-**Status:** design specification, 12 Nov 2026; the approach was then decided (see "Decision" below). **Steps 1–5b built and live, unlinked (#317, 12 Nov 2026); see section 25 for what was decided while building.** The rest is not built. Unlike `20-UI-REDESIGN-SPEC.md`, none of
+**Status:** design specification, 12 Nov 2026; the approach was then decided (see "Decision" below). **Steps 1–8 built and live, unlinked (#317 on 12 Nov, #319 on 13 Nov 2026: ten problems); see section 25 for what was decided while building.** The rest is not built. Unlike `20-UI-REDESIGN-SPEC.md`, none of
 the code or numbers here has been run; section 17 says how to prove each part as you build it.
 **Who reads this:** the agent that will write the code. Follow it top to bottom. Where it says "owner decides", stop and ask.
 **Brief (owner):** "take a step back … think of the evaluator and the entire interview questions and problems
@@ -1297,3 +1297,12 @@ with a test:
     could not help (none apply) give no tip line at all.
 11. **One pull request** for steps 1–5b (nothing is visible until step 9), with one commit per layer.
 12. Not built yet: step 6 autocomplete (shortcuts and draggable dividers are in), step 7 streak, steps 8–18.
+13. **Steps 6–8 (#319, 13 Nov 2026).** Autocomplete as in 11.3; the streak as in section 12; problems 2–10 from the list
+    in section 9 (the owner said "go ahead"). Each problem's test numbers were tuned so the reference has ≥ 10 % margin;
+    image serving's p99 promise is 160 ms (4 medium servers, the cheapest passing design, as reference).
+14. **Judge version 2.** A worker behind a queue that is blocked (something after it is down) waits: its wait is the
+    blocked time plus its backlog at its own pace; only a worker with no instance left is stuck. Lost writes (7.2, 7.6)
+    are counted from the rate that reached the part just before it failed (the previous segment), not from the first
+    segment after (which is zero behind a blocked queue).
+15. **Sweep grid** (22.11): also workers (same counts as servers), nosql stores (3, 4, 6, 8, 12 nodes × quorums w1r1,
+    w2r2, w3r1, w1r3 with rf 3), and the reference's own count, so the reference is always in the grid.
