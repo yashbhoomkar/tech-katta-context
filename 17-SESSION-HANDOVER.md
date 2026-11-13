@@ -12,8 +12,9 @@ card lift and press, button glow, the landing headline comes into focus, scroll 
 Colours unchanged (Katta Paper, #338). Rollback: Vercel → Deployments → `253d4bf` (#342) → Instant Rollback, or remove
 the `premium.css` import in `theme/index.js` for the motion and layout layer alone. Also merged on 13 Nov late: **#341**
 (no Facebook/Instagram checkbox; the Terms cover it) and **#342** ("Ask the interviewer" next to Run and Submit on
-Problems, Interview Questions and Practice; replaces #340, which can be closed). Ledger recorded through #346
-(also the pending #336–#340): frontend 937, backend 696. Next: the owner's verdict on the look; then spec 30 "Left for later".
+Problems, Interview Questions and Practice; replaces #340, which can be closed). Ledger recorded through #347
+(also the pending #336–#340). Then, on the owner's "Proceed": **#347** sliding sidebar marker, header that firms up on scroll, numbered landing
+sections. Ledger frontend 940, backend 696. Next: the owner's verdict on the look; a Safari/Firefox check.
 
 **Update 2026-11-13 (late, open PR #340, not merged).** Owner: "Yes build it for interview questions" and "copy to my
 canvas … does not populate the fields in the requirements and mark the key decisions … score 64/100 … should copy

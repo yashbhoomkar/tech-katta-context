@@ -1439,3 +1439,5 @@ checked against the collections first (28 frontend and 3 backend rows already ex
 (branch commits, sync merges, squash commits of #336–#346 and #340's unmerged commits) and 11 backend rows (commits and
 squash commits that change `backend/` or `content/`: #336, #337, #339, #340, #341, #342). Counts: **frontend 937,
 backend 696**.
+
+Then #347 (3 frontend rows: branch commit, squash, sync merge; front end only): **frontend 940, backend 696**.
