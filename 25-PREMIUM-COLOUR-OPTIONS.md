@@ -2,7 +2,8 @@
 
 > **Round 2 and the decision (2026-11-13).** Owner: "More premium options. Look at best UI websites on the net and
 > then think and decide." The research, three new directions and the decision are in §5. **Decided: P1, Paper & Ink
-> with marigold as a signal.** It supersedes the round-1 recommendation (A).
+> with marigold as a signal.** It supersedes the round-1 recommendation (A). **Round 3 (§6): the owner likes
+> brilliant.org; decided P4, Brilliant-inspired.**
 
 Written **2026-11-13**. The owner: "The colour scheme on our website does not look premium. I showed the website to an
 industry expert. Think of more premium colour schemes." **Options only. Nothing is changed on the site** until the
@@ -101,3 +102,35 @@ heavy headings, not the cream paper or marigold itself.
 4. **Checks:** the theme test, AA contrast of every pair in spec 20 §4.1 (ink on paper 18.6:1), every page in light
    and dark, the figures (marigold stays theirs), the share card (reads `TOKENS`), and a new link preview image.
 5. Spec 20 §3.3 ("Brand colour: marigold with ink text on it") changes to "marigold is the signal; buttons are ink".
+
+## 6. Round 3: the owner likes brilliant.org (2026-11-13)
+
+Owner: "I liked the brilliant.org website." Brilliant was studied in a browser: home and courses, desktop and
+phone. Screenshots are in `ui-redesign/palettes/brilliant/`.
+
+**What makes Brilliant feel premium** (measured):
+- Restraint everywhere except one thing. The page is warm light grey `#f5f3f1` alternating with white sections; text
+  is pure black, and secondary text is black at 40–60 % (`#666`-ish). Hairline borders `#e4e4e4`, no tints, almost no
+  shadows.
+- One vivid **pill** button: green `#29cc57` with white text, beside a white pill with grey text. Selected tabs are
+  black pills. Every button has fully round ends (radius 54–9999 px), 46–48 px tall.
+- Headline serif (CoFo Robert) at **500**, with **italic words for emphasis** ("*math* and *coding*") instead of
+  colour. Body sans 400, light and roomy.
+- The product shown as fanned, tilted lesson cards.
+
+**P4 · Brilliant-inspired** (rendered: `pal4-landing.png`, `pal4-article.png`, `pal4-phone.png`; values in
+`tools/palettes2.js` `brilliant`): the same structure as Brilliant, with our own brand colour.
+- Warm grey page `#f5f3f1`, white cards, black ink `#0d0d0d`, grey secondary text, hairline lines, no yellow tints
+  (the selected sidebar row is a soft grey).
+- **Marigold as the one vivid pill** (our equivalent of Brilliant's green), ink text on it. All buttons are pills.
+- The headline highlighter becomes **italic emphasis** ("System design, *explained.*"); headings at 500.
+- Figures keep marigold and ochre for the working path. Dark: `#121212` page, the same single marigold pill.
+- Not copied: Brilliant's green, its fonts, logo or illustrations.
+
+**Decision: P4**, because it matches the owner's taste and the research (§5): restraint plus one signal. P1 stays the
+fallback if a single marigold pill still feels too loud (P1 = the same restraint, buttons in ink).
+
+Build (one PR, as §5.3, with these differences): keep `--brand` marigold on the main buttons; add pill radius to
+buttons (`--r-btn: 999px`); neutral tints (the `brand-tint` and `accent-tint` family to warm greys); `.tk-mark`
+becomes italic emphasis; headings at 500; then the same checks as §5.3 (contrast, every page in light and dark,
+figures, share card, link preview).
