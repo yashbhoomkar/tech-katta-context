@@ -1,6 +1,6 @@
 # 23 — Search: getting Tech Katta indexed and found
 
-Written 2026-11-13 with PR #320 (public article previews, crawlable pages, new link preview image).
+Written 2026-11-13 with PR #320 (merged as `846ee2d`, live the same day) (public article previews, crawlable pages, new link preview image).
 
 ## What the site now does (PR #320)
 
