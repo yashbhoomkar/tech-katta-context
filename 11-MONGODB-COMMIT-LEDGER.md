@@ -1430,3 +1430,12 @@ Counts after these: frontend 709, backend 566.
 Note (2026-11-09): twice a placeholder row with a short key (`6ab3c5c`, `2880cd5`) was inserted by mistake. Atlas asks the
 owner to confirm deletes, so each row was corrected in place (update-many) to the full SHA and the right value above; no
 placeholder rows remain.
+
+## 2026-11-14: rows for #336–#346
+
+Recorded by the overnight renovation session (connected with `remote-atlas-connect`, project `6ac298d2a4428fd93e7b3f75`,
+`Cluster0`). Commits were taken from each PR's commit list, counted once under the first PR they appear in, and
+checked against the collections first (28 frontend and 3 backend rows already existed). Added 30 frontend rows
+(branch commits, sync merges, squash commits of #336–#346 and #340's unmerged commits) and 11 backend rows (commits and
+squash commits that change `backend/` or `content/`: #336, #337, #339, #340, #341, #342). Counts: **frontend 937,
+backend 696**.
