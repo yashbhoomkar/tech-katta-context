@@ -1,8 +1,8 @@
 # 20 — UI redesign spec: "Katta Paper"
 
 > **Colours superseded (2026-11-13, tech-katta #334):** the page, ink, tints, button shape, heading weight and the
-> headline highlighter now follow `25-PREMIUM-COLOUR-OPTIONS.md` §6 (P4, Brilliant-inspired). Marigold stays the brand
-> colour and the one vivid button; ochre stays the working colour. The rest of this spec (layout, components, motion)
+> headline highlighter now follow `25-PREMIUM-COLOUR-OPTIONS.md` §7 (#335): black pill buttons and an indigo accent; marigold
+> and ochre are gone. The rest of this spec (layout, components, motion)
 > still applies.
 
 **Status:** **built and live** (tech-katta #309, 2026-11-12; three fixes inside the appended blocks are listed in the PR and in `17-SESSION-HANDOVER.md`; follow-ups #310; figure motion #311 and every animation about a quarter faster #312; the "In 30 seconds" box removed #315, so its rows below are historical; so the durations in 4.5, 4.6 and Appendix D are now the shorter ones in `theme/motion.css` and `--dur-enter` 0.28 s). Originally: approved direction to build. Written 12 Nov 2026; detailed instructions for animation (4.6) and UI features and behaviour (4.7) added; revised the same day after the owner's reviews: the old blue in figures and the canvas replaced (first by teal, rejected; now by ochre lines with marigold fills, so the whole site stays in one yellow family), and a motion layer added (section 4.5, WP8, Appendix D).

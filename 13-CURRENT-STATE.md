@@ -1675,6 +1675,11 @@ neutral tints, pill buttons, headings at 500, italic headline emphasis, marigold
 production (desktop and Pixel 7, light and dark): pill marigold main button, italic emphasis, no sideways scroll, no
 page errors. Ledger: frontend 903, backend 682.
 
+**Update (after #335, the expert's notes):** `main` = `f0706d411926d11d116b316242f1719ecc1ed917`, API release
+`20261113T091746Z-f0706d4`. Marigold removed: black pill buttons, indigo accent (figures follow). Picture cards in
+section lists (`fig` in the article list), "Figures only" on articles, landing copy 217 → 92 words. Verified on
+production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 684.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,
