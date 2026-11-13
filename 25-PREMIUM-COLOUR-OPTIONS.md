@@ -1,5 +1,9 @@
 # 25 — Premium colour options
 
+> **Round 2 and the decision (2026-11-13).** Owner: "More premium options. Look at best UI websites on the net and
+> then think and decide." The research, three new directions and the decision are in §5. **Decided: P1, Paper & Ink
+> with marigold as a signal.** It supersedes the round-1 recommendation (A).
+
 Written **2026-11-13**. The owner: "The colour scheme on our website does not look premium. I showed the website to an
 industry expert. Think of more premium colour schemes." **Options only. Nothing is changed on the site** until the
 owner picks one. This would replace the colour part of spec 20 ("Katta Paper": cream paper and marigold).
@@ -55,3 +59,45 @@ If A is chosen, the follow-ups, each small and in its own PR:
 
 Pick **A**, **B**, **C**, **D**, or "keep the current one". A mix also works (for example, A's neutrals with C's
 accent).
+
+## 5. Round 2: what the best sites do, and the decision
+
+### 5.1 Research (16 sites, loaded in a browser, colours read from the page)
+
+`tools/e2e/reference-sites.js` loads each site, reads the page background, headline and body text, and the main
+buttons, and takes a screenshot. The results are in `ui-redesign/palettes/reference-colours.json` and
+`reference-sites.png`. The sites: Linear, Stripe, Vercel, Raycast, Mercury, Anthropic, Notion, Brilliant, Framer,
+Resend, Ramp, Apple, Arc, Figma, PostHog (and read.cv, which was paused).
+
+| Finding | Evidence |
+|---|---|
+| **The main button is near-black, not the brand colour** | Vercel `#171717`, Figma `#000`, Ramp black, Brilliant `#323232`, Resend black; on dark sites a light grey (Linear `#e5e5e6`, Raycast `#e6e6e6`) |
+| **Brand-coloured buttons belong to big brands with a single famous colour** | Stripe `#533afd`, Mercury `#5266eb`, Notion `#0075de`, Apple `#0071e3` |
+| **Pages are near-white, or warm paper** | Vercel `#fafafa`; Apple, Notion, Figma `#fff`; **Anthropic `#faf9f5` with `#141413` ink**, almost our cream. Paper is not the problem |
+| **One vivid accent, used as a small signal next to black** | Ramp: a bright yellow-green "See a demo" beside a black "Get started". PostHog's amber buttons everywhere read playful, not premium |
+| **Dark-first reads as the premium developer look** | Linear `#08090a`, Raycast `#07080a`, Framer and Resend `#000`, Arc `#0b0b0b`; body text a soft grey (Linear `#8a8f98`) |
+| **Serif headlines are set light** | Anthropic Serif 400, Resend (Domaine) 400, Brilliant 500. Our Fraunces is 600 |
+
+**Conclusion:** what makes Tech Katta look cheap is **marigold as the button colour and the tint everywhere**, plus
+heavy headings, not the cream paper or marigold itself.
+
+### 5.2 Three directions (rendered: `pal2-landing.png`, `pal2-article.png`, `pal2-phone.png`, `pal2-before-after.png`)
+
+| | Direction | What changes | Verdict |
+|---|---|---|---|
+| **P1** | **Paper & Ink, marigold as a signal** (Anthropic's paper, Vercel's buttons, Ramp's single accent) | Paper `#faf9f5`, ink `#141413`, **main buttons in ink** (white in dark), tints halved; marigold stays only for the logo, the thin underline under the headline (was a thick band), the current tab or row marker and the figures' working path; headings Fraunces 500 | **Chosen.** The biggest premium gain for the smallest change; still unmistakably Tech Katta |
+| P2 | Pure white & black (Vercel, Figma) | No hue at all; figures go monochrome | Very clean, but loses the brand and the figures' "path that works" colour |
+| P3 | Obsidian, dark first (Linear, Raycast) | Near-black by default, light-grey buttons, marigold accent | Striking for developers, but long articles read better on paper in daylight on phones; keep it as the dark theme's direction, not the default |
+
+### 5.3 Decision and how to build it (one PR)
+
+1. **Tokens** (`tokens.css` and `palette.js`): P1's light and dark neutrals and tints (values in `tools/palettes2.js`).
+   Add `--button`, `--button-strong` and `--on-button` (ink in light, near-white in dark), and point every main-button
+   rule (spec 20 §4.4: `.btn.primary`, `.pr-solve`, `.sv-submit`, `.lab-btn`, `.r-btn.primary`, `.acct-signin-link`,
+   `.tour-next`, `.ll-score`, `.sd-copy`, `.pb-pick`, `.st-err button`, `.pr-primary`) at them. `--brand` stays
+   marigold.
+2. **Headline marker:** `.tk-mark` becomes a thin marigold underline (84–94 % of the line), not a band.
+3. **Headings:** Fraunces 600 → 500 where it is used (spec 20 §4.2).
+4. **Checks:** the theme test, AA contrast of every pair in spec 20 §4.1 (ink on paper 18.6:1), every page in light
+   and dark, the figures (marigold stays theirs), the share card (reads `TOKENS`), and a new link preview image.
+5. Spec 20 §3.3 ("Brand colour: marigold with ink text on it") changes to "marigold is the signal; buttons are ink".
