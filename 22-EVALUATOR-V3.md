@@ -1426,6 +1426,21 @@ cost. Build those first and put them in front of the same five friends as spec 2
 
 *(The implementing session adds one line per decision here, with the date and the test that pins it.)*
 
+- 2026-11-13, #339: built the review job only (evidence §6 without probes/decisions/diffs/rank, template review,
+  interviewer, verifier, credits, cache, log); phases A's probes and B–G not yet. `v3.test.js`, `ai.test.js`,
+  `practice-ai.test.js`.
+- 2026-11-13: the client is provider-neutral (OpenAI-compatible HTTP through `fetch`, settings `AI_*`), not one
+  provider's SDK (§23 decision 3 changed; spec 29 §12.6). `ai.test.js` "OpenAI-compatible".
+- 2026-11-13: the default provider is a deterministic mock interviewer, shown as "Preview"; it passes the verifier
+  with nothing dropped on all 75 designs. `ai.test.js` "the mock interviewer passes".
+- 2026-11-13: the review schema limits fact ids to an enum of the ids sent; items may be "problem", "risk" or
+  "strength" (the template review also uses "note"); `lesson` is left out until lessons exist.
+- 2026-11-13: verifier: fewer than two items in all, or none of the interviewer's own, falls back to the template
+  review. `ai.test.js` "a headline or next step with a digit".
+- 2026-11-13: credits: 150 a month and 20 a day per account (owner's 150, spec 29 §11), counted in IST; a cache hit
+  and the floor cost nothing. `practice-ai.test.js` "credits".
+- 2026-11-13: the base phase for path and load facts is the first phase of the first visible test (simplified §7.2).
+
 ---
 
 ## Appendix A. A worked example
