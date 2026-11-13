@@ -1,10 +1,7 @@
 # 22 — Evaluator v3: the evidence engine, the interviewer, and the problem-solving experience
 
 **Status:** design specification, 13 Nov 2026. **Not built. Not tested**, except the feasibility check in section 7.9.
-**Decided:** the ten decisions of section 23 were taken on 2026-11-13 (the owner: "Take decisions yourself. Make
-sure the value vs cost is optimised"). Section 25 says what is built first, what is deferred and what is cut;
-**where an earlier section describes something that section 25 defers or cuts, section 25 wins.**
-**Who reads this:** the session that will write the code. Read section 0 first, then sections 23 and 25.
+**Who reads this:** the session that will write the code. Read section 0 first.
 **Brief (owner, 13 Nov 2026):** "The evaluator will be our biggest differentiator. We need the best evaluator for
 system design. Think about the v3 evaluator engine and the problem-solving experience. Take a step back and think
 clearly. Write everything in a detailed manner." The owner also decided the same day that an AI evaluator is wanted,
@@ -362,16 +359,12 @@ Probes never use a hidden test's numbers (section 7.2), so probe facts are never
 
 ### 6.5 Where it is built and stored
 
-- **In the browser**, on Run and on Submit, from the visible tests. Probes use only a visible phase (7.2), so the
-  browser's pack holds every probe fact: the whole report except the items listed in the next bullet is computed
-  on the learner's own device, at no cost to the server. Never sent to the server.
-- **On the server, lazily** (decided, section 25.2): not on every Submit, but the first time something needs a
-  pack the browser cannot be trusted or able to build: the interviewer's review, a Defend session's questions,
-  the waste sentence, the "a test checks this" tags, hidden-test facts. Built from all tests in the judge worker.
-  Stored in the collection `practice_evidence` keyed by `{problem, part, design_hash, judge_version,
-  evidence_version}` (one design, one pack, shared by everyone who submits the same canonical text), with an
-  expiry of 30 days: a pack can always be rebuilt from the submission, so keeping it is only a saving of
-  milliseconds. Size limit 64 KB; a typical pack is 6 to 12 KB.
+- **In the browser**, on Run and on Submit, from the visible tests: enough for the report's first cards to appear
+  at once. Never sent to the server.
+- **On the server**, after every Submit, from all tests, in the judge worker: this is the pack of record. Stored in
+  the collection `practice_evidence` keyed by `{problem, part, design_hash, judge_version, evidence_version}` (one
+  design, one pack, shared by everyone who submits the same canonical text) and linked from the submission by that
+  key. Size limit 64 KB; a typical pack is 6 to 12 KB.
 - The stored pack holds only facts that depend on the design and the problem. `diff:prev` depends on the learner
   and `rank` on other people's submissions: they are added when a pack is read for someone, and never stored in it.
 - Raise `evidence_version` whenever a probe, a template or a fact's shape changes. Old packs are then rebuilt on
@@ -595,11 +588,8 @@ Rules for a card (checked in CI, section 19.1):
   point about failover loss needs `probe:kill:<part>`), and the point may carry `"when": {"probe": …}` conditions
   the same way. Keep these rare.
 
-Thirteen cards (about 30 variants) cover all ten Practice problems. **Six ship first** (decided, section 25.3):
-`cache.use`, `cache.ttl`, `cache.write`, `sql.sync`, `sql.spare` and `ids.kind`, which between them appear in
-every one of the ten problems. Writing a card is content work with the same care as an article. The owner reads
-those six before they ship. Later cards ship after the checks of 19.2 and the implementing session's own careful
-read, and are corrected through the report link.
+Thirteen cards (about 30 variants) cover all ten Practice problems. Writing them is content work with the same
+care as an article: **the owner reviews every card before it ships.**
 
 ---
 
@@ -670,9 +660,8 @@ gets more from a failed attempt here than anywhere else.
 | 9 | **Against other designs** | Accepted | `rank`, `diff:ref` | Spec 21 §13 and §24.4 |
 
 After **Run** only cards 1, 2, 4 and 5 are shown, built in the browser from the visible tests, so the fast loop of
-spec 21 §1 stays fast. After **Submit** all cards that apply are shown: cards 1 to 8 appear at once from the
-browser's pack. The server's pack, fetched once the learner opens the report, adds what needs every test: the
-hidden-test facts, the "a test checks this" tags, the waste sentence and card 9.
+spec 21 §1 stays fast. After **Submit** all cards that apply are shown: cards 1 to 5 appear at once from the
+browser's pack and are replaced by the server's when it arrives; cards 6 to 9 come from the server's pack.
 
 Under the cards sit the three calls to action of section 14.2 (the interviewer's review, defend your design, what
 next).
@@ -778,14 +767,14 @@ missed, the card's `good` answer, and the lesson link.
 
 Read section 3 again before this one. Everything here exists to keep V1, V2, V6, V7, V8 and V9 true.
 
-### 12.1 Three jobs
+### 12.1 Exactly four jobs
 
 | Job | When | Reads | Writes | May it say something about the design that is not a fact? |
 |---|---|---|---|---|
 | `review` | The learner asks for it after a Submit | Redacted pack; the problem block | 2 to 5 short items, each tied to facts, in priority order; one next step | No |
 | `grade` | End of a Defend session or of a mock's deep dive | The questions, their points, the learner's answers, the facts those questions rest on | Per point: met or not, with the learner's words quoted; contradictions of facts; two sentences of feedback | No |
 | `clarify` | Mock interview, stage 1 | The learner's questions; the problem's fact sheet (ids and topics only) | For each question: which fact-sheet entries answer it, or none | It writes no prose at all |
-| ~~`explain`~~ *(cut, section 25.3: the report already answers "why", and a free question box is the costliest thing to make safe)* | The learner asks one question about their report | Redacted pack; the lesson list | An answer of at most 80 words tied to facts, or "that is outside what the judge measured" | No |
+| `explain` *(later; owner decides)* | The learner asks one question about their report | Redacted pack; the lesson list | An answer of at most 80 words tied to facts, or "that is outside what the judge measured" | No |
 
 There is no chat. Each job is one request and one response.
 
@@ -795,22 +784,17 @@ facts, numbers, verdicts, scores.
 
 ### 12.2 What a request contains, in this order
 
-Keep every request **small enough to be cheap with no caching at all**: aim for under 5,000 input tokens. The
-provider can reuse (cache) an unchanged beginning, and the order below lets it, but at low traffic most calls will
-miss the cache, so never design a request that is only affordable when cached (decided, section 25.2).
+The order matters: the provider can reuse (cache) an unchanged beginning, which is most of the cost.
 
 1. **System text.** The same for every job and every problem. Role, the rules of 12.4 in plain words, the style
    rules, and how slots work. Carries `PROMPT_VERSION`.
-2. **Problem block.** The same for every request about one problem until that problem's content changes: title,
-   statement, constraints, the requests with their public numbers, a one-line glossary of the part kinds, and the
-   lesson list (id and title). **Never** the reference design, the editorial, the wrong designs or any hidden
-   test. Mark the end of this block as the cache boundary.
-3. **Request block.** The job's name; **only the authored material this job needs** (for `review`: the points and
-   `good` answer of the chosen variant of each decision present in this design, at most five cards; for `grade`:
-   the questions asked with their points; for `clarify`: the fact sheet's ids, topics and `asks`); the redacted
-   evidence pack as compact lines (`id | tone | say | f`), at most 40 facts chosen by tone (`fail`, `risk`, `good`,
-   `note`) then pack order; the learner's text, if any, between clear markers; the job's instruction and its
-   output schema.
+2. **Problem block.** The same for every request about one problem until that problem's content changes: title, statement,
+   constraints, the requests with their public numbers, a one-line glossary of the part kinds, the lesson list
+   (id and title), every decision card (all variants), and the problem's deep dives. **Never** the reference
+   design, the editorial, the wrong designs or any hidden test. Mark the end of this block as the cache boundary.
+3. **Request block.** The job's name; the redacted evidence pack as compact lines (`id | tone | say | f`), at most
+   60 facts chosen by tone (`fail`, `risk`, `good`, `note`) then pack order; the learner's text, if any, between
+   clear markers; the job's instruction and its output schema.
 
 Limits: learner text at most 1,200 characters per answer and 5 lines of 200 characters for clarifying questions;
 truncated on the server before the call, and the learner is told the limit in the box.
@@ -879,7 +863,7 @@ The verifier is the reason the report and the review can never disagree: both pr
 | `review` | **Template review**, built by `frontend/src/v3/review.js` from the pack: headline from the verdict fact; items = the first failing finding, then up to two `risk` facts by priority (`probe:durable` of tone `fail`, `probe:kill` with `down`, `probe:headroom` under 1.2, `margin` under 0.10), then one `good` fact; next step = the first complete repair, else the first repair, else the lesson of the first finding. Shown to free users always, and to anyone when the AI is off or fails. Marked "from the report", not "from the interviewer" |
 | `grade` | Tap mode: the card's choices (11.3) |
 | `clarify` | A list of the fact sheet's **topics** to tap ("Scale", "Freshness", "Durability", "Budget"…); tapping one reveals its sentences and counts as having asked |
-| ~~`explain`~~ | Cut |
+| `explain` | Not offered |
 
 ### 12.6 Same input, same output (V7)
 
@@ -910,10 +894,8 @@ callModel({ system, problemBlock, requestBlock, schema, maxOutputTokens }) → {
 - **Before writing this file, read the provider's current API reference** for: structured (schema-constrained)
   output; prompt caching and the minimum length of a cacheable prefix for the chosen model; stop reasons, including
   a refusal and running out of output tokens; rate-limit and overload errors. Do not write request shapes from
-  memory; they change. Use the provider's official SDK (decided, section 23 item 3): the backend already
-  installs one dependency, the MongoDB driver, with `npm ci`, so a second costs little, and retries, error types
-  and schema output are easy to get subtly wrong by hand. Pin its exact version, import it only in this file, and
-  import it lazily, so the API starts and serves everything else even if the package is missing.
+  memory; they change. Use the provider's official SDK if the owner allows the backend its first dependency
+  (section 23, decision 3); otherwise plain HTTPS through Node's `fetch`, in this one file.
 - Ask for schema-constrained JSON. Do not set sampling parameters (current models reject them). Use the lowest
   reasoning effort that passes the evaluation set of section 19.3.
 - One attempt, plus one retry after a short wait on a rate-limit, overload or network error. A hard timeout of
@@ -1040,7 +1022,7 @@ No pop-up, no blocked button.
 
 | State | What the learner sees |
 |---|---|
-| Idle | The button: "Ask the interviewer". A pass holder sees no price on it: the allowance is generous by design, and counting in front of the learner makes them ration something that costs us almost nothing. Only when fewer than ten uses remain does a quiet line under the card say how many. A free account sees "2 free left" |
+| Idle | The button, with what it costs: "Ask the interviewer · 1 credit · 12 left" |
 | Working | "The interviewer is reading your design…" with the shimmer of `theme/motion.css`; the report stays usable beneath. Typical wait 3 to 8 s, cut off at 25 s |
 | Done | The headline; then each item as a short paragraph with its evidence shown as small tags (the facts it cites: tapping a tag scrolls to that report row and lights the part); the item's `ask`, if any, in italics as "An interviewer would ask: …"; then "Do this next" with the repair and the lesson link |
 | Fallback | The template review, and: "The interviewer is unavailable right now. This summary comes from the report. No credit was used." |
@@ -1051,7 +1033,7 @@ A review is tied to a submission. Opening an old submission shows its stored rev
 ### 14.4 Defend
 
 1. **Start.** "Three questions about the design you just built. About four minutes." Two buttons: **Answer by
-   tapping** (free) and **Answer in your own words** ("Closer to a real interview."). On a phone the tap
+   tapping** (free) and **Answer in your own words** ("1 credit. Closer to a real interview."). On a phone the tap
    button is first. Defend is offered on an **Accepted** design; for a failing design the report and the review are
    the right tools.
 2. **Question 1 (predict).** The question, the diagram with the part in question outlined, the choices as large
@@ -1075,8 +1057,6 @@ Under the new requirement: …"), and a **change** question whose deep dive name
 it: part 2".
 
 ### 14.6 Mock interview
-
-**Deferred** (decided, section 25.3): designed here in full, built only when the gate of section 25.4 is met.
 
 The only mode with a clock, and the one where writing matters most. One problem, 40 minutes *(starting value;
 45 for hard problems)*, no Run, no hints, no editorial, one Submit.
@@ -1120,11 +1100,11 @@ review or a mark that seems wrong.
 
 ### 14.9 Events to record
 
-Through `frontend/src/analytics.js`, with its consent and field rules (no design text, no answer text). **Five
-events, decided (section 23 item 10)**, each chosen because a gate of section 25.4 or a measure of 19.4 reads it:
-`v3_report_open` (which card), `v3_show_me` (which probe), `v3_review` (source: interviewer or report; verdict;
-useful: yes, no or unanswered), `v3_defend_done` (mode: tap or write; passed of 3), `v3_daily_question` (right or
-wrong). The mock interview's events arrive with the mock.
+Through `frontend/src/analytics.js`, with its consent and field rules (no design text, no answer text):
+`v3_report_open` (card), `v3_show_me` (probe), `v3_review` (source: interviewer / report, verdict),
+`v3_review_useful` (yes / no), `v3_defend_start` (mode), `v3_defend_done` (passed of 3), `v3_mock_start`,
+`v3_mock_done` (bands), `v3_daily_question` (right / wrong), `v3_credit_out` (job). New event names need the
+owner's go-ahead under operating rule 4 if they change what the events collection stores.
 
 ---
 
@@ -1261,12 +1241,8 @@ and is never trusted for a mark.
 | `practice_ai_log` | Section 12.7's log line; no learner text | `{ at }` with expiry after 90 days |
 | `practice_ai_reports` | `{ user_id, key, reason, note, status, at }` | `{ status, at }` |
 
-**Decided (section 23 item 10): approved, and kept to the least that works.** No collection is created before the
-phase that needs it. Phases A and B need only `practice_evidence` (lazy, 30-day expiry) and `practice_defend`.
-The review adds `practice_ai`, `practice_credits` and `practice_ai_log`. `practice_skills` arrives with the daily
-question. `practice_mock` arrives only with the mock. Reports of a review go into the same collection as reports
-of a verdict (spec 21 §24.2, `practice_reports`) with a `kind` field, not into one of their own. The text of
-written answers is kept apart in `practice_answers` with a 90-day expiry (section 23 item 7); the marks stay.
+New collections are a change to the data model: confirm with the owner under operating rule 4 before the first
+pull request that adds one.
 
 ### 17.3 Limits
 
@@ -1287,8 +1263,7 @@ when a limit, the daily ceiling or the kill switch stops the call.
   result was stored; give it back when the floor was used. A cache hit (12.6) reserves nothing.
 - Until payments exist: a constant such as spec 21's `PRACTICE_ALL_PAID`, plus `AI_ALLOW`, so that the owner and
   chosen testers can use the interviewer in production while everyone else gets the floor.
-- A pass holder is not shown a price on each button; what is left is shown only when it runs low (14.3). A free
-  account always sees how many free uses remain.
+- The learner always sees what a button costs and what is left, on the button itself.
 
 ---
 
@@ -1324,9 +1299,9 @@ wrong designs, each wrong design with a stated reason. That is a ready-made set 
 | Set | Cases | Each case states |
 |---|---|---|
 | **Reviews** | Every reference and wrong design of every problem (60 to 80 cases) | The fact ids a good review must cite among its first two items (the first finding; for the reference, the tightest margin or the lowest headroom); facts it must not present as problems |
-| **Grades** | For every card variant and every deep dive that ships: four written answers: strong, middling, weak, and one that says something the facts disprove. With six cards and two deep dives a problem, about 130 cases at launch. The answers may be drafted offline by any capable model to save time; the implementing session reads each one and sets, by hand, which points it makes | For each point: met or not |
+| **Grades** | For every card variant and every deep dive: four written answers by the author: strong, middling, weak, and one that says something the facts disprove (about 200) | For each point: met or not |
 | **Injection** | 20 answers and 10 part names that try to change the marks or the instructions | Marks expected as if the injected text were ordinary words |
-| **Clarify** | For every problem: 15 questions, including five that no fact answers. Written with the mock interview, not before | The fact ids expected, or none |
+| **Clarify** | For every problem: 15 questions, including five that no fact answers | The fact ids expected, or none |
 
 Measured, three runs of every case:
 
@@ -1386,11 +1361,10 @@ together with a problem that needs it, with golden files, property tests and a `
 Each addition gives the evidence engine new probes for free (a slow-dependency probe with item 1, a duplicate
 delivery probe with item 2), and each needs new decision cards.
 
-**20.3 The canvas problems (decided, section 23 item 9).** The Practice judge is the one judge going forward. The
-22 Interview Questions on the canvas stay live and untouched; they get no v3 layer and no second adapter, because
-building for an engine that is on its way out is cost without lasting value. As the models of 20.2 land, each
-canvas problem is rewritten as a Practice problem; when all 22 exist there, the canvas is retired. Until then the
-canvas problems are simply the older, larger set, and Practice is where the evaluator's new work goes.
+**20.3 The canvas problems.** The 22 Interview Questions on the canvas keep working. They get the v3 layer through
+a second adapter (phase G) if the owner keeps the canvas; or they are rewritten as Practice problems over time as
+20.2 lands, which is the cleaner end state. That is the owner's call (spec 21 §19 item 6), and nothing in phases A
+to F depends on it.
 
 ---
 
@@ -1433,22 +1407,20 @@ cost. Build those first and put them in front of the same five friends as spec 2
 
 ---
 
-## 23. Decisions (taken 2026-11-13)
+## 23. For the owner to decide
 
-The owner: "Take decisions yourself. Make sure the value vs cost is optimised." Each was decided on that test.
-
-| # | Decision | Decided |
+| # | Decision | Recommendation |
 |---|---|---|
-| 1 | The shape: the judge decides, the evidence engine computes, the interviewer only chooses, words and marks against fixed points | **Yes** |
-| 2 | Build A and B (no AI) and test with five people before any AI work | **Yes.** They are most of the value at almost no running cost |
-| 3 | The AI provider's official SDK as the backend's second dependency | **Yes**, pinned, imported lazily in one file (12.7) |
-| 4 | Free and paid | **Free:** the whole report, "Show me", every tap question, the daily question, and 2 interviewer reviews per account in all (a taste). **Pass:** the interviewer's review and written answers. Numbers in the private repo |
-| 5 | The name on screen | **"The interviewer"**; never a model or company name |
-| 6 | Does a right daily question keep the streak? | **Yes** |
-| 7 | Keeping written answers | **90 days**, in `practice_answers`; marks kept with the session; deleted with the account; one paragraph on the privacy page |
-| 8 | Mock interview length, Run off | **40 minutes, Run off**, when it is built (deferred, 25.3) |
-| 9 | One judge in the end | **The Practice judge.** No v3 layer for the canvas (20.3) |
-| 10 | New collections and events | **Approved, minimal**: collections only when a phase needs them (17.2); five events (14.9) |
+| 1 | Confirm the shape: the judge decides, the evidence engine computes, the interviewer only chooses, words and marks against fixed points (section 2) | Yes |
+| 2 | Build A and B (no AI) and test them with five people before any AI work | Yes |
+| 3 | May the backend take its first dependency, the AI provider's official SDK, kept inside one file? | Yes: retries, errors and schema output are easy to get subtly wrong by hand |
+| 4 | What is free and what needs a pass: the report, tapping, the daily question (recommended free); the interviewer's review, written answers, the written mock (recommended paid). Credit weights and limits | Decide in the private notes; this file only needs the mechanism |
+| 5 | The name on screen for the AI: "the interviewer" | Yes; never a model or company name |
+| 6 | Does a right daily question keep the streak alive? | Yes: the streak's job is to bring people back |
+| 7 | Is the learner's written text kept, and for how long? | Keep with the session so they can re-read it; delete with the account; say so on the privacy page |
+| 8 | The mock interview's length and whether Run is off in it | 40 minutes; Run off |
+| 9 | One judge in the end (section 20) and the future of the canvas | Practice judge; port models when problems need them |
+| 10 | New collections and events (17.2, 14.9) under operating rule 4 | Approve before phase A's first pull request |
 
 ## 24. Decisions made while building
 
@@ -1599,59 +1571,3 @@ tech-katta-context/
   22-EVALUATOR-V3.md      this file: keep it true; record deviations in section 24
   tools/e2e/v3-*.js       browser checks
 ```
-
-## 25. Value against cost: what is built, deferred and cut
-
-Decided 2026-11-13. Where an earlier section disagrees, this section wins.
-
-### 25.1 The test applied
-
-Every feature was weighed on: value to a learner who is preparing for an interview; running cost per learner;
-build effort; risk to trust. The evidence engine is the best value in the file: it is what no competitor has,
-it runs in the learner's own browser, and it costs nothing per use. The AI is valuable only where code cannot
-do the job (choosing what matters most, marking written reasoning), so it is used there and nowhere else.
-
-### 25.2 Cost rules (binding on the build)
-
-1. **Compute in the browser.** All probes use visible phases, so the whole report except hidden-test facts and
-   waste is built on the learner's device (6.5). The server builds a pack only when the review, Defend or waste
-   needs one, and keeps it 30 days.
-2. **AI requests stay small**: under about 5,000 input tokens, only the cards the design uses, at most 40 facts
-   (12.2). Never rely on prompt caching to be affordable.
-3. **One call per job, cached by input** (12.6): the same design or answer never costs twice.
-4. **The floor first**: every AI button has a no-AI answer, used for free users, when out of allowance, or on any
-   failure. Allowance is returned when the floor is used.
-5. **The smallest model that passes the evaluation set** (19.3). If a line fails, narrow the job before choosing a
-   larger model.
-6. **No AI in tap mode, the report, the daily question or Defend's predict questions**, ever.
-
-### 25.3 Built, deferred, cut
-
-| Feature | Status | Why |
-|---|---|---|
-| Evidence pack, report cards 1 to 8, "Show me" | **Build first (phase A, B)** | Highest value; no running cost |
-| Probes: headroom, kills, growth, write surge | **Build (B)** | The core of the differentiator |
-| Waste probe | **Build (B), server, lazy** | Cheap; makes "cheaper than" meaningful |
-| Predict questions, Defend by tapping | **Build (B)** | Asks about the learner's own design for free |
-| Six decision cards (`cache.use`, `cache.ttl`, `cache.write`, `sql.sync`, `sql.spare`, `ids.kind`), why questions by tapping | **Build (C)** | Cover all ten problems; the other seven cards later |
-| Deep dives (change questions) | **Build (C), two per problem** | Content cost only |
-| Interviewer `review` | **Build (D)** | The single AI job with the clearest value |
-| Written answers, `grade` | **Build (D), with review** | The only way to check reasoning; one call per Defend session |
-| Skills strip, what next, one question a day | **Build (E)** | Brings learners back at no AI cost |
-| Mock interview, `clarify`, scorecard, fact sheets, estimates | **Defer** until the gate in 25.4 | Large build and content cost; value only once learners finish problems |
-| `explain` (free questions to the AI) | **Cut** | Costliest to make safe; the report already explains |
-| Canvas adapter (phase G) | **Cut** | The canvas is being replaced (20.3) |
-| The other seven decision cards | **Defer** to when a problem needs them | |
-
-### 25.4 Gates (measured with the events of 14.9)
-
-- **Start D (the interviewer)** when A and B are live and at least 30 % of learners who submit open a report card.
-- **Build the mock interview** when at least 20 % of Accepted designs are defended and at least 50 learners have
-  solved three problems or more.
-- **Stop or narrow an AI job** if its "useful" share stays under 60 % for a month, or its fallback rate is over 10 %.
-
-### 25.5 Build order after these decisions
-
-A (evidence, report) → B (probes, Show me, predict, Defend by tapping, waste) → five-friends test → C (six cards,
-deep dives, why by tapping) → D (review and written answers, behind `AI_ALLOW` first, then the pass) → E (skills,
-daily question). The mock interview only after its gate.

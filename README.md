@@ -43,6 +43,7 @@ This repository is **context**, not the application itself.
 - `25-PREMIUM-COLOUR-OPTIONS.md` — four premium palettes (owner, 2026-11-13: "The colour scheme ... does not look premium"), rendered on the real site (`ui-redesign/palettes/`). Round 2 studied 16 top sites; round 3 studied brilliant.org (the owner liked it). **Shipped P4, Brilliant-inspired (#334).**
 - `26-STAGE-DARK-FIRST-LAYOUT.md` — "the problem is with the white background … UI UX placement" (owner, 2026-11-13): three layout directions (`ui-redesign/15-17`), then **dark first** after "the upper part looks great, continue with it only". Dark hero with the live figure and the judge, numbers strip, picture tiles; one navigation (dark sidebar), a new dashboard home (continue reading, progress, up next). **Shipped in #336.**
 - `27-TOPIC-CARDS-AND-LIGHT-THEME.md` — "think for the light theme" and "animation cards for every topic … the pop-up will have limited textual content" (owner, 2026-11-13): light hero, header and sidebar follow the theme; an article opens as one moving card per section, a tap opens a sheet with at most three key points and the full section one tap away. **Shipped in #337.**
+- `28-KATTA-PAPER-COLOURS-BACK.md` — the owner liked the layout, cards and animations, and asked to try them with the earlier marigold and warm white colours: Katta Paper colour values back (light and dark), marigold buttons and TK squares, warm white as the default theme. Colours only. **Shipped in #338.**
 
 ## The evaluator specification
 
