@@ -5,7 +5,7 @@ check if we can buy a VPS of 500-600 Indian rupees per month, host an LLM and ro
 will be a delay in response, it is acceptable if we are going to sell subscriptions of our website at 199 rupees /
 month. Do full research and write a detailed .md file. Push it to tech-katta-context, not the private."
 
-**Status: research only. Nothing is rented, installed or built.** Every speed in this file is an **estimate**
+**Status: research only. Nothing is rented, installed or built. Decided the same day: hosted Claude Haiku 5.5, no VPS (see the next section and §11).** Every speed in this file is an **estimate**
 (labelled so) until §9's benchmark is run on the real box. Prices are third-party snapshots from
 September–November 2026 and move often (RAM prices pushed most VPS prices up in 2026, §3.1).
 
@@ -14,6 +14,24 @@ September–November 2026 and move often (RAM prices pushed most VPS prices up i
 > price the owner stated. It does **not** contain credit weights, per-pass limits or any number from the private
 > notes; those stay in `tech-katta-private`. Rule 6 still holds for code: the model id and limits come from the
 > environment.
+
+---
+
+## Decision (update, same day): at least 150 AI reviews per user per month
+
+The owner then set the target: **"give the user at least 150 AI powered reviews per user per month. Check what
+wins, and also decide on which LLM."** Section 11 has the working. The result:
+
+- **The hosted API wins.** At 150 reviews a user, the money is about the same either way (~₹15 a subscriber a
+  month), but the API answers in seconds instead of minutes, handles a learner doing ten reviews in a row, needs
+  no extra machines as users grow (one ₹600 box serves only ~40 subscribers who use all 150), and costs almost
+  nothing in the first months.
+- **The model: Claude Haiku 5.5** for `review` (and `clarify`), effort `low`, thinking off to start, structured
+  output, prompt caching on the system text and problem block. **₹0.05–0.14 a review; ₹7–21 a subscriber a month
+  even if every subscriber uses all 150** (4–13 % of the ~₹164 we keep). `grade` also starts on Haiku 5.5 and
+  moves to a larger model only if the evaluation set says so.
+- **Do not rent the VPS for this.** Keep the client in one file so a self-hosted model can be tried later if the
+  numbers change.
 
 ---
 
@@ -461,7 +479,126 @@ minutes on two evenings in a row: that is the signal for a second box.
 
 ---
 
-## 11. Sources
+## 11. Update: at least 150 AI reviews per user per month
+
+Owner, 2026-11-13: "I want to give the user at least 150 AI powered reviews per user per month. Check what wins,
+and also decide on which LLM."
+
+150 a month is about **5 reviews a day** per subscriber, eight times the "typical" profile of §6. Not everyone will
+use the whole allowance, so each row below is worked twice: **everyone uses all 150** (the worst case, which must
+still be safe) and **40 % use** (60 reviews, a planning guess until §14.9's events give the real figure).
+
+### 11.1 Self-hosted at 150 a user
+
+With 5 reviews a day and 12 % of a day's reviews in the evening peak hour, each subscriber sends ~0.6 reviews in
+that hour. A 4 vCPU box running a 4B model does ~35 cached reviews an hour and should stay under 70 % busy (§6):
+
+| Use of the 150 | Subscribers per ₹600 box | Box cost per subscriber | Boxes for 100 / 500 / 1,000 subscribers |
+|---|---|---|---|
+| All 150 | **~40** | **~₹15** | 3 / 13 / 25 |
+| 60 % (90) | ~70 | ~₹9 | 2 / 8 / 15 |
+| 40 % (60) | ~100 | ~₹6 | 1 / 5 / 10 |
+
+And what the numbers hide:
+
+- **Bursts.** A learner practising does several reviews in one sitting. Ten reviews on one box is ~17 minutes of
+  that box's time; everyone behind them waits. An API runs them side by side.
+- **Many machines.** 1,000 subscribers at full use is 25 boxes to patch, watch and route between.
+- **Small scale.** With 20 subscribers the one box still costs ₹600: ₹30 each, more than the API at full use.
+- **A smaller model to go faster** (1.7–2B, about twice the capacity) is too weak for `review` (§8.1).
+
+### 11.2 Hosted at 150 a user
+
+Haiku 5.5 counts the same text as ~30 % more tokens than older tokenizers, so one review is ~9,100 input tokens
+(~6,800 of them the cacheable system text and problem block) and ~450 output tokens with thinking off (~1,000
+with thinking at `low`). Prices from Anthropic's model table: $0.10 input, $0.50 output per million tokens; cache
+reads ~0.1× input, 5-minute cache writes 1.25× input; minimum cacheable prefix 512 tokens. ₹88 to the dollar.
+
+| Claude Haiku 5.5, one review | Thinking off | Thinking `low` |
+|---|---|---|
+| Prefix already cached | ₹0.05 | ₹0.07 |
+| No cache | ₹0.10 | ₹0.12 |
+| Cache written this time | ₹0.12 | ₹0.14 |
+| **150 reviews, per subscriber a month** | **₹7–17** | **₹11–21** |
+| 60 reviews (40 % use) | ₹3–7 | ₹4–8 |
+
+Other hosted models, same review (their own tokenizers, no cache, prices from aggregators except Sonnet):
+
+| Model | Per review | 150 a month | 60 a month | Note |
+|---|---|---|---|---|
+| **Claude Haiku 5.5** | ₹0.05–0.14 | **₹7–21** | ₹3–8 | Price checked on the provider's own table |
+| DeepSeek V4 Flash | ~₹0.10 | ~₹15 | ~₹6 | Similar cost; learner text goes to a provider in China, which is a privacy question for an Indian learner's answers |
+| Gemini 3.1 Flash-Lite | ~₹0.21 | ~₹32 | ~₹13 | About twice the cost |
+| Claude Sonnet 5.5 | ~₹1.6 | ~₹245 | ~₹98 | **Loses money at 150** (more than the ₹164 we keep). Only for `grade`, if needed, with its own small limit |
+
+### 11.3 What wins
+
+| | Self-hosted 4 vCPU box, 4B model | Hosted, Claude Haiku 5.5 |
+|---|---|---|
+| Cost per subscriber, all 150 used | ~₹15 (≈9 % of ₹164) | ₹7–21 (4–13 %) |
+| Cost per subscriber, 60 used | ~₹6 | ₹3–8 |
+| Cost with 20 subscribers | ₹600 (₹30 each) | ₹60–420 in all |
+| Wait per review | ~2 min alone, ~4 min at peak, much longer behind a burst | A few seconds |
+| Ten reviews in a row | Minutes each, and others wait | Seconds each |
+| Quality | A 4B model on a CPU, thinking off | A much larger model; effort can be raised per job |
+| Growing to 1,000 subscribers | 10–25 boxes to run | A spend limit and a rate-limit tier |
+| Worst case | Queues grow; learners get the floor | Bounded: ₹21 a subscriber even if all use 150 with no cache |
+| Independence and privacy | Better: nothing leaves our servers | Text goes to the provider (spec 22 §12.8 wording) |
+
+**The hosted model wins.** The cost is a tie within a few rupees either way, and on everything else the hosted
+model is ahead. The self-hosted box only wins on independence, and at 150 reviews a user it would have no spare
+capacity left to give free users, which was its other advantage in §10.1.
+
+### 11.4 Which model: Claude Haiku 5.5
+
+**Decision: Claude Haiku 5.5** (`claude-haiku-5-5`, set through `AI_MODEL` in the server's environment, never in
+code).
+
+Why: the lowest price per review among the options checked, with the price confirmed on the provider's own page;
+prompt caching from a 512-token prefix, which suits spec 22's fixed system text and problem block; structured
+(schema-constrained) output, which spec 22 §12.3 needs; a 1M context; seconds per answer. The cheapest models from
+other providers either cost about twice as much or send learner text to a provider in China.
+
+How to run it:
+
+| Setting | Start with | Why |
+|---|---|---|
+| Effort | `low` | Spec 22 §12.7: the lowest effort that passes the evaluation set |
+| Thinking | Off (`{type: "disabled"}`, accepted at effort `high` or below); compare with adaptive at `low` in the evaluation | Thinking tokens are billed as output; turn it on only where it raises the score |
+| Output | Structured output with the job's JSON schema | R1 cannot fail; the verifier still runs |
+| Caching | `cache_control` at the end of the problem block; 5-minute cache; check `cache_read_input_tokens` is not zero | Most of the input is the same for every review of a problem |
+| Refusals | `stop_reason: "refusal"` is a failure: show the floor, return the credit | There is no server-side fallback for Haiku 5.5 |
+| `grade` | Haiku 5.5 first; Claude Sonnet 5.5 only if Haiku misses the evaluation set's bar, with a separate low limit | `grade` is rarer than `review`; Sonnet at 150 a month would lose money |
+| Batches (50 % off) | Not now | It would halve the cost, but answers can take up to a day; keep it for a "review by tomorrow" option if ever wanted |
+
+The evaluation set (spec 22 §19.3) still runs before launch. Run it on Haiku 5.5 and one other model (DeepSeek V4
+Flash or Gemini Flash-Lite) as a check. Change the decision only if Haiku 5.5 misses the bar and the other model
+passes.
+
+### 11.5 Limits to go with 150
+
+The numbers below are the owner's to set (spec 22 §18). These are the guards the design needs:
+
+- **150 reviews a month per subscriber**, plus a daily cap (for example 20) so a script cannot spend a month in an
+  hour.
+- **A cache hit is free** (spec 22 §12.6): the same design asked twice does not count.
+- **A credit is spent only on a verified AI result**; the floor gives it back.
+- **`AI_DAILY_TOKEN_CAP`** for the whole site, set to about twice the expected daily use, so a bug cannot run up a
+  bill.
+- A **spend limit** on the provider account.
+
+### 11.6 What changes in this file's plan
+
+- Phase P0 (renting or claiming a box) is **dropped**. P1 (one-file client, async-capable jobs) and P2 (evaluation
+  set) stay, P2 run on Haiku 5.5 and one comparison model.
+- The async queue of §8.4 is no longer required for speed (Haiku answers within spec 22's 25-second timeout). Keep
+  spec 22 §12.7 as written.
+- §10.3 decision 1 is taken: **hosted, Claude Haiku 5.5**. Decisions 2 and 4 (a box for P0, free users on spare
+  capacity) fall away; 3 and 5 no longer apply.
+
+---
+
+## 12. Sources
 
 Checked 2026-11-13. Most price sources are third-party snapshots; the provider's own page is authoritative.
 
@@ -485,5 +622,5 @@ Models:
 - [Best CPU-only LLMs 2026](https://www.popularai.org/p/best-cpu-only-local-llm-2026), [PromptQuorum CPU guide](https://www.promptquorum.com/local-llms/best-cpu-only-llm), [Hugging Face, open models to run locally](https://huggingface.co/blog/daya-shankar/open-source-llm-models-to-run-locally)
 
 Hosted API prices:
-- Anthropic model table (Claude Haiku 5.5 $0.10 / $0.50, Claude Sonnet 5.5 $2 / $10 per million tokens, as of 2026-11-03)
+- Anthropic model table and prompt-caching reference (Claude Haiku 5.5 $0.10 / $0.50 per million tokens for prompts up to 100K, tokenizer ~30 % more tokens than Haiku 4.5, cache reads ~0.1× input, 5-minute writes 1.25×, 512-token minimum prefix, no server-side refusal fallback; Claude Sonnet 5.5 $2 / $10; as of 2026-11-03)
 - [Morph, LLM API prices Nov 2026](https://www.morphllm.com/llm-api), [BenchLM pricing](https://benchlm.ai/llm-pricing), [Gemini 3.1 Flash-Lite pricing](https://pricepertoken.com/pricing-page/model/google-gemini-3.1-flash-lite)
