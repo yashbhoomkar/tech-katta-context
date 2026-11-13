@@ -5,7 +5,7 @@ check if we can buy a VPS of 500-600 Indian rupees per month, host an LLM and ro
 will be a delay in response, it is acceptable if we are going to sell subscriptions of our website at 199 rupees /
 month. Do full research and write a detailed .md file. Push it to tech-katta-context, not the private."
 
-**Status: research only. Nothing is rented, installed or built. Decided the same day: hosted Claude Haiku 5.5, no VPS (see the next section and §11).** Every speed in this file is an **estimate**
+**Status: research only. Nothing is rented, installed or built. Decided the same day: a hosted model, no VPS (§11); the model is Meta Muse Ember 1.0 by default, confirmed by a three-company bake-off (§12).** Every speed in this file is an **estimate**
 (labelled so) until §9's benchmark is run on the real box. Prices are third-party snapshots from
 September–November 2026 and move often (RAM prices pushed most VPS prices up in 2026, §3.1).
 
@@ -26,10 +26,13 @@ wins, and also decide on which LLM."** Section 11 has the working. The result:
   month), but the API answers in seconds instead of minutes, handles a learner doing ten reviews in a row, needs
   no extra machines as users grow (one ₹600 box serves only ~40 subscribers who use all 150), and costs almost
   nothing in the first months.
-- **The model: Claude Haiku 5.5** for `review` (and `clarify`), effort `low`, thinking off to start, structured
-  output, prompt caching on the system text and problem block. **₹0.05–0.14 a review; ₹7–21 a subscriber a month
-  even if every subscriber uses all 150** (4–13 % of the ~₹164 we keep). `grade` also starts on Haiku 5.5 and
-  moves to a larger model only if the evaluation set says so.
+- **The model: Meta Muse Ember 1.0 by default, decided by a bake-off** (§12, after the owner asked for a check
+  without bias towards any one company). Three models cost exactly the same per token ($0.10 in / $0.50 out):
+  Muse Ember 1.0, Claude Haiku 5.5 and GPT-6 Luna. On the public benchmark Muse Ember scores as high as Haiku 5.5's
+  best setting at about a third of the cost per task and is much faster; GPT-6 Luna scores lower at every
+  setting. **About ₹6–12 a subscriber a month even if every subscriber uses all 150.** Before launch, run spec 22's
+  evaluation set on Muse Ember 1.0, Claude Haiku 5.5 and DeepSeek V4.1 Flash, and keep Muse Ember unless another
+  wins on our own tasks. (§11.4's first pick of Haiku 5.5 compared prices only; §12 replaces it.)
 - **Do not rent the VPS for this.** Keep the client in one file so a self-hosted model can be tried later if the
   numbers change.
 
@@ -533,7 +536,7 @@ Other hosted models, same review (their own tokenizers, no cache, prices from ag
 
 ### 11.3 What wins
 
-| | Self-hosted 4 vCPU box, 4B model | Hosted, Claude Haiku 5.5 |
+| | Self-hosted 4 vCPU box, 4B model | Hosted (Claude Haiku 5.5 shown; §12 compares the others, which are similar or cheaper) |
 |---|---|---|
 | Cost per subscriber, all 150 used | ~₹15 (≈9 % of ₹164) | ₹7–21 (4–13 %) |
 | Cost per subscriber, 60 used | ~₹6 | ₹3–8 |
@@ -549,9 +552,12 @@ Other hosted models, same review (their own tokenizers, no cache, prices from ag
 model is ahead. The self-hosted box only wins on independence, and at 150 reviews a user it would have no spare
 capacity left to give free users, which was its other advantage in §10.1.
 
-### 11.4 Which model: Claude Haiku 5.5
+### 11.4 Which model: Claude Haiku 5.5 (superseded by §12)
 
-**Decision: Claude Haiku 5.5** (`claude-haiku-5-5`, set through `AI_MODEL` in the server's environment, never in
+> **Superseded the same day by §12.** This first pick compared prices only and missed two models at the
+> identical price. The settings table below still applies to whichever model wins §12's bake-off.
+
+**First pick: Claude Haiku 5.5** (`claude-haiku-5-5`, set through `AI_MODEL` in the server's environment, never in
 code).
 
 Why: the lowest price per review among the options checked, with the price confirmed on the provider's own page;
@@ -589,16 +595,148 @@ The numbers below are the owner's to set (spec 22 §18). These are the guards th
 
 ### 11.6 What changes in this file's plan
 
-- Phase P0 (renting or claiming a box) is **dropped**. P1 (one-file client, async-capable jobs) and P2 (evaluation
-  set) stay, P2 run on Haiku 5.5 and one comparison model.
-- The async queue of §8.4 is no longer required for speed (Haiku answers within spec 22's 25-second timeout). Keep
+- Phase P0 (renting or claiming a box) is **dropped**. P1 (one-file client) and P2 (evaluation set) stay; P2 becomes
+  §12.4's bake-off.
+- The async queue of §8.4 is no longer required for speed (a hosted model answers a job this size within spec 22's 25-second timeout; the bake-off checks p95). Keep
   spec 22 §12.7 as written.
-- §10.3 decision 1 is taken: **hosted, Claude Haiku 5.5**. Decisions 2 and 4 (a box for P0, free users on spare
+- §10.3 decision 1 is taken: **hosted** (the model is chosen in §12). Decisions 2 and 4 (a box for P0, free users on spare
   capacity) fall away; 3 and 5 no longer apply.
 
 ---
 
-## 12. Sources
+## 12. Which hosted model, without bias
+
+Owner, 2026-11-13: "Check about the other LLM models. Don't be biased just because you are from Anthropic", with
+the LiteLLM model catalogue (models.litellm.ai) as the reference. This section was written by a Claude model, so
+every number in it comes from a third party: prices from LiteLLM's catalogue (`model_prices_and_context_window.json`,
+read 2026-11-13; each entry cites the provider's pricing page), quality from the Artificial Analysis leaderboard
+(Intelligence Index v5.0.1, read 2026-11-13).
+
+### 12.1 Price of one review
+
+Same job for every model: 7,000 input tokens (5,200 cacheable), 450 output tokens, ₹88 to the dollar. Claude Haiku
+5.5's input is counted 1.3× because its tokenizer counts the same text as more tokens; the other models'
+tokenizers are taken as equal (not measured). Reasoning tokens are not included: they depend on the effort setting
+and add to every model's output.
+
+| Model (provider) | $ per million: in / out / cache read | One review: cached / not | 150 reviews a month |
+|---|---|---|---|
+| **Meta Muse Ember 1.0** (Meta) | 0.10 / 0.50 / 0.004 | ₹0.037 / ₹0.081 | **₹6–12** |
+| **GPT-6 Luna** (OpenAI) | 0.10 / 0.50 / 0.01 | ₹0.040 / ₹0.081 | ₹6–12 |
+| **Claude Haiku 5.5** (Anthropic) | 0.10 / 0.50 / 0.01 | ₹0.046 / ₹0.100 | ₹7–15 |
+| **DeepSeek V4.1 Flash** (DeepInfra, US host of the open weights) | 0.14 / 0.42 / 0.0042 | ₹0.041 / ₹0.103 | ₹6–15 |
+| DeepSeek V4.1 Flash (DeepSeek, Together, Azure and most hosts) | 0.30 / 1.20 / 0.006 | ₹0.098 / ₹0.232 | ₹15–35 |
+| Qwen3.8 Flash (Alibaba DashScope) | 0.15 / 0.47 / 0.016 | ₹0.050 / ₹0.111 | ₹8–17 |
+| GLM-5.3-Flash (Z.ai) | 0.15 / 0.50 / 0.03 | ₹0.057 / ₹0.112 | ₹9–17 |
+| MiniMax-M3.1-Flash (MiniMax) | 0.15 / 0.60 / 0.015 | ₹0.054 / ₹0.116 | ₹8–17 |
+| Gemini 3.1 Flash-Lite (Google) | 0.25 / 1.50 / 0.025 | ₹0.110 / ₹0.213 | ₹17–32 |
+| Gemini 3.5 Flash-Lite (Google) | 0.30 / 2.50 / 0.03 | ₹0.160 / ₹0.284 | ₹24–43 |
+
+Older models are cheaper still (GPT-5 nano at $0.05 / $0.40, Gemini 2.5 Flash-Lite at $0.10 / $0.40) but are a
+generation behind, and GPT-5 nano's deprecation date is 2026-12-11. Every model in the table costs **under 25 %
+of the ~₹164 kept** at 150 reviews; the top four cost **under 10 %**. Price separates the field only at the bottom.
+
+### 12.2 Quality
+
+Artificial Analysis Intelligence Index v5.0.1 (higher is better), its cost per index task and time per task. The
+index measures hard reasoning and agentic tasks, which is harder than our short, structured jobs, so treat it
+as a ranking hint, not a forecast of our scores.
+
+| Model (setting) | Index | Cost per index task | Time per task | First answer token |
+|---|---|---|---|---|
+| Meta Muse Ember (max) | **36** | $0.14 | 3.2 min | 4.9 s |
+| Meta Muse Ember (xhigh) | 34 | $0.12 | 2.7 min | 4.0 s |
+| Claude Haiku 5.5 (max) | **36** | $0.41 | 14.7 min | 176 s |
+| Claude Haiku 5.5 (xhigh) | 35 | $0.25 | 9.7 min | 55 s |
+| Claude Haiku 5.5 (high) | 30 | $0.16 | 6.5 min | 22 s |
+| Claude Haiku 5.5 (medium) | 25 | $0.09 | 4.0 min | 11 s |
+| Claude Haiku 5.5 (low) | 19 | $0.04 | 2.2 min | 7 s |
+| DeepSeek V4.1 Flash 1017 (max) | 33 | $0.60 | 14.8 min | 44 s |
+| DeepSeek V4.1 Flash 1017 (high) | 29 | $0.46 | 11.7 min | 21 s |
+| DeepSeek V4.1 Flash 1017 (non-reasoning) | 19 | $0.43 | 7.7 min | 1.4 s |
+| Qwen3.8-Flash-Next | 29 | $0.57 | 35.9 min | 94 s |
+| MiniMax-M3.1-Flash | 29 | $0.49 | 16.6 min | 55 s |
+| GLM-5.3-Flash | 28 | $0.58 | 48.6 min | 97 s |
+| GPT-6 Luna (max) | 28 | $0.15 | 11.8 min | 79 s |
+| GPT-6 Luna (high) | 21 | $0.07 | 5.6 min | 13 s |
+| GPT-6 Luna (medium) | 18 | $0.04 | 3.5 min | 6 s |
+| GPT-6 Luna (low) | 10 | $0.005 | 0.6 min | 3 s |
+| Gemini 3.5 Flash-Lite | 12 | $0.69 | 1.7 min | 4.7 s |
+| Mistral Small 4 | 4 | $0.04 | 1.7 min | 8.7 s |
+| gpt-oss-120b (high) | 4 | $0.35 | 7.9 min | 15 s |
+
+Gemini 3.1 Flash-Lite was not in the part of the leaderboard that could be read. No instruction-following
+(IFBench) or long-context scores were shown for these models.
+
+### 12.3 What the numbers say
+
+- **Muse Ember 1.0** matches the best Haiku 5.5 score (36) at about a third of the cost per task and about a
+  fifth of the time, has the cheapest cache reads (0.04× input), and supports schema-constrained output (LiteLLM
+  marks `supports_response_schema`). On public data it is the strongest value of the cheap tier.
+- **Claude Haiku 5.5** reaches the same top score but spends more tokens and time getting there. At the low and
+  medium settings our jobs would use, it scores clearly above GPT-6 Luna at the same setting (19 vs 10 at low,
+  25 vs 18 at medium). Its tokenizer makes the same text ~30 % more expensive than the list price suggests.
+- **GPT-6 Luna** costs the same per token as the two above but scores lower at every setting (28 at max).
+- **DeepSeek V4.1 Flash** is the best open-weights option (33 at max). Open weights mean many hosts compete on
+  price (DeepInfra in the US is among the cheapest) and learner text need not go to a host in China. Slower and
+  more expensive per index task than Muse Ember.
+- **Qwen3.8 Flash, GLM-5.3-Flash and MiniMax-M3.1-Flash** score 28–29 at similar per-token prices but are very slow
+  per task (36–49 minutes on the index, ~1.5 minutes to the first answer token).
+- **Gemini Flash-Lite** (3.5: index 12 at three times the per-token price) and the Mistral and gpt-oss models are
+  out on value for this job.
+
+### 12.4 Decision
+
+**Default: Meta Muse Ember 1.0.** **Bake-off before launch** between three finalists from three different
+companies:
+
+| Finalist | Why it is in the final |
+|---|---|
+| Meta Muse Ember 1.0 | Best public quality per rupee; fast; cheapest cache |
+| Claude Haiku 5.5 | Same top score; strong at low and medium settings |
+| DeepSeek V4.1 Flash (on a US host) | Best open-weights model; the only finalist we could also self-host later |
+
+GPT-6 Luna can be added as a fourth if the bake-off is cheap enough (it costs the same per token).
+
+How the bake-off decides (spec 22 §19.3's evaluation set, about 50 cases, each run 5 times, every model at
+effort `low` and then `medium`):
+
+1. **Hard gates:** zero prompt-injection successes; schema-valid output on every case; refusals under 1 %.
+2. **Score:** share of `review` items that survive the verifier (R2–R5), and agreement of `grade` marks with the
+   authored answers.
+3. **Then cost per verified review** (not per call: a cheap answer the verifier throws away costs a retry or a
+   fallback), then **p95 time** (must stay under spec 22's 25 seconds).
+4. Muse Ember stays unless another finalist beats it by more than the noise between the 5 runs on step 2, or
+   Muse Ember fails a gate.
+
+The whole bake-off costs a few hundred rupees at these prices.
+
+### 12.5 Things to check before signing up, whichever wins
+
+- **The provider's data terms:** is learner text kept, for how long, and is it used for training? Prefer a
+  setting with no training use. Spec 22 §12.8's privacy wording names "our AI provider" either way.
+- **Payment from India:** card in USD, forex markup, GST under reverse charge.
+- **Rate limits** at the starting tier: the evening peak at 1,000 subscribers using 150 a month is ~600 reviews
+  an hour, about 10 a minute. All four providers' entry tiers should cover this; check before launch.
+- **Model lifetime:** pin a dated model id where the provider offers one, and watch deprecation dates (GPT-5 nano
+  ends 2026-12-11).
+- **A newer, smaller company's API** (Muse Ember's developer platform is newer than the others): check its
+  uptime. The floor (spec 22 §12.5) covers outages, and the bake-off's runner-up is the fallback model.
+
+### 12.6 What changes in code (spec 22 §12.7)
+
+- Keep the one-file client, but make it **provider-neutral**: the model, base URL and key come from the
+  environment (`AI_MODEL`, `AI_BASE_URL`, `AI_API_KEY`), so the bake-off and any later switch are configuration
+  changes. Most providers accept the OpenAI-compatible chat API; where one needs its own request shape (for
+  example its caching marker), keep that inside the same file.
+- This changes spec 22 §23 decision 3 (one provider's official SDK): with a provider-neutral client, plain HTTPS
+  through Node's `fetch` is simpler than carrying several SDKs. The rule of one file stays.
+- The cache key (spec 22 §12.6) already includes a model fingerprint, so switching model never shows an old
+  model's answer as the new one's.
+
+---
+
+## 13. Sources
 
 Checked 2026-11-13. Most price sources are third-party snapshots; the provider's own page is authoritative.
 
@@ -623,4 +761,6 @@ Models:
 
 Hosted API prices:
 - Anthropic model table and prompt-caching reference (Claude Haiku 5.5 $0.10 / $0.50 per million tokens for prompts up to 100K, tokenizer ~30 % more tokens than Haiku 4.5, cache reads ~0.1× input, 5-minute writes 1.25×, 512-token minimum prefix, no server-side refusal fallback; Claude Sonnet 5.5 $2 / $10; as of 2026-11-03)
+- [LiteLLM model catalogue](https://models.litellm.ai/), data file `model_prices_and_context_window.json` in BerriAI/litellm (read 2026-11-13): per-token, cache-read prices and `supports_response_schema` for every model in §12.1
+- [Artificial Analysis leaderboard](https://artificialanalysis.ai/leaderboards/models), [Claude Haiku 5.5](https://artificialanalysis.ai/models/claude-haiku-5-5), [GPT-6 Luna](https://artificialanalysis.ai/models/gpt-6-luna) (Intelligence Index v5.0.1, read 2026-11-13; the leaderboard read was partial)
 - [Morph, LLM API prices Nov 2026](https://www.morphllm.com/llm-api), [BenchLM pricing](https://benchlm.ai/llm-pricing), [Gemini 3.1 Flash-Lite pricing](https://pricepertoken.com/pricing-page/model/google-gemini-3.1-flash-lite)
