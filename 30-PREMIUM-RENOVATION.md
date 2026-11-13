@@ -161,7 +161,8 @@ Shipped (all merged and checked live, 2026-11-14):
 | A fonts and typesetting | #343 | `a819f6f20489b7346bfa9acd90dfa846ca7f601d` |
 | B motion and depth | #344 | `678667baf25b408af421416a56c62a31652dd982` |
 | C+D landing, shell, reading | #345 | `d56cb182738ad6fd824e0c3084f27010eb1d53b6` |
-| docs (theme README, Design.md) | #346 | — |
+| docs (theme README, Design.md) | #346 | `e2e6191fa61e3f7a1cd4fc8d187b3681ec8bbd6a` |
+| E sliding sidebar marker, header that firms up, numbered landing sections | #347 | `ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a` |
 
 Built differently from the plan, with reasons:
 - §4.1 scroll reveal uses scroll-driven animations (`animation-timeline: view()`, already used on the landing)
@@ -173,5 +174,11 @@ Built differently from the plan, with reasons:
 - `premium.css` selectors start with `:root:not(#_)` (the weight of one id): the page stylesheets carry several
   layers of older `:hover` rules from earlier redesigns (#309, #334–#338) at up to four classes.
 
-Left for later: a header that firms up after scrolling, numbered section eyebrows on the landing, a sliding active
-marker in the sidebar, a check in Safari and Firefox and on a real mid-range phone.
+Part E (owner: "Proceed", 2026-11-14), #347: the sidebar's active fill is one marker that slides between rows and
+morphs across page changes (`SideMark` in `dashboard/shell.jsx`, measured from its own parent because a child's layout
+effect runs before the parent's ref is attached); the landing header has no edge at the top and gains its hairline and
+shadow as you scroll (scroll-driven; a fully clear header showed the beige page as a band above the lighter hero, so
+only the edge animates); landing sections are numbered ("— 01 —", "02 |", a CSS counter).
+
+Left for later: a check in Safari and Firefox (only Chromium is installed in the session container) and on a real
+mid-range phone; the owner's verdict on the look.

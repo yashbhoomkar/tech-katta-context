@@ -1613,6 +1613,9 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   press, glow, focusing headline, scroll arrivals, link underlines), page rise on navigation.
 - **#345** (`d56cb182738ad6fd824e0c3084f27010eb1d53b6`): landing hero and section titles, sans interface labels,
   reading view (37 em measure, 17.5 px, serif headings).
+- **#347** (`ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a`, after the owner's "Proceed"): sliding sidebar marker, header
+  that gains its hairline on scroll, numbered landing sections; checked locally and on production (marker matches the
+  active row on home, Concepts, Problems and folded; 6 pages × 3 setups, no errors). Ledger frontend 940, backend 696.
 - Checked locally on every part: frontend 382 / backend 114 tests, build; 6 pages × desktop light, desktop dark,
   Pixel 7: no page errors, every figure drawn; sideways scroll 320–1440 px on 6 pages: none; reduced motion: nothing
   animates. Checked on production after #345: the same 6 pages × 3 setups with no page errors, dark mode by the

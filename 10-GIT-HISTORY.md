@@ -998,3 +998,5 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #343: premium renovation A: Instrument Sans, Source Serif 4, Geist Mono, matched fallbacks, preloads (spec 30); squash `a819f6f20489b7346bfa9acd90dfa846ca7f601d` (2026-11-14, front end only).
 - PR #344: premium renovation B: motion tokens and `theme/premium.css` (spec 30 §4); squash `678667baf25b408af421416a56c62a31652dd982` (2026-11-14, front end only).
 - PR #345: premium renovation C and D: landing, shell labels, reading view (spec 30 §5); squash `d56cb182738ad6fd824e0c3084f27010eb1d53b6` (2026-11-14, front end only).
+- PR #346: docs for the renovation (theme README, Design.md); squash `e2e6191fa61e3f7a1cd4fc8d187b3681ec8bbd6a` (2026-11-14, docs only).
+- PR #347: premium renovation E: sliding sidebar marker, header that firms up on scroll, numbered landing sections; squash `ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a` (2026-11-14, front end only).
