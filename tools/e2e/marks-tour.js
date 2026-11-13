@@ -6,7 +6,7 @@ async function drag(p,cdp,x0,y0,x1){await cdp.send("Input.dispatchTouchEvent",{t
 for(const t of ["light","dark"]){const p=await b.newPage({viewport:{width:1366,height:900}});p.on("pageerror",e=>errs.push(e.message));await p.addInitScript(t=>{try{localStorage.setItem("tk-theme",t);localStorage.setItem("tk-tour-seen","1")}catch{}},t);
 await p.goto(base+"/dashboard/concepts/",{waitUntil:"networkidle"});await p.waitForTimeout(500);
 ok(t+": six section marks in the sidebar",await p.locator(".side-link .ico-mark").count()===6);
-const dot=await p.locator(".side-link.active .ico-dot").evaluate(e=>getComputedStyle(e).fill);ok(t+": the current section's dot is the accent (spec 26, 27)",/rgb\(165, 161, 255\)|rgb\(79, 70, 229\)/.test(dot),dot);
+const dot=await p.locator(".side-link.active .ico-dot").evaluate(e=>getComputedStyle(e).fill);ok(t+": the current section's dot is the accent, ochre or marigold (spec 28)",/rgb\(148, 96, 10\)|rgb\(255, 194, 51\)/.test(dot),dot);
 await p.locator(".side").screenshot({path:`/tmp/shots/marks-${t}.png`});await p.close()}
 const c=await b.newContext({...devices["Pixel 7"]});const p=await c.newPage();const cdp=await c.newCDPSession(p);p.on("pageerror",e=>errs.push(e.message));
 await p.goto(base+"/dashboard/concepts/",{waitUntil:"networkidle"});await p.waitForTimeout(500);
