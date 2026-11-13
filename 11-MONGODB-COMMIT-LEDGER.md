@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #327): `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #329): `frontend_git_commits` 888, `backend_git_commits` 682 (#328, #329: 6 frontend rows; table below). Before that, after #327: `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -1336,6 +1336,17 @@ Counts after these: frontend 709, backend 566.
 | #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
 | #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
 | #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
+### PRs #328–#329 (2026-11-13): recorded (frontend only)
+
+| PR | SHA | Value |
+|---|---|---|
+| #328 | `41442369f20bc78dcd246821d9b1e42984a18db3` | Scenes for error and empty states |
+| #328 | `78ace04fbe10f07376de077ae38a8f9ed8fa6660` | Sync branch |
+| #328 | `6369efba1b01e96c900e9a0e21ff99153eb78204` | Squash merge #328 |
+| #329 | `003ea295f2791bdda2f65f931d2a57bb58a93311` | Share as image after Accepted |
+| #329 | `3e45cef07a19bd9cd344409bbe993bd46952c7e9` | Sync branch |
+| #329 | `35bc56853cb44ba8fdefd193d0a00ad0ab5ae689` | Squash merge #329 |
 
 ### PRs #325–#327 (2026-11-13): recorded
 
