@@ -1662,6 +1662,13 @@ when seen (`theme/CountUp.jsx`; screen readers get the total; none under reduced
 the marker the day it grows. Verified on production: `landing-counts.js` 6/6. The streak marker was not seen in a
 browser (it needs sign-in). Ledger: frontend 891, backend 682.
 
+**Update (after #331–#333; owner: "Do all the pending items"):** `main` = `0a67178c7566cb45dcabe386f36977ccbfd8bcc1`.
+#331: section marks in the sidebar; the tour card follows a swipe on phones. #332, #333: portrait phone versions
+(`figs/phone.jsx`) of the first figure of 33 articles (20 Interview Questions, 13 flows elsewhere); the 27 others are
+not flows and keep the sideways frame. Verified locally: `marks-tour.js` 7/7, `phone-figures.js` 33/33 articles plus
+desktop and reduced motion; on production the new code is live (bundle). Spec 24 is done; what remains and why is in
+its status section. Ledger: frontend 900, backend 682.
+
 ## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
 
 - `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,

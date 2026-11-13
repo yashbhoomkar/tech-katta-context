@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #330): `frontend_git_commits` 891, `backend_git_commits` 682 (#330: `d190370c3cd251fac58f214c31257293f3aceb25`, sync `220a7af7a7cc33bdb221ff0f1ae321957a74fcd0`, squash `8986c1f9ef921705461b7272c2f2c222c0e2e0ce`, frontend only). Before that, after #329: `frontend_git_commits` 888, `backend_git_commits` 682 (#328, #329: 6 frontend rows; table below). Before that, after #327: `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #333): `frontend_git_commits` 900, `backend_git_commits` 682 (#331–#333: 9 frontend rows; table below). Before that, after #330: `frontend_git_commits` 891, `backend_git_commits` 682 (#330: `d190370c3cd251fac58f214c31257293f3aceb25`, sync `220a7af7a7cc33bdb221ff0f1ae321957a74fcd0`, squash `8986c1f9ef921705461b7272c2f2c222c0e2e0ce`, frontend only). Before that, after #329: `frontend_git_commits` 888, `backend_git_commits` 682 (#328, #329: 6 frontend rows; table below). Before that, after #327: `frontend_git_commits` 882, `backend_git_commits` 682 (#325–#327: 9 frontend rows, 2 backend rows for #325; table below). Before that, after #324: `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -1336,6 +1336,20 @@ Counts after these: frontend 709, backend 566.
 | #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
 | #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
 | #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
+### PRs #331–#333 (2026-11-13): recorded (frontend only)
+
+| PR | SHA | Value |
+|---|---|---|
+| #331 | `bdacd96fc9f347c560de2dbb8534c947c424b346` | Section marks; tour card swipe |
+| #331 | `2871ba9585589098cc991c3717cd375d7c6990e3` | Sync branch |
+| #331 | `e56c85ab4143072f12994c0b4ee9201a01386362` | Squash merge #331 |
+| #332 | `5be8c2508aebd4c1a46cedfcb4cb2c901358f0dc` | Phone figures batch 1 |
+| #332 | `2f707e2f156dbdeb728425a150edb734fab28855` | Sync branch |
+| #332 | `ff6fc8ff24d929273adfc80de9a166127febbe89` | Squash merge #332 |
+| #333 | `833d264c5b3df1d4d7bbba6a6af0c2ba70f9404d` | Phone figures batch 2 |
+| #333 | `97bdb3d25420af69d9c90f6dbbc58b33712edac0` | Sync branch |
+| #333 | `0a67178c7566cb45dcabe386f36977ccbfd8bcc1` | Squash merge #333 |
 
 ### PRs #328–#329 (2026-11-13): recorded (frontend only)
 
