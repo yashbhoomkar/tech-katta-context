@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-13, after #322): `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
+Latest count (2026-11-13, after #324): `frontend_git_commits` 873, `backend_git_commits` 680 (#323 and #324: 7 rows, frontend only; table "PRs #323–#324" below). Before that, after #322: `frontend_git_commits` 866, `backend_git_commits` 680 (#320 `846ee2d815ac81a8cef06eaa8539ff2128013acd` in both; #321 `37b148b1e36d9fa92945fa365362766dbcd6160d` and #322 `4bc95ccb87a7e2b2f64b6b8ffb58697e1391617b` frontend). (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -1336,6 +1336,18 @@ Counts after these: frontend 709, backend 566.
 | #278 | `b52088cbc46223854625061f0f0a0fcee69335a1` | Faster first load, a stale-article race, accessibility and figure warnings |
 | #278 | `fcc5084ffc6c7c86f1357381747d40b02555d8a5` | Sync branch |
 | #278 | `4355c31fdab84cf1eb40223eedb91484f1feec70` | Merge PR #278 |
+
+### PRs #323–#324 (2026-11-13): recorded (frontend only; no backend or content change)
+
+| PR | SHA | Value |
+|---|---|---|
+| #323 | `f941277353644c7089d846e98d8361245fc41e22` | Swipes and figure steps: gesture.js, step controls, drawer and full screen follow the finger |
+| #323 | `c68970fa10856a1e6483bb49756746aabf9567ab` | Practice on phones: panes swipe; a drag past its limit never goes |
+| #323 | `6625475c332f9e6e0c43dc03f8a17a887cf3743f` | Sync branch after #323 |
+| #323 | `a8e1da41db26db0431fc475ec74666e360585a8e` | Squash merge #323 |
+| #324 | `fe011d32a8522e50575e0ec77cd95b92505f90ea` | Motion polish: cross-fades, contents marker, stars |
+| #324 | `9ecab8577451a8eb3bc8f8efdb93cc64051d2d33` | Sync branch after #324 |
+| #324 | `41bef78edc063d661c03827d40f927c6f5b49cb9` | Squash merge #324 |
 
 ### PR #277 (2026-11-09): recorded (both collections)
 
