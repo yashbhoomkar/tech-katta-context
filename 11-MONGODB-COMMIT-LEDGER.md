@@ -29,7 +29,7 @@ History database:
 
 ## Current observed collections
 
-Latest count (2026-11-12, after #316): `frontend_git_commits` 853, `backend_git_commits` 673.
+Latest count (2026-11-13, after #319): `frontend_git_commits` 863, `backend_git_commits` 679. (#318, merged by another session right after, is not recorded by the #317 session.)
 
 Current live counts checked 2026-10-12:
 
@@ -942,6 +942,26 @@ every commit that touches `backend/` or `content/`.
 
 Counts after: **frontend 722, backend 613**, no duplicate keys. Commits on working branches that never reached
 `main` (old worker branches) were not checked.
+
+### PR #319 (2026-11-13): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #319 | both | `3c4fbfd22f671e8cdee39bd816986ded1990190a` | steps 6–7: autocomplete, streak |
+| #319 | both | `7d9cc2b7c8cd58cf40b610917ab4059a9183f9a3` | step 8: problems 2–10, judge version 2, sweep grid |
+| #319 | both | `87772471bbc39e9bd87c80bbc04f8909d62a4898` | squash merge |
+| #319 | frontend | `2ca43df42ee2da9196a104a44e7682234323608e` | sync merge (no diff against main) |
+
+### PR #317 (2026-11-12): recorded
+
+| PR | Collections | SHA | Value |
+|---|---|---|---|
+| #317 | both | `0ad6e01dea2b0f5da0e6b2a02db989b19bb9cc0b` | steps 1–3: TKD engine, problem 1, checker, sweep tool |
+| #317 | both | `6b97260f2fcc6847666eef081ba317dd0a3833ce` | step 4: `/v1/practice` API |
+| #317 | frontend | `2a7ff7304d1234cc6264973f8eeb91cfdddb9b1d` | steps 5a/5b: Builder and pages |
+| #317 | both | `3c695369dee53478d619d9df4a05de1b55039bcd` | squash merge |
+| #317 | frontend | `c3301e3323708e76fe92486d7839af31e4717301` | sync merge (`-s ours`; kept older copies of #318's files) |
+| #317 | frontend | `4440d780779fcf52c4275cae2fe8f2dbd7324ba3` | restore #318's files on the branch (no change against main) |
 
 ### PR #316 (2026-11-12): recorded (docs only; it touched `content/README.md`, so both collections)
 

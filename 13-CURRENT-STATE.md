@@ -1599,6 +1599,38 @@ Dated sections for #224–#261 were not written here; `17-SESSION-HANDOVER.md` �
   once. Ledger: frontend 704, backend 563.
 
 
+## Production snapshot — 2026-11-13 (after PR #319, Practice steps 6–8)
+
+- `main` = `87772471bbc39e9bd87c80bbc04f8909d62a4898` (#319, squash). API release `20261113T015201Z-8777247`; `/health`
+  shows `content.practice: 10`; `/v1/practice/problems` lists ten problems, `judge_version` 2.
+- New: text-editor autocomplete (step 6); a streak on the list (step 7); problems 2–10 (step 8): paste bin, rate limiter,
+  news feed, notification sender, image serving, leaderboard, ticket booking, chat message store, IND vs PAK live score,
+  each calibrated (reference ≥ 10 % margin; 51 wrong designs) with golden files.
+- Judge version 2: a worker blocked by a failover waits instead of counting as stuck; lost writes counted from the rate
+  just before the failure. Problem 1's results unchanged apart from the version.
+- Verified on production (signed out, headless Chromium): the list shows 10 problems; each problem's reference typed in
+  the text editor → Run → Accepted; autocomplete offers `sql` after `db = sq`; Pixel 7 page without errors or sideways
+  scroll. A signed-in Submit and the streak were verified against a local API with sign-in, not on production.
+- Practice is still not in the tabs (step 9). Tests: frontend 361, backend 89. Ledger: frontend 863, backend 679.
+
+## Production snapshot — 2026-11-12 (after PR #317, Practice LeetCode style)
+
+- `main` = `3c695369dee53478d619d9df4a05de1b55039bcd` (#317, squash), then #318 (another session's animations PR,
+  `b3e6e6da43783ddb577d344c89f22eaa860b8432`). API release `20261112T164355Z-3c69536`: `/health` shows
+  `content.practice: 1`.
+- **New: Practice** (spec `21-PROBLEM-EXPERIENCE-LEETCODE-STYLE.md`, steps 1–5b built): `/dashboard/practice/` (list)
+  and `/dashboard/practice/url-shortener/` (problem page), **not linked from the tabs** (step 9, owner). The answer is
+  TKD text; Builder (default on phones) and Text editor edit it; Run judges in the browser, Submit on the API.
+  Engine `frontend/src/tkd/` (shared with the API), problems `content/problems2/`, API `backend/src/practice/`
+  (`/v1/practice/*`, MongoDB `practice_submissions`, `practice_stats`), pages `frontend/src/practice/`.
+- Verified on production (signed out, headless Chromium, desktop 1440×900 and Pixel 7): list loads; problem page loads;
+  reference typed in the text editor → Run → Accepted; Submit opens "Sign in to submit. Run works without an account.";
+  no page errors, no sideways scroll; hidden tests served as id/title/hidden only; no reference/editorial in the
+  public problem. **Not verified on production: a signed-in Submit** (needs a Google account); it was verified end to
+  end against a local API with sign-in (MongoDB memory server): desktop light/dark text editor and Pixel 7 light/dark
+  Builder (taps only), Run and Submit Accepted 5/5.
+- Tests: frontend 313, backend 89. Ledger: frontend 859, backend 676 (#318 not recorded by this session).
+
 ## Production snapshot — 2026-11-12 (after PR #316)
 
 - `main` = `6699bbfe647165acdb4debf34c318ab23c5c6fca` (#316, docs only: tours in `content/README.md`, figure speed and

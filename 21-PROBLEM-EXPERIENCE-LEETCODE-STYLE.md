@@ -1,6 +1,6 @@
 # 21 — Problems, LeetCode-style: full specification
 
-**Status:** design specification, 12 Nov 2026; the approach was then decided (see "Decision" below). **Not built. Not tested.** Unlike `20-UI-REDESIGN-SPEC.md`, none of
+**Status:** design specification, 12 Nov 2026; the approach was then decided (see "Decision" below). **Steps 1–8 built and live, unlinked (#317 on 12 Nov, #319 on 13 Nov 2026: ten problems); see section 25 for what was decided while building.** The rest is not built. Unlike `20-UI-REDESIGN-SPEC.md`, none of
 the code or numbers here has been run; section 17 says how to prove each part as you build it.
 **Who reads this:** the agent that will write the code. Follow it top to bottom. Where it says "owner decides", stop and ask.
 **Brief (owner):** "take a step back … think of the evaluator and the entire interview questions and problems
@@ -1265,3 +1265,44 @@ threads, reminders, payments. Each needs its own short spec; none should be star
 | 16 | Analytics events and the practice dashboard (events can ship with 5b; the dashboard here) | 5b |
 | 17 | India-first helper and the strings file (**do the strings file and `inr.js` during step 5b** so nothing is rewritten; this row is the check that every string moved) | 5b |
 | 18 | Link "Practice" from the dashboard tabs and the landing page | owner says go |
+
+---
+
+## 25. Built: what was done and decided during implementation (2026-11-12, #317)
+
+Steps 1 to 5b of section 16 are built and live (unlinked): `frontend/src/tkd/`, `content/problems2/`,
+`backend/src/practice/`, `frontend/src/practice/`. Section 7.10 reproduces exactly. Decisions made while building, each
+with a test:
+
+1. **The idgen setting `kind`** is `id_kind` in the compiled design (it clashed with the part's own `kind`). The TKD text
+   still says `idgen(kind=counter)`.
+2. **An unfinished route** (`client > lb > api > `, the template) is read as the route so far; that is how the template
+   gives only E029/E030 (section 9 rule).
+3. **A cache with no node left is skipped** on any route (not only before `|`), never a failure. **p99 is measured only
+   while a request is answered**; time in an outage counts against availability.
+4. **Segments**: a failover window (30 s) and a cold window (60 s) both start at the phase start; overlapping windows
+   split the phase further.
+5. **Queues**: a worker behind a queue serves 0 while anything after it is down (the work waits); a worker with no
+   capacity left reports "still waiting at the end".
+6. **W002** is applied per route: the calls of a route with no lb in front use one instance's capacity.
+7. **Problem 1's tests** differ from the section 9 sketch so the reference passes with ≥ 10 % margin: t02's peak is
+   2,500 opens a second (not 6,000); t04 promises GET_LINK availability 0.95 (reads through `cache | db` are down for the
+   30 s failover, so the reference reaches 0.975); the budget promise is on t01 only.
+8. **The sweep's ship rule "every test alone rejects ≥ 2 % of the grid"** is not met by problem 1 (t02 0.6 %, t03 0 %,
+   t05 1.4 %; Accepted 1.4 %, reference the cheapest Accepted). With about 1 % of the grid Accepted the rule can hardly
+   hold, and deleting t03 would break "at least 3 hidden tests". **Owner decides**; the sweep reports, CI enforces the
+   section 9 and 21.6 calibration only. The grid also has 32-bit ids and a day-long TTL so Wrong Answer is in it.
+9. **The API's judge time limit is 1 s**, not 250 ms: a fresh worker on the VPS needs most of 250 ms to load the engine.
+10. **Tips** are shown on every Run and from the second failed Submit (counted in the browser). Candidate changes that
+    could not help (none apply) give no tip line at all.
+11. **One pull request** for steps 1–5b (nothing is visible until step 9), with one commit per layer.
+12. Not built yet: step 6 autocomplete (shortcuts and draggable dividers are in), step 7 streak, steps 8–18.
+13. **Steps 6–8 (#319, 13 Nov 2026).** Autocomplete as in 11.3; the streak as in section 12; problems 2–10 from the list
+    in section 9 (the owner said "go ahead"). Each problem's test numbers were tuned so the reference has ≥ 10 % margin;
+    image serving's p99 promise is 160 ms (4 medium servers, the cheapest passing design, as reference).
+14. **Judge version 2.** A worker behind a queue that is blocked (something after it is down) waits: its wait is the
+    blocked time plus its backlog at its own pace; only a worker with no instance left is stuck. Lost writes (7.2, 7.6)
+    are counted from the rate that reached the part just before it failed (the previous segment), not from the first
+    segment after (which is zero behind a blocked queue).
+15. **Sweep grid** (22.11): also workers (same counts as servers), nosql stores (3, 4, 6, 8, 12 nodes × quorums w1r1,
+    w2r2, w3r1, w1r3 with rf 3), and the reference's own count, so the reference is always in the grid.

@@ -444,6 +444,17 @@ Real systems tab. Kept for the record.*
   other form; #286).
 - Interview Questions = the reference's 32 problem breakdowns + IND vs PAK, no more, no less.
 
+## Practice is judged by `frontend/src/tkd/` (spec 21, built 2026-11-12, #317)
+
+- The practice judge is pure (no clock, no randomness, no I/O) and shared by the browser (Run) and the API (Submit).
+  Every number is in `tkd/catalogue.js`; every message in `tkd/messages.js` (engine) or `practice/strings.js` (pages).
+- Changing a formula, a catalogue number or a message that depends on numbers: raise `JUDGE_VERSION` (`tkd/judge.js`)
+  and regenerate the golden files (`UPDATE_GOLDEN=1 npm test` in `frontend/`); review their diff in the PR.
+- A problem in `content/problems2/` must pass its calibration (checked by `npm test` and by the API when content loads,
+  so the deploy refuses a bad one); run `node backend/scripts/sweep-problem.mjs <slug>` and paste the summary in the PR.
+  Change test numbers, never the judge, to calibrate.
+- `/dashboard/practice/` stays out of the tabs until the owner says go (spec 21 §16 step 9).
+
 ## The evaluator is built from `evaluator.md` (Decided by the owner, 2026-11-10)
 
 - `evaluator.md` in this repository is the specification of the next evaluator ("v2"). Whoever implements it reads
