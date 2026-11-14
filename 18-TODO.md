@@ -11,7 +11,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
-| — | build | **Context 36: the best problem-solving experience** (owner: "Start building everything step by step") | in progress | Steps done on branch `ccr-0abbbe33-gkyjcf`: 1–5 (last `31fa781`); plan in §5.9, log in §6. Not merged: PR when the owner asks |
+| — | build | **Context 36: the best problem-solving experience** (owner: "Start building everything step by step") | in progress | Steps done on branch `ccr-0abbbe33-gkyjcf`: 1–6 (last `acfa175`); plan in §5.9, log in §6. Not merged: PR when the owner asks |
 | 1 | infra | **Move the API off Bluehost** (plan expired 2026-11-04, on grace). Moving is now `ops/README.md` (#348, #349): one command, three variables, two workflows | waiting for owner | one-time: Origin certificate → secrets ORIGIN_CERT/ORIGIN_KEY, Cloudflare token → CLOUDFLARE_API_TOKEN; then buy **AWS Lightsail Mumbai $5, paid by UPI** (decided, `31-VPS-CHOICE.md` §4c; the owner has no credit card), run the script, commit the printed public key as `ops/deploy-key.pub` |
 | ~~—~~ | build | ~~**Design skills renovation**~~ (`32-DESIGN-SKILLS-RENOVATION.md`) | reverted | #355, #356 reverted by #357 on the owner's word ("Earlier it was better"); the premium renovation row below is current again |
 | — | build | **Premium renovation** (`30-PREMIUM-RENOVATION.md`): parts A–E live (#343–#345, #347). Left: a Safari/Firefox check and a real-phone check, the owner's verdict on the look | waiting for owner | 2026-11-14 |

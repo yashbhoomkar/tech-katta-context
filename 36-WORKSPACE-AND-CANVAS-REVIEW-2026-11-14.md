@@ -448,3 +448,12 @@ Commit `31fa78114b2881de324cb8d467939e412fcf9d40` (branch `ccr-0abbbe33-gkyjcf`)
 - Every load test's result has "The bill, part by part": each part, storage and data transfer, largest first, with bars.
 - Checked in Chromium: the copied URL shortener solution with its cache deleted, submitted, then undone and submitted again: "Score +12 · Tests passed +5 · Bill +$439/month", five "Now passes", "Added Hot links" and its two arrows; the evening peak's bill lists Link service $7,942, data transfer $4,180, Links DB $3,358, storage $1,725, load balancer $699. Frontend tests 396/396.
 - Items 12 and 13 of §5.3 done.
+
+### Step 6: calls a second on every arrow
+
+Commit `acfa1750d73f79f394cb4be0da90567e2a3989b2` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 986, `backend_git_commits` 711.
+
+- The simulator records calls a second along each arrow in each tick (`timeline.arrows`, keyed `from>to`, from the hop records it already computes; squeezed like the other series). Display only: no verdict, check or bill reads it. The API's judge pool runs the same file, so it is in both ledgers.
+- During a replay each pill adds its rate at that minute. On the copied URL shortener at the evening peak: HTTPS · 35.0k/s, REST · 35.0k/s, Key lookup · 35.0k/s, the cache's misses DB query · 4,734/s, writes DB query · 350/s. Frontend tests 396/396 (the simulator's speed test included).
+- Item 14 (zones as boxes) is **not built, by decision**: a part's instances are spread over zones rather than placed in one, so a box per zone would not match the model; the card already says "3 zones", and the replay shows a zone going dark.
+- Stage 3 of §5.9 is done: items 8, 11, 12 (and 13 from stage 2).
