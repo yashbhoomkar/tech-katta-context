@@ -1456,3 +1456,7 @@ Recorded by session `ccr-62d2475b-x6ro8o` (connected with `remote-atlas-connect`
 
 Counts after: **frontend 964, backend 700** (960 and 698 before these rows; the rise from 940/696 after #347 was not reconciled by this session).
 
+Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `bf9e487535f611edd8287a620bced0c32a5a92a8`
+(revert #356), `fb79fa0ea46673c00b0f5ff814551fa2b7b0d81f` (revert #355), `d6c57989eb2017031745c8842b1e254412cecfaf`
+(squash); backend rows for `fb79fa0…` and `d6c5798…` (site.json). Counts: **frontend 967, backend 702**.
+

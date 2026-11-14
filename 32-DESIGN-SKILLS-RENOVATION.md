@@ -1,5 +1,10 @@
 # 32 — Design skills renovation (Geist, one curve, flat surfaces, a new landing)
 
+> **REVERTED (owner, 2026-11-14: "Nahh. Earlier it was better. Revert.")** by tech-katta #357; `main` is back to the tree
+> of `9a89daf` (#354): spec 30's type (Instrument Sans, Source Serif 4, Geist Mono) and motion, the old landing.
+> **Decided:** do not re-apply these skills' look (Geist only, gradient hero, floating nav, etc.) unless the owner asks.
+> Kept here as a record of what was tried.
+
 Written 2026-11-14 by session `ccr-62d2475b-x6ro8o`. Owner's words, before sleeping: "https://github.com/elayadesign/ai-design-skills
 — Try to use these skills. Deploy the code on production. I am going to sleep now. Surprise me with the best website
 for system design i.e. our website Tech Katta."
