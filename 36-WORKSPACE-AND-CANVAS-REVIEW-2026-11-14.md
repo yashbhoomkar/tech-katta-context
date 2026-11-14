@@ -406,3 +406,16 @@ Commit `0993fd0a3e33a0eb126e3726d4f56e43b6ef258e` (branch `ccr-0abbbe33-gkyjcf`)
 - Replays hide the palette and settings. Palette help text corrected.
 - Measured at 1440×900: opens at zoom 0.88 (was 0.25); the copied solution at 0.50 (was 0.32). Frontend tests 393/393. Backend tests not run here (the dev dependency `mongodb-memory-server` is not installed in this container); nothing in `backend/` changed.
 - Faults closed: 1.1, 1.2 (mostly), 1.3 (canvas width during replay; the results panel's size is step 3), palette help text (1.7).
+
+### Step 2: faster building
+
+Commit `8bc3c1cc00e10e599afc883fade50c98ffc19208` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 982, `backend_git_commits` 708.
+
+- Tap a part with a card selected: it lands just right of that card and is joined to it when the arrow is allowed. Drop an arrow on empty canvas: a menu of the parts it may lead to adds one there, joined.
+- Copy, paste, duplicate, select all (Ctrl/⌘+C, V, D, A): only while the canvas was the last thing pressed and no page text is selected, so the problem text can still be copied.
+- Tidy up: a layered left-to-right layout along the arrows (`drawing.js` `tidy`, no dependency), then fit; undo puts it back.
+- Right-click menus on cards and the canvas; a shortcuts sheet (`?` or the ⌨ button); palette search (name matches first, Enter adds the first).
+- Settings come first in the panel; the description and "In real life" sit under "About this part".
+- Bug fixed on the way: undo within 400 ms of an edit skipped that edit (the snapshot was not taken yet); it now takes it first.
+- Checked in Chromium at 1440×900: search + Enter with the Server selected adds a Database joined to it; Ctrl+D then undo; select all, copy, paste, undo; Tidy up; the pane menu; an arrow dropped from the Server offers seven parts and Cache adds one joined; Ctrl+A outside the canvas still selects page text. Frontend tests 393/393.
+- Section 3 items closed: drop-point menu, auto-layout, right-click menus, copy/paste/duplicate, shortcuts sheet, palette search. Fault 1.7 items closed: palette search, settings first, new parts placed far away, keyboard.
