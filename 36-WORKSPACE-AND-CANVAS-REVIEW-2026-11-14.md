@@ -419,3 +419,14 @@ Commit `8bc3c1cc00e10e599afc883fade50c98ffc19208` (branch `ccr-0abbbe33-gkyjcf`)
 - Bug fixed on the way: undo within 400 ms of an edit skipped that edit (the snapshot was not taken yet); it now takes it first.
 - Checked in Chromium at 1440×900: search + Enter with the Server selected adds a Database joined to it; Ctrl+D then undo; select all, copy, paste, undo; Tidy up; the pane menu; an arrow dropped from the Server offers seven parts and Cache adds one joined; Ctrl+A outside the canvas still selects page text. Frontend tests 393/393.
 - Section 3 items closed: drop-point menu, auto-layout, right-click menus, copy/paste/duplicate, shortcuts sheet, palette search. Fault 1.7 items closed: palette search, settings first, new parts placed far away, keyboard.
+
+### Step 3: results that explain themselves
+
+Commit `8924f9a9ceb42061860ec937a1cb2dbccab1fe2d` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 983, `backend_git_commits` 709.
+
+- "Every call meets its targets" now names each call's targets; an accepted run says "each within its own targets" (fault 1.5); a test with a budget shows its bill against it.
+- A failed load test offers "Replay from minute N, where it went wrong" (the first minute a part is over capacity or down, or a call fails more than 1 in 100). When the trouble starts in the first minute, only the ordinary Replay shows.
+- The interviewer's failure message says why: sign in, the limit, not available on this server, no connection.
+- The Solution tab draws the whole reference in the pane (fault 1.7).
+- URL shortener: brief corrected and the calls table says "request test only" (fault 1.4). This is a content change: the API needs a deploy when merged.
+- Checked in Chromium: the copied solution submits as "Accepted · 10 / 10 tests passed · each within its own targets"; with its cache removed, 5 of 10 fail and each failed test lists the targets it missed; the bill test reads "$15,821/mo of $26,000 allowed"; the interviewer on a server with sign-in off says it isn't available. Frontend tests 393/393; content check OK.
