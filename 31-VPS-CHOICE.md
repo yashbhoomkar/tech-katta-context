@@ -89,9 +89,35 @@ the origin cannot be limited to Cloudflare as the VPS firewall does, and a direc
 Singapore, sleep, or need the deploy pipeline rebuilt and give up the Cloudflare-only origin. Worth revisiting if
 server upkeep becomes a burden: DigitalOcean App Platform (Bangalore, $5) is the one to try first.
 
-## 6. Sources
+## 6. Web Eye Soft LV 10 (checked 2026-11-14, before buying)
 
-App platforms: fly.io/pricing and docs.fly.io/reference/regions, docs.digitalocean.com (App Platform pricing and
+The owner found it at checkout: 1 vCPU, 1 GB, 30 GB NVMe (the product page says 20 GB), 300 GB transfer, a dedicated
+IP, ₹179 + 18 % IGST = **₹211.22 a month**, no setup fee. The product page also shows a renewal price of **₹399 a
+month** next to "₹179 when you renew" (ask sales which applies). KVM per the product page. "Indian datacenter", city
+not stated; no test IP or looking glass published.
+
+- **Where:** their own website runs on DigitalOcean Bengaluru (129.212.244.51, AS14061); that is their website host,
+  not necessarily the VPS network (a DigitalOcean 1 GB plan costs them about ₹530). The VPS location is unknown until
+  they give a test IP.
+- **Latency from probes inside India (Globalping, 2026-11-14, TCP 443 / ICMP, averages):**
+  - Web Eye Soft website (DigitalOcean Bengaluru): Bengaluru 15 ms, Mumbai 14–26 ms, Hyderabad 26 ms.
+  - AWS Mumbai (Lightsail's region): Mumbai 2–3 ms, Bengaluru 26 ms.
+  - Bluehost (current): Mumbai 3–4 ms, Bengaluru 26 ms; so the current server is in Mumbai.
+  Any of these is fine for the API: browsers reach Cloudflare's edge in India, which then reaches the server, so an
+  India server adds at most ~30 ms.
+- **Refund and cancellation** (webeyesoft.com/refunds-and-cancellations): refunds within 7 days of the first purchase
+  only, for VPS and shared hosting, **only when a server-side issue reported by ticket cannot be fixed** (stricter
+  than the homepage's "no questions asked"); first-time customers only; failed KYC voids it; paid in 3–5 business
+  days. Not refundable: requests after 7 days, IP blocks by third parties, proxy use, development issues. Cancel any
+  time from the panel or a ticket; fees already due must be paid. **Non-payment: VPS suspended 1 day after the due
+  date and deleted after 5 days, unrecoverable**, with a late fee.
+- **Fit:** fine for the API (nothing on the server is irreplaceable; the move to another server is the ops/README
+  steps). Ask sales first: the renewal price, the server's city, a test IP to ping.
+
+## 7. Sources
+
+Web Eye Soft: webeyesoft.com (terms, refunds-and-cancellations, cheapest-vps-hosting-in-india), ipinfo.io and ARIN
+RDAP for 129.212.244.51, api.globalping.io measurements. App platforms: fly.io/pricing and docs.fly.io/reference/regions, docs.digitalocean.com (App Platform pricing and
 availability), render.com/docs/regions, Render and Railway pricing summaries (activepieces.com, temps.sh, kuberns.com),
 cloud.google.com/run/pricing. Servers: AWS Lightsail pricing (aws.amazon.com/lightsail/pricing), Lightsail baseline CPU performance
 (docs.aws.amazon.com/lightsail/latest/userguide/baseline-cpu-performance.html), Hostinger India VPS page
