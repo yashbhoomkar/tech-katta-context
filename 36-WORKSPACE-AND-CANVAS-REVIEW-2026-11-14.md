@@ -430,3 +430,12 @@ Commit `8924f9a9ceb42061860ec937a1cb2dbccab1fe2d` (branch `ccr-0abbbe33-gkyjcf`)
 - The Solution tab draws the whole reference in the pane (fault 1.7).
 - URL shortener: brief corrected and the calls table says "request test only" (fault 1.4). This is a content change: the API needs a deploy when merged.
 - Checked in Chromium: the copied solution submits as "Accepted · 10 / 10 tests passed · each within its own targets"; with its cache removed, 5 of 10 fail and each failed test lists the targets it missed; the bill test reads "$15,821/mo of $26,000 allowed"; the interviewer on a server with sign-in off says it isn't available. Frontend tests 393/393; content check OK.
+
+### Step 4: break it yourself
+
+Commit `43fefb51bb78d724df9017b62f3d19e8959f0742` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 984, `backend_git_commits` 710.
+
+- The replay bar has "⚡ Break it yourself": a part that can crash (named), a zone going dark for 15 minutes, traffic ×2 or ×5 for 15 minutes, or the cache emptying, then "Break it at minute N" (the scrubber's minute). The test runs again on the same design with that fault added and the replay carries on from that minute; several can be stacked ("Links DB crashes at minute 10, then Traffic jumps 5× … at minute 32"). Nothing is scored or saved.
+- `eval/faults.js`: a crash may name the node (`node`); a spike may mark itself as an event (`mark`), which the replay words and scrubber show. The API's judge pool runs the same file, so it is recorded in both ledgers; existing tests are unchanged (frontend 393/393).
+- Checked in Chromium on the copied URL shortener solution: the evening peak replayed, scrubbed to minute 10, "Links DB crashes" — the standby takes over and the replay continues; then a 5× spike stacked on top.
+- Item 8 of §5.3 done. Not done from stage 3 yet: numbers on arrows (item 11, needs per-arrow rates from the simulator), compare two attempts (item 12), zones drawn as groups (item 14).
