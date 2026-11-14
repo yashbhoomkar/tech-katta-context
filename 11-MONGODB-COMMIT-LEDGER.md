@@ -1479,3 +1479,7 @@ after: **frontend 975, backend 704**. Then `ba9d7f2…` (squash #361): **fronten
 
 `c5a8d98…` (branch) and `7f3df4c…` (squash) in both collections (`eval/simulate.js` is API code too): **frontend 978,
 backend 706**.
+
+### #363 (2026-11-14): Concepts cut to nine
+
+`76d8137…` (branch) and `3bd3c41…` (squash) in both collections: **frontend 980, backend 708**.
