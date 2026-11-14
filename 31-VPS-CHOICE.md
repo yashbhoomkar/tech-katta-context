@@ -49,7 +49,23 @@ setup script's swap; move up later with a snapshot or by running the five-step m
 Indian hosts (₹360–390) are fine to try for a month now that switching takes 15 minutes, but are a reliability risk
 for launch.
 
-## 4. Sources
+## 4. Decision (2026-11-14, owner: "Take decisions")
+
+**AWS Lightsail, Mumbai, the $7 plan (2 vCPU burstable, 1 GB, 40 GB, 1 TB): ≈ ₹620 + GST ≈ ₹730 a month, billed
+by the hour, no commitment; ₹0 for the first three months if the Lightsail free offer applies to the account.**
+
+Measured on the Bluehost server by the VPS audit workflow on 2026-11-14 (run 43553122313): 1 vCPU, 2 GB memory, 48 GB
+disk (6.2 GB used); the API process uses **120 MB** (peak 128 MB over 8 hours) and **70 s of CPU in 8 hours (about
+0.25 % of one core)**, load average 0.1. The rest of the 577 MB in use was the system journal (184 MB, now capped at
+100 MB by `ops/provision-vps.sh`), an unused Docker (100 MB) and snapd. So:
+- 1 GB is about four times what the API and Nginx need, with 2 GB of swap from the setup script for deploys;
+  the $12 / 2 GB plan would double the price for memory we do not use.
+- The $7 plan's CPU baseline (10 % of each of 2 vCPUs, with burst credits) is about 40 times the measured average.
+- The ₹360–390 Indian hosts would save about ₹340 a month after the free months, against unknown uptime and support
+  just before launch. Not worth it now; with a 15-minute move, revisit if the bill matters more later.
+- Upgrade path when traffic grows: the $12 plan (snapshot and resize, or the five-step move).
+
+## 5. Sources
 
 AWS Lightsail pricing (aws.amazon.com/lightsail/pricing), Lightsail baseline CPU performance
 (docs.aws.amazon.com/lightsail/latest/userguide/baseline-cpu-performance.html), Hostinger India VPS page
