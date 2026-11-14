@@ -48,6 +48,7 @@ This repository is **context**, not the application itself.
 - `30-PREMIUM-RENOVATION.md` — the overnight renovation of 2026-11-14 (owner: "looks like it is developed by vibe coding"): diagnosis, references, the new type (Instrument Sans, Source Serif 4, Geist Mono), the motion language, the page-by-page plan, what shipped (#343–#345) and how to roll back.
 - `31-VPS-CHOICE.md` — the API server choice (Nov 2026): what the API needs, one-month prices in India, why AWS Lightsail (Mumbai) for now; changing servers is in the app repo's `ops/README.md`.
 - `32-DESIGN-SKILLS-RENOVATION.md` — the design skills renovation of 2026-11-14 (owner: "Try to use these skills … Surprise me with the best website for system design"): elayadesign/ai-design-skills applied as the design system — Geist as the one typeface, fixed type/spacing/radius scales, flat surfaces, one motion curve, IntersectionObserver reveals, Phosphor icons, a new landing and a 404. Shipped #355–#356, **reverted by #357** (owner preferred the earlier look); spec 30 is the live look.
+- `33-CANVAS-ANIMATIONS-AND-SDC-REVIEW.md` — design only (2026-11-14): animations for every canvas widget, healthy and crashed, driven by the simulator's timeline and events (prototype: private artifact "Canvas Motion Lab"), and what to take from the open-source System Design Canvas (undo/redo, live design checks, solution walk-through, SVG/Mermaid export, minimap, auto-layout).
 
 ## The evaluator specification
 
