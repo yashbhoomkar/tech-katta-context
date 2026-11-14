@@ -2,6 +2,92 @@
 
 Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #357; see the first updates below; the live look is the premium renovation #343–#345); before that **2026-11-13** (evaluator v3's AI review live with the mock interviewer, #339; spec 29 merged, context #194; ledger rows for #339 **pending**: MongoDB was unreachable from the session; see "Evaluator v3: Ask the interviewer" below; before that: the expert's notes: no marigold, black pill buttons, indigo accent, picture cards, "Figures only", shorter landing, #335; ledger frontend 906 / backend 684; before that: the new look, spec 25 P4 Brilliant-inspired, #334; ledger frontend 903 / backend 682; before that: spec 24 done: section marks and tour swipe #331, portrait phone figures for 33 articles #332–#333; ledger frontend 900 / backend 682; before that: landing count-up and streak marker #330; ledger frontend 891 / backend 682; before that: state scenes #328 and the "Share as image" card #329 live, spec 24 G3 and G6; ledger frontend 888 / backend 682; before that: spec 24 decisions taken by the session on the owner's word, the learner's diagram on phones, one arrow per hop, #325–#327; ledger frontend 882 / backend 682; before that: swipes, figure steps and cross-fades live, spec 24 UX1–UX4, #323, #324; ledger frontend 873 / backend 680; see "Swipes and motion" below; before that: Practice steps 6–8 live: autocomplete, streak, problems 2–10, judge version 2, #319; ledger frontend 863 / backend 679; before that 2026-11-12: Practice, LeetCode style: spec 21 steps 1–5b built and live, unlinked, #317; see "Practice is live" below; ledger frontend 859 / backend 676; before that: figures readable on phones and a tour per page, #313; the general tour for signed-out visitors, #314; the "In 30 seconds" box removed from every article, #315; ledger frontend 850 / backend 671; see "Phone figures, tours" below; before that: figures animate: one motion grammar for all 232, loops start when seen, #311; then every animation faster through one setting, #312; figure colours stay the paper look (owner chose it over a green or ink stage); ledger frontend 839 / backend 665; see "Figure motion" below; before that: the "Katta Paper" look built from `20-UI-REDESIGN-SPEC.md` and live, #309; then the owner's four follow-ups live, #310: the landing button is Dashboard → Concepts, Sign in opens a dialog, a tour per section and per article, the phone header fits; ledger frontend 832 / backend 665; see "Katta Paper is live" below; before that: `20-UI-REDESIGN-SPEC.md` written: the "Katta Paper" look, to be built by another session; before that: `Design.md` made much more detailed, #308: 12 fanout.sh pages and their states, a full light/dark `tokens.css` draft checked for AA, component and page mapping with our class names, six steps with acceptance checks; ledger frontend 814; before that: `Design.md` added to the app repo, #307: fanout.sh's UI observed and mapped onto our tokens, the plan for the next look; ledger frontend 811; before that: the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
 
+**Update 2026-11-14 (Concepts cut to nine, #363).** Owner, with a screenshot of the nine Core concepts: "There are too
+much concepts in our website. I think we only need these many concepts". **Decided: Concepts is the nine core articles**
+(networking essentials, API design, data modelling, caching, sharding, consistent hashing, CAP theorem, database
+indexing, numbers to know). **#363** squash `3bd3c4160f174b586be980239a69e1cdb3946b5f` removed the 12 others and the
+"Recurring patterns" / "Specialised data" groups, their figure modules (frontend and backend id lists) and 5 phone
+layouts; `hot-key-merge` moved into `figs/concepts/caching.jsx` (as `HotKeyMergeFig`) and `prox-quadtree` into
+`database-indexing.jsx`; 308 redirects to the closest core article (`hosting/routes.json`); 16 pointers in 13 articles
+rewritten (the patterns guide now points to worked questions only). 54 articles. Two test minimums lowered to match
+(figure uses > 180, articles with a first figure ≥ 45). Ledger: frontend 980, backend 708. Frontend waits for Vercel.
+
+**Update 2026-11-14 (AWS credit meter back, #362).** Owner: "Why can't we see simulation of AWS credits getting
+reduced", then "It was looking cool. Also replenish it for every run/submit/ask the interviewer". The v1 meter (#124) was
+hidden by evaluator v2 (`evaluator.md`: "the `cost` check carries that lesson"); **Decided now: shown again, a fresh
+$200,000 on every Run, Submit and Ask the interviewer.** **#362** squash `7f3df4c4e2d0235c619adf40cb0d1602b4adb3b5`:
+`eval/simulate.js` records `timeline.spend` (dollars per tick, total and per part; verdicts unchanged, spend × 730 / hours
+= the monthly bill); `solve/credit.js` (ledger: tests spend in order) and `solve/credit.jsx` (meter); results count down,
+Replay drains from where the test began with the burn per hour, cards show cost per hour, Ask shows "TOPPED UP".
+Real amounts are small (≈ $22–25 per one-hour test, $535 for a 24-hour bill test): the bar barely moves, the cents and
+burn do. API deployed by hand (simulate.js runs in the judge). Frontend waits for Vercel's daily limit (see below).
+Ledger: frontend 978, backend 706.
+
+**Update 2026-11-14 (canvas work in production: #358–#361).** Owner: "Put them into production".
+- **#358** squash `f2e3d40465a6693b5d94a2e459b9c5a387597316` (cards, protocol pills, glow, arrow layout); the API was
+  deployed by hand ("Deploy backend", release `20261114T125711Z-f2e3d40`) because the API's sync imports
+  `frontend/src/lab/store.js` and the workflow doesn't trigger on `frontend/**`. **Rule: any change to `frontend/src/lab/store.js`,
+  `frontend/src/eval/**` or `frontend/src/judge/**` needs that manual deploy.**
+- **#359** squash `586a62703d368ca3a977ec3b5e290958b5822dd9`: checks while you build (`lab/checks.js`; compile stage +
+  three structural checks; no reference design flagged), undo/redo (Ctrl/⌘+Z, buttons), reverse an arrow (Shift+R),
+  minimap (≥ 6 parts, > 900 px).
+- **#360** squash `7592ccb281754771013a1ce44eeaf07bf7ac335a`: replay animations (`ReplayCard` in `lab/nodes.jsx`,
+  dead/failing arrows, scrubber marks in `solve/v2.jsx`, `replayAt` adds `held, fo, warm, fresh, peak`).
+- **#361** squash `ba9d7f23693f5e60b40fd6fdfaa46af966a56ae0`: walk through the solution, Mermaid/SVG export (`lab/export.js`).
+- **Vercel blocked the frontend deploys of #359–#361**: "Resource is limited - try again in 24 hours"
+  (`api-deployments-free-per-day`, the free plan's 100 deployments a day). Production runs #358's frontend until a
+  deploy of `main` succeeds; a retry is scheduled for 15:00 UTC (scheduled task "Deploy canvas work to Vercel"). Every
+  push to a PR branch makes two deployments (tech-katta and the cancelled tech-katta-status), so long PR days run out:
+  batch commits, or have the owner stop status-page previews or move to Pro. **Pending:** a successful deploy of main.
+- Checked each in Chromium against a local API (suites of 15–17 checks, reduced motion), CI green. Not checked: Safari,
+  Firefox, a real phone, signed-in on production.
+
+**Update 2026-11-14 (canvas animations and the System Design Canvas review, design only).** Owner: "Think for
+animations for all the widgets within the canvases in case of both healthy and crashed components" and "There was an open
+source repo we had found earlier related to system design canvas and evaluator. Check out good things in them". Written
+as `33-CANVAS-ANIMATIONS-AND-SDC-REVIEW.md`; a working prototype (private artifact "Canvas Motion Lab",
+https://claude.ai/artifact/GDYC1KBTaJyiU2j8xZthBA). Every animation is driven by an existing timeline field or event.
+The review found System Design Canvas has no evaluator (four live "design checks") but a better editor; recommended
+order: undo/redo + reverse arrow, live design checks from the v2 compile step, replay animations, solution walk-through
+and SVG/Mermaid export. **Pending:** the owner's pick; and whether another open-source repo was meant.
+
+**Update 2026-11-14 (canvas: cards and protocols on arrows, PR #358 open, draft).** Owner: "Our canvas for problems and
+interview questions is not great … their components shape size is perfect. Things like type of communication mentioned
+over an arrow connecting two components" (reference: System Design Canvas, an open-source React Flow app; measured in
+Chromium: 200 px nodes, 12 px radius, 32 px icon tile, handles on 4 sides, bezier edges coloured by protocol, pill
+labels). **#358** (branch `ccr-328fc450-xdjrk1`, commit `2a72b8edbbd02c40a4fb007808a6fb7f39a0f187`):
+- Cards: 200 px, 12 px corners, `--shadow-1`, a tinted 32 px icon tile per type (`TINT` in `lab/drawing.js`), name +
+  kind, settings in mono; a handle per side, loose connection mode.
+- Arrows run between facing sides as curves, two lines for a pair, and arc round cards in the way (`detour`). Every
+  arrow has a protocol pill (`lab/protocols.js`): inferred from the two parts unless chosen in the arrow panel
+  (Protocol chips + optional Label, ≤ 32 chars). Colour per protocol; solid = request, dashed = message/push,
+  dotted = data. Stored as `protocol`/`label` on the arrow by `cleanDesign`; the judge never reads them.
+- The canvas draws designs ×1.35 across, ×1.25 down (`SX`, `SY`) and divides back on save: stored layouts unchanged.
+- The Solution tab draws the reference the same way (`SolutionDesign.jsx`).
+- Checked: frontend 386/386, backend 114/114, build; Chromium locally (17 interaction checks, Run 4/4), light,
+  dark, Pixel 7; `no-lab.js` only the 3 known outdated failures. Not checked: Safari, Firefox, real phone.
+- **After merge:** run "Deploy backend" by hand (the API imports `frontend/src/lab/store.js` for sync, and the
+  workflow does not trigger on `frontend/**`); then ledger rows (frontend; backend too, since the API's sync code
+  changes) with the squash SHA. **Ledger:** the branch commit `2a72b8e` is recorded in both collections (frontend 968,
+  backend 703). CI on #358 all green (CodeQL, frontend, backend, API container). **Pending:** the owner's look at the
+  canvas and merge. Owner's follow-up the same day: "Why the boxes does not have glowing outline" and a stress test on
+  complex designs, done in `502623f` (frontend 969 in the ledger):
+  - **Glow:** cards glow in their tile colour (`.ln[class*=" t-"]` in `lab.css`; soft, brighter on hover, strongest
+    selected; replay warn/over/down keep their own border).
+  - **Arrow layout** (`layout()` in `lab/drawing.js`, used by `Canvas.jsx` flowEdges → `data.geo` and by
+    `SolutionDesign.jsx`): per arrow, the direct curve, all 16 side pairs and detour arcs at up to 4 heights per side
+    are sampled (24 points) and the one crossing fewest cards (then shortest; facing sides preferred) wins; arrows on
+    one card side are spread up to 18 px apart in the order of their far ends; pills slide along their arrow (t .5 →
+    .18/.82) to the spot overlapping fewest cards and pills. Replaces the earlier `detour` and `pair` offsets.
+  - **Stress test** (scratch scripts, not in the repo): ride hailing 17 cards/18 arrows, video streaming 20/23, social
+    feed 20/23, payments with outbox/CDC 17/15, a 39-card mesh 39/42, injected as the URL shortener's design. Measured
+    in Chromium: arrows through cards 12 → 2, pills on cards 4 → 0, pill on pill 8 → 2, no page errors, a 30-step drag
+    of one card 0.5 s (0.75 s on the mesh). Left: one long diagonal per design where the author placed a part far away
+    (Netflix's nightly job → recommendations; the mesh's service 10 → event bus).
+  - **Catalogue gaps found** (not changed; owner's call): `allowedEdge` drops server → coordination service,
+    database → event stream (CDC goes only to a queue), pub/sub → external service; 8 of 107 arrows in the stress
+    designs were dropped for these.
+
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's
 (premium renovation). **Decided:** don't bring back the spec 32 look unless asked. Details of what was tried below and in

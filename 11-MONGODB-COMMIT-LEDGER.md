@@ -1460,3 +1460,26 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 (revert #356), `fb79fa0ea46673c00b0f5ff814551fa2b7b0d81f` (revert #355), `d6c57989eb2017031745c8842b1e254412cecfaf`
 (squash); backend rows for `fb79fa0…` and `d6c5798…` (site.json). Counts: **frontend 967, backend 702**.
 
+
+### PR #358 (2026-11-14, open draft): canvas cards and protocol pills — branch commit recorded
+
+`2a72b8edbbd02c40a4fb007808a6fb7f39a0f187` (branch commit) inserted into **both** collections after checking it was absent
+(frontend: the canvas; backend: `frontend/src/lab/store.js` is imported by the API's sync and judge). Counts:
+**frontend 968, backend 703**. Still to record on merge: the squash commit (both) and any later branch commits.
+Then `502623f751e1631a757f5e22a57070b65009f5b3` (glowing card outlines and the whole-design arrow layout; frontend only,
+no API code): **frontend 969, backend 703**.
+
+### #358 merged, #359–#361 (2026-11-14): canvas work in production
+
+Frontend rows: `f2e3d40…` (squash #358), `c32c0f4…` (branch #359), `586a627…` (squash #359), `f89f0f9…` (branch #360),
+`7592ccb…` (squash #360), `e0d6f0a…` (branch #361). Backend row: `f2e3d40…` (squash #358; the API's sync code). Counts
+after: **frontend 975, backend 704**. Then `ba9d7f2…` (squash #361): **frontend 976, backend 704**.
+
+### #362 (2026-11-14): AWS credit meter
+
+`c5a8d98…` (branch) and `7f3df4c…` (squash) in both collections (`eval/simulate.js` is API code too): **frontend 978,
+backend 706**.
+
+### #363 (2026-11-14): Concepts cut to nine
+
+`76d8137…` (branch) and `3bd3c41…` (squash) in both collections: **frontend 980, backend 708**.
