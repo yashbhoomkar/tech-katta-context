@@ -49,7 +49,20 @@ setup script's swap; move up later with a snapshot or by running the five-step m
 Indian hosts (₹360–390) are fine to try for a month now that switching takes 15 minutes, but are a reliability risk
 for launch.
 
-## 4b. Decision, revised again (2026-11-14): OVHcloud VPS-1, Mumbai
+## 4c. Decision (2026-11-14, final for now): AWS Lightsail Mumbai, paid by UPI
+
+Owner: OVHcloud needs a credit card, "I don't have one … check for hosting plans which can be paid through UPI".
+AWS India customers can **sign up and pay with UPI Scan and Pay, including UPI AutoPay up to ₹15,000 a month**
+(aws.amazon.com what's new, 2026-05-07). DigitalOcean, Vultr, Linode and OVHcloud take cards or PayPal, not UPI
+(their customers have asked for it); Google Cloud's UPI is only for qualified organisations after a prepayment.
+UPI-friendly Indian hosts (AIC Cloud, VisiHost, Xenax, Web Eye Soft) are small and unproven.
+- **Plan: Lightsail $5 (2 vCPU burstable at 5 %, 512 MB, 20 GB, 0.5 TB in Mumbai) ≈ ₹440 + GST ≈ ₹520 a month.**
+  Enough: the API uses 120 MB and 0.25 % CPU; Ubuntu plus Nginx about 250 MB; the setup script adds 2 GB of swap
+  for deploys. If memory runs tight, the $7 plan (1 GB, ≈ ₹730) is a snapshot-and-resize away.
+- If the Lightsail three-month free offer shows for the account, take the $7 plan for those months.
+- OVHcloud VPS-1 (§4b) remains the best value if a debit card with international payments works there.
+
+## 4b. Decision, revised again (2026-11-14): OVHcloud VPS-1, Mumbai (needs a card)
 
 Owner asked "How is OVHcloud". OVHcloud India page (official, 2026-11-14): **VPS-1 ₹420 a month + GST (≈ ₹496) for
 2 vCores, 4 GB, 40 GB NVMe**, 500 Mbps, daily backup of the last 24 hours included (rolling 7 days), anti-DDoS by
@@ -141,7 +154,8 @@ not stated; no test IP or looking glass published.
 
 ## 7. Sources
 
-OVHcloud: ovhcloud.com/en-in/vps and /en-in/vps/vps-india (prices, Asia-Pacific traffic quota), stackrates.ai,
+AWS UPI: aws.amazon.com/about-aws/whats-new/2026/04/aws-india-upi-scanandpay/; Google Cloud UPI:
+docs.cloud.google.com/billing/docs/resources/upi-payment-india. OVHcloud: ovhcloud.com/en-in/vps and /en-in/vps/vps-india (prices, Asia-Pacific traffic quota), stackrates.ai,
 valebyte.com (billing). Web Eye Soft: webeyesoft.com (terms, refunds-and-cancellations, cheapest-vps-hosting-in-india), ipinfo.io and ARIN
 RDAP for 129.212.244.51, api.globalping.io measurements. App platforms: fly.io/pricing and docs.fly.io/reference/regions, docs.digitalocean.com (App Platform pricing and
 availability), render.com/docs/regions, Render and Railway pricing summaries (activepieces.com, temps.sh, kuberns.com),
