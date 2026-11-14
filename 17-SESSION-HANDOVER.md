@@ -19,7 +19,10 @@ labels). **#358** (branch `ccr-328fc450-xdjrk1`, commit `2a72b8edbbd02c40a4fb007
   dark, Pixel 7; `no-lab.js` only the 3 known outdated failures. Not checked: Safari, Firefox, real phone.
 - **After merge:** run "Deploy backend" by hand (the API imports `frontend/src/lab/store.js` for sync, and the
   workflow does not trigger on `frontend/**`); then ledger rows (frontend; backend too, since the API's sync code
-  changes) with the squash SHA. **Pending:** the owner's look at the canvas and merge.
+  changes) with the squash SHA. **Ledger:** the branch commit `2a72b8e` is recorded in both collections (frontend 968,
+  backend 703). CI on #358 all green (CodeQL, frontend, backend, API container). **Pending:** the owner's look at the
+  canvas and merge. Owner's follow-up the same day: "Why the boxes does not have glowing outline" and a stress test on
+  complex designs (see the next update when done).
 
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's

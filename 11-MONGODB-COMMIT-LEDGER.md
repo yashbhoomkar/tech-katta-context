@@ -1460,3 +1460,9 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 (revert #356), `fb79fa0ea46673c00b0f5ff814551fa2b7b0d81f` (revert #355), `d6c57989eb2017031745c8842b1e254412cecfaf`
 (squash); backend rows for `fb79fa0…` and `d6c5798…` (site.json). Counts: **frontend 967, backend 702**.
 
+
+### PR #358 (2026-11-14, open draft): canvas cards and protocol pills — branch commit recorded
+
+`2a72b8edbbd02c40a4fb007808a6fb7f39a0f187` (branch commit) inserted into **both** collections after checking it was absent
+(frontend: the canvas; backend: `frontend/src/lab/store.js` is imported by the API's sync and judge). Counts:
+**frontend 968, backend 703**. Still to record on merge: the squash commit (both) and any later branch commits.
