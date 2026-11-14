@@ -1441,3 +1441,18 @@ squash commits that change `backend/` or `content/`: #336, #337, #339, #340, #34
 backend 696**.
 
 Then #347 (3 frontend rows: branch commit, squash, sync merge; front end only): **frontend 940, backend 696**.
+
+## 2026-11-14: rows for #355–#356 (design skills renovation)
+
+Recorded by session `ccr-62d2475b-x6ro8o` (connected with `remote-atlas-connect`, project `6ac298d2a4428fd93e7b3f75`,
+`Cluster0`), after checking each SHA was absent from both collections:
+
+| PR | Collections | SHA | Value (short) |
+|---|---|---|---|
+| #355 | both | `240b809ad45e9509b0657399fa7dbbf953eb2067` | Design skills renovation (branch commit) |
+| #355 | both | `ee9bb6a8c7cd62786de187be09937bfdb8edc9f2` | Squash of #355 |
+| #356 | frontend | `5336dec3d754c7115d97eb213a2e14509ba8f392` | Sign in as a quiet button (branch commit) |
+| #356 | frontend | `28a54b80a7d593ddc46d6b706a7538fae933d2d5` | Squash of #356 |
+
+Counts after: **frontend 964, backend 700** (960 and 698 before these rows; the rise from 940/696 after #347 was not reconciled by this session).
+
