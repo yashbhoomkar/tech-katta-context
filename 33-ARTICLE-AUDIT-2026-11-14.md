@@ -249,7 +249,7 @@ All estimates were recomputed and are correct unless noted.
 | 01 | URL shortener | Sound | Model answer for the format. The alias-versus-counter collision is a detail most write-ups miss. |
 | 02 | File storage and sync | Sound, one fix | Wrong question number (section 3.3). Tagged Easy; chunking, a change log and conflict copies make it a medium in most interviews. |
 | 03 | Restaurants near me | Sound | Delivery zones instead of a radius is the right insight. |
-| 04 | 10-minute grocery | Thin in places | "Senior" expects "the 10-minute budget worked backwards to a 2 km radius"; the body never does that calculation. The hold is shown for one item, but an order has about eight: it needs one transaction over all rows, taken in a fixed order to avoid deadlocks. The practice brief requires a retried order not to take stock twice; the article never mentions an idempotency key. |
+| 04 | 10-minute grocery | Thin in places | "Senior" expects "the 10-minute budget worked backwards to a 2 km radius"; the figure shows a ride of about 2 km, but the text never does that calculation. The hold is shown for one item, but an order has about eight: it needs one transaction over all rows, taken in a fixed order to avoid deadlocks. The practice brief requires a retried order not to take stock twice; the article never mentions an idempotency key. |
 | 05 | Match ticket booking | Sound | The random line before opening is well argued. Practice mismatch (section 6). |
 | 06 | Photo sharing | Sound | |
 | 07 | News feed | Sound | |
