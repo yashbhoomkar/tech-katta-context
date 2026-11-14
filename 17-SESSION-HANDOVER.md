@@ -12,7 +12,12 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
   minimap (≥ 6 parts, > 900 px).
 - **#360** squash `7592ccb281754771013a1ce44eeaf07bf7ac335a`: replay animations (`ReplayCard` in `lab/nodes.jsx`,
   dead/failing arrows, scrubber marks in `solve/v2.jsx`, `replayAt` adds `held, fo, warm, fresh, peak`).
-- **#361** (`e0d6f0a`, merging): walk through the solution, Mermaid/SVG export (`lab/export.js`).
+- **#361** squash `ba9d7f23693f5e60b40fd6fdfaa46af966a56ae0`: walk through the solution, Mermaid/SVG export (`lab/export.js`).
+- **Vercel blocked the frontend deploys of #359–#361**: "Resource is limited - try again in 24 hours"
+  (`api-deployments-free-per-day`, the free plan's 100 deployments a day). Production runs #358's frontend until a
+  deploy of `main` succeeds; a retry is scheduled for 15:00 UTC (scheduled task "Deploy canvas work to Vercel"). Every
+  push to a PR branch makes two deployments (tech-katta and the cancelled tech-katta-status), so long PR days run out:
+  batch commits, or have the owner stop status-page previews or move to Pro. **Pending:** a successful deploy of main.
 - Checked each in Chromium against a local API (suites of 15–17 checks, reduced motion), CI green. Not checked: Safari,
   Firefox, a real phone, signed-in on production.
 

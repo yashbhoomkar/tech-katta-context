@@ -1473,4 +1473,4 @@ no API code): **frontend 969, backend 703**.
 
 Frontend rows: `f2e3d40…` (squash #358), `c32c0f4…` (branch #359), `586a627…` (squash #359), `f89f0f9…` (branch #360),
 `7592ccb…` (squash #360), `e0d6f0a…` (branch #361). Backend row: `f2e3d40…` (squash #358; the API's sync code). Counts
-after: **frontend 975, backend 704**. The squash of #361 is added when it merges.
+after: **frontend 975, backend 704**. Then `ba9d7f2…` (squash #361): **frontend 976, backend 704**.
