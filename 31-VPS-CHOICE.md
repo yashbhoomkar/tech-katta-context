@@ -49,7 +49,19 @@ setup script's swap; move up later with a snapshot or by running the five-step m
 Indian hosts (₹360–390) are fine to try for a month now that switching takes 15 minutes, but are a reliability risk
 for launch.
 
-## 4. Decision (2026-11-14, owner: "Take decisions")
+## 4a. Decision, revised (2026-11-14): Akamai (Linode) Nanode 1 GB, Mumbai
+
+Owner: Web Eye Soft "is not reliable"; Lightsail $7 "very expensive"; "give me the option which one to buy".
+**Buy the Akamai Cloud (Linode) Nanode 1 GB in Mumbai (or Chennai): $5 a month ≈ ₹440 (≈ ₹520 if 18 % GST is
+added on the bill or by reverse charge), 1 vCPU, 1 GB, 25 GB, 1 TB transfer, hourly billing capped at the monthly
+price, no setup fee, cancel any time.** Akamai's own listing: India regions at the base price, no regional uplift.
+- Reliable (Akamai, one of the largest networks), in Mumbai like the current server.
+- Same memory as Lightsail $7 for $2 less, and shared CPU without Lightsail's burst-credit throttling.
+- Cheaper reliable alternatives are 512 MB plans (Lightsail $5, Vultr $2.50/$3.50): tighter than we want.
+- DigitalOcean $6 and Vultr $6 (1 GB, India) are the next choices if Akamai sign-up fails.
+Lightsail $7 (§4) stays the fallback; Web Eye Soft (§6) is out.
+
+## 4. Decision (2026-11-14, owner: "Take decisions"), superseded by §4a
 
 **AWS Lightsail, Mumbai, the $7 plan (2 vCPU burstable, 1 GB, 40 GB, 1 TB): ≈ ₹620 + GST ≈ ₹730 a month, billed
 by the hour, no commitment; ₹0 for the first three months if the Lightsail free offer applies to the account.**
