@@ -227,7 +227,7 @@ describes it (mostly `22-EVALUATOR-V3.md`) but it is not built. "New" means it i
 | 2 | Fast building: drop an arrow to add a part, duplicate, copy and paste, tidy up | A ten-part design in two minutes, as on a whiteboard | New (section 3) |
 | 3 | A verdict that explains itself | For every failed test: which part gave out, at which minute, by how much, and a button that jumps the replay to that minute | Partly have (findings, replay marks); the link from a failure to its moment is new |
 | 4 | "What would fix it" without giving the answer | After a failure, one checked repair in words ("the database is the first to run out; a cache in front, or a larger size, would pass this test"), never the whole design | Designed (spec 22 §9, checked repairs) |
-| 5 | The solution behind a deliberate step | An attempt, or one confirmation, before the full design is shown | New (fault 1.6) |
+| ~~5~~ | ~~The solution behind a deliberate step~~ (owner: no, 5.11) | An attempt, or one confirmation, before the full design is shown | New (fault 1.6) |
 | 6 | Work that is never lost | Every edit saved at once, restored on return, on any device after sign-in, with an unreadable save set aside, not overwritten | Have (autosave, sync); the safety net is new |
 | 7 | An interviewer that is reachable, or says why not | A clear message when sign-in or a limit is the cause | Have with the mock model; the message is new |
 
@@ -287,7 +287,7 @@ Passing tests is half the interview. The other half is saying it.
 | # | Feature | What the candidate gets | State |
 |---|---|---|---|
 | 35 | A share link to a design | Send it to a friend or mentor, who opens it read-only and can copy it | New (section 3) |
-| 36 | Accepted designs by others | After their own pass: other accepted designs, sorted by cost or headroom, to learn there is more than one answer | New. Needs moderation and a decision on names (an open owner decision in spec 21) |
+| ~~36~~ | ~~Accepted designs by others~~ (owner: no, 5.11) | After their own pass: other accepted designs, sorted by cost or headroom, to learn there is more than one answer | New. Needs moderation and a decision on names (an open owner decision in spec 21) |
 | 37 | Image and diagram export | PNG for notes and chats; Mermaid and SVG already exist | Partly have |
 | 38 | A result card worth posting | Score, stars, cost and the design in one image | Have after Accepted (#329) |
 
@@ -296,7 +296,7 @@ Passing tests is half the interview. The other half is saying it.
 | # | Feature | What the candidate gets | State |
 |---|---|---|---|
 | 39 | A shortcuts sheet, and the usual keys | `?` lists them; fit, duplicate, copy, paste, select all | New (section 3) |
-| 40 | Designing on a phone | The text design with a drawn diagram (spec 21) as the phone path for every problem, since the canvas is view-only there | Have for the ten Practice problems, unlinked |
+| ~~40~~ | ~~Designing on a phone~~ (owner: no, 5.11) | The text design with a drawn diagram (spec 21) as the phone path for every problem, since the canvas is view-only there | Have for the ten Practice problems, unlinked |
 | 41 | Reduced motion and keyboard access | Replay states in words, every control reachable by keyboard | Have reduced motion; canvas keyboard access not checked |
 | 42 | Speed that holds | Run in under three seconds, Submit under ten, and no frozen tab on a large design | Have at this size; a 200-part design can pause the tab (noted in `18-TODO.md`) |
 | 43 | Languages | The interface and hints in Hindi and Marathi alongside English | New; the audience is Indian candidates |
@@ -307,13 +307,13 @@ Each stage is usable on its own. Later stages assume the earlier ones.
 
 | Stage | What | Why first |
 |---|---|---|
-| 1. Remove the friction | Items 1, 2, 5, 7 and the smaller faults in 1.7 | Nothing else is seen properly until the canvas is |
+| 1. Remove the friction | Items 1, 2, 7 and the smaller faults in 1.7 | Nothing else is seen properly until the canvas is |
 | 2. Explain every result | Items 3, 4, 9, 11, 13, 27 | Turns "failed" into a lesson; most of it is already designed in spec 22 |
 | 3. Let them play | Items 8, 12, 14 | The part no competitor has |
 | 4. Make them talk | Items 15, 16, 17, 18, 19, 20 | Closes the gap between passing tests and passing interviews |
 | 5. Bring them back | Items 28, 30, 31, 32, 33, 34 | Retention, once the session itself is good |
-| 6. Let them share | Items 35, 36, 37 | Growth, and learning from others |
-| 7. Reach more people | Items 40, 43, 21 | Phones and languages |
+| 6. Let them share | Items 35, 37 | Growth, and learning from others |
+| 7. Reach more people | Items 43, 21 | Languages and speaking |
 
 ### 5.10 The three that matter most
 
@@ -326,10 +326,62 @@ If only three things are built from this list:
 3. **Defend your design** (item 16). It is the bridge from a passing design to a passing interview, and the
    simulator can mark it honestly because it knows the true answer.
 
-### 5.11 Open decisions for the owner
+### 5.11 Decisions taken by the owner (2026-11-14)
 
-- Whether the solution should be gated (item 5), and how strictly.
-- Whether other candidates' accepted designs may be shown (item 36), and under what name.
-- Whether Practice (the text design) becomes the phone path for all problems (item 40) or stays separate.
-- Whether a free sandbox canvas with templates is wanted at all; it is outside this list because it is a
-  different product from judged problems.
+| Question | Answer | What follows |
+|---|---|---|
+| Gate the solution before a first attempt? | **No** | Item 5 is dropped, and it leaves stage 1 of the build order. The Solution tab stays open from the start. Fault 1.6 is closed as "by design". |
+| Show other candidates' accepted designs? | **No** | Item 36 is dropped. Sharing is a candidate's own link (item 35) and exports only. |
+| Make the text-based Practice the phone path for all problems? | **No** | Item 40 is dropped. The canvas stays the one way to solve; on phones it remains view-only. |
+| A free sandbox canvas? | Asked for more detail | Section 5.12 |
+
+### 5.12 The sandbox canvas, in detail
+
+**What it is.** A blank canvas with no problem attached: the same parts, arrows, settings and simulator, but the
+candidate chooses the traffic and the failures instead of a test suite choosing them. Today the canvas only
+opens inside a problem or a challenge, so a candidate cannot design something that is not one of the 22
+questions.
+
+**Why a candidate would want it.**
+
+- Their interview question is not on the site. They can still build "design a stock exchange" and see whether
+  it holds.
+- A mock interview with a friend: one asks any question, the other draws here.
+- Trying an idea from an article ("what does a cache replica actually buy me?") without the rules of a problem.
+- Keeping their own designs as a portfolio or revision notes.
+
+**What it would contain.**
+
+| Part | What it does | Already exists? |
+|---|---|---|
+| Blank canvas, or start from a template | Six to nine common shapes: client and server, read-heavy with a cache, queue and workers, event stream, real-time gateway, multi-zone | Canvas exists; templates are new. The 22 reference designs and 8 challenge references could seed them |
+| A traffic panel | Requests a second, the pattern over the day (steady, lunch and dinner, flash sale, match night), the share of reads and writes | The patterns exist in the catalogue; the old Lab tab had this panel before it was removed on 2026-11-10 |
+| A failure panel | Add events on a timeline: a part crashes, a zone goes dark, the cache empties, a spike | The simulator supports all of these; they are scripted per test today |
+| Run and Replay | The same replay, bill and credit meter | Exists |
+| A report instead of a verdict | No pass or fail, since there is no requirement: availability, p99, what crashed and when, the bill, headroom | The numbers exist; the report is the "no AI" design report of spec 22 §10 |
+| My designs | A list of saved designs with names, rename, duplicate, delete | The store already holds several designs per user (the old Lab used it) |
+| Share and export | Link, PNG, SVG, Mermaid | Partly exists |
+
+**What it cannot do.** The judge needs to know what the system is for: its calls, its data and its targets.
+Without a problem there is nothing to judge function against, so the sandbox can say "this stays up and costs
+this much" but not "this is a correct design for a chat app". Two ways to narrow that gap later: let the
+candidate declare a few calls and targets themselves (a small form: name, reads or writes, share, p99 target),
+or let the interviewer read the design and ask about it.
+
+**How it differs from what was removed.** The Lab tab was a free canvas shown as a main tab beside the articles,
+and it was removed in favour of problems. The sandbox proposed here is not a tab of its own: it is one more
+row on the Problems page ("Open canvas: design anything") and a button on the landing page.
+
+**Cost and risk.**
+
+- Build: small to medium. Most parts exist; the traffic and failure panels and the "my designs" list are the
+  work. No new judge code if the report is used instead of a verdict.
+- It needs the faults in section 1 fixed first; a sandbox on a 430 px canvas would show the product at its worst.
+- It can pull attention from judged problems, which are the site's strength. Keeping it off the main tabs
+  limits that.
+- Free or paid is an owner decision. As the landing page's "try it" it works best free and signed out, with
+  saving behind sign-in.
+
+**Recommendation.** Worth building, after stages 1 to 3 of section 5.9, and as one feature rather than a second
+product: the same canvas with the problem switched off. It also makes "Break it yourself" (item 8) nearly free,
+because the failure panel is the same control.
