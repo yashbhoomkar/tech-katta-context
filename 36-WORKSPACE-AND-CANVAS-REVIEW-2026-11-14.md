@@ -439,3 +439,12 @@ Commit `43fefb51bb78d724df9017b62f3d19e8959f0742` (branch `ccr-0abbbe33-gkyjcf`)
 - `eval/faults.js`: a crash may name the node (`node`); a spike may mark itself as an event (`mark`), which the replay words and scrubber show. The API's judge pool runs the same file, so it is recorded in both ledgers; existing tests are unchanged (frontend 393/393).
 - Checked in Chromium on the copied URL shortener solution: the evening peak replayed, scrubbed to minute 10, "Links DB crashes" — the standby takes over and the replay continues; then a 5× spike stacked on top.
 - Item 8 of §5.3 done. Not done from stage 3 yet: numbers on arrows (item 11, needs per-arrow rates from the simulator), compare two attempts (item 12), zones drawn as groups (item 14).
+
+### Step 5: compare with the last submission; the bill part by part
+
+Commit `31fa78114b2881de324cb8d467939e412fcf9d40` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 985, `backend_git_commits` 710.
+
+- Each submission (still kept in this browser, `tk-subs-v1`) now also keeps a summary of its tests and its design. After Submit, "Since your last submission" shows score, tests passed and bill against the previous submission, which tests now pass or now fail, and what changed on the canvas (parts added or removed, named settings such as instances 16 → 32, schema changed, arrows added or removed). `frontend/src/solve/compare.js` with `compare.test.js` (3 tests, added to `npm test`).
+- Every load test's result has "The bill, part by part": each part, storage and data transfer, largest first, with bars.
+- Checked in Chromium: the copied URL shortener solution with its cache deleted, submitted, then undone and submitted again: "Score +12 · Tests passed +5 · Bill +$439/month", five "Now passes", "Added Hot links" and its two arrows; the evening peak's bill lists Link service $7,942, data transfer $4,180, Links DB $3,358, storage $1,725, load balancer $699. Frontend tests 396/396.
+- Items 12 and 13 of §5.3 done.
