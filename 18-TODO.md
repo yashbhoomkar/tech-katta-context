@@ -11,6 +11,11 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
+| 0 | ui | **PR #365, UI/UX review fixes** (`37-UI-UX-REVIEW-FIXES.md`): plain-words landing, read aloud removed, back to top, locked topic cards, stars on every problem, 7/7/8 re-grade, logo pill | waiting for owner | draft; merge and deploy on the owner's word, then the squash commit's ledger rows |
+| — | ui | Light-theme colours (the reviewer's last point) | scheduled | 06:20 IST run, `33-LIGHT-THEME-COLOURS.md` |
+| — | security | The API returns full article bodies to signed-out visitors; the preview (Full text and Cards) is enforced only in the frontend. Serve `previewOf()` to signed-out requests and the full body only with a session | idea | found 2026-11-15; seo.js already uses the preview |
+| — | content | Renumber Interview Questions so Easy comes first, after the re-grade? (numbers are mixed now, like LeetCode) | waiting for owner | 37 §7 |
+| — | content | "Capitalise the keywords" (reviewer): if it means bold or capitalised key terms in prose, decide the style | waiting for owner | 37 §4 |
 | 1 | infra | **Move the API off Bluehost** (plan expired 2026-11-04, on grace). Moving is now `ops/README.md` (#348, #349): one command, three variables, two workflows | waiting for owner | one-time: Origin certificate → secrets ORIGIN_CERT/ORIGIN_KEY, Cloudflare token → CLOUDFLARE_API_TOKEN; then buy **AWS Lightsail Mumbai $5, paid by UPI** (decided, `31-VPS-CHOICE.md` §4c; the owner has no credit card), run the script, commit the printed public key as `ops/deploy-key.pub` |
 | ~~—~~ | build | ~~**Design skills renovation**~~ (`32-DESIGN-SKILLS-RENOVATION.md`) | reverted | #355, #356 reverted by #357 on the owner's word ("Earlier it was better"); the premium renovation row below is current again |
 | — | build | **Premium renovation** (`30-PREMIUM-RENOVATION.md`): parts A–E live (#343–#345, #347). Left: a Safari/Firefox check and a real-phone check, the owner's verdict on the look | waiting for owner | 2026-11-14 |

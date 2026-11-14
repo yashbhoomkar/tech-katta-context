@@ -1908,3 +1908,20 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
   tests. Old `/dashboard/lab…` addresses 308 to Problems, the problem or the challenge, with or without a slash (#286).
 - Checked on production: `tools/e2e/no-lab.js` 33 checks, `errors: []`; redirects. Ledger: frontend 717, backend 569.
 - Ledger, 10:45 IST: full reconciliation of main since 11-04; 49 missing rows recorded; frontend 722, backend 613.
+
+## 2026-11-15, 01:30–03:00 IST: UI/UX review fixes (PR #365, draft)
+
+- Production unchanged: `main` = `613442a` (#364), API release `20261114T174554Z-613442a`, 66 articles.
+- PR #365 (branch `ccr-b42a0cbb-y2io0r`):
+  - plain-words landing section;
+  - read aloud removed;
+  - Back to top;
+  - Cards obey the sign-in preview;
+  - stars on every problem;
+  - re-grade to 7/7/8;
+  - the logo pill;
+  - copy fixes.
+
+  See `37-UI-UX-REVIEW-FIXES.md`. Tests 393 + 114 pass; browser tested locally only.
+- Ledger: 4 frontend and 5 backend rows for the branch commits.
+
