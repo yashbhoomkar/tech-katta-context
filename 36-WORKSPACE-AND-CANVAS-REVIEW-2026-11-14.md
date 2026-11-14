@@ -310,10 +310,11 @@ Each stage is usable on its own. Later stages assume the earlier ones.
 | 1. Remove the friction | Items 1, 2, 7 and the smaller faults in 1.7 | Nothing else is seen properly until the canvas is |
 | 2. Explain every result | Items 3, 4, 9, 11, 13, 27 | Turns "failed" into a lesson; most of it is already designed in spec 22 |
 | 3. Let them play | Items 8, 12, 14 | The part no competitor has |
-| 4. Make them talk | Items 15, 16, 17, 18, 19, 20 | Closes the gap between passing tests and passing interviews |
-| 5. Bring them back | Items 28, 30, 31, 32, 33, 34 | Retention, once the session itself is good |
-| 6. Let them share | Items 35, 37 | Growth, and learning from others |
-| 7. Reach more people | Items 43, 21 | Languages and speaking |
+| 4. The sandbox canvas | Item 44 (section 5.12): blank canvas or template, traffic and failure panels, a report, my designs. Paid | Reuses the failure control of item 8; needs stages 1 to 3 first |
+| 5. Make them talk | Items 15, 16, 17, 18, 19, 20 | Closes the gap between passing tests and passing interviews |
+| 6. Bring them back | Items 28, 30, 31, 32, 33, 34 | Retention, once the session itself is good |
+| 7. Let them share | Items 35, 37 | Growth, and learning from others |
+| 8. Reach more people | Items 43, 21 | Languages and speaking |
 
 ### 5.10 The three that matter most
 
@@ -333,7 +334,7 @@ If only three things are built from this list:
 | Gate the solution before a first attempt? | **No** | Item 5 is dropped, and it leaves stage 1 of the build order. The Solution tab stays open from the start. Fault 1.6 is closed as "by design". |
 | Show other candidates' accepted designs? | **No** | Item 36 is dropped. Sharing is a candidate's own link (item 35) and exports only. |
 | Make the text-based Practice the phone path for all problems? | **No** | Item 40 is dropped. The canvas stays the one way to solve; on phones it remains view-only. |
-| A free sandbox canvas? | Asked for more detail | Section 5.12 |
+| A sandbox canvas? | **Yes, build it. It is paid.** | Section 5.12. It becomes item 44 and stage 4 of the build order, after "Let them play". |
 
 ### 5.12 The sandbox canvas, in detail
 
@@ -379,9 +380,10 @@ row on the Problems page ("Open canvas: design anything") and a button on the la
 - It needs the faults in section 1 fixed first; a sandbox on a 430 px canvas would show the product at its worst.
 - It can pull attention from judged problems, which are the site's strength. Keeping it off the main tabs
   limits that.
-- Free or paid is an owner decision. As the landing page's "try it" it works best free and signed out, with
-  saving behind sign-in.
+- **Paid (owner, 2026-11-14).** It is not the landing page's free "try it"; that stays the IND vs PAK canvas.
+  Under the launch rule recorded in `12-OPERATING-RULES.md` (sign-in unlocks everything, no paywall work yet),
+  "paid" means behind sign-in for now and marked `paid` for when subscriptions start.
 
-**Recommendation.** Worth building, after stages 1 to 3 of section 5.9, and as one feature rather than a second
+**Decided: build it.** The recommendation was: worth building, after stages 1 to 3 of section 5.9, and as one feature rather than a second
 product: the same canvas with the problem switched off. It also makes "Break it yourself" (item 8) nearly free,
 because the failure panel is the same control.
