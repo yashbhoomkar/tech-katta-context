@@ -65,9 +65,35 @@ disk (6.2 GB used); the API process uses **120 MB** (peak 128 MB over 8 hours) a
   just before launch. Not worth it now; with a 15-minute move, revisit if the bill matters more later.
 - Upgrade path when traffic grows: the $12 plan (snapshot and resize, or the five-step move).
 
-## 5. Sources
+## 5. Node.js app platforms (checked 2026-11-14)
 
-AWS Lightsail pricing (aws.amazon.com/lightsail/pricing), Lightsail baseline CPU performance
+The API runs on them as a container (`backend/Dockerfile`, built and started by CI on every PR): it needs an
+always-on process (no sleeping), worker threads (the judges), one instance (rate limits in memory) and 256–512 MB.
+
+| Platform | Cheapest always-on | Nearest region | Notes |
+|---|---|---|---|
+| DigitalOcean App Platform | $5 (512 MiB, 1 shared vCPU, 50 GiB transfer) | **Bangalore** | Only one with an India region; USD billing |
+| Fly.io | ≈ $2.19 (256 MB) to ≈ $3.3–3.7 (512 MB), usage-based | Singapore (no Mumbai in the current region list) | Cheapest; +50–70 ms from India |
+| Railway | $5 Hobby incl. $5 usage (always-on 0.25–0.5 GB ≈ $3–5 at $10/GB-month) | Singapore | Usage-based; card required |
+| Render | $7 Starter (512 MB, 0.5 CPU); the free plan sleeps after 15 min | Singapore | Same price as Lightsail $7 for less |
+| Google Cloud Run | likely $0 in the free tier with scale-to-zero (2 M requests, 180 k vCPU-s, 360 k GiB-s a month) | **Mumbai** | Cold starts after idle; instances recycle (rate limits and judge workers restart); keeping one warm costs extra |
+| Heroku | $7 Basic | US/EU only | — |
+
+What changes on a platform: deploys become "build the image on push" (replace the VPS deploy job; the content
+releases and `kill -HUP` reload go away); TLS comes from the platform; `CLIENT_IP_HEADERS=cf-connecting-ip`,
+`JUDGE_WORKERS=1`. What we lose: the platform's own address (`*.ondigitalocean.app`, `*.fly.dev`) stays public, so
+the origin cannot be limited to Cloudflare as the VPS firewall does, and a direct caller could forge
+`CF-Connecting-IP` past the rate limits; the move tooling of #348–#350 is VPS-only.
+
+**Decision stays Lightsail $7.** The cheapest platform options save $2–5 a month (≈ ₹170–440) but either sit in
+Singapore, sleep, or need the deploy pipeline rebuilt and give up the Cloudflare-only origin. Worth revisiting if
+server upkeep becomes a burden: DigitalOcean App Platform (Bangalore, $5) is the one to try first.
+
+## 6. Sources
+
+App platforms: fly.io/pricing and docs.fly.io/reference/regions, docs.digitalocean.com (App Platform pricing and
+availability), render.com/docs/regions, Render and Railway pricing summaries (activepieces.com, temps.sh, kuberns.com),
+cloud.google.com/run/pricing. Servers: AWS Lightsail pricing (aws.amazon.com/lightsail/pricing), Lightsail baseline CPU performance
 (docs.aws.amazon.com/lightsail/latest/userguide/baseline-cpu-performance.html), Hostinger India VPS page
 (hostinger.com/in/vps-hosting), and third-party comparisons: cybernews.com, techplained.com, vyomcloud.com,
 heavencloud.in, valebyte.com, aiccloud.in, cloudzero.com, cloudburn.io. Contabo's own site blocked automated reading.
