@@ -387,3 +387,22 @@ row on the Problems page ("Open canvas: design anything") and a button on the la
 **Decided: build it.** The recommendation was: worth building, after stages 1 to 3 of section 5.9, and as one feature rather than a second
 product: the same canvas with the problem switched off. It also makes "Break it yourself" (item 8) nearly free,
 because the failure panel is the same control.
+
+---
+
+## 6. Build log
+
+Owner, 2026-11-14: "Start building everything step by step and after every step push, update docs and ledgers."
+Each step is committed to branch `ccr-0abbbe33-gkyjcf` of the app, pushed, recorded in the ledger and noted here. Merging to
+`main` (which deploys) goes through a pull request, opened when the owner asks.
+
+### Step 1: the canvas fits itself and gets the window
+
+Commit `0993fd0a3e33a0eb126e3726d4f56e43b6ef258e` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 981, `backend_git_commits` 708.
+
+- Fit on the canvas's real size once cards are measured, and again on every size change (problem pane, divider, replay) and when the results panel opens, shrinks or closes; only the part above the results counts. Not after the visitor pans or zooms, until Fit, F, or a replay starts or ends.
+- On screens wider than 900 px the settings float over the canvas and appear only on selection; a card under them slides into view; Escape deselects.
+- The palette shrinks to icons (default inside a problem below 1,700 px wide, then the visitor's choice).
+- Replays hide the palette and settings. Palette help text corrected.
+- Measured at 1440×900: opens at zoom 0.88 (was 0.25); the copied solution at 0.50 (was 0.32). Frontend tests 393/393. Backend tests not run here (the dev dependency `mongodb-memory-server` is not installed in this container); nothing in `backend/` changed.
+- Faults closed: 1.1, 1.2 (mostly), 1.3 (canvas width during replay; the results panel's size is step 3), palette help text (1.7).
