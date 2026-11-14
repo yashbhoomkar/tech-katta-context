@@ -457,3 +457,15 @@ Commit `acfa1750d73f79f394cb4be0da90567e2a3989b2` (branch `ccr-0abbbe33-gkyjcf`)
 - During a replay each pill adds its rate at that minute. On the copied URL shortener at the evening peak: HTTPS · 35.0k/s, REST · 35.0k/s, Key lookup · 35.0k/s, the cache's misses DB query · 4,734/s, writes DB query · 350/s. Frontend tests 396/396 (the simulator's speed test included).
 - Item 14 (zones as boxes) is **not built, by decision**: a part's instances are spread over zones rather than placed in one, so a box per zone would not match the model; the card already says "3 zones", and the replay shows a zone going dark.
 - Stage 3 of §5.9 is done: items 8, 11, 12 (and 13 from stage 2).
+
+### Step 7: the sandbox canvas (paid)
+
+Commit `a741bd9a685914c5314301425754ce0bc9cb2790` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 987, `backend_git_commits` 711.
+
+- `/dashboard/problems/sandbox/` (`frontend/src/sandbox/`): the problem canvas with the problem switched off. Left panel: start from one of five designs (blank; clients, load balancer, servers, database; a cache in front; a CDN in front; standby and replicas in three zones), the traffic (requests a second, the day's pattern, reads against saves, item size, a p99 target) and up to six failures (a named part crashes, a zone goes dark, traffic jumps ×N for M minutes, the cache empties) at chosen minutes.
+- Run gives a **report, not a verdict** ("It held up" / "It struggled"): each call's availability, p50 and p99, the checks, why it struggled, what happened minute by minute, the bill part by part and the findings. "Replay it on the canvas" includes arrow rates and Break it yourself.
+- `sandbox/practice.js` turns the settings into a v2 practice (an `items` table, "Read an item" and "Save an item", one load test checked for targets, crashes and lost writes), so **no judge code is added**. `practice.test.js` (3 tests, in `npm test`) runs every starting design through the real judge.
+- **Paid:** behind sign-in like every page that is not a list (`useGate`), labelled Paid on the Problems page and on the sandbox; per the launch rule (sign-in unlocks everything) there is no paywall yet. The design is kept like a problem's (`q-sandbox`, synced to the account); the traffic settings stay in this browser (`tk-sandbox-v1`).
+- Problems page: a Sandbox row above the challenges.
+- Checked in Chromium (sign-in off locally): the Problems row opens the sandbox; "Read-heavy" loads five cards with no check failing; 8,000 a second with a server crash at minute 10 reports "It struggled" with the overload explained and a $1,029 bill; the replay shows HTTPS 15.4k/s (with retries), Key lookup 1,200/s, DB query 406/s. Frontend tests 399/399.
+- Not built yet from §5.12: a list of several sandbox designs (one design for now, plus starting designs), and letting the visitor declare their own calls and targets.

@@ -14,6 +14,8 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
 
 **Update 2026-11-14 (building context 36, step 6: calls a second on every arrow).** Commit `acfa1750d73f79f394cb4be0da90567e2a3989b2` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 986, backend 711. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-14 (building context 36, step 7: the sandbox canvas (paid)).** Commit `a741bd9a685914c5314301425754ce0bc9cb2790` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 987, backend 711. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's
 (premium renovation). **Decided:** don't bring back the spec 32 look unless asked. Details of what was tried below and in
