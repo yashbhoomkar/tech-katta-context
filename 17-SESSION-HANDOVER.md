@@ -6,7 +6,10 @@ Last updated **2026-11-14** (premium renovation #343–#345, see the first updat
 bought 4 Oct) expired on 4 Nov and still runs on grace; the owner: "Start moving out of bluehost vps. We will purchase
 some other vps." **#348** adds `ops/provision-vps.sh` (one script turns a fresh Ubuntu/Debian VPS into an API server
 for the unchanged deploy workflow) and the eight steps in `HOSTING.md`. Tested on a fresh Ubuntu 24.04 container
-including the real deploy script over SSH. Waiting for the owner to buy the VPS (18-TODO, first row). The GitHub
+including the real deploy script over SSH. Then, owner: "make it very easy to change the vps": **#349** — the server is three repository variables, the
+Origin certificate and the deploy key never change (secrets), and the workflow "Point API at the server" checks the
+new server and moves the DNS record; guide `ops/README.md`. Provider research: `31-VPS-CHOICE.md` (Lightsail
+Mumbai). Waiting for the owner (18-TODO, first row). The GitHub
 secrets already hold the sign-in settings, so nothing has to be copied off the old server; Atlas network access
 allows 0.0.0.0/0 (tighten after the move).
 
