@@ -1,4 +1,4 @@
-# 33 — Article audit of production (2026-11-14)
+# 34 — Article audit of production (2026-11-14)
 
 A system design review of every article that production serves. Nothing in the application was changed: this file
 is the whole output. Fixes are listed in section 8 for a later session.
@@ -20,7 +20,7 @@ Checked 2026-11-14, 14:32–14:39 UTC (about 20:05 IST).
 
 **The frontend is five commits behind `main`.** #359, #360, #361, #362 and #363 are merged, and the API deployed
 them, but Vercel has no deployment for any of them, in any state. 27 frontend files differ between `f2e3d40` and
-`main`. The cause was not found from here (the repository's `vercel.json` has no skip rule). Seen effects:
+`main`. The cause, found later and recorded in file 36: Vercel's daily deploy limit refused them. Seen effects:
 
 - The canvas work of #359–#362 (checks while building, undo and redo, minimap, replay animations, "walk me through
   it", Mermaid and SVG export, the credit meter) is not on the site.

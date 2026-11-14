@@ -1,10 +1,10 @@
-# 34 — Full technical review: the 21 concepts and everything else (2026-11-14)
+# 35 — Full technical review: the 21 concepts and everything else (2026-11-14)
 
-This continues `33-ARTICLE-AUDIT-2026-11-14.md`. The owner asked for two more things: an audit of the concepts
+This continues `34-ARTICLE-AUDIT-2026-11-14.md`. The owner asked for two more things: an audit of the concepts
 that existed before #363 ("there were 21"), and a review of every piece of technical content, not only the
 articles. Nothing in the application was changed.
 
-What this file adds to file 33:
+What this file adds to file 34:
 
 1. The twelve concept articles removed by #363, recovered from git and audited (section 2).
 2. The ten Practice problems under `content/problems2` (section 3).
@@ -12,7 +12,7 @@ What this file adds to file 33:
 4. The text and numbers drawn inside the figures (section 5).
 5. The landing page and the shared example company (section 6).
 6. Design-level remarks on the worked questions that go beyond arithmetic (section 7).
-7. One correction to file 33 (section 8).
+7. One correction to file 34 (section 8).
 
 ## 1. Summary
 
@@ -20,7 +20,7 @@ What this file adds to file 33:
   remain and twelve that #363 deleted. All twelve were recovered and read in full.
 - **The twelve removed articles are accurate.** Every number that could be recomputed is right, including the
   geohash example, which was checked by computing the cell and its eight neighbours. They are also exactly the
-  articles whose absence file 33 reported as the library's main gap. Four of them are prerequisites for worked
+  articles whose absence file 34 reported as the library's main gap. Four of them are prerequisites for worked
   questions that are still published.
 - **The Practice problems are where the new problems are.** Their capacity model contradicts the Numbers to know
   article, three reference solutions teach a design the articles argue against, and two statements contain
@@ -34,7 +34,7 @@ What this file adds to file 33:
 ## 2. The twelve removed concepts
 
 Recovered from `7f3df4c:content/articles/concepts/`. The nine kept articles differ from their earlier versions
-only in the cross-references #363 edited, so file 33 covers them.
+only in the cross-references #363 edited, so file 34 covers them.
 
 ### 2.1 Verdict per article
 
@@ -72,20 +72,20 @@ only in the cross-references #363 edited, so file 33 covers them.
 
 - **Redirect chains.** Older redirects still point at pages #363 removed: `distributed-transactions → workflows →
   api-design`, and five `realtime-*` addresses go to `real-time-updates` and then on to Networking essentials.
-- **None of the redirects is live yet**, because the frontend deployment is still at #358 (file 33, section 1).
+- **None of the redirects is live yet**, because the frontend deployment is still at #358 (file 34, section 1).
 
 ### 2.3 Recommendation
 
 The owner's reason for #363 was that there were too many concepts. The twelve were not equal. Four are load
 bearing: **Contention, Real-time updates, Change data capture, and one merged page for multi-step processes and
-long jobs**. Restoring those four gives thirteen concepts, closes most of file 33's section 5, and repairs four
+long jobs**. Restoring those four gives thirteen concepts, closes most of file 34's section 5, and repairs four
 of its six broken references. Scaling reads and Scaling writes overlap with Caching, Sharding and Numbers to know
 and can stay out. The four specialised ones (nearby, vectors, time series, sketches) are good optional reading and
 would fit under Components or Quick Notes without counting as concepts.
 
 The clone used for this review holds the last 50 commits. An older generation of concept pages (their addresses
 survive as redirects: `replication`, `consensus`, `distributed-transactions`, `consistency`, `timeouts-retries`)
-is not in it and was not audited. The two "consensus article" references reported in file 33 point at one of them.
+is not in it and was not audited. The two "consensus article" references reported in file 34 point at one of them.
 
 ## 3. The ten Practice problems
 
@@ -154,7 +154,7 @@ Checked: `content/lab.json` and `content/eval.json`, which hold every size, pric
 - **The largest database is small.** The top size is 8 vCPUs and 12,000 queries a second, so hints such as "No
   database here takes 20,000 reads a second" are true of the canvas and untrue of the article's machines. The
   hints do say "here"; a sentence on why the canvas stops at this size would prevent the wrong takeaway.
-- **The match-night traffic pattern repeats the timeline error** from file 33 section 3.2: "a jump at the 7 pm
+- **The match-night traffic pattern repeats the timeline error** from file 34 section 3.2: "a jump at the 7 pm
   toss … the peak in the last over at 10:18 pm". That is a third place to fix, with the article and its brief.
 - **The eight challenges are consistent** with their own catalogue: every hint's number can be derived from the
   sizes listed.
@@ -196,7 +196,7 @@ Method: the labels, step lines and screen-reader descriptions of every figure we
 
 ## 7. The worked questions, at design level
 
-File 33 checked the arithmetic. These are the points a senior interviewer would push on.
+File 34 checked the arithmetic. These are the points a senior interviewer would push on.
 
 | Question | Remark |
 |---|---|
@@ -207,19 +207,19 @@ File 33 checked the arithmetic. These are the points a senior interviewer would 
 | Coding judge | Fairness depends on one sandbox per core. With 8 sandboxes on 8 cores the CPU-time measure holds; the article gives the machine count but not that rule. |
 | Chat app | The registry-and-direct-delivery design is right. It does not say what stores the messages, and "one write that bumps the number and saves the message" depends on that choice. |
 | IND vs PAK | Already reported: the origin estimate (1% of requests) against "once per edge per segment". |
-| 10-minute grocery | The hold covers one item in the example; an order has about eight (file 33). |
+| 10-minute grocery | The hold covers one item in the example; an order has about eight (file 34). |
 
 The other fourteen hold up under the same reading. The strongest are the URL shortener, restaurants near me,
 dating swipes and ad click counting: each finds the one non-obvious problem in its question and solves it
 correctly.
 
-## 8. Correction to file 33
+## 8. Correction to file 34
 
-File 33 said of the grocery question that the "2 km radius" in its "Senior" line appears nowhere else. The
+File 34 said of the grocery question that the "2 km radius" in its "Senior" line appears nowhere else. The
 figure `minutes-flow` does show "ride, about 2 km". The text still never derives it from the 10-minute budget, so
-the remark stands in a weaker form, and file 33 is corrected.
+the remark stands in a weaker form, and file 34 is corrected.
 
-## 9. Fix list, added to file 33's
+## 9. Fix list, added to file 34's
 
 | # | Fix | Size |
 |---|---|---|
@@ -246,5 +246,5 @@ Not checked:
 - Figures were read as text, not rendered.
 - The reference and wrong designs inside the 22 worked questions' practice blocks were read for their briefs,
   estimates and decisions, not simulated.
-- The Shopify, Spotify and Meta case studies remain unverified against their sources (file 33, section 7).
+- The Shopify, Spotify and Meta case studies remain unverified against their sources (file 34, section 7).
 - Concept pages older than the last 50 commits.
