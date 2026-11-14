@@ -22,7 +22,22 @@ labels). **#358** (branch `ccr-328fc450-xdjrk1`, commit `2a72b8edbbd02c40a4fb007
   changes) with the squash SHA. **Ledger:** the branch commit `2a72b8e` is recorded in both collections (frontend 968,
   backend 703). CI on #358 all green (CodeQL, frontend, backend, API container). **Pending:** the owner's look at the
   canvas and merge. Owner's follow-up the same day: "Why the boxes does not have glowing outline" and a stress test on
-  complex designs (see the next update when done).
+  complex designs, done in `502623f` (frontend 969 in the ledger):
+  - **Glow:** cards glow in their tile colour (`.ln[class*=" t-"]` in `lab.css`; soft, brighter on hover, strongest
+    selected; replay warn/over/down keep their own border).
+  - **Arrow layout** (`layout()` in `lab/drawing.js`, used by `Canvas.jsx` flowEdges → `data.geo` and by
+    `SolutionDesign.jsx`): per arrow, the direct curve, all 16 side pairs and detour arcs at up to 4 heights per side
+    are sampled (24 points) and the one crossing fewest cards (then shortest; facing sides preferred) wins; arrows on
+    one card side are spread up to 18 px apart in the order of their far ends; pills slide along their arrow (t .5 →
+    .18/.82) to the spot overlapping fewest cards and pills. Replaces the earlier `detour` and `pair` offsets.
+  - **Stress test** (scratch scripts, not in the repo): ride hailing 17 cards/18 arrows, video streaming 20/23, social
+    feed 20/23, payments with outbox/CDC 17/15, a 39-card mesh 39/42, injected as the URL shortener's design. Measured
+    in Chromium: arrows through cards 12 → 2, pills on cards 4 → 0, pill on pill 8 → 2, no page errors, a 30-step drag
+    of one card 0.5 s (0.75 s on the mesh). Left: one long diagonal per design where the author placed a part far away
+    (Netflix's nightly job → recommendations; the mesh's service 10 → event bus).
+  - **Catalogue gaps found** (not changed; owner's call): `allowedEdge` drops server → coordination service,
+    database → event stream (CDC goes only to a queue), pub/sub → external service; 8 of 107 arrows in the stress
+    designs were dropped for these.
 
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's

@@ -1466,3 +1466,5 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 `2a72b8edbbd02c40a4fb007808a6fb7f39a0f187` (branch commit) inserted into **both** collections after checking it was absent
 (frontend: the canvas; backend: `frontend/src/lab/store.js` is imported by the API's sync and judge). Counts:
 **frontend 968, backend 703**. Still to record on merge: the squash commit (both) and any later branch commits.
+Then `502623f751e1631a757f5e22a57070b65009f5b3` (glowing card outlines and the whole-design arrow layout; frontend only,
+no API code): **frontend 969, backend 703**.
