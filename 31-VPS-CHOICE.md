@@ -49,7 +49,20 @@ setup script's swap; move up later with a snapshot or by running the five-step m
 Indian hosts (₹360–390) are fine to try for a month now that switching takes 15 minutes, but are a reliability risk
 for launch.
 
-## 4a. Decision, revised (2026-11-14): Akamai (Linode) Nanode 1 GB, Mumbai
+## 4b. Decision, revised again (2026-11-14): OVHcloud VPS-1, Mumbai
+
+Owner asked "How is OVHcloud". OVHcloud India page (official, 2026-11-14): **VPS-1 ₹420 a month + GST (≈ ₹496) for
+2 vCores, 4 GB, 40 GB NVMe**, 500 Mbps, daily backup of the last 24 hours included (rolling 7 days), anti-DDoS by
+default, priced in rupees. Mumbai is one of its Asia-Pacific VPS locations; there the "unlimited traffic" has a
+**500 GB monthly quota on VPS-1**, then 10 Mbps (we use a few GB). Billing is monthly (no hourly). Not confirmed:
+setup fee on a monthly term, ID verification at sign-up; one comparison says Mumbai stock is sometimes sold out.
+- Same money as the Akamai Nanode (≈ ₹440–520) for **4× the memory, 2 cores and a free daily backup**, billed in rupees
+  (no card currency fee), from Europe's largest host.
+- Catches: support is slow by reputation; new accounts can be asked for ID; monthly not hourly.
+**Buy OVHcloud VPS-1 in Mumbai if the checkout shows Mumbai in stock, monthly, with no setup fee; otherwise the Akamai
+Nanode 1 GB (§4a).**
+
+## 4a. Decision, revised (2026-11-14): Akamai (Linode) Nanode 1 GB, Mumbai (now the second choice)
 
 Owner: Web Eye Soft "is not reliable"; Lightsail $7 "very expensive"; "give me the option which one to buy".
 **Buy the Akamai Cloud (Linode) Nanode 1 GB in Mumbai (or Chennai): $5 a month ≈ ₹440 (≈ ₹520 if 18 % GST is
@@ -128,7 +141,8 @@ not stated; no test IP or looking glass published.
 
 ## 7. Sources
 
-Web Eye Soft: webeyesoft.com (terms, refunds-and-cancellations, cheapest-vps-hosting-in-india), ipinfo.io and ARIN
+OVHcloud: ovhcloud.com/en-in/vps and /en-in/vps/vps-india (prices, Asia-Pacific traffic quota), stackrates.ai,
+valebyte.com (billing). Web Eye Soft: webeyesoft.com (terms, refunds-and-cancellations, cheapest-vps-hosting-in-india), ipinfo.io and ARIN
 RDAP for 129.212.244.51, api.globalping.io measurements. App platforms: fly.io/pricing and docs.fly.io/reference/regions, docs.digitalocean.com (App Platform pricing and
 availability), render.com/docs/regions, Render and Railway pricing summaries (activepieces.com, temps.sh, kuberns.com),
 cloud.google.com/run/pricing. Servers: AWS Lightsail pricing (aws.amazon.com/lightsail/pricing), Lightsail baseline CPU performance
