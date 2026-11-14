@@ -1468,3 +1468,9 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 **frontend 968, backend 703**. Still to record on merge: the squash commit (both) and any later branch commits.
 Then `502623f751e1631a757f5e22a57070b65009f5b3` (glowing card outlines and the whole-design arrow layout; frontend only,
 no API code): **frontend 969, backend 703**.
+
+### #358 merged, #359–#361 (2026-11-14): canvas work in production
+
+Frontend rows: `f2e3d40…` (squash #358), `c32c0f4…` (branch #359), `586a627…` (squash #359), `f89f0f9…` (branch #360),
+`7592ccb…` (squash #360), `e0d6f0a…` (branch #361). Backend row: `f2e3d40…` (squash #358; the API's sync code). Counts
+after: **frontend 975, backend 704**. The squash of #361 is added when it merges.

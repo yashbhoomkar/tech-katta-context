@@ -5,7 +5,12 @@ in case of both healthy and crashed components. You may use the animations skill
 and "There was an open source repo we had found earlier related to system design canvas and evaluator. Check out good
 things in them. Check if we can also have them in our system."
 
-**Status: design only, nothing built in the app.** A working prototype of every animation in this spec is published
+**Status: built and in production (owner, same day: "Put them into production").** #359 (checks while you build,
+undo/redo, reverse an arrow, minimap), #360 (replay animations, scrubber marks), #361 (walk through the solution,
+Mermaid/SVG export). Not built: auto-layout, zones as groups, copy/paste, ⌘K, share links, per-arrow rates (§1.4).
+Differences from the plan: replay dots use SVG `animateMotion` (as the existing Accepted sweep does), not a rAF loop;
+a cache's ring shows the warm-up between its `cold` and `warm` events (the timeline has no hit rate); several events in
+one minute share one scrubber mark. Was: design only. A working prototype of every animation in this spec is published
 privately for the owner: **Canvas Motion Lab**, https://claude.ai/artifact/GDYC1KBTaJyiU2j8xZthBA (a 40-minute replay of
 the URL shortener's evening peak, a gallery of all 15 widgets in both states, the 5 arrow states, the rules).
 
