@@ -195,3 +195,141 @@ are repeated in the table for completeness. The rows marked **new** were not in 
   mismatch was looked at for the URL shortener only.
 - The reference was read as source, not run.
 - No measurement of performance with large designs (30 or more cards).
+
+---
+
+## 5. The best problem-solving experience: what to give candidates
+
+Added the same day, on the owner's request: "I need the best problem solving experience for the candidates. Find
+out the features that we should give. Find out the functionalities that we should provide."
+
+### 5.1 What "best" means here
+
+A candidate comes to practise for a 45-minute interview in which they must talk, draw, decide and defend. The
+site already does something no other does: it runs the design under real traffic and failures and judges it.
+The best experience is the one where every minute a candidate spends moves them closer to that interview. That
+gives five tests for any feature:
+
+1. **It keeps them drawing and thinking,** not fighting the tool.
+2. **It tells them why,** not only pass or fail.
+3. **It makes them explain,** because the interview is spoken.
+4. **It shows progress,** so they know what to practise next.
+5. **It can be done in the time they have,** including on a phone on the way to work.
+
+The lists below are sorted by those five. "Have" means it is on `main` today. "Designed" means a spec already
+describes it (mostly `22-EVALUATOR-V3.md`) but it is not built. "New" means it is proposed here.
+
+### 5.2 Must have: without these the rest does not land
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 1 | A canvas that fills the screen and is readable on open | The design is the largest thing on the page at every step: building, results, replay | Faults 1.1 to 1.3; fixes in section 2 |
+| 2 | Fast building: drop an arrow to add a part, duplicate, copy and paste, tidy up | A ten-part design in two minutes, as on a whiteboard | New (section 3) |
+| 3 | A verdict that explains itself | For every failed test: which part gave out, at which minute, by how much, and a button that jumps the replay to that minute | Partly have (findings, replay marks); the link from a failure to its moment is new |
+| 4 | "What would fix it" without giving the answer | After a failure, one checked repair in words ("the database is the first to run out; a cache in front, or a larger size, would pass this test"), never the whole design | Designed (spec 22 §9, checked repairs) |
+| 5 | The solution behind a deliberate step | An attempt, or one confirmation, before the full design is shown | New (fault 1.6) |
+| 6 | Work that is never lost | Every edit saved at once, restored on return, on any device after sign-in, with an unreadable save set aside, not overwritten | Have (autosave, sync); the safety net is new |
+| 7 | An interviewer that is reachable, or says why not | A clear message when sign-in or a limit is the cause | Have with the mock model; the message is new |
+
+### 5.3 What makes it better than a whiteboard
+
+These are the functions only a simulator can offer. They are the product's reason to exist.
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 8 | **Break it yourself** | During a replay, click a part and kill it, or drag the traffic up, and watch what happens next. The interviewer's "what if this dies?" becomes something they have already seen | New. Today faults are scripted per test |
+| 9 | **Headroom and waste** | "This design takes 1.8× the peak before the cache gives out" and "it would still pass with 12 servers instead of 32, saving $7,000 a month" | Designed (spec 22 §7, probes 1 and 5) |
+| 10 | **Follow one request** | Pick a call and watch it hop through the design, with the time spent at each part and where the p99 comes from | Have (Watch); per-hop time is partly there |
+| 11 | **Numbers on the arrows** | Calls a second on every arrow during a replay, so the candidate sees that the cache takes 34,000 and the database 600 | Designed (spec 33 §1.4; the simulator must record per-arrow rates) |
+| 12 | **Compare two attempts** | This submission beside the last: what changed on the canvas, and what changed in each test's result and the bill | Designed in part (spec 22 §9.3) |
+| 13 | **Cost as a first-class result** | A bill by part, the cheapest passing design they have found, and how theirs compares | Have the bill and the credit meter; the breakdown and comparison are new |
+| 14 | **Zones you can see** | Parts drawn inside their availability zone, so "a zone goes dark" is visible before the test | New (section 3, groups) |
+
+### 5.4 What makes them interview-ready
+
+Passing tests is half the interview. The other half is saying it.
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 15 | **Mock interview mode** | 45 minutes on the clock, the six steps in order with a suggested time for each, hints and the solution locked, and one summary at the end | Have the timer; the mode is designed (spec 22) |
+| 16 | **Defend your design** | Three questions about their own design after a pass: predict ("what happens to p99 if the cache restarts?"), why ("why two replicas?"), change ("the traffic doubles: what do you change first?"), marked against the simulator's own answer | Designed (spec 22 §11) |
+| 17 | **Present my design** | Walk through their own design part by part with their own note on each, the way they would at a whiteboard | New (section 3, story per component) |
+| 18 | **Notes on the canvas** | A sticky note for a decision or an assumption; the interviewer reads them | New |
+| 19 | **Trade-off cards** | For each key decision, the option they chose beside the one they did not, with what each costs in this problem's own numbers | Designed (spec 22 §8) |
+| 20 | **Follow-up questions** | The worked answer's "Follow-ups an interviewer may ask" turned into prompts after a pass, one at a time | New; the content already exists in every article |
+| 21 | **Speak it** | Record a two-minute spoken summary and play it back beside the design. No marking needed at first: hearing oneself is the value | New |
+
+### 5.5 Guidance while solving
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 22 | Checks while building | What stops the design from running, as they draw | Have (#359) |
+| 23 | Hints in steps, each tied to a concept | A nudge, then the idea, then nearly the answer, with a link to the exact section of the article that teaches it | Have the steps; the links are new |
+| 24 | A step-by-step mode for beginners | The six steps as a guided path: requirements first, the canvas unlocked after the numbers and the API are written | New. Today every tab is open at once, which suits practised candidates |
+| 25 | Estimate helper | A small calculator beside the estimates: per day to per second, bytes to terabytes, with the crore and lakh units the site uses | New |
+| 26 | Wrong-design gallery | After a pass: three common wrong designs for this problem, each with the test it fails and why | New for the canvas problems; the content exists (`wrong` in every problem) and is hidden today |
+| 27 | "Why did this part crash?" | Click a crashed card in the replay for its load, its limit and what fed it | Partly have (card numbers in replay) |
+
+### 5.6 Progress and motivation
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 28 | A skill record | Strengths and gaps by pattern (caching, contention, queues, real-time), built from which tests they pass and fail across problems, with the next problem chosen for their weakest pattern | Designed (spec 22) |
+| 29 | Submission history that teaches | Every attempt with its score and design, restorable, and a line for what improved | Have the list and restore; the diff is item 12 |
+| 30 | Acceptance rate, best score, percentile | "Better than 62% of accepted designs on cost" | Have acceptance and best score for signed-in users; percentile is new |
+| 31 | Streak and a daily problem | A reason to return tomorrow | Have the streak in Practice only |
+| 32 | Study plans | "Two weeks to an interview": an ordered list across articles, problems and challenges, with a tick for each | New; the Questions guide and How to prepare already hold the order |
+| 33 | Company and topic tags | Filter problems by pattern and by where they are asked | Have difficulty; Practice has topics and an empty companies field |
+| 34 | Bookmarks and personal notes per problem | Come back to the ones that hurt | New |
+
+### 5.7 Sharing and community
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 35 | A share link to a design | Send it to a friend or mentor, who opens it read-only and can copy it | New (section 3) |
+| 36 | Accepted designs by others | After their own pass: other accepted designs, sorted by cost or headroom, to learn there is more than one answer | New. Needs moderation and a decision on names (an open owner decision in spec 21) |
+| 37 | Image and diagram export | PNG for notes and chats; Mermaid and SVG already exist | Partly have |
+| 38 | A result card worth posting | Score, stars, cost and the design in one image | Have after Accepted (#329) |
+
+### 5.8 Comfort and access
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 39 | A shortcuts sheet, and the usual keys | `?` lists them; fit, duplicate, copy, paste, select all | New (section 3) |
+| 40 | Designing on a phone | The text design with a drawn diagram (spec 21) as the phone path for every problem, since the canvas is view-only there | Have for the ten Practice problems, unlinked |
+| 41 | Reduced motion and keyboard access | Replay states in words, every control reachable by keyboard | Have reduced motion; canvas keyboard access not checked |
+| 42 | Speed that holds | Run in under three seconds, Submit under ten, and no frozen tab on a large design | Have at this size; a 200-part design can pause the tab (noted in `18-TODO.md`) |
+| 43 | Languages | The interface and hints in Hindi and Marathi alongside English | New; the audience is Indian candidates |
+
+### 5.9 The order to build them
+
+Each stage is usable on its own. Later stages assume the earlier ones.
+
+| Stage | What | Why first |
+|---|---|---|
+| 1. Remove the friction | Items 1, 2, 5, 7 and the smaller faults in 1.7 | Nothing else is seen properly until the canvas is |
+| 2. Explain every result | Items 3, 4, 9, 11, 13, 27 | Turns "failed" into a lesson; most of it is already designed in spec 22 |
+| 3. Let them play | Items 8, 12, 14 | The part no competitor has |
+| 4. Make them talk | Items 15, 16, 17, 18, 19, 20 | Closes the gap between passing tests and passing interviews |
+| 5. Bring them back | Items 28, 30, 31, 32, 33, 34 | Retention, once the session itself is good |
+| 6. Let them share | Items 35, 36, 37 | Growth, and learning from others |
+| 7. Reach more people | Items 40, 43, 21 | Phones and languages |
+
+### 5.10 The three that matter most
+
+If only three things are built from this list:
+
+1. **The canvas fills the screen and fits itself** (item 1). It is a fix, not a feature, and it decides whether
+   everything else is noticed.
+2. **Break it yourself** (item 8). It is the one thing a candidate cannot do with a whiteboard, a book or a
+   video, and it answers the question every interviewer asks.
+3. **Defend your design** (item 16). It is the bridge from a passing design to a passing interview, and the
+   simulator can mark it honestly because it knows the true answer.
+
+### 5.11 Open decisions for the owner
+
+- Whether the solution should be gated (item 5), and how strictly.
+- Whether other candidates' accepted designs may be shown (item 36), and under what name.
+- Whether Practice (the text design) becomes the phone path for all problems (item 40) or stays separate.
+- Whether a free sandbox canvas with templates is wanted at all; it is outside this list because it is a
+  different product from judged problems.
