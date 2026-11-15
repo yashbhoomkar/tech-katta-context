@@ -2078,3 +2078,15 @@ Older numbered files (01–09, 14–16) are partly **Historical**; trust the cod
 Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one and host it at prototype.katta.cc/p/<name>/) and `ui-prototypes/TRIED.md` (everything tried so far). Live: `/p/full-site/` (structured frontend, navigation, dark mode) and `/p/motion/`. The app on prototype.katta.cc reads the live tech-api.katta.cc, signed out. Next: `/p/neo-brutalism/`.
 
 2026-11-15: `/p/neo-brutalism/` is live (style layer over full-site, built from `ui-prototypes/neo-brutalism-spec.md`, tech-katta `prototype` 4377d40); waiting for the owner's look. See `ui-prototypes/TRIED.md`.
+
+## 2026-11-15: neo-brutalism rounds 2–3, the dark rethink, the prototype ledger
+
+- `/p/neo-brutalism/`, built from `ui-prototypes/neo-brutalism-spec.md` by a low-effort session:
+  - round 2 (`97e5b66`): a better dark structure, details and motion;
+  - round 3 (`37f6dfd`): calmer colours in both themes.
+- The owner still finds its dark unappealing. **Thinking only, by request**: `ui-prototypes/neo-brutalism-dark-thinking.md`
+  covers the diagnosis, rules, and directions B Chalkboard / D′ Inverted blocks / E Dim paper, plus how to decide (a
+  `/p/nb-dark/` comparison page and a `?nbdark=` switch). Don't build until the owner says go.
+- The commit ledger now covers the `prototype` branch: 21 rows in `frontend_git_commits` (count 1031). See
+  `11-MONGODB-COMMIT-LEDGER.md`.
+- full-site's dark is F2 "vivid, balanced", and its light colours were balanced to match (`0a9026b`, `8fa0691`).

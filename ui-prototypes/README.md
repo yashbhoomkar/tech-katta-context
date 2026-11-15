@@ -3,7 +3,7 @@
 Owner, 2026-11-15: "We will be needing a lot of prototypes. But we will be building on the frontends… Can we have
 prototype.katta.cc. Only the frontend." Later: "dont make changes in tech-katta now, we need the prototype only".
 
-This folder is the manual for that work. Specs for prototypes being built by another session sit here too (e.g. `neo-brutalism-spec.md`). **TRIED.md** lists every prototype (and earlier redesign attempt), what it
+This folder is the manual for that work. Specs for prototypes being built by another session sit here too (e.g. `neo-brutalism-spec.md`), and design thinking that is not built yet (e.g. `neo-brutalism-dark-thinking.md`). **TRIED.md** lists every prototype (and earlier redesign attempt), what it
 showed and what the owner said. Read both before starting a new one.
 
 ---

@@ -1460,3 +1460,12 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 (revert #356), `fb79fa0ea46673c00b0f5ff814551fa2b7b0d81f` (revert #355), `d6c57989eb2017031745c8842b1e254412cecfaf`
 (squash); backend rows for `fb79fa0…` and `d6c5798…` (site.json). Counts: **frontend 967, backend 702**.
 
+
+**2026-11-15: the `prototype` branch (prototype.katta.cc), first ledgered.** None of its commits were in the ledger before.
+Inserted 21 rows into `frontend_git_commits` (after checking all 21 keys were absent); values start with
+`[prototype branch]`. The commits run from the bundled-content prototype site (`4ceb4c3`), the Cloudflare Worker
+(`3d8454b`), the CSP-safe build (`d9f386e`), full-site's motion, interactions, structured rebuild with navigation and
+dark mode (`858ad46`), the live API (`595ce96`), the phone pass (`cd4d5e4`), the dark-mode rounds and F2 (`0a9026b`) and
+balanced light colours (`8fa0691`), to neo-brutalism rounds 1–3 (`4377d40`, `9141534`, `97e5b66`, `37f6dfd`). Context
+for each: `ui-prototypes/TRIED.md`. Count after: **frontend_git_commits 1031** (1010 before). Backend untouched (no
+prototype commit touches `backend/`).

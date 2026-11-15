@@ -168,3 +168,17 @@ Owner: "think more … add more details, add more animations; the dark theme esp
 ### Neo-brutalism round 3: calmer colours (2026-11-15)
 
 Owner: "Calmer colours for neo-brutalism please on both light and dark". Same hues at about half the saturation, even lightness (OKLCH L .82, chroma ~.085): concepts `#8FCDF5`, components `#EFB78E`, interview `#CBB9F5`, problems `#8CD6BA`, real `#F7AFAB`, notes `#DCE29E`, keys `#F3C766`; page `#F8F2E5`, surfaces `#FFFDF8`, ink `#1C1B1A`; dark outlines `#D9D1C0`, text `#EDE6D6`. Structure, shadows and motion unchanged.
+
+### Neo-brutalism dark: still not appealing (2026-11-15, thinking only)
+
+Owner, after round 3: "Don't implement just write it in the docs … The dark theme is not appealing in Neo brutalism.
+Think on that." The analysis and the next options are in **`ui-prototypes/neo-brutalism-dark-thinking.md`**.
+
+In short: brutalism is ink on paper, and inverted it becomes neon on black. Light shadows are physically wrong. Calm
+pastel blocks still jump 11:1 off the page, the bright area is about a third of Home, the hierarchy flips, and there
+are no mid-tones. Directions to test on a comparison page:
+- **B Chalkboard**: slate surfaces, chalk outlines, shadows darker than the page;
+- **D′ Inverted blocks**: dark cards with thick coloured outlines and darker coloured shadows;
+- **E Dim paper**: lamp-lit, black ink kept.
+
+Nothing built yet.
