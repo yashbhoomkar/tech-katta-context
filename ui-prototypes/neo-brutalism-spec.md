@@ -139,7 +139,7 @@ Redefine full-site's token names; component CSS reads roles, so most of the site
 ```
 
 Why these values:
-- Every section colour carries `#111111` text at 7:1 or better.
+- Every section colour carries `#111111` text at 6.8:1 or better (lowest: coral `#FF6B6B`). Every token pair in §4 was checked and passes AA: the lowest are muted on sunken (5.6:1) and "Passed" on white (5.4:1).
 - Problems teal `#19D3A2` sits clear of "Passed" `#0B7A3E` (a dark green used only as text).
 - Quick Notes lime `#E8F55C` sits clear of the brand marigold `#FFC233`.
 - The cream page is warmer and more poster-like than full-site's paper.
