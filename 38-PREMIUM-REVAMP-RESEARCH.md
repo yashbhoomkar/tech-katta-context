@@ -289,6 +289,36 @@ Professional allows 200 a day).
   - **phone versions.**
 - The code for the lesson page and Problems is written; it failed only on the limit.
 
+### 10b. Canva, then an HTML prototype (2026-11-15)
+
+**Canva:** Figma takes no UPI, so the owner added the Canva connector. Canva Free has a monthly AI allowance of unpublished
+size, reset on the 1st; Pro accepts UPI. One test lesson page was generated (Canva design "Tech Katta lesson website").
+It had the right structure, but:
+- the title and paragraph were doubled;
+- the lesson numbers were wrong;
+- it came out as one 1366×768 slide;
+- there was no font control, components or shared colours.
+
+**Not used.**
+
+**Decided (owner): an HTML prototype.**
+- **Where:** `ui-redesign/prototype-2026-11-15/tech-katta-revamp.html`, published privately as the artifact
+  <https://claude.ai/artifact/Li2Z68gdhcUtdY5WPTSAEX>.
+- **Style:** the same as the Figma file: tokens, section colours, black pill buttons, Instrument Sans, Source Serif 4
+  and Geist Mono, light and dark.
+- **Seven screens, switched by hash:**
+  - landing (`#home`);
+  - dashboard;
+  - a section (Concepts);
+  - the lesson player;
+  - Problems;
+  - the workspace;
+  - the sign-in dialog.
+- **What works:** difficulty filters, "Mark complete & next" (it updates the curriculum progress), Cards / Full text,
+  the curriculum drawer on phones, Run and Submit results, the consent box that unlocks the Google button, and a
+  theme toggle.
+- **Checked:** Chromium at 1440 px and on a Pixel 7: no script errors, no horizontal overflow after the fixes.
+
 ## 8. Is Mobbin worth it for us? (checked 2026-11-15)
 
 **What it costs:**
