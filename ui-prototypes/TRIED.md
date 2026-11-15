@@ -141,3 +141,7 @@ Lessons from that history, for the next prototype:
 - **The owner reacts to the real thing.** Static images and artifacts didn't land; a clickable site on a phone did.
 - **Keep content, widgets, tabs and the canvas working the same.** The owner's standing rule for the revamp is to
   change the look, not how things work.
+
+### Light theme follow-up (2026-11-15)
+
+Owner: after the dark change, "when i … change the theme to light theme the colours becoming dull". Cause: not a switching bug (fresh and switched light pages get identical tokens) but the light pastels themselves: chroma from .047 (concepts, nearly grey) to .129, uneven, and faded next to the vivid dark. Fix: the same hues as the dark at one lightness (OKLCH L .85, notes .90), chroma up to .105: concepts `#95D8FF`, components `#FDC082`, interview `#D8C0FF`, problems `#82E4C3`, real `#FEBCA6`, notes `#EBE18E`; tints `#E2F7FF` `#FFF0E0` `#F7EFFF` `#E2FAF0` `#FFEEE6` `#F7F5DF`. Dark text on every block at least 11:1.
