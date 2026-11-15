@@ -508,3 +508,11 @@ Commit `a716c47` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - **Copy share link** in the canvas export menu: the whole design is compressed into the link's fragment (never sent to a server; nothing stored). Opens read-only at `/dashboard/problems/shared/` for anyone, signed in or not: the drawing, the parts with notes, **Open in my sandbox** and a link to the problem.
 - **Download PNG** (2x), **Download JSON**, and **Import JSON** (checked by the same cleaner as saved designs; asks before replacing; undo brings the old one back).
 - Files: `lab/share.js` (+test), `lab/SharedDesign.jsx`, `dashboard/shell.jsx` route, `lab/Canvas.jsx`, `sandbox/Sandbox.jsx`. Frontend only; Vercel's `/dashboard/(.*)` rewrite serves the shared page.
+
+### Step 12: Estimate helper
+
+Commit `45f22fc` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 998, `backend_git_commits` 717.
+
+- **Estimate helper** (collapsible, under *Your answer → 3. Estimates*): *N per day/hour/month/year* gives per second on average and at a chosen peak multiple; *items a day × size × years × copies* gives storage a day and in all.
+- Reads amounts the way the site writes them: 5 crore, 2.5 lakh, 10k, 3M, 1,00,000. Not graded and not saved.
+- Files: `solve/estimate.js` (+test), `solve/answer.jsx`, `solve.css`. Frontend only.
