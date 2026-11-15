@@ -7,9 +7,11 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
-- **Neo-brutalism dark (waiting for the owner's go).** Build the `/p/nb-dark/` comparison (Now, B Chalkboard,
-  D′ Inverted blocks, E Dim paper) and the `?nbdark=` switch, as in `ui-prototypes/neo-brutalism-dark-thinking.md`
-  §4. The owner picks; fold the winner into `neo-brutalism/styles/tokens.css`.
+- **Neo-brutalism dark: the owner picks.** `/p/nb-dark/` (Now, B chalkboard, D inverted blocks, E dim paper) and
+  `?nbdark=b|d|e` are live. Fold the winner into `neo-brutalism/styles/tokens.css`, then delete
+  `dark-candidates.css`, `scripts/nbdark.js` and `frontend/prototypes/nb-dark/` (add a 301 in `prototype.mjs`).
+- **Flaky test:** `judge.test.js` "largest design … under 20 ms" can exceed 20 ms on CI runners (21.2 ms seen). Consider a
+  safer bound (the app repo; owner to say go).
 - **Neo-brutalism open questions:** loud everywhere or calm reader (now calm)? Archivo Black or Space Grotesk headlines?
 - **Search is substring-only** in the full-site prototype ("cache" does not find "Caching"). Consider word-stem
   or fuzzy matching when it's built into the app.

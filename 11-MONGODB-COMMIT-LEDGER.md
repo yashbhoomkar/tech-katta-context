@@ -1469,3 +1469,5 @@ dark mode (`858ad46`), the live API (`595ce96`), the phone pass (`cd4d5e4`), the
 balanced light colours (`8fa0691`), to neo-brutalism rounds 1–3 (`4377d40`, `9141534`, `97e5b66`, `37f6dfd`). Context
 for each: `ui-prototypes/TRIED.md`. Count after: **frontend_git_commits 1031** (1010 before). Backend untouched (no
 prototype commit touches `backend/`).
+
+**2026-11-15 (later):** one more `prototype` row, `5ac5636258358977c91d736e36c1f3fabe64b9b3` (neo-brutalism dark candidates and `/p/nb-dark/`), inserted into `frontend_git_commits` after checking it was absent. Count after: **1032**.

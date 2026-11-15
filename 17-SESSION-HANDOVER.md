@@ -2090,3 +2090,9 @@ Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one
 - The commit ledger now covers the `prototype` branch: 21 rows in `frontend_git_commits` (count 1031). See
   `11-MONGODB-COMMIT-LEDGER.md`.
 - full-site's dark is F2 "vivid, balanced", and its light colours were balanced to match (`0a9026b`, `8fa0691`).
+
+## 2026-11-15 (later): neo-brutalism dark candidates built
+
+- Owner said "Start implementing it" for the dark rethink. `/p/nb-dark/` and `?nbdark=b|d|e` are live (commit `5ac5636`, ledgered). **Waiting for the owner to pick** B chalkboard, D inverted blocks or E dim paper.
+- CI note: the Prototype workflow's `npm test` failed once on a flaky timing test (`frontend/src/tkd/judge.test.js`: "largest design and a 20-phase test judge in under 20 ms", took 21.2 ms on the runner). Re-running the failed job passed. If it recurs, loosen that threshold in the app repo's tests (a separate, deliberate change); don't push empty commits.
+- Switching model: the session changed to Sonnet 5.5 partway; commit trailers from `5ac5636` read "Claude Sonnet 5.5".

@@ -3,7 +3,7 @@
 Owner, 2026-11-15: "We will be needing a lot of prototypes. But we will be building on the frontends… Can we have
 prototype.katta.cc. Only the frontend." Later: "dont make changes in tech-katta now, we need the prototype only".
 
-This folder is the manual for that work. Specs for prototypes being built by another session sit here too (e.g. `neo-brutalism-spec.md`), and design thinking that is not built yet (e.g. `neo-brutalism-dark-thinking.md`). **TRIED.md** lists every prototype (and earlier redesign attempt), what it
+This folder is the manual for that work. Specs for prototypes being built by another session sit here too (e.g. `neo-brutalism-spec.md`), and design thinking (e.g. `neo-brutalism-dark-thinking.md`, now built as `/p/nb-dark/`). **TRIED.md** lists every prototype (and earlier redesign attempt), what it
 showed and what the owner said. Read both before starting a new one.
 
 ---
@@ -156,6 +156,7 @@ Write the outcome into **TRIED.md** (what was shown, what the owner said, what w
 | Buttons or animations do nothing on the site but work locally from a file | CSP blocked an inline script or `onclick`. Move code into a file. |
 | A new folder or file is 404 under `wrangler dev` | wrangler dev lists assets when it starts: stop and start it again. |
 | Deploy failed: "Maximum number of dynamic _redirects rules" | A wildcard (`*` or `:name`) rule was added to `_redirects`. The site's own file already uses the free plan's 100 dynamic rules; add only exact-path rules. |
+| Deploy failed at `npm test` with one flaky timing test (`judge.test.js`, "under 20 ms") | Not caused by the prototype. Re-run the failed job (Actions → Re-run failed jobs); never push an empty commit or edit the test to get green. |
 | Deploy failed: authentication error | `CLOUDFLARE_PROTOTYPE_TOKEN` expired or lacks Workers Scripts Edit on the account. A new token from the "Edit Cloudflare Workers" template, scoped to the account and katta.cc. |
 | Console: CORS error on `/v1/auth/config` or `/v1/me` | Expected: the API allows accounts only from tech.katta.cc. The page opens signed out. |
 | Page shows a white flash in dark mode | The prototype is missing `boot-theme.js` in `<head>` (a classic script, not a module). |

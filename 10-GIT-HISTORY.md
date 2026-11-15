@@ -1024,7 +1024,8 @@ values start `[prototype branch]`):
 - `4377d40` neo-brutalism;
 - `9141534` star stickers;
 - `97e5b66` neo-brutalism round 2;
-- `37f6dfd` neo-brutalism round 3, calmer.
+- `37f6dfd` neo-brutalism round 3, calmer;
+- `5ac5636` neo-brutalism dark candidates and `/p/nb-dark/`.
 
 Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem workspace). It does **not** contain
 draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colours for the real app).

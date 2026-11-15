@@ -182,3 +182,19 @@ are no mid-tones. Directions to test on a comparison page:
 - **E Dim paper**: lamp-lit, black ink kept.
 
 Nothing built yet.
+
+### Neo-brutalism dark: three candidates built (2026-11-15)
+
+Owner: "Start implementing it" (the plan in `neo-brutalism-dark-thinking.md`). Built:
+- **`/p/nb-dark/`**: four columns, the same pieces each: Now, **B chalkboard**, **D inverted blocks**, **E dim paper**; one column at a time on phones.
+- **On the prototype itself:** `?nbdark=b|d|e` (or `now`), or the small "Dark" switch at the bottom right in dark mode (`styles/dark-candidates.css`, `scripts/nbdark.js`).
+
+What each does:
+- **B:** slate-green tones `#1E2A25` / `#26352F`, chalk outlines `#C9D3CB` (8.4:1), shadows `#0E1513` darker than the page.
+  - Small blocks become chalk cards with a coloured title, an underline and bars.
+  - Only the hero cards and section headers keep a fill, dimmed 20 %.
+- **D:** cards `#1C1B19` with a 3 px outline in the section colour and a solid shadow in a darker shade of it. Colour is carried by lines, so the bright area is smallest.
+- **E:** page `#3A352E`, cards `#5C5549`, black ink outlines and shadows (3 px), cream text 6.3:1, calm pastels with dark text. Black on the dim cards is only 2.7:1, offset by thickness.
+
+Checked: every route in all four palettes, desktop and phone, no errors or sideways scroll; 15 interaction checks; the switch; also live.
+Not yet decided: **the owner picks.** The winner moves into `neo-brutalism/styles/tokens.css` and `dark-candidates.css`, `nbdark.js` and `/p/nb-dark/` are retired (with a redirect).

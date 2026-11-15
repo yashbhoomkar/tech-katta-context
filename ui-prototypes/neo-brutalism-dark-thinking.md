@@ -3,7 +3,7 @@
 Owner, 2026-11-15, after round 3 (calmer colours): *"Don't implement, just write it in the docs for now. The dark theme is
 not appealing in Neo brutalism. Think on that. Update docs and ledgers."*
 
-**Status: thinking only. Nothing here is built.** The live prototype (`/p/neo-brutalism/`, prototype branch at `37f6dfd`)
+**Status (2026-11-15, later): implemented as the comparison in §4**: `/p/nb-dark/` plus `?nbdark=b|d|e` and a "Dark" switch on `/p/neo-brutalism/` (commit `5ac5636`). Waiting for the owner to pick. Before that it was thinking only; the live prototype (`/p/neo-brutalism/`, prototype branch at `37f6dfd`)
 still has the round 3 dark: warm black `#121110`, softened cream outlines `#D9D1C0`, calm pastel blocks with dark text,
 structure lines `#3B3934`.
 
