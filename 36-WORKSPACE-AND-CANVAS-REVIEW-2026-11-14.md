@@ -541,3 +541,13 @@ Commit `31baa24` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - Off during a mock interview. On phones the switch is hidden, but a cover left on shows its own *Turn the guide off*.
 - The bar's Guided and Mock interview buttons show as icons below 1560 px, so the bar fits at 1280–1440 px.
 - Files: `solve/guide.js` (+test), `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 16: Headroom and waste: beyond the tests
+
+Commit `2f7f5ad` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1002, `backend_git_commits` 719.
+
+- New **Beyond the tests** box in the results (v2 problems), run on demand on the design as it is now:
+  - **How much more can it take?** after any Run or Submit: the busiest fault-free load test turned up (1× to 16×, then bisected). Example: the URL shortener's reference *holds 1.2× A promo SMS at 8 pm*, and names the first thing to give; the *No cache* wrong design manages 0.5×.
+  - **What would still pass, for less?** after your own Accepted submission: one step smaller at a time (a smaller size, or one fewer instance, replica or node), most expensive part first, kept while every test passes. Example: *$1,986 a month less; Link service: Instances 34 → 26*, with **Show how**.
+- Built on the v2 evaluator in the browser, after spec 22 §7.3 and §7.6. Not done: the 5% safety margin on waste and the "close to the line" rule for kills; headroom under 1.2× is marked *close to the line*.
+- Files: `eval/probes.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts; the API judge doesn't call it.
