@@ -44,6 +44,8 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
 
 **Update 2026-11-14 (building context 36, step 21: Say it out loud).** Commit `fad3c84` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1007, backend 721. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-15 (context 36 MERGED AND DEPLOYED).** Steps 1–22 merged to `main` by PR #366 as `1a8ca71` after green CI. Frontend live on `tech.katta.cc` (Vercel `dpl_HeY2m45qTxZRsB4hX95moty65pjB`); backend deployed by *Deploy Tech Katta Backend* run 282 (the new `GET /v1/articles/<slug>/wrong` answers on `tech-api.katta.cc`). Ledger frontend 1010, backend 724. The updates below that say "not merged" are history. Open: tags (#33), languages (#43), canvas keyboard audit (#41). Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6, "Merged and deployed".
+
 **Update 2026-11-14 (building context 36, step 22: What would fix it? Checked repairs).** Commit `03c1107` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1008, backend 722. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.

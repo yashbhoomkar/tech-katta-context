@@ -606,3 +606,22 @@ Commit `03c1107` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - After a failed Run or Submit, **What would fix it?** (results → *Beyond the tests*) tries **one change at a time on the parts already on the canvas** against the first failing test. The changes: next size, a quarter more or twice the instances or nodes, one more replica, twice the shards, a second zone, Multi-AZ, a cache replica, autoscaling. It then **confirms the cheapest against every test**. It shows only repairs that fix that test and keep every passing test passing, with their cost. Example: *Links DB: Multi-AZ off → on ($1,718 a month more; 10 of 10 tests pass)*.
 - A failure in how calls flow (a trace test) gets *no setting fixes it; read its reason*. A bill-only failure gets *make the largest parts smaller*. When no single change works: *it needs a different shape*. Never adds or removes a part, so it nudges without handing over the design.
 - Files: `eval/repairs.js` (+test), `solve/console.jsx`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Merged and deployed (2026-11-15)
+
+Owner, 2026-11-15: "Merge and deploy. Update docs and ledgers."
+
+- `main` (#364, the concepts revert) merged into the branch first: `6d4c13c`; frontend 435 tests and the build pass (74
+  article pages), backend `content.test.js` 39 pass.
+- **PR #366** (steps 1–22) opened; CI green on its head: Test backend, Build and run API container, Test and build
+  frontend, CodeQL. Merged into `main` as **`1a8ca71`** (`1a8ca7136044a4d325eaa27cd1241caadb983741`).
+- **Frontend**: Vercel production deployment `dpl_HeY2m45qTxZRsB4hX95moty65pjB` READY and aliased to `tech.katta.cc`.
+  (The `tech-katta-status` project's build for the same commit shows CANCELED: that project, not the site.)
+- **Backend**: *Deploy Tech Katta Backend* run 282: tests, deploy to the VPS, public endpoint check, all green.
+  `GET https://tech-api.katta.cc/v1/articles/url-shortener/wrong` answers 200 with the ten wrong designs.
+- Checked live: the Problems page shows *Your plan* and the *Bookmarked* filter; a share link made from the URL
+  shortener's reference opens the read-only shared page at `tech.katta.cc/dashboard/problems/shared/` (the Vercel
+  rewrite serves it). The workspace itself needs sign-in, so its new controls were checked locally only (§6 steps).
+- Ledger: `frontend_git_commits` 1010, `backend_git_commits` 724 (rows for `6d4c13c` and `1a8ca71` in both).
+- Still open from §5 (each needs the owner): company and topic tags (#33, which companies ask what), Hindi and Marathi
+  (#43, translations need a native review), and a keyboard-access audit of the canvas (#41).
