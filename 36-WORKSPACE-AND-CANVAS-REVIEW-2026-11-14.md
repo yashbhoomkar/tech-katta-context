@@ -590,3 +590,11 @@ Commit `c63d7f7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - A test's kind comes from its id and name. Each problem's mix is a table in `plan/skills.js`; `skills.test.js` checks it against the content and prints the new table if a problem's tests change.
 - Simpler than spec 22's skill record: by kind of test, not by pattern (caching, contention, queues), because tests aren't tagged by pattern yet. Signed-in sync isn't included (local only, like submissions).
 - Files: `plan/skills.js` (+test), `problems.jsx`, `problems.css`. Frontend only.
+
+### Step 21: Say it out loud
+
+Commit `fad3c84` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1007, `backend_git_commits` 721.
+
+- **Say it out loud** at the end of *Your answer*: a two-minute outline made from the problem. It runs *what it must do* (20 s), *the numbers that matter*, using this problem's own first two estimates (20 s), *walk the design* (50 s), and *one trade-off and what breaks first* (30 s).
+- **Record** (stops itself at 2:00), then play back, **Download** or **Delete it**. Kept **only in this browser** (IndexedDB `tk-speak`, one take per problem); nothing is uploaded or scored. Checked with Chromium's fake microphone: records, plays and is still there after a reload.
+- Files: `solve/speak.js` (+test), `solve/Speak.jsx`, `solve.jsx`, `solve.css`. Frontend only.
