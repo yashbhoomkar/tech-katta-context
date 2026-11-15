@@ -1475,3 +1475,5 @@ prototype commit touches `backend/`).
 **2026-11-15 (final):** `01372a7d2c042849f0bf8038040177d613c736e4` (neo-brutalism dark finalized as option D) inserted into `frontend_git_commits` after checking it was absent. Count after: **1033**.
 
 **2026-11-15:** `6d13a732efee11489f8ea6768184fad2c6a52651` (web/ new frontend, milestone 1) inserted into `frontend_git_commits` after checking it was absent. Count after: **1034**.
+
+**2026-11-15:** `6b3b468a081b76a08e7e26a4f62721a2eea97ed0` (web/ milestone 2, the lesson reader) inserted into `frontend_git_commits` after checking it was absent. Count after: **1035**.

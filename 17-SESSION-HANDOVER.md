@@ -2126,3 +2126,8 @@ Commit `6d13a73` on `prototype` (ledgered):
   - 2: the reader, with the real articles and `frontend/src/figs` imported;
   - 3: Problems and the workspace, with the canvas and judge imported;
   - 4: sign-in and sync, then the switch.
+
+## 2026-11-15: new frontend milestone 2, the lesson reader
+
+Owner: "Proceed". Commit `6b3b468` on `prototype` (ledgered, count 1035). Details in 03-FRONTEND.md. 28 tests pass; verified locally and live on prototype.katta.cc/next/ (caching, networking-essentials, url-shortener, kafka-in-practice; desktop and phone, light and dark; figures drawn, steps, full screen, Escape, contents jump, scroll spy, Mark complete & next, no errors, no sideways scroll).
+Next: milestone 3, Problems and the workspace (the current canvas and judge imported).

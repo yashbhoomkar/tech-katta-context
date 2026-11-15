@@ -376,3 +376,10 @@ Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The
 ## The new frontend: `web/` (2026-11-15, prototype branch)
 
 React + TypeScript app that will replace `frontend/src`. It is served at prototype.katta.cc/next/ while it grows. Structure, rules and milestones are in `web/README.md`. It imports nothing from `frontend/` yet; the reader and workspace milestones will import `frontend/src/figs`, the canvas and the judge as they are.
+
+### Milestone 2: the lesson reader (`6b3b468`)
+
+- `web/src/features/reader/`: `ArticleBody` (every block kind of `/v1/articles/<slug>`, typed as `Block` in `lib/api/types.ts`), `Figure` (step controls, plays only in view, full screen, phone pan and portrait versions, error boundary), `useFigureSteps`, `figureTokens.module.css`.
+- The figures are imported from `frontend/src/figs` through the `@legacy` alias and `frontend/figs-manifest.js`, with `resolve.dedupe` for React. Their colours come from the legacy token names, set in a scoped class with light and dark values; `readTokens()` runs on a hidden probe before figures draw and again on each theme change. Their SVG text classes (`fb`, `fl`, `fk`…) are restyled in `reader.module.css`.
+- `pages/Reader.tsx`: breadcrumbs, read time, progress line, "On this page" scroll spy (a toggle under 1180 px), the group's lessons, Mark complete & next, previous/next; reading progress saved while scrolling.
+- Lab links go to the current app (`/dashboard/<to>/`) until milestone 3.
