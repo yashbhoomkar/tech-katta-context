@@ -81,7 +81,8 @@ tried directly in the real app; those are summarised at the end so a new prototy
 - **Source**: `frontend/prototypes/dark-modes/`; the palettes also live in `full-site/styles/dark-candidates.css`, chosen with `?dark=a|b|c` or the Screens menu.
 - **Why**: owner, 2026-11-15: "light theme is brilliant. but i did not like the colour schemes for the dark mode". Diagnosis: deep brown, olive and maroon blocks read as muddy, and the warm brown-black backfired.
 - **Options**: Now (current); A pastels on ink (neutral black, the light theme's pastels dimmed ~12 %, dark text on colour); B tinted glass (charcoal, a faint wash of colour, bright edges and titles); C midnight (deep navy, near-full pastels, marigold glows).
-- **Outcome**: waiting for the owner's pick. The winner moves into full-site's `tokens.css` and `dark-candidates.css` goes.
+- **Round 1 outcome**: owner: "A · Pastels on ink is still better … but i am still not convinced", then "its dull". Why: the light theme's pastels are low in saturation; on black they look grey, A dimmed them further, and nothing else on the page had colour. Also learnt: orange, yellow and coral cannot be dark fills (they turn brown, olive, maroon), which is what made the current dark and B muddy. B and C dropped.
+- **Round 2** (same page): A (reference), **F · Vivid** (A's blocks with saturated sky `#78C2F2`, orange `#FFA24C`, violet `#B892FF`, mint `#5FD6A4`, coral `#FF8F73`, yellow `#FFD452`, dark text, warm graphite base `#131312` / `#1C1C1A`), **D · Colour as light** (dark cards; the same vivid colours glow in a corner and light the title, a 2 px top edge and the progress bar), Now. Waiting for the owner's pick; the winner moves into full-site's `tokens.css` and `dark-candidates.css` goes.
 
 ## Planned
 
