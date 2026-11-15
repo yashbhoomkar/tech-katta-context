@@ -500,3 +500,11 @@ Commit `877a03eb5abe6af73dbbc9b47dd3e92f291961a9` (branch `ccr-0abbbe33-gkyjcf`)
 - All kept in this browser (`tk-marks-v1`), not synced; `frontend/src/plan/plan.js` with `plan.test.js` (2 tests, in `npm test`).
 - Checked in Chromium: the plan shows 0 of 22 with the problem of the day and next-up cards; a bookmark appears under the filter; the note is there on return. Frontend tests 402/402.
 - Items 31 (daily problem; the Practice streak was already there), 32 and 34 done. Item 28 (skill record) and 30 (percentile: "cheaper than N% of accepted designs" already shows when signed in) are left.
+
+### Step 11: Share a design: link, PNG, JSON
+
+Commit `a716c47` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 997, `backend_git_commits` 717.
+
+- **Copy share link** in the canvas export menu: the whole design is compressed into the link's fragment (never sent to a server; nothing stored). Opens read-only at `/dashboard/problems/shared/` for anyone, signed in or not: the drawing, the parts with notes, **Open in my sandbox** and a link to the problem.
+- **Download PNG** (2x), **Download JSON**, and **Import JSON** (checked by the same cleaner as saved designs; asks before replacing; undo brings the old one back).
+- Files: `lab/share.js` (+test), `lab/SharedDesign.jsx`, `dashboard/shell.jsx` route, `lab/Canvas.jsx`, `sandbox/Sandbox.jsx`. Frontend only; Vercel's `/dashboard/(.*)` rewrite serves the shared page.
