@@ -516,3 +516,11 @@ Commit `45f22fc` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - **Estimate helper** (collapsible, under *Your answer → 3. Estimates*): *N per day/hour/month/year* gives per second on average and at a chosen peak multiple; *items a day × size × years × copies* gives storage a day and in all.
 - Reads amounts the way the site writes them: 5 crore, 2.5 lakh, 10k, 3M, 1,00,000. Not graded and not saved.
 - Files: `solve/estimate.js` (+test), `solve/answer.jsx`, `solve.css`. Frontend only.
+
+### Step 13: Common wrong designs in the Solution tab
+
+Commit `898c5c1` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 999, `backend_git_commits` 718.
+
+- **Common wrong designs** (Solution tab, above the worked answer): each problem's 5–10 wrong designs from its content, each with **the test it fails** (name and description), **why**, and a read-only drawing. Open once the problem is solved; before that, **Show them now** opens it.
+- New content route **`GET /v1/articles/<slug>/wrong`** → `{slug, designs:[{name, why, fails, nodes, edges}]}`; 404 for non-problems. The `/solution` route still never carries them. Backend `content.test.js` covers it (39/39 pass here).
+- Files: `solve/wrong.jsx`, `solve.jsx`, `solve.css`; backend `content/store.js`, `server.js`, `test/content.test.js`. **Needs a backend deploy** after merge.
