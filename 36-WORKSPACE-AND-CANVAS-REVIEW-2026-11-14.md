@@ -469,3 +469,14 @@ Commit `a741bd9a685914c5314301425754ce0bc9cb2790` (branch `ccr-0abbbe33-gkyjcf`)
 - Problems page: a Sandbox row above the challenges.
 - Checked in Chromium (sign-in off locally): the Problems row opens the sandbox; "Read-heavy" loads five cards with no check failing; 8,000 a second with a server crash at minute 10 reports "It struggled" with the overload explained and a $1,029 bill; the replay shows HTTPS 15.4k/s (with retries), Key lookup 1,200/s, DB query 406/s. Frontend tests 399/399.
 - Not built yet from §5.12: a list of several sandbox designs (one design for now, plus starting designs), and letting the visitor declare their own calls and targets.
+
+### Step 8: notes, Present my design, follow-up questions
+
+Commit `e988da6de52c0f05ed814d5dbb6131fe52ed6d6b` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 988, `backend_git_commits` 712.
+
+- **Your note** on every part (≤ 280 characters) in its settings; a card with a note shows ✎. Kept with the design by `store.js` (v1 and v2), never sent to the judge, so a note is not a change to a copied solution. Test added to `store.test.js`.
+- **▶ Present**: walks the learner's own design one part at a time from the Clients along the arrows; the rest dims; a card gives what calls it, what it calls and the note. Arrow keys or space; Esc ends.
+- **Follow-up questions**: after an accepted submission (not a copied solution), "An interviewer would now ask" shows the worked answer's follow-ups one at a time, the answer hidden until asked for. All 22 questions have a follow-ups block.
+- The API's account sync runs `store.js`: **run "Deploy backend" after merging**, or a signed-in sync drops notes until then. Recorded in both ledgers.
+- Checked in Chromium: two notes written, Present shows parts 1 to 3 with the note on part 3, four cards dimmed; notes survive a reload; with one setting changed the submission is Accepted and the first follow-up ("The same long URL is shortened twice: same code?") appears. Frontend tests 400/400.
+- Items 17, 18 and 20 of §5.4 done. Mock interview mode (item 15) is the next step.
