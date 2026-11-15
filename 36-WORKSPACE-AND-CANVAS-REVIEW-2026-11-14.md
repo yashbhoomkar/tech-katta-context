@@ -572,3 +572,11 @@ Commit `a8544b7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - Grouped as: **choices the tests depend on** (e.g. *Links DB · Multi-AZ: yours is on. As off: $1,702 a month less, but it fails A zone goes dark, The database fails*, with the reason); **choices that only change the bill**; and **no difference in these tests**, with the advice to be ready to explain those in words.
 - Differs from spec 22 §8: no authored cards (those need the owner's review of every card). Labels come from the catalogue and numbers from the simulator, so nothing needs reviewing before it ships. The authored cards can still be added later as the *why* layer.
 - Files: `eval/tradeoffs.js` (+test), `solve/console.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Step 19: Why did this part crash?
+
+Commit `4c98f3a` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1005, `backend_git_commits` 721.
+
+- In a replay, the parts **in trouble at the current minute** (down, over 100% of capacity, or just crashed) show as **Why: <part>** chips. Opening one shows its load against what it can take; **what fed it** (calls a second on its incoming arrows); and **why it went down**: either the test failed it on purpose (or a zone went dark), or it ran above its crash limit for N minutes. Also when it came back (on its standby, if it has one) and a fix that fits the part type.
+- Example (URL shortener, *The database fails*, minute 11): *Links DB: Now: down. At 8:10 pm the test failed it on purpose… It came back at 8:12 pm, on its standby. Fed by: Hot links 5,039/s · Link service 700/s.*
+- Files: `solve/why.js` (+test), `solve/v2.jsx`, `solve.jsx`, `solve.css`. Frontend only.
