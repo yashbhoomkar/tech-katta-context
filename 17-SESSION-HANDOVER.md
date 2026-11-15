@@ -2201,6 +2201,7 @@ Owner: "Worker prompt continue". That started step 2 of the scheduled-task promp
   - allp 17/17;
   - decided 12/12, with touch;
   - every route, light and dark, desktop and phone: no errors and no sideways scroll;
-  - /p/next is unchanged.
+  - /p/next is unchanged;
+  - fscan, all 66 lessons, desktop and phone: 0 lessons with missing figures.
 - **Scripts:** `scratchpad/allp.js`, `decided.js` and `fscan.js` take `P=/p/neo-brutalism`. `nbshots.js` takes screenshots, and `srv.mjs` is a local server that behaves like Cloudflare.
 - **Open for the owner:** sign-in (PR #368); the look questions in TRIED.md (how loud, which headline font).
