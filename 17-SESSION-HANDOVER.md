@@ -2169,3 +2169,11 @@ Owner: "I want the prototype.katta.cc/p/next as good as tech.katta.cc UI … all
 - **Audit:** 39-NEXT-PARITY.md. Built in three batches; every item is ✅ except sign-in, which waits on #368. Copied into PR #367.
 - **Live check:** 17 checks pass on prototype.katta.cc/p/next. The test script is `scratchpad/allp.js`.
 - **Scheduled tasks:** two runs fire into this session on Monday 16 Nov, at 2:50 am and 8:15 am IST. They check completeness, then build /p/neo-brutalism.
+
+## 2026-11-15 (night): parity batch 4
+
+Owner: all animations, gestures and technical content as on tech.katta.cc; "The figures are not present!!".
+- **Where the figures were missing:** the owner said everywhere. The scan showed every lesson figure drew live, so the gap was pictures on cards plus the current app's figure behaviour.
+- **Fixes:** the reader now uses the current app's Fig, and every card has its diagram.
+- **Commits:** `f30e833` (prototype) and `7a596ff` (PR #367). Details are in 39-NEXT-PARITY.md.
+- **Scans:** `scratchpad/fscan.js` (all lessons), `pics.js`, `allp.js`.

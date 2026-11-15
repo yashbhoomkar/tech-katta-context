@@ -72,3 +72,38 @@ Every item is checked live, in light and dark, on desktop and phone, before it i
 - D2: Home shows lessons, problems and challenge stars as bars rather than a ring.
 - D5: Share and read time are as before.
 - D6: the Cards view is the current app's topic cards.
+
+## Batch 4 (2026-11-15, night): animations, gestures and technical content
+
+Owner: "I want all the animations, gestures, technical content on this website as the current tech.katta.cc has" and "The figures are not present!! I want the perfect website".
+
+**Figures:** lesson figures are now drawn by the current app's own figure component, so they have every behaviour tech.katta.cc has:
+- steps on the figure's clock, with a step line you swipe on phones;
+- full screen, turned sideways in portrait, closed with a swipe down;
+- portrait versions on phones, and sideways panning with its hint.
+
+**Pictures on every card:**
+- the library diagrams on Home Explore, the Learn hub and the landing cards;
+- otherwise the section's first lesson figure.
+
+**Lesson content:**
+- Solve it on the canvas (interview questions), the next problem, and "Examples use …" in Cards;
+- read time with details, the topics count, the back link, and a rail shortcut.
+
+**Practice:** /practice and /practice/<slug>.
+
+**Gestures:**
+- sheets close with a swipe down (phones);
+- the tour card swipes left and right.
+
+**Motion:**
+- staggered and scroll-driven arrivals, card lift, and link underlines;
+- Go deeper opens with a rise;
+- the sliding sidebar and contents markers;
+- the fresh-solve highlighter.
+
+**Verified live:**
+- all 66 lessons, desktop and phone: every figure block drawn, 0 missing;
+- pictures on Home, Learn, the landing and Cards, in light and dark;
+- full screen on phones;
+- the 17-check suite (now including practice).
