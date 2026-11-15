@@ -76,6 +76,13 @@ tried directly in the real app; those are summarised at the end so a new prototy
   sign-in off; since 2026-11-15 it reads the live `tech-api.katta.cc` (owner: "use the actual tech-api.katta.cc from
   now on") and opens signed out (README §1).
 
+### `/p/dark-modes/`: four dark palettes side by side (Colour)
+
+- **Source**: `frontend/prototypes/dark-modes/`; the palettes also live in `full-site/styles/dark-candidates.css`, chosen with `?dark=a|b|c` or the Screens menu.
+- **Why**: owner, 2026-11-15: "light theme is brilliant. but i did not like the colour schemes for the dark mode". Diagnosis: deep brown, olive and maroon blocks read as muddy, and the warm brown-black backfired.
+- **Options**: Now (current); A pastels on ink (neutral black, the light theme's pastels dimmed ~12 %, dark text on colour); B tinted glass (charcoal, a faint wash of colour, bright edges and titles); C midnight (deep navy, near-full pastels, marigold glows).
+- **Outcome**: waiting for the owner's pick. The winner moves into full-site's `tokens.css` and `dark-candidates.css` goes.
+
 ## Planned
 
 ### `/p/neo-brutalism/` (not built yet)
