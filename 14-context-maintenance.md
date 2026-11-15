@@ -131,3 +131,13 @@ A new ChatGPT session should be able to read this repository and understand:
 - how to distinguish current reality from historical context
 
 That is the purpose of this repository.
+
+
+## Prototype work (2026-11-15)
+
+After each prototype round, update:
+- `ui-prototypes/TRIED.md`;
+- `17-SESSION-HANDOVER.md` (one entry);
+- `18-TODO.md` (open choices);
+- `13-CURRENT-STATE.md` (the "Prototype site" section, when something live changes);
+- the commit ledger (`frontend_git_commits`, `[prototype branch]` values, noted in `11-MONGODB-COMMIT-LEDGER.md`).

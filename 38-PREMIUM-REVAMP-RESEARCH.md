@@ -374,3 +374,12 @@ for patterns only, never copying a product's look.
 - The sites themselves, visited 2026-11-15: brilliant.org, joyofreact.com, animations.dev, codecrafters.io,
   linear.app, frontendmasters.com, hellointerview.com, bytebytego.com, educative.io, khanacademy.org, scrimba.com,
   boot.dev, anthropic.com/learn.
+
+
+## 11. Outcome so far (2026-11-15)
+
+The research led to the Podia-inspired **full-site** prototype on prototype.katta.cc. It has been through motion, every
+control working, a structured rebuild with new navigation, a phone pass, and three rounds of dark mode ending in F2
+"vivid, balanced", with light colours balanced to match. A second style, **neo-brutalism**, is on rounds 1–3; its dark
+theme is still being rethought. Details and decisions: `ui-prototypes/TRIED.md`. Nothing is built into the real app
+yet.

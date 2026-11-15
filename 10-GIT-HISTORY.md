@@ -1000,3 +1000,31 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #345: premium renovation C and D: landing, shell labels, reading view (spec 30 §5); squash `d56cb182738ad6fd824e0c3084f27010eb1d53b6` (2026-11-14, front end only).
 - PR #346: docs for the renovation (theme README, Design.md); squash `e2e6191fa61e3f7a1cd4fc8d187b3681ec8bbd6a` (2026-11-14, docs only).
 - PR #347: premium renovation E: sliding sidebar marker, header that firms up on scroll, numbered landing sections; squash `ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a` (2026-11-14, front end only).
+
+
+## Branch `prototype` (prototype.katta.cc; 2026-11-15, not merged to main)
+
+Each push deploys to prototype.katta.cc. The full list with descriptions is in the ledger (`frontend_git_commits`,
+values start `[prototype branch]`):
+- `4ceb4c3` bundled-content prototype site;
+- `97206d8` hosting test fix;
+- `3d8454b` Cloudflare Worker and workflow;
+- `db60f1f` exact `_redirects` rules;
+- `388c70b` prototypes named by type;
+- `cdf5e5d` motion prototype;
+- `d9f386e` CSP-safe inline scripts;
+- `05652d7` full-site motion;
+- `c7f3751` every control works;
+- `858ad46` structured rebuild, navigation, dark mode;
+- `595ce96` live API;
+- `cd4d5e4` phone pass;
+- `dad12c5`, `0e2b103`, `e6a8f09` dark-mode rounds;
+- `0a9026b` F2 dark;
+- `8fa0691` balanced light colours;
+- `4377d40` neo-brutalism;
+- `9141534` star stickers;
+- `97e5b66` neo-brutalism round 2;
+- `37f6dfd` neo-brutalism round 3, calmer.
+
+The branch also carries the earlier draft PR #365 work only if merged in. It doesn't: `prototype` was cut from
+`main` for the site.

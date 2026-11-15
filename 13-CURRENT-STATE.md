@@ -4,6 +4,26 @@
 
 This file records the latest application/context state known to this session.
 
+## Prototype site and UI revamp (2026-11-15; newest state, read before the dated sections below)
+
+- **prototype.katta.cc** serves the `prototype` branch:
+  - `/` and `/dashboard/`: the real app, reading the live `tech-api.katta.cc`, signed out (the API allows accounts
+    only from tech.katta.cc);
+  - `/p/`: design prototypes, listed by type.
+- **Live prototypes:**
+  - `/p/full-site/`: the premium revamp as a structured frontend (`frontend/prototypes/full-site/`) with:
+    - hash routes and four layouts;
+    - a sidebar that folds to a rail, a phone tab bar, breadcrumbs, search, shortcuts;
+    - the motion system and a phone pass;
+    - dark theme **F2 "vivid, balanced"**, with light colours balanced to match.
+  - `/p/motion/`: the motion system.
+  - `/p/neo-brutalism/`: a style layer over full-site, rounds 1–3. Its dark theme is still unappealing; the next
+    options are in `ui-prototypes/neo-brutalism-dark-thinking.md`, **not built**.
+- **Nothing from the revamp is in the real app (`frontend/src`) yet.** Draft PR #365 (reviewer fixes, light colours)
+  is unmerged and conflicts with main since #366.
+- Docs: `ui-prototypes/README.md` (how to make and host prototypes), `TRIED.md` (all rounds and decisions),
+  `38-PREMIUM-REVAMP-RESEARCH.md` (research). Ledger: the 21 `prototype` commits are in `frontend_git_commits`.
+
 ## Application repository
 
 `yashbhoomkar/tech-katta`

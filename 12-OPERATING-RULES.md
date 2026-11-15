@@ -526,3 +526,16 @@ The owner changes the site's look often, on production, one look at a time. Keep
   not furniture (sidebar, theme button). Steps must work on a phone; steps whose target is hidden there are skipped.
 - Signed out, pages are behind the sign-in card; `tour.jsx` falls back to `tour.dashboard` (with its sign-in step)
   when a page tour can show fewer than three steps. Check a new tour signed out too.
+
+
+## Rule 22 — UI prototypes live on prototype.katta.cc, not in the app (owner, 2026-11-15)
+
+- **Branch:** design work for the revamp goes on the `prototype` branch under `frontend/prototypes/` and ships to
+  prototype.katta.cc. Don't change `frontend/src`, the backend or production hosting for it. The owner's words: "dont
+  make changes in tech-katta now, we need the prototype only".
+- **Thinking first:** when the owner says "think" or "don't implement", write the thinking in the context repo
+  (`ui-prototypes/`) and build nothing.
+- **Testing:** test every prototype under the real CSP (`npx wrangler@4 dev`): every screen, light and dark, desktop
+  and phone, look at the screenshots, check contrast. Then check it again live.
+- **Records:** log every round in `ui-prototypes/TRIED.md`, and ledger every `prototype` commit in
+  `frontend_git_commits` (values start `[prototype branch]`).

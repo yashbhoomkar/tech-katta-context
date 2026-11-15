@@ -356,3 +356,18 @@ Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The
 - Two Vite entries: `/` (`index.html` → `src/main.jsx`) and `/dashboard/` (`dashboard/index.html` → `src/dashboard.jsx` + `src/dashboard.css`), declared in `frontend/vite.config.js`. Shared copy in `src/content.js` (`dashboard` key added).
 - `dashboard.jsx`: `ICON` (inline SVG paths), `Section({id})` (panel per section), `Dashboard` (sidebar + tabs + drawer; state: `active` from URL hash, `collapsed` persisted in `localStorage['tk-sidebar']`, `open` for the mobile drawer).
 - `dashboard.css` uses the same tokens as `styles.css`; breakpoints 900 px (drawer) and 680 px (compact panel). Hero "Dashboard →" links to `/dashboard/`.
+
+
+## Prototypes (`frontend/prototypes/`, `prototype` branch only; 2026-11-15)
+
+- **Where they live:** design prototypes are kept apart from the app. Each is either one HTML file (`motion.html`) or
+  a folder with an `index.html`:
+  - `full-site/` is a structured frontend: `styles/` (tokens, base, components, layout, pages, motion, phone) and
+    `scripts/` (core router, theme, motion, dom and store helpers; components; pages; data), plain ES modules with no
+    build step;
+  - `neo-brutalism/` loads full-site's scripts and styles and adds its own style layer.
+- **Build:** `hosting/prototype.mjs` publishes them at `/p/<name>/`. The `build:prototype` and
+  `build:prototype:cloudflare` scripts build the app for prototype.katta.cc.
+- **How to add one:** `tech-katta-context/ui-prototypes/README.md`.
+- **Out of scope:** none of this is part of `frontend/src`. Don't import prototype code into the app. When a design
+  is chosen, rebuild it in `src/` (the page modules map one to one onto React route components).
