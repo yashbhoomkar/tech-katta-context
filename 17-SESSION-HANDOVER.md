@@ -2140,3 +2140,13 @@ Owner: "Did you add all the animations decided? Complete the website. Eventually
 - **Tests:** 31 pass.
 - **Verified locally and live:** every route in light and dark, on desktop and phone, with no errors and no sideways scroll. Interactions checked: the Learn menu, sign-in dialog, `?`, `g p`, Pick one, filters, tour, cards, burst, the workspace folding the sidebar, and You. The judge-card check in `all.js` uses a bad selector; frame-by-frame checks show the card running correctly.
 - **Not done (owner said not now):** merging into `frontend/`, and enabling sign-in for the new origin (API CORS and Google origins).
+
+## 2026-11-15: production-ready new frontend (PR #367)
+
+Owner: "I want production ready code to merge it and deploy it."
+- **Owner's choices:** a beta at `/next/` first, rather than a full switch, and a new branch with its own PR. PR #365 holds unrelated UI work on `ccr-b42a0cbb-y2io0r`, so it was left alone.
+- **Branch:** `new-frontend-beta` from `main`, commit `4e842b2`, draft PR #367. Ledgered (count 1038). Details are in 03-FRONTEND.md.
+- **Checks:**
+  - 435 current-app tests and 32 new-app tests pass.
+  - The production build was served locally and browser-tested. The only errors were the Vercel insights script, which exists only on Vercel, and the known judge-card selector fault in `all.js`.
+- **Next:** merge #367, which deploys through Vercel. Check /next/ on tech.katta.cc, then do the switch PR (see 18-TODO.md).

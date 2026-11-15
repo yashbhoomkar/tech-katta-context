@@ -1479,3 +1479,5 @@ prototype commit touches `backend/`).
 **2026-11-15:** `6b3b468a081b76a08e7e26a4f62721a2eea97ed0` (web/ milestone 2, the lesson reader) inserted into `frontend_git_commits` after checking it was absent. Count after: **1035**.
 
 **2026-11-15:** `12b5235ab89365d1a144cca60ecc2f2a56163b50` (web/README milestone 2 done) and `95453a65309e47d1739e8594fa895a51a20762d7` (web/ milestone 3, the site complete) inserted into `frontend_git_commits` after checking both were absent. Count after: **1037**.
+
+**2026-11-15:** `4e842b267ec5c78e049846f8471d673ccd22d03a` (PR #367, branch `new-frontend-beta`: the new frontend as a production beta at /next/) inserted into `frontend_git_commits` after checking it was absent. Count after: **1038**. The PR's squash commit is to be ledgered when it merges.

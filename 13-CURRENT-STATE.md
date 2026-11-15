@@ -1949,3 +1949,5 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
   navy accent, marigold kept; dark unchanged. Commits `488806b` and `936959e`, on PR #365; 2 frontend ledger rows.
   Still not merged.
 
+
+- **PR #367 (draft, `new-frontend-beta`):** the new frontend, made production-ready as a beta at tech.katta.cc/next/. It lives in `frontend/next/`, is built by `frontend`'s `npm run build`, is `noindex`, and is linked from the dashboard sidebar. Merging it deploys it through Vercel.

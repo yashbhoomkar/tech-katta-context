@@ -395,3 +395,17 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
   - `@xyflow/react` resolves from `frontend/node_modules`, so CI must `npm ci` in `frontend/` first (it does).
 - **Sign-in:** `components/SignIn.tsx` uses `@legacy/account.js`. On prototype.katta.cc the API sends no CORS header, so the dialog says sign-in isn't available there.
 - **Also added:** toasts, Dialog, Shortcuts (`?`, g-keys), Tour, recent searches, phone bars hiding while reading, Cards mode, Share, and the Mark-complete burst.
+
+## The new frontend in production: `frontend/next/` (PR #367)
+
+- **Where:** `web/` moved to `frontend/next/`, with `@legacy` now pointing at `../src`.
+- **Build:**
+  - `npm run build` = `vite build`, then `build:next` (`npm ci --prefix next` and its build), then `hosting/next.mjs`, which copies `next/dist` to `dist/next`.
+  - `build:cloudflare` runs the same steps.
+  - `npm run check:next` runs typecheck, lint and tests, and is a step in the Frontend workflow.
+- **Routing:** `routes.json` has `/next` and `/next/*` rewrites to the app, `noindex` on `/next/*`, and a one-year immutable cache on `/next/assets/*`.
+  - On Cloudflare the rewrite becomes the `next/404.html` copy.
+  - `scripts/postbuild.mjs` writes 105 route pages with their own titles and descriptions.
+- **Analytics:** `lib/analytics.ts`. Page views carry sections `next:<page>`, plus `readArticle` and `HostAnalytics` from the current app.
+- **Beta link:** `.side-new` in `dashboard/shell.jsx` and `shell.css`.
+- **Vitest:** inlines `@vercel/analytics` and `@xyflow`, so they share the app's single React.

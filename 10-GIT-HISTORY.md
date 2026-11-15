@@ -1033,3 +1033,5 @@ values start `[prototype branch]`):
 
 Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem workspace). It does **not** contain
 draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colours for the real app).
+
+- `4e842b2` (PR #367, `new-frontend-beta`, draft): the new frontend in `frontend/next/`, built into production at `/next/` as a beta.
