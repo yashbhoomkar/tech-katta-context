@@ -532,3 +532,12 @@ Commit `d570e50` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - Each opened hint shows **Learn it:** up to two links (new tab) to the section that teaches its idea: concept and component articles, or *How to answer* for requirements. Matched on the hint's own words, or its step when nothing matches; 135 of 138 hints get a link (the three without are first nudges, where a link would give the answer away).
 - Article pages now open at a section: `/dashboard/<section>/<slug>/?at=<h2 text>` opens that topic card in cards view, or scrolls to the heading in full text.
 - Files: `solve/learn.js` (+test: every target heading exists in content), `solve/panes.jsx`, `dashboard/article.jsx`, `dashboard/shell.jsx`. Frontend only. If an article's h2 is renamed, `learn.test.js` fails and names the link to fix.
+
+### Step 15: Guided mode for beginners
+
+Commit `31baa24` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1001, `backend_git_commits` 718.
+
+- **🧭 Guided** in the workspace bar (kept in this browser): the steps as a checklist above *Your answer* (✓ done, the current one with what it needs), and the canvas **covered until requirements (two or more lines), every estimate and one API call are written**. Key decisions show as optional. The cover says which step is next, with *Open Your answer* and *Turn the guide off*.
+- Off during a mock interview. On phones the switch is hidden, but a cover left on shows its own *Turn the guide off*.
+- The bar's Guided and Mock interview buttons show as icons below 1560 px, so the bar fits at 1280–1440 px.
+- Files: `solve/guide.js` (+test), `solve.jsx`, `solve.css`. Frontend only.
