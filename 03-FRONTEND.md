@@ -383,3 +383,15 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 - The figures are imported from `frontend/src/figs` through the `@legacy` alias and `frontend/figs-manifest.js`, with `resolve.dedupe` for React. Their colours come from the legacy token names, set in a scoped class with light and dark values; `readTokens()` runs on a hidden probe before figures draw and again on each theme change. Their SVG text classes (`fb`, `fl`, `fk`…) are restyled in `reader.module.css`.
 - `pages/Reader.tsx`: breadcrumbs, read time, progress line, "On this page" scroll spy (a toggle under 1180 px), the group's lessons, Mark complete & next, previous/next; reading progress saved while scrolling.
 - Lab links go to the current app (`/dashboard/<to>/`) until milestone 3.
+
+### Milestone 3: the site complete (`95453a6`)
+
+- **Landing:** full-site parity: Learn menu, drifting shapes, tilted cards with previews, steps, look inside, the judge card running, teacher, count-ups.
+- **Problems:** `pages/Problems.tsx`. Solved status, best scores and stars come from the current app's practice progress (`content/practice.ts` reads `@legacy/progress.js` and `practice.js`).
+- **Workspace and challenges:** `features/workspace/Workspace.tsx` lazily imports `@legacy/solve.jsx` and `@legacy/lab/Lab.jsx`, after `setSite()` with a copy of the content.
+  - They run inside `.tk-legacy`, which is the current app's `tokens.css` scoped by `scripts/legacy-scope.mjs`. Re-run that script when `tokens.css` changes.
+  - Colours are overridden by `figureTokens.module.css`, whose doubled class wins on specificity.
+  - Hash links (`#problems/<slug>`) become routes.
+  - `@xyflow/react` resolves from `frontend/node_modules`, so CI must `npm ci` in `frontend/` first (it does).
+- **Sign-in:** `components/SignIn.tsx` uses `@legacy/account.js`. On prototype.katta.cc the API sends no CORS header, so the dialog says sign-in isn't available there.
+- **Also added:** toasts, Dialog, Shortcuts (`?`, g-keys), Tour, recent searches, phone bars hiding while reading, Cards mode, Share, and the Mark-complete burst.

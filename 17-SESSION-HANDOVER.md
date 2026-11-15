@@ -2131,3 +2131,12 @@ Commit `6d13a73` on `prototype` (ledgered):
 
 Owner: "Proceed". Commit `6b3b468` on `prototype` (ledgered, count 1035). Details in 03-FRONTEND.md. 28 tests pass; verified locally and live on prototype.katta.cc/next/ (caching, networking-essentials, url-shortener, kafka-in-practice; desktop and phone, light and dark; figures drawn, steps, full screen, Escape, contents jump, scroll spy, Mark complete & next, no errors, no sideways scroll).
 Next: milestone 3, Problems and the workspace (the current canvas and judge imported).
+
+## 2026-11-15: "Complete the website" (new frontend milestone 3)
+
+Owner: "Did you add all the animations decided? Complete the website. Eventually we will merge into /frontend, but not now."
+- **Answer on animations:** no, only the milestone-1 ones were in. Now every motion from full-site's motion.css is in.
+- **Commit:** `95453a6` on `prototype`, ledgered (count 1037). Details are in 03-FRONTEND.md.
+- **Tests:** 31 pass.
+- **Verified locally and live:** every route in light and dark, on desktop and phone, with no errors and no sideways scroll. Interactions checked: the Learn menu, sign-in dialog, `?`, `g p`, Pick one, filters, tour, cards, burst, the workspace folding the sidebar, and You. The judge-card check in `all.js` uses a bad selector; frame-by-frame checks show the card running correctly.
+- **Not done (owner said not now):** merging into `frontend/`, and enabling sign-in for the new origin (API CORS and Google origins).

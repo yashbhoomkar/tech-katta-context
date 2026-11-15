@@ -1028,6 +1028,7 @@ values start `[prototype branch]`):
 - `5ac5636` neo-brutalism dark candidates and `/p/nb-dark/`;
 - `01372a7` neo-brutalism dark finalized as option D (comparison removed);
 - `6d13a73` `web/`: the new frontend, milestone 1, at `/next/`.
+- `95453a6` `web/`: milestone 3, every full-site page and animation; workspace and challenges imported from the current app.
 - `6b3b468` `web/`: milestone 2, the lesson reader (real articles, the current app's figures imported).
 
 Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem workspace). It does **not** contain

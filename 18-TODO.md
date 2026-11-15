@@ -89,3 +89,4 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
   readWrite@techkatta_app; add the VPS IP in Atlas Network Access and remove `0.0.0.0/0`.
 - Reset the Google client secret.
 - Delete the leftover old `techkatta` database documents and the three test events.
+- **New frontend (`web/`):** complete on prototype (`95453a6`). Left for the switch, when the owner says so: move `web/` into `frontend/` (or serve it at `/`), add prototype.katta.cc or the final origin to the API CORS list and Google client origins so sign-in works, and retire `frontend/src` pages that `web/` replaces (keep figs, solve, lab, judge, account, which `web/` imports).
