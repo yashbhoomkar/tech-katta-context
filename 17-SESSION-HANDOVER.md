@@ -2150,3 +2150,13 @@ Owner: "I want production ready code to merge it and deploy it."
   - 435 current-app tests and 32 new-app tests pass.
   - The production build was served locally and browser-tested. The only errors were the Vercel insights script, which exists only on Vercel, and the known judge-card selector fault in `all.js`.
 - **Next:** merge #367, which deploys through Vercel. Check /next/ on tech.katta.cc, then do the switch PR (see 18-TODO.md).
+
+## 2026-11-15: the production beta hosted at prototype.katta.cc/p/next/
+
+Owner: "Host it first on prototype.katta.cc/p/next".
+- **Code:** `new-frontend-beta` (PR #367) merged into `prototype`, which is the exact code that will ship. The old `web/` copy is removed.
+- **Build:** `build:prototype[:cloudflare]` builds `frontend/next` with `BASE_PATH=/p/next/` and no Vercel analytics. `hosting/prototype-next.mjs` copies it to `dist/p/next` before `emit.mjs` runs.
+- **Old address:** `/next` and `/next/` 301 to `/p/next/`. A small forwarding page at `/next/` acts as the 404 page for deeper old paths.
+- **Commits:** `c58aefc` and `b43c7e6`.
+- **Cloudflare gotcha:** every `_redirects` rule after the first wildcard counts toward the 100-rule dynamic limit. So never prepend a wildcard (the first deploy failed on this).
+- **Verified live:** every route in light and dark, on desktop and phone, plus the interaction checks.
