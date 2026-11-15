@@ -156,6 +156,84 @@ everything around them:
 5. **PR #365:** update it and merge only the functional fixes now, or hold everything for the revamp?
 6. **Anything in the brand that must not change:** marigold, the "TK" mark, Zotato, the serif headlines?
 
+## 9. Round 2: more sites, and Podia (owner: "Don't be in hurry, research more. Did you like Podia?")
+
+**More sites, live in Chromium:**
+- **Podia:** the owner's screenshot and its current site.
+- **Maven, Teachable, Domestika, Skillshare, SuperHi, Exercism, Interaction Design Foundation.**
+- **Phone views** of Podia, Brilliant, Maven, Hello Interview, Joy of React and animations.dev.
+
+**Pictures** (in `ui-redesign/research-2026-11-15/`):
+- `tops2.jpg`;
+- `podia-full.jpg` and `podia-player.jpg`;
+- `podia-owner-screenshot.jpg`;
+- `maven-full.jpg`;
+- `phones.jpg`.
+
+### Podia
+
+**The owner's screenshot** is Podia's earlier site: a warm off-white page, one headline ("The all-in-one for teams of
+one"), one line and one black button, soft coloured shapes floating around, and three colour-coded product cards
+(Online store, Website, Email marketing) rising from the bottom. **Today's site** has moved to a bold editorial
+collage: photo cut-outs, hand-drawn lines, big type.
+
+**What is good in it, and fits us:**
+- **A calm first screen:** one headline, one line, one button. It is the same rule as Brilliant and animations.dev.
+- **One soft colour per area.** Each product has its own pastel card, so a visitor sees the three parts at once and
+  can tell them apart. For us, each section could have its own soft colour on its cards and in its header: Concepts,
+  Components, Interview Questions, Problems, Real Systems. It helps orientation, and it helps someone outside tech
+  understand "there are four kinds of things here" (the reviewer's first point).
+- **The product rising from the bottom of the hero:** you see the real thing before you scroll.
+- **The course player ("Take a look inside", `podia-player.jpg`) is the strongest part for us:**
+  - a left curriculum with **"4 of 25 completed (16%)" and a progress bar**;
+  - collapsible weeks, with an icon per lesson type (video, text, quiz);
+  - at the top, the lesson title, previous and next, and a **"Complete"** button;
+  - the video first, then the text, then comments.
+
+  Our sidebar and article already have most of it. Completion, "Mark complete" and a video slot are what is missing.
+
+**What doesn't fit:**
+- **It sells software to creators.** It's a marketing page, not a learning experience.
+- **The floating pastel blobs** are the "friendly SaaS" look of a few years ago. They are generic, and for system
+  design they risk reading as playful rather than expert. Podia itself has since replaced them with a bolder,
+  editorial look.
+- **Decoration for its own sake:** our moving figures are real content, so they should play that role, not shapes.
+
+**Verdict:** take Podia's **structure** (a calm hero, colour-coded section cards, the course player with completion),
+not its decoration.
+
+### The others
+
+- **Maven** (expert-led cohort courses) **is the closest in spirit to what we want:**
+  - a navy page with a light serif headline ("Learn GTM / from real-world experts");
+  - every course card shows the **teacher's face, name and role**, plus "Live", length and start date;
+  - calm white cards on navy, category tiles with a thin coloured glow.
+
+  It shows how "author-led" looks at catalogue scale, and its navy matches 33's accent.
+- **Teachable:** a serif headline with a lime button, looking calm. Cookie and migration banners spoil the first
+  screen.
+- **SuperHi:** big geometric shapes in primary colours. Bold and art-school, too loud for us.
+- **Domestika and Skillshare:** a Black Friday banner, a countdown, photo walls and sign-up walls: marketplace
+  noise. These show what to avoid.
+- **Exercism:** friendly illustrations, a highlighter word in the headline ("really"; we use the same idea), purple.
+  Approachable, not premium.
+- **Interaction Design Foundation:** quotes from Don Norman and IBM, logos, blue. Credible, but crowded.
+- **Phones:** the premium ones (animations.dev, Joy of React, Brilliant) keep one idea per screen on a phone too: a
+  big headline, one button, the teacher's face. Podia, Brilliant and Teachable lose the first phone screen to a
+  cookie banner; we have none, which is a small advantage.
+
+### What round 2 changes
+
+It confirms direction 1 (editorial light, author-led) and adds three concrete pieces to it:
+1. **Colour-coded sections** (Podia): one soft tint per section on cards and section headers. The brand stays
+   marigold; links stay navy.
+2. **A course player with completion** (Podia, ByteByteGo, Hello Interview):
+   - "n of N done" and a progress bar in the sidebar;
+   - a "Mark complete" button and previous and next on every article;
+   - a video slot above the article for the owner's videos.
+3. **The teacher's face on cards** (Maven): on the landing page, on lesson headers and on problem cards once the
+   videos exist.
+
 ## 8. Is Mobbin worth it for us? (checked 2026-11-15)
 
 **What it costs:**
@@ -201,6 +279,8 @@ for patterns only, never copying a product's look.
 - Emil Kowalski on building his course platform: <https://emilkowal.ski/ui/how-i-built-my-course-platform>
 - Josh Comeau's courses: <https://www.joshwcomeau.com/courses/>
 - Awwwards, culture and education: <https://www.awwwards.com/inspiration_search/culture-education/>
+- Round 2 sites, visited 2026-11-15: podia.com, maven.com, teachable.com, domestika.org, skillshare.com, superhi.com,
+  exercism.org, interaction-design.org
 - Mobbin: <https://mobbin.com/pricing>, <https://mobbin.com/explore/web/app-categories/education>,
   <https://www.noqode.fr/en/outils/mobbin>, <https://gummble.com/blog/gummble-mcp-vs-mobbin-mcp>,
   <https://www.saasframe.io/compare>
