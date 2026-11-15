@@ -480,3 +480,12 @@ Commit `e988da6de52c0f05ed814d5dbb6131fe52ed6d6b` (branch `ccr-0abbbe33-gkyjcf`)
 - The API's account sync runs `store.js`: **run "Deploy backend" after merging**, or a signed-in sync drops notes until then. Recorded in both ledgers.
 - Checked in Chromium: two notes written, Present shows parts 1 to 3 with the note on part 3, four cards dimmed; notes survive a reload; with one setting changed the submission is Accepted and the first follow-up ("The same long URL is shortened twice: same code?") appears. Frontend tests 400/400.
 - Items 17, 18 and 20 of §5.4 done. Mock interview mode (item 15) is the next step.
+
+### Step 9: mock interview mode
+
+Commit `9ddf03fe0c9534b4c22a5437be279549f7b2bc7d` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 989, `backend_git_commits` 712.
+
+- "🎤 Mock interview" beside the timer: a 45-minute countdown and the step to be on now ("How to answer" with a slot for the numbers: requirements 5, numbers 3, entities and API 7, high-level design 15, deep dives 10, wrap-up 5). Hints and Solution show 🔒 and a locked pane while it runs.
+- Ends at 45:00 or on "End interview", with a summary: time used, the submissions made during it and the last one's verdict, score and tests, and the planned minutes per step marked up to where the clock reached. This tab only; nothing saved.
+- Checked in Chromium: the bar reads "44:59 · Now: Requirements (until 5 min)"; Hints shows the locked pane; Run and Submit work; ending shows the summary; Hints opens again afterwards. Frontend tests 400/400.
+- Item 15 done. From stage 5 still open: Defend your design (item 16, spec 22 §11) and trade-off cards (item 19, spec 22 §8), both large designs of their own; speaking a summary (item 21).
