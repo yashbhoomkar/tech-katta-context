@@ -2101,3 +2101,28 @@ Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one
 
 - Owner picked D ("Finalize option D"). Commit `01372a7` (ledgered): D's rules are the dark theme; candidates, the Dark switch and `/p/nb-dark/` removed (301 to `/p/neo-brutalism/`). Docs: TRIED.md, `ui-prototypes/neo-brutalism-dark-thinking.md`.
 - Still open for neo-brutalism: loud everywhere or calm reader (now calm), Archivo Black or Space Grotesk.
+
+## 2026-11-15: the new frontend begins (web/, served at prototype.katta.cc/next/)
+
+Owner: "Let's start developing on [full-site]. Start writing code for the frontend in the prototype from scratch. Write clean, production grade code. We will eventually switch tech katta to the UI UX on the full site." The owner chose:
+- **React + TypeScript**, so the existing figures, canvas and judge (JavaScript) can be imported as they are;
+- a **new `web/` folder served at `/next/`**, with the current app still at `/`;
+- **milestone 1:** foundation, shell and Home.
+
+Commit `6d13a73` on `prototype` (ledgered):
+- **Stack:** Vite + React 18 + TypeScript (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) + React Router 6 (data router, `ScrollRestoration`); CSS Modules over the full-site tokens (light + F2 dark); self-hosted fonts.
+- **`lib/`:**
+  - a typed API client with timeouts (no `AbortSignal.any`, which older Safari lacks);
+  - a cached resource hook;
+  - theme, set before paint by `public/boot-theme.js`;
+  - local progress;
+  - stemmed search, which fixes "cache" not finding "Caching".
+- **Pages:** landing, Home, Learn, section, You, 404. The reader, Problems and the workspace show a "coming next" page that links to the current app.
+- **Checks:** `npm run check` (tsc, ESLint, 24 vitest tests).
+- **Hosting:** `scripts/postbuild.mjs` writes one page per known route plus `404.html`; `prototype.mjs` copies `web/dist` to `/next/`; `.github/workflows/prototype.yml` runs `npm ci && npm run check && npm run build` in `web/`.
+- **Verified** live: every route in light and dark, desktop and phone, and 15 interactions.
+- **Structure and rules:** `web/README.md`.
+- **Next milestones:**
+  - 2: the reader, with the real articles and `frontend/src/figs` imported;
+  - 3: Problems and the workspace, with the canvas and judge imported;
+  - 4: sign-in and sync, then the switch.

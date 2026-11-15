@@ -371,3 +371,8 @@ Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The
 - **How to add one:** `tech-katta-context/ui-prototypes/README.md`.
 - **Out of scope:** none of this is part of `frontend/src`. Don't import prototype code into the app. When a design
   is chosen, rebuild it in `src/` (the page modules map one to one onto React route components).
+
+
+## The new frontend: `web/` (2026-11-15, prototype branch)
+
+React + TypeScript app that will replace `frontend/src`. It is served at prototype.katta.cc/next/ while it grows. Structure, rules and milestones are in `web/README.md`. It imports nothing from `frontend/` yet; the reader and workspace milestones will import `frontend/src/figs`, the canvas and the judge as they are.

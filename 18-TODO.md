@@ -7,6 +7,8 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
+- **New frontend (`web/`, /next/):** milestone 2 is the lesson reader (render article bodies from `/v1/articles/<slug>` with the existing figures from `frontend/src/figs`); milestone 3 is Problems and the workspace (canvas + judge from `frontend/src`); milestone 4 is sign-in and sync, then the switch of tech.katta.cc.
+
 - **Neo-brutalism dark: done.** Option D (inverted blocks) is final (`01372a7`); the comparison was retired.
 - **Flaky test:** `judge.test.js` "largest design … under 20 ms" can exceed 20 ms on CI runners (21.2 ms seen). Consider a
   safer bound (the app repo; owner to say go).
