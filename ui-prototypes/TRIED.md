@@ -164,3 +164,7 @@ Owner: after the dark change, "when i … change the theme to light theme the co
 ### Neo-brutalism round 2 (2026-11-15)
 
 Owner: "think more … add more details, add more animations; the dark theme especially is not up to the mark". Diagnosis: the first dark drew every line in cream (cards, dividers, rows, bars, panel edges) and gave static cards cream shadows, which read as second borders: a glowing wireframe with little colour. Fix: cream outlines only on objects, structure in a quiet warm grey (`--rule` `#3B3934`), warmer page `#121110`; a hard shadow means "pressable" (none on static cards in dark, 2 px in light). Added colour sticker labels, halftone on big blocks, a landing ticker, boxed lesson numbers, a DONE stamp; motion: highlighter wipe, sticker slap, running ticker, stepped progress bars, stamping nav and filters, shutter theme change. Files: `neo-brutalism/styles/details.css`, `motion.css` (README "Round 2"). All checks pass locally and live.
+
+### Neo-brutalism round 3: calmer colours (2026-11-15)
+
+Owner: "Calmer colours for neo-brutalism please on both light and dark". Same hues at about half the saturation, even lightness (OKLCH L .82, chroma ~.085): concepts `#8FCDF5`, components `#EFB78E`, interview `#CBB9F5`, problems `#8CD6BA`, real `#F7AFAB`, notes `#DCE29E`, keys `#F3C766`; page `#F8F2E5`, surfaces `#FFFDF8`, ink `#1C1B1A`; dark outlines `#D9D1C0`, text `#EDE6D6`. Structure, shadows and motion unchanged.
