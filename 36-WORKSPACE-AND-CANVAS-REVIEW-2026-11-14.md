@@ -580,3 +580,13 @@ Commit `4c98f3a` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - In a replay, the parts **in trouble at the current minute** (down, over 100% of capacity, or just crashed) show as **Why: <part>** chips. Opening one shows its load against what it can take; **what fed it** (calls a second on its incoming arrows); and **why it went down**: either the test failed it on purpose (or a zone went dark), or it ran above its crash limit for N minutes. Also when it came back (on its standby, if it has one) and a fix that fits the part type.
 - Example (URL shortener, *The database fails*, minute 11): *Links DB: Now: down. At 8:10 pm the test failed it on purpose… It came back at 8:12 pm, on its standby. Fed by: Hot links 5,039/s · Link service 700/s.*
 - Files: `solve/why.js` (+test), `solve/v2.jsx`, `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 20: Your skills: a skill record
+
+Commit `c63d7f7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1006, `backend_git_commits` 721.
+
+- **Your skills** on the Problems page, once there is a submission: from the latest submission you built yourself on each problem (copied solutions don't count; this browser), how many tests of each kind you pass. The kinds are **calls work end to end**, **handling load**, **surviving failures** and **keeping the bill sensible** (the evaluator's own areas), each with a bar.
+- **Weakest** kind named, with the next **unsolved** problem that leans most on it (e.g. failures → *Design a notification service*, 4 of its 11 tests).
+- A test's kind comes from its id and name. Each problem's mix is a table in `plan/skills.js`; `skills.test.js` checks it against the content and prints the new table if a problem's tests change.
+- Simpler than spec 22's skill record: by kind of test, not by pattern (caching, contention, queues), because tests aren't tagged by pattern yet. Signed-in sync isn't included (local only, like submissions).
+- Files: `plan/skills.js` (+test), `problems.jsx`, `problems.css`. Frontend only.
