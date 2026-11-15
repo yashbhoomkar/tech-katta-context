@@ -1039,3 +1039,4 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `cb265f4`, `a5ca945`, `09d018d` (`prototype`) and `9fd911d`, `f00d8ad`, `ecae191` (PR #367): parity batches 1 to 3 with tech.katta.cc (see 39-NEXT-PARITY.md).
 - `fadcec1` (PR #368, `api-allowed-origins`, draft): the API accepts sign-in from prototype.katta.cc.
 - `f30e833` (`prototype`) and `7a596ff` (PR #367): parity batch 4 (figures, gestures, motion, lesson content, practice).
+- `d46e1ed` (`prototype`) and `0466802` (PR #367): parity batch 5, the decided spec-24 items (A2 view transitions and title morph, G3 scenes, G4 section marks, solid bars on phones, sheet grab areas).

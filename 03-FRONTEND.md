@@ -427,3 +427,10 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 **Scoped tokens:** the legacy scope and colours now also cover the overlays the current app draws into `<body>` (`.ts`, `.ts-scrim`, `.fs`, `.zoom`).
 
 **Account check:** it starts at app boot (SignInProvider).
+
+### Batches 4 and 5: figures, motion and gestures (specs 24, 09 and 30)
+
+- **Figures:** `features/reader/LegacyFigure.tsx` draws lesson figures with the current app's Fig. `CardPicture.tsx` and `SectionPicture.tsx` put a picture on every card.
+- **Scenes:** `components/StateScene.tsx` (the current app's Scene) via the `scene` prop on StateMessage.
+- **View transitions:** `components/TransitionLink.tsx` handles the `tk-title` morph. The view-transition CSS is in `styles/global.css`, and theme changes set `data-vt="theme"` (`lib/theme.ts`).
+- **Gestures:** `lib/gestures.ts` (useSheetDrag, useSwipeX). Sheet heads have `touch-action: none` and a handle.

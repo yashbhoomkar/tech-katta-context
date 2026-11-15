@@ -2177,3 +2177,16 @@ Owner: all animations, gestures and technical content as on tech.katta.cc; "The 
 - **Fixes:** the reader now uses the current app's Fig, and every card has its diagram.
 - **Commits:** `f30e833` (prototype) and `7a596ff` (PR #367). Details are in 39-NEXT-PARITY.md.
 - **Scans:** `scratchpad/fscan.js` (all lessons), `pics.js`, `allp.js`.
+
+## 2026-11-16 (early): parity batch 5 and the 2:50 am scheduled run
+
+Owner: "I want all the figures, Animations, Gestures We decided" (specs 24, 09 and 30).
+- **Built:**
+  - A2 view transitions with the title morph;
+  - G3 scenes and G4 section marks;
+  - solid bars below 680 px and content-visibility;
+  - sheet heads as grab areas.
+- **Commits:** `d46e1ed` (prototype) and `0466802` (PR #367).
+- **Live checks:** decided.js 12/12, allp.js all ok, fscan 0 missing.
+- **Scheduled run, 2:50 am:** /p/next is **not complete**, because sign-in needs PR #368 merged and deployed. So /p/neo-brutalism was not started; the 8:15 am run checks again.
+- **PR #367:** the Vercel statuses fail on the free plan's 100-deployments-a-day limit, not on the code (commented once). GitHub CI is separate.

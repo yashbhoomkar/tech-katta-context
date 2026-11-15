@@ -1490,3 +1490,5 @@ prototype commit touches `backend/`).
 - **`backend_git_commits`, 1 row:** `fadcec1b30a142cf9901965dff4368eabff2ca7e` (PR #368, API allowed origins).
 
 **2026-11-15 (night):** `f30e833f36b23efddf9287e0d211dfda31bb931e` (prototype, parity batch 4) and `7a596ff7d8a06161560af9ffdde95795950a3c78` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1048**.
+
+**2026-11-16 (early):** `d46e1ed6dcfdc4dc0d1928334b48420779d336ef` (prototype, parity batch 5: the decided spec-24 items) and `0466802c32b52efbf9218800708edcee67f02403` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1050**.

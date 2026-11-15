@@ -107,3 +107,27 @@ Owner: "I want all the animations, gestures, technical content on this website a
 - pictures on Home, Learn, the landing and Cards, in light and dark;
 - full screen on phones;
 - the 17-check suite (now including practice).
+
+## Batch 5 (2026-11-16, early): the decided figures, animations and gestures
+
+Owner: "I want all the figures, Animations, Gestures We decided". Checked against 24-UI-UX-SWIPES-ANIMATIONS-GRAPHICS.md, 09-MOBILE-SWIPE.md and 30-PREMIUM-RENOVATION.md.
+
+| Spec item | /p/next |
+|---|---|
+| S1 swipe between lessons, S2 step-line swipe, S5 swipe down closes full screen, S6 tour card swipe | ✅ (batch 4) |
+| Sheets close with a swipe down (landing menu, phone dialogs) | ✅ the sheet head is the grab area (`touch-action: none`, handle) |
+| A1, A3–A7, A10 (arrivals, lift, underline, markers, Go deeper, highlighter, count-ups) | ✅ (batches 1–4) |
+| A2 page view transitions, card title morphs into the lesson title, theme is a plain cross-fade, off with reduced motion | ✅ |
+| G1 pictures on cards, G6 figure loops (one at a time on phones) | ✅ (batch 4) |
+| G3 scenes for empty and error states (404, offline, broken workspace, empty section) | ✅ the current app's Scene |
+| G4 section marks in the sidebar, marigold dot on the active section | ✅ |
+| §4.3 solid bars below 680 px; long lessons use `content-visibility` | ✅ |
+
+**Commits:** `d46e1ed` (prototype) and `0466802` (PR #367).
+
+**Verified live on prototype.katta.cc/p/next, 2026-11-16:**
+- `decided.js` passes 12 of 12, run with real touch events (Chromium phone emulation): the step swipe, the full-screen swipe-down, the menu sheet swipe-down, the view transition, the title morph target, the scene and the marks.
+- `allp.js` passes every check, with no errors in light and dark, on desktop and phone.
+- `fscan.js` finds 0 lessons with missing figures, on desktop and phone.
+
+**Still open:** P2, sign-in, which needs PR #368 merged and deployed.
