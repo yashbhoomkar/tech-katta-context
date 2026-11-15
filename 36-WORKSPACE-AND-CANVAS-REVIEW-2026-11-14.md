@@ -1,0 +1,627 @@
+# 36 — The problem workspace and the canvas: faults, shortcomings, and what the reference still does better (2026-11-14)
+
+The owner asked for two things: observe the new problem-solving space and its canvas, find the faults and suggest
+improvements; and say what is good about the open-source canvas used as the reference that our site still lacks.
+Nothing in the application was changed.
+
+## 0. What was observed, and how
+
+- **Build observed:** `main` at `3bd3c41` (#363), which includes the canvas work of #358–#362. Production's frontend
+  is still at #358, so the new workspace cannot be seen on `tech.katta.cc` yet. The cause is now known: the
+  unmerged handover on branch `ccr-328fc450-xdjrk1` records that Vercel refused the deploys of #359–#361 with
+  "Resource is limited - try again in 24 hours" (the daily deploy limit). Files 34 and 35 said the cause was not
+  found; this replaces that.
+- **How:** the API and a production build of the frontend were run locally (sign-in off) and driven in headless
+  Chromium at 1280×720, 1440×900, 1600×1000 and 1920×1080, and on an emulated Pixel 7. The URL shortener problem
+  was taken end to end: open, add parts, draw an arrow, schema editor, checks, the four left tabs, copy the
+  solution, Run, expand a result, Replay, Submit, Ask the interviewer, Export, keyboard shortcuts.
+- **The reference:** `ozers/system-design-canvas` (MIT), cloned read-only at commit `6446aea` (11 Nov 2026) and
+  read: README, changelog, data model, node and edge registries, design checks, shortcuts, canvas components.
+  An earlier comparison exists as spec 33 on the same unmerged branch; section 3 says what that spec already
+  covered and what is new here.
+- **Renumbering:** spec 33 already exists on that branch and is cited by the app's pull requests, so this
+  session's two earlier files were renumbered: the article audit is now 34 and the full technical review 35.
+
+Not observed: Safari, Firefox, a real phone, a signed-in session, the AI interviewer (it needs sign-in; locally
+it answered "Couldn't reach the interviewer"), and the text-based Practice space (`/dashboard/practice/`), which
+is not linked from the site. Practice's content is reviewed in file 35.
+
+## 1. Faults
+
+Ordered by how much they hurt a learner. Each was reproduced in the browser.
+
+### 1.1 The design opens at the smallest zoom
+
+| Screen | Zoom when the problem opens | Zoom after pressing Fit View |
+|---|---|---|
+| 1280×720 | 0.25 | 0.42 |
+| 1440×900 | 0.25 | 0.46 |
+| 1920×1080 | 0.67 | 0.98 |
+
+At 1440×900 the three starting cards are drawn 50 px wide and cannot be read. The canvas fits the design 30 ms
+after loading (`lab/Canvas.jsx`, `setTimeout(() => rf.fitView(…), 30)`), before the split layout has its final
+width, so it fits to a narrower box than the one the learner sees. The same happens after "Copy to my canvas"
+(zoom 0.32 with five cards). This is the first thing every learner sees.
+
+Fix: fit when the canvas element's size settles (a `ResizeObserver` on the canvas, fitting once per load), not
+on a timer.
+
+### 1.2 The canvas gets a third of the window
+
+At 1440×900 the workspace is 910 px wide, and the canvas is 430 px of it: the palette takes 208 and the settings
+panel 272, all the time, whether or not anything is selected. At 1280×720 the canvas is 386×515. A reference
+design of 8 to 15 cards at 200 px each cannot be read in that space with the problem open.
+
+"Hide the problem" doubles the canvas (to 896 px at 1440) but does not refit: the design stays small in the
+left corner until Fit View is pressed. The divider between problem and canvas can be dragged, which helps, but
+nothing tells the learner.
+
+### 1.3 Results and Replay shrink the canvas further, and the animations cannot be seen
+
+Run opens the results panel over the bottom of the workspace. At 1600×1000 the canvas is left about 590×430, and
+the design is not refitted, so its lower cards sit against or under the panel's edge.
+
+Replay is where #360's animations live (heartbeats, instance slots, standby taking over, a cache ring
+refilling). During a replay of the evening peak the cards were about 50 px wide, in a strip above a panel that
+holds the scrubber, the credit meter and three lines of numbers. The feature built to be watched is the
+smallest thing on the screen. The palette and settings panel stay open during a replay although nothing can be
+edited.
+
+Fix: during Replay, hide the palette and settings (the `lab-watch` layout already does this for Watch), dock the
+scrubber as one thin bar, and refit.
+
+### 1.4 The click-counting call is never sent
+
+The URL shortener's brief says the tests send "one click count for every open". In the results and the replay
+the call shows "Count the click 0 calls/s · 100% succeed · p99 100 ms", and its share in the requirements table
+is "0%". The operation's share is 0 in the content, so no load test exercises it; a design with no way to count
+clicks passes every load test. The table should not show "0%" for a call the brief describes as constant. All 22 problems were checked for this: the URL shortener is the only one with a client call whose share is 0.
+
+### 1.5 "Accepted" beside numbers that miss the stated targets
+
+Submit on the reference design reports "Accepted · 10 / 10 tests passed · worst availability 96.7% · p99 1,780
+ms". The problem's targets, shown on the same screen, are 99.9% and a p99 of 200 ms. The fault tests allow a dip
+while a zone or the database is down, which is reasonable, but nothing says so. A learner reads a verdict that
+contradicts the requirement. Show each test's own pass line next to its result ("allowed during the outage:
+down to 95%").
+
+### 1.6 The solution is one click away, before any attempt
+
+Each hint costs 3 points and says so. The Solution tab is open from the first second, with the full design and
+"Copy to my canvas", which also fills in the written answer. A copied design is correctly not counted as
+solved, but a learner can read the whole answer before trying, at no cost and with no prompt. LeetCode-style
+sites hold the editorial behind a deliberate click ("Show the solution? You haven't submitted yet").
+
+### 1.7 Smaller faults
+
+| Where | Fault |
+|---|---|
+| Palette help text | "Connect two components by dragging from the dot on the right of one to the dot on the left of the other." Since #358 every card has a handle on each side and arrows can start anywhere. |
+| Palette | 15 parts in a fixed list taller than the panel at 1440×900 (Messaging is below the fold); no search, no collapsing groups. |
+| Settings panel | The part's description and its "In real life" analogy come first, every time; the settings start below them and need scrolling. The analogy is useful once. |
+| Adding a part by click | The new card lands far from the design (a database was placed 250 px to the right of the last card, a cache above it), not next to the selected card or connected to it. |
+| Fit View button | Zooms to 1.48 on a wide screen, while the automatic fit is capped at 1.0; two fits, two results. |
+| Solution tab | The reference design is drawn in a box that shows two of its five cards with "Scroll the diagram sideways". It should be scaled to fit; "Full size" exists for detail. |
+| Reference design against the article | The URL shortener's solution is one "Link service" with a cache and a database. The article's design has separate create and redirect services, a click stream and a CDN in front. The canvas solution and the worked answer should be the same design, or say why they differ. |
+| Card text | At the fitted zoom the settings line on a card ("2 × m5.large") renders at about 7 px. |
+| Phone | The Canvas tab opens at zoom 0.25 as well, and the note says designing "is easier on a bigger screen". Acceptable as a stance; the zoom is the same bug as 1.1. |
+| Keyboard | Only Escape, Delete, undo/redo and Shift+R exist. Copy, paste, duplicate and select-all do nothing (tested: Ctrl+C, Ctrl+V, Ctrl+D left the design unchanged). No right-click menu. |
+| "A sensible bill" test | Shows "$16,277/mo" and a tick, but not the budget it was checked against. |
+| Ask the interviewer, signed out | "Couldn't reach the interviewer. Try again." If the cause is that sign-in is needed, it should say that. (Seen locally with sign-in off; production's wording was not checked.) |
+
+### 1.8 What works well
+
+Stated so the list above is read in proportion.
+
+- Checks while building are good: "Server reaches no database: draw an arrow from it to the store that keeps
+  links" is specific, names the part, and updates within half a second.
+- Protocol pills on arrows, inferred correctly (HTTPS, REST, DB query, Key lookup).
+- Undo restored a deleted card together with its arrows in one step.
+- Run took 2.6 seconds for four tests; Submit ran ten tests in about six.
+- The score breakdown (requirements, estimates, API, decisions, design) and "copied unchanged, so it isn't
+  counted" are clear and fair.
+- The written-answer form mirrors the interview steps, and the key decisions are real ones.
+- The schema editor is modal, focused, and explains what the tests will look for.
+- No page errors in any flow.
+
+## 2. Suggested improvements
+
+In the order they should be done. The first three fix what a learner hits in the first minute.
+
+1. **Fit correctly, always.** Fit on the canvas's real size at load, after "Copy to my canvas", when the problem
+   pane is hidden or shown, when the divider is released, and when the results panel opens or closes. One
+   function, one zoom cap.
+2. **Give the canvas the window.** Float the palette and the settings over the canvas instead of beside it, as
+   the reference does: a narrow palette that collapses to icons, and a settings drawer that appears only when a
+   part or arrow is selected. At 1440 px that takes the canvas from 430 to about 900 px with the problem open.
+3. **A replay mode.** Palette and settings hidden, the scrubber as a thin bar under the canvas, the credit meter
+   in the top line, numbers on the cards. Offer "Replay full screen".
+4. **Place new parts sensibly.** Next to the selected card, or to the right of the last one, and offer the
+   arrow.
+5. **Settings first, description behind "About this part".**
+6. **Gate the solution** behind one confirmation until the learner has submitted once.
+7. **Make the verdict explain itself:** each test's allowance beside its result, and the budget beside the bill.
+8. **Fix the click-count call** in the URL shortener's tests (the only problem with this fault).
+9. **Bring the canvas solution and the article's design into line** for each problem.
+10. **Correct the palette help text; add search to the palette.**
+
+## 3. The reference: what it does well that we still lack
+
+`ozers/system-design-canvas` is a free-form diagram tool. It has no simulator, no tests and no judge; everything
+it knows about a design is four static checks. Our evaluator, replay and scoring have no counterpart there. What
+it does better is the feel of drawing.
+
+Spec 33 already compared the two and led to #359–#361: live checks, undo and redo, reversing an arrow, the
+minimap, the solution walk-through, and Mermaid and SVG export. Those are built. Spec 33 listed auto-layout,
+zones as groups, copy and paste, the command menu and share links as not built; they are still not built, and
+are repeated in the table for completeness. The rows marked **new** were not in spec 33.
+
+| The reference has | We have | Worth taking? |
+|---|---|---|
+| **A full-window canvas with floating panels.** The library and the editors float over the canvas; editors appear only on selection. **New.** | Fixed side panels; the canvas is the remainder | **Yes, first.** This is the root of faults 1.2 and 1.3. |
+| **Auto-layout** in one click (dagre): handles face each other, fewer crossings | None; our arrow layout pass routes around cards but never moves them | **Yes.** Also solves fault 4 in section 2: after adding parts, "Tidy up". A layered layout needs no new dependency. |
+| **A menu at the point where an arrow is dropped.** Dropping on empty canvas offers the part to add; dropping on a card offers the connection type there and then. **New.** | Arrows only connect existing cards; the protocol is changed afterwards in the panel | **Yes.** It is the fastest way to build: drag out of the server, pick "Database", done. |
+| **Right-click menus** on the canvas, cards and arrows. **New.** | None | Yes, small. |
+| **Multi-select actions:** group, align, duplicate, delete, as a floating bar. **New** (spec 33 mentioned align only). | Multi-select exists; no actions | Yes: align and duplicate. |
+| **Copy, paste, duplicate** (⌘C, ⌘V, ⌘D), select all | None | Yes. A learner adding three services wants to duplicate one. |
+| **A shortcuts sheet (`?`) and a command menu (⌘K)**; `F` fits, `/` toggles the library, `P` presents | No sheet; four shortcuts | The sheet and `F`: yes. ⌘K: later. |
+| **A searchable, collapsible library**; it becomes a bottom sheet on narrow screens, and editors become drawers. **New** in its detail. | A fixed list; on phones the canvas is view-only | Search: yes. The phone layout: only if designing on phones becomes a goal. |
+| **Groups** (boxes that hold cards) | None | **Yes, as availability zones and regions.** Our parts already have a "zones" setting and our tests take a zone down; drawing the zone as a box makes the fault visible before it happens. |
+| **Sticky notes** | None | Yes. "Why I chose this" beside a part is what an interviewer asks for, and the AI interviewer could read them. |
+| **A story per component** for presentation mode: the author's own words. **New.** | Walk-through exists for the reference solution only | **Yes, for the learner's own design.** "Present my design" with their notes per part is interview practice that nothing else on the site gives. |
+| **Arrow details:** latency, data format, throughput. **New** in part. | Protocol and a label | Throughput: show the simulator's rate on the pill during a replay (spec 33 noted the simulator must record calls per arrow). The others: no; the simulator owns latency. |
+| **More kinds of card:** DNS, WAF, worker, serverless function, container cluster, object storage, search index, logging, monitoring. **New.** | 15 kinds; object storage and search are engines inside "Database"; no worker, DNS, WAF, serverless, monitoring | **Object storage and search as their own cards: yes.** Learners look for "S3" and "Elasticsearch" in the palette and do not think of them as databases. A worker card (a server that reads a queue) would make queue designs read correctly. The rest only when a problem needs them. |
+| **Templates:** nine starting architectures | Each problem's start, and eight challenges | A free canvas with templates would be a new product area ("sandbox"). Useful for the landing page; not urgent. |
+| **Share links** with the design in the URL fragment, and a preview page before saving | Signed-in sync only | Yes, later: "send my design to a friend" is how the site spreads. The fragment never reaches the server, which fits our privacy stance. |
+| **PNG export** at 1× to 3× with a transparent background, **JSON** export and import | SVG and Mermaid; a share card after Accepted | PNG: yes, people paste designs into notes and chats. JSON: yes, cheap, and it is a backup. |
+| **Storage safety:** an unreadable saved design is set aside and offered as a download, never overwritten. **New.** | Not checked in this review | Worth checking: designs live in `localStorage` until sign-in. |
+| **An empty-canvas state and a first-run overlay.** **New.** | A tour button | The empty state: yes ("Start from the Clients card, or press Copy to see one way"). |
+| **Settings:** snap to grid, minimap, animated edges, clear data. **New.** | Snap is always on; minimap from six parts | A "reduce motion on the canvas" switch belongs here once replay is prominent. |
+| Tech stack per node, status set by hand, docker-compose import | Engines and sizes; status from the simulator | No. Ours is better or it is not our product. |
+
+### Recommended order for the reference's ideas
+
+1. Floating panels and a full-window canvas (with section 2, items 1 to 3).
+2. The drop-point menu and auto-layout ("Tidy up").
+3. Copy, paste, duplicate, align; the shortcuts sheet; `F` to fit.
+4. Zones as groups; notes; "Present my design".
+5. Object storage and search as cards; a worker card.
+6. PNG and JSON export; share links.
+
+## 4. What was not checked
+
+- The other 21 problems and the eight challenges were not walked through in the browser; the faults in 1.1 to
+  1.3 are layout faults and apply to all of them, 1.4 was checked in the content of all 22 and is in the URL shortener only; the solution
+  mismatch was looked at for the URL shortener only.
+- The reference was read as source, not run.
+- No measurement of performance with large designs (30 or more cards).
+
+---
+
+## 5. The best problem-solving experience: what to give candidates
+
+Added the same day, on the owner's request: "I need the best problem solving experience for the candidates. Find
+out the features that we should give. Find out the functionalities that we should provide."
+
+### 5.1 What "best" means here
+
+A candidate comes to practise for a 45-minute interview in which they must talk, draw, decide and defend. The
+site already does something no other does: it runs the design under real traffic and failures and judges it.
+The best experience is the one where every minute a candidate spends moves them closer to that interview. That
+gives five tests for any feature:
+
+1. **It keeps them drawing and thinking,** not fighting the tool.
+2. **It tells them why,** not only pass or fail.
+3. **It makes them explain,** because the interview is spoken.
+4. **It shows progress,** so they know what to practise next.
+5. **It can be done in the time they have,** including on a phone on the way to work.
+
+The lists below are sorted by those five. "Have" means it is on `main` today. "Designed" means a spec already
+describes it (mostly `22-EVALUATOR-V3.md`) but it is not built. "New" means it is proposed here.
+
+### 5.2 Must have: without these the rest does not land
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 1 | A canvas that fills the screen and is readable on open | The design is the largest thing on the page at every step: building, results, replay | Faults 1.1 to 1.3; fixes in section 2 |
+| 2 | Fast building: drop an arrow to add a part, duplicate, copy and paste, tidy up | A ten-part design in two minutes, as on a whiteboard | New (section 3) |
+| 3 | A verdict that explains itself | For every failed test: which part gave out, at which minute, by how much, and a button that jumps the replay to that minute | Partly have (findings, replay marks); the link from a failure to its moment is new |
+| 4 | "What would fix it" without giving the answer | After a failure, one checked repair in words ("the database is the first to run out; a cache in front, or a larger size, would pass this test"), never the whole design | Designed (spec 22 §9, checked repairs) |
+| ~~5~~ | ~~The solution behind a deliberate step~~ (owner: no, 5.11) | An attempt, or one confirmation, before the full design is shown | New (fault 1.6) |
+| 6 | Work that is never lost | Every edit saved at once, restored on return, on any device after sign-in, with an unreadable save set aside, not overwritten | Have (autosave, sync); the safety net is new |
+| 7 | An interviewer that is reachable, or says why not | A clear message when sign-in or a limit is the cause | Have with the mock model; the message is new |
+
+### 5.3 What makes it better than a whiteboard
+
+These are the functions only a simulator can offer. They are the product's reason to exist.
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 8 | **Break it yourself** | During a replay, click a part and kill it, or drag the traffic up, and watch what happens next. The interviewer's "what if this dies?" becomes something they have already seen | New. Today faults are scripted per test |
+| 9 | **Headroom and waste** | "This design takes 1.8× the peak before the cache gives out" and "it would still pass with 12 servers instead of 32, saving $7,000 a month" | Designed (spec 22 §7, probes 1 and 5) |
+| 10 | **Follow one request** | Pick a call and watch it hop through the design, with the time spent at each part and where the p99 comes from | Have (Watch); per-hop time is partly there |
+| 11 | **Numbers on the arrows** | Calls a second on every arrow during a replay, so the candidate sees that the cache takes 34,000 and the database 600 | Designed (spec 33 §1.4; the simulator must record per-arrow rates) |
+| 12 | **Compare two attempts** | This submission beside the last: what changed on the canvas, and what changed in each test's result and the bill | Designed in part (spec 22 §9.3) |
+| 13 | **Cost as a first-class result** | A bill by part, the cheapest passing design they have found, and how theirs compares | Have the bill and the credit meter; the breakdown and comparison are new |
+| 14 | **Zones you can see** | Parts drawn inside their availability zone, so "a zone goes dark" is visible before the test | New (section 3, groups) |
+
+### 5.4 What makes them interview-ready
+
+Passing tests is half the interview. The other half is saying it.
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 15 | **Mock interview mode** | 45 minutes on the clock, the six steps in order with a suggested time for each, hints and the solution locked, and one summary at the end | Have the timer; the mode is designed (spec 22) |
+| 16 | **Defend your design** | Three questions about their own design after a pass: predict ("what happens to p99 if the cache restarts?"), why ("why two replicas?"), change ("the traffic doubles: what do you change first?"), marked against the simulator's own answer | Designed (spec 22 §11) |
+| 17 | **Present my design** | Walk through their own design part by part with their own note on each, the way they would at a whiteboard | New (section 3, story per component) |
+| 18 | **Notes on the canvas** | A sticky note for a decision or an assumption; the interviewer reads them | New |
+| 19 | **Trade-off cards** | For each key decision, the option they chose beside the one they did not, with what each costs in this problem's own numbers | Designed (spec 22 §8) |
+| 20 | **Follow-up questions** | The worked answer's "Follow-ups an interviewer may ask" turned into prompts after a pass, one at a time | New; the content already exists in every article |
+| 21 | **Speak it** | Record a two-minute spoken summary and play it back beside the design. No marking needed at first: hearing oneself is the value | New |
+
+### 5.5 Guidance while solving
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 22 | Checks while building | What stops the design from running, as they draw | Have (#359) |
+| 23 | Hints in steps, each tied to a concept | A nudge, then the idea, then nearly the answer, with a link to the exact section of the article that teaches it | Have the steps; the links are new |
+| 24 | A step-by-step mode for beginners | The six steps as a guided path: requirements first, the canvas unlocked after the numbers and the API are written | New. Today every tab is open at once, which suits practised candidates |
+| 25 | Estimate helper | A small calculator beside the estimates: per day to per second, bytes to terabytes, with the crore and lakh units the site uses | New |
+| 26 | Wrong-design gallery | After a pass: three common wrong designs for this problem, each with the test it fails and why | New for the canvas problems; the content exists (`wrong` in every problem) and is hidden today |
+| 27 | "Why did this part crash?" | Click a crashed card in the replay for its load, its limit and what fed it | Partly have (card numbers in replay) |
+
+### 5.6 Progress and motivation
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 28 | A skill record | Strengths and gaps by pattern (caching, contention, queues, real-time), built from which tests they pass and fail across problems, with the next problem chosen for their weakest pattern | Designed (spec 22) |
+| 29 | Submission history that teaches | Every attempt with its score and design, restorable, and a line for what improved | Have the list and restore; the diff is item 12 |
+| 30 | Acceptance rate, best score, percentile | "Better than 62% of accepted designs on cost" | Have acceptance and best score for signed-in users; percentile is new |
+| 31 | Streak and a daily problem | A reason to return tomorrow | Have the streak in Practice only |
+| 32 | Study plans | "Two weeks to an interview": an ordered list across articles, problems and challenges, with a tick for each | New; the Questions guide and How to prepare already hold the order |
+| 33 | Company and topic tags | Filter problems by pattern and by where they are asked | Have difficulty; Practice has topics and an empty companies field |
+| 34 | Bookmarks and personal notes per problem | Come back to the ones that hurt | New |
+
+### 5.7 Sharing and community
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 35 | A share link to a design | Send it to a friend or mentor, who opens it read-only and can copy it | New (section 3) |
+| ~~36~~ | ~~Accepted designs by others~~ (owner: no, 5.11) | After their own pass: other accepted designs, sorted by cost or headroom, to learn there is more than one answer | New. Needs moderation and a decision on names (an open owner decision in spec 21) |
+| 37 | Image and diagram export | PNG for notes and chats; Mermaid and SVG already exist | Partly have |
+| 38 | A result card worth posting | Score, stars, cost and the design in one image | Have after Accepted (#329) |
+
+### 5.8 Comfort and access
+
+| # | Feature | What the candidate gets | State |
+|---|---|---|---|
+| 39 | A shortcuts sheet, and the usual keys | `?` lists them; fit, duplicate, copy, paste, select all | New (section 3) |
+| ~~40~~ | ~~Designing on a phone~~ (owner: no, 5.11) | The text design with a drawn diagram (spec 21) as the phone path for every problem, since the canvas is view-only there | Have for the ten Practice problems, unlinked |
+| 41 | Reduced motion and keyboard access | Replay states in words, every control reachable by keyboard | Have reduced motion; canvas keyboard access not checked |
+| 42 | Speed that holds | Run in under three seconds, Submit under ten, and no frozen tab on a large design | Have at this size; a 200-part design can pause the tab (noted in `18-TODO.md`) |
+| 43 | Languages | The interface and hints in Hindi and Marathi alongside English | New; the audience is Indian candidates |
+
+### 5.9 The order to build them
+
+Each stage is usable on its own. Later stages assume the earlier ones.
+
+| Stage | What | Why first |
+|---|---|---|
+| 1. Remove the friction | Items 1, 2, 7 and the smaller faults in 1.7 | Nothing else is seen properly until the canvas is |
+| 2. Explain every result | Items 3, 4, 9, 11, 13, 27 | Turns "failed" into a lesson; most of it is already designed in spec 22 |
+| 3. Let them play | Items 8, 12, 14 | The part no competitor has |
+| 4. The sandbox canvas | Item 44 (section 5.12): blank canvas or template, traffic and failure panels, a report, my designs. Paid | Reuses the failure control of item 8; needs stages 1 to 3 first |
+| 5. Make them talk | Items 15, 16, 17, 18, 19, 20 | Closes the gap between passing tests and passing interviews |
+| 6. Bring them back | Items 28, 30, 31, 32, 33, 34 | Retention, once the session itself is good |
+| 7. Let them share | Items 35, 37 | Growth, and learning from others |
+| 8. Reach more people | Items 43, 21 | Languages and speaking |
+
+### 5.10 The three that matter most
+
+If only three things are built from this list:
+
+1. **The canvas fills the screen and fits itself** (item 1). It is a fix, not a feature, and it decides whether
+   everything else is noticed.
+2. **Break it yourself** (item 8). It is the one thing a candidate cannot do with a whiteboard, a book or a
+   video, and it answers the question every interviewer asks.
+3. **Defend your design** (item 16). It is the bridge from a passing design to a passing interview, and the
+   simulator can mark it honestly because it knows the true answer.
+
+### 5.11 Decisions taken by the owner (2026-11-14)
+
+| Question | Answer | What follows |
+|---|---|---|
+| Gate the solution before a first attempt? | **No** | Item 5 is dropped, and it leaves stage 1 of the build order. The Solution tab stays open from the start. Fault 1.6 is closed as "by design". |
+| Show other candidates' accepted designs? | **No** | Item 36 is dropped. Sharing is a candidate's own link (item 35) and exports only. |
+| Make the text-based Practice the phone path for all problems? | **No** | Item 40 is dropped. The canvas stays the one way to solve; on phones it remains view-only. |
+| A sandbox canvas? | **Yes, build it. It is paid.** | Section 5.12. It becomes item 44 and stage 4 of the build order, after "Let them play". |
+
+### 5.12 The sandbox canvas, in detail
+
+**What it is.** A blank canvas with no problem attached: the same parts, arrows, settings and simulator, but the
+candidate chooses the traffic and the failures instead of a test suite choosing them. Today the canvas only
+opens inside a problem or a challenge, so a candidate cannot design something that is not one of the 22
+questions.
+
+**Why a candidate would want it.**
+
+- Their interview question is not on the site. They can still build "design a stock exchange" and see whether
+  it holds.
+- A mock interview with a friend: one asks any question, the other draws here.
+- Trying an idea from an article ("what does a cache replica actually buy me?") without the rules of a problem.
+- Keeping their own designs as a portfolio or revision notes.
+
+**What it would contain.**
+
+| Part | What it does | Already exists? |
+|---|---|---|
+| Blank canvas, or start from a template | Six to nine common shapes: client and server, read-heavy with a cache, queue and workers, event stream, real-time gateway, multi-zone | Canvas exists; templates are new. The 22 reference designs and 8 challenge references could seed them |
+| A traffic panel | Requests a second, the pattern over the day (steady, lunch and dinner, flash sale, match night), the share of reads and writes | The patterns exist in the catalogue; the old Lab tab had this panel before it was removed on 2026-11-10 |
+| A failure panel | Add events on a timeline: a part crashes, a zone goes dark, the cache empties, a spike | The simulator supports all of these; they are scripted per test today |
+| Run and Replay | The same replay, bill and credit meter | Exists |
+| A report instead of a verdict | No pass or fail, since there is no requirement: availability, p99, what crashed and when, the bill, headroom | The numbers exist; the report is the "no AI" design report of spec 22 §10 |
+| My designs | A list of saved designs with names, rename, duplicate, delete | The store already holds several designs per user (the old Lab used it) |
+| Share and export | Link, PNG, SVG, Mermaid | Partly exists |
+
+**What it cannot do.** The judge needs to know what the system is for: its calls, its data and its targets.
+Without a problem there is nothing to judge function against, so the sandbox can say "this stays up and costs
+this much" but not "this is a correct design for a chat app". Two ways to narrow that gap later: let the
+candidate declare a few calls and targets themselves (a small form: name, reads or writes, share, p99 target),
+or let the interviewer read the design and ask about it.
+
+**How it differs from what was removed.** The Lab tab was a free canvas shown as a main tab beside the articles,
+and it was removed in favour of problems. The sandbox proposed here is not a tab of its own: it is one more
+row on the Problems page ("Open canvas: design anything") and a button on the landing page.
+
+**Cost and risk.**
+
+- Build: small to medium. Most parts exist; the traffic and failure panels and the "my designs" list are the
+  work. No new judge code if the report is used instead of a verdict.
+- It needs the faults in section 1 fixed first; a sandbox on a 430 px canvas would show the product at its worst.
+- It can pull attention from judged problems, which are the site's strength. Keeping it off the main tabs
+  limits that.
+- **Paid (owner, 2026-11-14).** It is not the landing page's free "try it"; that stays the IND vs PAK canvas.
+  Under the launch rule recorded in `12-OPERATING-RULES.md` (sign-in unlocks everything, no paywall work yet),
+  "paid" means behind sign-in for now and marked `paid` for when subscriptions start.
+
+**Decided: build it.** The recommendation was: worth building, after stages 1 to 3 of section 5.9, and as one feature rather than a second
+product: the same canvas with the problem switched off. It also makes "Break it yourself" (item 8) nearly free,
+because the failure panel is the same control.
+
+---
+
+## 6. Build log
+
+Owner, 2026-11-14: "Start building everything step by step and after every step push, update docs and ledgers."
+Each step is committed to branch `ccr-0abbbe33-gkyjcf` of the app, pushed, recorded in the ledger and noted here. Merging to
+`main` (which deploys) goes through a pull request, opened when the owner asks.
+
+### Step 1: the canvas fits itself and gets the window
+
+Commit `0993fd0a3e33a0eb126e3726d4f56e43b6ef258e` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 981, `backend_git_commits` 708.
+
+- Fit on the canvas's real size once cards are measured, and again on every size change (problem pane, divider, replay) and when the results panel opens, shrinks or closes; only the part above the results counts. Not after the visitor pans or zooms, until Fit, F, or a replay starts or ends.
+- On screens wider than 900 px the settings float over the canvas and appear only on selection; a card under them slides into view; Escape deselects.
+- The palette shrinks to icons (default inside a problem below 1,700 px wide, then the visitor's choice).
+- Replays hide the palette and settings. Palette help text corrected.
+- Measured at 1440×900: opens at zoom 0.88 (was 0.25); the copied solution at 0.50 (was 0.32). Frontend tests 393/393. Backend tests not run here (the dev dependency `mongodb-memory-server` is not installed in this container); nothing in `backend/` changed.
+- Faults closed: 1.1, 1.2 (mostly), 1.3 (canvas width during replay; the results panel's size is step 3), palette help text (1.7).
+
+### Step 2: faster building
+
+Commit `8bc3c1cc00e10e599afc883fade50c98ffc19208` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 982, `backend_git_commits` 708.
+
+- Tap a part with a card selected: it lands just right of that card and is joined to it when the arrow is allowed. Drop an arrow on empty canvas: a menu of the parts it may lead to adds one there, joined.
+- Copy, paste, duplicate, select all (Ctrl/⌘+C, V, D, A): only while the canvas was the last thing pressed and no page text is selected, so the problem text can still be copied.
+- Tidy up: a layered left-to-right layout along the arrows (`drawing.js` `tidy`, no dependency), then fit; undo puts it back.
+- Right-click menus on cards and the canvas; a shortcuts sheet (`?` or the ⌨ button); palette search (name matches first, Enter adds the first).
+- Settings come first in the panel; the description and "In real life" sit under "About this part".
+- Bug fixed on the way: undo within 400 ms of an edit skipped that edit (the snapshot was not taken yet); it now takes it first.
+- Checked in Chromium at 1440×900: search + Enter with the Server selected adds a Database joined to it; Ctrl+D then undo; select all, copy, paste, undo; Tidy up; the pane menu; an arrow dropped from the Server offers seven parts and Cache adds one joined; Ctrl+A outside the canvas still selects page text. Frontend tests 393/393.
+- Section 3 items closed: drop-point menu, auto-layout, right-click menus, copy/paste/duplicate, shortcuts sheet, palette search. Fault 1.7 items closed: palette search, settings first, new parts placed far away, keyboard.
+
+### Step 3: results that explain themselves
+
+Commit `8924f9a9ceb42061860ec937a1cb2dbccab1fe2d` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 983, `backend_git_commits` 709.
+
+- "Every call meets its targets" now names each call's targets; an accepted run says "each within its own targets" (fault 1.5); a test with a budget shows its bill against it.
+- A failed load test offers "Replay from minute N, where it went wrong" (the first minute a part is over capacity or down, or a call fails more than 1 in 100). When the trouble starts in the first minute, only the ordinary Replay shows.
+- The interviewer's failure message says why: sign in, the limit, not available on this server, no connection.
+- The Solution tab draws the whole reference in the pane (fault 1.7).
+- URL shortener: brief corrected and the calls table says "request test only" (fault 1.4). This is a content change: the API needs a deploy when merged.
+- Checked in Chromium: the copied solution submits as "Accepted · 10 / 10 tests passed · each within its own targets"; with its cache removed, 5 of 10 fail and each failed test lists the targets it missed; the bill test reads "$15,821/mo of $26,000 allowed"; the interviewer on a server with sign-in off says it isn't available. Frontend tests 393/393; content check OK.
+
+### Step 4: break it yourself
+
+Commit `43fefb51bb78d724df9017b62f3d19e8959f0742` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 984, `backend_git_commits` 710.
+
+- The replay bar has "⚡ Break it yourself": a part that can crash (named), a zone going dark for 15 minutes, traffic ×2 or ×5 for 15 minutes, or the cache emptying, then "Break it at minute N" (the scrubber's minute). The test runs again on the same design with that fault added and the replay carries on from that minute; several can be stacked ("Links DB crashes at minute 10, then Traffic jumps 5× … at minute 32"). Nothing is scored or saved.
+- `eval/faults.js`: a crash may name the node (`node`); a spike may mark itself as an event (`mark`), which the replay words and scrubber show. The API's judge pool runs the same file, so it is recorded in both ledgers; existing tests are unchanged (frontend 393/393).
+- Checked in Chromium on the copied URL shortener solution: the evening peak replayed, scrubbed to minute 10, "Links DB crashes" — the standby takes over and the replay continues; then a 5× spike stacked on top.
+- Item 8 of §5.3 done. Not done from stage 3 yet: numbers on arrows (item 11, needs per-arrow rates from the simulator), compare two attempts (item 12), zones drawn as groups (item 14).
+
+### Step 5: compare with the last submission; the bill part by part
+
+Commit `31fa78114b2881de324cb8d467939e412fcf9d40` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 985, `backend_git_commits` 710.
+
+- Each submission (still kept in this browser, `tk-subs-v1`) now also keeps a summary of its tests and its design. After Submit, "Since your last submission" shows score, tests passed and bill against the previous submission, which tests now pass or now fail, and what changed on the canvas (parts added or removed, named settings such as instances 16 → 32, schema changed, arrows added or removed). `frontend/src/solve/compare.js` with `compare.test.js` (3 tests, added to `npm test`).
+- Every load test's result has "The bill, part by part": each part, storage and data transfer, largest first, with bars.
+- Checked in Chromium: the copied URL shortener solution with its cache deleted, submitted, then undone and submitted again: "Score +12 · Tests passed +5 · Bill +$439/month", five "Now passes", "Added Hot links" and its two arrows; the evening peak's bill lists Link service $7,942, data transfer $4,180, Links DB $3,358, storage $1,725, load balancer $699. Frontend tests 396/396.
+- Items 12 and 13 of §5.3 done.
+
+### Step 6: calls a second on every arrow
+
+Commit `acfa1750d73f79f394cb4be0da90567e2a3989b2` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 986, `backend_git_commits` 711.
+
+- The simulator records calls a second along each arrow in each tick (`timeline.arrows`, keyed `from>to`, from the hop records it already computes; squeezed like the other series). Display only: no verdict, check or bill reads it. The API's judge pool runs the same file, so it is in both ledgers.
+- During a replay each pill adds its rate at that minute. On the copied URL shortener at the evening peak: HTTPS · 35.0k/s, REST · 35.0k/s, Key lookup · 35.0k/s, the cache's misses DB query · 4,734/s, writes DB query · 350/s. Frontend tests 396/396 (the simulator's speed test included).
+- Item 14 (zones as boxes) is **not built, by decision**: a part's instances are spread over zones rather than placed in one, so a box per zone would not match the model; the card already says "3 zones", and the replay shows a zone going dark.
+- Stage 3 of §5.9 is done: items 8, 11, 12 (and 13 from stage 2).
+
+### Step 7: the sandbox canvas (paid)
+
+Commit `a741bd9a685914c5314301425754ce0bc9cb2790` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 987, `backend_git_commits` 711.
+
+- `/dashboard/problems/sandbox/` (`frontend/src/sandbox/`): the problem canvas with the problem switched off. Left panel: start from one of five designs (blank; clients, load balancer, servers, database; a cache in front; a CDN in front; standby and replicas in three zones), the traffic (requests a second, the day's pattern, reads against saves, item size, a p99 target) and up to six failures (a named part crashes, a zone goes dark, traffic jumps ×N for M minutes, the cache empties) at chosen minutes.
+- Run gives a **report, not a verdict** ("It held up" / "It struggled"): each call's availability, p50 and p99, the checks, why it struggled, what happened minute by minute, the bill part by part and the findings. "Replay it on the canvas" includes arrow rates and Break it yourself.
+- `sandbox/practice.js` turns the settings into a v2 practice (an `items` table, "Read an item" and "Save an item", one load test checked for targets, crashes and lost writes), so **no judge code is added**. `practice.test.js` (3 tests, in `npm test`) runs every starting design through the real judge.
+- **Paid:** behind sign-in like every page that is not a list (`useGate`), labelled Paid on the Problems page and on the sandbox; per the launch rule (sign-in unlocks everything) there is no paywall yet. The design is kept like a problem's (`q-sandbox`, synced to the account); the traffic settings stay in this browser (`tk-sandbox-v1`).
+- Problems page: a Sandbox row above the challenges.
+- Checked in Chromium (sign-in off locally): the Problems row opens the sandbox; "Read-heavy" loads five cards with no check failing; 8,000 a second with a server crash at minute 10 reports "It struggled" with the overload explained and a $1,029 bill; the replay shows HTTPS 15.4k/s (with retries), Key lookup 1,200/s, DB query 406/s. Frontend tests 399/399.
+- Not built yet from §5.12: a list of several sandbox designs (one design for now, plus starting designs), and letting the visitor declare their own calls and targets.
+
+### Step 8: notes, Present my design, follow-up questions
+
+Commit `e988da6de52c0f05ed814d5dbb6131fe52ed6d6b` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 988, `backend_git_commits` 712.
+
+- **Your note** on every part (≤ 280 characters) in its settings; a card with a note shows ✎. Kept with the design by `store.js` (v1 and v2), never sent to the judge, so a note is not a change to a copied solution. Test added to `store.test.js`.
+- **▶ Present**: walks the learner's own design one part at a time from the Clients along the arrows; the rest dims; a card gives what calls it, what it calls and the note. Arrow keys or space; Esc ends.
+- **Follow-up questions**: after an accepted submission (not a copied solution), "An interviewer would now ask" shows the worked answer's follow-ups one at a time, the answer hidden until asked for. All 22 questions have a follow-ups block.
+- The API's account sync runs `store.js`: **run "Deploy backend" after merging**, or a signed-in sync drops notes until then. Recorded in both ledgers.
+- Checked in Chromium: two notes written, Present shows parts 1 to 3 with the note on part 3, four cards dimmed; notes survive a reload; with one setting changed the submission is Accepted and the first follow-up ("The same long URL is shortened twice: same code?") appears. Frontend tests 400/400.
+- Items 17, 18 and 20 of §5.4 done. Mock interview mode (item 15) is the next step.
+
+### Step 9: mock interview mode
+
+Commit `9ddf03fe0c9534b4c22a5437be279549f7b2bc7d` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 989, `backend_git_commits` 712.
+
+- "🎤 Mock interview" beside the timer: a 45-minute countdown and the step to be on now ("How to answer" with a slot for the numbers: requirements 5, numbers 3, entities and API 7, high-level design 15, deep dives 10, wrap-up 5). Hints and Solution show 🔒 and a locked pane while it runs.
+- Ends at 45:00 or on "End interview", with a summary: time used, the submissions made during it and the last one's verdict, score and tests, and the planned minutes per step marked up to where the clock reached. This tab only; nothing saved.
+- Checked in Chromium: the bar reads "44:59 · Now: Requirements (until 5 min)"; Hints shows the locked pane; Run and Submit work; ending shows the summary; Hints opens again afterwards. Frontend tests 400/400.
+- Item 15 done. From stage 5 still open: Defend your design (item 16, spec 22 §11) and trade-off cards (item 19, spec 22 §8), both large designs of their own; speaking a summary (item 21).
+
+### Step 10: your plan, problem of the day, bookmarks, private notes
+
+Commit `877a03eb5abe6af73dbbc9b47dd3e92f291961a9` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 990, `backend_git_commits` 712.
+
+- Problems page, **Your plan**: the problem of the day (the same for everyone on a date, chosen among the problems this visitor hasn't solved), the next problem in the plan with how many are done, and the order from the Questions guide (weeks 1 to 3, then the rest) with a tick per solved problem.
+- **Bookmarks**: ☆/★ in the workspace bar; "★ Bookmarked (n)" filter on the Problems page.
+- **Private notes**: "Your notes on this problem" in the Submissions tab.
+- All kept in this browser (`tk-marks-v1`), not synced; `frontend/src/plan/plan.js` with `plan.test.js` (2 tests, in `npm test`).
+- Checked in Chromium: the plan shows 0 of 22 with the problem of the day and next-up cards; a bookmark appears under the filter; the note is there on return. Frontend tests 402/402.
+- Items 31 (daily problem; the Practice streak was already there), 32 and 34 done. Item 28 (skill record) and 30 (percentile: "cheaper than N% of accepted designs" already shows when signed in) are left.
+
+### Step 11: Share a design: link, PNG, JSON
+
+Commit `a716c47` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 997, `backend_git_commits` 717.
+
+- **Copy share link** in the canvas export menu: the whole design is compressed into the link's fragment (never sent to a server; nothing stored). Opens read-only at `/dashboard/problems/shared/` for anyone, signed in or not: the drawing, the parts with notes, **Open in my sandbox** and a link to the problem.
+- **Download PNG** (2x), **Download JSON**, and **Import JSON** (checked by the same cleaner as saved designs; asks before replacing; undo brings the old one back).
+- Files: `lab/share.js` (+test), `lab/SharedDesign.jsx`, `dashboard/shell.jsx` route, `lab/Canvas.jsx`, `sandbox/Sandbox.jsx`. Frontend only; Vercel's `/dashboard/(.*)` rewrite serves the shared page.
+
+### Step 12: Estimate helper
+
+Commit `45f22fc` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 998, `backend_git_commits` 717.
+
+- **Estimate helper** (collapsible, under *Your answer → 3. Estimates*): *N per day/hour/month/year* gives per second on average and at a chosen peak multiple; *items a day × size × years × copies* gives storage a day and in all.
+- Reads amounts the way the site writes them: 5 crore, 2.5 lakh, 10k, 3M, 1,00,000. Not graded and not saved.
+- Files: `solve/estimate.js` (+test), `solve/answer.jsx`, `solve.css`. Frontend only.
+
+### Step 13: Common wrong designs in the Solution tab
+
+Commit `898c5c1` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 999, `backend_git_commits` 718.
+
+- **Common wrong designs** (Solution tab, above the worked answer): each problem's 5–10 wrong designs from its content, each with **the test it fails** (name and description), **why**, and a read-only drawing. Open once the problem is solved; before that, **Show them now** opens it.
+- New content route **`GET /v1/articles/<slug>/wrong`** → `{slug, designs:[{name, why, fails, nodes, edges}]}`; 404 for non-problems. The `/solution` route still never carries them. Backend `content.test.js` covers it (39/39 pass here).
+- Files: `solve/wrong.jsx`, `solve.jsx`, `solve.css`; backend `content/store.js`, `server.js`, `test/content.test.js`. **Needs a backend deploy** after merge.
+
+### Step 14: Hints linked to the article that teaches them
+
+Commit `d570e50` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1000, `backend_git_commits` 718.
+
+- Each opened hint shows **Learn it:** up to two links (new tab) to the section that teaches its idea: concept and component articles, or *How to answer* for requirements. Matched on the hint's own words, or its step when nothing matches; 135 of 138 hints get a link (the three without are first nudges, where a link would give the answer away).
+- Article pages now open at a section: `/dashboard/<section>/<slug>/?at=<h2 text>` opens that topic card in cards view, or scrolls to the heading in full text.
+- Files: `solve/learn.js` (+test: every target heading exists in content), `solve/panes.jsx`, `dashboard/article.jsx`, `dashboard/shell.jsx`. Frontend only. If an article's h2 is renamed, `learn.test.js` fails and names the link to fix.
+
+### Step 15: Guided mode for beginners
+
+Commit `31baa24` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1001, `backend_git_commits` 718.
+
+- **🧭 Guided** in the workspace bar (kept in this browser): the steps as a checklist above *Your answer* (✓ done, the current one with what it needs), and the canvas **covered until requirements (two or more lines), every estimate and one API call are written**. Key decisions show as optional. The cover says which step is next, with *Open Your answer* and *Turn the guide off*.
+- Off during a mock interview. On phones the switch is hidden, but a cover left on shows its own *Turn the guide off*.
+- The bar's Guided and Mock interview buttons show as icons below 1560 px, so the bar fits at 1280–1440 px.
+- Files: `solve/guide.js` (+test), `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 16: Headroom and waste: beyond the tests
+
+Commit `2f7f5ad` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1002, `backend_git_commits` 719.
+
+- New **Beyond the tests** box in the results (v2 problems), run on demand on the design as it is now:
+  - **How much more can it take?** after any Run or Submit: the busiest fault-free load test turned up (1× to 16×, then bisected). Example: the URL shortener's reference *holds 1.2× A promo SMS at 8 pm*, and names the first thing to give; the *No cache* wrong design manages 0.5×.
+  - **What would still pass, for less?** after your own Accepted submission: one step smaller at a time (a smaller size, or one fewer instance, replica or node), most expensive part first, kept while every test passes. Example: *$1,986 a month less; Link service: Instances 34 → 26*, with **Show how**.
+- Built on the v2 evaluator in the browser, after spec 22 §7.3 and §7.6. Not done: the 5% safety margin on waste and the "close to the line" rule for kills; headroom under 1.2× is marked *close to the line*.
+- Files: `eval/probes.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts; the API judge doesn't call it.
+
+### Step 17: Defend your design
+
+Commit `812f816` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1003, `backend_git_commits` 720.
+
+- After your own **Accepted** submission, the results offer **Defend your design**: three questions about the design on the canvas, each **answered by running it** (spec 22 §11.2, the predict kind):
+  - **A part fails** at the busiest minute of the busiest fault-free test: *nobody notices / slower than promised / some calls fail, then it recovers / calls stop for a few minutes, then it recovers / calls keep failing until someone fixes it*. The class comes from the worst operation's per-minute success.
+  - **Which part gives first** as traffic grows (from the headroom probe).
+  - **How much headroom**: under 1.25×, about 1.5×, 2–4×, more than 4×. Skipped when the answer is within 3% of a band edge.
+- Tap an answer and you see the simulator's own sentence. The last result is kept per problem in this browser (`tk-defend-v1`); not scored.
+- Not built: the *why* and *change* kinds (the Key decisions step and the follow-ups from step 8 cover that ground), and the AI write mode.
+- Files: `eval/defend.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Step 18: Trade-offs: each choice run both ways
+
+Commit `a8544b7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1004, `backend_git_commits` 721.
+
+- **What did each choice buy you?** (results → *Beyond the tests*, v2 problems, after any Run or Submit): each setting in your design that has a real other side is turned the other way and **every test is run again**. The settings: zones, autoscaling, Multi-AZ, read replicas, read-from, replication, cache replica, write policy, cache-down fallback, queue type, DLQ, scheduler pair and lease, and rate limit.
+- Grouped as: **choices the tests depend on** (e.g. *Links DB · Multi-AZ: yours is on. As off: $1,702 a month less, but it fails A zone goes dark, The database fails*, with the reason); **choices that only change the bill**; and **no difference in these tests**, with the advice to be ready to explain those in words.
+- Differs from spec 22 §8: no authored cards (those need the owner's review of every card). Labels come from the catalogue and numbers from the simulator, so nothing needs reviewing before it ships. The authored cards can still be added later as the *why* layer.
+- Files: `eval/tradeoffs.js` (+test), `solve/console.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Step 19: Why did this part crash?
+
+Commit `4c98f3a` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1005, `backend_git_commits` 721.
+
+- In a replay, the parts **in trouble at the current minute** (down, over 100% of capacity, or just crashed) show as **Why: <part>** chips. Opening one shows its load against what it can take; **what fed it** (calls a second on its incoming arrows); and **why it went down**: either the test failed it on purpose (or a zone went dark), or it ran above its crash limit for N minutes. Also when it came back (on its standby, if it has one) and a fix that fits the part type.
+- Example (URL shortener, *The database fails*, minute 11): *Links DB: Now: down. At 8:10 pm the test failed it on purpose… It came back at 8:12 pm, on its standby. Fed by: Hot links 5,039/s · Link service 700/s.*
+- Files: `solve/why.js` (+test), `solve/v2.jsx`, `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 20: Your skills: a skill record
+
+Commit `c63d7f7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1006, `backend_git_commits` 721.
+
+- **Your skills** on the Problems page, once there is a submission: from the latest submission you built yourself on each problem (copied solutions don't count; this browser), how many tests of each kind you pass. The kinds are **calls work end to end**, **handling load**, **surviving failures** and **keeping the bill sensible** (the evaluator's own areas), each with a bar.
+- **Weakest** kind named, with the next **unsolved** problem that leans most on it (e.g. failures → *Design a notification service*, 4 of its 11 tests).
+- A test's kind comes from its id and name. Each problem's mix is a table in `plan/skills.js`; `skills.test.js` checks it against the content and prints the new table if a problem's tests change.
+- Simpler than spec 22's skill record: by kind of test, not by pattern (caching, contention, queues), because tests aren't tagged by pattern yet. Signed-in sync isn't included (local only, like submissions).
+- Files: `plan/skills.js` (+test), `problems.jsx`, `problems.css`. Frontend only.
+
+### Step 21: Say it out loud
+
+Commit `fad3c84` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1007, `backend_git_commits` 721.
+
+- **Say it out loud** at the end of *Your answer*: a two-minute outline made from the problem. It runs *what it must do* (20 s), *the numbers that matter*, using this problem's own first two estimates (20 s), *walk the design* (50 s), and *one trade-off and what breaks first* (30 s).
+- **Record** (stops itself at 2:00), then play back, **Download** or **Delete it**. Kept **only in this browser** (IndexedDB `tk-speak`, one take per problem); nothing is uploaded or scored. Checked with Chromium's fake microphone: records, plays and is still there after a reload.
+- Files: `solve/speak.js` (+test), `solve/Speak.jsx`, `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 22: What would fix it? Checked repairs
+
+Commit `03c1107` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1008, `backend_git_commits` 722.
+
+- After a failed Run or Submit, **What would fix it?** (results → *Beyond the tests*) tries **one change at a time on the parts already on the canvas** against the first failing test. The changes: next size, a quarter more or twice the instances or nodes, one more replica, twice the shards, a second zone, Multi-AZ, a cache replica, autoscaling. It then **confirms the cheapest against every test**. It shows only repairs that fix that test and keep every passing test passing, with their cost. Example: *Links DB: Multi-AZ off → on ($1,718 a month more; 10 of 10 tests pass)*.
+- A failure in how calls flow (a trace test) gets *no setting fixes it; read its reason*. A bill-only failure gets *make the largest parts smaller*. When no single change works: *it needs a different shape*. Never adds or removes a part, so it nudges without handing over the design.
+- Files: `eval/repairs.js` (+test), `solve/console.jsx`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Merged and deployed (2026-11-15)
+
+Owner, 2026-11-15: "Merge and deploy. Update docs and ledgers."
+
+- `main` (#364, the concepts revert) merged into the branch first: `6d4c13c`; frontend 435 tests and the build pass (74
+  article pages), backend `content.test.js` 39 pass.
+- **PR #366** (steps 1–22) opened; CI green on its head: Test backend, Build and run API container, Test and build
+  frontend, CodeQL. Merged into `main` as **`1a8ca71`** (`1a8ca7136044a4d325eaa27cd1241caadb983741`).
+- **Frontend**: Vercel production deployment `dpl_HeY2m45qTxZRsB4hX95moty65pjB` READY and aliased to `tech.katta.cc`.
+  (The `tech-katta-status` project's build for the same commit shows CANCELED: that project, not the site.)
+- **Backend**: *Deploy Tech Katta Backend* run 282: tests, deploy to the VPS, public endpoint check, all green.
+  `GET https://tech-api.katta.cc/v1/articles/url-shortener/wrong` answers 200 with the ten wrong designs.
+- Checked live: the Problems page shows *Your plan* and the *Bookmarked* filter; a share link made from the URL
+  shortener's reference opens the read-only shared page at `tech.katta.cc/dashboard/problems/shared/` (the Vercel
+  rewrite serves it). The workspace itself needs sign-in, so its new controls were checked locally only (§6 steps).
+- Ledger: `frontend_git_commits` 1010, `backend_git_commits` 724 (rows for `6d4c13c` and `1a8ca71` in both).
+- Still open from §5 (each needs the owner): company and topic tags (#33, which companies ask what), Hindi and Marathi
+  (#43, translations need a native review), and a keyboard-access audit of the canvas (#41).
