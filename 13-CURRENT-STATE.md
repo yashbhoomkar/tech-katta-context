@@ -1953,3 +1953,5 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
 - **PR #367 (draft, `new-frontend-beta`):** the new frontend, made production-ready as a beta at tech.katta.cc/next/. It lives in `frontend/next/`, is built by `frontend`'s `npm run build`, is `noindex`, and is linked from the dashboard sidebar. Merging it deploys it through Vercel.
 
 - **prototype.katta.cc/p/next:** feature parity with tech.katta.cc (39-NEXT-PARITY.md), live and verified. Sign-in waits on **PR #368** (draft, CI green); the Google client already allows prototype.katta.cc. Batch 5 (`d46e1ed`, the decided spec-24 figures, animations and gestures) is live and verified (2026-11-16).
+
+- **prototype.katta.cc/p/neo-brutalism:** the same app in the neo-brutalism look, live and verified (`13ec2bb`). Sign-in waits on PR #368, as on /p/next.

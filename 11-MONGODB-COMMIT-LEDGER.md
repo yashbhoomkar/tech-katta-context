@@ -1492,3 +1492,5 @@ prototype commit touches `backend/`).
 **2026-11-15 (night):** `f30e833f36b23efddf9287e0d211dfda31bb931e` (prototype, parity batch 4) and `7a596ff7d8a06161560af9ffdde95795950a3c78` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1048**.
 
 **2026-11-16 (early):** `d46e1ed6dcfdc4dc0d1928334b48420779d336ef` (prototype, parity batch 5: the decided spec-24 items) and `0466802c32b52efbf9218800708edcee67f02403` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1050**.
+
+**2026-11-16 (early, later):** `13ec2bb5ac4f8b55b21523555b411b6e5bf55750` (prototype, /p/neo-brutalism) and `8883ef894240234033f01917d36ee54319509e8f` (PR #367, the opt-in theme) inserted into `frontend_git_commits` after checking both were absent. Count after: **1052**.

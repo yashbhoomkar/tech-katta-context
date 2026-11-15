@@ -434,3 +434,18 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 - **Scenes:** `components/StateScene.tsx` (the current app's Scene) via the `scene` prop on StateMessage.
 - **View transitions:** `components/TransitionLink.tsx` handles the `tk-title` morph. The view-transition CSS is in `styles/global.css`, and theme changes set `data-vt="theme"` (`lib/theme.ts`).
 - **Gestures:** `lib/gestures.ts` (useSheetDrag, useSwipeX). Sheet heads have `touch-action: none` and a handle.
+
+
+### Looks: neo-brutalism (`VITE_STYLE`)
+
+- **How a look is switched:** `VITE_STYLE=neo-brutalism` makes `vite.config.ts` (the `tk-look` plugin) write `data-style="neo-brutalism"` and its theme colour into `index.html`. An unknown value stops the build. Without it, nothing changes.
+- **The rules:**
+  - `src/styles/themes/neo-brutalism.css` holds the tokens (light round 3, dark D), fonts and type;
+  - each `*.module.css` ends with a block under `:global(:root[data-style="neo-brutalism"])` for its own classes;
+  - the figures keep their calm palette on the look's paper.
+- **Fonts:** `@fontsource/archivo`, `archivo-black` and `space-mono`, self-hosted, so the CSP holds. They are fetched only when used.
+- **Hosting:** `build:prototype[:cloudflare]` builds next twice, and `hosting/prototype-next.mjs [next|neo-brutalism]` copies each build. The script refuses a build made for the wrong address or look.
+- **To add a look:**
+  1. add it to `STYLES` in `vite.config.ts`;
+  2. add its stylesheet and module blocks;
+  3. add it to `LOOKS` in `prototype-next.mjs`, plus a build step.

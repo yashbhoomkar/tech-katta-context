@@ -2190,3 +2190,17 @@ Owner: "I want all the figures, Animations, Gestures We decided" (specs 24, 09 a
 - **Live checks:** decided.js 12/12, allp.js all ok, fscan 0 missing.
 - **Scheduled run, 2:50 am:** /p/next is **not complete**, because sign-in needs PR #368 merged and deployed. So /p/neo-brutalism was not started; the 8:15 am run checks again.
 - **PR #367:** the Vercel statuses fail on the free plan's 100-deployments-a-day limit, not on the code (commented once). GitHub CI is separate.
+
+
+## 2026-11-16 (early): /p/neo-brutalism
+
+Owner: "Worker prompt continue". That started step 2 of the scheduled-task prompt while sign-in on /p/next still waits on PR #368.
+- **What:** the same app as /p/next in the decided neo-brutalism look (round 3 colours, dark D). It is one stylesheet plus a block per CSS module, switched on by `data-style="neo-brutalism"`, which the build sets with `VITE_STYLE`. Details are in `ui-prototypes/TRIED.md` and `03-FRONTEND.md`.
+- **Commits:** `13ec2bb` (prototype, live) and `8883ef8` (PR #367, an opt-in theme; production is unchanged).
+- **Live checks:**
+  - allp 17/17;
+  - decided 12/12, with touch;
+  - every route, light and dark, desktop and phone: no errors and no sideways scroll;
+  - /p/next is unchanged.
+- **Scripts:** `scratchpad/allp.js`, `decided.js` and `fscan.js` take `P=/p/neo-brutalism`. `nbshots.js` takes screenshots, and `srv.mjs` is a local server that behaves like Cloudflare.
+- **Open for the owner:** sign-in (PR #368); the look questions in TRIED.md (how loud, which headline font).
