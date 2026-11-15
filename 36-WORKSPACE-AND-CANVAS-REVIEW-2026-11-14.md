@@ -563,3 +563,12 @@ Commit `812f816` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - Tap an answer and you see the simulator's own sentence. The last result is kept per problem in this browser (`tk-defend-v1`); not scored.
 - Not built: the *why* and *change* kinds (the Key decisions step and the follow-ups from step 8 cover that ground), and the AI write mode.
 - Files: `eval/defend.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.
+
+### Step 18: Trade-offs: each choice run both ways
+
+Commit `a8544b7` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1004, `backend_git_commits` 721.
+
+- **What did each choice buy you?** (results → *Beyond the tests*, v2 problems, after any Run or Submit): each setting in your design that has a real other side is turned the other way and **every test is run again**. The settings: zones, autoscaling, Multi-AZ, read replicas, read-from, replication, cache replica, write policy, cache-down fallback, queue type, DLQ, scheduler pair and lease, and rate limit.
+- Grouped as: **choices the tests depend on** (e.g. *Links DB · Multi-AZ: yours is on. As off: $1,702 a month less, but it fails A zone goes dark, The database fails*, with the reason); **choices that only change the bill**; and **no difference in these tests**, with the advice to be ready to explain those in words.
+- Differs from spec 22 §8: no authored cards (those need the owner's review of every card). Labels come from the catalogue and numbers from the simulator, so nothing needs reviewing before it ships. The authored cards can still be added later as the *why* layer.
+- Files: `eval/tradeoffs.js` (+test), `solve/console.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.
