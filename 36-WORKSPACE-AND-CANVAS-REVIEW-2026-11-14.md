@@ -524,3 +524,11 @@ Commit `898c5c1` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - **Common wrong designs** (Solution tab, above the worked answer): each problem's 5–10 wrong designs from its content, each with **the test it fails** (name and description), **why**, and a read-only drawing. Open once the problem is solved; before that, **Show them now** opens it.
 - New content route **`GET /v1/articles/<slug>/wrong`** → `{slug, designs:[{name, why, fails, nodes, edges}]}`; 404 for non-problems. The `/solution` route still never carries them. Backend `content.test.js` covers it (39/39 pass here).
 - Files: `solve/wrong.jsx`, `solve.jsx`, `solve.css`; backend `content/store.js`, `server.js`, `test/content.test.js`. **Needs a backend deploy** after merge.
+
+### Step 14: Hints linked to the article that teaches them
+
+Commit `d570e50` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1000, `backend_git_commits` 718.
+
+- Each opened hint shows **Learn it:** up to two links (new tab) to the section that teaches its idea: concept and component articles, or *How to answer* for requirements. Matched on the hint's own words, or its step when nothing matches; 135 of 138 hints get a link (the three without are first nudges, where a link would give the answer away).
+- Article pages now open at a section: `/dashboard/<section>/<slug>/?at=<h2 text>` opens that topic card in cards view, or scrolls to the heading in full text.
+- Files: `solve/learn.js` (+test: every target heading exists in content), `solve/panes.jsx`, `dashboard/article.jsx`, `dashboard/shell.jsx`. Frontend only. If an article's h2 is renamed, `learn.test.js` fails and names the link to fix.
