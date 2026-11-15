@@ -489,3 +489,14 @@ Commit `9ddf03fe0c9534b4c22a5437be279549f7b2bc7d` (branch `ccr-0abbbe33-gkyjcf`)
 - Ends at 45:00 or on "End interview", with a summary: time used, the submissions made during it and the last one's verdict, score and tests, and the planned minutes per step marked up to where the clock reached. This tab only; nothing saved.
 - Checked in Chromium: the bar reads "44:59 · Now: Requirements (until 5 min)"; Hints shows the locked pane; Run and Submit work; ending shows the summary; Hints opens again afterwards. Frontend tests 400/400.
 - Item 15 done. From stage 5 still open: Defend your design (item 16, spec 22 §11) and trade-off cards (item 19, spec 22 §8), both large designs of their own; speaking a summary (item 21).
+
+### Step 10: your plan, problem of the day, bookmarks, private notes
+
+Commit `877a03eb5abe6af73dbbc9b47dd3e92f291961a9` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 990, `backend_git_commits` 712.
+
+- Problems page, **Your plan**: the problem of the day (the same for everyone on a date, chosen among the problems this visitor hasn't solved), the next problem in the plan with how many are done, and the order from the Questions guide (weeks 1 to 3, then the rest) with a tick per solved problem.
+- **Bookmarks**: ☆/★ in the workspace bar; "★ Bookmarked (n)" filter on the Problems page.
+- **Private notes**: "Your notes on this problem" in the Submissions tab.
+- All kept in this browser (`tk-marks-v1`), not synced; `frontend/src/plan/plan.js` with `plan.test.js` (2 tests, in `npm test`).
+- Checked in Chromium: the plan shows 0 of 22 with the problem of the day and next-up cards; a bookmark appears under the filter; the note is there on return. Frontend tests 402/402.
+- Items 31 (daily problem; the Practice streak was already there), 32 and 34 done. Item 28 (skill record) and 30 (percentile: "cheaper than N% of accepted designs" already shows when signed in) are left.
