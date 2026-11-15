@@ -156,6 +156,44 @@ everything around them:
 5. **PR #365:** update it and merge only the functional fixes now, or hold everything for the revamp?
 6. **Anything in the brand that must not change:** marigold, the "TK" mark, Zotato, the serif headlines?
 
+## 8. Is Mobbin worth it for us? (checked 2026-11-15)
+
+**What it costs:**
+- Pro is about **$10 a month billed yearly ($120), or $45 a quarter.** Its own pricing page shows the price by region;
+  the figures are from reviews (noqode.fr, gummble.com).
+- The MCP (search screens, flows and website sections from Claude) needs Pro; the free plan doesn't include it.
+- Team is about $16 per member per month. There is a student discount.
+
+**What it has for us:** its web "Education" category has signed-in screens of:
+- Brilliant;
+- MasterClass;
+- Codecademy;
+- Duolingo;
+- Skillshare;
+- Udemy;
+- Kajabi;
+- SuperHi.
+
+They are tagged *Class & Lesson Detail*, *Progress*, *Watching Video*, *Starting & Completing* and *Onboarding*.
+That is exactly the part of the revamp we can't research by browsing: the lesson page, progress, video lessons and
+dashboards behind a login. Landing pages we can already study for free, as §1–3 did.
+
+**What it doesn't change:** the direction. §2–5 already rest on 13 live sites. Mobbin would sharpen the lesson page,
+dashboard and progress designs, not the overall choice.
+
+**Free alternatives:**
+- Refero's free tier is about 3% of its library.
+- Page Flows has a 3-day trial.
+- Hello Interview and ByteByteGo lessons are public, and we have studied them.
+
+**Catch:** the owner pays by UPI and has no credit card (31 §4c). Check that Mobbin accepts the payment method
+before planning on it.
+
+**Verdict:** worth one quarter (about $45) if we go ahead with the revamp, bought at the start of the design step and
+cancelled after. Skip it if the payment doesn't work: direct research covers direction 1's landing page, and public
+lessons cover most of the lesson-page work. Not worth a yearly plan for this project. Rule for using it: references
+for patterns only, never copying a product's look.
+
 ## Sources
 
 - Brilliant's design with ustwo: <https://ustwo.com/work/brilliant>
@@ -163,6 +201,9 @@ everything around them:
 - Emil Kowalski on building his course platform: <https://emilkowal.ski/ui/how-i-built-my-course-platform>
 - Josh Comeau's courses: <https://www.joshwcomeau.com/courses/>
 - Awwwards, culture and education: <https://www.awwwards.com/inspiration_search/culture-education/>
+- Mobbin: <https://mobbin.com/pricing>, <https://mobbin.com/explore/web/app-categories/education>,
+  <https://www.noqode.fr/en/outils/mobbin>, <https://gummble.com/blog/gummble-mcp-vs-mobbin-mcp>,
+  <https://www.saasframe.io/compare>
 - E-learning UX notes: <https://www.eleken.co/blog-posts/lms-ux>,
   <https://www.scitepress.org/publishedPapers/2024/123746/pdf/index.html>
 - The sites themselves, visited 2026-11-15: brilliant.org, joyofreact.com, animations.dev, codecrafters.io,
