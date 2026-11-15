@@ -2160,3 +2160,12 @@ Owner: "Host it first on prototype.katta.cc/p/next".
 - **Commits:** `c58aefc` and `b43c7e6`.
 - **Cloudflare gotcha:** every `_redirects` rule after the first wildcard counts toward the 100-rule dynamic limit. So never prepend a wildcard (the first deploy failed on this).
 - **Verified live:** every route in light and dark, on desktop and phone, plus the interaction checks.
+
+## 2026-11-15 (evening): /p/next brought to parity with tech.katta.cc; sign-in unblocked pending PR #368
+
+Owner: "I want the prototype.katta.cc/p/next as good as tech.katta.cc UI … all the animations, content, sign in, everything."
+- **Google OAuth:** checked with a probe. The client allows https://prototype.katta.cc: the button renders, while an unauthorised origin gets a 403.
+- **API:** PR #368 (`api-allowed-origins`, draft, CI green). `FRONTEND_ORIGIN` takes a list, and production is set to tech and prototype.
+- **Audit:** 39-NEXT-PARITY.md. Built in three batches; every item is ✅ except sign-in, which waits on #368. Copied into PR #367.
+- **Live check:** 17 checks pass on prototype.katta.cc/p/next. The test script is `scratchpad/allp.js`.
+- **Scheduled tasks:** two runs fire into this session on Monday 16 Nov, at 2:50 am and 8:15 am IST. They check completeness, then build /p/neo-brutalism.

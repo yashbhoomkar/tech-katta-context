@@ -1481,3 +1481,10 @@ prototype commit touches `backend/`).
 **2026-11-15:** `12b5235ab89365d1a144cca60ecc2f2a56163b50` (web/README milestone 2 done) and `95453a65309e47d1739e8594fa895a51a20762d7` (web/ milestone 3, the site complete) inserted into `frontend_git_commits` after checking both were absent. Count after: **1037**.
 
 **2026-11-15:** `4e842b267ec5c78e049846f8471d673ccd22d03a` (PR #367, branch `new-frontend-beta`: the new frontend as a production beta at /next/) inserted into `frontend_git_commits` after checking it was absent. Count after: **1038**. The PR's squash commit is to be ledgered when it merges.
+
+**2026-11-15 (evening):** inserted after checking each key was absent.
+- **`frontend_git_commits`, 8 rows (count now 1046):**
+  - `c58aefcd1b1c389bcb6631b255412d727a116e10` and `b43c7e6efdf896041ffaf157d55d13fabc7933ce` (prototype hosting at /p/next);
+  - `cb265f485fbb1cbd5f729febc3859cdd9a54bc8e`, `a5ca9450b219fb0a51cc5d6dc80b5d1b14a684b1` and `09d018def49d279927407512deda13fde5a96987` (parity batches 1 to 3 on prototype);
+  - `9fd911d72b3a022275bb19e7d8b1a56a155337fa`, `f00d8ad8f06a5eedb09d275aba0c278762c7045f` and `ecae191a6ee3a738696abb444f8271606e67cc34` (the same batches on PR #367).
+- **`backend_git_commits`, 1 row:** `fadcec1b30a142cf9901965dff4368eabff2ca7e` (PR #368, API allowed origins).

@@ -409,3 +409,21 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 - **Analytics:** `lib/analytics.ts`. Page views carry sections `next:<page>`, plus `readArticle` and `HostAnalytics` from the current app.
 - **Beta link:** `.side-new` in `dashboard/shell.jsx` and `shell.css`.
 - **Vitest:** inlines `@vercel/analytics` and `@xyflow`, so they share the app's single React.
+
+### Parity with tech.katta.cc (batches 1 to 3, see 39-NEXT-PARITY.md)
+
+**New modules:**
+- `content/gate.ts`, the lock logic: lists open, lessons preview, the workspace asks to sign in, and nothing locks without sign-in.
+- `components/Locks.tsx`, `AccountMenu.tsx`, `PageTour.tsx` (site.tour copy, mapped to this design's elements) and `Tour.tsx`, which now takes selectors.
+- `pages/Policy.tsx`, `QuickNotes.tsx` and `LandingExtras.tsx`.
+- `features/reader/FigureThumb.tsx`, `LegacyLesson.tsx` (Listen and topic cards) and `features/legacy/site.ts`.
+
+**Imported from `frontend/src`:**
+- `dashboard/reader.jsx`, `topics.jsx` and `preview.js`;
+- `numbers.jsx`, `library.jsx` (Mini), `landingproblem.jsx` and `accountui.jsx` (LabLock);
+- `plan/plan.js` and `sandbox/Sandbox.jsx`;
+- `account.js` (signOutAll, deleteAccount).
+
+**Scoped tokens:** the legacy scope and colours now also cover the overlays the current app draws into `<body>` (`.ts`, `.ts-scrim`, `.fs`, `.zoom`).
+
+**Account check:** it starts at app boot (SignInProvider).

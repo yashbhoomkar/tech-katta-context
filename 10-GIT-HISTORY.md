@@ -1035,3 +1035,6 @@ Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem work
 draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colours for the real app).
 
 - `4e842b2` (PR #367, `new-frontend-beta`, draft): the new frontend in `frontend/next/`, built into production at `/next/` as a beta.
+
+- `cb265f4`, `a5ca945`, `09d018d` (`prototype`) and `9fd911d`, `f00d8ad`, `ecae191` (PR #367): parity batches 1 to 3 with tech.katta.cc (see 39-NEXT-PARITY.md).
+- `fadcec1` (PR #368, `api-allowed-origins`, draft): the API accepts sign-in from prototype.katta.cc.
