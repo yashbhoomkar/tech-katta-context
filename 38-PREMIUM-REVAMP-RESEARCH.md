@@ -234,6 +234,61 @@ It confirms direction 1 (editorial light, author-led) and adds three concrete pi
 3. **The teacher's face on cards** (Maven): on the landing page, on lesson headers and on problem cards once the
    videos exist.
 
+## 10. Figma mock-ups (2026-11-15, in progress)
+
+**The owner's direction:** "The screenshot that I gave you [Podia] was better … think what will be inside the website.
+Create figma mockups for the entire website."
+
+**File:** "Tech Katta — Premium revamp", <https://www.figma.com/design/bwoNaFkgsbtA1L4223wRCr>, in the owner's own team.
+
+**The design language** (from Podia's old landing page, carried inside):
+- **Page and text:** a warm off-white page `#F6F5F1`, white surfaces, near-black ink `#17161A`.
+- **Buttons:** **black pill primary buttons**, white secondary buttons with a hairline.
+- **Brand:** marigold only in the TK mark and small highlights.
+- **One soft colour per section, used everywhere:**
+
+  | Section | Colour |
+  |---|---|
+  | Concepts | blue `#A9CBE0` |
+  | Components | orange `#E9A050` |
+  | Interview Questions | lilac `#CDB8F0` |
+  | Problems | mint `#A6DCC5` |
+  | Real Systems | coral `#F3B9A6` |
+  | Quick Notes | butter `#F4DE8A` |
+
+  Each section also has a pale tint of its colour for backgrounds.
+- **Type:** Instrument Sans SemiBold for headings (tight tracking), with "explained." in Source Serif 4 Italic as the one
+  serif touch. Geist Mono only for small labels.
+- **Tokens:** all colours are Figma variables (collection "Tech Katta colours", 28 tokens).
+- **Components:** Button primary and secondary, Chip, Section card, Logo, Sidebar item, Lesson row.
+
+**Built:**
+1. **Landing:** the hero has one headline, one line, a black button and soft floating shapes, with four colour-coded
+   section cards (each with a mini preview) rising over a white arc. Below it, in order:
+   - "In plain words", in 3 steps;
+   - "Take a look inside": the course player;
+   - the judge, with test rows and a score;
+   - "Taught by" Yash;
+   - numbers;
+   - a dark final call;
+   - the footer.
+2. **Dashboard home:** a sidebar with a colour dot per section, a greeting, "Continue where you left off" with
+   progress, Your progress (lessons, problems, stars), problem of the day, a streak, and Explore cards in the section
+   colours with completion.
+3. **Section page (Concepts):** a coloured header band with "3 of 21 done" and Continue, then modules (Core concepts,
+   Recurring patterns) as lists with done ticks, numbers, read times and "In progress 40%".
+
+**Not built yet:** the Figma MCP's Starter-plan limit was reached after 10 calls (6–20 calls a month on Starter;
+Professional allows 200 a day).
+- **Specified, waiting to be built:**
+  - **lesson page:** a course player with a curriculum and progress, a reading-progress bar, a video slot, Cards / Full
+    text, a figure, "Say this in the interview", "Mark complete & next", and a right rail with a Try-it card;
+  - **Problems:** a mint header with stats, filter chips, a table with difficulty chips and stars, challenge cards;
+  - **problem workspace chrome;**
+  - **the sign-in dialog;**
+  - **phone versions.**
+- The code for the lesson page and Problems is written; it failed only on the limit.
+
 ## 8. Is Mobbin worth it for us? (checked 2026-11-15)
 
 **What it costs:**
