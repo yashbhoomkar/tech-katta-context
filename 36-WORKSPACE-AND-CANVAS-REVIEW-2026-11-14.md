@@ -598,3 +598,11 @@ Commit `fad3c84` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
 - **Say it out loud** at the end of *Your answer*: a two-minute outline made from the problem. It runs *what it must do* (20 s), *the numbers that matter*, using this problem's own first two estimates (20 s), *walk the design* (50 s), and *one trade-off and what breaks first* (30 s).
 - **Record** (stops itself at 2:00), then play back, **Download** or **Delete it**. Kept **only in this browser** (IndexedDB `tk-speak`, one take per problem); nothing is uploaded or scored. Checked with Chromium's fake microphone: records, plays and is still there after a reload.
 - Files: `solve/speak.js` (+test), `solve/Speak.jsx`, `solve.jsx`, `solve.css`. Frontend only.
+
+### Step 22: What would fix it? Checked repairs
+
+Commit `03c1107` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1008, `backend_git_commits` 722.
+
+- After a failed Run or Submit, **What would fix it?** (results → *Beyond the tests*) tries **one change at a time on the parts already on the canvas** against the first failing test. The changes: next size, a quarter more or twice the instances or nodes, one more replica, twice the shards, a second zone, Multi-AZ, a cache replica, autoscaling. It then **confirms the cheapest against every test**. It shows only repairs that fix that test and keep every passing test passing, with their cost. Example: *Links DB: Multi-AZ off → on ($1,718 a month more; 10 of 10 tests pass)*.
+- A failure in how calls flow (a trace test) gets *no setting fixes it; read its reason*. A bill-only failure gets *make the largest parts smaller*. When no single change works: *it needs a different shape*. Never adds or removes a part, so it nudges without handing over the design.
+- Files: `eval/repairs.js` (+test), `solve/console.jsx`. Adds a file to the evaluator folder but changes no verdicts.
