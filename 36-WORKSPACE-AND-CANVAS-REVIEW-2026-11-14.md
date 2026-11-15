@@ -551,3 +551,15 @@ Commit `2f7f5ad` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 
   - **What would still pass, for less?** after your own Accepted submission: one step smaller at a time (a smaller size, or one fewer instance, replica or node), most expensive part first, kept while every test passes. Example: *$1,986 a month less; Link service: Instances 34 → 26*, with **Show how**.
 - Built on the v2 evaluator in the browser, after spec 22 §7.3 and §7.6. Not done: the 5% safety margin on waste and the "close to the line" rule for kills; headroom under 1.2× is marked *close to the line*.
 - Files: `eval/probes.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts; the API judge doesn't call it.
+
+### Step 17: Defend your design
+
+Commit `812f816` (branch `ccr-0abbbe33-gkyjcf`). Ledger: `frontend_git_commits` 1003, `backend_git_commits` 720.
+
+- After your own **Accepted** submission, the results offer **Defend your design**: three questions about the design on the canvas, each **answered by running it** (spec 22 §11.2, the predict kind):
+  - **A part fails** at the busiest minute of the busiest fault-free test: *nobody notices / slower than promised / some calls fail, then it recovers / calls stop for a few minutes, then it recovers / calls keep failing until someone fixes it*. The class comes from the worst operation's per-minute success.
+  - **Which part gives first** as traffic grows (from the headroom probe).
+  - **How much headroom**: under 1.25×, about 1.5×, 2–4×, more than 4×. Skipped when the answer is within 3% of a band edge.
+- Tap an answer and you see the simulator's own sentence. The last result is kept per problem in this browser (`tk-defend-v1`); not scored.
+- Not built: the *why* and *change* kinds (the Key decisions step and the follow-ups from step 8 cover that ground), and the AI write mode.
+- Files: `eval/defend.js` (+test), `solve/console.jsx`, `solve.jsx`, `solve.css`. Adds a file to the evaluator folder but changes no verdicts.

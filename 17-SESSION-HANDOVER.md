@@ -34,6 +34,8 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
 
 **Update 2026-11-14 (building context 36, step 16: Headroom and waste: beyond the tests).** Commit `2f7f5ad` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1002, backend 719. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-14 (building context 36, step 17: Defend your design).** Commit `812f816` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1003, backend 720. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's
 (premium renovation). **Decided:** don't bring back the spec 32 look unless asked. Details of what was tried below and in
