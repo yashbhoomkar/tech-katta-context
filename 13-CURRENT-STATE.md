@@ -1924,4 +1924,7 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
 
   See `37-UI-UX-REVIEW-FIXES.md`. Tests 393 + 114 pass; browser tested locally only.
 - Ledger: 4 frontend and 5 backend rows for the branch commits.
+- 06:20–07:30 IST: the light theme becomes **Marigold & Navy** (`33-LIGHT-THEME-COLOURS.md`): a neutral page, a
+  navy accent, marigold kept; dark unchanged. Commits `488806b` and `936959e`, on PR #365; 2 frontend ledger rows.
+  Still not merged.
 

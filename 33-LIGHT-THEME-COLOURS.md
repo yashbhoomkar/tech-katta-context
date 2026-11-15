@@ -161,6 +161,34 @@ danger, success and warn families, `--star`, and `--cat-*`.
 Revert the commit that changes `tokens.css`, `palette.js`, the two `index.html` files and `seo.js`. Nothing else
 depends on the values.
 
-## 9. Status
+## 9. Status (2026-11-15)
 
-Written before the code (owner's order). Implementation, checks and results are added below when done.
+Written before the code (owner's order, commit `ca534b6` here), then built.
+
+- **App commits:** on PR **#365** (draft, branch `ccr-b42a0cbb-y2io0r`, together with doc 37's fixes):
+  - `488806b5f16d41bfbc94e554b580a55c98fadd83`: the tokens, `palette.js`, both `index.html` files, `seo.js`;
+  - `936959ee08ac994818138846d0d5e1037bdde180`: the dashboard's link preview text drops "read-aloud".
+- **Ledger:** both rows recorded in `frontend_git_commits`. The backend is unchanged.
+- **Checks:**
+  - Frontend tests 393/393. The theme test keeps `palette.js` equal to `tokens.css` and passed.
+  - Build passed.
+  - Browser tested in Chromium against a local build at 1440 px and on a Pixel 7, light before and after and dark
+    after. Pages: landing, dashboard home, Caching in Full text and Cards, Problems, the URL shortener workspace and
+    the sign-in dialog.
+  - Dark is unchanged: the diff touches only the light `:root` block (lines 7–83; dark starts at line 124).
+- **Pictures:** in `ui-redesign/light-2026-11-15/`:
+  - `before-after-desk.jpg` and `before-after-phone.jpg`;
+  - `after-dark-sheet.jpg`;
+  - `cmp-*.jpg`, the candidates.
+- **What the after shots show:**
+  - Pages read white.
+  - Links, the "Start here" label, the progress ring, the rail and the figure paths are navy. In the Kafka hero
+    figure, the filled boxes are navy with white text.
+  - The example-system box is pale navy.
+  - Marigold appears only on Start learning, Begin, Submit, Pick one, the logo and the "New" dot.
+- **Still warm:** the problem workspace's how-to box keeps its pale marigold with a marigold edge. It uses the brand
+  tint (`--brand-tint`), on purpose a brand callout. The `og-2026-11.png` link preview image is unchanged.
+- **Not checked:** Safari, Firefox, a real phone, production (not merged).
+- **Rollback:** before a merge, drop `488806b` from the branch. After a merge, revert its changes to
+  `tokens.css`, `palette.js`, the two `index.html` files and `seo.js`, or use Vercel Instant Rollback to the
+  production deployment before #365 (currently `613442a`, #364).

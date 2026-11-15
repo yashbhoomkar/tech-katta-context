@@ -12,7 +12,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
 | 0 | ui | **PR #365, UI/UX review fixes** (`37-UI-UX-REVIEW-FIXES.md`): plain-words landing, read aloud removed, back to top, locked topic cards, stars on every problem, 7/7/8 re-grade, logo pill | waiting for owner | draft; merge and deploy on the owner's word, then the squash commit's ledger rows |
-| — | ui | Light-theme colours (the reviewer's last point) | scheduled | 06:20 IST run, `33-LIGHT-THEME-COLOURS.md` |
+| — | ui | Light-theme colours (the reviewer's last point): **Marigold & Navy** built, in PR #365 (`488806b`) | waiting for owner | `33-LIGHT-THEME-COLOURS.md`; merge with #365; later: a link preview image in the new light look; check Safari/Firefox |
 | — | security | The API returns full article bodies to signed-out visitors; the preview (Full text and Cards) is enforced only in the frontend. Serve `previewOf()` to signed-out requests and the full body only with a session | idea | found 2026-11-15; seo.js already uses the preview |
 | — | content | Renumber Interview Questions so Easy comes first, after the re-grade? (numbers are mixed now, like LeetCode) | waiting for owner | 37 §7 |
 | — | content | "Capitalise the keywords" (reviewer): if it means bold or capitalised key terms in prose, decide the style | waiting for owner | 37 §4 |
