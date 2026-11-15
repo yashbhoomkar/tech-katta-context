@@ -85,14 +85,26 @@ tried directly in the real app; those are summarised at the end so a new prototy
 - **Round 2** (same page): A (reference), **F · Vivid** (A's blocks with saturated sky `#78C2F2`, orange `#FFA24C`, violet `#B892FF`, mint `#5FD6A4`, coral `#FF8F73`, yellow `#FFD452`, dark text, warm graphite base `#131312` / `#1C1C1A`), **D · Colour as light** (dark cards; the same vivid colours glow in a corner and light the title, a 2 px top edge and the progress bar), Now. Owner picked **F**, "but still think more on this".
 - **Round 3**: F, **F2 · Vivid, balanced**, D, Now. F2 fixes F's flaws found by measuring in OKLCH: uneven weights (L .74 violet to .88 yellow; F2 puts all at L .80, chroma up to .14, yellow a little brighter as lemon `#EADB58` because yellow at equal L reads mustard); Quick Notes yellow almost equal to the marigold brand (now lemon, hue 103 vs 83); Problems mint almost equal to Passed green (Problems teal `#3FD9AE`, Passed leaf `#75D079`); muddy 13 % tints (now neutral `#232321` with a 3 px coloured edge); filled difficulty chips (now outlined); section headers 10 % darker. Colours: concepts `#6ACAFF`, components `#FAAA51`, interview `#CCABFE`, real `#FFA384`. **Decided: owner, "F2 it is, make it the dark theme".** F2 is now full-site's dark theme (`tokens.css` + `cards.css`); the comparison page was retired and `/p/dark-modes/` redirects to `/p/full-site/`.
 
-## Planned
+### `/p/neo-brutalism/`: the whole site in a neo-brutalist style (Visual style)
 
-### `/p/neo-brutalism/` (spec written, not built yet)
+- **Source**: `frontend/prototypes/neo-brutalism/` on the `prototype` branch (commit 4377d40), built exactly from
+  `ui-prototypes/neo-brutalism-spec.md`. Live 2026-11-15 at https://prototype.katta.cc/p/neo-brutalism/.
+- **Look**: the same site as `/p/full-site/` (same screens, routes, navigation, interactions, dark mode and phone
+  layout) restyled neo-brutalist: flat saturated colour blocks, 2 px black outlines and hard 4 px offset shadows with
+  no blur, Archivo Black headlines, Space Mono labels, sticker chips, and buttons that press into their own shadow
+  like physical keys. The palette leans on Indian street signage and chai-stall posters (cream `#FFF4DC` page,
+  marigold keys, lime highlighter); dark is `#121212` with cream outlines. Lesson text and the canvas stay calm.
+- **How it is built**: a style layer, not a new app. `index.html` is full-site's with the head changed (body
+  identical); it loads full-site's scripts and all twelve of its stylesheets from `/p/full-site/`, then three of its
+  own (`styles/tokens.css`, `brutal.css`, `phone.css`). Nothing in `full-site/` changed.
+- **Checks**: every route light/dark, desktop/iPhone 13, no errors or sideways scroll (local and live); 15
+  interaction checks (local and live); contrast lowest 5.43:1 light, 6.23:1 dark.
+- **Status**: waiting for the owner's look.
+- **Open questions for the owner**: loud everywhere, or calm reader (current)? Headlines in Archivo Black (current)
+  or Space Grotesk?
+- **Deviations from the spec**: none.
 
-Spec for the implementing session: **`ui-prototypes/neo-brutalism-spec.md`** (2026-11-15; rewritten the same day as a complete, dry-run-tested spec with every file in full, three check scripts, ship steps and the hand-back message). It reuses full-site's scripts and styles as a base and adds a style layer. Light cream `#FFF4DC` with black outlines; dark `#121212` with cream outlines. Section colours are flat and vivid with black text; Quick Notes is lime, clear of the marigold brand. Archivo Black headlines, Space Mono labels, keys that press into their shadow, calm reader. The original proposal follows.
-
-
-Proposed to the owner on 2026-11-15:
+Original proposal to the owner (2026-11-15):
 
 - **Look**:
   - flat saturated blocks, 2.5 px black outlines, hard `4px 4px 0` shadows, square-ish corners, sticker tags;

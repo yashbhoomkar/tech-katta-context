@@ -2076,3 +2076,5 @@ Older numbered files (01–09, 14–16) are partly **Historical**; trust the cod
 ## 2026-11-15: UI prototypes on prototype.katta.cc
 
 Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one and host it at prototype.katta.cc/p/<name>/) and `ui-prototypes/TRIED.md` (everything tried so far). Live: `/p/full-site/` (structured frontend, navigation, dark mode) and `/p/motion/`. The app on prototype.katta.cc reads the live tech-api.katta.cc, signed out. Next: `/p/neo-brutalism/`.
+
+2026-11-15: `/p/neo-brutalism/` is live (style layer over full-site, built from `ui-prototypes/neo-brutalism-spec.md`, tech-katta `prototype` 4377d40); waiting for the owner's look. See `ui-prototypes/TRIED.md`.
