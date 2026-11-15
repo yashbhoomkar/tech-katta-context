@@ -7,9 +7,7 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
-- **Neo-brutalism dark: the owner picks.** `/p/nb-dark/` (Now, B chalkboard, D inverted blocks, E dim paper) and
-  `?nbdark=b|d|e` are live. Fold the winner into `neo-brutalism/styles/tokens.css`, then delete
-  `dark-candidates.css`, `scripts/nbdark.js` and `frontend/prototypes/nb-dark/` (add a 301 in `prototype.mjs`).
+- **Neo-brutalism dark: done.** Option D (inverted blocks) is final (`01372a7`); the comparison was retired.
 - **Flaky test:** `judge.test.js` "largest design … under 20 ms" can exceed 20 ms on CI runners (21.2 ms seen). Consider a
   safer bound (the app repo; owner to say go).
 - **Neo-brutalism open questions:** loud everywhere or calm reader (now calm)? Archivo Black or Space Grotesk headlines?

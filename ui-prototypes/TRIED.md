@@ -198,3 +198,11 @@ What each does:
 
 Checked: every route in all four palettes, desktop and phone, no errors or sideways scroll; 15 interaction checks; the switch; also live.
 Not yet decided: **the owner picks.** The winner moves into `neo-brutalism/styles/tokens.css` and `dark-candidates.css`, `nbdark.js` and `/p/nb-dark/` are retired (with a redirect).
+
+### Neo-brutalism dark: D chosen and finalized (2026-11-15)
+
+Owner: "Finalize option D". Neo-brutalism's dark theme is now **D, inverted blocks**: the section blocks are dark cards `#1C1B19` with a 3 px outline in the section colour, a solid shadow in a darker shade of it, coloured titles and bars; page `#131211`; cream outlines on objects, quiet grey for structure. Rules live in `neo-brutalism/styles/tokens.css` (dark block) and the end of `styles/details.css`.
+- **Removed:** `dark-candidates.css`, `scripts/nbdark.js` (the Dark switch) and `frontend/prototypes/nb-dark/`. `/p/nb-dark/` now 301s to `/p/neo-brutalism/`.
+- **Rejected:** B chalkboard and E dim paper (kept as ideas in `neo-brutalism-dark-thinking.md`).
+- **Lesson:** a style's dark theme needs its own physics. For brutalism: shadows darker than their object, colour as lines not paint, and a small bright area.
+- **Checks:** every route in light and dark, desktop and phone; 15 interactions; contrast; local and live.

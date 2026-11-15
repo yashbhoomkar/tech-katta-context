@@ -2096,3 +2096,8 @@ Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one
 - Owner said "Start implementing it" for the dark rethink. `/p/nb-dark/` and `?nbdark=b|d|e` are live (commit `5ac5636`, ledgered). **Waiting for the owner to pick** B chalkboard, D inverted blocks or E dim paper.
 - CI note: the Prototype workflow's `npm test` failed once on a flaky timing test (`frontend/src/tkd/judge.test.js`: "largest design and a 20-phase test judge in under 20 ms", took 21.2 ms on the runner). Re-running the failed job passed. If it recurs, loosen that threshold in the app repo's tests (a separate, deliberate change); don't push empty commits.
 - Switching model: the session changed to Sonnet 5.5 partway; commit trailers from `5ac5636` read "Claude Sonnet 5.5".
+
+## 2026-11-15 (final): neo-brutalism dark finalized as option D
+
+- Owner picked D ("Finalize option D"). Commit `01372a7` (ledgered): D's rules are the dark theme; candidates, the Dark switch and `/p/nb-dark/` removed (301 to `/p/neo-brutalism/`). Docs: TRIED.md, `ui-prototypes/neo-brutalism-dark-thinking.md`.
+- Still open for neo-brutalism: loud everywhere or calm reader (now calm), Archivo Black or Space Grotesk.

@@ -1471,3 +1471,5 @@ for each: `ui-prototypes/TRIED.md`. Count after: **frontend_git_commits 1031** (
 prototype commit touches `backend/`).
 
 **2026-11-15 (later):** one more `prototype` row, `5ac5636258358977c91d736e36c1f3fabe64b9b3` (neo-brutalism dark candidates and `/p/nb-dark/`), inserted into `frontend_git_commits` after checking it was absent. Count after: **1032**.
+
+**2026-11-15 (final):** `01372a7d2c042849f0bf8038040177d613c736e4` (neo-brutalism dark finalized as option D) inserted into `frontend_git_commits` after checking it was absent. Count after: **1033**.

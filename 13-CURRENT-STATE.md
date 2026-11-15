@@ -18,8 +18,7 @@ This file records the latest application/context state known to this session.
     - dark theme **F2 "vivid, balanced"**, with light colours balanced to match.
   - `/p/motion/`: the motion system.
   - `/p/neo-brutalism/`: a style layer over full-site, rounds 1–3. Its dark theme is still unappealing; the next
-    three candidates (B chalkboard, D inverted blocks, E dim paper) are built and compared at `/p/nb-dark/` and with
-    `?nbdark=`; **waiting for the owner's pick** (`ui-prototypes/neo-brutalism-dark-thinking.md`).
+    dark theme is **D, inverted blocks** (final, `01372a7`; the comparison page was retired).
 - **Nothing from the revamp is in the real app (`frontend/src`) yet.** Draft PR #365 (reviewer fixes, light colours)
   is unmerged and conflicts with main since #366.
 - Docs: `ui-prototypes/README.md` (how to make and host prototypes), `TRIED.md` (all rounds and decisions),
