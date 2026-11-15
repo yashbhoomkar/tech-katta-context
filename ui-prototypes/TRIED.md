@@ -89,7 +89,7 @@ tried directly in the real app; those are summarised at the end so a new prototy
 
 ### `/p/neo-brutalism/` (spec written, not built yet)
 
-Spec for the implementing session: **`ui-prototypes/neo-brutalism-spec.md`** (2026-11-15). It reuses full-site's scripts and styles as a base and adds a style layer. Light cream `#FFF4DC` with black outlines; dark `#121212` with cream outlines. Section colours are flat and vivid with black text; Quick Notes is lime, clear of the marigold brand. Archivo Black headlines, Space Mono labels, keys that press into their shadow, calm reader. The original proposal follows.
+Spec for the implementing session: **`ui-prototypes/neo-brutalism-spec.md`** (2026-11-15; rewritten the same day as a complete, dry-run-tested spec with every file in full, three check scripts, ship steps and the hand-back message). It reuses full-site's scripts and styles as a base and adds a style layer. Light cream `#FFF4DC` with black outlines; dark `#121212` with cream outlines. Section colours are flat and vivid with black text; Quick Notes is lime, clear of the marigold brand. Archivo Black headlines, Space Mono labels, keys that press into their shadow, calm reader. The original proposal follows.
 
 
 Proposed to the owner on 2026-11-15:
