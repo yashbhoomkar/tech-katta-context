@@ -1026,5 +1026,5 @@ values start `[prototype branch]`):
 - `97e5b66` neo-brutalism round 2;
 - `37f6dfd` neo-brutalism round 3, calmer.
 
-The branch also carries the earlier draft PR #365 work only if merged in. It doesn't: `prototype` was cut from
-`main` for the site.
+Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem workspace). It does **not** contain
+draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colours for the real app).
