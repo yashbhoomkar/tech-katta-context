@@ -2072,3 +2072,7 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
 line-by-line audits of the reference-led Concepts groups.
 4. `tech-katta/content/README.md`. 5. `tools/e2e/README.md`. 6. The code on `main`.
 Older numbered files (01–09, 14–16) are partly **Historical**; trust the code and this file.
+
+## 2026-11-15: UI prototypes on prototype.katta.cc
+
+Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one and host it at prototype.katta.cc/p/<name>/) and `ui-prototypes/TRIED.md` (everything tried so far). Live: `/p/full-site/` (structured frontend, navigation, dark mode) and `/p/motion/`. The app on prototype.katta.cc reads the live tech-api.katta.cc, signed out. Next: `/p/neo-brutalism/`.
