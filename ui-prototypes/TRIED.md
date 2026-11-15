@@ -206,3 +206,19 @@ Owner: "Finalize option D". Neo-brutalism's dark theme is now **D, inverted bloc
 - **Rejected:** B chalkboard and E dim paper (kept as ideas in `neo-brutalism-dark-thinking.md`).
 - **Lesson:** a style's dark theme needs its own physics. For brutalism: shadows darker than their object, colour as lines not paint, and a small bright area.
 - **Checks:** every route in light and dark, desktop and phone; 15 interactions; contrast; local and live.
+
+### Neo-brutalism built into the real app: /p/neo-brutalism (2026-11-16)
+
+The scheduled task's step 2 ("as we did for /p/next, create /p/neo-brutalism, production ready"). The owner said "continue" while sign-in on /p/next still waited on PR #368.
+- **What it is:** the new frontend (`frontend/next`) itself, with the same pages, API, figures, gestures and motion. It is built a second time with `VITE_STYLE=neo-brutalism`.
+- **How the look is switched:** the build puts `data-style="neo-brutalism"` on `<html>`. `src/styles/themes/neo-brutalism.css` holds the tokens (round 3 light, dark D), fonts and type. Each `*.module.css` has a neo-brutalism block for its own pieces. Without the attribute nothing changes, so /p/next and tech.katta.cc/next/ are untouched.
+- **Decisions carried over:**
+  - round 3 calmer colours;
+  - dark D, "inverted blocks";
+  - Archivo Black headlines and Space Mono labels;
+  - keys that press into a 4 px hard shadow;
+  - sticker chips and toast, stepped progress bars, boxed lesson numbers;
+  - a calm reader.
+- **Not carried over:** the mock-up's landing ticker and halftone texture, because the app's landing has no such elements.
+- **Owner's open questions:** still open. Loud everywhere, or calm reader (calm for now)? Archivo Black or Space Grotesk (Archivo Black for now)?
+- **Mock-up:** the static design mock-up moved to `/p/neo-brutalism-mockup/`.
