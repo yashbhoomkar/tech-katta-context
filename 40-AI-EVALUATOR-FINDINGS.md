@@ -90,6 +90,11 @@ and whether `seat_id` is unique across shows (the problem does not say).
 7. **A stopped run lost every answer** (the first script saved only at the end). The current script appends each answer
    as it arrives and has `--resume`.
 
+7. **Marking by line and category can credit a wrong reason.** In `41-AI-EVALUATOR-ANSWERS.md`, Qwen 3.7 Flash's run 1
+   on `chat-message-store/messages-keyed-by-id` is marked caught (line 6, `key_choice`), but its reason is wrong: it
+   blames a hot `chat_id`, while the flaw is partitioning by `message_id`. The catch rates in §3 are therefore an upper
+   bound; before choosing a model, read its answers (all are in doc 41) or add a check on the reason.
+
 ## 5. What Vercel AI Gateway answered (the platform, not the models)
 
 | Call | Response |
@@ -129,6 +134,9 @@ engine. GitHub Models was reported retired on 2026-07-30 (not confirmed first-ha
    the platform for providers that keep and train on nothing (on Vercel `zeroDataRetention`, which needs bought credit).
 
 ## 8. The saved responses
+
+Every answer in readable form, per design and per model, with its mark: `41-AI-EVALUATOR-ANSWERS.md`.
+
 
 `ai-eval-results/` holds one file per model per run:
 - `interviewers-view/observe-first-run-<model>.jsonl`: one line per call: design, run, points as the model wrote them,

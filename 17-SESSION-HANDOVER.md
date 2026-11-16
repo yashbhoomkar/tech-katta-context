@@ -2469,3 +2469,5 @@ Owner: "Same case with prototype.katta.cc/p/next."
   2. Re-run the top 2 or 3 models (about $0.10).
   3. Then `--tier free-reasoning` (every free reasoning model; built in `677e840`, started, then stopped before any test call).
 - **Stopped:** all test processes and the queued free-reasoning run. Owner instruction: stop, update docs and ledgers.
+
+- **Detailed answers:** `41-AI-EVALUATOR-ANSWERS.md` lists all 528 answers of the first run, per design and model, with marks. A finding from reading it: line-and-category marking can credit a wrong reason (doc 40, §4 item 7), so the catch rates are an upper bound.
