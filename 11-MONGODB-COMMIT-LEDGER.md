@@ -1517,3 +1517,5 @@ Count after: **1068**.
 **2026-11-16:** `856cae998bc367b44f155a7e23b4c7a717935c4f` (prototype: the design prototypes call tech-api.katta.cc) inserted into `frontend_git_commits` after checking it was absent. Count after: **1071**.
 
 **2026-11-16:** `a65be22e736481aad19426f070ee13ed09771fbf` (prototype: the CSP allows Cloudflare's beacon) inserted into `frontend_git_commits` after checking it was absent. Count after: **1072**.
+
+**2026-11-16:** `9ec69354390d27ea24bb8f7095f0d2c9563ad59d` (prototype: production-ready structure, e2e suite) and `86c1250a5e50dc61e943cae8797a8daaafdb949c` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1074**.

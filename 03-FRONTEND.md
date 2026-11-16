@@ -457,3 +457,11 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 - **App motion in a look:** `@look/motion.css` resolves to `styles/looks/<look>/motion.css` and is loaded after `global.css`, so a look redefines the keyframes (tk-rise, tk-word, tk-pop, tk-bar, tk-vt-in and the rest) without touching the default look.
 - **Figure size in neo-brutalism:** `components/MarkSticker.tsx` replaces zoomed-out figures on cards. `SectionPicture` and `FigureThumb` (given `section`) return it in that look. Per-section figure colours come from `[data-accent]` in `figureTokens.module.css`. The ticker is `content/ticker.ts`, with a test.
 - **Figures in both looks:** figures use the cards' colours per section (`figureTokens.module.css`, `[data-accent]` rules for the default look, then for neo-brutalism). Cards never show shrunken figures: `SectionPicture` is a `SectionMini` (the section's next lessons on a path, from `content/steps.ts`), and CardPicture, MarkSticker and FigureThumb are gone. Cards mode is one column.
+
+## frontend/next structure for both looks (2026-11-16)
+
+- **Architecture:** see `frontend/next/README.md`, which covers the structure, data flow, extending, errors and testing.
+- **Looks:** `lib/look.ts` and `scripts/look.mjs` list the looks. Each look's CSS lives in `styles/looks/<look>/`, and `onlyLook()` drops other looks' rules at build.
+- **Errors:** `app/RouteError.tsx`.
+- **Testing:** `npm run e2e` runs Playwright on every look. It is a CI job in `frontend.yml`.
+- **Commits:** `9ec6935` / `86c1250`.

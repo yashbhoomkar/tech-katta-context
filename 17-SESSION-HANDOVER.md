@@ -2331,3 +2331,31 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - `/v1/auth/config` and `/v1/me`: needs PR #368 (sign-in, and practice);
   - Cloudflare's injected analytics beacon, blocked by the CSP (a dashboard setting).
 - **2026-11-16, `a65be22`:** the CSP on prototype.katta.cc allows Cloudflare's injected beacon (`allowCloudflareBeacon`, tested). The only console errors left are the sign-in calls, which end with PR #368.
+
+## 2026-11-16: production-ready, extensible, modular (both prototypes)
+
+- **Owner:** "Make the code production ready, Extensible, Modular", then: "I meant the codebase for both the prototypes, Next and neo-brutalism". Both are frontend/next, built twice (`VITE_STYLE`).
+- **Commits:** `9ec6935` (`prototype`) and `86c1250` (PR #367).
+- **Modules:**
+  - Landing.tsx went from 381 to 192 lines; its parts are in `pages/landing/` (nav, hero, bands, extras).
+  - Reader.tsx went from 369 to 231 lines; its parts are in `pages/reader/` (progress, toc, Burst).
+- **Looks:**
+  - `lib/look.ts` is the look registry, with a test that it matches `scripts/look.mjs`.
+  - Each look's fonts and CSS come only through `styles/looks/<look>/index.ts`.
+  - `onlyLook()`, a PostCSS step, drops other looks' rules at build. The default build's CSS went from 331 to 280 KB and carries no neo-brutalism fonts.
+  - Screenshots of 10 pages, light and dark, are pixel-identical to the last commit in both looks.
+- **Errors and types:**
+  - `app/RouteError.tsx` is the route error page. A stale chunk after a release asks for a reload.
+  - `types/env.d.ts` types the build's environment variables.
+- **e2e:**
+  - `frontend/next/e2e` runs on Playwright 1.63.0 with axe: 70 tests across both looks, desktop and phone, against the live API.
+  - An uncaught page error fails a test.
+  - It runs as its own CI job in `frontend.yml`.
+  - `OUT_DIR` builds the looks side by side.
+- **Checks run:**
+  - frontend `npm test` 441/441 (beta branch: 435/435);
+  - next check 68/68;
+  - the production build;
+  - e2e 70/70 on both branches;
+  - `allp` 17/17 and `decided` 12/12 on both looks (prototype build);
+  - `designproto` with 0 failures.
