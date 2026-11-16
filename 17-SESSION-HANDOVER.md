@@ -2315,3 +2315,18 @@ Owner: "Same case with prototype.katta.cc/p/next."
 - **Blocked only by PR #368:** practice and sign-in. They make credentialed API calls, and the API answers prototype.katta.cc with `*` (checked with curl).
 - **Commits:** `4fec824` (prototype, live) and `cf80a31` (PR #367).
 - **At the switch** (TODO "switch PR"), the old URLs need no host redirects: the app's `/dashboard` route handles them, once the new app is served at `/`.
+
+## 2026-11-16: every prototype calls tech-api.katta.cc
+
+- **Owner:** "All the prototypes should also call tech-api.katta.cc. I need everything working."
+- **Before:** checked with `scratchpad/apicalls.js`. The app copies (`/`, `/dashboard`, `/p/next`, `/p/neo-brutalism`) already called the API; `/p/full-site`, `/p/neo-brutalism-mockup` and `/p/motion` did not.
+- **Fix (`856cae9`):**
+  - `full-site/scripts/data/live.js` loads site, articles, lab and stats before the first render and replaces the sample data in place;
+  - lessons render their real text, the workspace shows the real statement, and the sample stays offline;
+  - `motion.html` fills its demos from the Caching lesson and the URL shortener problem.
+- **Checks, live:**
+  - `scratchpad/designproto.js`: 27 checks, 0 failures;
+  - every prototype calls the API.
+- **Still failing everywhere, and not code:**
+  - `/v1/auth/config` and `/v1/me`: needs PR #368 (sign-in, and practice);
+  - Cloudflare's injected analytics beacon, blocked by the CSP (a dashboard setting).
