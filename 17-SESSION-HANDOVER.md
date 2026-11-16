@@ -2299,3 +2299,19 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - Best practices is 93 because of the CORS errors on /v1/auth/config and /v1/me (they end with PR #368) and Cloudflare's injected analytics beacon blocked by the CSP (a dashboard setting).
   - SEO is 63 because prototypes are noindex on purpose.
   - The largest-paint floor is the API's own response time (about 1.3 s on the throttled profile) plus rendering. Going further needs content prerendered into the HTML: a larger change, proposed in TODO.
+
+## 2026-11-16: takeover readiness ("everything working, as if they were to take over tech.katta.cc")
+
+- **Built:**
+  - tech.katta.cc's addresses: `/dashboard/<key>/` and `/dashboard/#<key>` map to the new pages (`content/legacy.ts`, `pages/Legacy.tsx`);
+  - shared designs at `/problems/shared` (they were missing in the new app);
+  - share links point at the new app (`lab/share.js` `setShareBase`; the default is unchanged).
+- **Sweep:** `scratchpad/full.js` is the new end-to-end sweep (env BASE and P). On both sites it has 0 failures:
+  - all 22 problem workspaces, and Run;
+  - all 8 challenges, and the sandbox;
+  - share links;
+  - 7 old addresses;
+  - search, progress, bookmarks, theme, policies, notes and Listen.
+- **Blocked only by PR #368:** practice and sign-in. They make credentialed API calls, and the API answers prototype.katta.cc with `*` (checked with curl).
+- **Commits:** `4fec824` (prototype, live) and `cf80a31` (PR #367).
+- **At the switch** (TODO "switch PR"), the old URLs need no host redirects: the app's `/dashboard` route handles them, once the new app is served at `/`.

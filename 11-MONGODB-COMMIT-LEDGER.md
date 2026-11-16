@@ -1511,3 +1511,5 @@ prototype commit touches `backend/`).
 - `33760c42261556c0dd6a54103e027f458fbe98ed` and `e32c68abc330d41868a82b34d7d4b44ce5ed979f` (later prefetch, lesson preload).
 
 Count after: **1068**.
+
+**2026-11-16 (takeover readiness):** `4fec8242fd112a7a79316a83b2bbda74348310ab` (prototype) and `cf80a31483e849552c90fbbf4a6ee78d60942e87` (PR #367) inserted into `frontend_git_commits` after checking both were absent. Count after: **1070**.
