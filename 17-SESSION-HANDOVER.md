@@ -2205,3 +2205,15 @@ Owner: "Worker prompt continue". That started step 2 of the scheduled-task promp
   - fscan, all 66 lessons, desktop and phone: 0 lessons with missing figures.
 - **Scripts:** `scratchpad/allp.js`, `decided.js` and `fscan.js` take `P=/p/neo-brutalism`. `nbshots.js` takes screenshots, and `srv.mjs` is a local server that behaves like Cloudflare.
 - **Open for the owner:** sign-in (PR #368); the look questions in TRIED.md (how loud, which headline font).
+
+## 2026-11-16: neo-brutalism figures and motion redesigned
+
+Owner: the neo-brutalism site copied tech.katta.cc's animations and colours. Redesign them for the look, for every figure and animation.
+- **What changed:** see `ui-prototypes/TRIED.md` (last section) and `03-FRONTEND.md`.
+- **Commits:** `4bc0eec` (prototype) and `1985558` (PR #367, opt-in).
+- **Checks:**
+  - frontend 435 and next 37 tests pass;
+  - allp 17/17 and decided 12/12 locally on both sites;
+  - /p/next figures are unchanged (no chips, no filter, same font).
+  - The live check follows the deploy.
+- **Scripts:** `scratchpad/nbfig.js` (figure grammar probe) and `nbframes3.js` (frames of a playing figure).

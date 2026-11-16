@@ -222,3 +222,25 @@ The scheduled task's step 2 ("as we did for /p/next, create /p/neo-brutalism, pr
 - **Not carried over:** the mock-up's landing ticker and halftone texture, because the app's landing has no such elements.
 - **Owner's open questions:** still open. Loud everywhere, or calm reader (calm for now)? Archivo Black or Space Grotesk (Archivo Black for now)?
 - **Mock-up:** the static design mock-up moved to `/p/neo-brutalism-mockup/`.
+
+
+### Neo-brutalism figures and motion, redesigned (2026-11-16)
+
+Owner: "You have copied the animations from the katta even with their colour scheme. You had to redesign the animation tailored to neo brutalism … Do this for every figure/animation." Done in `4bc0eec`. Everything below applies only in the neo-brutalism build; the default look is unchanged.
+- **Figures:** all 232 lesson figures, the landing figure, the card pictures, the library minis and the scenes.
+  - **Palette:** ink outlines and sticker fills. The working path is cobalt on sky, the request and highlights are marigold, trouble is coral with red ink, good is mint. Archivo and Space Mono. Dark D.
+  - **Shapes:** 2 px square-capped lines and hard shadows under boxes. The frame has a marigold title bar, key buttons and square step marks.
+  - **Motion (`figs/parts.jsx`):**
+    - a packet is an outlined square chip that ratchets along in three hops (the default look uses a glowing dot that glides);
+    - a working line carries a marching conveyor dash (instead of a soft glint);
+    - a highlight stamps on as an ink outline with a marigold offset (instead of a glow);
+    - a step cuts in with a 3 px key-press jolt (instead of a fade).
+- **App motion (`styles/looks/neo-brutalism/motion.css`):**
+  - arrivals drop onto their shadow;
+  - hero words slap down;
+  - done, stars and today stamp in;
+  - bars and marks count up in steps;
+  - the shapes tick and the spinner ratchets;
+  - loading is a marching hatched block;
+  - the burst throws square outlined confetti;
+  - page and theme changes are a stepped shutter.

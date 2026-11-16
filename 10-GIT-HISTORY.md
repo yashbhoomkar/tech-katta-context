@@ -1041,3 +1041,4 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `f30e833` (`prototype`) and `7a596ff` (PR #367): parity batch 4 (figures, gestures, motion, lesson content, practice).
 - `d46e1ed` (`prototype`) and `0466802` (PR #367): parity batch 5, the decided spec-24 items (A2 view transitions and title morph, G3 scenes, G4 section marks, solid bars on phones, sheet grab areas).
 - `13ec2bb` (`prototype`) and `8883ef8` (PR #367): the neo-brutalism look as a theme of frontend/next (`VITE_STYLE=neo-brutalism`), served at prototype.katta.cc/p/neo-brutalism/. The design mock-up moved to /p/neo-brutalism-mockup/.
+- `4bc0eec` (`prototype`) and `1985558` (PR #367): neo-brutalism figures and animations redesigned in the look's own grammar (chip packets, conveyor dashes, stamped highlights, key-press steps; drop-in, slap, stamp, stepped bars and a shutter for the app).

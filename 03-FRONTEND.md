@@ -449,3 +449,9 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
   1. add it to `STYLES` in `vite.config.ts`;
   2. add its stylesheet and module blocks;
   3. add it to `LOOKS` in `prototype-next.mjs`, plus a build step.
+- **Figures in a look:**
+  - the colours and fonts come from the look's figure tokens (`figureTokens.module.css`, neo-brutalism block);
+  - the shapes come from CSS in the same block;
+  - the motion comes from `figs/parts.jsx`, which checks `brutal()` (`<html data-style="neo-brutalism">`);
+  - `lib/look.ts` installs the shared `#nb-hard` shadow filter.
+- **App motion in a look:** `@look/motion.css` resolves to `styles/looks/<look>/motion.css` and is loaded after `global.css`, so a look redefines the keyframes (tk-rise, tk-word, tk-pop, tk-bar, tk-vt-in and the rest) without touching the default look.
