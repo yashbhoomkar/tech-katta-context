@@ -1504,3 +1504,10 @@ prototype commit touches `backend/`).
 **2026-11-16:** `ce2b6599a44236527860596254ea99bd2e32b8f4` (prototype: SectionMini, a small figure for each card) and `f3748fbc534f7719f6b88a9920819fe55aa94c4a` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1060**.
 
 **2026-11-16:** `3fb7fb77fe444c87fa3bb6b72b785076e570fe09` (prototype, refinement pass) and `6d670a047b728e53abb5e443b2dc00307b836611` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1062**.
+
+**2026-11-16 (quality pass):** inserted into `frontend_git_commits` after checking each key was absent:
+- `f315a2805ae19aab45204416e9406110ca836307` and `82692da7c973f34adef7f3e1f31129a1cca47091` (contrast, headings, logo name, API hints);
+- `2d3322f667f14b03dc0f4f7574da4faab7c5f49c` and `348c78e20fb606bf615afcbacc74cb30049b8df5` (lazy pages, ARIA roles);
+- `33760c42261556c0dd6a54103e027f458fbe98ed` and `e32c68abc330d41868a82b34d7d4b44ce5ed979f` (later prefetch, lesson preload).
+
+Count after: **1068**.

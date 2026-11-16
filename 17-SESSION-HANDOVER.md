@@ -2271,3 +2271,31 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - frontend 439 and next 49 pass;
   - live, allp 17/17 and decided 12/12 on both sites;
   - the audit has no page errors.
+
+## 2026-11-16: measured quality pass ("I want both of them to be the best")
+
+- **Tools (scratchpad):**
+  - `axe.js`: axe-core, WCAG 2.1 AA, 10 pages × 2 looks × light/dark;
+  - Lighthouse 12 in `tools/`: `CHROME_PATH=/opt/pw-browsers/chromium node tools/node_modules/lighthouse/cli/index.js URL ...`.
+- **Results, live:**
+
+  | | Before | After |
+  |---|---|---|
+  | axe-core | 3 contrast failures | 0 violations |
+  | Lighthouse accessibility | 94–98 | 100 on all six measured pages |
+  | Lighthouse performance (±5 between runs) | 75–80 | 78–87 |
+  | Main bundle (gzipped) | 147 KB | 102 KB |
+
+- **What changed:**
+  - contrast fixes;
+  - headings no longer skip a level;
+  - the logo's accessible name;
+  - ARIA roles on labelled placeholders, groups and status images;
+  - API preconnect and preload (`next/scripts/hints.mjs`), and a per-lesson preload (`postbuild.mjs`);
+  - route-level code splitting, with a prefetch 3 s after load;
+  - `.html` siblings on prototype, so direct visits get no redirect.
+- **Commits:** `f315a28`, `2d3322f` and `33760c4` (prototype); `82692da`, `348c78e` and `e32c68a` (PR #367).
+- **Limits left, not code:**
+  - Best practices is 93 because of the CORS errors on /v1/auth/config and /v1/me (they end with PR #368) and Cloudflare's injected analytics beacon blocked by the CSP (a dashboard setting).
+  - SEO is 63 because prototypes are noindex on purpose.
+  - The largest-paint floor is the API's own response time (about 1.3 s on the throttled profile) plus rendering. Going further needs content prerendered into the HTML: a larger change, proposed in TODO.
