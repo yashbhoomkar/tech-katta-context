@@ -1,0 +1,962 @@
+{
+ "model": "meta/muse-ember@low",
+ "summary": {
+  "calls": 10,
+  "correct_pct": 90,
+  "found_fault_pct": 90,
+  "called_good_a_problem": 0,
+  "praised_failing": 0,
+  "designs_always_correct_pct": 90,
+  "verified_pct": 90,
+  "partial_pct": 10,
+  "fallback_pct": 0,
+  "error_pct": 0,
+  "ms_p50": 3559,
+  "ms_p95": 4679,
+  "tokens_in": 23492,
+  "tokens_cached": 2420,
+  "tokens_out": 12902,
+  "cost_usd": 0.00857,
+  "cost_per_review_usd": 0.0008568,
+  "cost_per_correct_review_usd": 0.000952
+ },
+ "rows": [
+  {
+   "case": "url-shortener/reference",
+   "problem": "url-shortener",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 2,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 3381,
+   "usage": {
+    "input": 2480,
+    "cached": 2420,
+    "output": 1294,
+    "cost": 0.00066268
+   },
+   "cost": 0.00066268,
+   "review": {
+    "headline": "Your design passes all tests, survives key failures and keeps headroom at peak.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "test:t03-a-server-dies",
+       "test:t04-database-fails",
+       "test:t05-cold-cache"
+      ],
+      "text": "You survived a server dying at peak, the primary failing and a cold cache restart. That is the core of this brief, because fresh links must not be lost and opens must keep working.",
+      "ask": "Walk me through what happens to a new link when a machine dies."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "test:t02-evening-peak",
+       "margin:tightest"
+      ],
+      "text": "You also passed the evening peak and the quiet afternoon, with 31 % spare on your tightest promise, the budget. Peak opens stay comfortable without breaking the monthly limit.",
+      "ask": "Why is budget your tightest promise, and what would you trim first if costs rose?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon",
+       "test:t02-evening-peak"
+      ],
+      "text": "Steady behaviour in both quiet and peak periods gives you clear evidence for capacity talk. You can point to the same design holding across very different customer demand."
+     }
+    ],
+    "next": {
+     "text": "Use this as your base design. Now practise explaining failure handling and cost choices out loud, in that order.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Your design passes all tests, survives key failures and keeps headroom at peak.",
+    "items": [
+     {
+      "ask": "Walk me through what happens to a new link when a machine dies.",
+      "facts": [
+       "verdict",
+       "test:t03-a-server-dies",
+       "test:t04-database-fails",
+       "test:t05-cold-cache"
+      ],
+      "kind": "strength",
+      "text": "You survived a server dying at peak, the primary failing and a cold cache restart. That is the core of this brief, because fresh links must not be lost and opens must keep working."
+     },
+     {
+      "ask": "Why is budget your tightest promise, and what would you trim first if costs rose?",
+      "facts": [
+       "verdict",
+       "test:t02-evening-peak",
+       "margin:tightest"
+      ],
+      "kind": "strength",
+      "text": "You also passed the evening peak and the quiet afternoon, with {{margin:tightest.spare}} spare on your tightest promise, the budget. Peak opens stay comfortable without breaking the monthly limit."
+     },
+     {
+      "ask": null,
+      "facts": [
+       "test:t01-quiet-afternoon",
+       "test:t02-evening-peak"
+      ],
+      "kind": "strength",
+      "text": "Steady behaviour in both quiet and peak periods gives you clear evidence for capacity talk. You can point to the same design holding across very different customer demand."
+     }
+    ],
+    "next": {
+     "repair": null,
+     "text": "Use this as your base design. Now practise explaining failure handling and cost choices out loud, in that order."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-cache-one-server",
+   "problem": "url-shortener",
+   "design": "no-cache-one-server",
+   "run": 1,
+   "outcome": "partial",
+   "why": "R4 digit",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 4,
+    "why": ""
+   },
+   "ms": 3507,
+   "usage": {
+    "input": 2400,
+    "cached": 0,
+    "output": 1188,
+    "cost": 0.000834
+   },
+   "cost": 0.000834,
+   "review": {
+    "headline": "Your design passes a quiet afternoon but collapses in the evening peak.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "test:t02-evening-peak",
+       "finding:overloaded:GET_LINK:api"
+      ],
+      "text": "Your api tier receives 2,525 calls a second in the evening peak but can serve at most 500 calls a second. That overload alone explains the failed peak test and the slow responses.",
+      "ask": "How would you spread peak opens across more capacity within budget?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_LINK:none"
+      ],
+      "text": "GET_LINK took 472.7 ms at the 99th percentile; the promise is 100 ms. Slowest hop: api at 505 % of capacity."
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:api"
+      ],
+      "text": "Your api has no spare. If it fails, both GET_LINK and CREATE_LINK stop, so one failure takes down the whole service.",
+      "ask": "What happens to creates and opens if your single api tier fails?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "Your design passes a quiet afternoon with 54 % to spare on its tightest promise. The basic path works, so the challenge is peak headroom rather than the core approach."
+     }
+    ],
+    "next": {
+     "text": "Relieve the api tier under peak opens first, by adding capacity or by serving more reads away from it. Then recheck cost and latency at peak.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Your design passes a quiet afternoon but collapses in the evening peak.",
+    "items": [
+     {
+      "ask": "How would you spread peak opens across more capacity within budget?",
+      "facts": [
+       "test:t02-evening-peak",
+       "finding:overloaded:GET_LINK:api"
+      ],
+      "kind": "problem",
+      "text": "Your api tier receives {{finding:overloaded:GET_LINK:api.actual}} in the evening peak but can serve {{finding:overloaded:GET_LINK:api.expected}}. That overload alone explains the failed peak test and the slow responses."
+     },
+     {
+      "ask": "Which hop on the read path would you relieve first and why?",
+      "facts": [
+       "finding:p99:GET_LINK:none",
+       "finding:overloaded:GET_LINK:api"
+      ],
+      "kind": "problem",
+      "text": "Your GET_LINK latency at the 99th percentile breaks its promise and the slowest hop is the overloaded api. In plain terms the read path is queuing behind capacity that does not exist at peak."
+     },
+     {
+      "ask": "What happens to creates and opens if your single api tier fails?",
+      "facts": [
+       "static:W003:api"
+      ],
+      "kind": "risk",
+      "text": "Your api has no spare. If it fails, both GET_LINK and CREATE_LINK stop, so one failure takes down the whole service."
+     },
+     {
+      "ask": null,
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "strength",
+      "text": "Your design passes a quiet afternoon with {{test:t01-quiet-afternoon.spare}} to spare on its tightest promise. The basic path works, so the challenge is peak headroom rather than the core approach."
+     }
+    ],
+    "next": {
+     "repair": null,
+     "text": "Relieve the api tier under peak opens first, by adding capacity or by serving more reads away from it. Then recheck cost and latency at peak."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-cache",
+   "problem": "url-shortener",
+   "design": "no-cache",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 3922,
+   "usage": {
+    "input": 2372,
+    "cached": 0,
+    "output": 1258,
+    "cost": 0.0008662
+   },
+   "cost": 0.0008662,
+   "review": {
+    "headline": "Your design is too slow at the evening peak because reads are bottlenecked by the database.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t02-evening-peak",
+       "finding:p99:GET_LINK:db",
+       "load:db"
+      ],
+      "text": "Your evening peak promise is p99 ≤ 100 ms but you reach p99 126.9 ms. The database is the slowest hop and runs at 86 % at that moment. That is why the peak fails.",
+      "ask": "Why does your read path hit the database on every open at peak?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "load:db"
+      ],
+      "text": "Your database load swings from 7 % in quiet times to 86 % at peak. You have very little headroom left. Any small rise in opens will push latency higher.",
+      "ask": "What happens to latency when load grows a little beyond peak?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "Your quiet afternoon test passes with 34 % to spare on its tightest promise. The basic shape works when load is low. The weakness only appears as load rises."
+     }
+    ],
+    "next": {
+     "text": "Focus on the database part first. Work on the repair for that part and recheck its peak load at 86 % before you change anything else.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your design is too slow at the evening peak because reads are bottlenecked by the database.",
+    "items": [
+     {
+      "ask": "Why does your read path hit the database on every open at peak?",
+      "facts": [
+       "verdict",
+       "test:t02-evening-peak",
+       "finding:p99:GET_LINK:db",
+       "load:db"
+      ],
+      "kind": "problem",
+      "text": "Your evening peak promise is {{test:t02-evening-peak.expected}} but you reach {{finding:p99:GET_LINK:db.actual}}. The database is the slowest hop and runs at {{finding:p99:GET_LINK:db.rho}} at that moment. That is why the peak fails."
+     },
+     {
+      "ask": "What happens to latency when load grows a little beyond peak?",
+      "facts": [
+       "load:db"
+      ],
+      "kind": "risk",
+      "text": "Your database load swings from {{load:db.rho}} in quiet times to {{load:db.peak}} at peak. You have very little headroom left. Any small rise in opens will push latency higher."
+     },
+     {
+      "ask": null,
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "strength",
+      "text": "Your quiet afternoon test passes with {{test:t01-quiet-afternoon.spare}} to spare on its tightest promise. The basic shape works when load is low. The weakness only appears as load rises."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Focus on the database part first. Work on the repair for that part and recheck its peak load at {{load:db.peak}} before you change anything else."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/async-replica",
+   "problem": "url-shortener",
+   "design": "async-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 4679,
+   "usage": {
+    "input": 2510,
+    "cached": 0,
+    "output": 1459,
+    "cost": 0.0009805
+   },
+   "cost": 0.0009805,
+   "review": {
+    "headline": "Your reads and cost pass, but acknowledged links are lost when the database primary fails.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t04-database-fails",
+       "finding:lost:CREATE_LINK:db"
+      ],
+      "text": "Your acknowledged writes are lost when the database primary fails. That breaks the core promise that a just created link is never lost. You need durability for CREATE_LINK before anything else.",
+      "ask": "How would you make sure a write is acknowledged only after it survives a primary failure?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t02-evening-peak",
+       "load:api",
+       "path:GET_LINK"
+      ],
+      "text": "You pass the evening peak with headroom. The busiest part is the api tier at 63 %, while {{path:GET_LINK.p99}} for the read path stays comfortable. That shows your read scaling is sound under SMS load.",
+      "ask": "Where would you add capacity first if peak traffic doubled?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t03-a-server-dies",
+       "test:t01-quiet-afternoon",
+       "cost:total"
+      ],
+      "text": "You survive a server dying at peak and fit the budget with 31 % to spare. Cost is not your problem here. Focus on durability rather than trimming parts."
+     }
+    ],
+    "next": {
+     "text": "Make the database wait for its replicas before acknowledging a create, then recheck the primary failure case.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your reads and cost pass, but acknowledged links are lost when the database primary fails.",
+    "items": [
+     {
+      "ask": "How would you make sure a write is acknowledged only after it survives a primary failure?",
+      "facts": [
+       "verdict",
+       "test:t04-database-fails",
+       "finding:lost:CREATE_LINK:db"
+      ],
+      "kind": "problem",
+      "text": "Your acknowledged writes are lost when the database primary fails. That breaks the core promise that a just created link is never lost. You need durability for CREATE_LINK before anything else."
+     },
+     {
+      "ask": "Where would you add capacity first if peak traffic doubled?",
+      "facts": [
+       "test:t02-evening-peak",
+       "load:api",
+       "path:GET_LINK"
+      ],
+      "kind": "strength",
+      "text": "You pass the evening peak with headroom. The busiest part is the api tier at {{load:api.peak}}, while {{path:GET_LINK.p99}} for the read path stays comfortable. That shows your read scaling is sound under SMS load."
+     },
+     {
+      "ask": null,
+      "facts": [
+       "test:t03-a-server-dies",
+       "test:t01-quiet-afternoon",
+       "cost:total"
+      ],
+      "kind": "strength",
+      "text": "You survive a server dying at peak and fit the budget with {{cost:total.spare}} to spare. Cost is not your problem here. Focus on durability rather than trimming parts."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Make the database wait for its replicas before acknowledging a create, then recheck the primary failure case."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-replica",
+   "problem": "url-shortener",
+   "design": "no-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 3781,
+   "usage": {
+    "input": 2547,
+    "cached": 0,
+    "output": 1504,
+    "cost": 0.0010067
+   },
+   "cost": 0.0010067,
+   "review": {
+    "headline": "Your design passes normal and peak traffic but stops when the database fails.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t04-database-fails",
+       "finding:unavailable:GET_LINK:db"
+      ],
+      "text": "Your design fails when the database primary fails. Requests fail at db in that test, so a new link is not safe. You passed 3 of 5 tests overall.",
+      "ask": "How would you keep a new link readable if db dies before it is copied?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "Your db has no spare. If it fails, both read and write paths stop. That leaves the service unavailable at the exact moment you need it most.",
+      "ask": "What redundancy would you add to db, and how would reads find the copy?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon",
+       "test:t02-evening-peak",
+       "test:t03-a-server-dies"
+      ],
+      "text": "You pass a quiet afternoon, the evening peak and a server dying at peak. Your spare headroom is 51 % in a quiet afternoon and 31 % at evening peak on the tightest promise.",
+      "ask": "Where would you watch first if peak traffic grew beyond the evening peak?"
+     }
+    ],
+    "next": {
+     "text": "Add a replica of db, as the repair suggests, so failure of the primary does not stop reads or writes.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your design passes normal and peak traffic but stops when the database fails.",
+    "items": [
+     {
+      "ask": "How would you keep a new link readable if db dies before it is copied?",
+      "facts": [
+       "verdict",
+       "test:t04-database-fails",
+       "finding:unavailable:GET_LINK:db"
+      ],
+      "kind": "problem",
+      "text": "Your design fails when the database primary fails. Requests fail at db in that test, so a new link is not safe. You passed {{verdict.passed}} of {{verdict.total}} tests overall."
+     },
+     {
+      "ask": "What redundancy would you add to db, and how would reads find the copy?",
+      "facts": [
+       "static:W003:db"
+      ],
+      "kind": "risk",
+      "text": "Your db has no spare. If it fails, both read and write paths stop. That leaves the service unavailable at the exact moment you need it most."
+     },
+     {
+      "ask": "Where would you watch first if peak traffic grew beyond the evening peak?",
+      "facts": [
+       "test:t01-quiet-afternoon",
+       "test:t02-evening-peak",
+       "test:t03-a-server-dies"
+      ],
+      "kind": "strength",
+      "text": "You pass a quiet afternoon, the evening peak and a server dying at peak. Your spare headroom is {{test:t01-quiet-afternoon.spare}} in a quiet afternoon and {{test:t02-evening-peak.spare}} at evening peak on the tightest promise."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Add a replica of db, as the repair suggests, so failure of the primary does not stop reads or writes."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/random-32-bit-ids",
+   "problem": "url-shortener",
+   "design": "random-32-bit-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 3649,
+   "usage": {
+    "input": 2379,
+    "cached": 0,
+    "output": 1243,
+    "cost": 0.0008594
+   },
+   "cost": 0.0008594,
+   "review": {
+    "headline": "Your design fails because repeated short codes break its core promise.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:CREATE_LINK:ids",
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "Your random codes do not guarantee uniqueness at scale. The judge found about 11,64,153 repeats expected when it expected no repeated ids. A code must never point at two URLs.",
+      "ask": "How would you guarantee a code is never reused across all creators?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "Correctness failed outright in the quiet afternoon test, with 0 of 5 tests passed. Performance and cost cannot rescue a design that repeats ids. Fix uniqueness before anything else."
+     }
+    ],
+    "next": {
+     "text": "Add more bits to the ids part, following the suggested repair direction, and recheck uniqueness before anything else.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your design fails because repeated short codes break its core promise.",
+    "items": [
+     {
+      "ask": "How would you guarantee a code is never reused across all creators?",
+      "facts": [
+       "finding:collision:CREATE_LINK:ids",
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "problem",
+      "text": "Your random codes do not guarantee uniqueness at scale. The judge found {{finding:collision:CREATE_LINK:ids.actual}} when it expected {{finding:collision:CREATE_LINK:ids.expected}}. A code must never point at two URLs."
+     },
+     {
+      "ask": null,
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "problem",
+      "text": "Correctness failed outright in the quiet afternoon test, with {{verdict.passed}} of {{verdict.total}} tests passed. Performance and cost cannot rescue a design that repeats ids. Fix uniqueness before anything else."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Add more bits to the ids part, following the suggested repair direction, and recheck uniqueness before anything else."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/day-long-cache-no-invalidate",
+   "problem": "url-shortener",
+   "design": "day-long-cache-no-invalidate",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 3429,
+   "usage": {
+    "input": 2396,
+    "cached": 0,
+    "output": 1219,
+    "cost": 0.0008491
+   },
+   "cost": 0.0008491,
+   "review": {
+    "headline": "Your cache keeps edited links far too stale to pass.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_LINK:cache",
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "Your GET_LINK path can serve a URL long after it has been edited. The cache holds data up to 86400 s old old, while the limit is at most 3600 s old. That breaks the freshness promise.",
+      "ask": "How will you make a write reach the cache soon enough?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The design fails the quiet afternoon test and the overall verdict stays wrong. It allows data up to 86400 s old old, against at most 3600 s old. Until freshness is fixed, it will keep failing.",
+      "ask": "What would you change first to bring the age within the limit?"
+     }
+    ],
+    "next": {
+     "text": "Clear the cache when the data changes, so reads stop serving the old URL past the allowed limit.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your cache keeps edited links far too stale to pass.",
+    "items": [
+     {
+      "ask": "How will you make a write reach the cache soon enough?",
+      "facts": [
+       "finding:stale:GET_LINK:cache",
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "problem",
+      "text": "Your GET_LINK path can serve a URL long after it has been edited. The cache holds data {{finding:stale:GET_LINK:cache.actual}} old, while the limit is {{finding:stale:GET_LINK:cache.expected}}. That breaks the freshness promise."
+     },
+     {
+      "ask": "What would you change first to bring the age within the limit?",
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon"
+      ],
+      "kind": "problem",
+      "text": "The design fails the quiet afternoon test and the overall verdict stays wrong. It allows data {{test:t01-quiet-afternoon.actual}} old, against {{test:t01-quiet-afternoon.expected}}. Until freshness is fixed, it will keep failing."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Clear the cache when the data changes, so reads stop serving the old URL past the allowed limit."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/everything-large",
+   "problem": "url-shortener",
+   "design": "everything-large",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": false,
+    "found_fault": false,
+    "lead_rank": null,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": "fault not cited"
+   },
+   "ms": 2696,
+   "usage": {
+    "input": 2373,
+    "cached": 0,
+    "output": 1028,
+    "cost": 0.0007513
+   },
+   "cost": 0.0007513,
+   "review": {
+    "headline": "Your design is over budget and the database drives most of the cost.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon",
+       "cost:total"
+      ],
+      "text": "Your design is over budget. It costs ₹1,43,000 a month against a budget of ₹1,00,000. No test passed, so cost is the first fix. Shrink the part that drives the bill before you tune anything else.",
+      "ask": "Which part of your design drives most of the monthly cost and why?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "cost:total",
+       "cost:db",
+       "cost:api"
+      ],
+      "text": "The database is the main problem. It costs ₹90,000 a month, which is 63 % of the total, while the app tier costs ₹48,000. A smaller database is the obvious place to cut.",
+      "ask": "What does the database get you here and what smaller option fits the load?"
+     }
+    ],
+    "next": {
+     "text": "Reduce the database size first and check the cost again, since it is the largest share of the bill.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Your design is over budget and the database drives most of the cost.",
+    "items": [
+     {
+      "ask": "Which part of your design drives most of the monthly cost and why?",
+      "facts": [
+       "verdict",
+       "test:t01-quiet-afternoon",
+       "cost:total"
+      ],
+      "kind": "problem",
+      "text": "Your design is over budget. It costs {{cost:total.inr}} a month against a budget of {{cost:total.budget}}. No test passed, so cost is the first fix. Shrink the part that drives the bill before you tune anything else."
+     },
+     {
+      "ask": "What does the database get you here and what smaller option fits the load?",
+      "facts": [
+       "cost:total",
+       "cost:db",
+       "cost:api"
+      ],
+      "kind": "problem",
+      "text": "The database is the main problem. It costs {{cost:db.inr}} a month, which is {{cost:db.share}} of the total, while the app tier costs {{cost:api.inr}}. A smaller database is the obvious place to cut."
+     }
+    ],
+    "next": {
+     "repair": "repair:1",
+     "text": "Reduce the database size first and check the cost again, since it is the largest share of the bill."
+    }
+   }
+  },
+  {
+   "case": "url-shortener/template",
+   "problem": "url-shortener",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 2816,
+   "usage": {
+    "input": 1525,
+    "cached": 0,
+    "output": 1082,
+    "cost": 0.0006935
+   },
+   "cost": 0.0006935,
+   "review": {
+    "headline": "Your design is unreadable because neither the read path nor the write path reaches any storage.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5",
+       "verdict"
+      ],
+      "text": "Your read path is disconnected. GET_LINK never reaches sql, nosql or objectstore, so an opened code has nowhere to find its long URL. The judge reports 2 unreadable elements in this design.",
+      "ask": "Where should GET_LINK go to fetch the long URL for a code?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6",
+       "verdict"
+      ],
+      "text": "Your write path is also disconnected. CREATE_LINK is never saved because its route does not reach sql, nosql or objectstore. Without a saved mapping a new code cannot be reopened later.",
+      "ask": "Where should CREATE_LINK save the new mapping so it is never lost?"
+     }
+    ],
+    "next": {
+     "text": "Reconnect both paths first. Point GET_LINK and CREATE_LINK at the store that holds the code to URL mapping, then explain how you split reads and writes for scale.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Your design is unreadable because neither the read path nor the write path reaches any storage.",
+    "items": [
+     {
+      "ask": "Where should GET_LINK go to fetch the long URL for a code?",
+      "facts": [
+       "error:E029:5",
+       "verdict"
+      ],
+      "kind": "problem",
+      "text": "Your read path is disconnected. GET_LINK never reaches sql, nosql or objectstore, so an opened code has nowhere to find its long URL. The judge reports {{verdict.errors}} unreadable elements in this design."
+     },
+     {
+      "ask": "Where should CREATE_LINK save the new mapping so it is never lost?",
+      "facts": [
+       "error:E030:6",
+       "verdict"
+      ],
+      "kind": "problem",
+      "text": "Your write path is also disconnected. CREATE_LINK is never saved because its route does not reach sql, nosql or objectstore. Without a saved mapping a new code cannot be reopened later."
+     }
+    ],
+    "next": {
+     "repair": null,
+     "text": "Reconnect both paths first. Point GET_LINK and CREATE_LINK at the store that holds the code to URL mapping, then explain how you split reads and writes for scale."
+    }
+   }
+  },
+  {
+   "case": "paste-bin/reference",
+   "problem": "paste-bin",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 3559,
+   "usage": {
+    "input": 2510,
+    "cached": 0,
+    "output": 1627,
+    "cost": 0.0010645
+   },
+   "cost": 0.0010645,
+   "review": {
+    "headline": "Your design passed all tests and kept 24 % spare on its tightest promise.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "margin:tightest",
+       "test:t02-incident"
+      ],
+      "text": "Your design passed every test. The tightest promise is GET_PASTE latency during an incident, and it still has 24 % to spare. That headroom shows the read path holds under a burst.",
+      "ask": "What would you watch first if incident traffic doubled?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t03-a-server-dies",
+       "test:t04-database-fails",
+       "test:t05-cold-cache"
+      ],
+      "text": "You also passed the failure tests for a server dying, the database primary failing and the cache restarting. That shows your design does not depend on one healthy part at runtime.",
+      "ask": "Which failure worries you most and how would you prove recovery?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour",
+       "cost:total"
+      ],
+      "text": "In a quiet hour you kept 24 % to spare on the tightest promise. You also sit under budget with 24 % to spare. Simpler traffic therefore leaves room, while your incident case uses that room when it matters.",
+      "ask": "Where would you spend any remaining budget, and why there?"
+     }
+    ],
+    "next": {
+     "text": "Next, test how the tightest promise changes if incident traffic grows, and decide what you would scale first.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Your design passed all tests and kept {{margin:tightest.spare}} spare on its tightest promise.",
+    "items": [
+     {
+      "ask": "What would you watch first if incident traffic doubled?",
+      "facts": [
+       "verdict",
+       "margin:tightest",
+       "test:t02-incident"
+      ],
+      "kind": "strength",
+      "text": "Your design passed every test. The tightest promise is GET_PASTE latency during an incident, and it still has {{margin:tightest.spare}} to spare. That headroom shows the read path holds under a burst."
+     },
+     {
+      "ask": "Which failure worries you most and how would you prove recovery?",
+      "facts": [
+       "test:t03-a-server-dies",
+       "test:t04-database-fails",
+       "test:t05-cold-cache"
+      ],
+      "kind": "strength",
+      "text": "You also passed the failure tests for a server dying, the database primary failing and the cache restarting. That shows your design does not depend on one healthy part at runtime."
+     },
+     {
+      "ask": "Where would you spend any remaining budget, and why there?",
+      "facts": [
+       "test:t01-quiet-hour",
+       "cost:total"
+      ],
+      "kind": "strength",
+      "text": "In a quiet hour you kept {{test:t01-quiet-hour.spare}} to spare on the tightest promise. You also sit under budget with {{cost:total.spare}} to spare. Simpler traffic therefore leaves room, while your incident case uses that room when it matters."
+     }
+    ],
+    "next": {
+     "repair": null,
+     "text": "Next, test how the tightest promise changes if incident traffic grows, and decide what you would scale first."
+    }
+   }
+  }
+ ]
+}

@@ -1057,3 +1057,5 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `ccc8b77` (PR #370): the bake-off runs through Vercel AI Gateway by default (one key, free monthly credit), OpenRouter as the alternative.
 
 - `1c1b1b7` and `7a95276` (PR #370): the interviewer's-view job, its unique-finding test set and the model test script.
+
+- Context: `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/` (raw responses of every model call of 2026-11-16, checksums in `SHA256SUMS`).

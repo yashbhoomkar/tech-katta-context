@@ -2445,7 +2445,7 @@ Owner: "Same case with prototype.katta.cc/p/next."
 
 ## 2026-11-16 (evening): first interviewer's-view run, results, and stop
 
-- **Run:** 8 free models × 22 designs × 3 runs, through Vercel. It spent $0.23; the free credit has $4.20 left. The report and every answer are in `backend/ai-evals/results/observe-first-run*` (not committed).
+- **Run:** 8 free models × 22 designs × 3 runs, through Vercel. It spent $0.26 (corrected from $0.23 after summing the saved answers); the free credit has $4.20 left. Every finding and the raw response of every call: `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/`. The report and every answer are in `backend/ai-evals/results/observe-first-run*` (not committed).
 - **Results (caught / false alarms / cost per 1,000 correct):**
   - GPT-5 mini: 70 % / 100 % / ₹398;
   - **Muse Ember: 67 % / 36 % / ₹94 (the front-runner)**;
