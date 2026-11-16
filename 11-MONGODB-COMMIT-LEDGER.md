@@ -1520,3 +1520,5 @@ Count after: **1068**.
 
 **2026-11-16:** `9ec69354390d27ea24bb8f7095f0d2c9563ad59d` (prototype: production-ready structure, e2e suite) and `86c1250a5e50dc61e943cae8797a8daaafdb949c` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1074**.
 **2026-11-16:** `b8f3c4a9a7ceca227f6359794ab238305aef1771` and `3055d4a6754d9660416ee485de168828e9dc8073` (the Home test waits for the title), then `49d80e7bf75ae47bbc1a40b73bea8437217c582d` and `6a6e6616044fb3426cdac4ec29a0556188a9619e` (lazy pages wait for the reload after a release) inserted into `frontend_git_commits` after checking each was absent. Count after: **1078**.
+
+**2026-11-16:** `08a213d88fb6c0eec51a04a3ab2065322955f2e9` (PR #370: AI evaluator ground truth and OpenRouter bake-off) inserted into `backend_git_commits` after checking it was absent. Backend count after: **726**.

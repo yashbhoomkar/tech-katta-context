@@ -1052,3 +1052,5 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `a65be22` (`prototype`): prototype.katta.cc's CSP allows Cloudflare's injected analytics beacon (prototype build only; tech.katta.cc's CSP is unchanged).
 - `9ec6935` (`prototype`) and `86c1250` (PR #367): frontend/next made production-ready for both looks: module splits (pages/landing/, pages/reader/), a look registry with each look's CSS in styles/looks/<look>/ and other looks' rules dropped at build, a route error page, a Playwright e2e suite run on every look (and in CI), and the README's architecture.
 - `b8f3c4a` / `3055d4a` (prototype / PR #367): the Home unit test waits for the page title (a CI race had stopped the prototype deploy). `49d80e7` / `6a6e661`: a lazy page whose chunk fails after a release keeps showing Loading until the reload instead of throwing.
+
+- `08a213d` (`ai-eval-ground-truth`, draft PR #370): the AI evaluator's ground truth (75 designs) and a one-key OpenRouter bake-off ranked by cost per correct review.

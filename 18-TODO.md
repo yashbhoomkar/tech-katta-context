@@ -96,3 +96,5 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - [x] 2026-11-16: frontend/next production-ready, extensible, modular, with e2e in CI (`9ec6935` / `86c1250`).
 - [ ] Owner: merge PR #368 (sign-in and practice on prototype.katta.cc), then PR #367 when happy.
 - [ ] Report client errors from RouteError once the API accepts a `client_error` event (`backend/src/auth/events.js` EVENTS).
+
+- [ ] Owner: create an OpenRouter account, add about $5, and give the key (as a secret, never in chat) to run `node ai-evals/bakeoff.mjs` (PR #370). Then pick the model from `results/bakeoff-*.md` and set the server's `AI_*` settings.

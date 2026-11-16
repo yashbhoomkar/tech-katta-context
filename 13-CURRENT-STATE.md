@@ -1957,3 +1957,5 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
 - **prototype.katta.cc/p/neo-brutalism:** the same app in the neo-brutalism look, live and verified (`13ec2bb`). Sign-in waits on PR #368, as on /p/next. Figures there use the cards' colours, and cards show mark stickers instead of shrunken figures (`5b4be8b`, 2026-11-16).
 
 - **2026-11-16, frontend/next production-ready (`9ec6935` prototype, `86c1250` PR #367):** one codebase for both looks with a look registry, per-look CSS, a route error page, and a Playwright e2e suite (70 tests, both looks) in CI. Sign-in and practice on the prototypes still wait on PR #368.
+
+- **2026-11-16, AI evaluator:** review job only (no chat, owner). Ground truth and OpenRouter bake-off in draft PR #370, not yet run on a real model.

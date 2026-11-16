@@ -1586,3 +1586,10 @@ tech-katta-context/
   22-EVALUATOR-V3.md      this file: keep it true; record deviations in section 24
   tools/e2e/v3-*.js       browser checks
 ```
+
+## Update 2026-11-16: scope is the review job only
+
+- **Owner:** no chat interface. The AI evaluator only tells the learner where the faults in their system are.
+- **In scope:** `review` (§12.1).
+- **Out of scope unless the owner asks:** `grade`, `clarify`, `explain`, and the Defend and mock-interview flows that use them.
+- **Evaluation:** §19.3's Reviews set is built as `backend/ai-evals/ground-truth.json` (PR #370). The Grades, Injection and Clarify sets are not needed for this scope. Injection through part names still matters for `review`: add it if a part-name attack is found.

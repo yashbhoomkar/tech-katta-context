@@ -764,3 +764,13 @@ Hosted API prices:
 - [LiteLLM model catalogue](https://models.litellm.ai/), data file `model_prices_and_context_window.json` in BerriAI/litellm (read 2026-11-13): per-token, cache-read prices and `supports_response_schema` for every model in §12.1
 - [Artificial Analysis leaderboard](https://artificialanalysis.ai/leaderboards/models), [Claude Haiku 5.5](https://artificialanalysis.ai/models/claude-haiku-5-5), [GPT-6 Luna](https://artificialanalysis.ai/models/gpt-6-luna) (Intelligence Index v5.0.1, read 2026-11-13; the leaderboard read was partial)
 - [Morph, LLM API prices Nov 2026](https://www.morphllm.com/llm-api), [BenchLM pricing](https://benchlm.ai/llm-pricing), [Gemini 3.1 Flash-Lite pricing](https://pricepertoken.com/pricing-page/model/google-gemini-3.1-flash-lite)
+
+## Update 2026-11-16: the bake-off runs through OpenRouter
+
+- **How it runs:** §12.4's bake-off runs through OpenRouter (one key for all models): `backend/ai-evals/bakeoff.mjs`, PR #370.
+- **Prices:** OpenRouter's list on 2026-11-16 matches §12.1 for the finalists, per million tokens in/out:
+  - Muse Ember 1.0: $0.10 / $0.50;
+  - Claude Haiku 5.5: $0.10 / $0.50;
+  - DeepSeek V4.1 Flash: $0.14 / $0.42;
+  - GPT-6 Luna: $0.10 / $0.50.
+- **Real prompt size:** about 2,200 input tokens a review, not §12.1's 7,000, so every price here is about a third of §12.1's.

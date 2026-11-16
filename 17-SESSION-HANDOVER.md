@@ -2364,3 +2364,32 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - Live, one run of `allp` saw "reading 'HomePage'" mid-deploy. The cause: `frontend/src/api.js`'s `vite:preloadError` handler cancels the error and reloads, so the import resolves to undefined. Fixed in `49d80e7` / `6a6e661`, with a test.
   - Live, after deploy: `allp` 17/17 on both looks; `designproto` with 0 failures.
 - **Ledger:** count 1078.
+
+## 2026-11-16: the AI evaluator's scope, ground truth and model bake-off (PR #370)
+
+- **Owner's decision:** "we are not going to give the user the AI chat interface. We are just going to support AI powered Evaluator and tell the user where are the faults in their system."
+  - The AI does one job: `review` (spec 22 §12.1), one review per Submit.
+  - `grade`, `clarify` and `explain` (Defend, mock interview, questions about the report) are out of scope unless the owner asks again.
+- **Owner:** "I don't want to buy api keys for every llm provider. There should be one platform which will let us test things." Chosen: **OpenRouter**.
+  - One account, one prepaid balance and one key for every provider's models.
+  - Its API is OpenAI-compatible, which `backend/src/ai/client.js` already speaks.
+  - Each answer reports its cost.
+  - Promptfoo was considered. The bake-off needs the production pack builder and verifier, which our own runner already uses.
+- **Ground truth:** `backend/ai-evals/ground-truth.json`, covering 75 designs (10 references, 55 wrong, 10 templates). Each case has:
+  - the author's fault in words;
+  - the verdict, which must equal the author's;
+  - `must_lead_with`, the facts a correct review cites in its first two items;
+  - `never_a_problem`.
+  - A test fails on drift. All 55 authored causes agree with the judge's first finding.
+- **Scoring and gates** (`score.mjs`). A model passes only with:
+  - correct ≥ 90 %;
+  - fallbacks and errors ≤ 2 %;
+  - no good fact called a problem;
+  - no failing design praised;
+  - p95 ≤ 10 s.
+  - Passing models are ranked by cost per correct review.
+- **Bake-off:** `bakeoff.mjs`, with ten candidates in `candidates.json` (spec 29 §12.4's four finalists plus six cheaper challengers).
+  - Estimated cost: about $1.12 (₹98) at 3 runs, $1.86 (₹164) at 5, before reasoning tokens.
+  - Requests use `data_collection: deny` and `require_parameters: true`.
+- **Not yet run on a real model:** it needs an OpenRouter key and about $5 of balance.
+- **Commit:** `08a213d` (branch `ai-eval-ground-truth`, draft PR #370). Backend tests 124/124.
