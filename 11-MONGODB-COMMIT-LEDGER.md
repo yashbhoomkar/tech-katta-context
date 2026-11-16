@@ -1498,3 +1498,5 @@ prototype commit touches `backend/`).
 **2026-11-16:** `4bc0eecb28086545daf12990704181aedc7b84fc` (prototype, neo-brutalism figures and motion redesigned) and `19855589d81d2a23fbf7cb5279ca4d86aba9e3fa` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1054**.
 
 **2026-11-16 (8:15 am run):** `5b4be8ba7ca8f1de03770115cee6c5052c6d0702` (prototype: figures in the cards' colours, mark stickers, mock-up motion) and `d0b8118800866fd709f93508a537b9d19755aa16` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1056**.
+
+**2026-11-16:** `56a66b64386de964f42063c74c2e6f0e15eb1a16` (prototype: /p/next figures in the cards' colours, section stickers) and `802c04ab98b9c0bda9e842cfad2a4608acc77bd1` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1058**.

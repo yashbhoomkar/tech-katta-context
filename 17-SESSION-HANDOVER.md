@@ -2233,3 +2233,13 @@ Owner: the neo-brutalism site copied tech.katta.cc's animations and colours. Red
   - live: allp 17/17 and decided 12/12 on both sites;
   - the live fscan of the earlier neo-brutalism build had 0 lessons with missing figures.
 - **Not yet reviewed in neo-brutalism:** the Listen bar's inner controls and the workspace's own panels. They are restyled through the tokens, but have not been redesigned piece by piece.
+
+## 2026-11-16: /p/next gets the same figure decision
+
+Owner: "Same case with prototype.katta.cc/p/next."
+- **Done in the default look:** figures in the cards' colours per section, MarkSticker (soft, rounded) on every card, no lesson-row thumbnails, and Cards mode one wide card per row. The rules are in `figureTokens.module.css`, default block, keyed by `[data-accent]`.
+- **Commits:** `56a66b6` (prototype) and `802c04a` (PR #367).
+- **Checks:**
+  - frontend 439 and next 42 pass;
+  - locally, allp 17/17 and decided 12/12 on both sites;
+  - live on /p/next, allp 17/17 and decided 12/12. The live run on /p/neo-brutalism for this deploy was stopped partway, so re-run it.
