@@ -1496,3 +1496,5 @@ prototype commit touches `backend/`).
 **2026-11-16 (early, later):** `13ec2bb5ac4f8b55b21523555b411b6e5bf55750` (prototype, /p/neo-brutalism) and `8883ef894240234033f01917d36ee54319509e8f` (PR #367, the opt-in theme) inserted into `frontend_git_commits` after checking both were absent. Count after: **1052**.
 
 **2026-11-16:** `4bc0eecb28086545daf12990704181aedc7b84fc` (prototype, neo-brutalism figures and motion redesigned) and `19855589d81d2a23fbf7cb5279ca4d86aba9e3fa` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1054**.
+
+**2026-11-16 (8:15 am run):** `5b4be8ba7ca8f1de03770115cee6c5052c6d0702` (prototype: figures in the cards' colours, mark stickers, mock-up motion) and `d0b8118800866fd709f93508a537b9d19755aa16` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1056**.

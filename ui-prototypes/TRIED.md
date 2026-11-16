@@ -244,3 +244,24 @@ Owner: "You have copied the animations from the katta even with their colour sch
   - loading is a marching hatched block;
   - the burst throws square outlined confetti;
   - page and theme changes are a stepped shutter.
+
+### Neo-brutalism: figures in the cards' colours, and no shrunken figures (2026-11-16, 8:15 am run)
+
+Owner: "Colour scheme of the figures should match the colour scheme of the cards. Also the zoomed out version of figures is not looking good … Take a decision of how to keep figures." Done in `5b4be8b`.
+
+**Decision:**
+- **Colour:**
+  - In each section, a figure's path that works is filled with that section's card colour and drawn in a deep ink of the same hue (Concepts sky, Components orange, Interview Questions violet, Problems mint, Real systems coral, Quick Notes lime).
+  - Trouble is the coral, good the mint, and requests and highlights the marigold.
+  - In dark, the section colour is the line and the fill is a dark tint of it.
+  - The rules are in `figureTokens.module.css`, keyed by `[data-accent]`.
+- **Size:** a figure is drawn only where it can be read: lessons, full screen, the topic sheet, the landing figure, and Cards mode (now one wide card per row).
+  - Cards and thumbnails show a **MarkSticker**: the section's mark drawn large in ink on a tile in the card colour, with a halftone and the lesson's tag.
+  - Lesson rows have no thumbnail.
+- **Also added from the mock-up:**
+  - the hero highlighter wipe;
+  - a running ticker of live counts;
+  - stamping keys;
+  - DONE stamps, sticker labels and halftone;
+  - quarter-turn shapes;
+  - a marigold print shadow on lesson titles.

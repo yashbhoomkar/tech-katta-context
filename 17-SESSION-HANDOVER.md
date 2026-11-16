@@ -2217,3 +2217,19 @@ Owner: the neo-brutalism site copied tech.katta.cc's animations and colours. Red
   - /p/next figures are unchanged (no chips, no filter, same font).
   - The live check follows the deploy.
 - **Scripts:** `scratchpad/nbfig.js` (figure grammar probe) and `nbframes3.js` (frames of a playing figure).
+
+## 2026-11-16, 8:15 am scheduled run
+
+- **Sign-in:** PR #368 is still a draft and unmerged, so sign-in is still blocked on both sites. It is the owner's merge.
+- **Owner, mid-run:**
+  - figures must use the cards' colours, and the zoomed-out figures look bad: "take a decision";
+  - see `ui-prototypes/TRIED.md`, last section;
+  - commits `5b4be8b` (prototype, live) and `d0b8118` (PR #367).
+- **Also in this run:**
+  - the mock-up motions (wipe, ticker, stamps, DONE, halftone);
+  - tests for the look plugin (`next/scripts/look.mjs`) and the copy guard (`hosting/prototype-copies.mjs`, `hosting/prototype.test.js`).
+- **Checks:**
+  - frontend 439 (prototype) and 435 (PR #367) pass; next 42 passes;
+  - live: allp 17/17 and decided 12/12 on both sites;
+  - the live fscan of the earlier neo-brutalism build had 0 lessons with missing figures.
+- **Not yet reviewed in neo-brutalism:** the Listen bar's inner controls and the workspace's own panels. They are restyled through the tokens, but have not been redesigned piece by piece.
