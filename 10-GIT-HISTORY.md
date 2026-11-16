@@ -1054,3 +1054,4 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `b8f3c4a` / `3055d4a` (prototype / PR #367): the Home unit test waits for the page title (a CI race had stopped the prototype deploy). `49d80e7` / `6a6e661`: a lazy page whose chunk fails after a release keeps showing Loading until the reload instead of throwing.
 
 - `08a213d` (`ai-eval-ground-truth`, draft PR #370): the AI evaluator's ground truth (75 designs) and a one-key OpenRouter bake-off ranked by cost per correct review.
+- `ccc8b77` (PR #370): the bake-off runs through Vercel AI Gateway by default (one key, free monthly credit), OpenRouter as the alternative.

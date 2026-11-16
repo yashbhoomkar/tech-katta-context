@@ -2393,3 +2393,13 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - Requests use `data_collection: deny` and `require_parameters: true`.
 - **Not yet run on a real model:** it needs an OpenRouter key and about $5 of balance.
 - **Commit:** `08a213d` (branch `ai-eval-ground-truth`, draft PR #370). Backend tests 124/124.
+- **Platform, checked on the web on the owner's second ask ("one platform … check on web"):**
+  - **Vercel AI Gateway is the default:**
+    - the existing Vercel account;
+    - 509 models, including all ten candidates;
+    - provider list prices, no markup;
+    - $5 of credit every 30 days on a subset of models;
+    - zero-retention requests need bought credit.
+  - **OpenRouter is the alternative:** about 5.5 % on buying credit. DeepSeek costs about half as much there.
+  - **Estimates (all ten, 3 runs):** $1.50 on Vercel, $1.12 on OpenRouter.
+  - **Commit:** `ccc8b77` (PR #370). Tests: ai-evals 10/10, backend 125/125. Ledger backend 727.

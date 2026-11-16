@@ -98,3 +98,4 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - [ ] Report client errors from RouteError once the API accepts a `client_error` event (`backend/src/auth/events.js` EVENTS).
 
 - [ ] Owner: create an OpenRouter account, add about $5, and give the key (as a secret, never in chat) to run `node ai-evals/bakeoff.mjs` (PR #370). Then pick the model from `results/bakeoff-*.md` and set the server's `AI_*` settings.
+- [ ] (replaces the OpenRouter line above) Owner: create a Vercel AI Gateway API key (Vercel dashboard, AI Gateway, API keys); the free $5 a month may cover the whole bake-off. Give it through the secure form, never in chat.
