@@ -135,7 +135,7 @@ engine. GitHub Models was reported retired on 2026-07-30 (not confirmed first-ha
 
 ## 8. The saved responses
 
-Every answer in readable form, per design and per model, with its mark: `41-AI-EVALUATOR-ANSWERS.md`.
+Every answer in readable form, per design and per model, with its mark: `41-AI-EVALUATOR-ANSWERS.md`. Its appendix gives each model's time, tokens and cost. The exact prompt and all 22 designs with line numbers: `43-AI-EVALUATOR-PROMPTS-AND-DESIGNS.md`. The older review-job test, answer by answer (1,515 answers, 6 models blocked by 403): `42-AI-EVALUATOR-REVIEW-JOB.md`.
 
 
 `ai-eval-results/` holds one file per model per run:

@@ -686,3 +686,16 @@ Marks: **caught** = a `problem` point on the flawed line in a fitting category; 
 | openai_gpt-oss-20b_low | 2 | false alarm | L6 · hot_key · problem: Sequential idgen causes write and read hotspots on a single partition, limiting write throughput and risking single‑point overload during peak opens. <br>L5 · wrong_store · consider: A medium‑sized relational DB holding up to 10 crore rows is excessive; a key‑value store would scale cheaper and offer better read performance for one‑to‑one mapping. <br>L4 · scaling · problem: The cache with only 2 nodes and 1 GB RAM cannot hold frequently accessed codes, leading to repeated DB queries and violating the 1 h‑staleness tolerance for edits. |
 | openai_gpt-oss-20b_low | 3 | false alarm | L6 · other · problem: Using a sequential counter id generator makes codes predictable and can create enumeration or hot‑key traffic patterns; a better strategy is to random or hash‑based IDs. <br>L4 · scaling · problem: Only two cache nodes with 1 GB total RAM and 1 h TTL can’t comfortably handle 2,500 opens / sec or the 100× read‑to‑write ratio without higher replication or larger nodes. <br>L5 · cost · consider: A single medium‑sized synchronous SQL replica may over‑provision storage for 10 crore rows while adding unnecessary cost; consider sharding or a more cost–efficient store. |
 
+
+## Appendix: time, tokens and cost per model
+
+| Model | Answers | Errors | Points raised | Time p50 / p95 | Tokens in | Tokens out | Cost | Cost per answer |
+|---|---|---|---|---|---|---|---|---|
+| alibaba_qwen3.7-flash_low | 66 | 0 | 131 | 16.3 s / 18.1 s | 93,024 | 83,257 | $0.0129 | $0.00020 |
+| deepseek_deepseek-v3.1 | 66 | 0 | 142 | 7.3 s / 10.5 s | 79,578 | 9,032 | $0.0209 | $0.00032 |
+| google_gemini-2.5-flash-lite_low | 66 | 0 | 195 | 5.2 s / 6.3 s | 83,808 | 73,959 | $0.0380 | $0.00058 |
+| meta_muse-ember_low | 66 | 0 | 91 | 4.3 s / 6.4 s | 85,989 | 81,893 | $0.0458 | $0.00069 |
+| nvidia_nemotron-3-super-120b-a12b | 66 | 1 | 124 | 3.1 s / 5.2 s | 1,05,537 | 13,187 | $0.0244 | $0.00037 |
+| openai_gpt-5-mini_low | 66 | 0 | 193 | 7.7 s / 11.5 s | 83,646 | 42,735 | $0.0950 | $0.00144 |
+| openai_gpt-oss-120b_low | 66 | 0 | 100 | 2.2 s / 3.8 s | 92,372 | 17,049 | $0.0181 | $0.00027 |
+| openai_gpt-oss-20b_low | 66 | 1 | 120 | 4.5 s / 8.0 s | 81,308 | 25,118 | $0.0060 | $0.00009 |
