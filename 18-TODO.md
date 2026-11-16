@@ -103,3 +103,5 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - [ ] Read the first interviewer's-view run (`results/observe-first-run.md`), pick a model, and read a sample of its answers.
 - [ ] Owner: is `seat_id` unique across shows (ticket-booking)? `rate-limiter/three-nodes`: fix the design or the author's words.
 - [ ] When a model is chosen: add the interviewer's view to production (backend job, page section) and raise `AI_MAX_OUTPUT_TOKENS`.
+
+- [ ] Interviewer's view, prompt version 2 (notation explained; no capacity or latency comments; read every route), then re-run Muse Ember, GPT-5 mini and Gemini Flash-Lite, then `--tier free-reasoning`. Only when the owner says so.

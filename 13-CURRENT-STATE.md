@@ -1961,3 +1961,5 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
 - **2026-11-16, AI evaluator:** review job only (no chat, owner). Ground truth and OpenRouter bake-off in draft PR #370, not yet run on a real model.
 
 - **2026-11-16, AI evaluator:** it is "the interviewer's view": only what the judge cannot see, tied to design lines. The test set is 10 unique flawed designs plus 12 clean ones. The test script is built, and the first run on 8 free Vercel models is under way (PR #370, draft).
+
+- **2026-11-16, evening:** first interviewer's-view run done. Muse Ember leads (67 % caught, 36 % false alarms, ₹94 per 1,000 correct); no model clears the bar yet. False alarms are mostly from the prompt. All runs are stopped on the owner's instruction. Next: prompt version 2, then re-run.

@@ -821,3 +821,8 @@ What this says:
   - Platform choice changes the bill by rupees, so quality (the bake-off) decides.
 - **Decision:** run the bake-off on Vercel AI Gateway (free credit, all 10). Then put the winner on the platform that is cheapest for that model.
 
+### First interviewer's-view results (2026-11-16)
+
+- **Free tier on Vercel:** 8 models were tested on the interviewer's view.
+- **Muse Ember leads:** 67 % of flaws caught, 36 % false alarms, ₹94 per 1,000 correct answers. GPT-5 mini catches a little more (70 %) but raises false alarms on 100 % of clean designs and costs four times as much.
+- **No model passes yet.** The prompt is to be fixed before any choice (`17-SESSION-HANDOVER.md`).

@@ -2442,3 +2442,30 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - `rate-limiter/three-nodes`: the author blames the storage nodes, the judge blames the servers.
 - **The first run of the 8 free models** started 2026-11-16 at about 16:30 UTC. Results go in `backend/ai-evals/results/observe-first-run.md`, not committed.
 - **Commits:** `1c1b1b7` and `7a95276`, plus the earlier PR #370 commits. Ledger: backend rows recorded for each.
+
+## 2026-11-16 (evening): first interviewer's-view run, results, and stop
+
+- **Run:** 8 free models × 22 designs × 3 runs, through Vercel. It spent $0.23; the free credit has $4.20 left. The report and every answer are in `backend/ai-evals/results/observe-first-run*` (not committed).
+- **Results (caught / false alarms / cost per 1,000 correct):**
+  - GPT-5 mini: 70 % / 100 % / ₹398;
+  - **Muse Ember: 67 % / 36 % / ₹94 (the front-runner)**;
+  - gpt-oss-20b: 53 % / 75 % / ₹22;
+  - Gemini 2.5 Flash-Lite: 53 % / 75 % / ₹134;
+  - DeepSeek V3.1: 43 % / 78 % / ₹88;
+  - gpt-oss-120b: 33 % / 56 % / ₹61;
+  - Qwen 3.7 Flash: 27 % / 53 % / ₹45;
+  - Nemotron 3 Super: 23 % / 72 % / ₹134.
+  - No model clears the bar (catches ≥ 80 %, false alarms ≤ 10 %).
+- **Flaws by difficulty:**
+  - Easy for most: hot time-bucket key, timestamp primary key, blobs in a key-value store.
+  - Hard for all: a few hot live matches; a one-second CDN TTL.
+  - Missed by every model: clients reading the store directly.
+- **Why the false alarms are high:** mostly the prompt. Models misread the notation, for example:
+  - a nosql `pk` as a unique key, so "chat messages overwrite";
+  - ignoring `index(...)` on leaderboard and tickets;
+  - commenting on capacity, which the judge tests.
+- **Next, not done (owner: "Don't run new anything"):**
+  1. Prompt version 2: explain the notation (a nosql pk holds many rows; index serves lookups; a sql pk is unique), no capacity or latency comments, read every route.
+  2. Re-run the top 2 or 3 models (about $0.10).
+  3. Then `--tier free-reasoning` (every free reasoning model; built in `677e840`, started, then stopped before any test call).
+- **Stopped:** all test processes and the queued free-reasoning run. Owner instruction: stop, update docs and ledgers.
