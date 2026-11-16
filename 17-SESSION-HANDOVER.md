@@ -2330,3 +2330,4 @@ Owner: "Same case with prototype.katta.cc/p/next."
 - **Still failing everywhere, and not code:**
   - `/v1/auth/config` and `/v1/me`: needs PR #368 (sign-in, and practice);
   - Cloudflare's injected analytics beacon, blocked by the CSP (a dashboard setting).
+- **2026-11-16, `a65be22`:** the CSP on prototype.katta.cc allows Cloudflare's injected beacon (`allowCloudflareBeacon`, tested). The only console errors left are the sign-in calls, which end with PR #368.
