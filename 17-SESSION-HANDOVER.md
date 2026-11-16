@@ -2359,3 +2359,8 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - e2e 70/70 on both branches;
   - `allp` 17/17 and `decided` 12/12 on both looks (prototype build);
   - `designproto` with 0 failures.
+- **Follow-ups the same day:**
+  - The first deploy (run 46) failed on a unit-test race: the title is set in an effect. Fixed in `b8f3c4a` / `3055d4a`.
+  - Live, one run of `allp` saw "reading 'HomePage'" mid-deploy. The cause: `frontend/src/api.js`'s `vite:preloadError` handler cancels the error and reloads, so the import resolves to undefined. Fixed in `49d80e7` / `6a6e661`, with a test.
+  - Live, after deploy: `allp` 17/17 on both looks; `designproto` with 0 failures.
+- **Ledger:** count 1078.
