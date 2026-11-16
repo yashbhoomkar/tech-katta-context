@@ -1525,3 +1525,5 @@ Count after: **1068**.
 **2026-11-16:** `ccc8b77ce97db06dac0fec2956100c9271214e8f` (PR #370: Vercel AI Gateway as the bake-off platform) inserted into `backend_git_commits` after checking it was absent. Backend count after: **727**.
 
 **2026-11-16:** backend rows also recorded for `d4e9299`, `6ac413d`, `af117aa`, `39a2920`, `1c1b1b7` and `7a95276` (PR #370), each checked absent first.
+
+**2026-11-16:** new collection `ai_eval_responses` (13 rows) holds the checksums of the saved AI-evaluator responses (ai-eval-results/ in this repo, per-file SHA-256 in SHA256SUMS) and the docs commit `f2b65bc`. Backend ledger unchanged.
