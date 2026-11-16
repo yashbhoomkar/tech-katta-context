@@ -2253,3 +2253,21 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - frontend 439 and next 48 pass;
   - live, allp 17/17 and decided 12/12 on both sites;
   - Home and Learn, phone and desktop, light and dark: no errors and no sideways scroll.
+
+## 2026-11-16: refinement pass (both looks)
+
+- **Owner:** "Refine both."
+- **Audit:** 13 pages × 2 looks × light/dark × desktop/phone. The script is `scratchpad/audit.js`, and `sheet.py` makes the contact sheets.
+- **Fixed:**
+  - the not-found page: centred, the scene framed, section links;
+  - chips no longer wrap;
+  - the Continue chip hugs its text;
+  - card labels read in the card's ink;
+  - framed state scenes;
+  - the neo-brutalism sidebar's open lesson is a key.
+- **Bug found and fixed:** the first new not-found page read the API and crashed outside the content gate. It is now covered by `app.test.tsx`.
+- **Commits:** `3fb7fb7` (prototype, live) and `6d670a0` (PR #367).
+- **Checks:**
+  - frontend 439 and next 49 pass;
+  - live, allp 17/17 and decided 12/12 on both sites;
+  - the audit has no page errors.
