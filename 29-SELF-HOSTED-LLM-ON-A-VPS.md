@@ -774,3 +774,20 @@ Hosted API prices:
   - DeepSeek V4.1 Flash: $0.14 / $0.42;
   - GPT-6 Luna: $0.10 / $0.50.
 - **Real prompt size:** about 2,200 input tokens a review, not §12.1's 7,000, so every price here is about a third of §12.1's.
+
+## Update 2026-11-16: one-key platforms compared (owner: "We have cloudflare check if it provides. Also check out about lightllm. Check similar platforms")
+
+Checked on the web on 2026-11-16 for the AI evaluator's model bake-off (`backend/ai-evals/bakeoff.mjs`, PR #370).
+
+| Platform | One key for many companies' models? | Our 10 candidates | Free | Fees | Fit |
+|---|---|---|---|---|---|
+| **Vercel AI Gateway** | Yes | All 10 (509 models) | $5 every 30 days, some models only | None on tokens | **Chosen**: existing account; schema and reasoning confirmed in docs; price list API |
+| OpenRouter | Yes | All 10 (~470) | Free versions of a few models, without strict schemas | ~5.5 % on credit | Alternative; built in |
+| Cloudflare AI Gateway (Unified Billing) | Yes, prepaid credits: OpenAI, Anthropic, Google, xAI, Groq; plus Workers AI | No Meta Muse Ember; Workers AI has Gemma 4, Llama 4 Scout, GLM-5.3 Flash, DeepSeek V4.1 Flash, Qwen3.8 27B | Workers AI: 10,000 neurons a day; no credit for third-party models | 5 % on credit, cards only | Possible later; the docs don't confirm schema or reasoning passthrough; no machine-readable price list |
+| Hugging Face Inference Providers | Yes (router over ~15 hosts) | Mostly open models | $0.10 a month ($2 with PRO) | Host prices | Open models only |
+| AWS Bedrock | Yes, within an AWS account | Anthropic, Meta Llama, DeepSeek, Qwen, OpenAI | No | AWS prices | Heavy setup for a test |
+| Together, DeepInfra, Fireworks, Groq | One key, but only for open models they host | No Claude, GPT or Muse | Small trial credit | Host prices | Not enough candidates |
+| GitHub Models | Was free | n/a | n/a | n/a | Reported retired on 2026-07-30 (not confirmed first-hand) |
+| LiteLLM | **No**: a free, open-source proxy you run, using your own key from each company (or one gateway's key) | n/a | Software free | Hosting | Not a model seller; our client already does its job |
+| LightLLM (ModelTC) | **No**: a GPU serving engine for hosting open models yourself | n/a | Software free | GPUs | Only for self-hosting on a GPU, not the CPU VPS of §3 |
+
