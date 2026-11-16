@@ -1593,3 +1593,10 @@ tech-katta-context/
 - **In scope:** `review` (§12.1).
 - **Out of scope unless the owner asks:** `grade`, `clarify`, `explain`, and the Defend and mock-interview flows that use them.
 - **Evaluation:** §19.3's Reviews set is built as `backend/ai-evals/ground-truth.json` (PR #370). The Grades, Injection and Clarify sets are not needed for this scope. Injection through part names still matters for `review`: add it if a part-name attack is found.
+
+## Update 2026-11-16: the interviewer's view replaces "review"
+
+- **Owner's rule:** the AI must add only what the judge cannot determine at runtime. Restating the judge is already done without AI, by the template review.
+- **The new job:** the model sees the problem, the learner's design with numbered lines and the judge's findings, and returns at most three points about design choices, each tied to a line and shown as "the interviewer's view".
+- **Spec change (owner):** this deliberately relaxes §12.1's "no claim that is not a fact".
+- **Where:** `backend/ai-evals/REQUIREMENTS.md`, `observe.mjs`, `blind-spots.mjs`.

@@ -2403,3 +2403,42 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - **OpenRouter is the alternative:** about 5.5 % on buying credit. DeepSeek costs about half as much there.
   - **Estimates (all ten, 3 runs):** $1.50 on Vercel, $1.12 on OpenRouter.
   - **Commit:** `ccc8b77` (PR #370). Tests: ai-evals 10/10, backend 125/125. Ledger backend 727.
+
+## 2026-11-16 (later): the AI evaluator is "the interviewer's view" (PR #370)
+
+- **Owner's direction, in order:**
+  - **No chat.**
+  - **One platform, one key:** Vercel AI Gateway. The owner added a card (verification only); the key is saved as an environment secret for `ai-gateway.vercel.sh`.
+  - **Don't make the AI repeat the judge:** "we need something from the llm that we cannot determine ourselves runtime".
+  - **The model may see the learner's design** and comment, each point tied to a line, shown as "the interviewer's view" (owner: yes).
+  - **The ground truth should be wider, each sample with a unique finding.**
+  - **Design the test script, don't run it**; later: run it.
+- **The test set** (`backend/ai-evals/blind-spots.mjs`, `blind-spots.md`):
+  - **10 flawed designs, each with a different finding, all passing the judge 5/5:**
+    - a hot time-bucket key;
+    - a few hot entities;
+    - a partition key that isn't the lookup key;
+    - a key too coarse, so rows overwrite each other;
+    - a timestamp as primary key;
+    - blobs in a key-value store;
+    - a one-second CDN cache on photos that never change;
+    - sequential ids on private pastes;
+    - a counter with no window;
+    - clients reading the store directly.
+  - **12 clean designs:** the 10 references and 2 variants.
+- **The job and test:**
+  - `observe.mjs`: the prompt, the schema (at most 3 points: line, category, severity, text), the checks and the marking.
+  - `observe-bakeoff.mjs`: each answer saved as it arrives, `--resume`, a budget guard that counts reasoning tokens, and a report with the ranking and which model caught which flaw.
+  - `observe-candidates.json`: the 8 free-credit models and 4 paid ones.
+- **Facts learned:**
+  - The free credit serves 57 cheap models but not Haiku 5.5, GPT-6 Luna, DeepSeek V4.1, GLM-5.3, Gemini 3.1 or Qwen3.8 (those answer 403).
+  - The free tier allows 5 calls a minute per model.
+  - Reasoning tokens count as output: production's `AI_MAX_OUTPUT_TOKENS=1500` cuts answers off, so raise it for the chosen model.
+  - Node's `fetch` needs `NODE_USE_ENV_PROXY=1` behind the session proxy.
+  - The judge reports only the first failing test's findings.
+  - Part names are at most 24 characters.
+- **Content question for the owner:**
+  - Is `seat_id` unique across shows? Muse Ember raised it on the ticket reference.
+  - `rate-limiter/three-nodes`: the author blames the storage nodes, the judge blames the servers.
+- **The first run of the 8 free models** started 2026-11-16 at about 16:30 UTC. Results go in `backend/ai-evals/results/observe-first-run.md`, not committed.
+- **Commits:** `1c1b1b7` and `7a95276`, plus the earlier PR #370 commits. Ledger: backend rows recorded for each.

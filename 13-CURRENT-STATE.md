@@ -1959,3 +1959,5 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
 - **2026-11-16, frontend/next production-ready (`9ec6935` prototype, `86c1250` PR #367):** one codebase for both looks with a look registry, per-look CSS, a route error page, and a Playwright e2e suite (70 tests, both looks) in CI. Sign-in and practice on the prototypes still wait on PR #368.
 
 - **2026-11-16, AI evaluator:** review job only (no chat, owner). Ground truth and OpenRouter bake-off in draft PR #370, not yet run on a real model.
+
+- **2026-11-16, AI evaluator:** it is "the interviewer's view": only what the judge cannot see, tied to design lines. The test set is 10 unique flawed designs plus 12 clean ones. The test script is built, and the first run on 8 free Vercel models is under way (PR #370, draft).

@@ -99,3 +99,7 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 
 - [ ] Owner: create an OpenRouter account, add about $5, and give the key (as a secret, never in chat) to run `node ai-evals/bakeoff.mjs` (PR #370). Then pick the model from `results/bakeoff-*.md` and set the server's `AI_*` settings.
 - [ ] (replaces the OpenRouter line above) Owner: create a Vercel AI Gateway API key (Vercel dashboard, AI Gateway, API keys); the free $5 a month may cover the whole bake-off. Give it through the secure form, never in chat.
+
+- [ ] Read the first interviewer's-view run (`results/observe-first-run.md`), pick a model, and read a sample of its answers.
+- [ ] Owner: is `seat_id` unique across shows (ticket-booking)? `rate-limiter/three-nodes`: fix the design or the author's words.
+- [ ] When a model is chosen: add the interviewer's view to production (backend job, page section) and raise `AI_MAX_OUTPUT_TOKENS`.
