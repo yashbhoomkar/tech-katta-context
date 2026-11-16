@@ -2243,3 +2243,13 @@ Owner: "Same case with prototype.katta.cc/p/next."
   - frontend 439 and next 42 pass;
   - locally, allp 17/17 and decided 12/12 on both sites;
   - live on /p/next, allp 17/17 and decided 12/12. The live run on /p/neo-brutalism for this deploy was stopped partway, so re-run it.
+
+## 2026-11-16: small card figures (SectionMini)
+
+- **Owner:** cards with just an icon look empty, on both sites; "smaller figures will make sense".
+- **Built:** `components/SectionMini.tsx` and `content/steps.ts` (tested). Each card shows its section's next three real lessons on a path, with a travelling request. MarkSticker and FigureThumb are removed.
+- **Commits:** `ce2b659` (prototype, live) and `f3748fb` (PR #367).
+- **Checks:**
+  - frontend 439 and next 48 pass;
+  - live, allp 17/17 and decided 12/12 on both sites;
+  - Home and Learn, phone and desktop, light and dark: no errors and no sideways scroll.

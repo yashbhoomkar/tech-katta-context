@@ -1500,3 +1500,5 @@ prototype commit touches `backend/`).
 **2026-11-16 (8:15 am run):** `5b4be8ba7ca8f1de03770115cee6c5052c6d0702` (prototype: figures in the cards' colours, mark stickers, mock-up motion) and `d0b8118800866fd709f93508a537b9d19755aa16` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1056**.
 
 **2026-11-16:** `56a66b64386de964f42063c74c2e6f0e15eb1a16` (prototype: /p/next figures in the cards' colours, section stickers) and `802c04ab98b9c0bda9e842cfad2a4608acc77bd1` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1058**.
+
+**2026-11-16:** `ce2b6599a44236527860596254ea99bd2e32b8f4` (prototype: SectionMini, a small figure for each card) and `f3748fbc534f7719f6b88a9920819fe55aa94c4a` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1060**.

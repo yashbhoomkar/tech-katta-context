@@ -265,3 +265,14 @@ Owner: "Colour scheme of the figures should match the colour scheme of the cards
   - DONE stamps, sticker labels and halftone;
   - quarter-turn shapes;
   - a marigold print shadow on lesson titles.
+
+### Card pictures: a small figure drawn for the card (2026-11-16)
+
+Owner, with marked screenshots of Home and Learn on a phone: the lone section icon "looks so empty… same with /p/next… smaller figures will make sense".
+
+Decision, in both looks: **SectionMini**.
+- **What it shows:** the section's mark, then a short path through the section's real lessons: the one to read next and the two after it. A request travels along the line, the current lesson is filled with the card's colour, and finished ones carry a tick.
+- **Readable at card size:** it is drawn for the card, not shrunk from a figure. The labels are text and wrap to two lines. Narrow cards stack the path, and from 300 px wide it runs sideways.
+- **Home's Continue card** shows the lesson you are on between its neighbours.
+- **Neo-brutalism:** outlined boxes, a tilted mark sticker, and a square chip that hops box to box.
+- **Commits:** `ce2b659` (prototype) and `f3748fb` (PR #367).
