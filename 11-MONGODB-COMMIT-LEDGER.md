@@ -1563,3 +1563,7 @@ Count after: backend **743**.
 
 **2026-11-17 (scoring fix):** `e3a19ead2137a94c7b8bfeaa0e3a8e2384bcd85c` (branch `ai-eval-gemini`, backend only) inserted into
 `backend_git_commits` after checking it was absent. Count after: backend **744**.
+
+**2026-11-18 (prototype scroll-3d):** `0d4c2d7aa76dbe273dfcf245fddc93b4086b569d` and
+`8cf97d3b1a82bdbd5434751d1594d266c6c52e8b` (branch `prototype`) inserted into `frontend_git_commits` after checking
+they were absent. Count after: frontend **1083**.

@@ -276,3 +276,24 @@ Decision, in both looks: **SectionMini**.
 - **Home's Continue card** shows the lesson you are on between its neighbours.
 - **Neo-brutalism:** outlined boxes, a tilted mark sticker, and a square chip that hops box to box.
 - **Commits:** `ce2b659` (prototype) and `f3748fb` (PR #367).
+
+### 3D scroll story: /p/scroll-3d/ (2026-11-18, 00:00–00:40 IST)
+
+Owner, after looking at rca.gg: "On scrolling down the background animation changes … That is soo cool", then
+"create a new prototype at prototype.katta.cc which will follow the colour schemes [and] 3d animations of rca.gg".
+- **What it is:** a Tech Katta landing page whose background is one isometric 3D scene of a URL shortener. Six
+  screens: hero, 01 the spike (IND vs PAK, 40,000 opens a second), 02 it breaks (the only cache dies, the database
+  overloads, a blinking SEV-1 tag), 03 find the cause (the camera flies to the database, its layers pull apart with
+  readings, log lines), 04 fix it (a second cache and a read replica, paths turn green), 05 your turn.
+- **Taken from rca.gg:** the colours (lavender page, one violet accent, orange only for broken, green only for
+  fixed), Manrope + IBM Plex Mono, thin-plus-heavy headlines, translucent stacked blocks, dotted paths with moving
+  dots, label pills, a 01 / 05 progress bar, one camera moving between chapters. **Not taken:** their words, logo,
+  story or images.
+- **Decision:** the scene is one SVG with an isometric projection computed in `scene.js`, not CSS 3D or WebGL:
+  crisp edges, upright labels, no libraries (the CSP allows only same-site scripts), works on any phone.
+- **Checked live** (desktop 1440×900 and Pixel 7, light and dark): every screen, no page errors, no sideways
+  scroll, "See how it works" and the next button scroll to the right chapter, the theme switch cycles, reduced
+  motion shows final states with no camera move, dots or blinking.
+- **To look at:** whether the 3D feels as good as rca.gg's; the chapter 3 database pulling apart; dark mode; the
+  phone layout (scene on top, text below). Open: the hero scene starts low on short laptop screens.
+- Commits `0d4c2d7`, `8cf97d3` on `prototype` (ledgered). Folder README explains how to add a chapter.
