@@ -1546,3 +1546,9 @@ into `ai_eval_responses`: the SHA-256 of the 53 new screening files, the regener
 probe of all 203 models, docs 45 and 46 as updated, and the context commit `a643ff4`. Count after: **108**, no
 duplicate keys (checked with a group-by).
 
+**2026-11-17 (judge checks W004–W007, ground truth v4):** `39e65f4d99db626b8eb05918d5b9ce9c323033db` (branch
+`ccr-ground-truth-v3`, not in a PR; changes `frontend/src/tkd/` and `backend/ai-evals/`) inserted into both
+`frontend_git_commits` and `backend_git_commits` after checking it was absent from both. Counts after: frontend
+**1079**, backend **739**. `ai_eval_responses`: 3 rows (the SHA-256 of docs 44 and 45 at `949e26d`, and that
+commit); count after **111**.
+
