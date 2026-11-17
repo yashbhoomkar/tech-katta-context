@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+> **2026-11-17, 13:45 IST: every free model checked (93 of 203 are free; 68 tested in all). Still none clears the bar; best newcomer GPT-5.1 Codex Mini, 50 % caught, 42 % false alarms. The 25 dearest free models (about $27 a run) are not tested. Free credit left: $0.99; the key's $3.00 budget is used up (doc 45 §12).**
+>
 > **2026-11-17, 12:31 IST: the model search ran. No free-tier model clears the bar; no model is chosen. Results: `45-AI-EVALUATOR-RUN-RESULTS.md`; every answer: `46-AI-EVALUATOR-ANSWERS-V3.md`. Spent $0.85 of the free credit ($3.34 left). Next: the owner's choices in doc 45 §10. Every API response is in `ai-eval-results/` (doc 45 §11); MongoDB: `ai_eval_responses` 49 rows, `backend_git_commits` 737.**
 >
 > **2026-11-17: the AI evaluator's model search is planned and ready to run: `44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md` (its `## Execution instructions` are the runbook; results go to doc 45). Code: `tech-katta` branch `ccr-ground-truth-v3`. No model was called.**

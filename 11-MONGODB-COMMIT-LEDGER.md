@@ -1540,3 +1540,9 @@ the review list, every `/v1/credits` response), of `ai-eval-results/platform-pro
 of docs 44, 45 and 46, and the context commits `782ac77`, `261fc1b`, `804e875` and `a2d12d1` (branch
 `ai-model-search-plan`). Count after: **49**. The commit that adds this entry is not itself recorded.
 
+**2026-11-17 (every free model checked):** `94f4ec2c62bdce917bc063c497451d316fd5c9cc` (`probe-free-tier.mjs`, branch
+`ccr-ground-truth-v3`, not in a PR) inserted into `backend_git_commits`; backend count after: **738**. 59 rows inserted
+into `ai_eval_responses`: the SHA-256 of the 53 new screening files, the regenerated report and review list, the
+probe of all 203 models, docs 45 and 46 as updated, and the context commit `a643ff4`. Count after: **108**, no
+duplicate keys (checked with a group-by).
+
