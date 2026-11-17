@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+> **2026-11-17, night: the test made fairer (doc 45 §17). Repeating the judge is no longer a false alarm; 150 close calls reviewed (by the key's author, not neutral). After review: Gemini 3.1 Flash-Lite 82 % caught but 45 % false alarms; Muse Ember 50 % caught, 0 % false alarms, p95 5.2 s, which meets a precision-first bar if the owner picks one. Code on `tech-katta` `ai-eval-gemini`. Open: the owner's choice of bar; one strong-model run as a yardstick (cheaper routes than Vercel's $10 in `18-TODO.md`).**
+>
 > **2026-11-17, late: Gemini tested for free (Google AI Studio key, $0 spent; `tech-katta` branch `ai-eval-gemini`, `7b6e60a`, not in a PR). 9 Gemini models, none clears the bar; best Gemini 3.1 Flash-Lite, 74 % caught, 61 % false alarms, p95 52 s. Bigger Flash models are overloaded on the free tier. Doc 45 §16; answers in `ai-eval-results/gemini-v4/`.**
 >
 > **2026-11-17, evening: PR #371 merged to `tech-katta` main (`7c53c7a`) and verified live: judge 3 (W004, W005, W007; a counter too narrow now fails), content fixes, AI test kit with ground truth v4 (50 designs). Decisions and checks: doc 45 §15. Open: close draft PR #370 unmerged; a model budget for the next search (free credit about $0.99, the key's budget spent); merge this context branch `ai-model-search-plan`.**

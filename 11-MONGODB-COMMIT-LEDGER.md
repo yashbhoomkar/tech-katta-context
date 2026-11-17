@@ -1560,3 +1560,6 @@ absent first. Counts after: frontend **1081**, backend **742**.
 **2026-11-17 (Gemini platform):** `7b6e60a5369b75bf05c0b1a294635264b59a1444` (branch `ai-eval-gemini`, not in a PR;
 `backend/ai-evals/` and `backend/test/` only) inserted into `backend_git_commits` after checking it was absent.
 Count after: backend **743**.
+
+**2026-11-17 (scoring fix):** `e3a19ead2137a94c7b8bfeaa0e3a8e2384bcd85c` (branch `ai-eval-gemini`, backend only) inserted into
+`backend_git_commits` after checking it was absent. Count after: backend **744**.

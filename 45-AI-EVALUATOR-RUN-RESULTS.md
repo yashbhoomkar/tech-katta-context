@@ -363,3 +363,47 @@ $0.99 of free credit left; (b) wait for Vercel's monthly $5; (c) `--resume` the 
 (their speed already misses the bar). None of these is likely to find a model that clears the bar: the pattern
 across 76 models is that the free and cheap ones either miss faults or raise false alarms. The remaining real
 options cost money (the 25 dearest Vercel models, or paid tiers).
+
+## 17. Is the test fair? Two fixes, 2026-11-17 night
+
+The owner asked whether the test and the bar expect too much, then: "Do step 1 step 2".
+
+**Step 1, a marking rule.** A problem point on a line the judge already reports now counts as *restated*, never as a
+false alarm, on clean designs too (it already was so on flawed ones). It is redundant, not wrong: the learner already
+sees it in the judge's report. `tech-katta` `ai-eval-gemini`: `observe.mjs` `scoreObserve`; `remark.mjs` re-marks
+saved answers with the current key, without calling any model. Every saved answer of both runs was re-marked with
+ground truth v4: `ai-eval-results/remarked-2026-11-17/` (v3 answers; they were made with the older prompt inputs, so
+they are a guide, not a re-run) and `gemini-v4/` (its files now carry the new marks; the first marks are in git
+history, commit `03e4842`). On average false alarms fell by 6 points.
+
+**Step 2, a review of the close calls.** The 150 close calls of the seven strongest models (right line but a reason
+the word patterns rejected; false alarms) were read one by one: 36 accepted, 114 rejected. Rules and every verdict:
+`ai-eval-results/remarked-2026-11-17/REVIEW-NOTES.md`. **The reviewer is the author of the key, not a neutral
+person**; the owner can change any verdict in the two `*-reviews.json` files.
+
+| Model | Caught: saved → step 1 → reviewed | False alarms: saved → step 1 → reviewed | p95 | Notes |
+|---|---|---|---|---|
+| Gemini 3.1 Flash-Lite | 74.2 → 74.2 → **81.8 %** | 60.7 → 45.2 → 45.2 % | 52 s | catch bar met; noisy, slow, obeyed a hidden instruction once |
+| GPT-5 mini | 55.6 → 66.7 → 77.3 % | 70.2 → 56.8 → 48.1 % | 19 s | |
+| Gemini 3 Flash | 66.7 → 66.7 → 66.7 % | 83.3 → 16.7 → 16.7 % | 33 s | only 21 answers (daily quota) |
+| GPT-5.1 Codex Mini | 50 → 54.5 → 59.1 % | 42.1 → 33.3 → 29.6 % | 15 s | |
+| **Muse Ember** | 40 → 47 → **50 %** | 12.3 → 11.1 → **0 %** | **5.2 s** | quiet and fast: only the catch rate misses |
+| Qwen 3.8 Omni Flash | 43.3 → 45.5 → 45.5 % | 5.3 → 7.4 → 0 % | 28 s | |
+| Inkling 2 Small | 40 → 45.5 → 45.5 % | 5.3 → 7.4 → 0 % | 13 s | |
+| Gemma 4 31B | 34.8 → 34.8 % | 13.1 → 8.3 % | 56 s | not reviewed; 13 % overload errors |
+
+(The v3 columns use ground truth v4, so "saved → step 1" also moves designs the judge now reports out of the catch
+count.)
+
+**What the review showed:**
+- The automatic marking was too harsh in two ways: restating the judge (fixed), and three unclear problem statements
+  (already fixed in `af15e7d`; the v3 answers that read them reasonably are accepted).
+- Most false alarms are real: the models misread the notation (a nosql key holds many rows), get quorum arithmetic
+  wrong, or flag staleness the problem allows.
+- **Two kinds of model:** catchers (Gemini 3.1 Flash-Lite, GPT-5 mini: about 80 % caught, about 45 % false alarms)
+  and quiet ones (Muse Ember, Qwen 3.8 Omni, Inkling 2 Small: about 45–50 % caught, 0 % false alarms). None is both.
+- **The bar:** no model meets 80 % caught *and* 10 % false alarms. If the owner chooses a precision-first bar (false
+  alarms ≤ 10 %, caught ≥ 50 %, p95 ≤ 10 s), **Muse Ember meets it after review** (50 %, 0 %, 5.2 s, about ₹74 per
+  1,000 correct answers on v3 prices). This is the owner's decision, not made here.
+- Still unknown: what a strong model scores (no yardstick). The ways to buy one run for less than Vercel's $10
+  minimum are in the reply of 2026-11-17 and in `18-TODO.md`.
