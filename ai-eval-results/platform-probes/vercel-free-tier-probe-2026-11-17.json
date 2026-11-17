@@ -1,0 +1,5540 @@
+{
+ "probed_at": "2026-11-17T07:50:23.669Z",
+ "platform": "Vercel AI Gateway",
+ "models": 203,
+ "free": 93,
+ "rows": [
+  {
+   "id": "alibaba/qwen-3-14b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 16,
+    "total_tokens": 26,
+    "cost": 0.00000504,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000504,
+    "gateway_cost": 0.00000504
+   },
+   "price_in": 0.12,
+   "price_out": 0.24,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "alibaba/qwen-3-235b",
+   "status": 404,
+   "free": false,
+   "error": "Not Found",
+   "usage": null,
+   "price_in": 0.22,
+   "price_out": 0.88,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen-3-30b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 16,
+    "total_tokens": 26,
+    "cost": 0.0000092,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000092,
+    "gateway_cost": 0.0000092
+   },
+   "price_in": 0.12,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "alibaba/qwen-3-32b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 3,
+    "total_tokens": 17,
+    "cost": 0.0000039,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000039,
+    "gateway_cost": 0.0000039
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "alibaba/qwen3-coder",
+   "status": 404,
+   "free": false,
+   "error": "Not Found",
+   "usage": null,
+   "price_in": 0.22,
+   "price_out": 1.7999999999999998,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3-coder-30b-a3b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 3,
+    "total_tokens": 13,
+    "cost": 0.0000033,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000033,
+    "gateway_cost": 0.0000033
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3-coder-next",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 2,
+    "total_tokens": 12,
+    "cost": 0.0000074,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000074,
+    "gateway_cost": 0.0000074
+   },
+   "price_in": 0.5,
+   "price_out": 1.2,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3-max-thinking",
+   "status": 404,
+   "free": false,
+   "error": "Model not exist.",
+   "usage": null,
+   "price_in": 1.2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3-next-80b-a3b-instruct",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 2,
+    "total_tokens": 12,
+    "cost": 0.0000031,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000031,
+    "gateway_cost": 0.0000031
+   },
+   "price_in": 0.15,
+   "price_out": 1.2,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "alibaba/qwen3-next-80b-a3b-thinking",
+   "status": 404,
+   "free": false,
+   "error": "Not Found",
+   "usage": null,
+   "price_in": 0.15,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.6-35b-a3b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 343,
+    "total_tokens": 355,
+    "cost": 0.00077625,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 337,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00077625,
+    "gateway_cost": 0.00077625
+   },
+   "price_in": 0.375,
+   "price_out": 2.25,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.7-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 81,
+    "total_tokens": 93,
+    "cost": 0.00001089,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 78,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001089,
+    "gateway_cost": 0.00001089
+   },
+   "price_in": 0.03,
+   "price_out": 0.13,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.7-max",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2.5,
+   "price_out": 7.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.8-2.4t-a95b",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "alibaba/qwen3.8-27b",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.06,
+   "price_out": 2.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "alibaba/qwen3.8-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.15,
+   "price_out": 0.47,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.8-max",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.8-max-0902",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.8-max-prime",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4,
+   "price_out": 12,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen3.8-omni-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 54,
+    "completion_tokens": 36,
+    "total_tokens": 90,
+    "cost": 0.00002502,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 31,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00002502,
+    "gateway_cost": 0.00002502
+   },
+   "price_in": 0.15,
+   "price_out": 0.47,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "alibaba/qwen4-max",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.5,
+   "price_out": 4.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "amazon/nova-2-lite",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 48,
+    "completion_tokens": 12,
+    "total_tokens": 60,
+    "cost": 0.00004884,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00004884,
+    "gateway_cost": 0.00004884
+   },
+   "price_in": 0.33,
+   "price_out": 2.75,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "amazon/nova-lite",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 16,
+    "total_tokens": 18,
+    "cost": 0.00000396,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000396,
+    "gateway_cost": 0.00000396
+   },
+   "price_in": 0.06,
+   "price_out": 0.24,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "amazon/nova-micro",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 16,
+    "total_tokens": 18,
+    "cost": 0.00000231,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000231,
+    "gateway_cost": 0.00000231
+   },
+   "price_in": 0.035,
+   "price_out": 0.14,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "amazon/nova-pro",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 16,
+    "total_tokens": 18,
+    "cost": 0.0000528,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000528,
+    "gateway_cost": 0.0000528
+   },
+   "price_in": 0.7999999999999999,
+   "price_out": 3.1999999999999997,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-fable-5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 10,
+   "price_out": 50,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "anthropic/claude-fable-5.1",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 10,
+   "price_out": 50,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "anthropic/claude-fable-5.2",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 8,
+   "price_out": 40,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "anthropic/claude-haiku-4.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1,
+   "price_out": 5,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-haiku-5.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.09999999999999999,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-4.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-4.6",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-4.7",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-4.8",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-opus-5.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4,
+   "price_out": 20,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 3,
+   "price_out": 15,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-sonnet-4.6",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 3,
+   "price_out": 15,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-sonnet-5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "anthropic/claude-sonnet-5.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "cohere/command-a",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 497,
+    "completion_tokens": 4,
+    "total_tokens": 501,
+    "cost": 0.0012825,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0012825,
+    "gateway_cost": 0.0012825
+   },
+   "price_in": 2.5,
+   "price_out": 10,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "deepseek/deepseek-v3.1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 6,
+    "completion_tokens": 2,
+    "total_tokens": 8,
+    "cost": 0.0000034,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000034,
+    "gateway_cost": 0.0000034
+   },
+   "price_in": 0.25,
+   "price_out": 0.95,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.13,
+   "price_out": 0.26,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-0731",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.13,
+   "price_out": 0.26,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "deepseek/deepseek-v4-flash-vision-exp",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.21559999999999999,
+   "price_out": 0.6468,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.32,
+   "price_out": 3.9600000000000004,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "deepseek/deepseek-v4-pro-0813",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.66,
+   "price_out": 1.9800000000000002,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "deepseek/deepseek-v4.1-flash-1017",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-2.5-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 12,
+    "total_tokens": 14,
+    "cost": 0.0000306,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 11,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000306,
+    "gateway_cost": 0.0000306
+   },
+   "price_in": 0.3,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-2.5-flash-lite",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 2,
+    "completion_tokens": 1,
+    "total_tokens": 3,
+    "cost": 6e-7,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 6e-7,
+    "gateway_cost": 6e-7
+   },
+   "price_in": 0.09999999999999999,
+   "price_out": 0.39999999999999997,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-2.5-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.5,
+   "price_out": 3,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3.1-flash-lite",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.25,
+   "price_out": 1.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3.1-pro-preview",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 12,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3.5-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.5,
+   "price_out": 9,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "google/gemini-3.5-flash-lite",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.3,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3.6-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.75,
+   "price_out": 3.75,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-3.7-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.75,
+   "price_out": 3.75,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "google/gemini-3.8-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.75,
+   "price_out": 3.75,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-4-argon",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-4-carbon",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-4-hydrogen",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.5,
+   "price_out": 7.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-nano-banana-2.1",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.5,
+   "price_out": 7.5,
+   "reasoning": true,
+   "effort": "minimal",
+   "effort_values": [
+    "minimal",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemini-omni-flash-preview",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.5,
+   "price_out": 9,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "google/gemma-4-26b-a4b-it",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 15,
+    "completion_tokens": 2,
+    "total_tokens": 17,
+    "cost": 0.00000291,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 4,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000291,
+    "gateway_cost": 0.00000291
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "google/gemma-4-31b-it",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.14,
+   "price_out": 0.39999999999999997,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "inception/mercury-3",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 3,
+    "completion_tokens": 15,
+    "total_tokens": 18,
+    "cost": 0.00000555,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000555,
+    "gateway_cost": 0.00000555
+   },
+   "price_in": 0.09999999999999999,
+   "price_out": 0.35,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "instant",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "inference-net/schematron-v2-small",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 37,
+    "completion_tokens": 2,
+    "total_tokens": 39,
+    "cost": 0.00000231,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000231,
+    "gateway_cost": 0.00000231
+   },
+   "price_in": 0.049999999999999996,
+   "price_out": 0.22999999999999998,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "inference-net/schematron-v2-turbo",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 32,
+    "completion_tokens": 16,
+    "total_tokens": 48,
+    "cost": 0.00000336,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000336,
+    "gateway_cost": 0.00000336
+   },
+   "price_in": 0.03,
+   "price_out": 0.15,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "interfaze/interfaze-beta",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 296,
+    "completion_tokens": 5,
+    "total_tokens": 301,
+    "cost": 0.0004615,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 296,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0004615,
+    "gateway_cost": 0.0004615
+   },
+   "price_in": 1.5,
+   "price_out": 3.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "liquid/lfm2.5-24b-a2b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 12,
+    "completion_tokens": 16,
+    "total_tokens": 28,
+    "cost": 0.0000118,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000118,
+    "gateway_cost": 0.0000118
+   },
+   "price_in": 0.049999999999999996,
+   "price_out": 0.7,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "meituan/longcat-2.5",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 16,
+    "total_tokens": 25,
+    "cost": 0.0000219,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000219,
+    "gateway_cost": 0.0000219
+   },
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "meta/llama-3.1-8b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 4,
+    "total_tokens": 21,
+    "cost": 0.00000462,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000462,
+    "gateway_cost": 0.00000462
+   },
+   "price_in": 0.22,
+   "price_out": 0.22,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "meta/llama-4-scout",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 37,
+    "completion_tokens": 2,
+    "total_tokens": 39,
+    "cost": 0.00000761,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000761,
+    "gateway_cost": 0.00000761
+   },
+   "price_in": 0.16999999999999998,
+   "price_out": 0.66,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "meta/muse-ember",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 10,
+    "completion_tokens": 16,
+    "total_tokens": 26,
+    "cost": 0.000009,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 14,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000009,
+    "gateway_cost": 0.000009
+   },
+   "price_in": 0.09999999999999999,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-glimmer-30b",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.35,
+   "price_out": 1.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-spark-1.1",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 4.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-spark-1.2",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 4.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-spark-1.2-contributor",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.09999999999999999,
+   "price_out": 0.19999999999999998,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "meta/muse-spark-1.3",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 4.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-spark-1.3-contributor",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.09999999999999999,
+   "price_out": 0.19999999999999998,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "meta/muse-spark-open",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 147,
+    "completion_tokens": 16,
+    "total_tokens": 163,
+    "cost": 0.00011095,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 128,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00011095,
+    "gateway_cost": 0.00011095
+   },
+   "price_in": 1.25,
+   "price_out": 4.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "meta/muse-wonder-1.0",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4,
+   "price_out": 20,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "minimax/minimax-m2",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 43,
+    "completion_tokens": 16,
+    "total_tokens": 59,
+    "cost": 0.0000321,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000321,
+    "gateway_cost": 0.0000321
+   },
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "minimax/minimax-m2.1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 40,
+    "completion_tokens": 16,
+    "total_tokens": 56,
+    "cost": 0.0000312,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000312,
+    "gateway_cost": 0.0000312
+   },
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "minimax/minimax-m2.1-lightning",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 40,
+    "completion_tokens": 16,
+    "total_tokens": 56,
+    "cost": 0.0000504,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 18,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000504,
+    "gateway_cost": 0.0000504
+   },
+   "price_in": 0.3,
+   "price_out": 2.4,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "minimax/minimax-m2.5",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 45,
+    "completion_tokens": 16,
+    "total_tokens": 61,
+    "cost": 0.00002865,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 15,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00002865,
+    "gateway_cost": 0.00002865
+   },
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "minimax/minimax-m2.5-highspeed",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 45,
+    "completion_tokens": 16,
+    "total_tokens": 61,
+    "cost": 0.00005685,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 15,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00005685,
+    "gateway_cost": 0.00005685
+   },
+   "price_in": 0.6,
+   "price_out": 2.4,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "minimax/minimax-m2.7",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 45,
+    "completion_tokens": 16,
+    "total_tokens": 61,
+    "cost": 0.0000291,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 15,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000291,
+    "gateway_cost": 0.0000291
+   },
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "minimax/minimax-m2.7-highspeed",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 45,
+    "completion_tokens": 16,
+    "total_tokens": 61,
+    "cost": 0.0000573,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 15,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 19,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000573,
+    "gateway_cost": 0.0000573
+   },
+   "price_in": 0.6,
+   "price_out": 2.4,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "minimax/minimax-m3",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.3,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "minimax/minimax-m3.1-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 204,
+    "completion_tokens": 16,
+    "total_tokens": 220,
+    "cost": 0.0000402,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000402,
+    "gateway_cost": 0.0000402
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "mistral/codestral",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 5,
+    "completion_tokens": 6,
+    "total_tokens": 11,
+    "cost": 0.0000069,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000069,
+    "gateway_cost": 0.0000069
+   },
+   "price_in": 0.3,
+   "price_out": 0.8999999999999999,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/ministral-14b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 5,
+    "completion_tokens": 13,
+    "total_tokens": 18,
+    "cost": 0.0000036,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000036,
+    "gateway_cost": 0.0000036
+   },
+   "price_in": 0.19999999999999998,
+   "price_out": 0.19999999999999998,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/ministral-8b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 5,
+    "completion_tokens": 16,
+    "total_tokens": 21,
+    "cost": 0.00000315,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000315,
+    "gateway_cost": 0.00000315
+   },
+   "price_in": 0.15,
+   "price_out": 0.15,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/mistral-large-3",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 16,
+    "total_tokens": 33,
+    "cost": 0.0000325,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000325,
+    "gateway_cost": 0.0000325
+   },
+   "price_in": 0.5,
+   "price_out": 1.5,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/mistral-large-4",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.7,
+   "price_out": 2.0999999999999996,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "none",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/mistral-medium-3.5",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 2,
+    "total_tokens": 19,
+    "cost": 0.0000405,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000405,
+    "gateway_cost": 0.0000405
+   },
+   "price_in": 1.5,
+   "price_out": 7.5,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "none",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "mistral/mistral-nemo",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 6,
+    "completion_tokens": 6,
+    "total_tokens": 12,
+    "cost": 3.54e-7,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 3.54e-7,
+    "gateway_cost": 3.54e-7
+   },
+   "price_in": 0.029,
+   "price_out": 0.03,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "mistral/mistral-small",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 14,
+    "total_tokens": 31,
+    "cost": 0.00001095,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001095,
+    "gateway_cost": 0.00001095
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "mixedbread/toast-1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 2,
+    "total_tokens": 16,
+    "cost": 0.00000564,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000564,
+    "gateway_cost": 0.00000564
+   },
+   "price_in": 0.3,
+   "price_out": 0.72,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "moonshotai/kimi-k2.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.6,
+   "price_out": 3,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "moonshotai/kimi-k2.6",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.95,
+   "price_out": 4,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "some"
+  },
+  {
+   "id": "moonshotai/kimi-k2.7-code",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 16,
+    "total_tokens": 25,
+    "cost": 0.00007255,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00007255,
+    "gateway_cost": 0.00007255
+   },
+   "price_in": 0.95,
+   "price_out": 4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "moonshotai/kimi-k2.7-code-highspeed",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.9,
+   "price_out": 8,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "moonshotai/kimi-k3",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 3,
+   "price_out": 15,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "moonshotai/kimi-k3.1-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "moonshotai/kimi-k3.1-pro-highspeed",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4,
+   "price_out": 20,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "morph/morph-v3-large",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 98,
+    "completion_tokens": 2,
+    "total_tokens": 100,
+    "cost": 0.000092,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000092,
+    "gateway_cost": 0.000092
+   },
+   "price_in": 0.8999999999999999,
+   "price_out": 1.9,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "nvidia/nemotron-3-super-120b-a12b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 18,
+    "completion_tokens": 2,
+    "total_tokens": 20,
+    "cost": 0.000004,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000004,
+    "gateway_cost": 0.000004
+   },
+   "price_in": 0.15,
+   "price_out": 0.65,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "nvidia/nemotron-3-ultra-550b-a55b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 3,
+    "total_tokens": 22,
+    "cost": 0.0000186,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000186,
+    "gateway_cost": 0.0000186
+   },
+   "price_in": 0.6,
+   "price_out": 2.4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "nvidia/nemotron-3.5-lightning",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.06,
+   "price_out": 0.16,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "nvidia/nemotron-3.5-lightning-free",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 18,
+    "completion_tokens": 16,
+    "total_tokens": 34,
+    "cost": 0,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0
+   },
+   "price_in": 0,
+   "price_out": 0,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "nvidia/nemotron-3.5-super-vl",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 19,
+    "completion_tokens": 2,
+    "total_tokens": 21,
+    "cost": 0.0000048,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000048,
+    "gateway_cost": 0.0000048
+   },
+   "price_in": 0.19999999999999998,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-4.1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 3,
+    "total_tokens": 12,
+    "cost": 0.000042,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000042,
+    "gateway_cost": 0.000042
+   },
+   "price_in": 2,
+   "price_out": 8,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-4.1-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 2,
+    "total_tokens": 11,
+    "cost": 0.0000068,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000068,
+    "gateway_cost": 0.0000068
+   },
+   "price_in": 0.39999999999999997,
+   "price_out": 1.5999999999999999,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-4.1-nano",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 3,
+    "total_tokens": 12,
+    "cost": 0.0000021,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000021,
+    "gateway_cost": 0.0000021
+   },
+   "price_in": 0.09999999999999999,
+   "price_out": 0.39999999999999997,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-4o",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 10,
+    "total_tokens": 19,
+    "cost": 0.0001225,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0001225,
+    "gateway_cost": 0.0001225
+   },
+   "price_in": 2.5,
+   "price_out": 10,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-4o-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 3,
+    "total_tokens": 12,
+    "cost": 0.00000315,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000315,
+    "gateway_cost": 0.00000315
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.00001,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001,
+    "gateway_cost": 0.00001
+   },
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5-codex",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.00001,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001,
+    "gateway_cost": 0.00001
+   },
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.000002,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000002,
+    "gateway_cost": 0.000002
+   },
+   "price_in": 0.25,
+   "price_out": 2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5-nano",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 4e-7,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 4e-7,
+    "gateway_cost": 4e-7
+   },
+   "price_in": 0.049999999999999996,
+   "price_out": 0.39999999999999997,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.1-codex",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 16,
+    "total_tokens": 24,
+    "cost": 0.00017,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00017,
+    "gateway_cost": 0.00017
+   },
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.1-codex-max",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.00001,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001,
+    "gateway_cost": 0.00001
+   },
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.1-codex-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 14,
+    "total_tokens": 22,
+    "cost": 0.00003,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00003,
+    "gateway_cost": 0.00003
+   },
+   "price_in": 0.25,
+   "price_out": 2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.1-thinking",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 11,
+    "total_tokens": 19,
+    "cost": 0.00012,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00012,
+    "gateway_cost": 0.00012
+   },
+   "price_in": 1.25,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.2",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 5,
+    "total_tokens": 13,
+    "cost": 0.000084,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000084,
+    "gateway_cost": 0.000084
+   },
+   "price_in": 1.75,
+   "price_out": 14,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.2-codex",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.75,
+   "price_out": 14,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.2-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 21,
+   "price_out": 168,
+   "reasoning": true,
+   "effort": "medium",
+   "effort_values": [
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.3-codex",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.75,
+   "price_out": 14,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.4",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2.5,
+   "price_out": 15,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.4-mini",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.75,
+   "price_out": 4.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.4-nano",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 5,
+    "total_tokens": 13,
+    "cost": 0.00000785,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000785,
+    "gateway_cost": 0.00000785
+   },
+   "price_in": 0.19999999999999998,
+   "price_out": 1.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.4-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 30,
+   "price_out": 180,
+   "reasoning": true,
+   "effort": "medium",
+   "effort_values": [
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 30,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-5.5-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 30,
+   "price_out": 180,
+   "reasoning": true,
+   "effort": "medium",
+   "effort_values": [
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-5.6-luna",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.19999999999999998,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-5.6-sol",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4,
+   "price_out": 20,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-5.6-terra",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 12,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-6-astra",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 10,
+   "price_out": 50,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-6-luna",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.09999999999999999,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-6-sol",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-6.1-sol",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 10,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-6.1-terra",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1,
+   "price_out": 5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-oss-120b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 80,
+    "completion_tokens": 16,
+    "total_tokens": 96,
+    "cost": 0.000016,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 64,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 19,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000016,
+    "gateway_cost": 0.000016
+   },
+   "price_in": 0.09999999999999999,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-oss-20b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 56,
+    "completion_tokens": 16,
+    "total_tokens": 72,
+    "cost": 0.00000392,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 32,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 14,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000392,
+    "gateway_cost": 0.00000392
+   },
+   "price_in": 0.03,
+   "price_out": 0.14,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "openai/gpt-oss-safeguard-120b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 69,
+    "completion_tokens": 16,
+    "total_tokens": 85,
+    "cost": 0.00001995,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001995,
+    "gateway_cost": 0.00001995
+   },
+   "price_in": 0.15,
+   "price_out": 0.6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/gpt-oss-safeguard-20b",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 69,
+    "completion_tokens": 16,
+    "total_tokens": 85,
+    "cost": 0.00000803,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000803,
+    "gateway_cost": 0.00000803
+   },
+   "price_in": 0.07,
+   "price_out": 0.19999999999999998,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/o1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.00012,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00012,
+    "gateway_cost": 0.00012
+   },
+   "price_in": 15,
+   "price_out": 60,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/o3",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.000016,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000016,
+    "gateway_cost": 0.000016
+   },
+   "price_in": 2,
+   "price_out": 8,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/o3-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.0000088,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000088,
+    "gateway_cost": 0.0000088
+   },
+   "price_in": 1.1,
+   "price_out": 4.4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/o3-pro",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.00016,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00016,
+    "gateway_cost": 0.00016
+   },
+   "price_in": 20,
+   "price_out": 80,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "openai/o4-mini",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 8,
+    "completion_tokens": 0,
+    "total_tokens": 8,
+    "cost": 0.0000088,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000088,
+    "gateway_cost": 0.0000088
+   },
+   "price_in": 1.1,
+   "price_out": 4.4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "paperinstruments/ultramarine-1-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 16,
+    "total_tokens": 30,
+    "cost": 0.0000101,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000101,
+    "gateway_cost": 0.0000101
+   },
+   "price_in": 0.15,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "perplexity/sonar",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 4647,
+    "completion_tokens": 5,
+    "total_tokens": 4652,
+    "cost": 0.00184,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 1780,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 2864,
+    "market_cost": 0.00184,
+    "gateway_cost": 0.00184
+   },
+   "price_in": 0.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "recursive/flint-v1.0",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 4,
+    "completion_tokens": 16,
+    "total_tokens": 20,
+    "cost": 0,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0
+   },
+   "price_in": 0,
+   "price_out": 0,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "reflection/beam",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0,
+   "price_out": 0,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "reflection/beam-free",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0,
+   "price_out": 0,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "sakana/fugu-max",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "sakana/fugu-ultra",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 30,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "sakana/fugu-ultra-v2",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 5,
+   "price_out": 30,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "sakana/namazu",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.95,
+   "price_out": 4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "scaledown/scaledown-extract-1",
+   "status": 400,
+   "free": false,
+   "error": "extract requires response_format.json_schema.schema or a top-level 'entities' object.",
+   "usage": null,
+   "price_in": 0.049999999999999996,
+   "price_out": 0,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "spacexai/grok-4.20-multi-agent",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.20-multi-agent-beta",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.20-non-reasoning",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.20-non-reasoning-beta",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.20-reasoning",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.20-reasoning-beta",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.3",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.25,
+   "price_out": 2.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.6",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-4.7",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 2,
+   "price_out": 6,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high",
+    "xhigh"
+   ],
+   "zdr": "all"
+  },
+  {
+   "id": "spacexai/grok-build-0.1",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 188,
+    "completion_tokens": 212,
+    "total_tokens": 400,
+    "cost": 0.0005096,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 128,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 211,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0005096,
+    "gateway_cost": 0.0005096
+   },
+   "price_in": 1,
+   "price_out": 2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "all"
+  },
+  {
+   "id": "stepfun/step-3.7-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 16,
+    "total_tokens": 30,
+    "cost": 0.0000212,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 14,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000212,
+    "gateway_cost": 0.0000212
+   },
+   "price_in": 0.19999999999999998,
+   "price_out": 1.15,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "stepfun/step-5-preview",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1,
+   "price_out": 2.7,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "tencent/hy-mt2-plus",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 4,
+    "completion_tokens": 2,
+    "total_tokens": 6,
+    "cost": 8.86e-7,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 8.86e-7,
+    "gateway_cost": 8.86e-7
+   },
+   "price_in": 0.074,
+   "price_out": 0.295,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "tencent/hy-mt2-pro",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 3,
+    "total_tokens": 17,
+    "cost": 0.000001921,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000001921,
+    "gateway_cost": 0.000001921
+   },
+   "price_in": 0.074,
+   "price_out": 0.295,
+   "reasoning": false,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "tencent/hy3",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 14,
+    "completion_tokens": 16,
+    "total_tokens": 30,
+    "cost": 0.00001124,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001124,
+    "gateway_cost": 0.00001124
+   },
+   "price_in": 0.14,
+   "price_out": 0.58,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "tencent/hy4",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.417,
+   "price_out": 1.2505,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "none",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "tencent/hy4-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 23,
+    "completion_tokens": 16,
+    "total_tokens": 39,
+    "cost": 0.000003053,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000003053,
+    "gateway_cost": 0.000003053
+   },
+   "price_in": 0.035,
+   "price_out": 0.14049999999999999,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "none",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "thinkingmachines/inkling",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 16,
+    "total_tokens": 33,
+    "cost": 0.0000818,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 15,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000818,
+    "gateway_cost": 0.0000818
+   },
+   "price_in": 1,
+   "price_out": 4.05,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "thinkingmachines/inkling-2-small",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 17,
+    "completion_tokens": 16,
+    "total_tokens": 33,
+    "cost": 0.0000211,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 14,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000211,
+    "gateway_cost": 0.0000211
+   },
+   "price_in": 0.3,
+   "price_out": 1,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "thinkingmachines/inkling-small",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.44999999999999996,
+   "price_out": 1.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high",
+    "xhigh",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "xiaomi/mimo-v2.6-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 9,
+    "completion_tokens": 13,
+    "total_tokens": 22,
+    "cost": 0.0000049,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 10,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000049,
+    "gateway_cost": 0.0000049
+   },
+   "price_in": 0.14,
+   "price_out": 0.28,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "xiaomi/mimo-v2.6-pro",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.435,
+   "price_out": 0.87,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "xiaomi/mimo-v2.6-pro-ultraspeed",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 4.35,
+   "price_out": 8.7,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "minimal",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-4.5",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 16,
+    "total_tokens": 23,
+    "cost": 0.0000394,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000394,
+    "gateway_cost": 0.0000394
+   },
+   "price_in": 0.6,
+   "price_out": 2.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-4.5-air",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 16,
+    "total_tokens": 23,
+    "cost": 0.00001832,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 4,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 13,
+     "reasoning_tokens_estimated": true,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00001832,
+    "gateway_cost": 0.00001832
+   },
+   "price_in": 0.19999999999999998,
+   "price_out": 1.1,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-4.5v",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 16,
+    "total_tokens": 23,
+    "cost": 0.000033,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.000033,
+    "gateway_cost": 0.000033
+   },
+   "price_in": 0.6,
+   "price_out": 1.7999999999999998,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-4.6",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 16,
+    "total_tokens": 23,
+    "cost": 0.0000394,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000394,
+    "gateway_cost": 0.0000394
+   },
+   "price_in": 0.6,
+   "price_out": 2.2,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-4.7",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 2,
+    "total_tokens": 9,
+    "cost": 0.0000086,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000086,
+    "gateway_cost": 0.0000086
+   },
+   "price_in": 0.6,
+   "price_out": 2.2,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-4.7-flash",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 2,
+    "total_tokens": 9,
+    "cost": 0.00000129,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 0,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.00000129,
+    "gateway_cost": 0.00000129
+   },
+   "price_in": 0.07,
+   "price_out": 0.39999999999999997,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-5",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1,
+   "price_out": 3.1999999999999997,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-5.1",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.4,
+   "price_out": 4.4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-5.2",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.4,
+   "price_out": 4.4,
+   "reasoning": true,
+   "effort": null,
+   "effort_values": [
+    "none",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-5.3",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 1.4,
+   "price_out": 4.4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-5.3-flash",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.15,
+   "price_out": 0.5,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "some"
+  },
+  {
+   "id": "zai/glm-5.3-flashx",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.37,
+   "price_out": 1.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-5.3-flashx-legal",
+   "status": 403,
+   "free": false,
+   "error": "Free tier users do not have access to this model. Upgrade to paid credits at https://vercel.com/d?to=%2F%5Bteam%5D%2F%7E%2Fai%3Fmodal%3Dtop-up for unrestricted access.",
+   "usage": null,
+   "price_in": 0.37,
+   "price_out": 1.25,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "low",
+    "high",
+    "max"
+   ],
+   "zdr": "none"
+  },
+  {
+   "id": "zai/glm-5v-turbo",
+   "status": 200,
+   "free": true,
+   "error": null,
+   "usage": {
+    "prompt_tokens": 7,
+    "completion_tokens": 16,
+    "total_tokens": 23,
+    "cost": 0.0000724,
+    "is_byok": false,
+    "prompt_tokens_details": {
+     "cached_tokens": 0,
+     "audio_tokens": 0,
+     "video_tokens": 0
+    },
+    "cost_details": {
+     "upstream_inference_cost": null,
+     "upstream_inference_prompt_cost": 0,
+     "upstream_inference_completions_cost": 0
+    },
+    "completion_tokens_details": {
+     "reasoning_tokens": 16,
+     "image_tokens": 0
+    },
+    "cache_creation_input_tokens": 0,
+    "market_cost": 0.0000724,
+    "gateway_cost": 0.0000724
+   },
+   "price_in": 1.2,
+   "price_out": 4,
+   "reasoning": true,
+   "effort": "low",
+   "effort_values": [
+    "none",
+    "low",
+    "medium",
+    "high"
+   ],
+   "zdr": "none"
+  }
+ ]
+}

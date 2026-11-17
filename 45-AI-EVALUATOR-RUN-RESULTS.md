@@ -220,7 +220,59 @@ and each file's checksum also stored as a row of MongoDB `techkatta_history.ai_e
 Not saved: the HTTP headers and the model's reasoning text (the gateway's client keeps only the answer, usage and
 cost); the 2026-11-17 Vercel documentation pages (cited with dates in doc 44 §6).
 
-## 12. Not done
+## 12. Update, same day (13:05–13:45 IST): every free model checked
+
+The owner asked to drop the zero-data-retention filter and check all models.
+
+**Which models are free.** `backend/ai-evals/probe-free-tier.mjs` (commit `94f4ec2`) made one tiny call to every
+language model in Vercel's list that takes a strict JSON schema: **203 models, 93 served on the free credit**, 105
+answered 403 (paid only), 5 failed otherwise. Cost $0.007. Every response is saved in
+`ai-eval-results/platform-probes/vercel-free-tier-probe-2026-11-17.json`. The probe of 2026-11-16 looked only at 86
+cheap models and so missed **57 free models**.
+
+**What was screened.** Of the 78 free models not yet tested, the run's estimate for one pass of 49 designs was
+$29.86 in all, against $3.34 of free credit. So **the 53 models estimated at $0.20 or less were screened** (one run,
+estimate $2.84, cap $2.50). Actual cost about **$2.35**. Same prompt, key, marking and output files (`--out v3`) as
+above; the report `observe-v3.md` now ranks all 68 models.
+
+**Result: still no model clears the bar, and none reaches 60 % caught**, so none qualified for more runs. The best
+new models after one run:
+
+| Model | Caught | False alarms | p95 | Note |
+|---|---|---|---|---|
+| openai/gpt-5.1-codex-mini@low | 50.0 % | 42.1 % | 15.2 s | The best newcomer; still raises many false alarms, and slow |
+| tencent/hy3@low | 40.0 % | 0 % | 41.9 s | Very slow; 15 of 49 calls refused by the budget (below) |
+| openai/gpt-oss-safeguard-120b@low | 33.3 % | 36.8 % | 5.1 s | |
+| tencent/hy4-flash | 33.3 % | 0 % | 28.3 s | Very slow; 13 of 49 refused by the budget |
+| alibaba/qwen-3-14b | 30.0 % | 0 % | 46.5 s | Very slow; 17 of 49 refused by the budget |
+| openai/gpt-5-nano@low | 23.3 % | 89.5 % | 17.9 s | |
+
+Small and older models (Mistral Nemo, Ministral, Nova Micro/Lite, Llama 3.1 8B and 4 Scout, GPT-4o mini, GPT-4.1
+nano/mini, Qwen 3 30B/32B, DeepSeek V3.1) catch 0–17 % and most raise many false alarms; several obeyed the hidden
+instruction. Three models were abandoned after five failed calls: LFM 2.5 24B and Nemotron 3.5 Lightning (out of
+tokens), LongCat 2.5 (timeouts).
+
+**The key's budget stopped part of the screening.** The new Vercel key carries a spend budget of $3.00 (set when it
+was created). Its total spend passed that during the screening (this run's earlier steps $0.852, the probe $0.007,
+the screening about $2.35), and Vercel then answered **HTTP 402** to 629 calls, all on the 21 slowest models,
+which were still running (MiniMax M2.x, GLM-4.5/4.5V/4.5 Air/4.6, Mistral Large 3, Grok Build 0.1, MiMo v2.6 Flash,
+Step 3.7 Flash, Qwen 3.6 35B, Qwen 3 14B, Hunyuan 3 and 4 Flash, Flint 1.0, and one call of GPT-4.1 nano).
+Their error rates in the report count those refusals, and their catch rates come from the designs answered before the
+budget ran out, which are the first ones of the case list. **This does not change the verdict:** every one of them
+except GPT-4.1 nano already takes 17–117 s at p95 (the gate is 10 s), and GPT-4.1 nano caught 6.7 %. The 402 rows are
+kept in the files as returned.
+
+**Not checked:** the 25 dearest free-tier models, which together would cost about $27 for one run, more than the free
+credit: OpenAI o3-pro, o1, o3, o3-mini, o4-mini, GPT-5, GPT-5.1 Thinking, GPT-5.2, GPT-5 Codex, GPT-5.1 Codex and
+Codex Max, GPT-4.1, GPT-4o, Muse Spark Open, Kimi K2.7 Code, GLM-5V Turbo, GLM-4.7, Inkling, Nemotron 3 Ultra,
+Gemini 2.5 Flash, Perplexity Sonar, Nova 2 Lite, Mistral Medium 3.5, Command A, Interfaze beta.
+These cost about ₹0.4 to ₹14 an answer, so at 150 answers a month they would cost a subscriber ₹54 or more: over the
+AI budget of doc 29 §11 even if one passed. Testing them would show whether the job can be done at all (a ceiling),
+not which model to ship.
+
+**Credit now:** total used $4.010 of the free $5, **balance $0.990**. Nothing was bought.
+
+## 13. Not done
 
 - MongoDB: done on 2026-11-17, see `11-MONGODB-COMMIT-LEDGER.md`.
 - A person's review of `observe-v3-to-review.md`. Not needed for this verdict.
