@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+> **2026-11-17, evening: PR #371 merged to `tech-katta` main (`7c53c7a`) and verified live: judge 3 (W004, W005, W007; a counter too narrow now fails), content fixes, AI test kit with ground truth v4 (50 designs). Decisions and checks: doc 45 §15. Open: close draft PR #370 unmerged; a model budget for the next search (free credit about $0.99, the key's budget spent); merge this context branch `ai-model-search-plan`.**
+>
 > **2026-11-17, 19:10 IST: the judge now reports four faults no model caught (W004–W007: client straight to a store, id made after the queue, counter too narrow, CDN TTL far too short), as notes that never change a verdict; AI ground truth v4 hands those designs to the judge. `tech-katta` `ccr-ground-truth-v3` at `39e65f4`, not merged. Doc 45 §13.**
 >
 > **2026-11-17, 13:45 IST: every free model checked (93 of 203 are free; 68 tested in all). Still none clears the bar; best newcomer GPT-5.1 Codex Mini, 50 % caught, 42 % false alarms. The 25 dearest free models (about $27 a run) are not tested. Free credit left: $0.99; the key's $3.00 budget is used up (doc 45 §12).**

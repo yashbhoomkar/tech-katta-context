@@ -6,7 +6,7 @@ cheapest model that does the job correctly. **No model was called to write this.
 self-review: see "Revisions" at the end.
 
 Code for this plan: `tech-katta`, branch `ccr-ground-truth-v3` (from `ai-eval-ground-truth`, PR #370), commit
-`39e65f4d99db626b8eb05918d5b9ce9c323033db`, folder `backend/ai-evals/`. Earlier work: docs 29, 40, 41, 42, 43.
+`7c53c7ae04fcbd3f908a733e43c780482906da94`, folder `backend/ai-evals/`. Earlier work: docs 29, 40, 41, 42, 43.
 
 ## One-page summary
 
@@ -465,7 +465,7 @@ add the section to the Practice page, raise `AI_MAX_OUTPUT_TOKENS`. Not part of 
 **Final before any paid run.** Doc 40 §4 explains why the old key is not the starting point: the first key was
 generated from the judge's output, and the owner objected to designing a ground truth after paying for a run. This
 set was designed from a taxonomy of what the judge cannot see. The file is `backend/ai-evals/cases-v3.mjs`
-(sha256 `2b544926dba896fb4b66753732e322fd799227c8177adf8cd4c36da312e13fac`); `cases-v3.md` beside it is the same content, generated.
+(sha256 `23069481546066d5b309d41f7d102d5ded25b0070fa1d244a4a5921f1d4f3514`); `cases-v3.md` beside it is the same content, generated.
 
 ### 3.1 The taxonomy: what the judge cannot detect at runtime
 
@@ -592,7 +592,7 @@ reports it on the next submit. The three class-L designs test that the model sta
 | J × paste-bin | With a queue it would be cell I; without one the notation shows no retry. |
 | J × ticket-booking | A retried BOOK needs a request id, which the notation cannot show. |
 | J × url-shortener | No queue or retry in the notation for this problem. |
-| E × url-shortener | The judge reports this fault itself now (W006); id-space-too-small is a judge-only case. |
+| E × url-shortener | The judge reports this fault itself now (collision); id-space-too-small is a judge-only case. |
 | G × image-serving | The judge reports this fault itself now (W007); cdn-forgets-at-once is a judge-only case. |
 | H × chat-message-store | The judge reports this fault itself now (W004); clients-read-the-store is a judge-only case. |
 | H × url-shortener | The judge reports this fault itself now (W004); clients-read-the-store is a judge-only case. |
@@ -935,7 +935,7 @@ Class E · **flawed** · the judge: Accepted
 
 #### url-shortener/id-space-too-small
 
-Class L · **clean** · the judge: Accepted
+Class L · **clean** · the judge: fails it
 
 ```
  1 | lb    = lb()
@@ -950,7 +950,7 @@ Class L · **clean** · the judge: Accepted
 10 | write CREATE_LINK: client > lb > api > ids > db then invalidate cache
 ```
 
-- **Why it is clean:** The judge now reports the fault itself (W006): a counter too narrow for the problem: it runs out and codes repeat. Nothing else is wrong: the right answer is empty.
+- **Why it is clean:** The judge now reports the fault itself (collision): a counter too narrow for the problem: it runs out and codes repeat. Nothing else is wrong: the right answer is empty.
 - **False alarm:** any `problem` point, except security on line 5 (tolerated).
 
 #### chat-message-store/nothing-to-order-by
@@ -1637,6 +1637,26 @@ Class K · **clean** · the judge: Accepted
 - **Why it is clean:** pk player_id with index(game_id); an async replica is fine (a lost score is not a disaster, 5 s allowed).
 - **False alarm:** any `problem` point.
 
+#### ticket-booking/reference
+
+Class K · **clean** · the judge: Accepted
+
+```
+ 1 | lb    = lb()
+ 2 | api   = server(count=6, size=large)
+ 3 | cache = cache(nodes=2, memory_gb=1, ttl_s=60)
+ 4 | db    = sql(size=large, replicas=1, sync=true)
+ 5 | ids   = idgen(kind=counter)
+ 6 | 
+ 7 | table db.seats(seat_id pk, show_id, status, booking_id) index(show_id)
+ 8 | 
+ 9 | read  GET_SEATS: client > lb > api > cache | db
+10 | write BOOK:      client > lb > api > ids > db then invalidate cache
+```
+
+- **Why it is clean:** pk seat_id with index(show_id): each seat of each show has its own seat_id (the statement says so), and the seat map is read by show through the index.
+- **False alarm:** any `problem` point.
+
 #### chat-message-store/reference
 
 Class K · **clean** · the judge: Accepted
@@ -1703,9 +1723,6 @@ Class K · **clean** · the judge: Accepted
 
 | Design | Owner question | Why it waits |
 |---|---|---|
-| ticket-booking/reference | Is seat_id unique across shows? | If it is, the reference (seat_id pk, index(show_id)) is clean. If seat_id is a seat number that repeats in every show, the reference itself has a key fault and a model that reports it is right. |
-| ticket-booking/clean-snowflake-ids | Is seat_id unique across shows? | A clean variant of the reference (snowflake booking ids). Same doubt as the reference. |
-| rate-limiter/three-nodes-and-key-by-minute | In rate-limiter/three-nodes, who is to blame: the storage nodes (the author) or the servers (the judge)? | A judge-fault-plus-hidden-fault case built on that design. Until the blame is settled, the line that restates the judge is not known. |
 
 They are written in `HELD_OUT` in `cases-v3.mjs` as ids and reasons only. They are not run and cost nothing. After
 the owner answers (§5), they are added for the next run, never re-marked into this one.
@@ -1903,7 +1920,7 @@ cd ../tech-katta-context && git fetch origin ai-model-search-plan && git checkou
 ```
 
 If a repository is not in the container, attach it with push access and clone it first. The app commit this plan
-was written against is `39e65f4d99db626b8eb05918d5b9ce9c323033db`; the branch head must be that commit or a later one on the same branch.
+was written against is `7c53c7ae04fcbd3f908a733e43c780482906da94`; the branch head must be that commit or a later one on the same branch.
 
 **Step 1. Set up and check offline (free)**
 
@@ -1918,7 +1935,7 @@ node ai-evals/observe-bakeoff.mjs --mock
 
 | Check | Must be |
 |---|---|
-| sha256 of `ai-evals/cases-v3.mjs` | `2b544926dba896fb4b66753732e322fd799227c8177adf8cd4c36da312e13fac` |
+| sha256 of `ai-evals/cases-v3.mjs` | `23069481546066d5b309d41f7d102d5ded25b0070fa1d244a4a5921f1d4f3514` |
 | sha256 of `ai-evals/observe.mjs` | `86fc259d7f4ac00f63474f059b709c23e7514075693a4a2c08641fbd7e409488` |
 | sha256 of the prompt text (the `node -e` line) | `75cb7b74e9a2282d3545010eb7dbc94176db44fc0276174e1107b876b366f239` |
 | `npm test` | every test passes (145 on 2026-11-17) |
@@ -2140,7 +2157,7 @@ and 2026-11-16 stand). No web search result was used for a price.
 | When | What changed | Why |
 |---|---|---|
 | 2026-11-17, first version | Commit `564f42f` | |
-| 2026-11-17, after the run (v4) | The judge reports four faults itself (W004–W007), and ground truth v4 hands those 10 designs to the judge (§3). Hashes and the app commit updated. Commit `39e65f4d99db626b8eb05918d5b9ce9c323033db` | The v3 run: no model caught a client reaching the store, and these faults are exact rules, cheaper and surer in the judge |
+| 2026-11-17, after the run (v4) | The judge reports four faults itself (W004–W007), and ground truth v4 hands those 10 designs to the judge (§3). Hashes and the app commit updated. Commit `7c53c7ae04fcbd3f908a733e43c780482906da94` | The v3 run: no model caught a client reaching the store, and these faults are exact rules, cheaper and surer in the judge |
 | 2026-11-17, revision | The category descriptions in the prompt made general (no answer-key change). A person's review of close calls added (step 8; reviewed numbers beside the automatic ones). The runbook is for a run the owner starts: the 07:00 scheduled session was removed by the owner. Background commands get a 2-hour limit. A check of the prompt's own hash. Commit `03d19be` | A self-review found the category examples pointed at planted faults, that 21 of 30 reason checks were never tried on real answers, and that a background run would be stopped at 30 minutes |
 
 Status: ready for execution

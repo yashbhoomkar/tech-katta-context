@@ -286,7 +286,7 @@ On the owner's word ("Fix what is free"), commit `39e65f4` on `tech-katta` branc
 They are notes, like W001–W003: they never change a verdict, and no reference, wrong or template design of the ten
 problems trips one (tested). The learner sees them in the design report at once, for free and always right, and
 the AI is told them under "what the judge already reports". The AI's test set follows as ground truth v4 (doc 44
-§3): those 10 designs become judge-only cases or lose that fault; **22 flawed, 27 clean**. The v3 results above are
+§3): those 10 designs become judge-only cases or lose that fault; **22 flawed, 27 clean** (28 with the ticket-booking reference added later, §15). The v3 results above are
 not re-marked. Tests: frontend 436/436, backend 145/145, mock run passed.
 
 Still open: making W006 a failing finding like the judge's collision check (a verdict change, so the owner's call);
@@ -297,3 +297,29 @@ the content questions of §10.
 - MongoDB: done on 2026-11-17, see `11-MONGODB-COMMIT-LEDGER.md`.
 - A person's review of `observe-v3-to-review.md`. Not needed for this verdict.
 - The production job (doc 44 §2.8). Waits for a model.
+
+## 15. Decisions taken and merged (2026-11-17, evening)
+
+On the owner's word ("take decisions yourself", then "merge it and verify production"):
+
+| Question | Decision | Commit |
+|---|---|---|
+| Should a counter too narrow fail a design? | Yes. W006 is removed; a counter with fewer values than the problem's items is now the judge's `collision` finding ("…runs out of ids and starts repeating them. Use more bits."), so the design fails. `JUDGE_VERSION` 3 | `af15e7d` |
+| Leaderboard: can a player be in two games? | No: the statement now says "A player plays in one game at a time." | `af15e7d` |
+| Ticket booking: is a seat id unique across shows? | Yes: "Each seat of each show has its own `seat_id`." The reference design joins the AI test set as a clean design | `af15e7d` |
+| News feed: one write per post, or per follower? | The statement says the POST route stands for the whole fan-out update | `af15e7d` |
+| Rate limiter `three-nodes` wrong design | Kept wrong, with a truthful why: six large servers at 84 % at the peak miss the latency promise | `af15e7d` |
+| CodeQL alert on the case sheet | Every `\|` in a cell key is replaced, not only the first | `3c42281` |
+
+Ground truth v4 final: **50 designs, 22 flawed, 28 clean**. Tests: backend 145/145, frontend all pass, CodeQL clean.
+
+**Merged:** `tech-katta` PR #371 squash-merged to `main` as `7c53c7a` (it replaces draft PR #370, which is still
+open and should be closed without merging). **Production verified:**
+- the backend `/health` reports release `20261117T140045Z-7c53c7a`;
+- the API serves the new statement texts (leaderboard, ticket booking, news feed);
+- the live frontend bundle carries the W004, W005, W007 and `exhausted` messages;
+- all 10 Practice pages (`#practice/<slug>`) render with their text editor, no page errors;
+- a design with the client reading the store straight shows W004 live in the editor.
+
+Doc 44 is rebuilt against `7c53c7a` (hashes of `cases-v3.mjs` and `observe.mjs` updated); its runbook is unchanged
+and still needs a model budget to run: the free credit has about $0.99 left and the key's own budget is spent.

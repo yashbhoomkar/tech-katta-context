@@ -4,6 +4,14 @@
 
 This file records the latest application/context state known to this session.
 
+## Judge 3 and the AI evaluator test kit (2026-11-17; newest)
+
+- `tech-katta` `main` is at `7c53c7a` (PR #371), live on tech.katta.cc (backend release `20261117T140045Z-7c53c7a`).
+- The judge (`JUDGE_VERSION` 3) adds notes W004 (client straight to a store), W005 (id made after the queue), W007
+  (CDN TTL far too short); a counter with too few values fails as a collision. W006 is gone.
+- `backend/ai-evals/`: prompt v2, ground truth v4 (50 designs), the model search runbook (doc 44). No model is chosen:
+  none of 68 free-tier models cleared the bar (doc 45). Draft PR #370 is superseded and still open.
+
 ## Prototype site and UI revamp (2026-11-15; newest state, read before the dated sections below)
 
 - **prototype.katta.cc** serves the `prototype` branch:

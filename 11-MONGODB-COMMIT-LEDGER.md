@@ -1552,3 +1552,7 @@ duplicate keys (checked with a group-by).
 **1079**, backend **739**. `ai_eval_responses`: 3 rows (the SHA-256 of docs 44 and 45 at `949e26d`, and that
 commit); count after **111**.
 
+**2026-11-17 (PR #371 merged):** `af15e7d93552a6c6d8c8af3fb9f337d58ee94c7e` (judge 3, content fixes, ground truth
+v4 final) into both collections; `3c42281ebcda236453c7d51de662b7e76062522b` (CodeQL fix, backend only) into
+`backend_git_commits`; the squash merge `7c53c7ae04fcbd3f908a733e43c780482906da94` (PR #371) into both. Each checked
+absent first. Counts after: frontend **1081**, backend **742**.

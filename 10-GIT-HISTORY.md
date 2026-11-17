@@ -1059,3 +1059,5 @@ draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colour
 - `1c1b1b7` and `7a95276` (PR #370): the interviewer's-view job, its unique-finding test set and the model test script.
 
 - Context: `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/` (raw responses of every model call of 2026-11-16, checksums in `SHA256SUMS`).
+
+- `7c53c7a` (PR #371, squash of `39e65f4`, `af15e7d`, `3c42281`): judge 3 (W004, W005, W007 notes; a counter too narrow fails as a collision), content fixes (leaderboard, ticket booking, news feed, rate limiter), and the AI evaluator test kit (prompt v2, ground truth v4: 50 designs). Replaces draft PR #370.
