@@ -145,3 +145,13 @@ Every answer in readable form, per design and per model, with its mark: `41-AI-E
   `score`, `why`, `usage`, `cost`) and its reports; `platform-probes/`: the probe of Vercel's free tier and the catalog counts;
 - `SHA256SUMS`: a checksum of each file (recorded in the MongoDB ledger).
 The code that produced them is `backend/ai-evals/` in PR #370.
+
+## 9. Update 2026-11-17: the second search
+
+Prompt v2 and ground truth v3 (`44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md`) replaced §3's test. The search ran on
+2026-11-17 over 15 free-tier models (1,133 calls, $0.85): **no model clears the bar**. Best: GPT-5 mini 55.6 %
+caught with 70.2 % false alarms; Muse Ember 40 % caught, 12.3 % false alarms, fast; Qwen 3.8 Omni Flash and Inkling 2
+Small about 40 % caught with 5.3 % false alarms but too slow. Muse Ember's 67 % in §3 drops to 40 % mainly because a
+catch now needs the right reason, as §4 item 7 warned. Results and the owner's choices: `45-AI-EVALUATOR-RUN-RESULTS.md`;
+every answer: `46-AI-EVALUATOR-ANSWERS-V3.md`; raw responses: `ai-eval-results/interviewers-view-v3/`.
+

@@ -5,7 +5,7 @@ check if we can buy a VPS of 500-600 Indian rupees per month, host an LLM and ro
 will be a delay in response, it is acceptable if we are going to sell subscriptions of our website at 199 rupees /
 month. Do full research and write a detailed .md file. Push it to tech-katta-context, not the private."
 
-**Status: research only. Nothing is rented, installed or built. Decided the same day: a hosted model, no VPS (§11); the model is Meta Muse Ember 1.0 by default, confirmed by a three-company bake-off (§12).** Every speed in this file is an **estimate**
+**Status: research only. Nothing is rented, installed or built. Decided the same day: a hosted model, no VPS (§11); the model was to be Meta Muse Ember 1.0 by default, to be confirmed by a three-company bake-off (§12). Correction of 2026-11-17: that bake-off never ran (Haiku 5.5 and DeepSeek V4.1 Flash are paid-only on Vercel), and the search of 2026-11-17 found no model that meets the bar, Muse Ember included (docs 44, 45). No model is chosen.** Every speed in this file is an **estimate**
 (labelled so) until §9's benchmark is run on the real box. Prices are third-party snapshots from
 September–November 2026 and move often (RAM prices pushed most VPS prices up in 2026, §3.1).
 
@@ -826,3 +826,13 @@ What this says:
 - **Free tier on Vercel:** 8 models were tested on the interviewer's view.
 - **Muse Ember leads:** 67 % of flaws caught, 36 % false alarms, ₹94 per 1,000 correct answers. GPT-5 mini catches a little more (70 %) but raises false alarms on 100 % of clean designs and costs four times as much.
 - **No model passes yet.** The prompt is to be fixed before any choice (`17-SESSION-HANDOVER.md`).
+
+## Update 2026-11-17: the model search on our own test
+
+- **Plan:** `44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md` (prompt v2, ground truth v3, a $3.00 cap on the free credit).
+- **Result:** `45-AI-EVALUATOR-RUN-RESULTS.md`. 15 free-tier models, 1,133 calls, $0.85. None meets the bar
+  (caught ≥ 80 %, false alarms ≤ 10 %, p95 ≤ 10 s). Muse Ember: 40 % caught, 12.3 % false alarms, p95 5.2 s.
+- **Prices:** Vercel's list of 2026-11-17 matched §12.1 and the 2026-11-16 probe for every model checked.
+- **Cost per answer, measured:** about ₹0.05 for Muse Ember with prompt v2 ($0.00059 an answer, measured over 147 calls), below §12.1's
+  estimate. The three finalists of §12.4 other than Muse Ember are still untested: they need bought credit.
+

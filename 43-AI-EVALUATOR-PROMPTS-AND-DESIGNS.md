@@ -1,5 +1,7 @@
 # 43 — The AI evaluator: the exact prompt and every test design (2026-11-16)
 
+> This is prompt v1 and the first test set. Prompt v2 and ground truth v3 (2026-11-17) are written out in `44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md` §2.7 and §3.5.
+
 What every model was sent in the interviewer's-view test (`backend/ai-evals/observe.mjs`, `blind-spots.mjs`, PR #370), so the results in docs 40 and 41 can be read without the code.
 
 ## The system prompt (sent first, the same for every design)

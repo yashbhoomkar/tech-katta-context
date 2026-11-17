@@ -202,8 +202,26 @@ What to do next, in order of value for money:
 Not recommended: changing the prompt to point at the faults no model caught (clients reaching the store). That
 would tune the prompt to this test set. If it is done, the test set must be extended with new cases first.
 
-## 11. Not done
+## 11. Every API response, saved
 
-- MongoDB: rows for `ai_eval_responses` (1,133 answers) and the commit ledger. Pending.
+All in `ai-eval-results/` of this repository, each with its SHA-256 in `ai-eval-results/SHA256SUMS` (all verified),
+and each file's checksum also stored as a row of MongoDB `techkatta_history.ai_eval_responses`.
+
+| File | What it holds |
+|---|---|
+| `interviewers-view-v3/observe-v3-<model>.jsonl` (15 files) | One line per call, 1,127 in all: design, run, `raw` (the model's JSON exactly as returned), the points kept and dropped by the verifier, the mark, tokens, cost from the gateway, time, and the error for a failed call |
+| `interviewers-view-v3/observe-smoke-v3-meta_muse-ember_low.jsonl` | The 6 calls of the smoke test |
+| `interviewers-view-v3/observe-v3.md`, `observe-smoke-v3.md` | The reports |
+| `interviewers-view-v3/observe-v3-to-review.md` | The close calls, for a later review |
+| `interviewers-view-v3/credits-checks-2026-11-17.json` | Every `GET /v1/credits` response of the run (the 401, then three balances) |
+| `platform-probes/vercel-catalog-2026-11-17.json` | Vercel's public model list (`GET /v1/models`, 513 models) as read on 2026-11-17, used for prices and the candidate list |
+| `46-AI-EVALUATOR-ANSWERS-V3.md` | Every answer, per design and model, with its mark (generated from the files above) |
+
+Not saved: the HTTP headers and the model's reasoning text (the gateway's client keeps only the answer, usage and
+cost); the 2026-11-17 Vercel documentation pages (cited with dates in doc 44 §6).
+
+## 12. Not done
+
+- MongoDB: done on 2026-11-17, see `11-MONGODB-COMMIT-LEDGER.md`.
 - A person's review of `observe-v3-to-review.md`. Not needed for this verdict.
 - The production job (doc 44 §2.8). Waits for a model.

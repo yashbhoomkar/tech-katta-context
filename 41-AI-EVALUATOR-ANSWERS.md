@@ -1,5 +1,7 @@
 # 41 — The AI evaluator: every answer of the first interviewer's-view run (2026-11-16)
 
+> Superseded as the current test on 2026-11-17: the second run (prompt v2, ground truth v3) is `46-AI-EVALUATOR-ANSWERS-V3.md`, its results `45-AI-EVALUATOR-RUN-RESULTS.md`. This file is the record of the first run.
+
 Generated from `ai-eval-results/interviewers-view/observe-first-run-*.jsonl` (528 answers: 8 models × 22 designs × 3 runs). For each design: what is wrong with it (written by hand, `backend/ai-evals/blind-spots.mjs`) and every point each model raised, with its mark. Summary and findings: `40-AI-EVALUATOR-FINDINGS.md`.
 
 Marks: **caught** = a `problem` point on the flawed line in a fitting category; **missed**; **false alarm** = a `problem` point on a clean design; **ok** = no problem raised on a clean design; **error** = no usable answer.

@@ -1,0 +1,9 @@
+{
+  "note": "Every response of GET https://ai-gateway.vercel.sh/v1/credits during the v3 model search (doc 45). Values in US dollars, exactly as returned. No key is stored here: the key was injected by the session's proxy.",
+  "checks": [
+    { "time_ist": "2026-11-17 11:31", "status": 401, "body_error_message_start": "Authentication failed. Create an API key and set in AI_GATEWAY_API_KEY environment variable", "why": "no key was saved for ai-gateway.vercel.sh on this session's environment" },
+    { "time_ist": "2026-11-17 11:38", "status": 200, "balance": "4.196269727", "total_used": "0.803730273", "step": "T0, before the smoke test" },
+    { "time_ist": "2026-11-17 12:14", "status": 200, "balance": "3.688974963", "total_used": "1.311025037", "step": "after step 4 (lead tier)" },
+    { "time_ist": "2026-11-17 12:31", "status": 200, "balance": "3.343956581", "total_used": "1.656043419", "step": "after step 5 (free tier); the run's total spend 0.852313146" }
+  ]
+}
