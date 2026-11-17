@@ -98,7 +98,7 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - [ ] Owner: merge PR #368 (sign-in and practice on prototype.katta.cc), then PR #367 when happy.
 - [ ] Report client errors from RouteError once the API accepts a `client_error` event (`backend/src/auth/events.js` EVENTS).
 
-- [ ] ~~Owner: create an OpenRouter account~~ (superseded: the search runs on Vercel's free credit, doc 44). Owner: create an OpenRouter account, add about $5, and give the key (as a secret, never in chat) to run `node ai-evals/bakeoff.mjs` (PR #370). Then pick the model from `results/bakeoff-*.md` and set the server's `AI_*` settings.
+- [x] ~~Owner: create an OpenRouter account and run `bakeoff.mjs`~~ Superseded: the model search runs on Vercel's free credit (`44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md`).
 - [ ] (replaces the OpenRouter line above) Owner: create a Vercel AI Gateway API key (Vercel dashboard, AI Gateway, API keys); the free $5 a month may cover the whole bake-off. Give it through the secure form, never in chat.
 
 - [ ] Read the first interviewer's-view run (`results/observe-first-run.md`), pick a model, and read a sample of its answers.
