@@ -1527,3 +1527,16 @@ Count after: **1068**.
 **2026-11-16:** backend rows also recorded for `d4e9299`, `6ac413d`, `af117aa`, `39a2920`, `1c1b1b7` and `7a95276` (PR #370), each checked absent first.
 
 **2026-11-16:** new collection `ai_eval_responses` (13 rows) holds the checksums of the saved AI-evaluator responses (ai-eval-results/ in this repo, per-file SHA-256 in SHA256SUMS) and the docs commit `f2b65bc`. Backend ledger unchanged.
+
+**2026-11-17 (AI evaluator, model search v3):** each key checked absent in both commit collections first, then
+inserted into `backend_git_commits` (branch `ccr-ground-truth-v3` from PR #370's branch, not in a PR; they change
+only `backend/`): `c8d0852d4dd90c90da7d155067004448a5659abe` (prompt v2, ground truth v3, reason check, mock run),
+`564f42ff8934cd3020dcfae780eb06bc8f9685ca` (`--report` from saved answers), `03d19be25d31e2095ce46a7084ea0c96ebcad3c8`
+(general category descriptions, a person's review of close calls). Backend count after: **737**. Frontend unchanged.
+
+**2026-11-17:** 28 rows inserted into `ai_eval_responses` after checking every key was absent: the SHA-256 of each
+file in `ai-eval-results/interviewers-view-v3/` (15 model files, the smoke-test file and report, the run report,
+the review list, every `/v1/credits` response), of `ai-eval-results/platform-probes/vercel-catalog-2026-11-17.json`,
+of docs 44, 45 and 46, and the context commits `782ac77`, `261fc1b`, `804e875` and `a2d12d1` (branch
+`ai-model-search-plan`). Count after: **49**. The commit that adds this entry is not itself recorded.
+

@@ -1,6 +1,6 @@
 # 17 — Session Handover (read this first)
 
-> **2026-11-17, 12:31 IST: the model search ran. No free-tier model clears the bar; no model is chosen. Results: `45-AI-EVALUATOR-RUN-RESULTS.md`; every answer: `46-AI-EVALUATOR-ANSWERS-V3.md`. Spent $0.85 of the free credit ($3.34 left). Next: the owner's choices in doc 45 §10.**
+> **2026-11-17, 12:31 IST: the model search ran. No free-tier model clears the bar; no model is chosen. Results: `45-AI-EVALUATOR-RUN-RESULTS.md`; every answer: `46-AI-EVALUATOR-ANSWERS-V3.md`. Spent $0.85 of the free credit ($3.34 left). Next: the owner's choices in doc 45 §10. Every API response is in `ai-eval-results/` (doc 45 §11); MongoDB: `ai_eval_responses` 49 rows, `backend_git_commits` 737.**
 >
 > **2026-11-17: the AI evaluator's model search is planned and ready to run: `44-AI-EVALUATOR-MODEL-SEARCH-PLAN.md` (its `## Execution instructions` are the runbook; results go to doc 45). Code: `tech-katta` branch `ccr-ground-truth-v3`. No model was called.**
 
