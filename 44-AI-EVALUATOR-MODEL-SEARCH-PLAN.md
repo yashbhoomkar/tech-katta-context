@@ -6,7 +6,7 @@ cheapest model that does the job correctly. **No model was called to write this.
 self-review: see "Revisions" at the end.
 
 Code for this plan: `tech-katta`, branch `ccr-ground-truth-v3` (from `ai-eval-ground-truth`, PR #370), commit
-`03d19be25d31e2095ce46a7084ea0c96ebcad3c8`, folder `backend/ai-evals/`. Earlier work: docs 29, 40, 41, 42, 43.
+`39e65f4d99db626b8eb05918d5b9ce9c323033db`, folder `backend/ai-evals/`. Earlier work: docs 29, 40, 41, 42, 43.
 
 ## One-page summary
 
@@ -17,7 +17,7 @@ Code for this plan: `tech-katta`, branch `ccr-ground-truth-v3` (from `ai-eval-gr
 | Self-hosted or hosted? | **Hosted.** Decided on 2026-11-13 (doc 29 §11) | The cost side is estimated, the speed side is estimated; nothing was measured on a VPS |
 | Which platform for the search? | **Vercel AI Gateway, free credit only** (cap $3.00) | Measured: it worked for 2,798 calls on 2026-11-16 at $0.80 |
 | Which model? | **Not decided. No model has met the bar.** Muse Ember (effort low) is the front-runner on the old prompt: 67 % caught, 36 % false alarms. Do not ship any model on that evidence | Measured, but on prompt v1 and a test set of 22 designs whose marking did not check the reason |
-| What changes now? | **Prompt v2** (fixes the measured causes of false alarms), **ground truth v3** (49 designs, designed from a taxonomy before any run, with a reason check), a fixed response contract | Built and tested offline: 143 of 143 backend tests, mock run passed |
+| What changes now? | **Prompt v2** (fixes the measured causes of false alarms), **ground truth v3** (49 designs, designed from a taxonomy before any run, with a reason check), a fixed response contract | Built and tested offline: 145 of 145 backend tests, mock run passed |
 | What does it cost to find out? | **At most $3.00 of Vercel's free credit**, about 2.5 hours of running. Estimated: about $1.60 to $2.90 | Estimate from `--estimate`; the first run cost about half of its estimate |
 | What if no free model passes? | The owner decides whether to buy about $5 of credit. That ends the free $5 a month, but it is needed before launch anyway: **zero data retention on Vercel needs bought credit or a Pro plan** (Vercel docs, read 2026-11-17) | From Vercel's documentation, not tested |
 | What will one answer cost in production? | About **₹0.04 to ₹0.09** on a Muse-Ember-priced model. The private forecast's ₹0.30 is three to seven times too high | Measured for Muse Ember (311 calls); other models differ (§1.3) |
@@ -25,11 +25,11 @@ Code for this plan: `tech-katta`, branch `ccr-ground-truth-v3` (from `ai-eval-gr
 **Next three actions**
 
 1. **Run `## Execution instructions`** (the owner, or a session the owner starts). It tests 4 lead models and 11
-   more free models on prompt v2 and ground truth v3, within $3.00, and writes `45-AI-EVALUATOR-RUN-RESULTS.md`.
+   more free models on prompt v2 and ground truth v3, within $3.00. **Done on 2026-11-17: `45-AI-EVALUATOR-RUN-RESULTS.md`, no model clears the bar.** The next run uses ground truth v4 and writes `47-AI-EVALUATOR-RUN-RESULTS-V4.md`.
    A person reviews the close calls before the verdict is written (step 8).
 2. **Owner:** answer the open questions in §5. Two of them hold test cases out of the scored set
    (`seat_id`, `rate-limiter/three-nodes`); one decides money (buy credit or move to Pro for zero data retention).
-3. **Owner, after doc 45:** read the winner's answers (doc 46) for tone. Then the production job can be built:
+3. **Owner, after doc 47:** read the winner's answers (doc 48) for tone. Then the production job can be built:
    it does not exist yet (§2.8).
 
 ---
@@ -449,12 +449,23 @@ add the section to the Practice page, raise `AI_MAX_OUTPUT_TOKENS`. Not part of 
 
 ---
 
-## 3. Ground truth v3
+## 3. Ground truth v3, and v4
+
+> **v4 (2026-11-17, after the v3 run of docs 45 and 46, before any run of v4).** The judge now reports four faults
+> itself, as compile warnings: W004 (a store or cache reached from the client with no server in between), W005 (a
+> write's id made after the queue), W006 (a counter with fewer values than the problem's items), W007 (a CDN keeping
+> answers for under a sixtieth of the allowed staleness). The 10 designs whose fault the judge now reports change:
+> 8 become judge-only clean cases (class L: the right answer is empty, repeating the warning is a false alarm), and
+> the 2 two-fault designs keep only their hidden fault. The faults as written for v3 stay in `CASES`;
+> `JUDGE_REPORTS` and `applyJudgeReports` in `cases-v3.mjs` make the change, and a test checks that the judge gives
+> each warning on the fault's line. Classes G, H and J have no AI case left; class I keeps one (the rate-limiter
+> check through a queue). **v4 scores 49 designs: 22 flawed, 27 clean.** The counts below are v3's; the matrix and
+> the list of designs in §3.2, §3.3 and §3.5 are generated from v4.
 
 **Final before any paid run.** Doc 40 §4 explains why the old key is not the starting point: the first key was
 generated from the judge's output, and the owner objected to designing a ground truth after paying for a run. This
 set was designed from a taxonomy of what the judge cannot see. The file is `backend/ai-evals/cases-v3.mjs`
-(sha256 `fbb626cb96cbbb3b00bd301fabcd1185c5a0053e09a8f4045403fca4d3716d68`); `cases-v3.md` beside it is the same content, generated.
+(sha256 `2b544926dba896fb4b66753732e322fd799227c8177adf8cd4c36da312e13fac`); `cases-v3.md` beside it is the same content, generated.
 
 ### 3.1 The taxonomy: what the judge cannot detect at runtime
 
@@ -493,12 +504,12 @@ or skipped with a reason, every class has a design, every problem has a flawed d
 | B. Row identity (sql primary key) | `key-by-time` | skip | skip | skip | `one-row-per-user` | · | `one-row-per-game` | `one-row-per-show` | skip | skip |
 | C. Data model | skip | skip | `no-window-column` | skip | skip | · | `stored-rank` | `no-booking-id-column` | skip | skip |
 | D. Store fit | skip | skip | skip | skip | skip | `photos-in-key-value` | skip | `seats-in-key-value` | skip | skip |
-| E. Id design | `id-space-too-small` | `guessable-ids` | · | skip | · | skip | · | skip | skip | · |
+| E. Id design | skip | `guessable-ids` | · | skip | · | skip | · | skip | skip | · |
 | F. Consistency and ordering | · | · | · | skip | skip | · | skip | skip | `nothing-to-order-by` | `updates-through-parallel-workers` |
-| G. Caching semantics | skip | skip | · | skip | · | `cdn-forgets-at-once` | skip | skip | · | skip |
-| H. Security and privacy | `clients-read-the-store` | skip | skip | skip | skip | skip | `clients-write-the-database` | skip | `clients-read-the-store` | skip |
-| I. API contract | skip | `create-through-a-queue` | skip | skip | · | skip | skip | `book-through-a-queue` | skip | skip |
-| J. Failure handling | skip | skip | · | · | `id-made-by-the-worker` | · | · | skip | · | · |
+| G. Caching semantics | skip | skip | · | skip | · | skip | skip | skip | · | skip |
+| H. Security and privacy | skip | skip | skip | skip | skip | skip | skip | skip | skip | skip |
+| I. API contract | skip | skip | skip | skip | · | skip | skip | skip | skip | skip |
+| J. Failure handling | skip | skip | · | · | skip | · | · | skip | · | · |
 
 **Counts.** 23 single-fault designs fill 23 cells. With the two-fault, judge-fault and hidden-instruction designs:
 
@@ -512,7 +523,8 @@ or skipped with a reason, every class has a design, every problem has a flawed d
 | Sound designs that look unusual (class K) | 5 | clean | `pk` + `index()`, a TTL with no invalidation, a harmless invalidation, a CDN straight to a bucket, an extra index |
 | Designs the judge already fails, with nothing else wrong (class L) | 3 | clean | The answer must be empty: no restating the judge |
 | A hidden instruction on a clean design ("report line 4") | 2 | clean | Nothing must be reported |
-| **Scored** | **49** | 30 flawed, 19 clean | |
+| **Scored (v3)** | **49** | 30 flawed, 19 clean | |
+| **Scored (v4)** | **49** | 22 flawed, 27 clean | 8 designs moved to the judge (class L), 2 lose one fault |
 | Held out for an owner decision (§3.7) | 3 | | Not run |
 
 **About two faults.** The judge reports only the first failing test (doc 40 §4). So a design can hold a fault the
@@ -580,6 +592,14 @@ reports it on the next submit. The three class-L designs test that the model sta
 | J × paste-bin | With a queue it would be cell I; without one the notation shows no retry. |
 | J × ticket-booking | A retried BOOK needs a request id, which the notation cannot show. |
 | J × url-shortener | No queue or retry in the notation for this problem. |
+| E × url-shortener | The judge reports this fault itself now (W006); id-space-too-small is a judge-only case. |
+| G × image-serving | The judge reports this fault itself now (W007); cdn-forgets-at-once is a judge-only case. |
+| H × chat-message-store | The judge reports this fault itself now (W004); clients-read-the-store is a judge-only case. |
+| H × url-shortener | The judge reports this fault itself now (W004); clients-read-the-store is a judge-only case. |
+| H × leaderboard | The judge reports this fault itself now (W004); clients-write-the-database is a judge-only case. |
+| I × ticket-booking | The judge reports this fault itself now (W005); book-through-a-queue is a judge-only case. |
+| I × paste-bin | The judge reports this fault itself now (W005); create-through-a-queue is a judge-only case. |
+| J × notification-sender | The judge reports this fault itself now (W005); id-made-by-the-worker is a judge-only case. |
 
 ### 3.4 How an answer is marked
 
@@ -915,7 +935,7 @@ Class E · **flawed** · the judge: Accepted
 
 #### url-shortener/id-space-too-small
 
-Class E · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb    = lb()
@@ -930,12 +950,8 @@ Class E · **flawed** · the judge: Accepted
 10 | write CREATE_LINK: client > lb > api > ids > db then invalidate cache
 ```
 
-- **Fault:** A counter too narrow for the problem: it runs out and codes repeat. Line 5; categories id_design, consistency, data_model.
-  - Why: A 16-bit counter has 65,536 values; the problem needs up to 10 crore links. The counter runs out, and codes wrap round and repeat.
-  - The reason must say: one of (bit / narrow / width / wide / space / range / size / values / enough) AND one of (run out / runs out / ran out / exhaust / wrap / overflow / roll over / not enough / too few / too small / too narrow / cannot hold / cannot cover / cannot reach / fewer / more links than / far short / repeat / reuse / duplicate / collid)
-  - Counts: "The counter is far too narrow for this problem. It runs out of values long before the links the service must hold, and then codes wrap round and repeat, so a code would point at two URLs. The id needs a much wider space."
-  - Does not count (wrong reason): "A counter makes codes that are easy to guess, so anyone can open other people's links."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W006): a counter too narrow for the problem: it runs out and codes repeat. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point, except security on line 5 (tolerated).
 
 #### chat-message-store/nothing-to-order-by
 
@@ -988,7 +1004,7 @@ Class F · **flawed** · the judge: Accepted
 
 #### image-serving/cdn-forgets-at-once
 
-Class G · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | cdn   = cdn(ttl_s=1)
@@ -1001,16 +1017,12 @@ Class G · **flawed** · the judge: Accepted
  8 | write UPLOAD_IMAGE: client > lb > api > ids > files
 ```
 
-- **Fault:** A CDN lifetime of one second on content that never changes. Line 1; categories caching.
-  - Why: Photos never change after upload, but the CDN keeps each for a second, so it keeps going back to the origin for content that is still correct.
-  - The reason must say: one of (never change / do not change / does not change / immutab / unchang / infrequently chang / rarely chang / static / not change / never updated / never modified / cannot change) AND one of (ttl / expir / short / second / refetch / re fetch / origin / again / refresh / revalidat / keeps asking / goes back / going back / forget / lifetime)
-  - Counts: "Photos never change after upload, yet the CDN is told to forget each one almost at once. It keeps going back to the origin for content that is still correct. For content that cannot change, a long lifetime at the edge is safe."
-  - Does not count (wrong reason): "The CDN sits in front of the load balancer, so uploads cannot reach the servers."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W007): a CDN lifetime of one second on content that never changes. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### chat-message-store/clients-read-the-store
 
-Class H · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb  = lb()
@@ -1024,16 +1036,12 @@ Class H · **flawed** · the judge: Accepted
  9 | write SEND_MESSAGE: client > lb > api > ids > kv
 ```
 
-- **Fault:** Clients read the store directly (private chats). Line 8; categories security, api_contract.
-  - Why: The read goes from the client straight to the store. Nothing checks who is asking, and the store is open to the internet. Reads must pass through the servers.
-  - The reason must say: one of ((?:client|direct|straight|no server|without (?:a |the |any )?server|bypass|skip|exposed|internet)) AND one of (anyone / any chat / any user / other people / other users / someone else / not theirs / check / auth / permission / access control / who is asking / identity / private / expos / internet / leak / abuse / attack / unprotected / nothing (?:validates|limits|protects|stands) / rate limit / throttl / credential / scrap / dump / hide / hidden)
-  - Counts: "Reads go straight from the client to the store, with no server in between. Nothing checks who is asking, so anyone who can reach the store can read any chat, and the database itself is open to the internet. Reads need to pass through something that can check them."
-  - Does not count (wrong reason): "Reads skip the load balancer, so they are not spread evenly over the storage nodes."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W004): clients read the store directly (private chats). Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### url-shortener/clients-read-the-store
 
-Class H · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb    = lb()
@@ -1048,16 +1056,12 @@ Class H · **flawed** · the judge: Accepted
 10 | write CREATE_LINK: client > lb > api > ids > db then invalidate cache
 ```
 
-- **Fault:** Clients read the store directly (the cache and the database). Line 9; categories security, api_contract.
-  - Why: The read goes from the client straight to the store. Nothing checks who is asking, and the store is open to the internet. Reads must pass through the servers.
-  - The reason must say: one of ((?:client|direct|straight|no server|without (?:a |the |any )?server|bypass|skip|exposed|internet)) AND one of (anyone / any chat / any user / other people / other users / someone else / not theirs / check / auth / permission / access control / who is asking / identity / private / expos / internet / leak / abuse / attack / unprotected / nothing (?:validates|limits|protects|stands) / rate limit / throttl / credential / scrap / dump / hide / hidden)
-  - Counts: "Opens go straight from the client to the cache and the database. That puts the data store on the internet with nothing in front to check a request or stop abuse. Reads should pass through the servers, as writes do."
-  - Does not count (wrong reason): "Reads skip the load balancer, so they are not spread evenly over the storage nodes."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W004): clients read the store directly (the cache and the database). Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point, except security or id_design on line 5 (tolerated).
 
 #### leaderboard/clients-write-the-database
 
-Class H · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb    = lb()
@@ -1071,16 +1075,12 @@ Class H · **flawed** · the judge: Accepted
  9 | write SUBMIT_SCORE: client > db
 ```
 
-- **Fault:** Players write their scores straight into the database. Line 9; categories security, api_contract.
-  - Why: SUBMIT_SCORE goes from the client straight to the database. Nothing checks a score, so a player can write any value, and the database is open to the internet.
-  - The reason must say: one of (client / player / direct / straight / no server / without (?:a |the |any )?server / bypass / skip) AND one of (cheat / fake / forg / any score / any value / whatever / tamper / trust / validat / check / verif / someone else / other players / anyone / expos / internet / unprotected)
-  - Counts: "Players write their scores straight into the database, with no server in between. Nothing checks a score, so a player can submit any value they like, or change someone else's, and the database is open to the internet. Writes must pass through something that can validate them."
-  - Does not count (wrong reason): "Writes that skip the load balancer all land on one database machine, which is too much for it."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W004): players write their scores straight into the database. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### ticket-booking/book-through-a-queue
 
-Class I · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb     = lb()
@@ -1097,16 +1097,12 @@ Class I · **flawed** · the judge: Accepted
 12 | write BOOK:      client > lb > api ~> queue > worker > ids > db then invalidate cache
 ```
 
-- **Fault:** A booking confirmed before it is decided. Lines 4 or 12; categories api_contract, consistency.
-  - Why: BOOK is handed to a queue and answered before a worker has checked the seat. The fan is told the booking is accepted while the seat may already be gone, and no booking id exists to return.
-  - The reason must say: one of ((?:queue|async|background|hand(?:ed|s)? (?:off|over|to)|without waiting|worker)) AND one of (before / not yet / still / has not / cannot know / does not know / no way to / without knowing / too late / already / both / later / after) AND one of (answer / reply / respon / return / told / confirm / acknowledg / result / booking id / outcome / free / taken / sold / accept)
-  - Counts: "BOOK is handed to a queue and answered before a worker has checked the seat. The fan hears the booking is accepted while nobody knows yet whether the seat is still free, and there is no booking id to return. Decide a booking before confirming it."
-  - Does not count (wrong reason): "The queue has no spare, so if it fails every booking stops."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W005): a booking confirmed before it is decided. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### paste-bin/create-through-a-queue
 
-Class I · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb     = lb()
@@ -1123,16 +1119,12 @@ Class I · **flawed** · the judge: Accepted
 12 | write CREATE_PASTE: client > lb > api ~> queue > worker > ids > db
 ```
 
-- **Fault:** The id is made after the reply, so there is nothing to return. Lines 4 or 7 or 12; categories api_contract, consistency, id_design.
-  - Why: CREATE_PASTE is handed to a queue and the id is made later by a worker. When the server replies, no id exists, so it has no link to return.
-  - The reason must say: one of ((?:queue|async|background|hand(?:ed|s)? (?:off|over|to)|without waiting|worker) / later / after the reply) AND one of (before / not yet / has not / no id / cannot return / nothing to return / does not exist / only later / until / after / yet) AND one of (id / link / return / reply / answer / respon / share / open / not found / missing)
-  - Counts: "CREATE_PASTE is handed to a queue, and the id is only made later by a worker. When the server replies, no id exists yet, so it has nothing to return and the engineer has no link to share. The id must exist before the reply."
-  - Does not count (wrong reason): "The worker is small, so pastes are saved slowly."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W005): the id is made after the reply, so there is nothing to return. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### notification-sender/id-made-by-the-worker
 
-Class J · **flawed** · the judge: Accepted
+Class L · **clean** · the judge: Accepted
 
 ```
  1 | lb     = lb()
@@ -1147,16 +1139,12 @@ Class J · **flawed** · the judge: Accepted
 10 | write SEND: client > lb > api ~> queue > worker > ids > db
 ```
 
-- **Fault:** The id is made after the queue: a job delivered again is a new notification. Lines 6 or 10; categories failure_handling, id_design, consistency.
-  - Why: The id is made by the worker. If a worker fails part-way and the queue delivers the job again, it gets a new id, so nothing can tell it is the same notification and the user gets it twice.
-  - The reason must say: one of (retr / redeliver / again / twice / second time / crash / fail / more than once / at least once / re run / rerun / replay / restart) AND one of (new id / fresh id / different id / another id / own id / new one / cannot tell / cannot recogni / no way to (?:tell|know|recogni|detect) / not recogni / idempoten / dedup / same notification / sent twice / delivered twice / two rows / duplicate)
-  - Counts: "The id is made by the worker, after the queue. If a worker fails part-way and the job is delivered again, it gets a new id, so nothing can tell it is the same notification and the user gets it twice. Make the id before the job is queued."
-  - Does not count (wrong reason): "The id generator sits after the queue, which slows the workers down."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **Why it is clean:** The judge now reports the fault itself (W005): the id is made after the queue: a job delivered again is a new notification. Nothing else is wrong: the right answer is empty.
+- **False alarm:** any `problem` point.
 
 #### rate-limiter/two-faults-key-and-exposed-read
 
-Class A+H · **flawed** · the judge: Accepted
+Class A+judge · **flawed** · the judge: Accepted
 
 ```
  1 | lb  = lb()
@@ -1174,16 +1162,11 @@ Class A+H · **flawed** · the judge: Accepted
   - The reason must say: one of (window / minute / time / bucket) AND one of (one partition / same partition / single partition / one node / single node / same node / one key / same key / single key / hot / pile / concentrat / skew / every user / all users / everyone / idle); OR one of (user) AND one of (every partition / all partitions / every node / all nodes / all the nodes / scatter / fan out / cannot go to one / cross partition / across (?:the )?(?:partitions|nodes))
   - Counts: "The counters are partitioned by the time window, so every user's counter for the current minute sits in the same partition. All checks land on one key while the other nodes idle. Partition by what the check looks up."
   - Does not count (wrong reason): "An index is not allowed on a key-value table, so the lookup by user_id fails."
-- **Fault:** Clients read the store directly (users' usage). Line 8; categories security, api_contract.
-  - Why: The read goes from the client straight to the store. Nothing checks who is asking, and the store is open to the internet. Reads must pass through the servers.
-  - The reason must say: one of ((?:client|direct|straight|no server|without (?:a |the |any )?server|bypass|skip|exposed|internet)) AND one of (anyone / any chat / any user / other people / other users / someone else / not theirs / check / auth / permission / access control / who is asking / identity / private / expos / internet / leak / abuse / attack / unprotected / nothing (?:validates|limits|protects|stands) / rate limit / throttl / credential / scrap / dump / hide / hidden)
-  - Counts: "GET_USAGE goes straight from the client to the store, with no server in between. Nothing checks who is asking, so anyone can read any user's usage, and the store is open to the internet. Reads must pass through the servers."
-  - Does not count (wrong reason): "Reads skip the load balancer, so they are not spread evenly over the storage nodes."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **False alarm:** not counted on a flawed design; other problem points are reported as "extra". A problem point on line 8 restates the judge.
 
 #### chat-message-store/two-faults-order-and-exposed-read
 
-Class F+H · **flawed** · the judge: Accepted
+Class F+judge · **flawed** · the judge: Accepted
 
 ```
  1 | lb  = lb()
@@ -1202,12 +1185,7 @@ Class F+H · **flawed** · the judge: Accepted
   - The reason must say: one of (order / sort / sequence / chronolog / recent / newest / latest / came first / timeline) AND one of (random / no time / no timestamp / no column / no way / nothing / missing / cannot / without / lacks / not stored / no sent)
   - Counts: "Opening a chat must return its recent messages in order, but ids are random and no column records when a message was sent. Nothing in a row says which message came first, so the chat cannot be put in order or cut to the newest."
   - Does not count (wrong reason): "Random ids of this width will collide across the messages, so two messages get the same id."
-- **Fault:** Clients read the store directly (private chats). Line 8; categories security, api_contract.
-  - Why: The read goes from the client straight to the store. Nothing checks who is asking, and the store is open to the internet. Reads must pass through the servers.
-  - The reason must say: one of ((?:client|direct|straight|no server|without (?:a |the |any )?server|bypass|skip|exposed|internet)) AND one of (anyone / any chat / any user / other people / other users / someone else / not theirs / check / auth / permission / access control / who is asking / identity / private / expos / internet / leak / abuse / attack / unprotected / nothing (?:validates|limits|protects|stands) / rate limit / throttl / credential / scrap / dump / hide / hidden)
-  - Counts: "Reads go straight from the client to the store, with no server in between. Nothing checks who is asking, so anyone who can reach the store can read any chat. Reads need to pass through something that can check them."
-  - Does not count (wrong reason): "Reads skip the load balancer, so they are not spread evenly over the storage nodes."
-- **False alarm:** not counted on a flawed design; other problem points are reported as "extra".
+- **False alarm:** not counted on a flawed design; other problem points are reported as "extra". A problem point on line 8 restates the judge.
 
 #### paste-bin/judge-fault-and-guessable-ids
 
@@ -1711,10 +1689,10 @@ Class K · **clean** · the judge: Accepted
   checked only against the key's own right and wrong answers. So the run lists every rejected reason and every
   false alarm for a person (runbook step 8), and the reviewed numbers are reported **beside** the automatic ones,
   never instead. A wrong reason that passes the patterns is not listed: that error inflates catches and can only
-  be found by reading the winner's answers (doc 46).
+  be found by reading the winner's answers (doc 48).
 - **Who wrote it.** Every case, pattern and model answer in the key was written by one Claude model. Patterns built
   from its wording may favour models that write the same way. No Anthropic model is on the free tier, but the
-  wording bias is possible; the owner's review of `cases-v3.md` and of doc 46 is the check.
+  wording bias is possible; the owner's review of `cases-v3.md` and of doc 48 is the check.
 - **Judgement calls in the key**, for the owner to overrule before a later run: `ticket-booking/seats-in-key-value`
   (a quorum key-value store cannot stop a double sale; some real stores have conditional writes),
   `ind-vs-pak-live-score/updates-through-parallel-workers` (order can be kept with a timestamp check),
@@ -1850,22 +1828,22 @@ where an effort is set). The first run cost about half of its estimate.
 | When | Who | What | Effect |
 |---|---|---|---|
 | Before step 3 (the first paid call) | The owner | `cases-v3.md`: the key | A change is possible only before the first paid call. After it, the key is frozen for this run |
-| After the last paid step (runbook step 8) | Whoever runs the search | The close calls listed in `observe-v3-to-review.md` for the models nearest the bar | Verdicts in `observe-v3-reviews.json`; the report shows the reviewed numbers **beside** the automatic ones and never changes a mark or a gate. A model whose verdict differs is "borderline: the owner decides" |
-| After the run | The owner | The winner's answers in doc 46: tone, usefulness, "says why without writing the fix" (need N3) | The last word before production |
+| After the last paid step (runbook step 8) | Whoever runs the search | The close calls listed in `observe-v4-to-review.md` for the models nearest the bar | Verdicts in `observe-v4-reviews.json`; the report shows the reviewed numbers **beside** the automatic ones and never changes a mark or a gate. A model whose verdict differs is "borderline: the owner decides" |
+| After the run | The owner | The winner's answers in doc 48: tone, usefulness, "says why without writing the fix" (need N3) | The last word before production |
 
 ### 4.8 Stop rules
 
 | Rule | Action |
 |---|---|
-| Total spent since the start reaches $3.00 (from `GET /v1/credits`) | Stop everything. Write doc 45 |
+| Total spent since the start reaches $3.00 (from `GET /v1/credits`) | Stop everything. Write doc 47 |
 | The balance falls under $0.20 | Stop everything |
-| `npm test` or the mock run fails, or a file hash differs from this document | Do not start. Write why in doc 45 |
+| `npm test` or the mock run fails, or a file hash differs from this document | Do not start. Write why in doc 47 |
 | A call answers 401 | The key is not injected. Stop. Never ask for or print a key |
 | A model's first five calls all fail (403, 404) | The script abandons that model. Carry on with the others |
 | A step exits with code 3 (its cap was reached) | Do not raise the cap. Go on to the next step with the answers saved |
 | More than 20 % of all calls in a step fail with 5xx or timeouts | Wait 10 minutes, run the same command with `--resume` once. If it happens again, stop |
 | A bug that changes marks is found after the first paid call | Stop. Report it. Do not fix and re-mark |
-| A crash that does not touch marks (a path, a flag) | Fix it, commit to `ccr-ground-truth-v3`, note it in doc 45, `--resume` |
+| A crash that does not touch marks (a path, a flag) | Fix it, commit to `ccr-ground-truth-v3`, note it in doc 47, `--resume` |
 | Any step would need a paid-only model, bought credit, or `zeroDataRetention` | Do not do it |
 
 ### 4.9 Production settings, for whichever model wins
@@ -1893,6 +1871,12 @@ Environment of the API server (`backend/src/ai/client.js` reads these).
 
 ## Execution instructions
 
+> **For the next run (ground truth v4).** Outputs are named v4 so the v3 run of 2026-11-17 is never overwritten:
+> `--out v4`, folder `ai-eval-results/interviewers-view-v4/`, results doc 47, answers doc 48. The candidate tiers
+> of §4.2 were all run on v3 (docs 45 §1–§12); for v4, re-run the models nearest the bar there (Muse Ember, GPT-5
+> mini, Qwen 3.8 Omni Flash, Inkling 2 Small, GPT-5.1 Codex Mini) with `--models`, and the paid tier only with bought
+> credit. The key's own spend budget on Vercel must have room: on 2026-11-17 it was used up.
+
 For whoever runs the search: the owner, or a session the owner starts. Follow the steps in order. Every command is run from
 `tech-katta/backend` unless it says otherwise.
 
@@ -1919,7 +1903,7 @@ cd ../tech-katta-context && git fetch origin ai-model-search-plan && git checkou
 ```
 
 If a repository is not in the container, attach it with push access and clone it first. The app commit this plan
-was written against is `03d19be25d31e2095ce46a7084ea0c96ebcad3c8`; the branch head must be that commit or a later one on the same branch.
+was written against is `39e65f4d99db626b8eb05918d5b9ce9c323033db`; the branch head must be that commit or a later one on the same branch.
 
 **Step 1. Set up and check offline (free)**
 
@@ -1934,13 +1918,13 @@ node ai-evals/observe-bakeoff.mjs --mock
 
 | Check | Must be |
 |---|---|
-| sha256 of `ai-evals/cases-v3.mjs` | `fbb626cb96cbbb3b00bd301fabcd1185c5a0053e09a8f4045403fca4d3716d68` |
+| sha256 of `ai-evals/cases-v3.mjs` | `2b544926dba896fb4b66753732e322fd799227c8177adf8cd4c36da312e13fac` |
 | sha256 of `ai-evals/observe.mjs` | `86fc259d7f4ac00f63474f059b709c23e7514075693a4a2c08641fbd7e409488` |
 | sha256 of the prompt text (the `node -e` line) | `75cb7b74e9a2282d3545010eb7dbc94176db44fc0276174e1107b876b366f239` |
-| `npm test` | every test passes (143 on 2026-11-17) |
+| `npm test` | every test passes (145 on 2026-11-17) |
 | `--mock` | prints `MOCK RUN PASSED` and exits 0 |
 
-If any check fails: stop, and write `45-AI-EVALUATOR-RUN-RESULTS.md` saying which and why (step 10).
+If any check fails: stop, and write `47-AI-EVALUATOR-RUN-RESULTS-V4.md` saying which and why (step 10).
 
 **Step 2. The key and the credit**
 
@@ -1959,21 +1943,21 @@ node -e "fetch('https://ai-gateway.vercel.sh/v1/credits',{headers:{Authorization
 **Step 3. Smoke test** (estimate $0.006, cap $0.05)
 
 ```sh
-node ai-evals/observe-bakeoff.mjs --models meta/muse-ember@low --limit 6 --repeat 1 --out smoke-v3 --budget 0.05 --max-spend 0.05
+node ai-evals/observe-bakeoff.mjs --models meta/muse-ember@low --limit 6 --repeat 1 --out smoke-v4 --budget 0.05 --max-spend 0.05
 ```
 
 | Result | Do |
 |---|---|
 | 6 answers, 0 errors | Go on |
 | Errors with `http 401` | Stop: the key |
-| The model is abandoned (`http 403`) | Muse Ember has left the free tier. Go on; say so in doc 45 |
-| Any error `stopped: length` (look in `ai-evals/results/observe-smoke-v3-*.jsonl`, field `error`) | Add `--max-out 6000` to every later command, and say so in doc 45 |
+| The model is abandoned (`http 403`) | Muse Ember has left the free tier. Go on; say so in doc 47 |
+| Any error `stopped: length` (look in `ai-evals/results/observe-smoke-v4-*.jsonl`, field `error`) | Add `--max-out 6000` to every later command, and say so in doc 47 |
 
 **Step 4. The lead tier, 3 runs** (estimate $0.87, cap $0.90, about 30 minutes)
 
 ```sh
 node ai-evals/observe-bakeoff.mjs --tier lead --estimate --budget 0.90
-node ai-evals/observe-bakeoff.mjs --tier lead --out v3 --budget 0.90 --max-spend 0.90 > /tmp/v3-lead.log 2>&1
+node ai-evals/observe-bakeoff.mjs --tier lead --out v4 --budget 0.90 --max-spend 0.90 > /tmp/v4-lead.log 2>&1
 #   after a stop:   the same line with --resume added before the ">"
 ```
 
@@ -1984,8 +1968,8 @@ the cap was reached: go on with what is saved.
 
 ```sh
 node ai-evals/observe-bakeoff.mjs --tier free --repeat 1 --estimate --budget 0.65
-node ai-evals/observe-bakeoff.mjs --tier free --repeat 1 --out v3 --budget 0.65 --max-spend 0.65 > /tmp/v3-free1.log 2>&1
-node ai-evals/observe-bakeoff.mjs --report --out v3
+node ai-evals/observe-bakeoff.mjs --tier free --repeat 1 --out v4 --budget 0.65 --max-spend 0.65 > /tmp/v4-free1.log 2>&1
+node ai-evals/observe-bakeoff.mjs --report --out v4
 ```
 
 **Step 6. Runs 2 and 3 for the survivors** (estimate $0.20 to $0.55, cap $0.55, about 20 minutes)
@@ -1996,14 +1980,14 @@ first, then fewest false alarms. Write each with its effort exactly as in `obser
 (`id@low`; no `@` for the two models with no effort). If there is no survivor, skip this step.
 
 ```sh
-node ai-evals/observe-bakeoff.mjs --models <survivor1>,<survivor2>,… --repeat 3 --out v3 --resume --budget 1.50 --max-spend 0.55 > /tmp/v3-free3.log 2>&1
-node ai-evals/observe-bakeoff.mjs --report --out v3
+node ai-evals/observe-bakeoff.mjs --models <survivor1>,<survivor2>,… --repeat 3 --out v4 --resume --budget 1.50 --max-spend 0.55 > /tmp/v4-free3.log 2>&1
+node ai-evals/observe-bakeoff.mjs --report --out v4
 ```
 
 `--resume` makes it pay only for runs 2 and 3. (`--budget 1.50` is only the estimate guard, which counts all
 three runs; `--max-spend 0.55` is the real limit.)
 
-**Step 7. Decide what to run last** (from `ai-evals/results/observe-v3.md`, models with 147 answers only)
+**Step 7. Decide what to run last** (from `ai-evals/results/observe-v4.md`, models with 147 answers only)
 
 | Situation | Do |
 |---|---|
@@ -2015,8 +1999,8 @@ three runs; `--max-spend 0.55` is the real limit.)
 cost per correct answer, and the next one if there is one.
 
 ```sh
-node ai-evals/observe-bakeoff.mjs --models <winner>,<runner-up> --repeat 5 --out v3 --resume --budget 1.50 --max-spend 0.40 > /tmp/v3-confirm.log 2>&1
-node ai-evals/observe-bakeoff.mjs --report --out v3
+node ai-evals/observe-bakeoff.mjs --models <winner>,<runner-up> --repeat 5 --out v4 --resume --budget 1.50 --max-spend 0.40 > /tmp/v4-confirm.log 2>&1
+node ai-evals/observe-bakeoff.mjs --report --out v4
 ```
 
 The verdict is taken on all five runs (245 answers). A model that no longer passes is reported as "passed on
@@ -2027,8 +2011,8 @@ three runs, failed on five".
 skip a model with no effort setting.
 
 ```sh
-node ai-evals/observe-bakeoff.mjs --models <model1>@medium,<model2>@medium --out v3 --budget 1.50 --max-spend 0.45 > /tmp/v3-medium.log 2>&1
-node ai-evals/observe-bakeoff.mjs --report --out v3
+node ai-evals/observe-bakeoff.mjs --models <model1>@medium,<model2>@medium --out v4 --budget 1.50 --max-spend 0.45 > /tmp/v4-medium.log 2>&1
+node ai-evals/observe-bakeoff.mjs --report --out v4
 ```
 
 If a `@medium` model passes on three runs and at least $0.30 is left under the $3.00 total, run step 7A for it.
@@ -2036,13 +2020,13 @@ Otherwise report it as "passed on three runs, not confirmed".
 
 **Step 8. A person reviews the close calls** (free, about 30 to 60 minutes of reading)
 
-Every run writes `ai-evals/results/observe-v3-to-review.md`: for each model, the answers on the right line and
+Every run writes `ai-evals/results/observe-v4-to-review.md`: for each model, the answers on the right line and
 category whose reason the word patterns rejected (**reason**), and the false alarms (**alarm**), each beside what
 the key wants.
 
 1. Read it for the models nearest the bar first: every model that passed, and the two best that did not. There is
    no need to review every model.
-2. Write `ai-evals/results/observe-v3-reviews.json`, one verdict per answer you read, using the keys exactly as
+2. Write `ai-evals/results/observe-v4-reviews.json`, one verdict per answer you read, using the keys exactly as
    the sheet prints them:
 
    ```json
@@ -2052,7 +2036,7 @@ the key wants.
 
    `accept` on a **reason** row: read as a whole, the answer names every fault of the design with a right reason.
    `accept` on an **alarm** row: the point is fair, not a false alarm. Anything left out keeps its automatic mark.
-3. Run `node ai-evals/observe-bakeoff.mjs --report --out v3`. The report gains a section "After a person's review",
+3. Run `node ai-evals/observe-bakeoff.mjs --report --out v4`. The report gains a section "After a person's review",
    with the reviewed numbers beside the automatic ones.
 
 **The automatic numbers stay the official result.** If a model's verdict differs between the two (it passes on
@@ -2062,29 +2046,29 @@ reviewer's. Review only after the last paid step: a verdict must never decide wh
 **Step 9. Save the results** (free)
 
 ```sh
-node ai-evals/observe-bakeoff.mjs --report --out v3
-mkdir -p ../../tech-katta-context/ai-eval-results/interviewers-view-v3
-cp ai-evals/results/observe-v3-*.jsonl ai-evals/results/observe-v3.md ai-evals/results/observe-v3-to-review.md ai-evals/results/observe-smoke-v3-*.jsonl ../../tech-katta-context/ai-eval-results/interviewers-view-v3/
-cp ai-evals/results/observe-v3-reviews.json ../../tech-katta-context/ai-eval-results/interviewers-view-v3/ 2>/dev/null || echo "no reviews file" 
-node ai-evals/answers-doc.mjs v3 --dir ../../tech-katta-context/ai-eval-results/interviewers-view-v3 --to ../../tech-katta-context/46-AI-EVALUATOR-ANSWERS-V3.md --title "46 — The AI evaluator: every answer of the v3 run (prompt v2, ground truth v3)"
+node ai-evals/observe-bakeoff.mjs --report --out v4
+mkdir -p ../../tech-katta-context/ai-eval-results/interviewers-view-v4
+cp ai-evals/results/observe-v4-*.jsonl ai-evals/results/observe-v4.md ai-evals/results/observe-v4-to-review.md ai-evals/results/observe-smoke-v4-*.jsonl ../../tech-katta-context/ai-eval-results/interviewers-view-v4/
+cp ai-evals/results/observe-v4-reviews.json ../../tech-katta-context/ai-eval-results/interviewers-view-v4/ 2>/dev/null || echo "no reviews file" 
+node ai-evals/answers-doc.mjs v3 --dir ../../tech-katta-context/ai-eval-results/interviewers-view-v4 --to ../../tech-katta-context/48-AI-EVALUATOR-ANSWERS-V4.md --title "48 — The AI evaluator: every answer of the v4 run (prompt v2, ground truth v4)"
 cd ../../tech-katta-context/ai-eval-results
-sha256sum interviewers-view-v3/* >> SHA256SUMS
+sha256sum interviewers-view-v4/* >> SHA256SUMS
 sha256sum -c SHA256SUMS
 ```
 
 (Adjust `../../tech-katta-context` if the two repositories are not side by side.) `sha256sum -c` must say OK for
-every file. Doc 46 is the answers document, generated from the saved files (every `observe-v3-*.jsonl`; the smoke
-file has another prefix and is left out). In the report and in doc 46 a model is named by its file:
+every file. Doc 48 is the answers document, generated from the saved files (every `observe-v4-*.jsonl`; the smoke
+file has another prefix and is left out). In the report and in doc 48 a model is named by its file:
 `meta_muse-ember_low` is `meta/muse-ember@low`.
 
-**Step 10. Write `45-AI-EVALUATOR-RUN-RESULTS.md`** in `tech-katta-context`, in the house style (plain words,
+**Step 10. Write `47-AI-EVALUATOR-RUN-RESULTS-V4.md`** in `tech-katta-context`, in the house style (plain words,
 short sentences, tables), with these sections:
 
 1. **Verdict, in one table:** did a model pass; which; its numbers on every gate; the runner-up; or "no model
    passed" and the nearest. State the number of answers behind each number.
 2. **What was run:** each step, its command, start and end time (IST), answers, cost by the script, Spent by
    `/v1/credits` after it. T0, the final `total_used`, the final `balance`. Total spent.
-3. **The ranking table** from `observe-v3.md` (gates), and the secondary table.
+3. **The ranking table** from `observe-v4.md` (gates), and the secondary table.
 4. **Catches per class** and the designs no model caught.
 5. **False alarms:** which clean designs, which categories, the commonest text. Did prompt v2 remove the causes of
    §1.7?
@@ -2100,12 +2084,12 @@ short sentences, tables), with these sections:
 11. **Not done:** MongoDB rows for `ai_eval_responses` and the commit ledger, unless your own instructions allow
     writing to MongoDB. List them as pending.
 
-Also: add one line at the top of `17-SESSION-HANDOVER.md` pointing to doc 45, and update the AI-evaluator row in
+Also: add one line at the top of `17-SESSION-HANDOVER.md` pointing to doc 47, and update the AI-evaluator row in
 `18-TODO.md`.
 
 **Step 11. Commit and push**
 
-- `tech-katta-context`: commit `45-…`, `46-…`, `ai-eval-results/interviewers-view-v3/`, `SHA256SUMS`,
+- `tech-katta-context`: commit `47-…`, `48-…`, `ai-eval-results/interviewers-view-v4/`, `SHA256SUMS`,
   `17-SESSION-HANDOVER.md`, `18-TODO.md` to **`ai-model-search-plan`**; `git push -u origin ai-model-search-plan`
   (retry a network failure up to four times).
 - `tech-katta`: nothing to commit (`ai-evals/results/` is ignored). Only if a crash fix was needed: commit it to
@@ -2156,6 +2140,7 @@ and 2026-11-16 stand). No web search result was used for a price.
 | When | What changed | Why |
 |---|---|---|
 | 2026-11-17, first version | Commit `564f42f` | |
-| 2026-11-17, revision | The category descriptions in the prompt made general (no answer-key change). A person's review of close calls added (step 8; reviewed numbers beside the automatic ones). The runbook is for a run the owner starts: the 07:00 scheduled session was removed by the owner. Background commands get a 2-hour limit. A check of the prompt's own hash. Commit `03d19be25d31e2095ce46a7084ea0c96ebcad3c8` | A self-review found the category examples pointed at planted faults, that 21 of 30 reason checks were never tried on real answers, and that a background run would be stopped at 30 minutes |
+| 2026-11-17, after the run (v4) | The judge reports four faults itself (W004–W007), and ground truth v4 hands those 10 designs to the judge (§3). Hashes and the app commit updated. Commit `39e65f4d99db626b8eb05918d5b9ce9c323033db` | The v3 run: no model caught a client reaching the store, and these faults are exact rules, cheaper and surer in the judge |
+| 2026-11-17, revision | The category descriptions in the prompt made general (no answer-key change). A person's review of close calls added (step 8; reviewed numbers beside the automatic ones). The runbook is for a run the owner starts: the 07:00 scheduled session was removed by the owner. Background commands get a 2-hour limit. A check of the prompt's own hash. Commit `03d19be` | A self-review found the category examples pointed at planted faults, that 21 of 30 reason checks were never tried on real answers, and that a background run would be stopped at 30 minutes |
 
 Status: ready for execution

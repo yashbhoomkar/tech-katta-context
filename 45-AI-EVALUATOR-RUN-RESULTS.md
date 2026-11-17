@@ -272,7 +272,27 @@ not which model to ship.
 
 **Credit now:** total used $4.010 of the free $5, **balance $0.990**. Nothing was bought.
 
-## 13. Not done
+## 13. Done after the run: what code can check, the judge now checks
+
+On the owner's word ("Fix what is free"), commit `39e65f4` on `tech-katta` branch `ccr-ground-truth-v3`:
+
+| Warning | The judge now says | Faults of this run it takes over |
+|---|---|---|
+| W004 | A store or cache is reached from the client with no server in between (read or write) | `url-shortener/clients-read-the-store`, `chat-message-store/clients-read-the-store`, `leaderboard/clients-write-the-database`, and the exposed read in both two-fault designs: **no model caught any of them** |
+| W005 | A write's id is made after the queue (the reply cannot carry it; a job delivered twice gets a second id) | `ticket-booking/book-through-a-queue`, `paste-bin/create-through-a-queue`, `notification-sender/id-made-by-the-worker` |
+| W006 | A counter has fewer values than the problem's items: it runs out and ids repeat | `url-shortener/id-space-too-small` |
+| W007 | A CDN keeps answers for under a sixtieth of the staleness the problem allows | `image-serving/cdn-forgets-at-once` |
+
+They are notes, like W001–W003: they never change a verdict, and no reference, wrong or template design of the ten
+problems trips one (tested). The learner sees them in the design report at once, for free and always right, and
+the AI is told them under "what the judge already reports". The AI's test set follows as ground truth v4 (doc 44
+§3): those 10 designs become judge-only cases or lose that fault; **22 flawed, 27 clean**. The v3 results above are
+not re-marked. Tests: frontend 436/436, backend 145/145, mock run passed.
+
+Still open: making W006 a failing finding like the judge's collision check (a verdict change, so the owner's call);
+the content questions of §10.
+
+## 14. Not done
 
 - MongoDB: done on 2026-11-17, see `11-MONGODB-COMMIT-LEDGER.md`.
 - A person's review of `observe-v3-to-review.md`. Not needed for this verdict.
