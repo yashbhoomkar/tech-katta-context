@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+> **2026-11-17, late: Gemini tested for free (Google AI Studio key, $0 spent; `tech-katta` branch `ai-eval-gemini`, `7b6e60a`, not in a PR). 9 Gemini models, none clears the bar; best Gemini 3.1 Flash-Lite, 74 % caught, 61 % false alarms, p95 52 s. Bigger Flash models are overloaded on the free tier. Doc 45 §16; answers in `ai-eval-results/gemini-v4/`.**
+>
 > **2026-11-17, evening: PR #371 merged to `tech-katta` main (`7c53c7a`) and verified live: judge 3 (W004, W005, W007; a counter too narrow now fails), content fixes, AI test kit with ground truth v4 (50 designs). Decisions and checks: doc 45 §15. Open: close draft PR #370 unmerged; a model budget for the next search (free credit about $0.99, the key's budget spent); merge this context branch `ai-model-search-plan`.**
 >
 > **2026-11-17, 19:10 IST: the judge now reports four faults no model caught (W004–W007: client straight to a store, id made after the queue, counter too narrow, CDN TTL far too short), as notes that never change a verdict; AI ground truth v4 hands those designs to the judge. `tech-katta` `ccr-ground-truth-v3` at `39e65f4`, not merged. Doc 45 §13.**

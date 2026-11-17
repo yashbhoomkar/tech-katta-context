@@ -1556,3 +1556,7 @@ commit); count after **111**.
 v4 final) into both collections; `3c42281ebcda236453c7d51de662b7e76062522b` (CodeQL fix, backend only) into
 `backend_git_commits`; the squash merge `7c53c7ae04fcbd3f908a733e43c780482906da94` (PR #371) into both. Each checked
 absent first. Counts after: frontend **1081**, backend **742**.
+
+**2026-11-17 (Gemini platform):** `7b6e60a5369b75bf05c0b1a294635264b59a1444` (branch `ai-eval-gemini`, not in a PR;
+`backend/ai-evals/` and `backend/test/` only) inserted into `backend_git_commits` after checking it was absent.
+Count after: backend **743**.

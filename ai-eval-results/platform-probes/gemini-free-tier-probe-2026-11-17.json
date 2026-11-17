@@ -1,0 +1,230 @@
+{
+ "probed_at": "2026-11-17T15:05:50.314Z",
+ "platform": "Google AI Studio (Gemini API, OpenAI-compatible)",
+ "rows": [
+  {
+   "id": "gemini-2.5-flash",
+   "status": 404,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":404,\"message\":\"This model models/gemini-2.5-flash is no longer available to new users. Please update your code to use models/gemini-3.8-flash for the latest features and improvements. We recommend you to use the Interactions API (https://aistudio.google.com/docs/get-started).\",\"status\":\"NOT_FOUND\"}"
+  },
+  {
+   "id": "gemini-2.5-pro",
+   "status": 404,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":404,\"message\":\"This model models/gemini-2.5-pro is no longer available to new users. Please update your code to use models/gemini-3.1-pro-preview for the latest features and improvements. We recommend you to use the Interactions API (https://aistudio.google.com/docs/get-started).\",\"status\":\"NOT_FOUND\"}"
+  },
+  {
+   "id": "gemma-4-26b-a4b-it",
+   "status": 200,
+   "free": true,
+   "text": "<thought>The user said \"Say ok\".\nThe user wants me to respond with the word \"ok\".\nRespond with \"ok\".</thought>ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 30
+   },
+   "error": null
+  },
+  {
+   "id": "gemma-4-31b-it",
+   "status": 200,
+   "free": true,
+   "text": "<thought>The user said \"Say ok\".\nThe user wants me to respond with the word \"ok\".\nRespond with \"ok\".</thought>ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 30
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-flash-latest",
+   "status": 503,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "gemini-flash-lite-latest",
+   "status": 200,
+   "free": true,
+   "text": "Ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 4
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-pro-latest",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-3.1-pro, description: Generate content input tokens per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-pro, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, l"
+  },
+  {
+   "id": "gemini-2.5-flash-lite",
+   "status": 404,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":404,\"message\":\"This model models/gemini-2.5-flash-lite is no longer available to new users. Please update your code to use models/gemini-3.5-flash-lite for the latest features and improvements. We recommend you to use the Interactions API (https://aistudio.google.com/docs/get-started).\",\"status\":\"NOT_FOUND\"}"
+  },
+  {
+   "id": "gemini-3-flash-preview",
+   "status": 200,
+   "free": true,
+   "text": "ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 33
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-3.1-pro-preview",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-pro, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-3.1-pro, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0"
+  },
+  {
+   "id": "gemini-3.1-flash-lite-preview",
+   "status": 200,
+   "free": true,
+   "text": "Ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 4
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-3.1-flash-lite",
+   "status": 200,
+   "free": true,
+   "text": "Ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 4
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-3.5-flash",
+   "status": 503,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "gemini-3.5-flash-lite",
+   "status": 200,
+   "free": true,
+   "text": "Ok",
+   "usage": {
+    "completion_tokens": 1,
+    "prompt_tokens": 3,
+    "total_tokens": 4
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-omni-flash-preview",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-omni-1.1-flash, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-omni-1.1-flash, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_c"
+  },
+  {
+   "id": "gemini-omni-1.1-flash",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-omni-1.1-flash, description: Generate content input tokens per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-omni-1.1-flash, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_ti"
+  },
+  {
+   "id": "gemini-omni-1.2-flash",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-omni-1.2-flash, description: Generate content requests per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-omni-1.2-flash, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_c"
+  },
+  {
+   "id": "gemini-3.6-flash",
+   "status": 503,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "gemini-3.7-flash",
+   "status": 503,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "gemini-3.8-flash",
+   "status": 503,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":503,\"message\":\"This model is currently experiencing high demand. Spikes in demand are usually temporary. Please try again later.\",\"status\":\"UNAVAILABLE\"}"
+  },
+  {
+   "id": "gemini-4-argon",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-4-argon, description: Generate content input tokens per day limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-4-argon, description: Generate content input tokens per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_r"
+  },
+  {
+   "id": "gemini-4-carbon",
+   "status": 429,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":429,\"message\":\"You exceeded your current quota, please check your plan and billing details. For more information on this error, head to: https://aistudio.google.com/docs/rate-limits. To monitor your current usage, head to: https://ai.dev/rate-limit. \\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_input_token_count, limit: 0, model: gemini-4-carbon, description: Generate content input tokens per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests, limit: 0, model: gemini-4-carbon, description: Generate content requests per minute limit exceeded on Free Tier. See https://aistudio.google.com/docs/rate-limits.\\n* Quota exceeded for metric: generativelanguage.googleapis.com/generate_content_free_tier_requests,"
+  },
+  {
+   "id": "gemini-4-hydrogen",
+   "status": 200,
+   "free": true,
+   "text": "ok",
+   "usage": {
+    "completion_tokens": 5,
+    "prompt_tokens": 33,
+    "total_tokens": 73
+   },
+   "error": null
+  },
+  {
+   "id": "gemini-decision-1",
+   "status": 404,
+   "free": false,
+   "text": null,
+   "usage": null,
+   "error": "{\"code\":404,\"message\":\"models/gemini-decision-1 is not found for API version v1main, or is not supported for generateContent. Call ModelService.ListModels to see the list of available models and their supported methods.\",\"status\":\"NOT_FOUND\"}"
+  }
+ ]
+}

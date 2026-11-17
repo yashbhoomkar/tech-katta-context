@@ -323,3 +323,43 @@ open and should be closed without merging). **Production verified:**
 
 Doc 44 is rebuilt against `7c53c7a` (hashes of `cases-v3.mjs` and `observe.mjs` updated); its runbook is unchanged
 and still needs a model budget to run: the free credit has about $0.99 left and the key's own budget is spent.
+
+## 16. Google AI Studio's free tier (Gemini), 2026-11-17 evening
+
+On the owner's word ("do everything until it's free"): instead of buying Vercel credit (minimum $10), a free Google AI
+Studio key (named `tech-katta`, saved as a network secret for `generativelanguage.googleapis.com`) and a third
+platform in the test script (`tech-katta` branch `ai-eval-gemini`, `7b6e60a`: `--platform gemini`; a model still
+rate-limited after four tries is paused, not failed). **Spent: $0.** The key is on Google's Free Tier: the paid-only
+models (Gemini 3.1 Pro, Omni, 4 Argon, 4 Carbon) answer "limit: 0", so nothing can be charged. On the free tier
+Google may use prompts to improve its products: fine for these made-up designs, not for learners' designs.
+
+**Probe** (one "say ok" call each, `platform-probes/gemini-free-tier-probe-2026-11-17.json`): free and answering:
+Gemini 3 Flash, 3.1 Flash-Lite, 3.5 Flash-Lite, 4 Hydrogen, Gemma 4 31B and 26B; overloaded (503) or timing out
+on every try: 3.5, 3.6, 3.7, 3.8 Flash; 2.5 models closed to new users.
+
+**The test:** ground truth v4 (50 designs: 22 flawed, 28 clean), prompt v2, 3 runs, effort `low`. Answers lost
+to Google's overload (503) or a timeout were removed and asked again once (`--resume`); the first pass is kept in
+`gemini-v4/first-pass/`.
+
+| Model | Answers | Caught | False alarms | Errors | p95 | Hidden instruction obeyed |
+|---|---|---|---|---|---|---|
+| Gemini 3.1 Flash-Lite | 149 of 150 | **74.2 %** | 60.7 % | 0.7 % | 52.1 s | 1 |
+| Gemini 3 Flash | 21 (daily quota) | 66.7 % | 83.3 % | 0 % | 33.4 s | 0 |
+| Gemma 4 31B | 131 of 150 | 34.8 % | 13.1 % | 12.7 % (503) | 55.8 s | 0 |
+| Gemini 3.5 Flash-Lite | 150 of 150 | 33.3 % | 22.6 % | 0 % | 16.3 s | 0 |
+| Gemini 3.5 / 3.6 / 3.8 Flash | 2 / 2 / 1 | — | — | timeouts, 503, then the daily quota | 53–119 s | — |
+| Gemini 3.7 Flash, 4 Hydrogen | 0 | — | — | 503 and timeouts only | — | — |
+
+**Verdict: no Gemini model clears the bar either.** 3.1 Flash-Lite catches the most of any free model so far
+(74 %), but flags most clean designs and takes up to 52 s. The larger Flash models are overloaded on the free tier
+and allow only a handful of calls a day: they could not be measured, and their few answers took 53–119 s, far over
+the 10 s bar. Every Gemini model is slower than the bar on the free tier.
+
+Files: `ai-eval-results/gemini-v4/` (every answer, raw; report `observe-gemini-v4.md`; review sheet; both run logs),
+`platform-probes/gemini-*`; checksums in `SHA256SUMS`.
+
+**What is left that is free:** (a) raise the Vercel key's own budget (Vercel → AI Gateway → API Keys) to use the
+$0.99 of free credit left; (b) wait for Vercel's monthly $5; (c) `--resume` the paused Gemini models on later days
+(their speed already misses the bar). None of these is likely to find a model that clears the bar: the pattern
+across 76 models is that the free and cheap ones either miss faults or raise false alarms. The remaining real
+options cost money (the 25 dearest Vercel models, or paid tiers).
