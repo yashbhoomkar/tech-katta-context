@@ -363,6 +363,18 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   overlap. "Use this skill" (heydamir/unslop, CC BY 4.0): audit and direction shown, then applied: no gradients or
   washes, sentence-case labels, no headline full stops, hero text left with the system right, part colour dots in text
   as the signature. Unverified copy to confirm: the FAQ answers.
+- **Round 8 (2026-11-18 evening, many small commits).** Landing finished and approved by the owner ("Rest else is
+  good"): 4 sections on one Kafka pipeline (users, app servers, Kafka topic, consumers, SQL); words white in dark and
+  black in light; one glass recipe for the phone text panel, bottom bar and 3D labels; dark mode by default; the top
+  bar only at the very top; 1.3 screens a section.
+- **Round 9 (2026-11-19, `e3bc287`, `2a8ea3c`, `387299d`, `3c32425`, `39db825`, `fa0b6db`).** Owner: "I want the
+  full fledged frontend ready. Think of every animation figure. First develop only the dashboard home page and the
+  concepts tab and few concepts." Built: Learn with four tabs and all 66 real articles from tech-api.katta.cc (bundled
+  snapshot if offline) and a 3D preview per article; an article page per slug (3D scroll story, then the full API
+  body with every block type, a 3D figure beside the text on wide screens, marks read at the end); a Dashboard whose
+  3D system's parts carry the 21 concepts (amber started, green done, tap a part for its next concept). Every concept
+  and component has its own 3D story written from its article. The sample lessons are gone; their links redirect.
+  Left: stories for interview questions (29) and real systems (6) still use a generic figure.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 

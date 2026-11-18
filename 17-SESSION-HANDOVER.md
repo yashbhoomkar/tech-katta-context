@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+> **2026-11-19, 04:50 IST: /p/redesign-3d/ now has a Dashboard (3D system of the 21 concepts), Learn with all 66 real articles from the API, and an article page per slug; every concept and component opens with its own 3D story. Landing approved. `ui-prototypes/TRIED.md` round 9.**
+>
 > **2026-11-18, 06:45 IST: tech.katta.cc now serves the neo-brutalism frontend (`frontend/next`), made calmer (no tilts, stickers, bounces or confetti; Archivo Bold) and consistent (one control height, 44 px touch targets). PR #372 merged (`bbf81cd`), verified live; every old /dashboard/ address redirects. Decisions, audit, rollback: `47-NEO-BRUTALISM-PRODUCTION.md`. Open for the owner: close PR #367 (superseded); submit the new sitemap in Search Console.**
 >
 > **2026-11-18: /p/redesign-3d/ now scroll-driven (animation first, then words) and in Tech Katta's own multi-pastel look (not rca.gg's). rca.gg is not open source: reuse nothing of theirs. `ui-prototypes/TRIED.md`.**
