@@ -327,6 +327,21 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   judge's model behind it)? Should lessons all become scroll stories? Phone simulator layout (scene squeezed between
   the brief and the dock).
 - Commit `605bf60` on `prototype` (ledgered). Folder README explains the engine and the model.
+- **Round 2, scroll drives the animation (`edf7a05`).** Owner: "when anyone scrolls, only then the animation
+  proceeds, and then the actual textual content takes over the animation." Each chapter is a tall section: while it
+  scrolls into place, its scroll position blends the world from the previous chapter (camera, parts rising one by
+  one, colours, paths); then it pins, the words fade in and the scene slides aside. No timers; scrolling back plays it
+  backwards. Landing and lessons.
+- **Round 3, our own look (`29397a3`).** Owner: "I don't want the UI to be exactly the same as rca.gg, I don't want any
+  legal issues." Checked: rca.gg is not open source (no repository, no licence; its terms only say users own their
+  RCAs), so nothing of theirs may be reused; ideas (scroll-driven 3D, isometric systems) are fine, their look is not.
+  A paper-and-ink version was tried first; the owner: "Nahh the pastel colours were looking so cool", then "Make the
+  multi-pastel version that's our own." Now: the app's six section pastels as a family (each kind of part has its own:
+  app servers sky, load balancer lilac, cache peach, databases mint, queue lemon, CDN rose), a sky-lilac-peach headline
+  highlighter, coral-red failures, Instrument Sans and Geist Mono, single matte models with marigold lights, tags, a
+  vertical chapter rail, a dot grid. The paper-and-ink variant is kept on branch `redesign-3d-paper-ink`.
+- **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
+  purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
 ### Soft 3D: the whole app in an rca.gg-like look, /p/soft-3d/ (2026-11-18)
 
