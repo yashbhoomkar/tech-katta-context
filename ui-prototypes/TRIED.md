@@ -358,6 +358,11 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   pink), same in light and dark. Landing plan: hero (builds itself) → story (spike, break, cause, fix) → the parts →
   learn → simulate → NEW what you will design (3D city of six real systems) → your turn (free, Google) → below the 3D
   in plain text: who it is for, who teaches it, questions.
+- **Round 7 (`3c3f9aa`, `707ff31`, `8b0a386`).** "I need one system in one figure": the city of six systems became one
+  chat app. "Use labels but just change the placement": labels now find free spots with dotted leader lines, never
+  overlap. "Use this skill" (heydamir/unslop, CC BY 4.0): audit and direction shown, then applied: no gradients or
+  washes, sentence-case labels, no headline full stops, hero text left with the system right, part colour dots in text
+  as the signature. Unverified copy to confirm: the FAQ answers.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
