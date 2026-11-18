@@ -307,6 +307,27 @@ Owner, after looking at rca.gg: "On scrolling down the background animation chan
   The SVG scene stays as the fallback without WebGL. Checked live: desktop and Pixel 7, light and dark, no errors,
   no sideways scroll. Commits `3c326b9`, `5e7b2ba` (ledgered).
 
+### Redesign 3D: Tech Katta rebuilt around a live 3D system, /p/redesign-3d/ (2026-11-18)
+
+Owner, after /p/soft-3d/: "You don't need to follow tech katta UI UX and widget placements for the new prototype.
+You can think and redesign everything. Take a step back. Think. Write code deploy."
+- **The idea:** rca.gg teaches by letting you watch a system fail. So the live 3D system is the product, not
+  decoration. Lessons are scroll stories (the system rebuilds itself with each step); problems become *incidents*,
+  real Indian evenings (IND vs PAK, a ticket sale, a big sale, salary day, election results) with a traffic curve,
+  failures and a budget in rupees; the workspace is a 3D *simulator*: add app servers, cache nodes, replicas, a queue,
+  a CDN, press Run, watch parts turn amber and orange, read a verdict that explains what broke and links the lesson.
+- **Navigation:** one top bar: Learn · Incidents · Simulator · You. No sidebar, no dashboard of widgets. "You" shows
+  lessons read, incidents survived and best runs; no streaks or badges.
+- **Built as:** a standalone folder prototype (own data, hash routes), a reusable 3D engine (`world.js`) and a small
+  traffic model (`sim.js`), tuned so every incident's start design fails and several designs pass within budget.
+  Four lessons written (load balancing, caching, read replicas, queues); four more listed as soon.
+- **Checked live:** desktop and Pixel 7, light and dark: landing story, Learn with the hover preview, a lesson, the
+  incidents, a failing and a passing run in the simulator, You; no page errors, no sideways scroll.
+- **Open questions for the owner:** is "incidents + simulator" the right core for Tech Katta (it would need the real
+  judge's model behind it)? Should lessons all become scroll stories? Phone simulator layout (scene squeezed between
+  the brief and the dock).
+- Commit `605bf60` on `prototype` (ledgered). Folder README explains the engine and the model.
+
 ### Soft 3D: the whole app in an rca.gg-like look, /p/soft-3d/ (2026-11-18)
 
 Owner: "As we created full fledged prototypes on prototype.katta.cc create a new prototype with this design similar to
