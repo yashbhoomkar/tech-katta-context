@@ -352,6 +352,12 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   pastels in `palette.js` (sky #8CD2FF, lilac leaning orchid #E3A8F7, peach #FFB980, mint #86E5B8, lemon #FFE36E,
   rose #FF9FB4); failure a stronger red; NeutralToneMapping so the 3D models keep the legend's colours. Still a
   six-hue family, never rca.gg's single lavender with violet.
+- **Round 6 (`80e9063`).** Owner, circling the app servers: "Change that blue colour. Look for bright colours. Only
+  focus on landing page. Think of what all should be there on landing page. You don't necessarily need to follow
+  current tech.katta.cc." Bright saturated hues for every part (azure app servers, orchid, tangerine, mint, sunflower,
+  pink), same in light and dark. Landing plan: hero (builds itself) → story (spike, break, cause, fix) → the parts →
+  learn → simulate → NEW what you will design (3D city of six real systems) → your turn (free, Google) → below the 3D
+  in plain text: who it is for, who teaches it, questions.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
