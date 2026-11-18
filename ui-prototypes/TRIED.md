@@ -348,6 +348,10 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   legend, learn, simulate), no flat cards or charts. Skills read for this: freshtechbro/claudedesignskills (MIT;
   threejs-webgl, gsap-scrolltrigger) and cloudai-x/threejs-skills (lighting, animation, performance); used their
   guidance on environment lighting, damping and fill-rate, no code copied.
+- **Round 5 (`1d6987f`).** Owner: "Choose some brighter colours, but still don't copy rca.gg." Brighter, more saturated
+  pastels in `palette.js` (sky #8CD2FF, lilac leaning orchid #E3A8F7, peach #FFB980, mint #86E5B8, lemon #FFE36E,
+  rose #FF9FB4); failure a stronger red; NeutralToneMapping so the 3D models keep the legend's colours. Still a
+  six-hue family, never rca.gg's single lavender with violet.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
