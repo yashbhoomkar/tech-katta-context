@@ -374,7 +374,12 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   body with every block type, a 3D figure beside the text on wide screens, marks read at the end); a Dashboard whose
   3D system's parts carry the 21 concepts (amber started, green done, tap a part for its next concept). Every concept
   and component has its own 3D story written from its article. The sample lessons are gone; their links redirect.
-  Left: stories for interview questions (29) and real systems (6) still use a generic figure.
+- **Round 10 (2026-11-19 scheduled run, `39db825`, `5dd7bb9`, `fa61cab`, `53e6161`).** All 66 articles have
+  their own 3D story: concepts and components hand-written from each article's text and captions; real systems show
+  what each company changed; interview questions show their high-level design and two deep dives, with the chapter
+  words taken from the article section at run time. Found and fixed: the reader skipped the API's option cards
+  (`type`) and analogies (65 sections); long inline code widened phone pages. Checked: all 66 articles on a phone
+  (no errors, no sideways scroll, body present).
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
