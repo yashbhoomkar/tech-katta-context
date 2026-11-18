@@ -2,6 +2,8 @@
 
 > **2026-11-18, 06:45 IST: tech.katta.cc now serves the neo-brutalism frontend (`frontend/next`), made calmer (no tilts, stickers, bounces or confetti; Archivo Bold) and consistent (one control height, 44 px touch targets). PR #372 merged (`bbf81cd`), verified live; every old /dashboard/ address redirects. Decisions, audit, rollback: `47-NEO-BRUTALISM-PRODUCTION.md`. Open for the owner: close PR #367 (superseded); submit the new sitemap in Search Console.**
 >
+> **2026-11-18: new full-app prototype https://prototype.katta.cc/p/soft-3d/: frontend/next in a third look (VITE_STYLE=soft-3d, rca.gg-like), landing opens with the 3D scroll story. `ui-prototypes/TRIED.md`.**
+>
 > **2026-11-18: /p/scroll-3d/ rebuilt as a real WebGL (three.js) scene after the owner's "Theirs look sooo good!! Fix everything": shadows, glow, fog, scroll-scrubbed camera. Live and checked. `ui-prototypes/TRIED.md`.**
 >
 > **2026-11-18, 00:40 IST: new prototype https://prototype.katta.cc/p/scroll-3d/: a landing page told as one isometric 3D scene in rca.gg-like colours (URL shortener breaks and is fixed as you scroll). Checked live, desktop and phone, light and dark. `ui-prototypes/TRIED.md`. Next scheduled run: 06:00 IST, the neo-brutalism switch of tech.katta.cc.**

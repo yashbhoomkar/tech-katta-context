@@ -307,6 +307,28 @@ Owner, after looking at rca.gg: "On scrolling down the background animation chan
   The SVG scene stays as the fallback without WebGL. Checked live: desktop and Pixel 7, light and dark, no errors,
   no sideways scroll. Commits `3c326b9`, `5e7b2ba` (ledgered).
 
+### Soft 3D: the whole app in an rca.gg-like look, /p/soft-3d/ (2026-11-18)
+
+Owner: "As we created full fledged prototypes on prototype.katta.cc create a new prototype with this design similar to
+rca.gg".
+- **What it is:** the real new frontend (`frontend/next`, the code of tech.katta.cc), built in a third look,
+  `VITE_STYLE=soft-3d`, the same way `/p/neo-brutalism/` is. Every page works: landing, Home, Learn, lessons, Quick
+  Notes, Problems, the workspace, You (signed out on the prototype site, as always).
+- **The look** (`frontend/next/src/styles/looks/soft-3d/`): the scroll-3d palette (lavender page with a faint grid,
+  one violet accent, orange only for broken, green only for fixed), Manrope + IBM Plex Mono, dark pill buttons,
+  glass sidebar and bars, hairline cards with a soft violet shadow, softer section pastels, the lesson's brand
+  colour (Listen, highlights) violet. Light and dark.
+- **The landing** opens with the scroll-3d story (`pages/landing/Story3d.tsx` + `scene3d.js`, three.js from npm):
+  six chapters over a sticky WebGL stage, the camera scrubbed by scroll; then the usual landing bands. Loaded only in
+  this build: the default and neo-brutalism bundles carry none of it (checked). Without WebGL the chapters read alone.
+- **Also:** the prototype branch's `frontend/next` styles were brought up to `main`, so `/p/neo-brutalism/` now
+  matches production.
+- **Checked live:** desktop 1440×900 and Pixel 7, light and dark: landing story, Learn, a lesson, Problems, the
+  workspace, You; no page errors, no sideways scroll; axe colour contrast (two misses fixed in `0eb7a0f`).
+- **To look at:** whether the app pages feel as calm as rca.gg; the section card colours (softened; dark mode is
+  still vivid); the phone story (scene on top, words below).
+- Commits `99f9d92`, `df276d9`, `0eb7a0f` on `prototype` (ledgered).
+
 ### Neo-brutalism goes to production, calmer (2026-11-18)
 
 The owner showed neo-brutalism to two people; both liked it, one found it "too gamified". The production version
