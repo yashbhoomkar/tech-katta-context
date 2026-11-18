@@ -94,6 +94,52 @@ re-grade table and decisions in `37-UI-UX-REVIEW-FIXES.md`. Checked: tests 393 +
 merges (or says "merge and deploy"), then add the squash commit's ledger rows. Note: another session (branch
 `ccr-0abbbe33-gkyjcf`, "context 36") is writing to the ledger at the same time; expect a rebase.
 
+**Update 2026-11-14 (building context 36, step 1: the canvas fits itself and gets the window).** Commit `0993fd0a3e33a0eb126e3726d4f56e43b6ef258e` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 981, backend 708. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 2: faster building).** Commit `8bc3c1cc00e10e599afc883fade50c98ffc19208` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 982, backend 708. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 3: results that explain themselves).** Commit `8924f9a9ceb42061860ec937a1cb2dbccab1fe2d` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 983, backend 709. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 4: break it yourself).** Commit `43fefb51bb78d724df9017b62f3d19e8959f0742` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 984, backend 710. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 5: compare with the last submission; the bill part by part).** Commit `31fa78114b2881de324cb8d467939e412fcf9d40` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 985, backend 710. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 6: calls a second on every arrow).** Commit `acfa1750d73f79f394cb4be0da90567e2a3989b2` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 986, backend 711. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 7: the sandbox canvas (paid)).** Commit `a741bd9a685914c5314301425754ce0bc9cb2790` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 987, backend 711. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 8: notes, Present my design, follow-up questions).** Commit `e988da6de52c0f05ed814d5dbb6131fe52ed6d6b` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 988, backend 712. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 9: mock interview mode).** Commit `9ddf03fe0c9534b4c22a5437be279549f7b2bc7d` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 989, backend 712. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 10: your plan, problem of the day, bookmarks, private notes).** Commit `877a03eb5abe6af73dbbc9b47dd3e92f291961a9` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 990, backend 712. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 11: Share a design: link, PNG, JSON).** Commit `a716c47` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 997, backend 717. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 12: Estimate helper).** Commit `45f22fc` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 998, backend 717. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 13: Common wrong designs in the Solution tab).** Commit `898c5c1` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 999, backend 718. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 14: Hints linked to the article that teaches them).** Commit `d570e50` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1000, backend 718. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 15: Guided mode for beginners).** Commit `31baa24` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1001, backend 718. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 16: Headroom and waste: beyond the tests).** Commit `2f7f5ad` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1002, backend 719. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 17: Defend your design).** Commit `812f816` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1003, backend 720. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 18: Trade-offs: each choice run both ways).** Commit `a8544b7` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1004, backend 721. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 19: Why did this part crash?).** Commit `4c98f3a` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1005, backend 721. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 20: Your skills: a skill record).** Commit `c63d7f7` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1006, backend 721. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-14 (building context 36, step 21: Say it out loud).** Commit `fad3c84` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1007, backend 721. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
+**Update 2026-11-15 (context 36 MERGED AND DEPLOYED).** Steps 1–22 merged to `main` by PR #366 as `1a8ca71` after green CI. Frontend live on `tech.katta.cc` (Vercel `dpl_HeY2m45qTxZRsB4hX95moty65pjB`); backend deployed by *Deploy Tech Katta Backend* run 282 (the new `GET /v1/articles/<slug>/wrong` answers on `tech-api.katta.cc`). Ledger frontend 1010, backend 724. The updates below that say "not merged" are history. Open: tags (#33), languages (#43), canvas keyboard audit (#41). Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6, "Merged and deployed".
+
+**Update 2026-11-14 (building context 36, step 22: What would fix it? Checked repairs).** Commit `03c1107` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1008, backend 722. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
+
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's
 (premium renovation). **Decided:** don't bring back the spec 32 look unless asked. Details of what was tried below and in
