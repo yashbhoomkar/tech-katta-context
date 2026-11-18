@@ -1,6 +1,98 @@
 # 17 — Session Handover (read this first)
 
-Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #357; see the first updates below; the live look is the premium renovation #343–#345); before that **2026-11-13** (evaluator v3's AI review live with the mock interviewer, #339; spec 29 merged, context #194; ledger rows for #339 **pending**: MongoDB was unreachable from the session; see "Evaluator v3: Ask the interviewer" below; before that: the expert's notes: no marigold, black pill buttons, indigo accent, picture cards, "Figures only", shorter landing, #335; ledger frontend 906 / backend 684; before that: the new look, spec 25 P4 Brilliant-inspired, #334; ledger frontend 903 / backend 682; before that: spec 24 done: section marks and tour swipe #331, portrait phone figures for 33 articles #332–#333; ledger frontend 900 / backend 682; before that: landing count-up and streak marker #330; ledger frontend 891 / backend 682; before that: state scenes #328 and the "Share as image" card #329 live, spec 24 G3 and G6; ledger frontend 888 / backend 682; before that: spec 24 decisions taken by the session on the owner's word, the learner's diagram on phones, one arrow per hop, #325–#327; ledger frontend 882 / backend 682; before that: swipes, figure steps and cross-fades live, spec 24 UX1–UX4, #323, #324; ledger frontend 873 / backend 680; see "Swipes and motion" below; before that: Practice steps 6–8 live: autocomplete, streak, problems 2–10, judge version 2, #319; ledger frontend 863 / backend 679; before that 2026-11-12: Practice, LeetCode style: spec 21 steps 1–5b built and live, unlinked, #317; see "Practice is live" below; ledger frontend 859 / backend 676; before that: figures readable on phones and a tour per page, #313; the general tour for signed-out visitors, #314; the "In 30 seconds" box removed from every article, #315; ledger frontend 850 / backend 671; see "Phone figures, tours" below; before that: figures animate: one motion grammar for all 232, loops start when seen, #311; then every animation faster through one setting, #312; figure colours stay the paper look (owner chose it over a green or ink stage); ledger frontend 839 / backend 665; see "Figure motion" below; before that: the "Katta Paper" look built from `20-UI-REDESIGN-SPEC.md` and live, #309; then the owner's four follow-ups live, #310: the landing button is Dashboard → Concepts, Sign in opens a dialog, a tour per section and per article, the phone header fits; ledger frontend 832 / backend 665; see "Katta Paper is live" below; before that: `20-UI-REDESIGN-SPEC.md` written: the "Katta Paper" look, to be built by another session; before that: `Design.md` made much more detailed, #308: 12 fanout.sh pages and their states, a full light/dark `tokens.css` draft checked for AA, component and page mapping with our class names, six steps with acceptance checks; ledger frontend 814; before that: `Design.md` added to the app repo, #307: fanout.sh's UI observed and mapped onto our tokens, the plan for the next look; ledger frontend 811; before that: the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+Last updated **2026-11-16** (AI evaluator model choice, see the first update below); before that **2026-11-15** (light theme Marigold & Navy, `33-LIGHT-THEME-COLOURS.md`, and the UI/UX review fixes `37-UI-UX-REVIEW-FIXES.md`, both in PR #365); before that **2026-11-14** (design skills renovation #355–#356, reverted by #357; see the first updates below; the live look is the premium renovation #343–#345); before that **2026-11-13** (evaluator v3's AI review live with the mock interviewer, #339; spec 29 merged, context #194; ledger rows for #339 **pending**: MongoDB was unreachable from the session; see "Evaluator v3: Ask the interviewer" below; before that: the expert's notes: no marigold, black pill buttons, indigo accent, picture cards, "Figures only", shorter landing, #335; ledger frontend 906 / backend 684; before that: the new look, spec 25 P4 Brilliant-inspired, #334; ledger frontend 903 / backend 682; before that: spec 24 done: section marks and tour swipe #331, portrait phone figures for 33 articles #332–#333; ledger frontend 900 / backend 682; before that: landing count-up and streak marker #330; ledger frontend 891 / backend 682; before that: state scenes #328 and the "Share as image" card #329 live, spec 24 G3 and G6; ledger frontend 888 / backend 682; before that: spec 24 decisions taken by the session on the owner's word, the learner's diagram on phones, one arrow per hop, #325–#327; ledger frontend 882 / backend 682; before that: swipes, figure steps and cross-fades live, spec 24 UX1–UX4, #323, #324; ledger frontend 873 / backend 680; see "Swipes and motion" below; before that: Practice steps 6–8 live: autocomplete, streak, problems 2–10, judge version 2, #319; ledger frontend 863 / backend 679; before that 2026-11-12: Practice, LeetCode style: spec 21 steps 1–5b built and live, unlinked, #317; see "Practice is live" below; ledger frontend 859 / backend 676; before that: figures readable on phones and a tour per page, #313; the general tour for signed-out visitors, #314; the "In 30 seconds" box removed from every article, #315; ledger frontend 850 / backend 671; see "Phone figures, tours" below; before that: figures animate: one motion grammar for all 232, loops start when seen, #311; then every animation faster through one setting, #312; figure colours stay the paper look (owner chose it over a green or ink stage); ledger frontend 839 / backend 665; see "Figure motion" below; before that: the "Katta Paper" look built from `20-UI-REDESIGN-SPEC.md` and live, #309; then the owner's four follow-ups live, #310: the landing button is Dashboard → Concepts, Sign in opens a dialog, a tour per section and per article, the phone header fits; ledger frontend 832 / backend 665; see "Katta Paper is live" below; before that: `20-UI-REDESIGN-SPEC.md` written: the "Katta Paper" look, to be built by another session; before that: `Design.md` made much more detailed, #308: 12 fanout.sh pages and their states, a full light/dark `tokens.css` draft checked for AA, component and page mapping with our class names, six steps with acceptance checks; ledger frontend 814; before that: `Design.md` added to the app repo, #307: fanout.sh's UI observed and mapped onto our tokens, the plan for the next look; ledger frontend 811; before that: the UI made quick to change, owner's task for session `ccr-3ad2afee-y9pmfs`: one place for the look and a dark mode, #304; the three big frontend files split into parts, two latent canvas bugs fixed, #305; the Google button in dark, #306; all merged and live; ledger frontend 808 / backend 662; see "The UI is built to change" below; before that 2026-11-11: docs pass after v1: `content/README.md` for v2 only and `tools/practice` removed, #303; the context docs' overview, content model, operating rules, TODO and §7 brought up to date; ledger frontend 792 / backend 662, checked complete since #298; before that: the inert v1 component settings removed, #302, merged and live; production checks green; ledger frontend 789 / backend 660; the evaluator work is complete; before that: phase 7 done: the 8 challenges on v2 (#300) and v1 removed (#301), merged and live; production checks green (`eval-problem.js` 22/22, `no-lab.js`, `challenges-v2.js`); ledger frontend 786 / backend 658; next: drop the inert v1 component settings from lab.json; before that: phase 6 done: all 22 Interview Questions on v2, #299 merged and live, `eval-problem.js` green for all 22 on production; ledger frontend 780 / backend 654; next: phase 7, ask the owner about the 8 challenges; before that: phase 6 engine and three more problems on v2 merged and live, #298; ledger frontend 767 / backend 642; before that: phase 5 merged and live, #297; ledger frontend 763 / backend 639; before that: phase 4 done: #296 merged and live, news feed, photo sharing, video streaming and IND vs PAK on v2, the landing page included; `eval-problem.js` and `no-lab.js` green on production; ledger frontend 760 / backend 637; before that: the chat app on v2 merged and live, #295; `tools/e2e/eval-problem.js` green on production for all four v2 problems; ledger frontend 754 / backend 632; before that: phase 4b and notifications on v2 merged and live, #294; `tools/e2e/eval-problem.js` green on production for all three v2 problems; ledger frontend 751 / backend 630; before that: evaluator v2 phase 4a merged, #292; payments live on v2, #293; `tools/e2e/eval-payments.js` green on production; ledger frontend 746 / backend 626; before that 2026-11-10, 22:40 IST: evaluator v2 phase 3 live: #290 validation and serving, #291 the v2 workspace and the URL shortener judged by v2, merged by the owner; `tools/e2e/eval-v2.js` green on production; ledger frontend 738 / backend 621; before that 21:55 IST: phase 2, #289; before that 21:35 IST: phase 1 merged, #288; before that 21:10 IST: phase 0 merged and live, #287; before that 12:15 IST: `evaluator.md` written: the specification of the next evaluator engine, not built yet; before that 10:45 IST: full ledger reconciliation of main since 11-04: 5 frontend and 44 backend rows were missing and are now recorded, frontend 722 / backend 613, see `11-MONGODB-COMMIT-LEDGER.md`; before that 10:30 IST: docs sweep: first-ten-minutes checks, #284 attribution, outdated e2e scripts; ledger rechecked complete through #286, frontend 717 / backend 569; before that 10:20 IST: #285 and #286 merged and verified live: IND vs PAK is QUESTION // 22, the Lab tab is removed, 66 articles, ledger frontend 722 / backend 613; before that 09:45 IST: #284 merged and verified live, 65 articles, browser check passed, ledger frontend 711 / backend 567; before that 06:10 IST: leftover worker backup schedule found enabled and disabled, §13; before that 2026-11-09, 23:59 IST: §12 PR table through #284 and §13 timeline through 11-09; §2 "How the 11-09 session worked", §3 workflow, §5 and §8 brought up to date; rechecked against GitHub, the API and Atlas: main f11f4cb, API 59 articles, #284 open draft at fb94cb5e with CI green, ledger frontend 709 / backend 566; #283 guides live; #284 Real systems open as a draft; before that 20:05 IST, #278–#282: speed and review fixes, then the technical content cut to the reference site's articles; before that overnight: Caching audit #264, Sharding #265, Consistent hashing #266, CAP theorem #267, second-pass audit #268, interactive ring #269; ledger through #269; before that 00:10 IST, Caching group, #262; Networking redirect fix, #263; Vercel caught up; ledger through #263; before that 2026-11-08, 19:25 IST, Data modelling group, #261; before that 19:05 IST, paragraph-level check, #260; before that 18:50 IST, API design, #259; ledger through #259; before that 18:20 IST, Networking essentials, #257/#258; before that 17:45 IST (agents workflow removed, #256; before that 17:25 IST, docs and ledger through #255; before that 13:35 IST, docs and ledger through #252; before that 13:20 IST, through #252; 13:05 IST, through #251; 12:30 IST, through #250; before that 10:00 IST, through #248; before that 09:00 IST, through #246; before that 08:30 IST, through #243; before that 00:25 IST, through #242; before that 23:35 IST, through #241; before that 22:30 IST, through #240; before that 19:30 IST, through #238; before that 18:15 IST, through #237; before that 18:00 IST, through #236; before that 17:30 IST, through #234; before that 15:50 IST, through #233; 11:40 IST, through #231; ledger for #216–#231 pending, see §1). Before that 10:45 IST (through #227), 10:15 IST (through #226), 03:20 IST (through #225). Before that 2026-11-06, 17:40 IST (through #215). Before that 2026-11-05 (sign-in session: #148–#169). Before that, 2026-11-03 by the session that shipped PRs #129–#140 (Lab phase 2, the UI/UX meeting items, the fixes from an in-depth QA run, and the dashboard start page).
+**Update 2026-11-16: choosing the AI evaluator's model. What the next session should do.**
+
+Where it stands:
+- **The job:** the interviewer's view. At most 3 points, each tied to a line of the learner's design, covering only
+  what the judge cannot see (spec: `tech-katta` PR #370, `backend/ai-evals/REQUIREMENTS.md`). There is no chat.
+- **The platform:** one key, Vercel AI Gateway. The key is stored as a network secret for `ai-gateway.vercel.sh`.
+  The free credit is $5 every 30 days: **$0.80 spent, about $4.20 left**. The free tier serves 57 cheap models and
+  allows 5 calls a minute per model.
+- **The test:**
+  - **Designs:** 22 designs (10 flawed, each with its own flaw; 12 clean), 3 runs each.
+  - **Results:** **no model clears the bar** (≥ 80 % caught, ≤ 10 % false alarms).
+  - **Front-runner:** Muse Ember, which caught 67 % with 36 % false alarms, at about ₹94 per 1,000 correct answers.
+  - **Where to read it:** results and findings in `40-AI-EVALUATOR-FINDINGS.md`; every answer in `41-…`; the older
+    review job in `42-…`; the exact prompt and designs in `43-…`.
+  - **Raw data:** `ai-eval-results/` (checked by `SHA256SUMS`), plus MongoDB `techkatta_history.ai_eval_responses`.
+
+Do these in order. **Each step that calls a model needs the owner's go-ahead first**. The owner said "Don't run new
+anything" and is careful with money and weekly tokens, so ask once, say the cost, then run.
+
+1. **Prompt version 2 (free, no calls).** Edit `SYSTEM_OBSERVE` in `backend/ai-evals/observe.mjs` to fix the causes
+   of false alarms in doc 40:
+   - say that a nosql `pk` is a partition key, not a unique id;
+   - say that `index(...)` makes a lookup cheap;
+   - forbid points about capacity, latency or cost (the judge's job);
+   - say that "no points" is a good answer for a sound design.
+
+   Re-mark the saved answers with `markAnswer` to confirm the marking is unchanged. Add a test in
+   `backend/test/ai-evals.test.js`, then commit to `ai-eval-ground-truth` (PR #370).
+2. **Re-run the top 3 with prompt v2** (about $0.10; needs the go-ahead). The top 3 are Muse Ember, GPT-5 mini and
+   gpt-oss-20b. From `backend/`:
+
+   `NODE_USE_ENV_PROXY=1 AI_GATEWAY_API_KEY=proxy-injected node ai-evals/observe-bakeoff.mjs --models meta/muse-ember,openai/gpt-5-mini,openai/gpt-oss-20b --out prompt-v2 --max-out 4000`
+
+   Run `--estimate` first, and use `--resume` if it stops.
+3. **The free reasoning models** (the owner asked for this, then paused it; about $3 by the `--budget`; needs the
+   go-ahead). Use `--tier free-reasoning --out free-reasoning`. It discovers the free models that reason and skips
+   models already tested.
+4. **Read a sample** of the best model's answers (N3: does each point say why the choice is wrong without writing the
+   fix?). Also check the case no model caught: `url-shortener/clients-read-the-store`.
+5. **If nothing clears the bar on free credit:** tell the owner, and give the paid options from
+   `observe-candidates.json` (Claude Haiku 5.5, GPT-6 Luna, DeepSeek V4.1 Flash, GLM 5.3 Flash). Buying credit ends
+   the free monthly credit, so this is the owner's call.
+6. **After every run:**
+   - copy `backend/ai-evals/results/observe-<out>-*.jsonl` to `ai-eval-results/interviewers-view/`;
+   - update `SHA256SUMS`;
+   - regenerate the answers doc (the generator is described in doc 41);
+   - update doc 40's results table;
+   - add rows to `ai_eval_responses`.
+
+Owner questions still open:
+- Is `seat_id` unique across shows (ticket-booking)?
+- In rate-limiter/three-nodes, the design's author blames the nodes but the judge blames the servers. Which is right?
+
+Rules for this work:
+- Never merge PR #370.
+- Never put the key in chat or code. The proxy injects it.
+- Save every answer as it arrives (the script already does).
+- Never design the ground truth after paying for a run. The owner objected to this once.
+
+
+**Update 2026-11-15 (light theme: Marigold & Navy, on PR #365, not merged).** The owner's second scheduled run (06:20 IST): the
+reviewer "hated our website in the light theme". **Decided in `33-LIGHT-THEME-COLOURS.md`** (written before the code):
+- Light becomes a near-neutral page (`#fafaf9`, stone greys) with a **navy accent `#26449e`** for links, focus, figure
+  lines and tints.
+- **Marigold stays** on the main buttons, the logo and the highlighter.
+- Status colours, stars, categories and the **dark theme are unchanged**.
+- Rejected: ink accent (A) and saffron (C); black buttons and a blue brand (owner's earlier calls).
+
+Commits `488806b5f16d41bfbc94e554b580a55c98fadd83` (tokens, `palette.js`, `index.html`, `seo.js`) and
+`936959ee08ac994818138846d0d5e1037bdde180` (link preview text), on the same branch, so **in PR #365**. Ledger: 2
+frontend rows. Tests 393/393; build passed; Chromium screenshots before and after in `ui-redesign/light-2026-11-15/`.
+**Not merged or deployed:** waiting for the owner's "merge and deploy".
+
+**Update 2026-11-15 (UI/UX review fixes, PR #365 draft, not merged).** The owner passed on a UI/UX reviewer's points and
+scheduled this run for 01:29 IST (the light-theme colours are a second run at 06:20 IST, `33-LIGHT-THEME-COLOURS.md`).
+**PR #365** (draft, branch `ccr-b42a0cbb-y2io0r`):
+- plain-words landing section + Share;
+- **read aloud removed** (decided: the owner's videos replace it; `speech.js`, `reader.jsx`, `tools/tts`, `say` gone);
+- Back to top;
+- **Cards obey the sign-in preview** (locked topic cards);
+- every problem has stars (5 challenge cards);
+- **re-grade 7 Easy / 7 Medium / 8 Hard**;
+- the logo is a pill button;
+- copy fixes (Real Systems, consent no longer in capitals).
+
+Commits: `d1e841e5b9342055509d57720eb2bba67c6c23b6`, `3de2df72b185df3e7d83f058a055ee6801f6d4cd`,
+`fe4199e2a2393880455c84b97e0b494d26da14e7`, `b1016284091d6ac5866f24b1e8d88d883b34349a`,
+`5b6d0bda8bb06f869b56442f8826bcd52ed8c4b1`. Ledger rows recorded for them (frontend 4, backend 5). Details, the
+re-grade table and decisions in `37-UI-UX-REVIEW-FIXES.md`. Checked: tests 393 + 114, a build, Chromium locally
+(desktop and Pixel 7); not production. **Not merged or deployed:** the owner hasn't said to deploy. Next: the owner
+merges (or says "merge and deploy"), then add the squash commit's ledger rows. Note: another session (branch
+`ccr-0abbbe33-gkyjcf`, "context 36") is writing to the ledger at the same time; expect a rebase.
 
 **Update 2026-11-14 (building context 36, step 1: the canvas fits itself and gets the window).** Commit `0993fd0a3e33a0eb126e3726d4f56e43b6ef258e` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 981, backend 708. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
@@ -141,7 +233,8 @@ the owner · **Historical** = true once, not any more.
    Lab tab or removed articles: `18-TODO.md` lists them.
 4. Sync your working branch from `main` in each repo (§3).
 5. Ask the owner nothing that §4 already decides. If the owner gives a task, do it end to end (§3).
-6. **Agents: removed (owner, 2026-11-08).** The automatic worker ("Learner + Builder" cycles chained with
+6. **If the task is the AI evaluator:** follow "Update 2026-11-16" at the top of this file.
+7. **Agents: removed (owner, 2026-11-08).** The automatic worker ("Learner + Builder" cycles chained with
    `send_later`, a 2-hour backup schedule, `tech-katta/agents/TODO.md`) is gone: the file was deleted (#256),
    no worker session or scheduled task exists, and none may be created. Do the work in the owner's session;
    the open items are in `18-TODO.md` here.
@@ -2085,3 +2178,402 @@ updates. Private repo: `references/hello-interview-api-design.txt`, `notes/owner
 line-by-line audits of the reference-led Concepts groups.
 4. `tech-katta/content/README.md`. 5. `tools/e2e/README.md`. 6. The code on `main`.
 Older numbered files (01–09, 14–16) are partly **Historical**; trust the code and this file.
+
+## 2026-11-15: UI prototypes on prototype.katta.cc
+
+Prototypes now have their own folder: `ui-prototypes/README.md` (how to make one and host it at prototype.katta.cc/p/<name>/) and `ui-prototypes/TRIED.md` (everything tried so far). Live: `/p/full-site/` (structured frontend, navigation, dark mode) and `/p/motion/`. The app on prototype.katta.cc reads the live tech-api.katta.cc, signed out. Next: `/p/neo-brutalism/`.
+
+2026-11-15: `/p/neo-brutalism/` is live (style layer over full-site, built from `ui-prototypes/neo-brutalism-spec.md`, tech-katta `prototype` 4377d40); waiting for the owner's look. See `ui-prototypes/TRIED.md`.
+
+## 2026-11-15: neo-brutalism rounds 2–3, the dark rethink, the prototype ledger
+
+- `/p/neo-brutalism/`, built from `ui-prototypes/neo-brutalism-spec.md` by a low-effort session:
+  - round 2 (`97e5b66`): a better dark structure, details and motion;
+  - round 3 (`37f6dfd`): calmer colours in both themes.
+- The owner still finds its dark unappealing. **Thinking only, by request**: `ui-prototypes/neo-brutalism-dark-thinking.md`
+  covers the diagnosis, rules, and directions B Chalkboard / D′ Inverted blocks / E Dim paper, plus how to decide (a
+  `/p/nb-dark/` comparison page and a `?nbdark=` switch). Don't build until the owner says go.
+- The commit ledger now covers the `prototype` branch: 21 rows in `frontend_git_commits` (count 1031). See
+  `11-MONGODB-COMMIT-LEDGER.md`.
+- full-site's dark is F2 "vivid, balanced", and its light colours were balanced to match (`0a9026b`, `8fa0691`).
+
+## 2026-11-15 (later): neo-brutalism dark candidates built
+
+- Owner said "Start implementing it" for the dark rethink. `/p/nb-dark/` and `?nbdark=b|d|e` are live (commit `5ac5636`, ledgered). **Waiting for the owner to pick** B chalkboard, D inverted blocks or E dim paper.
+- CI note: the Prototype workflow's `npm test` failed once on a flaky timing test (`frontend/src/tkd/judge.test.js`: "largest design and a 20-phase test judge in under 20 ms", took 21.2 ms on the runner). Re-running the failed job passed. If it recurs, loosen that threshold in the app repo's tests (a separate, deliberate change); don't push empty commits.
+- Switching model: the session changed to Sonnet 5.5 partway; commit trailers from `5ac5636` read "Claude Sonnet 5.5".
+
+## 2026-11-15 (final): neo-brutalism dark finalized as option D
+
+- Owner picked D ("Finalize option D"). Commit `01372a7` (ledgered): D's rules are the dark theme; candidates, the Dark switch and `/p/nb-dark/` removed (301 to `/p/neo-brutalism/`). Docs: TRIED.md, `ui-prototypes/neo-brutalism-dark-thinking.md`.
+- Still open for neo-brutalism: loud everywhere or calm reader (now calm), Archivo Black or Space Grotesk.
+
+## 2026-11-15: the new frontend begins (web/, served at prototype.katta.cc/next/)
+
+Owner: "Let's start developing on [full-site]. Start writing code for the frontend in the prototype from scratch. Write clean, production grade code. We will eventually switch tech katta to the UI UX on the full site." The owner chose:
+- **React + TypeScript**, so the existing figures, canvas and judge (JavaScript) can be imported as they are;
+- a **new `web/` folder served at `/next/`**, with the current app still at `/`;
+- **milestone 1:** foundation, shell and Home.
+
+Commit `6d13a73` on `prototype` (ledgered):
+- **Stack:** Vite + React 18 + TypeScript (strict, `noUncheckedIndexedAccess`, `exactOptionalPropertyTypes`) + React Router 6 (data router, `ScrollRestoration`); CSS Modules over the full-site tokens (light + F2 dark); self-hosted fonts.
+- **`lib/`:**
+  - a typed API client with timeouts (no `AbortSignal.any`, which older Safari lacks);
+  - a cached resource hook;
+  - theme, set before paint by `public/boot-theme.js`;
+  - local progress;
+  - stemmed search, which fixes "cache" not finding "Caching".
+- **Pages:** landing, Home, Learn, section, You, 404. The reader, Problems and the workspace show a "coming next" page that links to the current app.
+- **Checks:** `npm run check` (tsc, ESLint, 24 vitest tests).
+- **Hosting:** `scripts/postbuild.mjs` writes one page per known route plus `404.html`; `prototype.mjs` copies `web/dist` to `/next/`; `.github/workflows/prototype.yml` runs `npm ci && npm run check && npm run build` in `web/`.
+- **Verified** live: every route in light and dark, desktop and phone, and 15 interactions.
+- **Structure and rules:** `web/README.md`.
+- **Next milestones:**
+  - 2: the reader, with the real articles and `frontend/src/figs` imported;
+  - 3: Problems and the workspace, with the canvas and judge imported;
+  - 4: sign-in and sync, then the switch.
+
+## 2026-11-15: new frontend milestone 2, the lesson reader
+
+Owner: "Proceed". Commit `6b3b468` on `prototype` (ledgered, count 1035). Details in 03-FRONTEND.md. 28 tests pass; verified locally and live on prototype.katta.cc/next/ (caching, networking-essentials, url-shortener, kafka-in-practice; desktop and phone, light and dark; figures drawn, steps, full screen, Escape, contents jump, scroll spy, Mark complete & next, no errors, no sideways scroll).
+Next: milestone 3, Problems and the workspace (the current canvas and judge imported).
+
+## 2026-11-15: "Complete the website" (new frontend milestone 3)
+
+Owner: "Did you add all the animations decided? Complete the website. Eventually we will merge into /frontend, but not now."
+- **Answer on animations:** no, only the milestone-1 ones were in. Now every motion from full-site's motion.css is in.
+- **Commit:** `95453a6` on `prototype`, ledgered (count 1037). Details are in 03-FRONTEND.md.
+- **Tests:** 31 pass.
+- **Verified locally and live:** every route in light and dark, on desktop and phone, with no errors and no sideways scroll. Interactions checked: the Learn menu, sign-in dialog, `?`, `g p`, Pick one, filters, tour, cards, burst, the workspace folding the sidebar, and You. The judge-card check in `all.js` uses a bad selector; frame-by-frame checks show the card running correctly.
+- **Not done (owner said not now):** merging into `frontend/`, and enabling sign-in for the new origin (API CORS and Google origins).
+
+## 2026-11-15: production-ready new frontend (PR #367)
+
+Owner: "I want production ready code to merge it and deploy it."
+- **Owner's choices:** a beta at `/next/` first, rather than a full switch, and a new branch with its own PR. PR #365 holds unrelated UI work on `ccr-b42a0cbb-y2io0r`, so it was left alone.
+- **Branch:** `new-frontend-beta` from `main`, commit `4e842b2`, draft PR #367. Ledgered (count 1038). Details are in 03-FRONTEND.md.
+- **Checks:**
+  - 435 current-app tests and 32 new-app tests pass.
+  - The production build was served locally and browser-tested. The only errors were the Vercel insights script, which exists only on Vercel, and the known judge-card selector fault in `all.js`.
+- **Next:** merge #367, which deploys through Vercel. Check /next/ on tech.katta.cc, then do the switch PR (see 18-TODO.md).
+
+## 2026-11-15: the production beta hosted at prototype.katta.cc/p/next/
+
+Owner: "Host it first on prototype.katta.cc/p/next".
+- **Code:** `new-frontend-beta` (PR #367) merged into `prototype`, which is the exact code that will ship. The old `web/` copy is removed.
+- **Build:** `build:prototype[:cloudflare]` builds `frontend/next` with `BASE_PATH=/p/next/` and no Vercel analytics. `hosting/prototype-next.mjs` copies it to `dist/p/next` before `emit.mjs` runs.
+- **Old address:** `/next` and `/next/` 301 to `/p/next/`. A small forwarding page at `/next/` acts as the 404 page for deeper old paths.
+- **Commits:** `c58aefc` and `b43c7e6`.
+- **Cloudflare gotcha:** every `_redirects` rule after the first wildcard counts toward the 100-rule dynamic limit. So never prepend a wildcard (the first deploy failed on this).
+- **Verified live:** every route in light and dark, on desktop and phone, plus the interaction checks.
+
+## 2026-11-15 (evening): /p/next brought to parity with tech.katta.cc; sign-in unblocked pending PR #368
+
+Owner: "I want the prototype.katta.cc/p/next as good as tech.katta.cc UI … all the animations, content, sign in, everything."
+- **Google OAuth:** checked with a probe. The client allows https://prototype.katta.cc: the button renders, while an unauthorised origin gets a 403.
+- **API:** PR #368 (`api-allowed-origins`, draft, CI green). `FRONTEND_ORIGIN` takes a list, and production is set to tech and prototype.
+- **Audit:** 39-NEXT-PARITY.md. Built in three batches; every item is ✅ except sign-in, which waits on #368. Copied into PR #367.
+- **Live check:** 17 checks pass on prototype.katta.cc/p/next. The test script is `scratchpad/allp.js`.
+- **Scheduled tasks:** two runs fire into this session on Monday 16 Nov, at 2:50 am and 8:15 am IST. They check completeness, then build /p/neo-brutalism.
+
+## 2026-11-15 (night): parity batch 4
+
+Owner: all animations, gestures and technical content as on tech.katta.cc; "The figures are not present!!".
+- **Where the figures were missing:** the owner said everywhere. The scan showed every lesson figure drew live, so the gap was pictures on cards plus the current app's figure behaviour.
+- **Fixes:** the reader now uses the current app's Fig, and every card has its diagram.
+- **Commits:** `f30e833` (prototype) and `7a596ff` (PR #367). Details are in 39-NEXT-PARITY.md.
+- **Scans:** `scratchpad/fscan.js` (all lessons), `pics.js`, `allp.js`.
+
+## 2026-11-16 (early): parity batch 5 and the 2:50 am scheduled run
+
+Owner: "I want all the figures, Animations, Gestures We decided" (specs 24, 09 and 30).
+- **Built:**
+  - A2 view transitions with the title morph;
+  - G3 scenes and G4 section marks;
+  - solid bars below 680 px and content-visibility;
+  - sheet heads as grab areas.
+- **Commits:** `d46e1ed` (prototype) and `0466802` (PR #367).
+- **Live checks:** decided.js 12/12, allp.js all ok, fscan 0 missing.
+- **Scheduled run, 2:50 am:** /p/next is **not complete**, because sign-in needs PR #368 merged and deployed. So /p/neo-brutalism was not started; the 8:15 am run checks again.
+- **PR #367:** the Vercel statuses fail on the free plan's 100-deployments-a-day limit, not on the code (commented once). GitHub CI is separate.
+
+
+## 2026-11-16 (early): /p/neo-brutalism
+
+Owner: "Worker prompt continue". That started step 2 of the scheduled-task prompt while sign-in on /p/next still waits on PR #368.
+- **What:** the same app as /p/next in the decided neo-brutalism look (round 3 colours, dark D). It is one stylesheet plus a block per CSS module, switched on by `data-style="neo-brutalism"`, which the build sets with `VITE_STYLE`. Details are in `ui-prototypes/TRIED.md` and `03-FRONTEND.md`.
+- **Commits:** `13ec2bb` (prototype, live) and `8883ef8` (PR #367, an opt-in theme; production is unchanged).
+- **Live checks:**
+  - allp 17/17;
+  - decided 12/12, with touch;
+  - every route, light and dark, desktop and phone: no errors and no sideways scroll;
+  - /p/next is unchanged;
+  - fscan, all 66 lessons, desktop and phone: 0 lessons with missing figures.
+- **Scripts:** `scratchpad/allp.js`, `decided.js` and `fscan.js` take `P=/p/neo-brutalism`. `nbshots.js` takes screenshots, and `srv.mjs` is a local server that behaves like Cloudflare.
+- **Open for the owner:** sign-in (PR #368); the look questions in TRIED.md (how loud, which headline font).
+
+## 2026-11-16: neo-brutalism figures and motion redesigned
+
+Owner: the neo-brutalism site copied tech.katta.cc's animations and colours. Redesign them for the look, for every figure and animation.
+- **What changed:** see `ui-prototypes/TRIED.md` (last section) and `03-FRONTEND.md`.
+- **Commits:** `4bc0eec` (prototype) and `1985558` (PR #367, opt-in).
+- **Checks:**
+  - frontend 435 and next 37 tests pass;
+  - allp 17/17 and decided 12/12 locally on both sites;
+  - /p/next figures are unchanged (no chips, no filter, same font).
+  - The live check follows the deploy.
+- **Scripts:** `scratchpad/nbfig.js` (figure grammar probe) and `nbframes3.js` (frames of a playing figure).
+
+## 2026-11-16, 8:15 am scheduled run
+
+- **Sign-in:** PR #368 is still a draft and unmerged, so sign-in is still blocked on both sites. It is the owner's merge.
+- **Owner, mid-run:**
+  - figures must use the cards' colours, and the zoomed-out figures look bad: "take a decision";
+  - see `ui-prototypes/TRIED.md`, last section;
+  - commits `5b4be8b` (prototype, live) and `d0b8118` (PR #367).
+- **Also in this run:**
+  - the mock-up motions (wipe, ticker, stamps, DONE, halftone);
+  - tests for the look plugin (`next/scripts/look.mjs`) and the copy guard (`hosting/prototype-copies.mjs`, `hosting/prototype.test.js`).
+- **Checks:**
+  - frontend 439 (prototype) and 435 (PR #367) pass; next 42 passes;
+  - live: allp 17/17 and decided 12/12 on both sites;
+  - the live fscan of the earlier neo-brutalism build had 0 lessons with missing figures.
+- **Not yet reviewed in neo-brutalism:** the Listen bar's inner controls and the workspace's own panels. They are restyled through the tokens, but have not been redesigned piece by piece.
+
+## 2026-11-16: /p/next gets the same figure decision
+
+Owner: "Same case with prototype.katta.cc/p/next."
+- **Done in the default look:** figures in the cards' colours per section, MarkSticker (soft, rounded) on every card, no lesson-row thumbnails, and Cards mode one wide card per row. The rules are in `figureTokens.module.css`, default block, keyed by `[data-accent]`.
+- **Commits:** `56a66b6` (prototype) and `802c04a` (PR #367).
+- **Checks:**
+  - frontend 439 and next 42 pass;
+  - locally, allp 17/17 and decided 12/12 on both sites;
+  - live on /p/next, allp 17/17 and decided 12/12. The live run on /p/neo-brutalism for this deploy was stopped partway, so re-run it.
+
+## 2026-11-16: small card figures (SectionMini)
+
+- **Owner:** cards with just an icon look empty, on both sites; "smaller figures will make sense".
+- **Built:** `components/SectionMini.tsx` and `content/steps.ts` (tested). Each card shows its section's next three real lessons on a path, with a travelling request. MarkSticker and FigureThumb are removed.
+- **Commits:** `ce2b659` (prototype, live) and `f3748fb` (PR #367).
+- **Checks:**
+  - frontend 439 and next 48 pass;
+  - live, allp 17/17 and decided 12/12 on both sites;
+  - Home and Learn, phone and desktop, light and dark: no errors and no sideways scroll.
+
+## 2026-11-16: refinement pass (both looks)
+
+- **Owner:** "Refine both."
+- **Audit:** 13 pages × 2 looks × light/dark × desktop/phone. The script is `scratchpad/audit.js`, and `sheet.py` makes the contact sheets.
+- **Fixed:**
+  - the not-found page: centred, the scene framed, section links;
+  - chips no longer wrap;
+  - the Continue chip hugs its text;
+  - card labels read in the card's ink;
+  - framed state scenes;
+  - the neo-brutalism sidebar's open lesson is a key.
+- **Bug found and fixed:** the first new not-found page read the API and crashed outside the content gate. It is now covered by `app.test.tsx`.
+- **Commits:** `3fb7fb7` (prototype, live) and `6d670a0` (PR #367).
+- **Checks:**
+  - frontend 439 and next 49 pass;
+  - live, allp 17/17 and decided 12/12 on both sites;
+  - the audit has no page errors.
+
+## 2026-11-16: measured quality pass ("I want both of them to be the best")
+
+- **Tools (scratchpad):**
+  - `axe.js`: axe-core, WCAG 2.1 AA, 10 pages × 2 looks × light/dark;
+  - Lighthouse 12 in `tools/`: `CHROME_PATH=/opt/pw-browsers/chromium node tools/node_modules/lighthouse/cli/index.js URL ...`.
+- **Results, live:**
+
+  | | Before | After |
+  |---|---|---|
+  | axe-core | 3 contrast failures | 0 violations |
+  | Lighthouse accessibility | 94–98 | 100 on all six measured pages |
+  | Lighthouse performance (±5 between runs) | 75–80 | 78–87 |
+  | Main bundle (gzipped) | 147 KB | 102 KB |
+
+- **What changed:**
+  - contrast fixes;
+  - headings no longer skip a level;
+  - the logo's accessible name;
+  - ARIA roles on labelled placeholders, groups and status images;
+  - API preconnect and preload (`next/scripts/hints.mjs`), and a per-lesson preload (`postbuild.mjs`);
+  - route-level code splitting, with a prefetch 3 s after load;
+  - `.html` siblings on prototype, so direct visits get no redirect.
+- **Commits:** `f315a28`, `2d3322f` and `33760c4` (prototype); `82692da`, `348c78e` and `e32c68a` (PR #367).
+- **Limits left, not code:**
+  - Best practices is 93 because of the CORS errors on /v1/auth/config and /v1/me (they end with PR #368) and Cloudflare's injected analytics beacon blocked by the CSP (a dashboard setting).
+  - SEO is 63 because prototypes are noindex on purpose.
+  - The largest-paint floor is the API's own response time (about 1.3 s on the throttled profile) plus rendering. Going further needs content prerendered into the HTML: a larger change, proposed in TODO.
+
+## 2026-11-16: takeover readiness ("everything working, as if they were to take over tech.katta.cc")
+
+- **Built:**
+  - tech.katta.cc's addresses: `/dashboard/<key>/` and `/dashboard/#<key>` map to the new pages (`content/legacy.ts`, `pages/Legacy.tsx`);
+  - shared designs at `/problems/shared` (they were missing in the new app);
+  - share links point at the new app (`lab/share.js` `setShareBase`; the default is unchanged).
+- **Sweep:** `scratchpad/full.js` is the new end-to-end sweep (env BASE and P). On both sites it has 0 failures:
+  - all 22 problem workspaces, and Run;
+  - all 8 challenges, and the sandbox;
+  - share links;
+  - 7 old addresses;
+  - search, progress, bookmarks, theme, policies, notes and Listen.
+- **Blocked only by PR #368:** practice and sign-in. They make credentialed API calls, and the API answers prototype.katta.cc with `*` (checked with curl).
+- **Commits:** `4fec824` (prototype, live) and `cf80a31` (PR #367).
+- **At the switch** (TODO "switch PR"), the old URLs need no host redirects: the app's `/dashboard` route handles them, once the new app is served at `/`.
+
+## 2026-11-16: every prototype calls tech-api.katta.cc
+
+- **Owner:** "All the prototypes should also call tech-api.katta.cc. I need everything working."
+- **Before:** checked with `scratchpad/apicalls.js`. The app copies (`/`, `/dashboard`, `/p/next`, `/p/neo-brutalism`) already called the API; `/p/full-site`, `/p/neo-brutalism-mockup` and `/p/motion` did not.
+- **Fix (`856cae9`):**
+  - `full-site/scripts/data/live.js` loads site, articles, lab and stats before the first render and replaces the sample data in place;
+  - lessons render their real text, the workspace shows the real statement, and the sample stays offline;
+  - `motion.html` fills its demos from the Caching lesson and the URL shortener problem.
+- **Checks, live:**
+  - `scratchpad/designproto.js`: 27 checks, 0 failures;
+  - every prototype calls the API.
+- **Still failing everywhere, and not code:**
+  - `/v1/auth/config` and `/v1/me`: needs PR #368 (sign-in, and practice);
+  - Cloudflare's injected analytics beacon, blocked by the CSP (a dashboard setting).
+- **2026-11-16, `a65be22`:** the CSP on prototype.katta.cc allows Cloudflare's injected beacon (`allowCloudflareBeacon`, tested). The only console errors left are the sign-in calls, which end with PR #368.
+
+## 2026-11-16: production-ready, extensible, modular (both prototypes)
+
+- **Owner:** "Make the code production ready, Extensible, Modular", then: "I meant the codebase for both the prototypes, Next and neo-brutalism". Both are frontend/next, built twice (`VITE_STYLE`).
+- **Commits:** `9ec6935` (`prototype`) and `86c1250` (PR #367).
+- **Modules:**
+  - Landing.tsx went from 381 to 192 lines; its parts are in `pages/landing/` (nav, hero, bands, extras).
+  - Reader.tsx went from 369 to 231 lines; its parts are in `pages/reader/` (progress, toc, Burst).
+- **Looks:**
+  - `lib/look.ts` is the look registry, with a test that it matches `scripts/look.mjs`.
+  - Each look's fonts and CSS come only through `styles/looks/<look>/index.ts`.
+  - `onlyLook()`, a PostCSS step, drops other looks' rules at build. The default build's CSS went from 331 to 280 KB and carries no neo-brutalism fonts.
+  - Screenshots of 10 pages, light and dark, are pixel-identical to the last commit in both looks.
+- **Errors and types:**
+  - `app/RouteError.tsx` is the route error page. A stale chunk after a release asks for a reload.
+  - `types/env.d.ts` types the build's environment variables.
+- **e2e:**
+  - `frontend/next/e2e` runs on Playwright 1.63.0 with axe: 70 tests across both looks, desktop and phone, against the live API.
+  - An uncaught page error fails a test.
+  - It runs as its own CI job in `frontend.yml`.
+  - `OUT_DIR` builds the looks side by side.
+- **Checks run:**
+  - frontend `npm test` 441/441 (beta branch: 435/435);
+  - next check 68/68;
+  - the production build;
+  - e2e 70/70 on both branches;
+  - `allp` 17/17 and `decided` 12/12 on both looks (prototype build);
+  - `designproto` with 0 failures.
+- **Follow-ups the same day:**
+  - The first deploy (run 46) failed on a unit-test race: the title is set in an effect. Fixed in `b8f3c4a` / `3055d4a`.
+  - Live, one run of `allp` saw "reading 'HomePage'" mid-deploy. The cause: `frontend/src/api.js`'s `vite:preloadError` handler cancels the error and reloads, so the import resolves to undefined. Fixed in `49d80e7` / `6a6e661`, with a test.
+  - Live, after deploy: `allp` 17/17 on both looks; `designproto` with 0 failures.
+- **Ledger:** count 1078.
+
+## 2026-11-16: the AI evaluator's scope, ground truth and model bake-off (PR #370)
+
+- **Owner's decision:** "we are not going to give the user the AI chat interface. We are just going to support AI powered Evaluator and tell the user where are the faults in their system."
+  - The AI does one job: `review` (spec 22 §12.1), one review per Submit.
+  - `grade`, `clarify` and `explain` (Defend, mock interview, questions about the report) are out of scope unless the owner asks again.
+- **Owner:** "I don't want to buy api keys for every llm provider. There should be one platform which will let us test things." Chosen: **OpenRouter**.
+  - One account, one prepaid balance and one key for every provider's models.
+  - Its API is OpenAI-compatible, which `backend/src/ai/client.js` already speaks.
+  - Each answer reports its cost.
+  - Promptfoo was considered. The bake-off needs the production pack builder and verifier, which our own runner already uses.
+- **Ground truth:** `backend/ai-evals/ground-truth.json`, covering 75 designs (10 references, 55 wrong, 10 templates). Each case has:
+  - the author's fault in words;
+  - the verdict, which must equal the author's;
+  - `must_lead_with`, the facts a correct review cites in its first two items;
+  - `never_a_problem`.
+  - A test fails on drift. All 55 authored causes agree with the judge's first finding.
+- **Scoring and gates** (`score.mjs`). A model passes only with:
+  - correct ≥ 90 %;
+  - fallbacks and errors ≤ 2 %;
+  - no good fact called a problem;
+  - no failing design praised;
+  - p95 ≤ 10 s.
+  - Passing models are ranked by cost per correct review.
+- **Bake-off:** `bakeoff.mjs`, with ten candidates in `candidates.json` (spec 29 §12.4's four finalists plus six cheaper challengers).
+  - Estimated cost: about $1.12 (₹98) at 3 runs, $1.86 (₹164) at 5, before reasoning tokens.
+  - Requests use `data_collection: deny` and `require_parameters: true`.
+- **Not yet run on a real model:** it needs an OpenRouter key and about $5 of balance.
+- **Commit:** `08a213d` (branch `ai-eval-ground-truth`, draft PR #370). Backend tests 124/124.
+- **Platform, checked on the web on the owner's second ask ("one platform … check on web"):**
+  - **Vercel AI Gateway is the default:**
+    - the existing Vercel account;
+    - 509 models, including all ten candidates;
+    - provider list prices, no markup;
+    - $5 of credit every 30 days on a subset of models;
+    - zero-retention requests need bought credit.
+  - **OpenRouter is the alternative:** about 5.5 % on buying credit. DeepSeek costs about half as much there.
+  - **Estimates (all ten, 3 runs):** $1.50 on Vercel, $1.12 on OpenRouter.
+  - **Commit:** `ccc8b77` (PR #370). Tests: ai-evals 10/10, backend 125/125. Ledger backend 727.
+
+## 2026-11-16 (later): the AI evaluator is "the interviewer's view" (PR #370)
+
+- **Owner's direction, in order:**
+  - **No chat.**
+  - **One platform, one key:** Vercel AI Gateway. The owner added a card (verification only); the key is saved as an environment secret for `ai-gateway.vercel.sh`.
+  - **Don't make the AI repeat the judge:** "we need something from the llm that we cannot determine ourselves runtime".
+  - **The model may see the learner's design** and comment, each point tied to a line, shown as "the interviewer's view" (owner: yes).
+  - **The ground truth should be wider, each sample with a unique finding.**
+  - **Design the test script, don't run it**; later: run it.
+- **The test set** (`backend/ai-evals/blind-spots.mjs`, `blind-spots.md`):
+  - **10 flawed designs, each with a different finding, all passing the judge 5/5:**
+    - a hot time-bucket key;
+    - a few hot entities;
+    - a partition key that isn't the lookup key;
+    - a key too coarse, so rows overwrite each other;
+    - a timestamp as primary key;
+    - blobs in a key-value store;
+    - a one-second CDN cache on photos that never change;
+    - sequential ids on private pastes;
+    - a counter with no window;
+    - clients reading the store directly.
+  - **12 clean designs:** the 10 references and 2 variants.
+- **The job and test:**
+  - `observe.mjs`: the prompt, the schema (at most 3 points: line, category, severity, text), the checks and the marking.
+  - `observe-bakeoff.mjs`: each answer saved as it arrives, `--resume`, a budget guard that counts reasoning tokens, and a report with the ranking and which model caught which flaw.
+  - `observe-candidates.json`: the 8 free-credit models and 4 paid ones.
+- **Facts learned:**
+  - The free credit serves 57 cheap models but not Haiku 5.5, GPT-6 Luna, DeepSeek V4.1, GLM-5.3, Gemini 3.1 or Qwen3.8 (those answer 403).
+  - The free tier allows 5 calls a minute per model.
+  - Reasoning tokens count as output: production's `AI_MAX_OUTPUT_TOKENS=1500` cuts answers off, so raise it for the chosen model.
+  - Node's `fetch` needs `NODE_USE_ENV_PROXY=1` behind the session proxy.
+  - The judge reports only the first failing test's findings.
+  - Part names are at most 24 characters.
+- **Content question for the owner:**
+  - Is `seat_id` unique across shows? Muse Ember raised it on the ticket reference.
+  - `rate-limiter/three-nodes`: the author blames the storage nodes, the judge blames the servers.
+- **The first run of the 8 free models** started 2026-11-16 at about 16:30 UTC. Results go in `backend/ai-evals/results/observe-first-run.md`, not committed.
+- **Commits:** `1c1b1b7` and `7a95276`, plus the earlier PR #370 commits. Ledger: backend rows recorded for each.
+
+## 2026-11-16 (evening): first interviewer's-view run, results, and stop
+
+- **Run:** 8 free models × 22 designs × 3 runs, through Vercel. It spent $0.26 (corrected from $0.23 after summing the saved answers); the free credit has $4.20 left. Every finding and the raw response of every call: `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/`. The report and every answer are in `backend/ai-evals/results/observe-first-run*` (not committed).
+- **Results (caught / false alarms / cost per 1,000 correct):**
+  - GPT-5 mini: 70 % / 100 % / ₹398;
+  - **Muse Ember: 67 % / 36 % / ₹94 (the front-runner)**;
+  - gpt-oss-20b: 53 % / 75 % / ₹22;
+  - Gemini 2.5 Flash-Lite: 53 % / 75 % / ₹134;
+  - DeepSeek V3.1: 43 % / 78 % / ₹88;
+  - gpt-oss-120b: 33 % / 56 % / ₹61;
+  - Qwen 3.7 Flash: 27 % / 53 % / ₹45;
+  - Nemotron 3 Super: 23 % / 72 % / ₹134.
+  - No model clears the bar (catches ≥ 80 %, false alarms ≤ 10 %).
+- **Flaws by difficulty:**
+  - Easy for most: hot time-bucket key, timestamp primary key, blobs in a key-value store.
+  - Hard for all: a few hot live matches; a one-second CDN TTL.
+  - Missed by every model: clients reading the store directly.
+- **Why the false alarms are high:** mostly the prompt. Models misread the notation, for example:
+  - a nosql `pk` as a unique key, so "chat messages overwrite";
+  - ignoring `index(...)` on leaderboard and tickets;
+  - commenting on capacity, which the judge tests.
+- **Next, not done (owner: "Don't run new anything"):**
+  1. Prompt version 2: explain the notation (a nosql pk holds many rows; index serves lookups; a sql pk is unique), no capacity or latency comments, read every route.
+  2. Re-run the top 2 or 3 models (about $0.10).
+  3. Then `--tier free-reasoning` (every free reasoning model; built in `677e840`, started, then stopped before any test call).
+- **Stopped:** all test processes and the queued free-reasoning run. Owner instruction: stop, update docs and ledgers.
+
+- **Detailed answers:** `41-AI-EVALUATOR-ANSWERS.md` lists all 528 answers of the first run, per design and model, with marks. A finding from reading it: line-and-category marking can credit a wrong reason (doc 40, §4 item 7), so the catch rates are an upper bound.

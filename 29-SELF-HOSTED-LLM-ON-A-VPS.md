@@ -764,3 +764,65 @@ Hosted API prices:
 - [LiteLLM model catalogue](https://models.litellm.ai/), data file `model_prices_and_context_window.json` in BerriAI/litellm (read 2026-11-13): per-token, cache-read prices and `supports_response_schema` for every model in §12.1
 - [Artificial Analysis leaderboard](https://artificialanalysis.ai/leaderboards/models), [Claude Haiku 5.5](https://artificialanalysis.ai/models/claude-haiku-5-5), [GPT-6 Luna](https://artificialanalysis.ai/models/gpt-6-luna) (Intelligence Index v5.0.1, read 2026-11-13; the leaderboard read was partial)
 - [Morph, LLM API prices Nov 2026](https://www.morphllm.com/llm-api), [BenchLM pricing](https://benchlm.ai/llm-pricing), [Gemini 3.1 Flash-Lite pricing](https://pricepertoken.com/pricing-page/model/google-gemini-3.1-flash-lite)
+
+## Update 2026-11-16: the bake-off runs through OpenRouter
+
+- **How it runs:** §12.4's bake-off runs through OpenRouter (one key for all models): `backend/ai-evals/bakeoff.mjs`, PR #370.
+- **Prices:** OpenRouter's list on 2026-11-16 matches §12.1 for the finalists, per million tokens in/out:
+  - Muse Ember 1.0: $0.10 / $0.50;
+  - Claude Haiku 5.5: $0.10 / $0.50;
+  - DeepSeek V4.1 Flash: $0.14 / $0.42;
+  - GPT-6 Luna: $0.10 / $0.50.
+- **Real prompt size:** about 2,200 input tokens a review, not §12.1's 7,000, so every price here is about a third of §12.1's.
+
+## Update 2026-11-16: one-key platforms compared (owner: "We have cloudflare check if it provides. Also check out about lightllm. Check similar platforms")
+
+Checked on the web on 2026-11-16 for the AI evaluator's model bake-off (`backend/ai-evals/bakeoff.mjs`, PR #370).
+
+| Platform | One key for many companies' models? | Our 10 candidates | Free | Fees | Fit |
+|---|---|---|---|---|---|
+| **Vercel AI Gateway** | Yes | All 10 (509 models) | $5 every 30 days, some models only | None on tokens | **Chosen**: existing account; schema and reasoning confirmed in docs; price list API |
+| OpenRouter | Yes | All 10 (~470) | Free versions of a few models, without strict schemas | ~5.5 % on credit | Alternative; built in |
+| Cloudflare AI Gateway (Unified Billing) | Yes, prepaid credits: OpenAI, Anthropic, Google, xAI, Groq; plus Workers AI | No Meta Muse Ember; Workers AI has Gemma 4, Llama 4 Scout, GLM-5.3 Flash, DeepSeek V4.1 Flash, Qwen3.8 27B | Workers AI: 10,000 neurons a day; no credit for third-party models | 5 % on credit, cards only | Possible later; the docs don't confirm schema or reasoning passthrough; no machine-readable price list |
+| Hugging Face Inference Providers | Yes (router over ~15 hosts) | Mostly open models | $0.10 a month ($2 with PRO) | Host prices | Open models only |
+| AWS Bedrock | Yes, within an AWS account | Anthropic, Meta Llama, DeepSeek, Qwen, OpenAI | No | AWS prices | Heavy setup for a test |
+| Together, DeepInfra, Fireworks, Groq | One key, but only for open models they host | No Claude, GPT or Muse | Small trial credit | Host prices | Not enough candidates |
+| GitHub Models | Was free | n/a | n/a | n/a | Reported retired on 2026-07-30 (not confirmed first-hand) |
+| LiteLLM | **No**: a free, open-source proxy you run, using your own key from each company (or one gateway's key) | n/a | Software free | Hosting | Not a model seller; our client already does its job |
+| LightLLM (ModelTC) | **No**: a GPU serving engine for hosting open models yourself | n/a | Software free | GPUs | Only for self-hosting on a GPU, not the CPU VPS of §3 |
+
+### Wider and cheaper platforms (owner: "Search more on web. Try to find out cheaper alternatives as well. Try to find out platforms which have wider llms access", 2026-11-16)
+
+Model counts and prices were read from each platform's own public catalog API on 2026-11-16. Fees come from web sources (vendor pages), not first-hand.
+
+| Platform | Models (counted) | Of our 10 candidates | Fee on top | Notes |
+|---|---|---|---|---|
+| Eden AI | 1,309 | 9 (no Muse Ember) | 5.5 % on credit | Widest; EU endpoint |
+| AIML API | 995 | 9 to 10 (Muse Ember listed) | Not found | Prices not in its open catalog |
+| Requesty | 757 | 8 (no Muse Ember, no Llama 4 Scout) | 5 % on credit | `:flex` tier at half price (Gemini 3.1 Flash-Lite, GPT-6 Luna) |
+| NanoGPT | 625 | All 10 | Not stated | List prices; GLM-5.3 Flash $0.10 / $0.30 |
+| Vercel AI Gateway | 509 | All 10 | None on tokens | $5 free every 30 days (subset of models) |
+| OpenRouter | 468 | All 10 | ~5.5 % on credit | **Cheapest GLM-5.3 Flash: $0.04 / $0.078**; batch API at half price |
+| LLM Gateway (llmgateway.io) | 320 | All 10 | 5 % on credit (0 % with own keys; can self-host) | GLM-5.3 Flash $0.088 / $0.25; Gemma 4 $0.07 / $0.34 |
+| DeepInfra (host, not a gateway) | 178 | 6 open models | None | Gemma 4 $0.07 / $0.34; Llama 4 Scout $0.10 / $0.30 |
+| Novita (host) | 101 | 6 open models | None | |
+| Free tiers | n/a | Few | n/a | Google AI Studio (Gemini, cut in April 2026), Groq, Cerebras, Mistral (may train on free data), Cloudflare Workers AI: rate-limited, for prototypes |
+
+What this says:
+- **Closed models cost the same everywhere** (Muse Ember, Haiku 5.5, GPT-6 Luna: $0.10 / $0.50 on every platform). Only the platform's fee differs: Vercel has none.
+- **Open-weight models differ a lot by host:**
+  - GLM-5.3 Flash: $0.04 / $0.078 (OpenRouter) up to $0.15 / $0.50 (Vercel);
+  - DeepSeek V4.1 Flash: $0.10 / $0.29 (Requesty) up to $0.30 / $1.20 (Vercel).
+  - If an open model wins the bake-off, run it in production through OpenRouter or the cheapest host, not Vercel.
+- **Batch and flex tiers are half price** but slow (minutes to hours). That is fine for a test, but not for a learner waiting on a review.
+- **One review costs** about 2,200 tokens in and 450 out:
+  - Muse Ember: about $0.00044 (₹0.04), so 1,000 reviews cost about ₹39;
+  - GLM-5.3 Flash on OpenRouter: about $0.00012, so 1,000 reviews cost about ₹11.
+  - Platform choice changes the bill by rupees, so quality (the bake-off) decides.
+- **Decision:** run the bake-off on Vercel AI Gateway (free credit, all 10). Then put the winner on the platform that is cheapest for that model.
+
+### First interviewer's-view results (2026-11-16)
+
+- **Free tier on Vercel:** 8 models were tested on the interviewer's view.
+- **Muse Ember leads:** 67 % of flaws caught, 36 % false alarms, ₹94 per 1,000 correct answers. GPT-5 mini catches a little more (70 %) but raises false alarms on 100 % of clean designs and costs four times as much.
+- **No model passes yet.** The prompt is to be fixed before any choice (`17-SESSION-HANDOVER.md`).

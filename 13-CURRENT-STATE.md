@@ -4,6 +4,27 @@
 
 This file records the latest application/context state known to this session.
 
+## Prototype site and UI revamp (2026-11-15; newest state, read before the dated sections below)
+
+- **prototype.katta.cc** serves the `prototype` branch:
+  - `/` and `/dashboard/`: the real app, reading the live `tech-api.katta.cc`, signed out (the API allows accounts
+    only from tech.katta.cc);
+  - `/p/`: design prototypes, listed by type.
+- **Live prototypes:**
+  - `/p/full-site/`: the premium revamp as a structured frontend (`frontend/prototypes/full-site/`) with:
+    - hash routes and four layouts;
+    - a sidebar that folds to a rail, a phone tab bar, breadcrumbs, search, shortcuts;
+    - the motion system and a phone pass;
+    - dark theme **F2 "vivid, balanced"**, with light colours balanced to match.
+  - `/p/motion/`: the motion system.
+  - `/p/neo-brutalism/`: a style layer over full-site, rounds 1–3. Its dark theme is still unappealing; the next
+    dark theme is **D, inverted blocks** (final, `01372a7`; the comparison page was retired).
+- **`/next/`**: the new production frontend `web/` (React + TypeScript), milestone 1 live: shell, navigation, landing, Home, Learn, sections, You, on live content (`6d13a73`); milestone 2, the lesson reader with every block kind and the 232 figures imported from `frontend/src/figs` (`6b3b468`); milestone 3, the site complete: full-site landing and motion, Problems, the workspace and challenges (current app's canvas and judge imported), sign-in dialog, shortcuts, tour (`95453a6`). Not merged into `frontend/` yet, by the owner's choice. See `web/README.md`.
+- **Nothing from the revamp is in the real app (`frontend/src`) yet.** Draft PR #365 (reviewer fixes, light colours)
+  is unmerged and conflicts with main since #366.
+- Docs: `ui-prototypes/README.md` (how to make and host prototypes), `TRIED.md` (all rounds and decisions),
+  `38-PREMIUM-REVAMP-RESEARCH.md` (research). Ledger: the 21 `prototype` commits are in `frontend_git_commits`.
+
 ## Application repository
 
 `yashbhoomkar/tech-katta`
@@ -1908,3 +1929,39 @@ production: desktop and Pixel 7, light and dark. Ledger: frontend 906, backend 6
   tests. Old `/dashboard/lab…` addresses 308 to Problems, the problem or the challenge, with or without a slash (#286).
 - Checked on production: `tools/e2e/no-lab.js` 33 checks, `errors: []`; redirects. Ledger: frontend 717, backend 569.
 - Ledger, 10:45 IST: full reconciliation of main since 11-04; 49 missing rows recorded; frontend 722, backend 613.
+
+## 2026-11-15, 01:30–03:00 IST: UI/UX review fixes (PR #365, draft)
+
+- Production unchanged: `main` = `613442a` (#364), API release `20261114T174554Z-613442a`, 66 articles.
+- PR #365 (branch `ccr-b42a0cbb-y2io0r`):
+  - plain-words landing section;
+  - read aloud removed;
+  - Back to top;
+  - Cards obey the sign-in preview;
+  - stars on every problem;
+  - re-grade to 7/7/8;
+  - the logo pill;
+  - copy fixes.
+
+  See `37-UI-UX-REVIEW-FIXES.md`. Tests 393 + 114 pass; browser tested locally only.
+- Ledger: 4 frontend and 5 backend rows for the branch commits.
+- 06:20–07:30 IST: the light theme becomes **Marigold & Navy** (`33-LIGHT-THEME-COLOURS.md`): a neutral page, a
+  navy accent, marigold kept; dark unchanged. Commits `488806b` and `936959e`, on PR #365; 2 frontend ledger rows.
+  Still not merged.
+
+
+- **PR #367 (draft, `new-frontend-beta`):** the new frontend, made production-ready as a beta at tech.katta.cc/next/. It lives in `frontend/next/`, is built by `frontend`'s `npm run build`, is `noindex`, and is linked from the dashboard sidebar. Merging it deploys it through Vercel.
+
+- **prototype.katta.cc/p/next:** feature parity with tech.katta.cc (39-NEXT-PARITY.md), live and verified. Sign-in waits on **PR #368** (draft, CI green); the Google client already allows prototype.katta.cc. Batch 5 (`d46e1ed`, the decided spec-24 figures, animations and gestures) is live and verified (2026-11-16).
+
+- **prototype.katta.cc/p/neo-brutalism:** the same app in the neo-brutalism look, live and verified (`13ec2bb`). Sign-in waits on PR #368, as on /p/next. Figures there use the cards' colours, and cards show mark stickers instead of shrunken figures (`5b4be8b`, 2026-11-16).
+
+- **2026-11-16, frontend/next production-ready (`9ec6935` prototype, `86c1250` PR #367):** one codebase for both looks with a look registry, per-look CSS, a route error page, and a Playwright e2e suite (70 tests, both looks) in CI. Sign-in and practice on the prototypes still wait on PR #368.
+
+- **2026-11-16, AI evaluator:** review job only (no chat, owner). Ground truth and OpenRouter bake-off in draft PR #370, not yet run on a real model.
+
+- **2026-11-16, AI evaluator:** it is "the interviewer's view": only what the judge cannot see, tied to design lines. The test set is 10 unique flawed designs plus 12 clean ones. The test script is built, and the first run on 8 free Vercel models is under way (PR #370, draft).
+
+- **2026-11-16, evening:** first interviewer's-view run done. Muse Ember leads (67 % caught, 36 % false alarms, ₹94 per 1,000 correct); no model clears the bar yet. False alarms are mostly from the prompt. All runs are stopped on the owner's instruction. Next: prompt version 2, then re-run.
+
+- **2026-11-16:** all AI-evaluator findings and the raw responses of every API call (2,873 calls, $0.80) are in `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/` (with SHA256SUMS).

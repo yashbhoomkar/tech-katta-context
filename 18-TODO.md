@@ -7,10 +7,24 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
+- **New frontend (`web/`, /next/):** milestone 2 (the lesson reader) is done, `6b3b468`; milestone 3 is Problems and the workspace (canvas + judge from `frontend/src`); milestone 4 is sign-in and sync, then the switch of tech.katta.cc.
+
+- **Neo-brutalism dark: done.** Option D (inverted blocks) is final (`01372a7`); the comparison was retired.
+- **Flaky test:** `judge.test.js` "largest design … under 20 ms" can exceed 20 ms on CI runners (21.2 ms seen). Consider a
+  safer bound (the app repo; owner to say go).
+- **Neo-brutalism open questions:** loud everywhere or calm reader (now calm)? Archivo Black or Space Grotesk headlines?
+- **Search is substring-only** in the full-site prototype ("cache" does not find "Caching"). Consider word-stem
+  or fuzzy matching when it's built into the app.
+
 Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
+| 0 | ui | **PR #365, UI/UX review fixes** (`37-UI-UX-REVIEW-FIXES.md`): plain-words landing, read aloud removed, back to top, locked topic cards, stars on every problem, 7/7/8 re-grade, logo pill | waiting for owner | draft; merge and deploy on the owner's word, then the squash commit's ledger rows |
+| — | ui | Light-theme colours (the reviewer's last point): **Marigold & Navy** built, in PR #365 (`488806b`) | waiting for owner | `33-LIGHT-THEME-COLOURS.md`; merge with #365; later: a link preview image in the new light look; check Safari/Firefox |
+| — | security | The API returns full article bodies to signed-out visitors; the preview (Full text and Cards) is enforced only in the frontend. Serve `previewOf()` to signed-out requests and the full body only with a session | idea | found 2026-11-15; seo.js already uses the preview |
+| — | content | Renumber Interview Questions so Easy comes first, after the re-grade? (numbers are mixed now, like LeetCode) | waiting for owner | 37 §7 |
+| — | content | "Capitalise the keywords" (reviewer): if it means bold or capitalised key terms in prose, decide the style | waiting for owner | 37 §4 |
 | — | build | Context 36 leftovers: company and topic tags (#33), Hindi and Marathi (#43), canvas keyboard audit (#41) | open | Each needs the owner: which companies ask what; native review of translations; say go for the audit |
 | — | build | **Context 36: the best problem-solving experience** (owner: "Start building everything step by step") | done | Steps 1–22 merged by PR #366 (`1a8ca71`) and deployed 2026-11-15 (Vercel and backend run 282); log in §6 |
 | 1 | infra | **Move the API off Bluehost** (plan expired 2026-11-04, on grace). Moving is now `ops/README.md` (#348, #349): one command, three variables, two workflows | waiting for owner | one-time: Origin certificate → secrets ORIGIN_CERT/ORIGIN_KEY, Cloudflare token → CLOUDFLARE_API_TOKEN; then buy **AWS Lightsail Mumbai $5, paid by UPI** (decided, `31-VPS-CHOICE.md` §4c; the owner has no credit card), run the script, commit the printed public key as `ops/deploy-key.pub` |
@@ -77,3 +91,19 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
   readWrite@techkatta_app; add the VPS IP in Atlas Network Access and remove `0.0.0.0/0`.
 - Reset the Google client secret.
 - Delete the leftover old `techkatta` database documents and the three test events.
+- **New frontend (`web/`):** complete on prototype (`95453a6`). Left for the switch, when the owner says so: move `web/` into `frontend/` (or serve it at `/`), add prototype.katta.cc or the final origin to the API CORS list and Google client origins so sign-in works, and retire `frontend/src` pages that `web/` replaces (keep figs, solve, lab, judge, account, which `web/` imports).
+- **After #367 merges:** check tech.katta.cc/next/ (sign-in, sync, the workspace) and the `next:` page views; ledger the squash. **Then the switch PR:** serve the new app at `/` (its own `/dashboard` route already maps every old address, content/legacy.ts), rebuild the SEO article pages for the new URLs, drop `noindex`, retire the old shells. `prototype` still has `web/` (the older copy); after the switch, delete it there or point `prototype.mjs` at `frontend/next`.
+- **Owner:** merge PR #368 (API allowed origins) so sign-in works on prototype.katta.cc; then check sign-in and sync on /p/next. This is the one item left before /p/next is complete (batch 5, the decided spec-24 items, is done: `d46e1ed`). /p/neo-brutalism is built and live (`13ec2bb`); it shares the sign-in wait. Performance next step: prerender each route's content into its HTML at build time (postbuild already fetches the API), so the first paint does not wait for the API. Next for neo-brutalism: a piece-by-piece pass on the Listen bar and the workspace panels. Owner to answer the look questions in ui-prototypes/TRIED.md (how loud; Archivo Black or Space Grotesk). Merge PR #367 when happy, which deploys tech.katta.cc/next/.
+
+- [x] 2026-11-16: frontend/next production-ready, extensible, modular, with e2e in CI (`9ec6935` / `86c1250`).
+- [ ] Owner: merge PR #368 (sign-in and practice on prototype.katta.cc), then PR #367 when happy.
+- [ ] Report client errors from RouteError once the API accepts a `client_error` event (`backend/src/auth/events.js` EVENTS).
+
+- [ ] Owner: create an OpenRouter account, add about $5, and give the key (as a secret, never in chat) to run `node ai-evals/bakeoff.mjs` (PR #370). Then pick the model from `results/bakeoff-*.md` and set the server's `AI_*` settings.
+- [ ] (replaces the OpenRouter line above) Owner: create a Vercel AI Gateway API key (Vercel dashboard, AI Gateway, API keys); the free $5 a month may cover the whole bake-off. Give it through the secure form, never in chat.
+
+- [ ] Read the first interviewer's-view run (`results/observe-first-run.md`), pick a model, and read a sample of its answers.
+- [ ] Owner: is `seat_id` unique across shows (ticket-booking)? `rate-limiter/three-nodes`: fix the design or the author's words.
+- [ ] When a model is chosen: add the interviewer's view to production (backend job, page section) and raise `AI_MAX_OUTPUT_TOKENS`.
+
+- [ ] Interviewer's view, prompt version 2 (notation explained; no capacity or latency comments; read every route), then re-run Muse Ember, GPT-5 mini and Gemini Flash-Lite, then `--tier free-reasoning`. Only when the owner says so.

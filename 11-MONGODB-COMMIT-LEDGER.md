@@ -1460,3 +1460,70 @@ Then the revert, #357 (owner: "Earlier it was better. Revert."): frontend rows `
 (revert #356), `fb79fa0ea46673c00b0f5ff814551fa2b7b0d81f` (revert #355), `d6c57989eb2017031745c8842b1e254412cecfaf`
 (squash); backend rows for `fb79fa0…` and `d6c5798…` (site.json). Counts: **frontend 967, backend 702**.
 
+
+**2026-11-15: the `prototype` branch (prototype.katta.cc), first ledgered.** None of its commits were in the ledger before.
+Inserted 21 rows into `frontend_git_commits` (after checking all 21 keys were absent); values start with
+`[prototype branch]`. The commits run from the bundled-content prototype site (`4ceb4c3`), the Cloudflare Worker
+(`3d8454b`), the CSP-safe build (`d9f386e`), full-site's motion, interactions, structured rebuild with navigation and
+dark mode (`858ad46`), the live API (`595ce96`), the phone pass (`cd4d5e4`), the dark-mode rounds and F2 (`0a9026b`) and
+balanced light colours (`8fa0691`), to neo-brutalism rounds 1–3 (`4377d40`, `9141534`, `97e5b66`, `37f6dfd`). Context
+for each: `ui-prototypes/TRIED.md`. Count after: **frontend_git_commits 1031** (1010 before). Backend untouched (no
+prototype commit touches `backend/`).
+
+**2026-11-15 (later):** one more `prototype` row, `5ac5636258358977c91d736e36c1f3fabe64b9b3` (neo-brutalism dark candidates and `/p/nb-dark/`), inserted into `frontend_git_commits` after checking it was absent. Count after: **1032**.
+
+**2026-11-15 (final):** `01372a7d2c042849f0bf8038040177d613c736e4` (neo-brutalism dark finalized as option D) inserted into `frontend_git_commits` after checking it was absent. Count after: **1033**.
+
+**2026-11-15:** `6d13a732efee11489f8ea6768184fad2c6a52651` (web/ new frontend, milestone 1) inserted into `frontend_git_commits` after checking it was absent. Count after: **1034**.
+
+**2026-11-15:** `6b3b468a081b76a08e7e26a4f62721a2eea97ed0` (web/ milestone 2, the lesson reader) inserted into `frontend_git_commits` after checking it was absent. Count after: **1035**.
+
+**2026-11-15:** `12b5235ab89365d1a144cca60ecc2f2a56163b50` (web/README milestone 2 done) and `95453a65309e47d1739e8594fa895a51a20762d7` (web/ milestone 3, the site complete) inserted into `frontend_git_commits` after checking both were absent. Count after: **1037**.
+
+**2026-11-15:** `4e842b267ec5c78e049846f8471d673ccd22d03a` (PR #367, branch `new-frontend-beta`: the new frontend as a production beta at /next/) inserted into `frontend_git_commits` after checking it was absent. Count after: **1038**. The PR's squash commit is to be ledgered when it merges.
+
+**2026-11-15 (evening):** inserted after checking each key was absent.
+- **`frontend_git_commits`, 8 rows (count now 1046):**
+  - `c58aefcd1b1c389bcb6631b255412d727a116e10` and `b43c7e6efdf896041ffaf157d55d13fabc7933ce` (prototype hosting at /p/next);
+  - `cb265f485fbb1cbd5f729febc3859cdd9a54bc8e`, `a5ca9450b219fb0a51cc5d6dc80b5d1b14a684b1` and `09d018def49d279927407512deda13fde5a96987` (parity batches 1 to 3 on prototype);
+  - `9fd911d72b3a022275bb19e7d8b1a56a155337fa`, `f00d8ad8f06a5eedb09d275aba0c278762c7045f` and `ecae191a6ee3a738696abb444f8271606e67cc34` (the same batches on PR #367).
+- **`backend_git_commits`, 1 row:** `fadcec1b30a142cf9901965dff4368eabff2ca7e` (PR #368, API allowed origins).
+
+**2026-11-15 (night):** `f30e833f36b23efddf9287e0d211dfda31bb931e` (prototype, parity batch 4) and `7a596ff7d8a06161560af9ffdde95795950a3c78` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1048**.
+
+**2026-11-16 (early):** `d46e1ed6dcfdc4dc0d1928334b48420779d336ef` (prototype, parity batch 5: the decided spec-24 items) and `0466802c32b52efbf9218800708edcee67f02403` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1050**.
+
+**2026-11-16 (early, later):** `13ec2bb5ac4f8b55b21523555b411b6e5bf55750` (prototype, /p/neo-brutalism) and `8883ef894240234033f01917d36ee54319509e8f` (PR #367, the opt-in theme) inserted into `frontend_git_commits` after checking both were absent. Count after: **1052**.
+
+**2026-11-16:** `4bc0eecb28086545daf12990704181aedc7b84fc` (prototype, neo-brutalism figures and motion redesigned) and `19855589d81d2a23fbf7cb5279ca4d86aba9e3fa` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1054**.
+
+**2026-11-16 (8:15 am run):** `5b4be8ba7ca8f1de03770115cee6c5052c6d0702` (prototype: figures in the cards' colours, mark stickers, mock-up motion) and `d0b8118800866fd709f93508a537b9d19755aa16` (PR #367, the same, opt-in) inserted into `frontend_git_commits` after checking both were absent. Count after: **1056**.
+
+**2026-11-16:** `56a66b64386de964f42063c74c2e6f0e15eb1a16` (prototype: /p/next figures in the cards' colours, section stickers) and `802c04ab98b9c0bda9e842cfad2a4608acc77bd1` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1058**.
+
+**2026-11-16:** `ce2b6599a44236527860596254ea99bd2e32b8f4` (prototype: SectionMini, a small figure for each card) and `f3748fbc534f7719f6b88a9920819fe55aa94c4a` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1060**.
+
+**2026-11-16:** `3fb7fb77fe444c87fa3bb6b72b785076e570fe09` (prototype, refinement pass) and `6d670a047b728e53abb5e443b2dc00307b836611` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1062**.
+
+**2026-11-16 (quality pass):** inserted into `frontend_git_commits` after checking each key was absent:
+- `f315a2805ae19aab45204416e9406110ca836307` and `82692da7c973f34adef7f3e1f31129a1cca47091` (contrast, headings, logo name, API hints);
+- `2d3322f667f14b03dc0f4f7574da4faab7c5f49c` and `348c78e20fb606bf615afcbacc74cb30049b8df5` (lazy pages, ARIA roles);
+- `33760c42261556c0dd6a54103e027f458fbe98ed` and `e32c68abc330d41868a82b34d7d4b44ce5ed979f` (later prefetch, lesson preload).
+
+Count after: **1068**.
+
+**2026-11-16 (takeover readiness):** `4fec8242fd112a7a79316a83b2bbda74348310ab` (prototype) and `cf80a31483e849552c90fbbf4a6ee78d60942e87` (PR #367) inserted into `frontend_git_commits` after checking both were absent. Count after: **1070**.
+
+**2026-11-16:** `856cae998bc367b44f155a7e23b4c7a717935c4f` (prototype: the design prototypes call tech-api.katta.cc) inserted into `frontend_git_commits` after checking it was absent. Count after: **1071**.
+
+**2026-11-16:** `a65be22e736481aad19426f070ee13ed09771fbf` (prototype: the CSP allows Cloudflare's beacon) inserted into `frontend_git_commits` after checking it was absent. Count after: **1072**.
+
+**2026-11-16:** `9ec69354390d27ea24bb8f7095f0d2c9563ad59d` (prototype: production-ready structure, e2e suite) and `86c1250a5e50dc61e943cae8797a8daaafdb949c` (PR #367, the same) inserted into `frontend_git_commits` after checking both were absent. Count after: **1074**.
+**2026-11-16:** `b8f3c4a9a7ceca227f6359794ab238305aef1771` and `3055d4a6754d9660416ee485de168828e9dc8073` (the Home test waits for the title), then `49d80e7bf75ae47bbc1a40b73bea8437217c582d` and `6a6e6616044fb3426cdac4ec29a0556188a9619e` (lazy pages wait for the reload after a release) inserted into `frontend_git_commits` after checking each was absent. Count after: **1078**.
+
+**2026-11-16:** `08a213d88fb6c0eec51a04a3ab2065322955f2e9` (PR #370: AI evaluator ground truth and OpenRouter bake-off) inserted into `backend_git_commits` after checking it was absent. Backend count after: **726**.
+**2026-11-16:** `ccc8b77ce97db06dac0fec2956100c9271214e8f` (PR #370: Vercel AI Gateway as the bake-off platform) inserted into `backend_git_commits` after checking it was absent. Backend count after: **727**.
+
+**2026-11-16:** backend rows also recorded for `d4e9299`, `6ac413d`, `af117aa`, `39a2920`, `1c1b1b7` and `7a95276` (PR #370), each checked absent first.
+
+**2026-11-16:** new collection `ai_eval_responses` (13 rows) holds the checksums of the saved AI-evaluator responses (ai-eval-results/ in this repo, per-file SHA-256 in SHA256SUMS) and the docs commit `f2b65bc`. Backend ledger unchanged.

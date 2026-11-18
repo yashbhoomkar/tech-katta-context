@@ -1000,3 +1000,62 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #345: premium renovation C and D: landing, shell labels, reading view (spec 30 §5); squash `d56cb182738ad6fd824e0c3084f27010eb1d53b6` (2026-11-14, front end only).
 - PR #346: docs for the renovation (theme README, Design.md); squash `e2e6191fa61e3f7a1cd4fc8d187b3681ec8bbd6a` (2026-11-14, docs only).
 - PR #347: premium renovation E: sliding sidebar marker, header that firms up on scroll, numbered landing sections; squash `ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a` (2026-11-14, front end only).
+
+
+## Branch `prototype` (prototype.katta.cc; 2026-11-15, not merged to main)
+
+Each push deploys to prototype.katta.cc. The full list with descriptions is in the ledger (`frontend_git_commits`,
+values start `[prototype branch]`):
+- `4ceb4c3` bundled-content prototype site;
+- `97206d8` hosting test fix;
+- `3d8454b` Cloudflare Worker and workflow;
+- `db60f1f` exact `_redirects` rules;
+- `388c70b` prototypes named by type;
+- `cdf5e5d` motion prototype;
+- `d9f386e` CSP-safe inline scripts;
+- `05652d7` full-site motion;
+- `c7f3751` every control works;
+- `858ad46` structured rebuild, navigation, dark mode;
+- `595ce96` live API;
+- `cd4d5e4` phone pass;
+- `dad12c5`, `0e2b103`, `e6a8f09` dark-mode rounds;
+- `0a9026b` F2 dark;
+- `8fa0691` balanced light colours;
+- `4377d40` neo-brutalism;
+- `9141534` star stickers;
+- `97e5b66` neo-brutalism round 2;
+- `37f6dfd` neo-brutalism round 3, calmer;
+- `5ac5636` neo-brutalism dark candidates and `/p/nb-dark/`;
+- `01372a7` neo-brutalism dark finalized as option D (comparison removed);
+- `6d13a73` `web/`: the new frontend, milestone 1, at `/next/`.
+- `95453a6` `web/`: milestone 3, every full-site page and animation; workspace and challenges imported from the current app.
+- `6b3b468` `web/`: milestone 2, the lesson reader (real articles, the current app's figures imported).
+
+Base: `prototype` contains all of `main` up to `1a8ca71` (#366, the problem workspace). It does **not** contain
+draft PR #365 (branch `ccr-b42a0cbb-y2io0r`: the reviewer fixes and light colours for the real app).
+
+- `4e842b2` (PR #367, `new-frontend-beta`, draft): the new frontend in `frontend/next/`, built into production at `/next/` as a beta.
+
+- `cb265f4`, `a5ca945`, `09d018d` (`prototype`) and `9fd911d`, `f00d8ad`, `ecae191` (PR #367): parity batches 1 to 3 with tech.katta.cc (see 39-NEXT-PARITY.md).
+- `fadcec1` (PR #368, `api-allowed-origins`, draft): the API accepts sign-in from prototype.katta.cc.
+- `f30e833` (`prototype`) and `7a596ff` (PR #367): parity batch 4 (figures, gestures, motion, lesson content, practice).
+- `d46e1ed` (`prototype`) and `0466802` (PR #367): parity batch 5, the decided spec-24 items (A2 view transitions and title morph, G3 scenes, G4 section marks, solid bars on phones, sheet grab areas).
+- `13ec2bb` (`prototype`) and `8883ef8` (PR #367): the neo-brutalism look as a theme of frontend/next (`VITE_STYLE=neo-brutalism`), served at prototype.katta.cc/p/neo-brutalism/. The design mock-up moved to /p/neo-brutalism-mockup/.
+- `4bc0eec` (`prototype`) and `1985558` (PR #367): neo-brutalism figures and animations redesigned in the look's own grammar (chip packets, conveyor dashes, stamped highlights, key-press steps; drop-in, slap, stamp, stepped bars and a shutter for the app).
+- `5b4be8b` (`prototype`) and `d0b8118` (PR #367): neo-brutalism figures in the cards' colours per section, MarkStickers instead of shrunken figures, Cards mode one wide card per row, and the mock-up's motion (highlighter wipe, live ticker, stamps, halftone).
+- `56a66b6` (`prototype`) and `802c04a` (PR #367): the default look too. Figures use the cards' colours per section, cards show section stickers instead of shrunken figures (CardPicture removed), and Cards mode is one wide card per row.
+- `ce2b659` (`prototype`) and `f3748fb` (PR #367): SectionMini, a small figure drawn for each card: the section's next three lessons on a path, with a travelling request. It replaces the lone section icon.
+- `3fb7fb7` (`prototype`) and `6d670a0` (PR #367): a refinement pass on both looks: a centred, framed not-found page with section links, chips that never wrap, card labels in the card's ink, framed state scenes, and the neo-brutalism sidebar's open lesson as a key.
+- `f315a28`, `2d3322f` and `33760c4` (`prototype`), and `82692da`, `348c78e` and `e32c68a` (PR #367): a measured quality pass. axe-core finds 0 violations; Lighthouse accessibility is 100; the API is preconnected and preloaded; pages load on demand (main bundle 147 to 102 KB gzipped); and route pages need no redirect.
+- `4fec824` (`prototype`) and `cf80a31` (PR #367): takeover readiness. tech.katta.cc's /dashboard addresses map to the new pages, shared designs open in the new app, and share links point at it. The end-to-end sweep has 0 failures on both sites.
+- `856cae9` (`prototype`): the design prototypes call tech-api.katta.cc too. full-site and the neo-brutalism mock-up load real content (data/live.js), and motion.html fills its demos from the API.
+- `a65be22` (`prototype`): prototype.katta.cc's CSP allows Cloudflare's injected analytics beacon (prototype build only; tech.katta.cc's CSP is unchanged).
+- `9ec6935` (`prototype`) and `86c1250` (PR #367): frontend/next made production-ready for both looks: module splits (pages/landing/, pages/reader/), a look registry with each look's CSS in styles/looks/<look>/ and other looks' rules dropped at build, a route error page, a Playwright e2e suite run on every look (and in CI), and the README's architecture.
+- `b8f3c4a` / `3055d4a` (prototype / PR #367): the Home unit test waits for the page title (a CI race had stopped the prototype deploy). `49d80e7` / `6a6e661`: a lazy page whose chunk fails after a release keeps showing Loading until the reload instead of throwing.
+
+- `08a213d` (`ai-eval-ground-truth`, draft PR #370): the AI evaluator's ground truth (75 designs) and a one-key OpenRouter bake-off ranked by cost per correct review.
+- `ccc8b77` (PR #370): the bake-off runs through Vercel AI Gateway by default (one key, free monthly credit), OpenRouter as the alternative.
+
+- `1c1b1b7` and `7a95276` (PR #370): the interviewer's-view job, its unique-finding test set and the model test script.
+
+- Context: `40-AI-EVALUATOR-FINDINGS.md` and `ai-eval-results/` (raw responses of every model call of 2026-11-16, checksums in `SHA256SUMS`).
