@@ -2,6 +2,8 @@
 
 > **2026-11-18, 06:45 IST: tech.katta.cc now serves the neo-brutalism frontend (`frontend/next`), made calmer (no tilts, stickers, bounces or confetti; Archivo Bold) and consistent (one control height, 44 px touch targets). PR #372 merged (`bbf81cd`), verified live; every old /dashboard/ address redirects. Decisions, audit, rollback: `47-NEO-BRUTALISM-PRODUCTION.md`. Open for the owner: close PR #367 (superseded); submit the new sitemap in Search Console.**
 >
+> **2026-11-18: /p/scroll-3d/ rebuilt as a real WebGL (three.js) scene after the owner's "Theirs look sooo good!! Fix everything": shadows, glow, fog, scroll-scrubbed camera. Live and checked. `ui-prototypes/TRIED.md`.**
+>
 > **2026-11-18, 00:40 IST: new prototype https://prototype.katta.cc/p/scroll-3d/: a landing page told as one isometric 3D scene in rca.gg-like colours (URL shortener breaks and is fixed as you scroll). Checked live, desktop and phone, light and dark. `ui-prototypes/TRIED.md`. Next scheduled run: 06:00 IST, the neo-brutalism switch of tech.katta.cc.**
 >
 > **2026-11-17, night: the test made fairer (doc 45 §17). Repeating the judge is no longer a false alarm; 150 close calls reviewed (by the key's author, not neutral). After review: Gemini 3.1 Flash-Lite 82 % caught but 45 % false alarms; Muse Ember 50 % caught, 0 % false alarms, p95 5.2 s, which meets a precision-first bar if the owner picks one. Code on `tech-katta` `ai-eval-gemini`. Open: the owner's choice of bar; one strong-model run as a yardstick (cheaper routes than Vercel's $10 in `18-TODO.md`).**

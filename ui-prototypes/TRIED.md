@@ -297,6 +297,15 @@ Owner, after looking at rca.gg: "On scrolling down the background animation chan
 - **To look at:** whether the 3D feels as good as rca.gg's; the chapter 3 database pulling apart; dark mode; the
   phone layout (scene on top, text below). Open: the hero scene starts low on short laptop screens.
 - Commits `0d4c2d7`, `8cf97d3` on `prototype` (ledgered). Folder README explains how to add a chapter.
+- **Round 2, real WebGL (2026-11-18).** Owner, comparing with rca.gg: "Theirs look sooo good!! Fix everything".
+  The flat SVG lacked depth, light and shadow. Rebuilt with three.js 0.170 (vendored in the folder, since the CSP
+  allows no CDN): soft shadows, translucent rounded slabs with outlines, a glossy database, fog, a faded grid, an
+  orange glow and pulsing ring on broken parts, green on fixed ones, instanced request dots, and a camera that scrubs
+  with the scroll between chapters (damped). Labels stay HTML pills, placed from 3D each frame. Also: lighter
+  headline weights (300 / 600), a hero "break." filled with live log text, chapter reveal, a scroll progress line.
+  Desktop: the scene fades out under the text column. Phone: scene in the top 46 %, only broken/fixed labels.
+  The SVG scene stays as the fallback without WebGL. Checked live: desktop and Pixel 7, light and dark, no errors,
+  no sideways scroll. Commits `3c326b9`, `5e7b2ba` (ledgered).
 
 ### Neo-brutalism goes to production, calmer (2026-11-18)
 
