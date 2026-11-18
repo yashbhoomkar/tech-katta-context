@@ -297,3 +297,10 @@ Owner, after looking at rca.gg: "On scrolling down the background animation chan
 - **To look at:** whether the 3D feels as good as rca.gg's; the chapter 3 database pulling apart; dark mode; the
   phone layout (scene on top, text below). Open: the hero scene starts low on short laptop screens.
 - Commits `0d4c2d7`, `8cf97d3` on `prototype` (ledgered). Folder README explains how to add a chapter.
+
+### Neo-brutalism goes to production, calmer (2026-11-18)
+
+The owner showed neo-brutalism to two people; both liked it, one found it "too gamified". The production version
+(tech.katta.cc, PR #372) drops the tilts, sticker labels, slap and bounce motion, confetti, halftones and the reader
+title shadow; headings are Archivo Bold; one 3 px shadow; one control height. Settled: a calm reader everywhere, and
+Archivo Bold rather than Archivo Black or Space Grotesk. Details and the audit: `47-NEO-BRUTALISM-PRODUCTION.md`.

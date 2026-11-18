@@ -465,3 +465,11 @@ React + TypeScript app that will replace `frontend/src`. It is served at prototy
 - **Errors:** `app/RouteError.tsx`.
 - **Testing:** `npm run e2e` runs Playwright on every look. It is a CI job in `frontend.yml`.
 - **Commits:** `9ec6935` / `86c1250`.
+
+## Production since 2026-11-18: frontend/next at the root (PR #372)
+
+- `npm run build` = `vite build` (old app: analytics and health pages) + `build:next` (`BASE_PATH=/`,
+  `VITE_STYLE=neo-brutalism`) + `hosting/switch.mjs` (the new app at `/`, SEO pages for the new addresses via
+  `seo.js` `useAddresses("next")`, sitemap, llms.txt, the `/dashboard/` shell for old `#key` links).
+- Redirects in `hosting/routes.json`; the neo-brutalism look made calmer and consistent (tokens `--display` Archivo
+  700, `--sh-d` 3 px, `--ctl-h` 40/44 px; calm motion in `styles/looks/neo-brutalism/motion.css`). Doc 47.

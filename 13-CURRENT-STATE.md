@@ -4,7 +4,15 @@
 
 This file records the latest application/context state known to this session.
 
-## Judge 3 and the AI evaluator test kit (2026-11-17; newest)
+## The neo-brutalism frontend is the site (2026-11-18; newest)
+
+- tech.katta.cc serves `frontend/next` in the neo-brutalism look at `/` (PR #372, `bbf81cd`). The old app's code stays
+  in `frontend/src` (the new app imports its figures, workspace, judge, account); its landing and dashboard shell are
+  still built but replaced by `frontend/hosting/switch.mjs`. The analytics and health pages are unchanged.
+- Old addresses `/dashboard/<section>/…`, `/dashboard/problems|practice/…`, `/next/…` redirect (308); SEO pages,
+  sitemap and llms.txt use the new addresses. Doc 47.
+
+## Judge 3 and the AI evaluator test kit (2026-11-17)
 
 - `tech-katta` `main` is at `7c53c7a` (PR #371), live on tech.katta.cc (backend release `20261117T140045Z-7c53c7a`).
 - The judge (`JUDGE_VERSION` 3) adds notes W004 (client straight to a store), W005 (id made after the queue), W007

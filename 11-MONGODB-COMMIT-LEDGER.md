@@ -1567,3 +1567,7 @@ Count after: backend **743**.
 **2026-11-18 (prototype scroll-3d):** `0d4c2d7aa76dbe273dfcf245fddc93b4086b569d` and
 `8cf97d3b1a82bdbd5434751d1594d266c6c52e8b` (branch `prototype`) inserted into `frontend_git_commits` after checking
 they were absent. Count after: frontend **1083**.
+
+**2026-11-18 (PR #372, neo-brutalism production):** `0842bace7e04ce6a760d2b8df9ca30fc69dda651` (merge of
+`new-frontend-beta`), `f809456018f0092a5da2f00911116b5669fb9d9c` and the squash `bbf81cd84ea2ffbb1395e12de9b0acc2da1922d7` inserted into
+`frontend_git_commits` after checking each was absent. Count after: frontend **1086**.
