@@ -340,6 +340,14 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   app servers sky, load balancer lilac, cache peach, databases mint, queue lemon, CDN rose), a sky-lilac-peach headline
   highlighter, coral-red failures, Instrument Sans and Geist Mono, single matte models with marigold lights, tags, a
   vertical chapter rail, a dot grid. The paper-and-ink variant is kept on branch `redesign-3d-paper-ink`.
+- **Round 4 (`f0943c8`).** Owner: "Now it's looking good. Remove the incidents thing. Now as far as possible, every
+  animation should be 3D. Pastel colours chosen for those 3D components should remain consistent across the website.
+  For now focus on landing page only." Done: the Incidents page and links are gone; `palette.js` is the single source
+  of the pastels (3D models and CSS variables read it; busy and healthy add a halo, only failure recolours); the
+  landing is 3D throughout: the system builds itself on open, then nine scroll-driven chapters (new: the parts with a
+  legend, learn, simulate), no flat cards or charts. Skills read for this: freshtechbro/claudedesignskills (MIT;
+  threejs-webgl, gsap-scrolltrigger) and cloudai-x/threejs-skills (lighting, animation, performance); used their
+  guidance on environment lighting, damping and fill-rate, no code copied.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 
