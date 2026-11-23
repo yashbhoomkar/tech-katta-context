@@ -203,3 +203,20 @@ On a full production build, served locally with the same rewrites as Vercel:
   signed out, a problem run, submitted and replayed in 2D and 3D, Back, search, the theme switch, a phone pass, axe).
 - **Checked:** Playwright on the local build for phases 1, 4 and 5 after the deletions; `npm test` 460; the islands package: typecheck, lint, 4 unit tests.
 - **Ledger:** see `50`; the stray row is still there.
+
+## Update 2026-11-23 (night): the design canvas in 3D, with a 2D switch (the owner's addition; `cc98228`)
+
+- **The owner asked:** the components a learner drags and drops while solving an interview question should be 3D too, with a switch between 3D and 2D, and everything premium.
+- **What changed:**
+  - `src/lab/design3d.jsx`: the learner's own parts as the 3D site's models on a floor, in the design canvas. Drag a part to move it; click to
+    select (the inspector opens as before); Connect joins two parts; drag from the palette to put a part down; drag the floor to pan; scroll or
+    pinch to zoom; Fit; Delete. It edits the same design as the 2D canvas (`Canvas.jsx` owns the nodes and arrows).
+  - A 3D | 2D switch in the canvas bar, kept in `tk-design-view`. 3D is the default where there is WebGL and the page is the 3D site; 2D is the flat canvas as before.
+  - `src/lab/thumb.jsx`: 3D thumbnails of every part, rendered once per theme with the engine and cropped, in the palette, the drag ghost and the cards on the 2D canvas.
+  - `world.js` gained `pickAt`, `groundAt` and `getCamera`.
+- **Checked:** Playwright on desktop and a 412 × 915 phone, dark and light: the 3D canvas draws the URL shortener's five parts, a part dragged from the palette lands
+  on the floor (5 → 6 parts), the switch to 2D shows the flat canvas and back; all 14 palette tiles get a thumbnail (slowly under software GL, quickly with a GPU);
+  the phase 1 and 4 browser suites still pass; no script errors.
+- **Not checked:** moving a part and Connect by hand-driven pointer input (the code paths are written and the dropped part moved with the design, but the tests did not
+  drag a part on the floor or join two); the 3D canvas on a real touch phone; frame rate with a large design.
+- **Ledger:** `frontend_git_commits` 1176 → 1178 with `cc98228` (and the one wrong row still there).
