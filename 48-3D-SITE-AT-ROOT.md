@@ -100,3 +100,33 @@ On a full production build, served locally with the same rewrites as Vercel:
 - **Not checked:** a real Google sign-in (needs the owner).
 - **Ledger:** `frontend_git_commits` 1169 → 1171 (`d247d57`, merge `9203cfa`).
 - **Left over:** nothing for phase 0.
+
+## Update 2026-11-23: phase 1 of 49 (#378, draft until merged)
+
+- **What changed:** the problem workspace, challenges, sandbox, shared designs and practice are 3D pages with the React canvas and
+  judge mounted as islands.
+  - **Build:** `next/vite.islands.config.ts` builds `src/islands` into `dist/3d/islands/islands.js` (no hash in its name, so it is
+    not cached for a year; its chunks are hashed and are). The entry is tiny; React, the canvas and the judge load on the first
+    mount.
+  - **CSS:** the base CSS is rewritten to apply only under `.tk-island` (`next/scripts/island-scope.mjs`, tested). The theme is
+    shared through `<html data-theme>`.
+  - **One account:** the islands import `account.js` and `analytics.js` from `/3d/legacy/legacy.js` (the page's copy), so a user signed in
+    on the page is signed in in the island. The 3D start-up calls `wireSync()` as the old app did.
+  - **Page:** `site3d/scripts/pages/workspace.js`. The workspace, challenges, sandbox and shared designs are locked signed out
+    (no island loaded); practice is open. Addresses are in `OWN`, `OWNED_BY_3D` (`switch.mjs`, `router.tsx`).
+  - **Navigation:** `legacy-hash.js` turns the canvas code's `#fragment` moves into real addresses. A fragment-only change no longer
+    redraws the page.
+  - **Solution tab:** it now stays on the page, with "Copy to my canvas". The React app's Workspace passed `tab="q"` always, so the
+    tab used to leave for the article and Copy to my canvas was unreachable.
+  - **Hosting:** the 3D shell at those addresses with each page's prerendered title and description; rewrites for
+    `/problems/challenge/*` and `/practice/*`; `hosting/serve-local.mjs`.
+- **A bug found on the way:** the 3D article's `.lab` class made the canvas a zero-height grid. The 3D classes that clash with the
+  canvas's CSS were renamed (`.lab`, `.skip`, `.pd`, `.lock-card`, `.hint`). Rule for later phases: a new 3D class must not reuse a name in
+  `solve.css`, `lab.css`, `practice.css` or `sandbox.css`.
+- **Checked:** see the PR. `npm test` 450, `check:next` 70, Playwright on desktop and a 412 × 915 phone, dark and light.
+- **Ledger:** `frontend_git_commits` 1171 → 1172 (`bcea567`); the merge commit is added when #378 merges.
+- **Left over:**
+  - Phones use the legacy narrow layout, whose fixed Run/Submit bar sits under the 3D bottom bar (phase 4).
+  - Serif titles and the action bar overflowing at 1440 px (phase 2).
+  - An unknown `/problems/<x>` address still gets the React 404 page (phase 5).
+  - The legacy review panel crashes if its API call returns an empty body (found with a test mock; the real API always returns JSON).
