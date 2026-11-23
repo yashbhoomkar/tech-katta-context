@@ -102,7 +102,11 @@ reading list, and they linked only to each other. Removed in the commit that car
 | `10-github-and-mongodb-ledger` | Duplicate of `11-MONGODB-COMMIT-LEDGER.md`, which is the one kept current. Its one extra fact (the Atlas organisation, `YashOrgSec`) was added there. |
 | `11-current-state` | A snapshot of 2026-10-06 naming a deployment and a commit from then, and describing swipe behaviour that has since changed. Current: `13-CURRENT-STATE.md` and the handover. |
 | `12-agent-operating-instructions` | A ChatGPT-era copy of `12-OPERATING-RULES.md` and `00-SESSION-BOOTSTRAP.md`. Its source-of-truth order and its wording rules for verification were moved into those two (and into this file). |
+| `04-BACKEND` (second pass, 2026-11-23) | Opens with "Stack: Node.js, Express 5.1, MongoDB driver", the `/api/articles` routes, a Vercel control layer (`backend/src/vercelClient.js` and two scripts that no longer exist) and a seed/fallback process; the rest is a log of 2026-10-11 pull requests that `10-GIT-HISTORY.md`, `13-CURRENT-STATE.md`, `06/07/08` already carry. `backend/src` now holds `ai`, `auth`, `content`, `practice` and `server.js`. It had no banner. Current: `00-project-overview.md` table, handover §6, `05-CONTENT-MODEL.md` first section. |
+| `16-SEARCH-SEMANTICS-PERFORMANCE` (second pass) | An audit of 2026-10-11 of article search against the live Atlas database and its query plans. Article content no longer lives in MongoDB, so "current behavior" and every query plan in it are wrong. Search is client-side over the article list. |
 | `ui-prototypes/scroll-3d-progress` | A resume file for a scheduled run on 2026-11-18, ended "Done". Scheduled runs are discarded (README); the outcome is in `ui-prototypes/TRIED.md`. |
+
+Kept on purpose, with a banner, because they are honest dated records or still carry a current section: `03-FRONTEND` (its last sections are current), `05-CONTENT-MODEL` (first section current), `09-MOBILE-SWIPE`, `06/07/08` and `10-GIT-HISTORY` (evidence logs), `13-CURRENT-STATE` (current above a marked line), `14-OVERFLOW-ARCHITECTURE` and `15-ORIGIN-EXPOSURE-HARDENING` (their own status lines are accurate), the design records 20 and 25–33, `39`, `47`.
 
 ## What this repository must never become
 

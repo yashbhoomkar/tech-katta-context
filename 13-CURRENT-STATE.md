@@ -51,6 +51,8 @@ Checked on 2026-11-23: `origin/main` is `bbf81cd` (PR #372, 2026-11-18); `origin
   `38-PREMIUM-REVAMP-RESEARCH.md` (research, now superseded by the decisions in 30 and 47). Ledger: `frontend_git_commits`
   1153 rows, `backend_git_commits` 744 (`11-MONGODB-COMMIT-LEDGER.md`).
 
+> **Everything from here down is the October 2026 snapshot and is Historical.** It describes an Express API with MongoDB-held content, a "private Vercel REST control layer" (`backend/src/vercelClient.js` and two `vercel-*` scripts, all since deleted: `backend/src` now holds `ai`, `auth`, `content`, `practice` and `server.js`), a main commit `e8cbf46` and "current" headings that are no longer current. The sections above this line are current (checked 2026-11-23). Kept as the dated record; where it disagrees with the handover or the code, they win.
+
 ## Application repository
 
 `yashbhoomkar/tech-katta`

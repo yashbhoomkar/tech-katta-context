@@ -1,5 +1,7 @@
 # Infrastructure and Deployment
 
+> **Historical in parts (marked 2026-11-23).** A dated evidence log from October 2026. In particular the "Vercel control layer" (`backend/src/vercelClient.js`, `backend/scripts/vercel-control.mjs`, `backend/scripts/vercel-mcp.mjs`) no longer exists in the application repository, and the API is no longer Express. Current hosting: the application repository's `HOSTING.md` and `ops/README.md`, `31-VPS-CHOICE.md`, handover §6.
+
 ## Production domains
 
 Frontend:

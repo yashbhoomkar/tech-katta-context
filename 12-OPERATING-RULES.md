@@ -84,7 +84,6 @@ At minimum, update the appropriate documentation file(s). Depending on the chang
 - `13-CURRENT-STATE.md`
 - `10-GIT-HISTORY.md`
 - `03-FRONTEND.md`
-- `04-BACKEND.md`
 - `05-CONTENT-MODEL.md`
 - `06-INFRA-DEPLOYMENT.md`
 - `07-SECURITY-RELIABILITY.md`

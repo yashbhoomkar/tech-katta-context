@@ -835,7 +835,7 @@ These came out of the research and would help, but they need new behaviour or da
 |---|---|---|
 | "Mark as read" and a progress count on section cards | NeetCode, Khan | Storing read state per account (backend) |
 | Bottom tab bar on phones (Read, Practise, Account) | Most learning apps | New component in `shell.jsx`, route changes |
-| Search with a keyboard shortcut | Stripe, react.dev, Vercel | A search index (see `16-SEARCH-SEMANTICS-PERFORMANCE.md`) |
+| Search with a keyboard shortcut | Stripe, react.dev, Vercel | A search index (the old audit of the article-search queries was removed 2026-11-23, see `14-context-maintenance.md`) |
 | Pricing / what you get section on the landing page | Brilliant, Hello Interview | Copy and a decision on pricing |
 | Solved ring by difficulty on Problems | NeetCode | Only layout; data exists in progress storage |
 | Merging each appended block into the rules above it | — | A clean-up pass once friends have given feedback on the look |
