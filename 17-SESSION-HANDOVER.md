@@ -48,6 +48,8 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
 
 **Update 2026-11-14 (building context 36, step 22: What would fix it? Checked repairs).** Commit `03c1107` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1008, backend 722. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-23, later (#374 and #375 merged; #376 open).** The 3D site is live at the root. The React pages (canvas, Quick Notes, You) use the new `3d` look, and `/problems` is a 3D list page (#376). See `48-3D-SITE-AT-ROOT.md`, "Update". Ledger rows are recorded for every commit, merges included.
+
 **Update 2026-11-23 (the 3D site takes the root, PR #374; canvas fixes #373 merged).** Owner: "we are going to retire the current neo-brutalism frontend … Look at the 3d design on the prototype katta. It is going to take over", then "Continue the 3D switch, build and test it". **#373** is merged as `5116358` and recorded in the ledger. It has:
 - replays: the problem pane steps aside while one plays (cards 108 → 170 px wide at 1440 px);
 - multi-select actions: align in a row or column, duplicate, delete;

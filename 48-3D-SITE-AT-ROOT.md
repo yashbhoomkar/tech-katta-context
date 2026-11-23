@@ -62,3 +62,20 @@ On a full production build, served locally with the same rewrites as Vercel:
 2. Account sync for 3D progress (read articles and simulator bests).
 3. Retire the neo-brutalism look once nothing uses it.
 4. Keep refining the 3D site (the owner's words).
+
+## Update 2026-11-23: the 3d look (#375, merged) and Problems in the 3D design (#376)
+
+- **#375 (merged as `9d467f5`):** the React app has a third look, `3d` (`next/src/styles/looks/3d`), used by the
+  production build.
+  - It uses the 3D site's colours in light and dark on the default look's components. The canvas and figures use the
+    3D models' part colours (`figureTokens.module.css`).
+  - Dark is the default, and one theme setting (`tk-theme`) is shared by both apps.
+  - The React sidebar says Dashboard and lists the Simulator.
+- **#376:** `/problems` is a 3D page (`site3d/scripts/pages/problems.js`), after the prototype's practice list.
+  - It has a progress card, a difficulty filter, and rows with solved and started marks, test count and best score.
+  - Each problem's design shows in 3D, then Sandbox, Simulator and the Challenges.
+  - It reads the canvas's own record and writes nothing. Each row opens the canvas workspace (React, 3d look).
+  - `/problems` joins the 3D addresses in all three lists.
+- Owner, when asked which way: "Take your decisions and proceed". The decision was to keep the canvas, judge, Replay
+  and AWS credit as the place a problem is solved, and to give everything around it the 3D design.
+- The 3D prototype stays at its unlisted address on prototype.katta.cc (branch `prototype`).
