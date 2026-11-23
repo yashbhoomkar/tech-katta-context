@@ -189,3 +189,17 @@ On a full production build, served locally with the same rewrites as Vercel:
 - **Ledger:** `frontend_git_commits` 1174 → 1176 (`0126a7c`, **and one wrong row**). I inserted a row by mistake with
   `key: "0126a7c0000000000000000000000000000000000"`, `value: "placeholder"`, then tried to delete it; the delete tool asked the owner a
   question and timed out. **The owner must delete that one row** (or tell the next session to).
+
+## Update 2026-11-23: phases 5 and 6 of 49 (the whole site is the 3D site; on #378's branch)
+
+- **Phase 5 (`7e1a03d`):** You (`pages/you.js`), Quick Notes with Numbers worth knowing as an island, Privacy and Terms, the not-found page, the old
+  `/dashboard/…` links (`legacy.js`, ported with its test cases), search (`search.js`: Ctrl or Cmd K, "/", the sidebar and top bar buttons, a fifth item in the
+  phone bar that fits 320 px). `OWN` now matches every path except files, `/3d`, `/analytics`, `/health` and `/_vercel`; `404.html` is the 3D shell.
+  Found on the way: the legacy `status.css` and `styles.css` leaked global rules (a bare `.st`, `html`, `body`) once an island loaded; `island-scope`
+  now scopes them.
+- **Phase 6:** the React app is deleted (see `50-3D-MIGRATION-DONE.md`). `next/` is kept as the islands package. `hosting/switch.mjs` writes the 3D shell at every
+  address from the content folder and `hosting/pages.mjs`; `npm run build` no longer builds the React app. CI: "Islands - typecheck, lint, tests"
+  (`check:islands`) and an end-to-end job that builds the whole site, serves it with `hosting/serve-local.mjs` and runs `next/e2e` (every address, the lock
+  signed out, a problem run, submitted and replayed in 2D and 3D, Back, search, the theme switch, a phone pass, axe).
+- **Checked:** Playwright on the local build for phases 1, 4 and 5 after the deletions; `npm test` 460; the islands package: typecheck, lint, 4 unit tests.
+- **Ledger:** see `50`; the stray row is still there.

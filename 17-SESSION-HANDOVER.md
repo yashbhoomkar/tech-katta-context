@@ -233,6 +233,12 @@ the owner · **Historical** = true once, not any more.
 
 ---
 
+## 3D migration finished (2026-11-23): read this first
+
+The site is now the 3D site everywhere; the React app was deleted. Read `50-3D-MIGRATION-DONE.md` (what was removed, where each feature lives, the open items) and
+the Updates at the end of `48-3D-SITE-AT-ROOT.md`. One draft PR (#378) carries phases 1 to 6 on the session branch `ccr-0662d069-8yxchr`; phase 0 was #377 (merged).
+`frontend_git_commits` has 1176 rows plus the ones added after this note, and **one wrong row to delete** (`value: "placeholder"`). Backend: unchanged.
+
 ## 0. First ten minutes of a new session
 
 1. Read this file, `12-OPERATING-RULES.md`, the last five sections of `13-CURRENT-STATE.md`, and
