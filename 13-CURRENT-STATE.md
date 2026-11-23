@@ -49,7 +49,7 @@ Checked on 2026-11-23: `origin/main` is `bbf81cd` (PR #372, 2026-11-18); `origin
 - **Nothing from the 3D redesign is in the real app.** The prototype branch is not merged to `main`.
 - Docs: `ui-prototypes/README.md` (how to make, host and unlist prototypes), `TRIED.md` (all rounds and decisions),
   `38-PREMIUM-REVAMP-RESEARCH.md` (research, now superseded by the decisions in 30 and 47). Ledger: `frontend_git_commits`
-  1152 rows, `backend_git_commits` 744 (`11-MONGODB-COMMIT-LEDGER.md`).
+  1153 rows, `backend_git_commits` 744 (`11-MONGODB-COMMIT-LEDGER.md`).
 
 ## Application repository
 

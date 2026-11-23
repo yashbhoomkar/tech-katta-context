@@ -1581,7 +1581,7 @@ not. Added `fdedbb8c67a0f1fffeba84a68f39f530a4239df2` ("web/README: milestone 3 
 under a `web/` folder that no longer exists), marked `[prototype branch]`. Rows for the commits of this stretch (the
 explore hint, coral beacon, guided tour, adaptive 3D quality, sharpness fix, tour on phones, the fifth audit, the sixth
 pass, the portrait simulator, the unlisted move, the Practice tab fix) were inserted after each push with the real SHA.
-Count after: frontend **1152**, backend **744**. The method is in `14-context-maintenance.md` ("The commit ledger").
+Count after: frontend **1153** (the 1152 of the check plus the row for the prototype docs commit `21dca04`), backend **744**. The method is in `14-context-maintenance.md` ("The commit ledger").
 Prototype rows are not all prefixed alike (`[prototype branch]`, `Prototype redesign-3d:`, `prototype:`); search on the
 SHA, not the prefix.
 
