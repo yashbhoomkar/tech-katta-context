@@ -140,6 +140,99 @@ merges (or says "merge and deploy"), then add the squash commit's ledger rows. N
 
 **Update 2026-11-14 (building context 36, step 22: What would fix it? Checked repairs).** Commit `03c1107` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1008, backend 722. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-14 (Concepts cut REVERTED, #364).** Owner: "Revert. Sorry. Let the concepts that we had be retained".
+**#364** squash `613442a7efe36a790d70f142759b6d68160da0f6` (branch commit `26bf513479abcc5a4719dbae4f296e5616bccf9e`)
+reverts #363: the tree is identical to `7f3df4c` (#362), so Concepts has its 21 articles in three groups again and the
+#363 redirects are gone. **Decided: keep all 21 concepts.** The cut never reached the website (Vercel's limit blocked
+it); the API served 54 articles for about four hours. Ledger rows added 2026-11-23 (both collections), with the late
+row for #318 (`b3e6e6d`): frontend 1156, backend 746.
+
+**Update 2026-11-14 (Concepts cut to nine, #363).** Owner, with a screenshot of the nine Core concepts: "There are too
+much concepts in our website. I think we only need these many concepts". **Decided: Concepts is the nine core articles**
+(networking essentials, API design, data modelling, caching, sharding, consistent hashing, CAP theorem, database
+indexing, numbers to know). **#363** squash `3bd3c4160f174b586be980239a69e1cdb3946b5f` removed the 12 others and the
+"Recurring patterns" / "Specialised data" groups, their figure modules (frontend and backend id lists) and 5 phone
+layouts; `hot-key-merge` moved into `figs/concepts/caching.jsx` (as `HotKeyMergeFig`) and `prox-quadtree` into
+`database-indexing.jsx`; 308 redirects to the closest core article (`hosting/routes.json`); 16 pointers in 13 articles
+rewritten (the patterns guide now points to worked questions only). 54 articles. Two test minimums lowered to match
+(figure uses > 180, articles with a first figure ≥ 45). Ledger: frontend 980, backend 708. Frontend waits for Vercel.
+
+**Update 2026-11-14 (AWS credit meter back, #362).** Owner: "Why can't we see simulation of AWS credits getting
+reduced", then "It was looking cool. Also replenish it for every run/submit/ask the interviewer". The v1 meter (#124) was
+hidden by evaluator v2 (`evaluator.md`: "the `cost` check carries that lesson"); **Decided now: shown again, a fresh
+$200,000 on every Run, Submit and Ask the interviewer.** **#362** squash `7f3df4c4e2d0235c619adf40cb0d1602b4adb3b5`:
+`eval/simulate.js` records `timeline.spend` (dollars per tick, total and per part; verdicts unchanged, spend × 730 / hours
+= the monthly bill); `solve/credit.js` (ledger: tests spend in order) and `solve/credit.jsx` (meter); results count down,
+Replay drains from where the test began with the burn per hour, cards show cost per hour, Ask shows "TOPPED UP".
+Real amounts are small (≈ $22–25 per one-hour test, $535 for a 24-hour bill test): the bar barely moves, the cents and
+burn do. API deployed by hand (simulate.js runs in the judge). Frontend waits for Vercel's daily limit (see below).
+Ledger: frontend 978, backend 706.
+
+**Update 2026-11-14 (canvas work in production: #358–#361).** Owner: "Put them into production".
+- **#358** squash `f2e3d40465a6693b5d94a2e459b9c5a387597316` (cards, protocol pills, glow, arrow layout); the API was
+  deployed by hand ("Deploy backend", release `20261114T125711Z-f2e3d40`) because the API's sync imports
+  `frontend/src/lab/store.js` and the workflow doesn't trigger on `frontend/**`. **Rule: any change to `frontend/src/lab/store.js`,
+  `frontend/src/eval/**` or `frontend/src/judge/**` needs that manual deploy.**
+- **#359** squash `586a62703d368ca3a977ec3b5e290958b5822dd9`: checks while you build (`lab/checks.js`; compile stage +
+  three structural checks; no reference design flagged), undo/redo (Ctrl/⌘+Z, buttons), reverse an arrow (Shift+R),
+  minimap (≥ 6 parts, > 900 px).
+- **#360** squash `7592ccb281754771013a1ce44eeaf07bf7ac335a`: replay animations (`ReplayCard` in `lab/nodes.jsx`,
+  dead/failing arrows, scrubber marks in `solve/v2.jsx`, `replayAt` adds `held, fo, warm, fresh, peak`).
+- **#361** squash `ba9d7f23693f5e60b40fd6fdfaa46af966a56ae0`: walk through the solution, Mermaid/SVG export (`lab/export.js`).
+- **Vercel blocked the frontend deploys of #359–#361**: "Resource is limited - try again in 24 hours"
+  (`api-deployments-free-per-day`, the free plan's 100 deployments a day). Production runs #358's frontend until a
+  deploy of `main` succeeds; a retry is scheduled for 15:00 UTC (scheduled task "Deploy canvas work to Vercel"). Every
+  push to a PR branch makes two deployments (tech-katta and the cancelled tech-katta-status), so long PR days run out:
+  batch commits, or have the owner stop status-page previews or move to Pro. **Pending:** a successful deploy of main.
+- Checked each in Chromium against a local API (suites of 15–17 checks, reduced motion), CI green. Not checked: Safari,
+  Firefox, a real phone, signed-in on production.
+
+**Update 2026-11-14 (canvas animations and the System Design Canvas review, design only).** Owner: "Think for
+animations for all the widgets within the canvases in case of both healthy and crashed components" and "There was an open
+source repo we had found earlier related to system design canvas and evaluator. Check out good things in them". Written
+as `33-CANVAS-ANIMATIONS-AND-SDC-REVIEW.md`; a working prototype (private artifact "Canvas Motion Lab",
+https://claude.ai/artifact/GDYC1KBTaJyiU2j8xZthBA). Every animation is driven by an existing timeline field or event.
+The review found System Design Canvas has no evaluator (four live "design checks") but a better editor; recommended
+order: undo/redo + reverse arrow, live design checks from the v2 compile step, replay animations, solution walk-through
+and SVG/Mermaid export. **Pending:** the owner's pick; and whether another open-source repo was meant.
+
+**Update 2026-11-14 (canvas: cards and protocols on arrows, PR #358 open, draft).** Owner: "Our canvas for problems and
+interview questions is not great … their components shape size is perfect. Things like type of communication mentioned
+over an arrow connecting two components" (reference: System Design Canvas, an open-source React Flow app; measured in
+Chromium: 200 px nodes, 12 px radius, 32 px icon tile, handles on 4 sides, bezier edges coloured by protocol, pill
+labels). **#358** (branch `ccr-328fc450-xdjrk1`, commit `2a72b8edbbd02c40a4fb007808a6fb7f39a0f187`):
+- Cards: 200 px, 12 px corners, `--shadow-1`, a tinted 32 px icon tile per type (`TINT` in `lab/drawing.js`), name +
+  kind, settings in mono; a handle per side, loose connection mode.
+- Arrows run between facing sides as curves, two lines for a pair, and arc round cards in the way (`detour`). Every
+  arrow has a protocol pill (`lab/protocols.js`): inferred from the two parts unless chosen in the arrow panel
+  (Protocol chips + optional Label, ≤ 32 chars). Colour per protocol; solid = request, dashed = message/push,
+  dotted = data. Stored as `protocol`/`label` on the arrow by `cleanDesign`; the judge never reads them.
+- The canvas draws designs ×1.35 across, ×1.25 down (`SX`, `SY`) and divides back on save: stored layouts unchanged.
+- The Solution tab draws the reference the same way (`SolutionDesign.jsx`).
+- Checked: frontend 386/386, backend 114/114, build; Chromium locally (17 interaction checks, Run 4/4), light,
+  dark, Pixel 7; `no-lab.js` only the 3 known outdated failures. Not checked: Safari, Firefox, real phone.
+- **After merge:** run "Deploy backend" by hand (the API imports `frontend/src/lab/store.js` for sync, and the
+  workflow does not trigger on `frontend/**`); then ledger rows (frontend; backend too, since the API's sync code
+  changes) with the squash SHA. **Ledger:** the branch commit `2a72b8e` is recorded in both collections (frontend 968,
+  backend 703). CI on #358 all green (CodeQL, frontend, backend, API container). **Pending:** the owner's look at the
+  canvas and merge. Owner's follow-up the same day: "Why the boxes does not have glowing outline" and a stress test on
+  complex designs, done in `502623f` (frontend 969 in the ledger):
+  - **Glow:** cards glow in their tile colour (`.ln[class*=" t-"]` in `lab.css`; soft, brighter on hover, strongest
+    selected; replay warn/over/down keep their own border).
+  - **Arrow layout** (`layout()` in `lab/drawing.js`, used by `Canvas.jsx` flowEdges → `data.geo` and by
+    `SolutionDesign.jsx`): per arrow, the direct curve, all 16 side pairs and detour arcs at up to 4 heights per side
+    are sampled (24 points) and the one crossing fewest cards (then shortest; facing sides preferred) wins; arrows on
+    one card side are spread up to 18 px apart in the order of their far ends; pills slide along their arrow (t .5 →
+    .18/.82) to the spot overlapping fewest cards and pills. Replaces the earlier `detour` and `pair` offsets.
+  - **Stress test** (scratch scripts, not in the repo): ride hailing 17 cards/18 arrows, video streaming 20/23, social
+    feed 20/23, payments with outbox/CDC 17/15, a 39-card mesh 39/42, injected as the URL shortener's design. Measured
+    in Chromium: arrows through cards 12 → 2, pills on cards 4 → 0, pill on pill 8 → 2, no page errors, a 30-step drag
+    of one card 0.5 s (0.75 s on the mesh). Left: one long diagonal per design where the author placed a part far away
+    (Netflix's nightly job → recommendations; the mesh's service 10 → event bus).
+  - **Catalogue gaps found** (not changed; owner's call): `allowedEdge` drops server → coordination service,
+    database → event stream (CDC goes only to a queue), pub/sub → external service; 8 of 107 arrows in the stress
+    designs were dropped for these.
+
 **Update 2026-11-14 (design skills renovation REVERTED).** Owner, after seeing it: "Nahh. Earlier it was better.
 Revert." **#357** (squash `d6c57989eb2017031745c8842b1e254412cecfaf`, API release `20261114T114710Z-d6c5798`) reverts #356 and #355; the tree is identical to `9a89daf` (#354) again, so the live look is spec 30's
 (premium renovation). **Decided:** don't bring back the spec 32 look unless asked. Details of what was tried below and in
