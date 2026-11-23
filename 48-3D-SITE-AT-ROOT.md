@@ -79,3 +79,24 @@ On a full production build, served locally with the same rewrites as Vercel:
 - Owner, when asked which way: "Take your decisions and proceed". The decision was to keep the canvas, judge, Replay
   and AWS credit as the place a problem is solved, and to give everything around it the 3D design.
 - The 3D prototype stays at its unlisted address on prototype.katta.cc (branch `prototype`).
+
+## Update 2026-11-23: phase 0 of 49 (#377, merged as `9203cfa`, live and checked)
+
+- **What changed:** the two regressions since #374.
+  - **The content lock is back on 3D pages.** Signed out, an article shows its opening (same cut as the SEO pages,
+    `site3d/scripts/preview.js`) and the `previewLock` card; lists, Home, the landing and `/me` stay open; with sign-in
+    unavailable (or the site copy unreachable) nothing is locked. The workspace will use `pageLock` in phase 1.
+  - **Analytics:** a `page_view` per 3D route change in the React app's `{section, slug}` shape, `readArticle` per article,
+    and Vercel Web Analytics once per page load.
+  - **How:** `npm run build:site3d` (`vite.site3d.config.js`, entry `site3d/legacy/entry.js`) builds `src/account.js` and
+    `src/analytics.js` into `dist/3d/legacy/legacy.js` (about 10 KB gzipped, no React; `legacy/mode.js` replaces the theme
+    hook). `site3d/scripts/{account,analytics,gate,gating,signin}.js` use it. A sign-in sheet opens from the sidebar's
+    Account row and the lock cards.
+  - **Tests:** `site3d/test/gate.test.js` and `analytics.test.js`, in `npm test` (447 pass).
+- **Checked:** a local build served like the host, Playwright with the API mocked (signed out, signed in, sign-in off, auth
+  endpoints blocked; desktop and 412 × 915; light and dark); then production after the merge (`curl` 200s for the shell,
+  `legacy.js` and `gate.js`; signed out, the caching article shows 9 blocks and the card on desktop and phone, lists, `/home`
+  and `/` are open, one `page_view` sent, no script errors).
+- **Not checked:** a real Google sign-in (needs the owner).
+- **Ledger:** `frontend_git_commits` 1169 → 1171 (`d247d57`, merge `9203cfa`).
+- **Left over:** nothing for phase 0.
