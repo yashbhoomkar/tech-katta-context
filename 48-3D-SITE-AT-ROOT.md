@@ -150,3 +150,23 @@ On a full production build, served locally with the same rewrites as Vercel:
   - The inspector and minimap were not checked open.
   - No screenshots are attached to the PR.
 - **Ledger:** `frontend_git_commits` 1172 → 1173 (`78d0c20`).
+
+## Update 2026-11-23: phase 3 of 49 (Replay in 3D; on #378's branch)
+
+- **What changed:** a 2D | 3D control in the replay's and ▶ Watch's header. 3D replaces the canvas area with the 3D site's engine
+  (`/3d/scripts/world.js`, loaded at run time) drawing the learner's own design as the landing's models.
+  - Colour comes only from state at the minute on the scrubber: ok, busy (70 % and over, amber), down or over its limit (coral).
+  - A part that crashes in that minute is taken apart once, and only when the minute moves forward (scrubbing inside the outage or back
+    to minute 0 does not repeat it).
+  - Failover and cache warming show on the labels; a queue's backlog fills; request paths run; the camera frames the design once.
+  - Watching a request lights the part it is at and dims the rest.
+  - `site3d/scripts/replay3d.js` (`systemOf`, `stateAt`, `stateOfHop`) is plain JS with tests; `src/solve/replay3d.jsx` is the canvas side;
+    the choice is kept in `tk-replay-view`. With no WebGL, 3D is off with "3D needs WebGL". Off the 3D site the toggle is not shown.
+- **Checked:** Playwright on the URL shortener solution, test "A zone goes dark": minute 0 is all green with dots running; at minute 10 the
+  Link service shows 102 % · 21× in coral and the cache and database say DOWN; back to minute 0 restores everything; 2D → 3D keeps the
+  minute; Watch in 3D lights the current hop; with `--disable-webgl` the 3D option is disabled with its reason. No script errors.
+  `npm test` 455, `check:next` 72, the phase 1 browser checks pass.
+- **Deviations from the instructions:** a cache's warm-up is a label, not a fill (the engine's fill is for queues); the labels are named
+  by the catalogue when the learner has not named a part.
+- **Not checked:** 40 fps for a 30-part design on a mid phone (no phone to measure on); the phone layout of the 3D view (phase 4).
+- **Ledger:** `frontend_git_commits` 1173 → 1174 (`a6bc190`).
