@@ -1,4 +1,6 @@
-# 38 · Premium revamp: research and options (no decision yet)
+# 38 · Premium revamp: research and options
+
+> **Status (2026-11-23): decisions were taken later.** This file is the research and the options as they stood on 2026-11-15, with "no decision yet". The decisions: the Brilliant-inspired colours (`25-PREMIUM-COLOUR-OPTIONS.md`), the premium renovation (`30-PREMIUM-RENOVATION.md`), neo-brutalism in production on tech.katta.cc (`47-NEO-BRUTALISM-PRODUCTION.md`, 2026-11-18) and the 3D redesign explored on an unlisted prototype (`ui-prototypes/TRIED.md`). Kept as the research record.
 
 Date: 2026-11-15.
 

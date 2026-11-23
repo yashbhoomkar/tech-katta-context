@@ -539,3 +539,25 @@ The owner changes the site's look often, on production, one look at a time. Keep
   and phone, look at the screenshots, check contrast. Then check it again live.
 - **Records:** log every round in `ui-prototypes/TRIED.md`, and ledger every `prototype` commit in
   `frontend_git_commits` (values start `[prototype branch]`).
+- **Unlisted prototypes (owner, 2026-11-20: "Shift the 3d design url to something else. It is leaked").** A prototype
+  may be served but left off the `/p/` index with `<meta name="prototype:unlisted" content="true">` in its `index.html`,
+  under a random folder name. **Never write its address in either repository, a commit message, a ledger row or a pull
+  request**; give it to the owner in the session chat only. Both repositories are public, so this hides it from casual
+  visitors, not from someone reading the repository. A leaked address is retired by renaming the folder: the old address
+  then returns 404, with no redirect.
+- **Ledger completeness:** after a run of prototype commits, check every commit in `origin/main..origin/prototype` has
+  a row (method in `14-context-maintenance.md`). Deleting ledger rows needs the owner's approval.
+
+## Rule 23 — Source of truth, and exact words about verification
+
+- **Order of trust:** live reality (what users see, `/health`) → the application repository's code, CI and hosting
+  config → the handover (`17-SESSION-HANDOVER.md`) → the other context files → old conversation memory. If a context
+  file disagrees with the code, check, then fix the file.
+- **Say exactly what was done:** "I inspected the source", "I built the frontend", "the tests passed", "the deployment
+  is live (checked with a cache-busting request)", "I tested it in a desktop browser with software 3D", "I tested it on a
+  real phone". Do not say "fully tested" after reading code. A simulated phone is not a phone.
+- **A screenshot is not the page:** one taken during a page transition showed an old screen and produced a false
+  finding (the 2026-11-20 audit's item 50). Wait for the page to settle, and confirm a finding with a measurement.
+- **Label what is not yet known** (Known, Historical, Intended, Recommended, Unverified, Needs live verification), as in
+  `14-context-maintenance.md`.
+

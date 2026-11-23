@@ -7,7 +7,7 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
-- **New frontend (`web/`, /next/):** milestone 2 (the lesson reader) is done, `6b3b468`; milestone 3 is Problems and the workspace (canvas + judge from `frontend/src`); milestone 4 is sign-in and sync, then the switch of tech.katta.cc.
+- ~~**New frontend (`web/`, /next/)**~~ **done and moved:** milestones 2–3 shipped (`6b3b468`, `95453a6`); the code lives in `frontend/next/` (the `web/` folder is gone) and tech.katta.cc serves it since 2026-11-18 (`47-NEO-BRUTALISM-PRODUCTION.md`). Sign-in on it waits on PR #368.
 
 - **Neo-brutalism dark: done.** Option D (inverted blocks) is final (`01372a7`); the comparison was retired.
 - **Flaky test:** `judge.test.js` "largest design … under 20 ms" can exceed 20 ms on CI runners (21.2 ms seen). Consider a
@@ -15,6 +15,17 @@ owner starts; after each merge, that session records the ledger and updates the 
 - **Neo-brutalism open questions:** loud everywhere or calm reader (now calm)? Archivo Black or Space Grotesk headlines?
 - **Search is substring-only** in the full-site prototype ("cache" does not find "Caching"). Consider word-stem
   or fuzzy matching when it's built into the app.
+
+## Added 2026-11-23 (3D redesign prototype, pricing, ledger)
+
+| # | Lane | Item | Status | Notes |
+|---|---|---|---|---|
+| 0 | security | **Protect the 3D prototype.** Its address leaked and was moved to an unlisted one (2026-11-20), but the application repository is public, so the new folder name is readable there. Options offered: Cloudflare Access (an email-code login in front of it; changes the Cloudflare account) or make the repository private | waiting for owner | not decided; do not write the new address in either repository |
+| 0 | ledger | **Delete the three non-commit ledger rows** `pending-one-system-per-figure`, `pending-phone-fullscreen-scene`, `pending-glass-bar` (`frontend_git_commits`; see `11-MONGODB-COMMIT-LEDGER.md`) | waiting for owner | deleting ledger rows needs the owner's approval |
+| 1 | pricing | **Pricing (analysis only, 2026-11-22).** ₹399 per 3 months = ₹133 a month. After a payment fee of about 2.36 % it is about ₹390 per sale without GST (₹130 a month) or about ₹329 with 18 % GST (₹110 a month). For ₹1 lakh a month of profit plus about ₹10,000 of running costs: about **850 active subscribers** (about ₹13 lakh a year) without GST, about **1,000** (about ₹16 lakh a year) with it. Recommended: sell on the website, not inside a Play Store app (15 % fee); consider ₹599 per 3 months (about 540 subscribers) and a yearly plan (about ₹999); keep articles free as the search funnel and paywall the practice problems, judge, mock interviews and sync. **Unverified assumptions:** the GST registration limit for services (₹20 lakh a year) and whether the price includes GST (ask a CA), the gateway fee, a renewal rate of 20–40 % after 3 months, 2–4 % of free sign-ups paying, paid-ad cost of ₹500–1,500 per paying user, and the cost of the competitors named. Reaching 850 would take about 12–24 months of free-channel growth | waiting for owner | relates to the "Paid plan" row below; nothing built |
+| 2 | build | **Practice on phones, next:** "Answer it" mode for the 23 interview-question walkthroughs (six steps: speak or think, see the model answer, grade yourself, return in a few days; no backend, recordings stay on the phone); two-minute drills on the 3D (spot the bottleneck, estimate it, pick the trade-off); later a spoken mock interview (needs a backend and an AI model) and sign-in sync of progress (it is saved on one device only) | waiting for owner | offered 2026-11-21 after the portrait simulator (`5304285`); not started |
+| — | ui | 3D redesign: phone previews on Learn and Practice could use the Dashboard's edge-callout labels; interview-question and real-system articles still open with a 3D story though their lists have none; the first landing chapter could auto-play if the visitor does not scroll | idea | offered, not asked |
+| — | testing | Real-phone check of the 3D prototype on a slow Android phone (adaptive quality, the tour, the portrait simulator): all checks so far ran in a desktop browser with software 3D | waiting for owner | ask a friend with a mid-range phone |
 
 Status: `ready` · `idea` · `waiting for owner`. Highest first.
 

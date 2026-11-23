@@ -127,6 +127,8 @@ Never place:
 
 into this context repository.
 
+Also never write the address of an unlisted prototype (the 3D redesign; its first address leaked on 2026-11-20 and is retired): see `ui-prototypes/README.md` §3.9.
+
 If credentials appear in an old conversation or source, describe the fact without reproducing the secret.
 
 ## 9. Context freshness

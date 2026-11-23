@@ -307,7 +307,7 @@ Owner, after looking at rca.gg: "On scrolling down the background animation chan
   The SVG scene stays as the fallback without WebGL. Checked live: desktop and Pixel 7, light and dark, no errors,
   no sideways scroll. Commits `3c326b9`, `5e7b2ba` (ledgered).
 
-### Redesign 3D: Tech Katta rebuilt around a live 3D system, /p/redesign-3d/ (2026-11-18)
+### Redesign 3D: Tech Katta rebuilt around a live 3D system, /p/redesign-3d/ (2026-11-18; **moved 2026-11-20 to an unlisted address, not recorded here**)
 
 Owner, after /p/soft-3d/: "You don't need to follow tech katta UI UX and widget placements for the new prototype.
 You can think and redesign everything. Take a step back. Think. Write code deploy."
@@ -380,6 +380,54 @@ You can think and redesign everything. Take a step back. Think. Write code deplo
   words taken from the article section at run time. Found and fixed: the reader skipped the API's option cards
   (`type`) and analogies (65 sections); long inline code widened phone pages. Checked: all 66 articles on a phone
   (no errors, no sideways scroll, body present).
+- **Round 11 (2026-11-19, `6c7e6cd`, `d9e3e36`, `2c7a638`, `1dd6d7d`).** Owner: the landing cards "randomly pop up"; app
+  pages should not look like the landing; a left bar; "take inspiration from tech.katta.cc". Words now rise from the
+  bottom with the scroll (an eased `--t`, an outgoing fade); the app frame has a sidebar (folds to a rail with `[`, a
+  phone bottom bar below 1000 px) and section and reader pages follow tech.katta.cc (breadcrumbs, progress card,
+  Full text / Cards, "On this page"). Home was merged into the Dashboard ("there should be only dashboard page"); the 3D
+  stops drawing when off screen. The landing camera travels to each chapter's part (database, Kafka topic) instead
+  of zooming in and out.
+- **Rounds 12–15 (2026-11-19, `e2522e6`, `f799287`, `820cf45`, `4454885`, `c2790f0`): audits.** Four passes over every
+  page (32, then more findings; all fixed): one scale for headings, radii, control heights and labels; no blue
+  left; interview questions and real systems are plain lists with no 3D preview (owner: "there should be no
+  animation"); keyboard path to the Dashboard 3D; page titles; back button restores scroll; tiny (320 px) and sideways
+  phones. Record: `AUDIT.md` in the prototype folder.
+- **Round 16 (`0b54d5d`, `0e24c5e`).** Owner: an industry leader took the landing's 3D for clickable and did not
+  scroll. It is now clickable: tap a part for a card (what it does here, what is happening to it, the article that
+  teaches it); the colour key opens the same cards. Dashboard labels on phones became edge callouts (two columns with
+  leader lines); "Everything here" became rows (one column phone, two tablet, five desktop).
+- **Round 17 (2026-11-20, `194c5e8`, `f762554`).** Owner: make "Tap any part to see what it does · scroll to play" very
+  visible. A glass pill under the hero buttons (pulsing dot, bobbing arrow) and a pulsing ring on the Kafka topic;
+  then "change the blue ring colour": hot coral `--beacon` (#ff4a3d), a hue the scene never uses.
+- **Round 18 (`1f72046`, `dc97366`): a guided tour.** Owner: "There should be a popup given to the user on the landing
+  page to take a tour." A small offer card (first visit only, not a modal) and "Take the tour" in the hint pill; six
+  steps that move the real page and follow 3D parts with a coral spotlight (tap the Kafka topic, the part card, a chapter
+  playing, the questions, practice). Tested at 320, 360, 390, 430 px and sideways; on small phones the hero's words fade
+  back so the parts can be tapped. Code: `scripts/tour.js`.
+- **Round 19 (`a5bc3b1`, `6f4cd8d`): slow phones.** Owner: it loads slow on other people's phones. The download was never
+  the problem (310 KB); every frame was. Three quality levels with a watchdog (shadows, 30 fps, no glass blur), remembered
+  per device. First version also dropped sharpness; owner: "The animations are just too blur". Sharpness is now never
+  traded (phones always 1.5x pixels with smooth edges). 6x CPU throttle, software GL: about 6 fps before, about 20 after.
+- **Round 20 (`798a74b`, `e59f5fc`): every tab, in depth.** Owner: "dive deep into every tab … note them down", then "Fix
+  everything. Take decisions yourself." 26 findings (items 50–75 in `AUDIT.md`), all addressed. Decisions: text is pure
+  white / pure black (greys only for non-text); one type scale (12/14/16/18/22/28, headings 40/56, weights 400/600/700);
+  "problem" is the one word for practice; Components get real groups; every interview question gets a second title
+  line; articles open with breadcrumbs; tablets stack the Dashboard figure. Two audit items were wrong and are corrected
+  in `AUDIT.md` (a screenshot taken mid-transition; a misread list).
+- **Round 21 (`5304285`): the simulator, rebuilt for portrait.** From the owner's question of how to offer interview
+  practice on phones (drawing and long typing do not fit; counts on steppers do). On phones the problem page is stages:
+  brief → build (a bottom sheet of parts with 40 px steppers, cost against budget, Run) → run (full-screen 3D, numbers,
+  a timeline) → verdict as a sheet → replay (drag along the evening). The camera centres the system in the space the
+  panels leave. Wide screens unchanged. Not built, offered: "Answer it" mode for the 23 interview questions (six
+  steps, speak or think, grade yourself, come back in a few days) and two-minute drills on the 3D (spot the bottleneck,
+  estimate it, pick the trade-off); later a spoken mock interview and sign-in sync.
+- **Round 22 (`8ae7ae8`, `41148b6`).** The prototype's address **leaked**, so it moved to an unlisted address (a random
+  folder name; `<meta name="prototype:unlisted">` keeps it off the `/p/` index; the old address returns 404 with no
+  redirect). The address is given to the owner in the session chat and is **not written in either repository**. The
+  application repository is public, so this stops casual visitors, not someone reading the repository; a login in front
+  (Cloudflare Access) or a private repository would. Also fixed: the Practice tab on phones (the list could not scroll
+  because the simulator's "no page scroll" rule matched it; a stalled page slide swallowed taps on the bottom bar).
+  The address above in this file's heading, `/p/redesign-3d/`, is the retired one.
 - **Note:** `/p/scroll-3d/` and `/p/soft-3d/` still use rca.gg's lavender, violet, Manrope and IBM Plex Mono on
   purpose (they were briefed as "similar to rca.gg"). Treat them as references only; never ship that look.
 

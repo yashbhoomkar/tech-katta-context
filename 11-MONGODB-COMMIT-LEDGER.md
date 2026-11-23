@@ -15,6 +15,9 @@ This allows an AI session to query MongoDB and understand what a commit represen
 
 ## Atlas project
 
+Atlas organisation:
+- `YashOrgSec`
+
 Project:
 - `tech-katta`
 
@@ -1571,3 +1574,19 @@ they were absent. Count after: frontend **1083**.
 **2026-11-18 (PR #372, neo-brutalism production):** `0842bace7e04ce6a760d2b8df9ca30fc69dda651` (merge of
 `new-frontend-beta`), `f809456018f0092a5da2f00911116b5669fb9d9c` and the squash `bbf81cd84ea2ffbb1395e12de9b0acc2da1922d7` inserted into
 `frontend_git_commits` after checking each was absent. Count after: frontend **1086**.
+
+**2026-11-23 (full check of the prototype branch, and rows for the 3D redesign work since 2026-11-19):** the 115 commits in
+`origin/main..origin/prototype` (application repository) were checked against `frontend_git_commits`: 114 had a row, one did
+not. Added `fdedbb8c67a0f1fffeba84a68f39f530a4239df2` ("web/README: milestone 3 done", 2026-11-15; a one-line docs change
+under a `web/` folder that no longer exists), marked `[prototype branch]`. Rows for the commits of this stretch (the
+explore hint, coral beacon, guided tour, adaptive 3D quality, sharpness fix, tour on phones, the fifth audit, the sixth
+pass, the portrait simulator, the unlisted move, the Practice tab fix) were inserted after each push with the real SHA.
+Count after: frontend **1152**, backend **744**. The method is in `14-context-maintenance.md` ("The commit ledger").
+Prototype rows are not all prefixed alike (`[prototype branch]`, `Prototype redesign-3d:`, `prototype:`); search on the
+SHA, not the prefix.
+
+**Rows that are not commits (frontend, 3, left in place):** `pending-one-system-per-figure` (value "placeholder"),
+`pending-phone-fullscreen-scene` ("see next row") and `pending-glass-bar` ("placeholder, superseded by the row with the
+real commit SHA"). They were written before their commits had a SHA (the third says it was superseded by a real-SHA row; the other two were not checked one by one). Deleting rows needs the
+owner's approval, so they stay until the owner says; see `18-TODO.md`. The backend collection has no such rows.
+

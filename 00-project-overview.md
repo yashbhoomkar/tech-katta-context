@@ -1,15 +1,15 @@
 # 00 — Project Overview
 
-Rewritten 2026-11-04 to match what is live then; **parts are Historical** (since 2026-11-10 there is no Lab tab, IND vs
-PAK is an Interview Question, and the site has 66 articles). The detailed, always-current record is
-`17-SESSION-HANDOVER.md`; read that next. Older numbered files describe earlier versions of the
-project and are kept for history.
+Refreshed 2026-11-23. The architecture table below is current. For anything dated or changing (what is live, open
+items, decisions) the always-current record is `17-SESSION-HANDOVER.md`; read that next. The 2026-11-04 and
+2026-11-11 snapshots of the site that used to be here (the Lab tab, 7 challenges, the $200,000 credit) were removed as
+stale (`14-context-maintenance.md`); they are in git history.
 
 ## What Tech Katta is
 
 A system design learning site by Yash Bhoomkar (GitHub `yashbhoomkar`): short, structured articles
-with depth on demand, animated diagrams, and the **System Design Lab**, where you build a system from
-cloud components, send traffic through it and watch what breaks. About 75% of visitors arrive on
+with depth on demand, animated diagrams, and practice problems (the former System Design Lab canvas, now inside each
+problem) where you build a system from cloud components, send traffic through it and watch what breaks. About 75% of visitors arrive on
 phones from Instagram and LinkedIn, so everything is mobile-first.
 
 - Site: `https://tech.katta.cc` · API: `https://tech-api.katta.cc`
@@ -27,43 +27,19 @@ phones from Instagram and LinkedIn, so everything is mobile-first.
 | Database | MongoDB Atlas, project `tech-katta`, Cluster0 (free tier, AWS Mumbai). `techkatta_history` = the Git commit ledger (key = full SHA, value = what changed). `techkatta_app` = user accounts for sign-in. |
 | DNS / proxy | Cloudflare. |
 
-## Today (2026-11-11)
+## What is on the site
 
-- The Lab tab is gone (#285); the canvas opens inside each problem, inside a challenge from Problems, and on the
-  landing page's IND vs PAK.
-- **Every problem and challenge is judged by the v2 evaluator** (`tech-katta-context/evaluator.md`; #287–#302):
-  22 Interview Questions with LeetCode-style tests (Run, Submit, Replay a load test on the canvas) and 8 Lab
-  challenges scored with 1–3 stars. The v1 simulator, its live "Run traffic" clock and the $200,000 credit were
-  removed (#301). The section below is the 2026-11-04 snapshot.
+The detail is in handover §1; in short (checked against the handover and `47-NEO-BRUTALISM-PRODUCTION.md`, 2026-11-23):
 
-## What is on the site (2026-11-04)
-
-- **Landing**: hero ("System design, explained.") with the animated Kafka figure, buttons to the
-  Dashboard and to **IND vs PAK**: the real Lab embedded as a challenge (a three-control version on phones).
-- **Dashboard**: starts with no tab selected, showing three Library cards. Tabs:
-  - Concepts (1 article: API types)
-  - Components (6 articles in subsections Edge, Compute, Storage, Messaging; 3 more planned)
-  - Interview Questions (empty)
-  - Quick Notes
-  - Did you know
-  - Lab
-
-  There is also a website tour and a Privacy page.
-- **Articles**: the Zotato example system (a made-up food delivery app), "In real life"
-  analogies, animated figures with a still version for reduced motion and a full-screen view on
-  phones, "Go deeper" sections, read aloud (recorded Kokoro voice for the API article), and
-  "Try it in the Lab" cards.
-- **System Design Lab**: a React Flow canvas with 8 components:
-  - Clients, CDN, API Gateway, Load Balancer, Server, Queue, Cache, Database.
-
-  It also has:
-  - a simulator using real AWS prices, plus a $200,000 virtual credit that drains as traffic runs;
-  - crashes, failover, autoscaling and cache warm-up;
-  - 7 challenges scored with 1–3 stars;
-  - import and export of designs.
-- **Sign in with Google** (on since 2026-11-04): optional. A signed-in user's Lab designs, challenge
-  stars and tour progress are saved to their account and synced across devices. Signed out,
-  everything stays in the browser.
+- `tech.katta.cc` serves the neo-brutalism frontend (`frontend/next/`) since 2026-11-18 (PR #372). The older React app in
+  `frontend/src` is still in the repository.
+- 66 real articles in four sections: Concepts, Components, Interview Questions (including IND vs PAK) and Real systems.
+  There is no Lab tab; the canvas opens inside each problem. Every problem and challenge is judged by the v2 evaluator
+  (`evaluator.md`).
+- Sign in with Google is optional; signed out, everything stays in the browser.
+- Design work happens on `prototype.katta.cc` (branch `prototype`), not in the app: `ui-prototypes/README.md` is the
+  manual and `ui-prototypes/TRIED.md` records everything tried. The current 3D redesign is an **unlisted** prototype
+  whose address the owner shares directly (not written in this repository; see `14-context-maintenance.md`).
 
 ## How the owner works
 

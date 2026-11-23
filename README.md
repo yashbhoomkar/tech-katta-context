@@ -16,14 +16,14 @@ This repository is **context**, not the application itself.
 
 > **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 
-> **UI/UX prototypes (2026-11-15):** design work for the premium revamp happens on **prototype.katta.cc** (branch `prototype`, a Cloudflare Worker), not in the app. Manual: `ui-prototypes/README.md`; everything tried and decided: `ui-prototypes/TRIED.md`. The owner's standing word: "dont make changes in tech-katta now, we need the prototype only".
+> **UI/UX prototypes (2026-11-15):** design work for the premium revamp happens on **prototype.katta.cc** (branch `prototype`, a Cloudflare Worker), not in the app. Manual: `ui-prototypes/README.md`; everything tried and decided: `ui-prototypes/TRIED.md`. The 3D redesign prototype is served at an unlisted address (its first address leaked on 2026-11-20 and is retired), shared by the owner directly. The owner's standing word: "dont make changes in tech-katta now, we need the prototype only".
 
 ## Read these files first
 
 0. **`17-SESSION-HANDOVER.md` — the current handover: production state, the owner's decisions, workflow, the System Design Lab, environment limits and open items. Start here; it overrides older files.**
-1. `00-SESSION-BOOTSTRAP.md` — how a new AI session should behave.
+1. `00-SESSION-BOOTSTRAP.md` — how a new AI session should behave. Then `00-project-overview.md` (what it is, and the current architecture table) and `14-context-maintenance.md` (how this repository is kept honest, the ledger check, and the list of documents removed as stale on 2026-11-23).
 2. `01-PROJECT-IDENTITY.md` — what Tech Katta is and what the user is trying to achieve.
-3. `02-ARCHITECTURE.md` — system architecture and request/data flows.
+3. `02-ARCHITECTURE.md` — system architecture and request/data flows (**Historical in parts**: it still draws an Express API; the current architecture table is in `00-project-overview.md` and the handover §6).
 4. `03-FRONTEND.md` — React/Vite implementation and UI conventions.
 5. `04-BACKEND.md` — backend history (Express/MongoDB era; partly Historical — the backend is now a dependency-free Node server serving JSON content from the VPS disk, see the handover §6).
 6. `05-CONTENT-MODEL.md` — article schema and content authoring rules (its first section is current; the rest is the MongoDB era, Historical).
@@ -68,6 +68,7 @@ Before making a change, an AI session should:
 4. Preserve established architecture and terminology unless the user explicitly changes direction.
 5. After every GitHub commit, update the MongoDB commit ledger (`techkatta_history`, collections `frontend_git_commits` and `backend_git_commits`; read each full SHA from git first). It works from cloud sessions through the MongoDB tool.
 6. Never store credentials, API tokens, private keys, passwords, or connection strings in this repository.
+7. Never write the address of an **unlisted prototype** (the 3D redesign) here, in the application repository, in a commit message or in a ledger row; the owner has it from the session chat. Both repositories are public. See `ui-prototypes/README.md` §3.9.
 
 This repository is intentionally written as an **AI handoff document** rather than normal product documentation.
 

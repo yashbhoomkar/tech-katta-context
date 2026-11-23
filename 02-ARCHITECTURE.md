@@ -1,5 +1,7 @@
 # System Architecture
 
+> **Historical in parts (marked 2026-11-23).** This file draws and lists an Express API ("Node.js / Express", "Express 5"). The API is now a dependency-free `node:http` server that serves validated JSON content from the VPS disk (no framework, one dependency: the `mongodb` driver, for sign-in only). The current architecture table is in `00-project-overview.md` and the handover §6; hosting is in the application repository's `HOSTING.md`. Where this file disagrees with those or with the code, they win.
+
 ## High-level architecture
 
 Current production topology:

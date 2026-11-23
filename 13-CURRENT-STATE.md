@@ -20,26 +20,36 @@ This file records the latest application/context state known to this session.
 - `backend/ai-evals/`: prompt v2, ground truth v4 (50 designs), the model search runbook (doc 44). No model is chosen:
   none of 68 free-tier models cleared the bar (doc 45). Draft PR #370 is superseded and still open.
 
-## Prototype site and UI revamp (2026-11-15; newest state, read before the dated sections below)
+## Prototype site and UI revamp (rewritten 2026-11-23; newest state, read before the dated sections below)
 
-- **prototype.katta.cc** serves the `prototype` branch:
-  - `/` and `/dashboard/`: the real app, reading the live `tech-api.katta.cc`, signed out (the API allows accounts
-    only from tech.katta.cc);
-  - `/p/`: design prototypes, listed by type.
-- **Live prototypes:**
-  - `/p/full-site/`: the premium revamp as a structured frontend (`frontend/prototypes/full-site/`) with:
-    - hash routes and four layouts;
-    - a sidebar that folds to a rail, a phone tab bar, breadcrumbs, search, shortcuts;
-    - the motion system and a phone pass;
-    - dark theme **F2 "vivid, balanced"**, with light colours balanced to match.
-  - `/p/motion/`: the motion system.
-  - `/p/neo-brutalism/`: a style layer over full-site, rounds 1–3. Its dark theme is still unappealing; the next
-    dark theme is **D, inverted blocks** (final, `01372a7`; the comparison page was retired).
-- **`/next/`**: the new production frontend `web/` (React + TypeScript), milestone 1 live: shell, navigation, landing, Home, Learn, sections, You, on live content (`6d13a73`); milestone 2, the lesson reader with every block kind and the 232 figures imported from `frontend/src/figs` (`6b3b468`); milestone 3, the site complete: full-site landing and motion, Problems, the workspace and challenges (current app's canvas and judge imported), sign-in dialog, shortcuts, tour (`95453a6`). Not merged into `frontend/` yet, by the owner's choice. See `web/README.md`.
-- **Nothing from the revamp is in the real app (`frontend/src`) yet.** Draft PR #365 (reviewer fixes, light colours)
-  is unmerged and conflicts with main since #366.
-- Docs: `ui-prototypes/README.md` (how to make and host prototypes), `TRIED.md` (all rounds and decisions),
-  `38-PREMIUM-REVAMP-RESEARCH.md` (research). Ledger: the 21 `prototype` commits are in `frontend_git_commits`.
+Checked on 2026-11-23: `origin/main` is `bbf81cd` (PR #372, 2026-11-18); `origin/prototype` is `41148b6`; 115 commits are on
+`prototype` and not on `main`, all with ledger rows.
+
+- **`tech.katta.cc` serves the neo-brutalism frontend** (`frontend/next/`, calmer, one control height) since PR #372
+  (`bbf81cd`, 2026-11-18). Decisions, audit and rollback: `47-NEO-BRUTALISM-PRODUCTION.md`. The older React app is still in
+  `frontend/src`.
+- **prototype.katta.cc** (a Cloudflare Worker, deployed from the `prototype` branch by `.github/workflows/prototype.yml`
+  after the tests pass) serves:
+  - `/` and `/dashboard/`: the app from the `prototype` branch, reading the live `tech-api.katta.cc`, signed out (the API
+    accepts accounts only from tech.katta.cc until PR #368 merges);
+  - `/p/next/`, `/p/neo-brutalism/`, `/p/soft-3d/`: `frontend/next` built three ways (default, neo-brutalism, soft 3D);
+  - `/p/`: the list of design prototypes, by type: `full-site`, `motion`, `neo-brutalism-mockup`, `scroll-3d` (a reference
+    that still uses rca.gg's colours on purpose; never ship that look);
+  - **one more prototype, the 3D redesign, is unlisted**: it is served at an address the owner shares directly and is
+    **not written in either repository** (its first address leaked on 2026-11-20 and returns 404 now). Its folder is a
+    random 16-character name under `frontend/prototypes/`; the build leaves out of the `/p/` index any prototype with
+    `<meta name="prototype:unlisted" content="true">`. Its README and `AUDIT.md` are in that folder.
+- **The 3D redesign, in brief:** one live 3D system as the product. Landing as a scroll story that is clickable and has a
+  guided tour; a Dashboard whose 3D parts carry the 21 concepts; Learn with all 66 real articles and a 3D story for each;
+  Practice with a simulator that is staged on phones; adaptive 3D quality for slow phones; text pure white or black, one
+  type scale. Rounds and decisions: `ui-prototypes/TRIED.md` rounds 1–22.
+- **Open pull requests, all still draft on 2026-11-23:** #365 (UI/UX review fixes, light theme Marigold & Navy; conflicts
+  with `main`), #368 (API accepts sign-in from prototype.katta.cc too; clean), #370 (AI evaluator ground truth and a model
+  bake-off; conflicts with `main`). #367 is superseded (owner to close).
+- **Nothing from the 3D redesign is in the real app.** The prototype branch is not merged to `main`.
+- Docs: `ui-prototypes/README.md` (how to make, host and unlist prototypes), `TRIED.md` (all rounds and decisions),
+  `38-PREMIUM-REVAMP-RESEARCH.md` (research, now superseded by the decisions in 30 and 47). Ledger: `frontend_git_commits`
+  1152 rows, `backend_git_commits` 744 (`11-MONGODB-COMMIT-LEDGER.md`).
 
 ## Application repository
 

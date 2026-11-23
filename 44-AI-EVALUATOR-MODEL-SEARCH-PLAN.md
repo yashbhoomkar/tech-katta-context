@@ -25,7 +25,7 @@ Code for this plan: `tech-katta`, branch `ccr-ground-truth-v3` (from `ai-eval-gr
 **Next three actions**
 
 1. **Run `## Execution instructions`** (the owner, or a session the owner starts). It tests 4 lead models and 11
-   more free models on prompt v2 and ground truth v3, within $3.00. **Done on 2026-11-17: `45-AI-EVALUATOR-RUN-RESULTS.md`, no model clears the bar.** The next run uses ground truth v4 and writes `47-AI-EVALUATOR-RUN-RESULTS-V4.md`.
+   more free models on prompt v2 and ground truth v3, within $3.00. **Done on 2026-11-17: `45-AI-EVALUATOR-RUN-RESULTS.md`, no model clears the bar.** The next run uses ground truth v4 and writes `47-AI-EVALUATOR-RUN-RESULTS-V4.md`. **(Marked 2026-11-23: that run has not happened and the file does not exist; the number 47 was since taken by `47-NEO-BRUTALISM-PRODUCTION.md`, so use the next free number.)**
    A person reviews the close calls before the verdict is written (step 8).
 2. **Owner:** answer the open questions in §5. Two of them hold test cases out of the scored set
    (`seat_id`, `rate-limiter/three-nodes`); one decides money (buy credit or move to Pro for zero data retention).

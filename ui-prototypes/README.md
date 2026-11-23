@@ -15,6 +15,7 @@ showed and what the owner said. Read both before starting a new one.
 | `https://prototype.katta.cc/` and `/dashboard/…` | the real React app, built from the **`prototype` branch** of `yashbhoomkar/tech-katta` |
 | `https://prototype.katta.cc/p/` | the list of design prototypes, grouped by type (written at build time) |
 | `https://prototype.katta.cc/p/<name>/` | one design prototype (`frontend/prototypes/<name>.html` or `frontend/prototypes/<name>/`) |
+| an unlisted address | a prototype that is served but **left off the `/p/` list** (section 3.9); its address is not written in either repository |
 
 - **Content is live.** Since 2026-11-15 (owner: "use the actual tech-api.katta.cc from now on") the app on
   prototype.katta.cc reads `https://tech-api.katta.cc` like production. Content endpoints (`/v1/site`,
@@ -79,6 +80,7 @@ type of prototype"): `full-site`, `motion`, `neo-brutalism`, `checkout-flow`. Lo
 <meta name="robots" content="noindex">
 <meta name="prototype:type" content="Full site">          <!-- group heading on /p/ -->
 <meta name="prototype:summary" content="One line: what this prototype shows.">
+<meta name="prototype:unlisted" content="true">           <!-- optional: serve it, but leave it off /p/ (section 3.9) -->
 <title>Neo-brutalism</title>                                  <!-- card title on /p/ -->
 ```
 
@@ -147,7 +149,17 @@ checks against `https://prototype.katta.cc/p/<name>/`, then send the owner the l
 
 Write the outcome into **TRIED.md** (what was shown, what the owner said, what was kept or dropped) and add a line to
 `17-SESSION-HANDOVER.md`. Rename or remove a prototype only if asked; when renaming, add a redirect in
-`prototype.mjs` (the `_redirects` block) so old links still work.
+`prototype.mjs` (the `_redirects` block) so old links still work. (The one exception is a leaked address: section 3.9.)
+
+### 3.9 Unlisted prototypes, and retiring a leaked address (added 2026-11-23)
+
+Owner, 2026-11-20: "Shift the 3d design url to something else. It is leaked."
+
+- **To make a prototype unlisted:** put `<meta name="prototype:unlisted" content="true">` in its `index.html` (the build, `frontend/hosting/prototype.mjs`, then leaves it out of `/p/`), and give its folder a random name (for example 16 hex characters from `python3 -c "import secrets; print(secrets.token_hex(8))"`).
+- **To retire a leaked address:** rename the folder (`git mv`). The old address returns 404 with no redirect, on purpose. Check after the deploy: the new address returns 200; the old address, its `index.html` and a script file return 404, with and without a cache-busting query; `/p/` does not list it.
+- **Never write the new address** in either repository, a commit message, a ledger row, a pull request or the prototype's own README. Give it to the owner in the session chat only. The prototype's README says "unlisted address, shared directly".
+- **It is not private.** The application repository is public, so the folder name is readable there. For real protection put a login in front (Cloudflare Access, an email code) or make the repository private. Both need the owner's say.
+- **Locally:** `node` static server over `frontend/prototypes/`, or `wrangler dev` as in 3.6; the folder name is the path.
 
 ## 4. Troubleshooting
 
@@ -168,7 +180,7 @@ Write the outcome into **TRIED.md** (what was shown, what the owner said, what w
 |---|---|
 | `frontend/prototypes/` | all prototypes (on the `prototype` branch) |
 | `frontend/prototypes/full-site/README.md` | the full-site structure, navigation and dark-mode decisions |
-| `frontend/hosting/prototype.mjs` | copies prototypes into `dist/p/`, writes `/p/` and `robots.txt`, redirects |
+| `frontend/hosting/prototype.mjs` | copies prototypes into `dist/p/`, writes `/p/` (leaving out unlisted ones) and `robots.txt`, redirects |
 | `frontend/hosting/wrangler.prototype.jsonc` | the Cloudflare Worker |
 | `frontend/hosting/routes.json` → `emit.mjs` | headers and CSP shared with production |
 | `.github/workflows/prototype.yml` | build and deploy on push to `prototype` |
