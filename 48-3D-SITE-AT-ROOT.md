@@ -130,3 +130,23 @@ On a full production build, served locally with the same rewrites as Vercel:
   - Serif titles and the action bar overflowing at 1440 px (phase 2).
   - An unknown `/problems/<x>` address still gets the React 404 page (phase 5).
   - The legacy review panel crashes if its API call returns an empty body (found with a test mock; the real API always returns JSON).
+
+## Update 2026-11-23: phase 2 of 49 (first part: panels, cards and type; on #378's branch)
+
+- **What changed:** `frontend/src/theme/look-3d.css`, imported only by the islands, maps the canvas code's legacy tokens onto the 3D
+  site's (pure ink text, card and sunken surfaces, ink primary buttons with marigold kept for stars, 10 px buttons, 14 px cards, glass
+  panels, Instrument Sans and Geist Mono, no serif or italics). The legacy CSS files are untouched; the rules sit under
+  `.tk-island .tk-legacy` so they outrank them.
+  - The problem card is a glass panel with a segmented tab control; the bar above the canvas wraps instead of overflowing; the palette,
+    inspector, status line, results sheet and AWS credit are glass; replay states use the 3D models' colours (a coral pulse for down parts); the bar's
+    emoji are line icons (`Ic` in `solve.jsx`); every control that takes a tap is 40 px.
+- **Checked:** Playwright scan of every element in the island, in the description view and after Submit: no serif or italic text, no
+  hard shadows, no marigold fills, no tap target under 40 px (after the last rule). Screenshots, dark and light, of the description,
+  Your answer, Hints, Submissions, Solution, results and replay. `npm test` 450, `check:next` 72.
+- **Not done yet in phase 2:**
+  - The problem card sits beside the canvas, not over it (no fit-around work in `Canvas.jsx`).
+  - Replay still uses the bottom sheet, not a HUD at the top right with the scrubber along the bottom.
+  - "Break it yourself" is the legacy disclosure, not a row of `.btn.light.sm` buttons.
+  - The inspector and minimap were not checked open.
+  - No screenshots are attached to the PR.
+- **Ledger:** `frontend_git_commits` 1172 → 1173 (`78d0c20`).
