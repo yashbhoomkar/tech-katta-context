@@ -48,6 +48,14 @@ Last updated **2026-11-14** (design skills renovation #355–#356, reverted by #
 
 **Update 2026-11-14 (building context 36, step 22: What would fix it? Checked repairs).** Commit `03c1107` on branch `ccr-0abbbe33-gkyjcf` of the app, pushed, not merged (the PR is opened when the owner asks). Ledger frontend 1008, backend 722. Details in `36-WORKSPACE-AND-CANVAS-REVIEW-2026-11-14.md` §6.
 
+**Update 2026-11-23 (the 3D site takes the root, PR #374; canvas fixes #373 merged).** Owner: "we are going to retire the current neo-brutalism frontend … Look at the 3d design on the prototype katta. It is going to take over", then "Continue the 3D switch, build and test it". **#373** is merged as `5116358` and recorded in the ledger. It has:
+- replays: the problem pane steps aside while one plays (cards 108 → 170 px wide at 1440 px);
+- multi-select actions: align in a row or column, duplicate, delete;
+- unreadable saved designs kept aside;
+- no automatic Git deployments for the status page.
+
+**#374** (branch `ccr-328fc450-xdjrk1`, open) serves the 3D prototype from `frontend/site3d` at `/`, `/home`, Learn and `/simulator`. The React app keeps `/problems`, `/practice`, `/me`, Quick Notes and the policies. It was built and checked page by page in Chromium (desktop and iPhone 13), and the tests pass. Details, decisions and next steps in `48-3D-SITE-AT-ROOT.md`. Ledger rows for its three branch commits are in `frontend_git_commits` (1163); record the merge commit when it merges. Do not write the prototype folder's unlisted name anywhere. The API stays on Bluehost while it works (owner: "Unless the bluehost is working let's not shift").
+
 **Update 2026-11-14 (Concepts cut REVERTED, #364).** Owner: "Revert. Sorry. Let the concepts that we had be retained".
 **#364** squash `613442a7efe36a790d70f142759b6d68160da0f6` (branch commit `26bf513479abcc5a4719dbae4f296e5616bccf9e`)
 reverts #363: the tree is identical to `7f3df4c` (#362), so Concepts has its 21 articles in three groups again and the
