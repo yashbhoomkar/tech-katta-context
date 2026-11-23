@@ -71,7 +71,7 @@ On a full production build, served locally with the same rewrites as Vercel:
     3D models' part colours (`figureTokens.module.css`).
   - Dark is the default, and one theme setting (`tk-theme`) is shared by both apps.
   - The React sidebar says Dashboard and lists the Simulator.
-- **#376:** `/problems` is a 3D page (`site3d/scripts/pages/problems.js`), after the prototype's practice list.
+- **#376 (merged as `78af778`, live and checked on tech.katta.cc):** `/problems` is a 3D page (`site3d/scripts/pages/problems.js`), after the prototype's practice list.
   - It has a progress card, a difficulty filter, and rows with solved and started marks, test count and best score.
   - Each problem's design shows in 3D, then Sandbox, Simulator and the Challenges.
   - It reads the canvas's own record and writes nothing. Each row opens the canvas workspace (React, 3d look).
