@@ -170,3 +170,22 @@ On a full production build, served locally with the same rewrites as Vercel:
   by the catalogue when the learner has not named a part.
 - **Not checked:** 40 fps for a 30-part design on a mid phone (no phone to measure on); the phone layout of the 3D view (phase 4).
 - **Ledger:** `frontend_git_commits` 1173 → 1174 (`a6bc190`).
+
+## Update 2026-11-23: phase 4 of 49 (the workspace on phones; on #378's branch)
+
+- **What changed:** up to 900 px the canvas is the page and one thing shows at a time (`solve.jsx` narrow mode, `look-3d.css`).
+  - **Brief:** a card (kicker, title, dek, test and hint counts, Start designing, Read the full problem) the first time a problem
+    opens in a session, and only if there is no submission yet.
+  - **Build:** a slim glass bar (title, Brief, Run, Submit, a menu with Your answer, Hints, Submissions, Solution, Ask, Reset, Timer), the
+    canvas, the parts as a strip you scroll sideways, the inspector as a sheet.
+  - **Run and replay:** the results as a sheet; the replay's 2D | 3D control works there.
+  - **Description, Your answer, Hints, Solution, Submissions:** full-height sheets with a Done button. The Back gesture closes the open
+    sheet first (a history entry per sheet; the 3D router ignores a move that keeps the address).
+- **Checked:** Playwright at 412 × 915, 375 × 667 (light), 320 × 568 and 844 × 390 with touch: the brief covers neither the top nor the
+  bottom bar, Run gives the sheet, Hints opens a sheet, Back closes it on the same page, Done returns to the build; no sideways scroll;
+  every control at least 40 px; text at least 12 px; no script errors. `npm test` 455, `check:next` 72.
+- **Left over:** the parts strip is a row of buttons, not the doc's bottom sheet of rows with a one-line description and a fold handle;
+  the 3D replay's framing on a narrow screen is only roughly centred.
+- **Ledger:** `frontend_git_commits` 1174 → 1176 (`0126a7c`, **and one wrong row**). I inserted a row by mistake with
+  `key: "0126a7c0000000000000000000000000000000000"`, `value: "placeholder"`, then tried to delete it; the delete tool asked the owner a
+  question and timed out. **The owner must delete that one row** (or tell the next session to).
