@@ -46,9 +46,8 @@ phase 4 `0126a7c`, phase 5 `7e1a03d`, phase 6 (this) in the next ledger row.
 - **The ledger has one wrong row** (`key: "0126a7c0000000000000000000000000000000000"`, `value: "placeholder"`). The owner must delete it.
 - A real Google sign-in has not been tried by any phase; try it on the preview.
 - Not hand-tested: the 3D design canvas on a real touch phone; frame rate with a large design (30 parts on a mid phone).
-- Differences from `49`: the problem card sits beside the canvas on its dot grid, not over it (floating it hides the palette and needs fit-around work in `Canvas.jsx`);
-  the replay's scrubber stays in the results sheet next to the new HUD; a cache's warm-up is a label, not a fill; no PR screenshots (they cannot be committed or uploaded
-  from the session).
+- Differences from `49`: a cache's warm-up is a label, not a fill; no PR screenshots (they cannot be committed or uploaded from the session). (The problem card now floats over
+  the canvas and the replay's scrubber is pinned along the bottom of the sheet: `ce56c5b`.)
 - `frontend/src` still builds the old app for `/analytics` and `/health`; the old app's other pages are no longer served.
 
 Closed since the first version of this note (`83e098b`): the Replay HUD, Break it yourself as a row of buttons, the phone parts sheet, and moving, joining and deleting

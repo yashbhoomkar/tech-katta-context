@@ -229,3 +229,12 @@ On a full production build, served locally with the same rewrites as Vercel:
 - **3D canvas:** a refused arrow says why; moving a part, Connect, Delete, the 3D | 2D switch, the HUD and Break it yourself are covered by `next/e2e/design.spec.ts` (2 passed).
   Checked by hand-driven mouse input: a part dragged 120 px moved its card, Clients → Link service made an arrow, an invalid pair was refused, Delete removed a part and its arrows.
 - **Still open:** see `50`. **Ledger:** `frontend_git_commits` 1178 → 1179 (`83e098b`); the one wrong row is still there.
+
+## Update 2026-11-24: the problem card floats; the scrubber is pinned (`ce56c5b`)
+
+- Wide screens: the canvas fills the whole area and the problem card floats over it as a glass panel; the parts column sits to its right, results and replay beside it.
+  `Canvas.jsx`'s fit and the 3D canvas's camera leave room for both (a ResizeObserver on the card and the parts column, so dragging the divider refits); a part dropped over the
+  card is ignored. The replay's scrubber is sticky along the bottom of the results sheet.
+- Found by the browser pass: the results sheet had been under the card; it now sits beside it.
+- Checked: the whole end-to-end suite (27 passed, 1 flaky under parallel load: the workspace mount wait is now 40 s; it passes alone, twice), `npm test` 460, islands check.
+- **Ledger:** 1179 → 1180 (`ce56c5b`). The wrong row is still there: my delete asked for the owner's confirmation twice and timed out both times.
