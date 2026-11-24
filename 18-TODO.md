@@ -9,7 +9,7 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
-- **waiting for owner**: review app PR #379 (UI/UX audit, doc 51); confirm the canonical URLs (item 5); check redirects on the preview deployment; delete the stray placeholder ledger row.
+- **waiting for owner**: review app PR #379 (UI/UX audit, doc 51; check /learn/ and /dashboard/learn/... redirects with curl -I on its preview once past Vercel's login); confirm the canonical URLs (item 5); check redirects on the preview deployment; delete the stray placeholder ledger row.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
