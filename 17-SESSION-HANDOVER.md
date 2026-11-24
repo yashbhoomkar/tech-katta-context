@@ -1,5 +1,7 @@
 # 17 — Session Handover (read this first)
 
+**Update 2026-11-24 (UI/UX audit, third round R1–R3).** Commits `e80a9fc`, `021baaf`, `d2f7d4e` on `ccr-0662d069-8yxchr`; app PR #379 still draft. Dashboard labels, the phone h1, and the 3D design e2e race (counts taken before the sandbox's parts arrived). See doc 51, third round.
+
 **Update 2026-11-24 (UI/UX audit, follow-up round F1–F6).** Four more commits on `ccr-0662d069-8yxchr` (`b30b6ff`, `49b8586`, `fd09f88`, `91a0841`), app PR #379 still draft. The global `trailingSlash:false` was removed from the host config (two-hop redirect). See doc 51, follow-up section.
 
 **Update 2026-11-24 (UI/UX audit, 15 items).** Fixed on branch `ccr-0662d069-8yxchr`; draft app PR #379, not merged. Details and commit SHAs: `51-UI-UX-AUDIT-FIXES-2026-11-24.md`.
