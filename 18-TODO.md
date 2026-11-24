@@ -9,6 +9,9 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
+- **waiting for owner** (doc 52): review the sign-in gating PR; deploy the API first and copy `content/stories.json` to the VPS content folder; try a real Google sign-in on production; decide whether Quick Notes' "Numbers worth knowing" stays public and whether the SVG figures return to the problem pane (they would have to be served by the API behind the session).
+- **security (done in doc 52)**: the API no longer returns full bodies to signed-out requests (this was the open "security" item).
+
 - **waiting for owner**: review app PR #379 (UI/UX audit, doc 51; check /learn/ and /dashboard/learn/... redirects with curl -I on its preview once past Vercel's login); confirm the canonical URLs (item 5); check redirects on the preview deployment; delete the stray placeholder ledger row; the 3D design e2e test still uses ~55 of its 60 s on a busy machine (consider test.slow() or a lighter render in tests).
 
 | # | Lane | Item | Status | Notes |
