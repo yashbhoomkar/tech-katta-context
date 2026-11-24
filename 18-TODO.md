@@ -109,3 +109,4 @@ article per PR; shape as in `content/articles/interview-questions/url-shortener.
 - [ ] When a model is chosen: add the interviewer's view to production (backend job, page section) and raise `AI_MAX_OUTPUT_TOKENS`.
 
 - [ ] Interviewer's view, prompt version 2 (notation explained; no capacity or latency comments; read every route), then re-run Muse Ember, GPT-5 mini and Gemini Flash-Lite, then `--tier free-reasoning`. Only when the owner says so.
+| — | infra | API hosting: Bluehost renewed monthly on 2026-11-24 (₹554.36 by UPI). Decide whether to move (Lightsail ≈ ₹767, Oracle free, others in handover 11-24); cancel the Bluehost auto-renewal if moving | waiting for owner | 17 (11-24) |
