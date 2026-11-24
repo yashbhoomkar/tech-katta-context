@@ -238,3 +238,14 @@ On a full production build, served locally with the same rewrites as Vercel:
 - Found by the browser pass: the results sheet had been under the card; it now sits beside it.
 - Checked: the whole end-to-end suite (27 passed, 1 flaky under parallel load: the workspace mount wait is now 40 s; it passes alone, twice), `npm test` 460, islands check.
 - **Ledger:** 1179 → 1180 (`ce56c5b`). The wrong row is still there: my delete asked for the owner's confirmation twice and timed out both times.
+
+## Update 2026-11-24: merged and live (#378, merge `5d6789c`)
+
+- **Merged** after every check on `08eec9f` was green: Test and build frontend, the real site end to end (desktop and phone), Test backend, Build and run API container, CodeQL. Vercel deployed `main`;
+  the backend is unchanged, so no "Deploy backend" run was needed.
+- **A CI bug found at the last minute:** my edit to `.github/workflows/frontend.yml` had an unquoted colon in a step name, which made the file invalid YAML, so the frontend jobs did not run on the
+  last three commits (only the backend and CodeQL ran). Fixed in `08eec9f`; the frontend jobs then ran for real and passed. Lesson: after editing a workflow, parse it (`python -c "import yaml…"`) and check that its jobs appear on the PR.
+- **Live check** (Playwright against tech.katta.cc, desktop and a 412 × 915 phone): the workspace is a 3D page and locked signed out with no island loaded, `/me`, `/privacy`, `/learn/quick-notes`, a lesson,
+  an unknown address (404 page) and an old `/dashboard/…` link all land correctly, search opens, no script errors; `/analytics` and `/health` still answer.
+- **Ledger:** `frontend_git_commits` 1182 (with `08eec9f` and the merge `5d6789c`); the one wrong row is still there.
+- **Not checked live:** a signed-in workspace (needs a real Google sign-in).
