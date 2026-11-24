@@ -1555,3 +1555,5 @@ backend 706**.
 `26bf513…` (branch) and `613442a…` (squash) of #364, the revert of the Concepts cut, in both collections; `b3e6e6d…`
 (squash of #318, problem-solving animations, frontend only) in `frontend_git_commits`. #339's two rows were already
 present. Counts after: **frontend 1156, backend 746**.
+
+**2026-11-24:** the owner deleted the stray `frontend_git_commits` row `0126a7c0000000000000000000000000000000000` ("placeholder"); verified absent. The row `pending-one-system-per-figure` ("placeholder") remains, awaiting the owner.
