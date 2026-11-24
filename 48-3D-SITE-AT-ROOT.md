@@ -220,3 +220,12 @@ On a full production build, served locally with the same rewrites as Vercel:
 - **Not checked:** moving a part and Connect by hand-driven pointer input (the code paths are written and the dropped part moved with the design, but the tests did not
   drag a part on the floor or join two); the 3D canvas on a real touch phone; frame rate with a large design.
 - **Ledger:** `frontend_git_commits` 1176 → 1178 with `cc98228` (and the one wrong row still there).
+
+## Update 2026-11-24: the open items closed (`83e098b`)
+
+- **Replay HUD:** time, traffic, errors (coral above 1 %) and p99 for the minute, a glass dock at the top right of the canvas (`ReplayHud` in `src/solve/v2.jsx`).
+- **Break it yourself:** a row of one-tap fault buttons.
+- **Phones:** the parts strip has a handle that opens it as a sheet of rows (tile, name, two lines on what it is) above the bottom bar.
+- **3D canvas:** a refused arrow says why; moving a part, Connect, Delete, the 3D | 2D switch, the HUD and Break it yourself are covered by `next/e2e/design.spec.ts` (2 passed).
+  Checked by hand-driven mouse input: a part dragged 120 px moved its card, Clients → Link service made an arrow, an invalid pair was refused, Delete removed a part and its arrows.
+- **Still open:** see `50`. **Ledger:** `frontend_git_commits` 1178 → 1179 (`83e098b`); the one wrong row is still there.

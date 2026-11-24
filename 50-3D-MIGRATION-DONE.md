@@ -45,8 +45,11 @@ phase 4 `0126a7c`, phase 5 `7e1a03d`, phase 6 (this) in the next ledger row.
 
 - **The ledger has one wrong row** (`key: "0126a7c0000000000000000000000000000000000"`, `value: "placeholder"`). The owner must delete it.
 - A real Google sign-in has not been tried by any phase; try it on the preview.
-- Phase 2: the problem card sits beside the canvas (not over it); Replay's HUD at the top right; "Break it yourself" as buttons; the inspector and minimap not
-  checked open; no screenshots on the PR.
-- Phase 4: the parts strip is a row, not a sheet of rows with descriptions; the 3D framing on a narrow screen is rough.
-- Phase 3: 40 fps for a 30-part design on a phone was not measured.
+- Not hand-tested: the 3D design canvas on a real touch phone; frame rate with a large design (30 parts on a mid phone).
+- Differences from `49`: the problem card sits beside the canvas on its dot grid, not over it (floating it hides the palette and needs fit-around work in `Canvas.jsx`);
+  the replay's scrubber stays in the results sheet next to the new HUD; a cache's warm-up is a label, not a fill; no PR screenshots (they cannot be committed or uploaded
+  from the session).
 - `frontend/src` still builds the old app for `/analytics` and `/health`; the old app's other pages are no longer served.
+
+Closed since the first version of this note (`83e098b`): the Replay HUD, Break it yourself as a row of buttons, the phone parts sheet, and moving, joining and deleting
+parts on the 3D canvas (now covered by `next/e2e/design.spec.ts`).
