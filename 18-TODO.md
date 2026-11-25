@@ -13,6 +13,7 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
+| 1 | ui | **Fewer tabs and solving on a phone** (`53-NAVIGATION-AND-PHONE-SOLVING.md`, owner 2026-11-25): phase 1 bugs and links, 2 fewer tabs, 3 phone workspace, 4 other canvases | ready | sign-in flag for testing: app PR #386 (draft). Owner questions with defaults in its §8 |
 | — | build | Context 36 leftovers: company and topic tags (#33), Hindi and Marathi (#43), canvas keyboard audit (#41) | open | Each needs the owner: which companies ask what; native review of translations; say go for the audit |
 | — | build | **Context 36: the best problem-solving experience** (owner: "Start building everything step by step") | done | Steps 1–22 merged by PR #366 (`1a8ca71`) and deployed 2026-11-15 (Vercel and backend run 282); log in §6 |
 | 1 | infra | **Move the API off Bluehost** (plan expired 2026-11-04, on grace). Moving is now `ops/README.md` (#348, #349): one command, three variables, two workflows | waiting for owner | one-time: Origin certificate → secrets ORIGIN_CERT/ORIGIN_KEY, Cloudflare token → CLOUDFLARE_API_TOKEN; then buy **AWS Lightsail Mumbai $5, paid by UPI** (decided, `31-VPS-CHOICE.md` §4c; the owner has no credit card), run the script, commit the printed public key as `ops/deploy-key.pub` |
