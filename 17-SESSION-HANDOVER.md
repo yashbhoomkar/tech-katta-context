@@ -1,3 +1,5 @@
+**Update 2026-11-25 (navigation and phone solving).** Owner: solving on a phone is bad, getting to the canvas is hard, too many tabs. Plan for the next session: `53-NAVIGATION-AND-PHONE-SOLVING.md` (4 phases, checks, owner questions). Sign-in feature flag `SIGNIN_REQUIRED` (API; 0 opens everything): app PR #386, draft, commit `919c1d328236f479179fabaaaf98202bbb234da5`. Not in this repo yet: #380 (sign-in gating) and #381 (no flash of the search copy) were merged 2026-11-24, and #379 is merged (doc 51 still calls it draft).
+
 # 17 — Session Handover (read this first)
 
 **Update 2026-11-24 (UI/UX audit, third round R1–R3).** Commits `e80a9fc`, `021baaf`, `d2f7d4e` on `ccr-0662d069-8yxchr`; app PR #379 still draft. Dashboard labels, the phone h1, and the 3D design e2e race (counts taken before the sandbox's parts arrived). See doc 51, third round.
