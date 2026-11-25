@@ -1,0 +1,246 @@
+{
+ "Requesty": {
+  "models": 757,
+  "Haiku 5.5": [
+   1e-07,
+   5e-07
+  ],
+  "DeepSeek V4.1 Flash": [
+   9.8e-08,
+   2.94e-07
+  ],
+  "GPT-6 Luna": [
+   5e-08,
+   2.5e-07
+  ],
+  "Qwen3.8 Flash": [
+   1.6e-07,
+   4.7e-07
+  ],
+  "GLM-5.3 Flash": [
+   1.2e-07,
+   4.6e-07
+  ],
+  "MiniMax M3.1 Flash": [
+   1.5e-07,
+   6e-07
+  ],
+  "Gemini 3.1 Flash-Lite": [
+   1.25e-07,
+   7.5e-07
+  ],
+  "Gemma 4 26B": [
+   5.6e-08,
+   2.72e-07
+  ]
+ },
+ "NanoGPT": {
+  "models": 625,
+  "Muse Ember": "listed",
+  "Haiku 5.5": "listed",
+  "DeepSeek V4.1 Flash": "listed",
+  "GPT-6 Luna": "listed",
+  "Qwen3.8 Flash": "listed",
+  "GLM-5.3 Flash": "listed",
+  "MiniMax M3.1 Flash": "listed",
+  "Gemini 3.1 Flash-Lite": "listed",
+  "Gemma 4 26B": "listed",
+  "Llama 4 Scout": "listed"
+ },
+ "DeepInfra": {
+  "models": 178,
+  "DeepSeek V4.1 Flash": [
+   0.2,
+   0.6
+  ],
+  "Qwen3.8 Flash": [
+   0.113,
+   0.382
+  ],
+  "GLM-5.3 Flash": [
+   0.15,
+   0.5
+  ],
+  "Gemini 3.1 Flash-Lite": [
+   0.25,
+   1.4999999999999998
+  ],
+  "Gemma 4 26B": [
+   0.07,
+   0.33999999999999997
+  ],
+  "Llama 4 Scout": [
+   0.1,
+   0.3
+  ]
+ },
+ "Novita": {
+  "models": 101,
+  "DeepSeek V4.1 Flash": "listed",
+  "Qwen3.8 Flash": "listed",
+  "GLM-5.3 Flash": "listed",
+  "MiniMax M3.1 Flash": "listed",
+  "Gemma 4 26B": "listed",
+  "Llama 4 Scout": "listed"
+ },
+ "Chutes": {
+  "models": 19,
+  "DeepSeek V4.1 Flash": [
+   300000.0,
+   1200000.0
+  ]
+ },
+ "Eden AI": {
+  "models": 1309,
+  "Haiku 5.5": "listed",
+  "DeepSeek V4.1 Flash": "listed",
+  "GPT-6 Luna": "listed",
+  "Qwen3.8 Flash": "listed",
+  "GLM-5.3 Flash": "listed",
+  "MiniMax M3.1 Flash": "listed",
+  "Gemini 3.1 Flash-Lite": "listed",
+  "Gemma 4 26B": "listed",
+  "Llama 4 Scout": "listed"
+ },
+ "AIML API": {
+  "models": 995,
+  "Muse Ember": "listed",
+  "Haiku 5.5": "listed",
+  "DeepSeek V4.1 Flash": "listed",
+  "GPT-6 Luna": "listed",
+  "Qwen3.8 Flash": "listed",
+  "GLM-5.3 Flash": "listed",
+  "MiniMax M3.1 Flash": "listed",
+  "Gemini 3.1 Flash-Lite": "listed",
+  "Gemma 4 26B": "listed"
+ },
+ "LLM Gateway": {
+  "models": 320,
+  "Muse Ember": [
+   0.09999999999999999,
+   0.5
+  ],
+  "Haiku 5.5": [
+   0.09999999999999999,
+   0.5
+  ],
+  "DeepSeek V4.1 Flash": [
+   0.135,
+   0.54
+  ],
+  "GPT-6 Luna": [
+   0.09999999999999999,
+   0.0
+  ],
+  "Qwen3.8 Flash": [
+   0.15,
+   0.47
+  ],
+  "GLM-5.3 Flash": [
+   0.088,
+   0.25
+  ],
+  "MiniMax M3.1 Flash": [
+   0.09999999999999999,
+   0.5
+  ],
+  "Gemini 3.1 Flash-Lite": [
+   0.25,
+   1.5
+  ],
+  "Gemma 4 26B": [
+   0.07,
+   0.33999999999999997
+  ],
+  "Llama 4 Scout": [
+   0.18,
+   0.59
+  ]
+ },
+ "Vercel AI Gateway": {
+  "models": 509,
+  "Muse Ember": [
+   0.09999999999999999,
+   0.5
+  ],
+  "Haiku 5.5": [
+   0.09999999999999999,
+   0.5
+  ],
+  "DeepSeek V4.1 Flash": [
+   0.3,
+   1.2
+  ],
+  "GPT-6 Luna": [
+   0.09999999999999999,
+   0.0
+  ],
+  "Qwen3.8 Flash": [
+   0.15,
+   0.47
+  ],
+  "GLM-5.3 Flash": [
+   0.15,
+   0.5
+  ],
+  "MiniMax M3.1 Flash": [
+   0.15,
+   0.6
+  ],
+  "Gemini 3.1 Flash-Lite": [
+   0.25,
+   1.5
+  ],
+  "Gemma 4 26B": [
+   0.15,
+   0.6
+  ],
+  "Llama 4 Scout": [
+   0.16999999999999998,
+   0.66
+  ]
+ },
+ "OpenRouter": {
+  "models": 468,
+  "Muse Ember": [
+   0.09999999999999999,
+   0.5
+  ],
+  "Haiku 5.5": [
+   0.09999999999999999,
+   0.5
+  ],
+  "DeepSeek V4.1 Flash": [
+   0.14,
+   0.42
+  ],
+  "GPT-6 Luna": [
+   0.09999999999999999,
+   0.5
+  ],
+  "Qwen3.8 Flash": [
+   0.15,
+   0.47
+  ],
+  "GLM-5.3 Flash": [
+   0.0399,
+   0.0784
+  ],
+  "MiniMax M3.1 Flash": [
+   0.15,
+   0.6
+  ],
+  "Gemini 3.1 Flash-Lite": [
+   0.25,
+   1.5
+  ],
+  "Gemma 4 26B": [
+   0.09,
+   0.3
+  ],
+  "Llama 4 Scout": [
+   0.09999999999999999,
+   0.3
+  ]
+ }
+}

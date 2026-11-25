@@ -4,6 +4,8 @@
 
 > **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 
+> **UI/UX prototypes (2026-11-15):** design work for the premium revamp happens on **prototype.katta.cc** (branch `prototype`, a Cloudflare Worker), not in the app. Manual: `ui-prototypes/README.md`; everything tried and decided: `ui-prototypes/TRIED.md`. The owner's standing word: "dont make changes in tech-katta now, we need the prototype only".
+
 You are assisting with an ongoing software project called **Tech Katta**.
 
 Your job is to behave like the continuation of an experienced engineering session, not like an unrelated greenfield consultant.

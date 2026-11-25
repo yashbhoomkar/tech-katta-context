@@ -12,6 +12,33 @@ Backend:
 
 The app repo's `HOSTING.md` lists every place Vercel or the VPS touches the code and how to move each part. Routing and headers are generated from `frontend/hosting/routes.json`; the API has a container image (`backend/Dockerfile`) and host settings (`CLIENT_IP_HEADERS`, `JUDGE_WORKERS`, `backend/.env.example`). Production hosts unchanged.
 
+## prototype.katta.cc (2026-11-15)
+
+- **What:** a Cloudflare **Worker** with static assets only, named `tech-katta-prototype`. Config:
+  `frontend/hosting/wrangler.prototype.jsonc` (custom domain `prototype.katta.cc`, assets `../dist`,
+  `not_found_handling: 404-page`, `auto-trailing-slash`). The custom domain creates its own DNS record in the katta.cc
+  zone.
+- **Deploy:** `.github/workflows/prototype.yml` on every push to the `prototype` branch:
+  `npm ci` → `npm test` → `npm run build:prototype:cloudflare` → `npx wrangler@4 deploy --config hosting/wrangler.prototype.jsonc`.
+  About 2 minutes.
+- **Secrets** (repo settings): `CLOUDFLARE_PROTOTYPE_TOKEN` and `CLOUDFLARE_ACCOUNT_ID`.
+  - The token was made from the "Edit Cloudflare Workers" template, scoped to the one account and the katta.cc zone.
+  - Two earlier tokens were wrong: one was zone-only with no Workers Scripts Edit; one was nearly account-wide.
+    The owner was told to delete the second.
+- **Build:** `build:prototype:cloudflare` = `VITE_HOST_ANALYTICS=none vite build && node hosting/emit.mjs cloudflare dist && node hosting/prototype.mjs --cloudflare`.
+  - `emit.mjs` writes the same `_headers` (including the **CSP**) and `_redirects` as production.
+  - `prototype.mjs`:
+    - copies `frontend/prototypes/*` to `dist/p/` (one-file prototypes have their inline `<script>` moved to
+      `page-N.js`; folder prototypes are copied as they are);
+    - writes `/p/index.html` and `robots.txt` (`Disallow: /`);
+    - adds 301s for old addresses (`/p/revamp-2026-11-15/`, `/p/dark-modes/` → `/p/full-site/`).
+- **Limits learnt:**
+  - the site's own `_redirects` already uses the free plan's 100 dynamic rules, so add **exact** rules only;
+  - the CSP blocks inline scripts and `onclick`, so always test under `npx wrangler@4 dev`, never `file://`.
+- **API:** since 2026-11-15 the app on the prototype reads the live `tech-api.katta.cc`. The bundled `/proto-api`
+  copy and its rewrites were removed (`595ce96`).
+- Production (tech.katta.cc on Vercel, tech-api on the VPS) is untouched by any of this.
+
 ## Vercel
 
 Project:

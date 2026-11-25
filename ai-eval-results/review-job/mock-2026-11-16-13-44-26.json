@@ -1,0 +1,5982 @@
+{
+ "model": "mock-interviewer",
+ "summary": {
+  "calls": 75,
+  "correct_pct": 98.7,
+  "found_fault_pct": 98.7,
+  "called_good_a_problem": 0,
+  "praised_failing": 0,
+  "designs_always_correct_pct": 98.7,
+  "verified_pct": 100,
+  "partial_pct": 0,
+  "fallback_pct": 0,
+  "error_pct": 0,
+  "ms_p50": 0,
+  "ms_p95": 0,
+  "tokens_in": 0,
+  "tokens_cached": 0,
+  "tokens_out": 0,
+  "cost_usd": null,
+  "cost_per_review_usd": null,
+  "cost_per_correct_review_usd": null
+ },
+ "rows": [
+  {
+   "case": "url-shortener/reference",
+   "problem": "url-shortener",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 31 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹69,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-cache-one-server",
+   "problem": "url-shortener",
+   "design": "no-cache-one-server",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 4,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_LINK:api"
+      ],
+      "text": "api is your bottleneck: it ran at 505 % of what it can take, so GET_LINK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_LINK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_LINK. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:api"
+      ],
+      "text": "api has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_LINK:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_LINK:api.rho}} of what it can take, so GET_LINK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_LINK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_LINK. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:api"
+      ],
+      "text": "api has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-cache",
+   "problem": "url-shortener",
+   "design": "no-cache",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_LINK:db"
+      ],
+      "text": "db is your bottleneck: it ran at 86 % of what it can take, so GET_LINK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_LINK:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:p99:GET_LINK:db.rho}} of what it can take, so GET_LINK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/async-replica",
+   "problem": "url-shortener",
+   "design": "async-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:CREATE_LINK:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:CREATE_LINK:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/no-replica",
+   "problem": "url-shortener",
+   "design": "no-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_LINK:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_LINK:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/random-32-bit-ids",
+   "problem": "url-shortener",
+   "design": "random-32-bit-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:CREATE_LINK:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on CREATE_LINK at ids. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹69,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:CREATE_LINK:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on CREATE_LINK at ids. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/day-long-cache-no-invalidate",
+   "problem": "url-shortener",
+   "design": "day-long-cache-no-invalidate",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_LINK:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_LINK at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹69,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_LINK:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_LINK at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/everything-large",
+   "problem": "url-shortener",
+   "design": "everything-large",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,43,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "url-shortener/template",
+   "problem": "url-shortener",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "paste-bin/reference",
+   "problem": "paste-bin",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 24 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,14,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "paste-bin/small-cache",
+   "problem": "paste-bin",
+   "design": "small-cache",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_PASTE:db"
+      ],
+      "text": "db is your bottleneck: it ran at 74 % of what it can take, so GET_PASTE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_PASTE:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:p99:GET_PASTE:db.rho}} of what it can take, so GET_PASTE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "paste-bin/no-cache-small-servers",
+   "problem": "paste-bin",
+   "design": "no-cache-small-servers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_PASTE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 227 % of what it can take, so GET_PASTE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_PASTE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_PASTE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_PASTE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_PASTE:api.rho}} of what it can take, so GET_PASTE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_PASTE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_PASTE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "paste-bin/no-replica",
+   "problem": "paste-bin",
+   "design": "no-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_PASTE:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_PASTE:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "paste-bin/async-replica",
+   "problem": "paste-bin",
+   "design": "async-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:CREATE_PASTE:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:CREATE_PASTE:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-quiet-hour"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "paste-bin/random-32-bit-ids",
+   "problem": "paste-bin",
+   "design": "random-32-bit-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:CREATE_PASTE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on CREATE_PASTE at ids. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,14,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:CREATE_PASTE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on CREATE_PASTE at ids. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "paste-bin/huge-cache",
+   "problem": "paste-bin",
+   "design": "huge-cache",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:cache"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,86,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:cache"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "paste-bin/template",
+   "problem": "paste-bin",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/reference",
+   "problem": "rate-limiter",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 14 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,38,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/sql-counters",
+   "problem": "rate-limiter",
+   "design": "sql-counters",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 4,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:CHECK:db"
+      ],
+      "text": "db is your bottleneck: it ran at 401 % of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on CHECK. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:CHECK:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:CHECK:db.rho}} of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on CHECK. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/write-to-all-copies",
+   "problem": "rate-limiter",
+   "design": "write-to-all-copies",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Unavailable: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:CHECK:kv"
+      ],
+      "text": "A hidden test failed because requests failed at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Unavailable: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:CHECK:kv"
+      ],
+      "text": "A hidden test failed because requests failed at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/too-few-servers",
+   "problem": "rate-limiter",
+   "design": "too-few-servers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:CHECK:api"
+      ],
+      "text": "api is your bottleneck: it ran at 126 % of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on CHECK. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:CHECK:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:CHECK:api.rho}} of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on CHECK. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/three-nodes",
+   "problem": "rate-limiter",
+   "design": "three-nodes",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:api"
+      ],
+      "text": "api is your bottleneck: it ran at 84 % of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:CHECK:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:p99:CHECK:api.rho}} of what it can take, so CHECK broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-normal-day"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/huge-cluster",
+   "problem": "rate-limiter",
+   "design": "huge-cluster",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹2,66,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "rate-limiter/template",
+   "problem": "rate-limiter",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "news-feed/reference",
+   "problem": "news-feed",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 13 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,52,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "news-feed/short-ttl-no-invalidate",
+   "problem": "news-feed",
+   "design": "short-ttl-no-invalidate",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p50:GET_FEED:api"
+      ],
+      "text": "api is your bottleneck: it ran at 55 % of what it can take, so GET_FEED broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p50:GET_FEED:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:p50:GET_FEED:api.rho}} of what it can take, so GET_FEED broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "news-feed/long-ttl-no-invalidate",
+   "problem": "news-feed",
+   "design": "long-ttl-no-invalidate",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 1,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_FEED:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_FEED at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,52,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_FEED:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_FEED at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "news-feed/sql-feeds",
+   "problem": "news-feed",
+   "design": "sql-feeds",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_FEED:db"
+      ],
+      "text": "db is your bottleneck: it ran at 132 % of what it can take, so GET_FEED broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_FEED:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_FEED. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_FEED:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:GET_FEED:db.rho}} of what it can take, so GET_FEED broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_FEED:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_FEED. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "news-feed/quick-writes",
+   "problem": "news-feed",
+   "design": "quick-writes",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:POST:kv"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_FEED:none"
+      ],
+      "text": "The same test also shows that requests failed on GET_FEED. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:POST:kv"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_FEED:none"
+      ],
+      "text": "The same test also shows that requests failed on GET_FEED. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-morning"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "news-feed/big-everything",
+   "problem": "news-feed",
+   "design": "big-everything",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:cache"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹3,68,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:cache"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "news-feed/template",
+   "problem": "news-feed",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "notification-sender/reference",
+   "problem": "notification-sender",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": false,
+    "found_fault": false,
+    "lead_rank": 3,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": "fault cited only at item 3"
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes, but it is running close to its limits in places.",
+    "items": [
+     {
+      "kind": "risk",
+      "facts": [
+       "load:worker"
+      ],
+      "text": "worker reaches 100 % of its capacity in The match starts. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "load:db"
+      ],
+      "text": "db reaches 80 % of its capacity in The match starts. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 11 % to spare. That is the headroom an interviewer wants to see."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes, but it is running close to its limits in places.",
+    "items": [
+     {
+      "kind": "risk",
+      "facts": [
+       "load:worker"
+      ],
+      "text": "worker reaches {{load:worker.peak}} of its capacity in {{load:worker.peak_test}}. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "load:db"
+      ],
+      "text": "db reaches {{load:db.peak}} of its capacity in {{load:db.peak_test}}. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "notification-sender/no-queue",
+   "problem": "notification-sender",
+   "design": "no-queue",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:SEND:db"
+      ],
+      "text": "db is your bottleneck: it ran at 200 % of what it can take, so SEND broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:SEND:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:SEND:db.rho}} of what it can take, so SEND broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "notification-sender/one-small-worker",
+   "problem": "notification-sender",
+   "design": "one-small-worker",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with worker.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:backlog:SEND:worker"
+      ],
+      "text": "The verdict comes from this: accepted work waited too long on SEND at worker. Fix this before anything else."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with worker.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:backlog:SEND:worker"
+      ],
+      "text": "The verdict comes from this: accepted work waited too long on SEND at worker. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "notification-sender/async-replica",
+   "problem": "notification-sender",
+   "design": "async-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:SEND:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "load:worker"
+      ],
+      "text": "worker reaches 100 % of its capacity in The match starts. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:SEND:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "load:worker"
+      ],
+      "text": "worker reaches {{load:worker.peak}} of its capacity in {{load:worker.peak_test}}. That is little room for a traffic spike, and it is the next thing to break.",
+      "ask": "If traffic doubled tomorrow, which part fails first, and how would you know?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "notification-sender/too-few-servers",
+   "problem": "notification-sender",
+   "design": "too-few-servers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:SEND:api"
+      ],
+      "text": "api is your bottleneck: it ran at 125 % of what it can take, so SEND broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:SEND:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:SEND:api.rho}} of what it can take, so SEND broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-steady"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "notification-sender/many-workers",
+   "problem": "notification-sender",
+   "design": "many-workers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with worker.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:worker"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at worker. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹2,88,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with worker.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:worker"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at worker. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "notification-sender/template",
+   "problem": "notification-sender",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict"
+      ],
+      "text": "Every route has to end where its data lives before the judge can test the design."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict"
+      ],
+      "text": "Every route has to end where its data lives before the judge can test the design.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/reference",
+   "problem": "image-serving",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 11 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹31,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/no-cdn",
+   "problem": "image-serving",
+   "design": "no-cdn",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 1501 % of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_IMAGE:api.rho}} of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/cache-behind-servers",
+   "problem": "image-serving",
+   "design": "cache-behind-servers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 4,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 1501 % of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:cache"
+      ],
+      "text": "cache has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_IMAGE:api.rho}} of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:cache"
+      ],
+      "text": "cache has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/one-server",
+   "problem": "image-serving",
+   "design": "one-server",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 4,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 305 % of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:api"
+      ],
+      "text": "api has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_IMAGE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_IMAGE:api.rho}} of what it can take, so GET_IMAGE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_IMAGE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_IMAGE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:api"
+      ],
+      "text": "api has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-afternoon"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/random-32-bit-ids",
+   "problem": "image-serving",
+   "design": "random-32-bit-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:UPLOAD_IMAGE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on UPLOAD_IMAGE at ids. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹31,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:UPLOAD_IMAGE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on UPLOAD_IMAGE at ids. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "image-serving/many-servers",
+   "problem": "image-serving",
+   "design": "many-servers",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹2,47,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "image-serving/template",
+   "problem": "image-serving",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "leaderboard/reference",
+   "problem": "leaderboard",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 12 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,67,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "leaderboard/no-index",
+   "problem": "leaderboard",
+   "design": "no-index",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at 13 % of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,67,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Too Slow: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:p99:GET_TOP:db.rho}} of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "leaderboard/minute-ttl",
+   "problem": "leaderboard",
+   "design": "minute-ttl",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_TOP:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_TOP at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,67,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_TOP:cache"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_TOP at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "leaderboard/medium-db",
+   "problem": "leaderboard",
+   "design": "medium-db",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at 120 % of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-warm-up"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:GET_TOP:db.rho}} of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-warm-up"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "leaderboard/no-cache",
+   "problem": "leaderboard",
+   "design": "no-cache",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at 123 % of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_TOP:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_TOP. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-warm-up"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_TOP:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:GET_TOP:db.rho}} of what it can take, so GET_TOP broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_TOP:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_TOP. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-warm-up"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "leaderboard/big-everything",
+   "problem": "leaderboard",
+   "design": "big-everything",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹3,29,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "leaderboard/template",
+   "problem": "leaderboard",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/reference",
+   "problem": "ticket-booking",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 17 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,67,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/cache-not-cleared",
+   "problem": "ticket-booking",
+   "design": "cache-not-cleared",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_SEATS:cache"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_SEATS at cache. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,67,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with cache.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_SEATS:cache"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_SEATS at cache. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/replica-reads",
+   "problem": "ticket-booking",
+   "design": "replica-reads",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_SEATS:db"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_SEATS at db. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,67,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_SEATS:db"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_SEATS at db. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/async-replica",
+   "problem": "ticket-booking",
+   "design": "async-replica",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:BOOK:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-day-before"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:BOOK:db"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-day-before"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/medium-db",
+   "problem": "ticket-booking",
+   "design": "medium-db",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SEATS:db"
+      ],
+      "text": "db is your bottleneck: it ran at 160 % of what it can take, so GET_SEATS broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SEATS:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SEATS. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-day-before"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SEATS:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:GET_SEATS:db.rho}} of what it can take, so GET_SEATS broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SEATS:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SEATS. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-day-before"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/random-ids",
+   "problem": "ticket-booking",
+   "design": "random-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:BOOK:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on BOOK at ids. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,67,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:BOOK:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on BOOK at ids. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/big-everything",
+   "problem": "ticket-booking",
+   "design": "big-everything",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹3,29,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:db"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at db. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ticket-booking/template",
+   "problem": "ticket-booking",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/reference",
+   "problem": "chat-message-store",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 19 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹1,82,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/one-copy-each-way",
+   "problem": "chat-message-store",
+   "design": "one-copy-each-way",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_MESSAGES:kv"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_MESSAGES at kv. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,82,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:ryw:GET_MESSAGES:kv"
+      ],
+      "text": "The verdict comes from this: a read missed the write just made on GET_MESSAGES at kv. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/write-all-read-one",
+   "problem": "chat-message-store",
+   "design": "write-all-read-one",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Unavailable: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_MESSAGES:kv"
+      ],
+      "text": "A hidden test failed because requests failed at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:SEND_MESSAGE:none"
+      ],
+      "text": "The same test also shows that requests failed on SEND_MESSAGE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Unavailable: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_MESSAGES:kv"
+      ],
+      "text": "A hidden test failed because requests failed at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:SEND_MESSAGE:none"
+      ],
+      "text": "The same test also shows that requests failed on SEND_MESSAGE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/write-one-read-all",
+   "problem": "chat-message-store",
+   "design": "write-one-read-all",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Data Lost: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:SEND_MESSAGE:kv"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_MESSAGES:none"
+      ],
+      "text": "The same test also shows that requests failed on GET_MESSAGES. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Data Lost: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:lost:SEND_MESSAGE:kv"
+      ],
+      "text": "A hidden test failed because acknowledged writes were lost at kv. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when kv fails at the worst moment?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_MESSAGES:none"
+      ],
+      "text": "The same test also shows that requests failed on GET_MESSAGES. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/sql-messages",
+   "problem": "chat-message-store",
+   "design": "sql-messages",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_MESSAGES:db"
+      ],
+      "text": "db is your bottleneck: it ran at 325 % of what it can take, so GET_MESSAGES broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_MESSAGES:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_MESSAGES. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_MESSAGES:db"
+      ],
+      "text": "db is your bottleneck: it ran at {{finding:overloaded:GET_MESSAGES:db.rho}} of what it can take, so GET_MESSAGES broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off db, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_MESSAGES:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_MESSAGES. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-lunch"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/random-ids",
+   "problem": "chat-message-store",
+   "design": "random-ids",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:SEND_MESSAGE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on SEND_MESSAGE at ids. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹1,82,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with ids.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:collision:SEND_MESSAGE:ids"
+      ],
+      "text": "The verdict comes from this: ids collided on SEND_MESSAGE at ids. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/big-cluster",
+   "problem": "chat-message-store",
+   "design": "big-cluster",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:kv"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at kv. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹3,22,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with kv.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:kv"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at kv. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "chat-message-store/template",
+   "problem": "chat-message-store",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/reference",
+   "problem": "ind-vs-pak-live-score",
+   "design": "reference",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps 13 % to spare. That is the headroom an interviewer wants to see."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at ₹2,27,000 a month. Know which part takes most of that before you are asked."
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "It passes everything, with room to spare.",
+    "items": [
+     {
+      "kind": "strength",
+      "facts": [
+       "margin:tightest"
+      ],
+      "text": "Every promise holds, and even the tightest one keeps {{margin:tightest.spare}} to spare. That is the headroom an interviewer wants to see.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "It passes, at {{cost:total.inr}} a month. Know which part takes most of that before you are asked.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Now try to make it cheaper without losing a test: look at the part that costs the most.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/no-cdn",
+   "problem": "ind-vs-pak-live-score",
+   "design": "no-cdn",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SCORE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 143 % of what it can take, so GET_SCORE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SCORE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SCORE. It may go away with the first fix; check after you change it."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SCORE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_SCORE:api.rho}} of what it can take, so GET_SCORE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SCORE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SCORE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/cdn-minute-ttl",
+   "problem": "ind-vs-pak-live-score",
+   "design": "cdn-minute-ttl",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Wrong Answer: start with cdn.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_SCORE:cdn"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_SCORE at cdn. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹2,27,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Wrong Answer: start with cdn.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:stale:GET_SCORE:cdn"
+      ],
+      "text": "The verdict comes from this: answers were older than allowed on GET_SCORE at cdn. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/thin-origin",
+   "problem": "ind-vs-pak-live-score",
+   "design": "thin-origin",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SCORE:api"
+      ],
+      "text": "api is your bottleneck: it ran at 125 % of what it can take, so GET_SCORE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SCORE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SCORE. It may go away with the first fix; check after you change it."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-toss"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   },
+   "raw": {
+    "headline": "Overloaded: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:overloaded:GET_SCORE:api"
+      ],
+      "text": "api is your bottleneck: it ran at {{finding:overloaded:GET_SCORE:api.rho}} of what it can take, so GET_SCORE broke its promise. Everything behind it waits.",
+      "ask": "How would you take load off api, and what would that cost you?"
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:p99:GET_SCORE:none"
+      ],
+      "text": "The same test also shows that the slowest requests took too long on GET_SCORE. It may go away with the first fix; check after you change it.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-toss"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Try the change the judge checked for you, on the part it names, then Submit again.",
+     "repair": "repair:1"
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/primary-only",
+   "problem": "ind-vs-pak-live-score",
+   "design": "primary-only",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 3,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_SCORE:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests."
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-toss"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments."
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Unavailable: start with db.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:unavailable:GET_SCORE:db"
+      ],
+      "text": "A hidden test failed because requests failed at db. Think about what that part does when the test's event happens, and what your design does about it.",
+      "ask": "What happens to your users when db fails at the worst moment?"
+     },
+     {
+      "kind": "risk",
+      "facts": [
+       "static:W003:db"
+      ],
+      "text": "db has no spare. One failure there takes requests down with it, which is the first thing a failure question tests.",
+      "ask": null
+     },
+     {
+      "kind": "strength",
+      "facts": [
+       "test:t01-toss"
+      ],
+      "text": "The calm case already works, so the shape of the design is sound. The work left is about the harder moments.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/big-origin",
+   "problem": "ind-vs-pak-live-score",
+   "design": "big-origin",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs ₹3,83,000 a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Over Budget: start with api.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "finding:budget:all:api"
+      ],
+      "text": "The verdict comes from this: the design costs more than the budget at api. Fix this before anything else.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "verdict",
+       "cost:total"
+      ],
+      "text": "Until this test passes nothing else counts. The design costs {{cost:total.inr}} a month, so keep an eye on cost while you fix it.",
+      "ask": "Which part would you change first, and why that one?"
+     }
+    ],
+    "next": {
+     "text": "Change the part named in the first item, Run the examples, then Submit again.",
+     "repair": null
+    }
+   }
+  },
+  {
+   "case": "ind-vs-pak-live-score/template",
+   "problem": "ind-vs-pak-live-score",
+   "design": "template",
+   "run": 1,
+   "outcome": "verified",
+   "why": "",
+   "score": {
+    "correct": true,
+    "found_fault": true,
+    "lead_rank": 1,
+    "called_good_a_problem": false,
+    "praised_failing": false,
+    "survived": true,
+    "shown_items": 2,
+    "why": ""
+   },
+   "ms": 0,
+   "usage": {
+    "input": 0,
+    "cached": 0,
+    "output": 0
+   },
+   "cost": null,
+   "review": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed."
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   },
+   "raw": {
+    "headline": "Fix the lines the judge cannot read first, then the design can be tested.",
+    "items": [
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E029:5"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     },
+     {
+      "kind": "problem",
+      "facts": [
+       "error:E030:6"
+      ],
+      "text": "The judge cannot read this line yet, so nothing else in the design can be measured until it is fixed.",
+      "ask": null
+     }
+    ],
+    "next": {
+     "text": "Fix the first error, Run again, and then ask me once the design is judged.",
+     "repair": null
+    }
+   }
+  }
+ ]
+}

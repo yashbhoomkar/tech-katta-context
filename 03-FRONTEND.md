@@ -356,3 +356,112 @@ Update 2026-10-31 (PR #106): the page now has three sections. Section 03 is "The
 - Two Vite entries: `/` (`index.html` → `src/main.jsx`) and `/dashboard/` (`dashboard/index.html` → `src/dashboard.jsx` + `src/dashboard.css`), declared in `frontend/vite.config.js`. Shared copy in `src/content.js` (`dashboard` key added).
 - `dashboard.jsx`: `ICON` (inline SVG paths), `Section({id})` (panel per section), `Dashboard` (sidebar + tabs + drawer; state: `active` from URL hash, `collapsed` persisted in `localStorage['tk-sidebar']`, `open` for the mobile drawer).
 - `dashboard.css` uses the same tokens as `styles.css`; breakpoints 900 px (drawer) and 680 px (compact panel). Hero "Dashboard →" links to `/dashboard/`.
+
+
+## Prototypes (`frontend/prototypes/`, `prototype` branch only; 2026-11-15)
+
+- **Where they live:** design prototypes are kept apart from the app. Each is either one HTML file (`motion.html`) or
+  a folder with an `index.html`:
+  - `full-site/` is a structured frontend: `styles/` (tokens, base, components, layout, pages, motion, phone) and
+    `scripts/` (core router, theme, motion, dom and store helpers; components; pages; data), plain ES modules with no
+    build step;
+  - `neo-brutalism/` loads full-site's scripts and styles and adds its own style layer.
+- **Build:** `hosting/prototype.mjs` publishes them at `/p/<name>/`. The `build:prototype` and
+  `build:prototype:cloudflare` scripts build the app for prototype.katta.cc.
+- **How to add one:** `tech-katta-context/ui-prototypes/README.md`.
+- **Out of scope:** none of this is part of `frontend/src`. Don't import prototype code into the app. When a design
+  is chosen, rebuild it in `src/` (the page modules map one to one onto React route components).
+
+
+## The new frontend: `web/` (2026-11-15, prototype branch)
+
+React + TypeScript app that will replace `frontend/src`. It is served at prototype.katta.cc/next/ while it grows. Structure, rules and milestones are in `web/README.md`. It imports nothing from `frontend/` yet; the reader and workspace milestones will import `frontend/src/figs`, the canvas and the judge as they are.
+
+### Milestone 2: the lesson reader (`6b3b468`)
+
+- `web/src/features/reader/`: `ArticleBody` (every block kind of `/v1/articles/<slug>`, typed as `Block` in `lib/api/types.ts`), `Figure` (step controls, plays only in view, full screen, phone pan and portrait versions, error boundary), `useFigureSteps`, `figureTokens.module.css`.
+- The figures are imported from `frontend/src/figs` through the `@legacy` alias and `frontend/figs-manifest.js`, with `resolve.dedupe` for React. Their colours come from the legacy token names, set in a scoped class with light and dark values; `readTokens()` runs on a hidden probe before figures draw and again on each theme change. Their SVG text classes (`fb`, `fl`, `fk`…) are restyled in `reader.module.css`.
+- `pages/Reader.tsx`: breadcrumbs, read time, progress line, "On this page" scroll spy (a toggle under 1180 px), the group's lessons, Mark complete & next, previous/next; reading progress saved while scrolling.
+- Lab links go to the current app (`/dashboard/<to>/`) until milestone 3.
+
+### Milestone 3: the site complete (`95453a6`)
+
+- **Landing:** full-site parity: Learn menu, drifting shapes, tilted cards with previews, steps, look inside, the judge card running, teacher, count-ups.
+- **Problems:** `pages/Problems.tsx`. Solved status, best scores and stars come from the current app's practice progress (`content/practice.ts` reads `@legacy/progress.js` and `practice.js`).
+- **Workspace and challenges:** `features/workspace/Workspace.tsx` lazily imports `@legacy/solve.jsx` and `@legacy/lab/Lab.jsx`, after `setSite()` with a copy of the content.
+  - They run inside `.tk-legacy`, which is the current app's `tokens.css` scoped by `scripts/legacy-scope.mjs`. Re-run that script when `tokens.css` changes.
+  - Colours are overridden by `figureTokens.module.css`, whose doubled class wins on specificity.
+  - Hash links (`#problems/<slug>`) become routes.
+  - `@xyflow/react` resolves from `frontend/node_modules`, so CI must `npm ci` in `frontend/` first (it does).
+- **Sign-in:** `components/SignIn.tsx` uses `@legacy/account.js`. On prototype.katta.cc the API sends no CORS header, so the dialog says sign-in isn't available there.
+- **Also added:** toasts, Dialog, Shortcuts (`?`, g-keys), Tour, recent searches, phone bars hiding while reading, Cards mode, Share, and the Mark-complete burst.
+
+## The new frontend in production: `frontend/next/` (PR #367)
+
+- **Where:** `web/` moved to `frontend/next/`, with `@legacy` now pointing at `../src`.
+- **Build:**
+  - `npm run build` = `vite build`, then `build:next` (`npm ci --prefix next` and its build), then `hosting/next.mjs`, which copies `next/dist` to `dist/next`.
+  - `build:cloudflare` runs the same steps.
+  - `npm run check:next` runs typecheck, lint and tests, and is a step in the Frontend workflow.
+- **Routing:** `routes.json` has `/next` and `/next/*` rewrites to the app, `noindex` on `/next/*`, and a one-year immutable cache on `/next/assets/*`.
+  - On Cloudflare the rewrite becomes the `next/404.html` copy.
+  - `scripts/postbuild.mjs` writes 105 route pages with their own titles and descriptions.
+- **Analytics:** `lib/analytics.ts`. Page views carry sections `next:<page>`, plus `readArticle` and `HostAnalytics` from the current app.
+- **Beta link:** `.side-new` in `dashboard/shell.jsx` and `shell.css`.
+- **Vitest:** inlines `@vercel/analytics` and `@xyflow`, so they share the app's single React.
+
+### Parity with tech.katta.cc (batches 1 to 3, see 39-NEXT-PARITY.md)
+
+**New modules:**
+- `content/gate.ts`, the lock logic: lists open, lessons preview, the workspace asks to sign in, and nothing locks without sign-in.
+- `components/Locks.tsx`, `AccountMenu.tsx`, `PageTour.tsx` (site.tour copy, mapped to this design's elements) and `Tour.tsx`, which now takes selectors.
+- `pages/Policy.tsx`, `QuickNotes.tsx` and `LandingExtras.tsx`.
+- `features/reader/FigureThumb.tsx`, `LegacyLesson.tsx` (Listen and topic cards) and `features/legacy/site.ts`.
+
+**Imported from `frontend/src`:**
+- `dashboard/reader.jsx`, `topics.jsx` and `preview.js`;
+- `numbers.jsx`, `library.jsx` (Mini), `landingproblem.jsx` and `accountui.jsx` (LabLock);
+- `plan/plan.js` and `sandbox/Sandbox.jsx`;
+- `account.js` (signOutAll, deleteAccount).
+
+**Scoped tokens:** the legacy scope and colours now also cover the overlays the current app draws into `<body>` (`.ts`, `.ts-scrim`, `.fs`, `.zoom`).
+
+**Account check:** it starts at app boot (SignInProvider).
+
+### Batches 4 and 5: figures, motion and gestures (specs 24, 09 and 30)
+
+- **Figures:** `features/reader/LegacyFigure.tsx` draws lesson figures with the current app's Fig. `CardPicture.tsx` and `SectionPicture.tsx` put a picture on every card.
+- **Scenes:** `components/StateScene.tsx` (the current app's Scene) via the `scene` prop on StateMessage.
+- **View transitions:** `components/TransitionLink.tsx` handles the `tk-title` morph. The view-transition CSS is in `styles/global.css`, and theme changes set `data-vt="theme"` (`lib/theme.ts`).
+- **Gestures:** `lib/gestures.ts` (useSheetDrag, useSwipeX). Sheet heads have `touch-action: none` and a handle.
+
+
+### Looks: neo-brutalism (`VITE_STYLE`)
+
+- **How a look is switched:** `VITE_STYLE=neo-brutalism` makes `vite.config.ts` (the `tk-look` plugin) write `data-style="neo-brutalism"` and its theme colour into `index.html`. An unknown value stops the build. Without it, nothing changes.
+- **The rules:**
+  - `src/styles/themes/neo-brutalism.css` holds the tokens (light round 3, dark D), fonts and type;
+  - each `*.module.css` ends with a block under `:global(:root[data-style="neo-brutalism"])` for its own classes;
+  - the figures keep their calm palette on the look's paper.
+- **Fonts:** `@fontsource/archivo`, `archivo-black` and `space-mono`, self-hosted, so the CSP holds. They are fetched only when used.
+- **Hosting:** `build:prototype[:cloudflare]` builds next twice, and `hosting/prototype-next.mjs [next|neo-brutalism]` copies each build. The script refuses a build made for the wrong address or look.
+- **To add a look:**
+  1. add it to `STYLES` in `vite.config.ts`;
+  2. add its stylesheet and module blocks;
+  3. add it to `LOOKS` in `prototype-next.mjs`, plus a build step.
+- **Figures in a look:**
+  - the colours and fonts come from the look's figure tokens (`figureTokens.module.css`, neo-brutalism block);
+  - the shapes come from CSS in the same block;
+  - the motion comes from `figs/parts.jsx`, which checks `brutal()` (`<html data-style="neo-brutalism">`);
+  - `lib/look.ts` installs the shared `#nb-hard` shadow filter.
+- **App motion in a look:** `@look/motion.css` resolves to `styles/looks/<look>/motion.css` and is loaded after `global.css`, so a look redefines the keyframes (tk-rise, tk-word, tk-pop, tk-bar, tk-vt-in and the rest) without touching the default look.
+- **Figure size in neo-brutalism:** `components/MarkSticker.tsx` replaces zoomed-out figures on cards. `SectionPicture` and `FigureThumb` (given `section`) return it in that look. Per-section figure colours come from `[data-accent]` in `figureTokens.module.css`. The ticker is `content/ticker.ts`, with a test.
+- **Figures in both looks:** figures use the cards' colours per section (`figureTokens.module.css`, `[data-accent]` rules for the default look, then for neo-brutalism). Cards never show shrunken figures: `SectionPicture` is a `SectionMini` (the section's next lessons on a path, from `content/steps.ts`), and CardPicture, MarkSticker and FigureThumb are gone. Cards mode is one column.
+
+## frontend/next structure for both looks (2026-11-16)
+
+- **Architecture:** see `frontend/next/README.md`, which covers the structure, data flow, extending, errors and testing.
+- **Looks:** `lib/look.ts` and `scripts/look.mjs` list the looks. Each look's CSS lives in `styles/looks/<look>/`, and `onlyLook()` drops other looks' rules at build.
+- **Errors:** `app/RouteError.tsx`.
+- **Testing:** `npm run e2e` runs Playwright on every look. It is a CI job in `frontend.yml`.
+- **Commits:** `9ec6935` / `86c1250`.
