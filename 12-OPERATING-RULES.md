@@ -6,6 +6,14 @@ This file is intentionally imperative. A new AI session should follow these rule
 
 **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 
+## Rule 0b — Use common sense (owner, 2026-11-26: "Always remember use common sense!")
+
+Before building, picture a real person using the feature on a real phone, and build what they would obviously expect, even when the
+written request leaves it out. Examples the owner had to point out: a part's settings that can't be closed; a parts row that can't
+be swiped; "Visual feedback" with a screenshot but no way to draw on it. Do not narrow a feature to the literal words of a request
+when the obvious intent is wider. When unsure, choose what a good product designer would choose, build it, and say what you chose.
+Never ship a UI flow without trying it end to end yourself (on a phone size, with touch) and against the real service, not only a mock.
+
 ## Rule 1 — Inspect before changing
 
 Never modify a file based solely on remembered context.
