@@ -390,8 +390,8 @@ Checks: the 5.6 list run on `/problems/challenge/one-server` and `/problems/sand
 
 | Phase | PR | Status |
 |---|---|---|
-| Sign-in flag | app #386 (draft) | built; backend 154/154, frontend 461/461; local phone check done |
-| 1 Bugs and links | — | not started |
-| 2 Fewer tabs | — | not started |
+| Sign-in flag | app #386, squash `45f91cf` | merged and live 2026-11-25 (off: `SIGNIN_REQUIRED` unset = 1); backend 154/154, frontend 461/461 |
+| 1 Bugs and links | app #387, squash `d8fa6d1` | merged and live 2026-11-26 07:26 IST. Lab boxes follow `to` (`site3d/scripts/solving.js` `labHref`); Solve first on problem articles; Home solve card (`.solve-card`, public: shown signed out without progress; e2e asserts it); phone overflow fixes on /home (the places rows' sideways slide-in) and /problems (chip). Frontend 464/464; local Playwright iPhone 13 + 1366×860 dark/light; all 66 articles' lab links swept (none to `/simulator/ind-vs-pak`); production checked on phone and desktop. CI e2e: `design.spec` and the replay test timed out twice on busy runners and passed on the 3rd run and locally (44 s / 47 s of 60 s): the time-limit risk in doc 51 R2 is real |
+| 2 Fewer tabs | — | in progress in session `session_01Jmp3n6w9TKmp8Rww67rsN7` (Sonnet 5.5, branch `ccr-nav-phase2`) |
 | 3 Phone workspace | — | not started |
 | 4 Other canvases | — | not started |
