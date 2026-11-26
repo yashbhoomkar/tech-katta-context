@@ -1,3 +1,5 @@
+**Update 2026-11-26 07:30 IST (doc 53).** #386 (sign-in flag, default on) and #387 (doc 53 phase 1) are merged and live; ledger rows recorded. The overnight Sonnet session was blocked from 18:20 UTC by a refused `add_repo` (the context repo is public: read it with curl/git over https instead); unblocked at 01:16 UTC and doing phase 2 on `ccr-nav-phase2`. The design e2e and the replay e2e time out on busy CI runners (passed on rerun): consider `test.slow()` or a lighter render in tests.
+
 **Update 2026-11-25 (navigation and phone solving).** Owner: solving on a phone is bad, getting to the canvas is hard, too many tabs. Plan for the next session: `53-NAVIGATION-AND-PHONE-SOLVING.md` (4 phases, checks, owner questions). Sign-in feature flag `SIGNIN_REQUIRED` (API; 0 opens everything): app PR #386, draft, commit `919c1d328236f479179fabaaaf98202bbb234da5`. Not in this repo yet: #380 (sign-in gating) and #381 (no flash of the search copy) were merged 2026-11-24, and #379 is merged (doc 51 still calls it draft).
 
 # 17 — Session Handover (read this first)
