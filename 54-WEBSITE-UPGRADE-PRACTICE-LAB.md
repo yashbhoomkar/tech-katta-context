@@ -16,7 +16,6 @@ Written 2026-11-27 from three inputs:
 3. **Make the starting point obvious.** Learning paths by experience (0–2, 2–5, 5+ years), each a short ordered list
    ending in a problem.
 4. **Trust:**
-   - an author block (who wrote this, credentials);
    - honest counts (lessons, problems);
    - references on articles;
    - "Updated on" dates;
@@ -74,9 +73,9 @@ Keep today's visual style. Change content and order:
 4. **"Not sure where to start?":** three paths (E3), each a card with the first step.
 5. **"Look inside":** a real excerpt of a problem brief, a Replay frame and a judge's "what would fix it" note, as
    static images or real snippets.
-6. **Author block:** the owner's name, photo slot, one-line credentials and links. **The owner must supply these.**
-   Read them from `content/site.json` (a new `author` object). If it's empty the block is hidden; never invent
-   credentials. Don't mention the owner's employer anywhere.
+6. **No personal branding** (owner, 2026-11-27: "I don't want my personal branding"). No author block, name, photo or
+   credentials anywhere. Trust comes from the product itself: the live demo, honest counts, sources on articles,
+   "Updated" dates and the changelog.
 7. **"What's free":** today everything is free during the beta. Say so plainly: *"Everything is free while Tech Katta
    is in beta. Sign in only if you want your progress on every device."* No prices.
 8. A final CTA: "Solve your first problem".
@@ -133,13 +132,37 @@ No new server data (operating rule 4).
 - **Home panel:** with seeded `tk-progress-v1`/`tk-subs-v1`, it shows the right counts, next step and weakest area.
   Unit tests for the "weakest area" logic.
 - **Counts strip** equals the API's real counts (test).
-- **No fake content:** no testimonials or unverified stats; the author block is hidden until `site.json` has it.
+- **No fake content:** no testimonials or unverified stats. No personal branding (no author block, name or photo).
 - **Design freeze:** reuse existing classes and tokens; no new colours or fonts. Screenshots at 320, 402, 768 and
   1366 px, dark and light, are looked at before shipping.
 - **The existing e2e suite** stays green; never loosen an assertion.
 
 ## 4. For the owner (needed, not blocking)
-- Your author details for the landing: name, one-line credentials, photo, LinkedIn/YouTube. Send them to any session
-  or add them to `content/site.json` → `author`.
 - The five-friends test: watch five people do "Solve your first problem" on their phones. The new result card and
   paths are built to be tested this way.
+
+## 5. What to enable: from desiarchitect.com and the parent session's review (owner, 2026-11-27)
+
+| # | Feature | Seen at | In which task | Notes |
+|---|---|---|---|---|
+| 1 | **Try before sign-up:** "Fix the failing system" demo on the home page | desiarchitect (traffic simulator on the landing page) | **E1** | Ours runs the real judge plus Replay, which is stronger than theirs |
+| 2 | **"Free" marked before opening,** plus a **free shelf** page listing everything free | desiarchitect ("Free" labels, `/free`) | B (labels), **E** (a `/free` page once B merges) | While sign-in is off everything is free; the page says "Free while in beta" |
+| 3 | **"Not sure where to start?"** entry by experience | desiarchitect (4 persona links) | **E3** | 3 paths, each ending in a problem |
+| 4 | **"Look inside":** real excerpts on the landing page | desiarchitect (ADR, lab output, drill) | **E1** | A problem brief, a Replay frame, a judge note |
+| 5 | **Honest counts strip** | desiarchitect (131 lessons, 75 labs…) | **E1** | Counted from the API, never typed in |
+| 6 | **Result card after Submit** plus "next problem" | both reviews | **E2** | |
+| 7 | **Progress panel:** solved, best scores, weakest area, next step | both reviews | **E4** | Browser data only |
+| 8 | **"Updated" dates, sources, changelog** | both reviews; desiarchitect lists recent additions | **E5** | |
+| 9 | **Quick interview drills:** 1-minute questions with model answers ("Redis crashes at peak: what happens?") | desiarchitect (222 Vault drills) | later, **task F** | Built from existing article content; good for revision on phones |
+| 10 | **Decision guides:** "Redis vs Kafka", "SQL vs NoSQL for X", "Cache-aside vs write-through" | desiarchitect ("Decision guides"); a review's SEO list | later, **task F** | Strong search pages that link to problems |
+| 11 | **Incident drills:** a broken system to fix in 3 minutes, a new one each week | desiarchitect ("Incident Arena"); a review's "weekly challenge" | later, **task F** | We already have the parts: Warm-ups and Break it yourself |
+| 12 | **India-scale problems:** UPI, IRCTC Tatkal, IPL or Hotstar, rider dispatch | both reviews; the parent's review | later, **task G** (after A) | The clearest differentiation |
+| 13 | **A 4-week plan** (roadmap) | desiarchitect (90-day roadmap) | later, after E3 shows paths are used | |
+| 14 | **Clear terms when paid plans come:** one-time pass, nothing auto-renews, free items marked | desiarchitect | only when the owner decides on pricing | Blocked on the owner's employment approval |
+
+**Deliberately not copied:**
+- personal branding: no founder photo, name or credentials (owner's choice);
+- countdown sales and urgency banners;
+- a very long, sales-heavy home page;
+- scope sprawl: DSA, AI engineering and LLD courses;
+- labs that need Docker on the learner's laptop (ours run in the browser, which is better for phones).
