@@ -7,6 +7,8 @@ owner starts; after each merge, that session records the ledger and updates the 
 
 ## Open items
 
+> The prioritised next steps are in `55-START-HERE.md` §10 (2026-11-28). The rows below keep their history; many are older owner decisions still pending.
+
 Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 - **waiting for owner**: review app PR #379 (UI/UX audit, doc 51; check /learn/ and /dashboard/learn/... redirects with curl -I on its preview once past Vercel's login); confirm the canonical URLs (item 5); check redirects on the preview deployment; delete the stray placeholder ledger row; the 3D design e2e test still uses ~55 of its 60 s on a busy machine (consider test.slow() or a lighter render in tests).

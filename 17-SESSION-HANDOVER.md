@@ -1,6 +1,8 @@
+> **Start with `55-START-HERE.md` (2026-11-28).** It is the current truth: what the site is now (a practice lab, no personal branding, sign-in off), architecture, how to ship, testing recipes, the ledger helper, how to run child sessions, and what is next. Older sections below are history where they disagree.
+
 **Owner, 2026-11-26: "Always remember use common sense!"** See `12-OPERATING-RULES.md` Rule 0b. Build what a real user on a real phone would obviously expect, and test flows end to end against the real service.
 
-**Update 2026-11-28 19:00 IST (review tasks A–H done).** Everything from the 27 Nov review is live; production build `c99e268`, API release `20261128T121401Z-c99e268`. Ledger rows are written for every PR up to #418.
+**Update 2026-11-28 19:00 IST (review tasks A–H done).** Everything from the 27 Nov review is live; production build `c99e268`, API release `20261128T121401Z-c99e268`. Ledger rows are written for every commit of every PR up to #418 (audited with `tools/ledger/ledger-rows.sh`).
 - **Sign-in is off by default** (#401): `SIGNIN_REQUIRED=0` unless the repository variable says 1. Every page and problem opens signed out.
 - **Report button** (#390–#400, #409): on every page, a blue tab on the right edge; Quick (text) or Visual (instant screenshot plus drawing tools). Reports go to `yashbhoomkar/tech-katta-feedback` (private by default since #409, with redacted screenshots). Read its open issues at the start of a session.
 - **A, content correctness** (#403, #406, #407): 21 article errors fixed; one capacity model for Practice and the canvas (JUDGE_VERSION 4).

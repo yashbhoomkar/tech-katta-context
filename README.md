@@ -1,5 +1,8 @@
 # Tech Katta Context
 
+> **Start with `55-START-HERE.md` (2026-11-28).** It is the current truth: what the site is now (a practice lab, no personal branding, sign-in off), architecture, how to ship, testing recipes, the ledger helper, how to run child sessions, and what is next. Older sections below are history where they disagree.
+
+
 This repository is the portable context and operating manual for the Tech Katta project.
 
 **Purpose:** a future AI session (Claude Code or another assistant) should be able to read this repository and reconstruct the project's architecture, current implementation, infrastructure, history, constraints, decisions, workflows, and working preferences without relying on the previous chat session.
@@ -14,11 +17,12 @@ The primary implementation repository is:
 
 This repository is **context**, not the application itself.
 
-> **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
+> **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no Learner + Builder cycles, no recurring agent loops (child sessions are allowed when the owner asks: Rule 0 amendment), and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 
 ## Read these files first
 
-0. **`17-SESSION-HANDOVER.md` — the current handover: production state, the owner's decisions, workflow, the System Design Lab, environment limits and open items. Start here; it overrides older files.**
+0. **`55-START-HERE.md` — the current truth (2026-11-28): read this first.**
+1. **`17-SESSION-HANDOVER.md` — the dated handover log (newest entry at the top): production state, the owner's decisions, workflow, the System Design Lab, environment limits and open items. Its newest entry overrides older files.**
 1. `00-SESSION-BOOTSTRAP.md` — how a new AI session should behave.
 2. `01-PROJECT-IDENTITY.md` — what Tech Katta is and what the user is trying to achieve.
 3. `02-ARCHITECTURE.md` — system architecture and request/data flows.
