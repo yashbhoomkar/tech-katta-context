@@ -2,6 +2,8 @@
 
 ## Current main
 
+**2026-11-28:** main = `c99e268c302bd35e11735d6181d43a5593822964` (#418). PRs #348–#385 are recorded in the MongoDB ledger but not listed below; #386–#418 are at the end of this file.
+
 Current main:
 
 `main = d0aa934e87ad5ed9e0c1cc723de0a8f8b0e8fc2b`
@@ -1000,3 +1002,39 @@ The PR-by-PR list for #141–#218 is in `17-SESSION-HANDOVER.md` §12 (kept curr
 - PR #345: premium renovation C and D: landing, shell labels, reading view (spec 30 §5); squash `d56cb182738ad6fd824e0c3084f27010eb1d53b6` (2026-11-14, front end only).
 - PR #346: docs for the renovation (theme README, Design.md); squash `e2e6191fa61e3f7a1cd4fc8d187b3681ec8bbd6a` (2026-11-14, docs only).
 - PR #347: premium renovation E: sliding sidebar marker, header that firms up on scroll, numbered landing sections; squash `ee4b6a7f68bdc61c115fcc575c5e8bbd55baf07a` (2026-11-14, front end only).
+
+### PRs #386–#418 (2026-11-25 to 2026-11-28: sign-in flag, doc 53, Report button, review tasks A–H)
+
+- PR #386: Sign-in feature flag: SIGNIN_REQUIRED=0 opens everything without sign-in; squash `45f91cf8a8c472f1e6918b96fbdf474b525442b8` (2026-11-25, front end and backend/content).
+- PR #387: doc 53 phase 1: lab boxes go to their own challenge; Solve first on problem articles and Home; squash `d8fa6d1bfebb25d5ca5dc0b23bb55442159b4119` (2026-11-26, front end only).
+- PR #388: Doc 53 phase 2: Home, Learn, Solve and You; one Solve list; squash `db7d5a5297d5526b72516fb3374adbe6fcd748f4` (2026-11-26, front end only).
+- PR #389: Phone workspace: a part's settings close (Done or Back), and the parts row swipes; squash `fcacfe89288507c4c6e8704fafbdc6d5a46b5c8e` (2026-11-26, front end only).
+- PR #390: Testers' feedback button (BugDrop), off unless ?feedback=on; squash `0b0c72b7d0798a7d5c02d14b92e33a504c95af39` (2026-11-26, front end and backend/content).
+- PR #391: Doc 53 phase 3: phone workspace as a focus screen; squash `1f56f3fa9dc6b72b7cc034000f878b33f74e676e` (2026-11-26, front end only).
+- PR #392: Doc 53 phase 4: challenges and the sandbox use the phone focus screen; squash `4f756d85abad418a153a3392016518b6a7db7663` (2026-11-26, front end only).
+- PR #393: Report button on by default for everyone; squash `82357c1fe4d50cb5b4434383c3cb2cf42dc44b7c` (2026-11-26, front end and backend/content).
+- PR #394: Report popup: Quick feedback and Visual feedback (auto screenshot), on every page; squash `f53678490c09dd6daad8a949db27cb0eb7151434` (2026-11-26, front end and backend/content).
+- PR #395: Report: Visual feedback sends a PNG (the worker refuses JPEG); squash `776f1878380fcd22276874f9a66deb1cf07ad663` (2026-11-26, front end only).
+- PR #397: Report: draw on the Visual screenshot; blue Report button; squash `ff5c540ccd234dafd58180f3c8c51d6248c9aeb7` (2026-11-27, front end only).
+- PR #396: Report screenshot: ready on press, fast on slow phones; squash `bffb419dc886ec125673d9317fc1fe0f52730930` (2026-11-27, front end only).
+- PR #398: Report popup: keep the page's 3D stopped while it is up; squash `dd81e2cab0d47b38f9c6e61c45671ec8970fc70e` (2026-11-27, front end only).
+- PR #399: Landing screen on a phone: top bar inside the screen, Report in the tab bar, solid hint; squash `161d249562460c3d2810775d879f03065008444a` (2026-11-27, front end only).
+- PR #400: Report: the blue side tab on the right edge again, finding a free height; squash `cd8833a394967f067002f671e034f51a5c236c48` (2026-11-27, front end only).
+- PR #401: Sign-in off by default: SIGNIN_REQUIRED=0 unless the repository variable says otherwise; squash `68da28cfa673d46f2ed3c603cb769e9e1ba247aa` (2026-11-27, front end only).
+- PR #403: Articles: fix the audited errors (DynamoDB B-tree, IND vs PAK timeline, references, figures, numbers); squash `a3a147425f283394f650b5700687c3edb780403b` (2026-11-28, front end and backend/content).
+- PR #402: Free sample, backend and content: five articles and the URL shortener open in full signed out; squash `687441aa177f94d2080683605ae85bcefa012f60` (2026-11-28, front end and backend/content).
+- PR #407: Canvas problems: briefs state the limits they relax; articles and tests agree; squash `b12077b6987ede0c7aaaa08800e9d23155aaf87a` (2026-11-28, front end and backend/content).
+- PR #410: First view without 3D: lazy engine, posters, Play in 3D, Reading Story | Text; squash `3180e3c1729b1fb5396784856f8a0968b6abfdfa` (2026-11-28, front end only).
+- PR #404: Free sample on the site: full articles and the URL shortener signed out, Free labels, paywall markup for search engines; squash `8983ea1dfe7e268bfe0f912772568e301a0b8f4f` (2026-11-28, front end only).
+- PR #406: Practice problems: one capacity model with Numbers to know and the canvas (JUDGE_VERSION 4); squash `f08f3e25720766e5dcfe6b88cfcb27a7f9824ba9` (2026-11-28, front end and backend/content).
+- PR #408: Analytics: real learners only, automation skipped, internal traffic flagged and left out; squash `50a7c71f61a86843c3308c3852d4d53578aed487` (2026-11-28, front end and backend/content).
+- PR #411: Start here (learning paths), Home progress panel, Updated dates, Sources and changelog; squash `e707947325e1aad29119a10bcba263e39137d012` (2026-11-28, front end and backend/content).
+- PR #405: E2E: fix the flaky 3D specs at the cause, one WebGL page at a time on the lighter 3D; squash `fa9877a94b34976b20a7d38c0a4ad7b4e93cfcbb` (2026-11-28, front end only).
+- PR #409: Report button: private by default, redacted screenshots, public note, spam limits; squash `8e1c43126dcb1c410903e36de22bc0d531727bd7` (2026-11-28, front end only).
+- PR #413: Landing as a practice lab: demo on the real judge, counts, /free, result card after the first Submit; squash `f65246b0b7ec25d6f1472ecd18b2de153a20a5f4` (2026-11-28, front end only).
+- PR #412: Faster first paint on slow networks: page preloads, on-demand pages, workspace chunks, lighter posters; squash `2e367f7bbc5149f0dc9b79ae7f34c2f2dac3ec21` (2026-11-28, front end only).
+- PR #414: Problem pages: ask for the workspace chunks together once the gate says open; squash `58ca69fc4e8d06c8cf70a3bc227f0287523ac704` (2026-11-28, front end only).
+- PR #415: Problem page: show the brief first, one request per API address, fetch workspace files with the gate; squash `1bded61537d419a1852e17952adb42ca2496b1a0` (2026-11-28, front end only).
+- PR #416: Content: sweep rules that fit the grid, image-serving and notification-sender retuned, case studies checked against their posts, Sources on 22 articles; squash `f06481d36030e613b9c09d409226648b9744404c` (2026-11-28, front end and backend/content).
+- PR #417: Three India-scale canvas problems: UPI switch, Tatkal booking, IPL live streaming; squash `f13cd0be62564415c3b1ccb9d01ccfcbaaa16296` (2026-11-28, front end and backend/content).
+- PR #418: Quick interview drills, five decision guides, and this week's incident on Home; squash `c99e268c302bd35e11735d6181d43a5593822964` (2026-11-28, front end and backend/content).
