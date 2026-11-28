@@ -13,7 +13,9 @@ Status: `ready` · `idea` · `waiting for owner`. Highest first.
 
 | # | Lane | Item | Status | Notes |
 |---|---|---|---|---|
-| 1 | owner | **tech-katta-feedback: add a README** (screenshots are dropped while the repo is empty); close setup issues #1 and #2 | | waiting for owner | |
+| 0 | owner | **After the 28 Nov work:** Search Console (DNS TXT for katta.cc, submit the sitemap, request indexing of the free pages); open `tech.katta.cc/?tk-internal=1` on each device; the five-friends test ("Solve your first problem" on phones, incl. the result card); close test issues in tech-katta-feedback | waiting for owner | see handover 2026-11-28 |
+| — | build | Leftovers of 28 Nov: Tatkal bot-limit test; dark/light screenshot pass on `/drills` and `/guides`; a 4-week plan (doc 54 §5 row 13) once `/start` shows use | ready | |
+| ~~1~~ | owner | ~~tech-katta-feedback README~~ done 2026-11-26 | | done | |
 | ~~1~~ | ui | ~~**Fewer tabs and solving on a phone**~~ done 2026-11-26 (#387, #388, #391, #392) (`53-NAVIGATION-AND-PHONE-SOLVING.md`, owner 2026-11-25): phase 1 bugs and links, 2 fewer tabs, 3 phone workspace, 4 other canvases | ready | sign-in flag for testing: app PR #386 (draft). Owner questions with defaults in its §8 |
 | — | build | Context 36 leftovers: company and topic tags (#33), Hindi and Marathi (#43), canvas keyboard audit (#41) | open | Each needs the owner: which companies ask what; native review of translations; say go for the audit |
 | — | build | **Context 36: the best problem-solving experience** (owner: "Start building everything step by step") | done | Steps 1–22 merged by PR #366 (`1a8ca71`) and deployed 2026-11-15 (Vercel and backend run 282); log in §6 |
