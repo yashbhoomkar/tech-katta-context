@@ -1,5 +1,17 @@
 # Current State Snapshot
 
+**Snapshot date:** 2026-11-28 (the older snapshot below, from 2026-10-16, is kept for history)
+
+- **App main:** `c99e268` (#418). Frontend on Vercel at https://tech.katta.cc, `tk-build` meta `2026-11-28-c99e268`. API at https://tech-api.katta.cc, release `20261128T121401Z-c99e268`, 69 articles, 10 Practice problems, 25 canvas problems.
+- **Sign-in:** off by default (`SIGNIN_REQUIRED=0` unless the repository variable says 1); everything opens signed out.
+- **Pages added since 25 Nov:** `/start` (learning paths), `/free`, `/changelog`, `/drills`, `/guides`; Home has a progress panel and a weekly incident card; problem pages show a result card after Submit.
+- **Report button:** on every page (blue right-edge tab), Quick or Visual feedback, issues in `yashbhoomkar/tech-katta-feedback`.
+- **Speed (budget phone, 360x740, CPU 4x, 1.6 Mbps):** main content in about 2.1–2.5 s on `/`, `/home`, articles, `/problems`, and 2.3 s on a problem page.
+- **Analytics:** automated and internal traffic is flagged (#408); `localStorage tk-internal=1` marks the owner's devices.
+- Details: `17-SESSION-HANDOVER.md` (2026-11-28 update), `54-WEBSITE-UPGRADE-PRACTICE-LAB.md` §6, `10-GIT-HISTORY.md`.
+
+---
+
 **Snapshot date:** 2026-10-16
 
 This file records the latest application/context state known to this session.

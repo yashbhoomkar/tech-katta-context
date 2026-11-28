@@ -166,3 +166,17 @@ No new server data (operating rule 4).
 - a very long, sales-heavy home page;
 - scope sprawl: DSA, AI engineering and LLD courses;
 - labs that need Docker on the learner's laptop (ours run in the browser, which is better for phones).
+
+## 6. Status (2026-11-28)
+
+| Item | PR | Status |
+|---|---|---|
+| E3 learning paths, E4 Home panel, E5 Updated dates, Sources field, changelog | app #411 | live 2026-11-28 |
+| E1 landing (hero kept unchanged by the owner's choice; demo on the real judge, counts, look inside, what's free), E2 result card, `/free` | app #413 | live 2026-11-28 |
+| Sources filled (22 articles), case studies checked | app #416 | live |
+| §5 row 12, task G: UPI switch, Tatkal booking, IPL live streaming | app #417 | live; numbers are model figures |
+| §5 rows 9–11, task F: `/drills` (31 cards), `/guides` (5), weekly incident card | app #418 | live |
+| §5 row 13, a 4-week plan | | not started: wait until `/start` shows use |
+| §5 row 14, paid terms | | blocked on the owner |
+| §4 five-friends test | | waiting for the owner |
+
