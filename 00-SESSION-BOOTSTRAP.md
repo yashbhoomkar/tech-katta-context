@@ -1,5 +1,10 @@
 # Session Bootstrap — Read This First
 
+> **Start with `55-START-HERE.md` (2026-11-28).** It is the current truth: what the site is now (a practice lab, no personal branding, sign-in off), architecture, how to ship, testing recipes, the ledger helper, how to run child sessions, and what is next. Older sections below are history where they disagree.
+
+> **Stale below (kept for history):** "personal knowledge base" and the author voice (now a practice lab with no personal branding); "React/Vite frontend" (now `frontend/site3d` plus React islands); "MongoDB holds only the commit ledger" (it also holds accounts and analytics in `techkatta_app`). Rule 0's "no worker sessions" now allows child sessions **when the owner asks** (see `12-OPERATING-RULES.md` Rule 0 amendment).
+
+
 > **Newest handover:** read `17-SESSION-HANDOVER.md` before anything else. It describes current production, the PR → the required checks (CodeQL, "Test and build frontend", "Test backend", "Build and run API container") green → squash merge → verify → ledger → context workflow (CodeRabbit is skipped by the owner's decision), the System Design Lab and pending work. Where this bootstrap disagrees with the handover, the handover wins.
 
 > **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.

@@ -6,6 +6,8 @@ This file is intentionally imperative. A new AI session should follow these rule
 
 **The automatic AI website development workflow is discarded** (owner, 2026-11-08: "Remove that automatic website development with agents workflow"): no worker sessions, no Learner + Builder cycles, no `send_later` chains or scheduled tasks, and `tech-katta/agents/TODO.md` is deleted (#256). Do not recreate it. All work happens in sessions the owner starts; open items live in `18-TODO.md`.
 
+**Amendment (owner, 2026-11-27 and 2026-11-28):** the owner now asks for big work to be delegated to Sonnet 5.5 medium child sessions ("Use sonnet medium 5.5 to complete all the things"). Starting child sessions **when the owner asks**, and a one-off `send_later` check on them, is allowed. Recurring agent loops, Learner and Builder cycles and self-starting work stay forbidden. How to run them: `55-START-HERE.md` §8.
+
 ## Rule 0b — Use common sense (owner, 2026-11-26: "Always remember use common sense!")
 
 Before building, picture a real person using the feature on a real phone, and build what they would obviously expect, even when the
